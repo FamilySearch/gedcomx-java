@@ -1,0 +1,56 @@
+[#ftl]
+[#-- @ftlvariable name="schema" type="org.codehaus.enunciate.config.SchemaInfo" --]
+[#import "boilerplate.fmt" as libBoilerplate/]
+[#import "state.fmt" as libState/]
+
+[#list resourceDefinitions as state]
+  [#if (projectId!"") = state.projectId]
+    [@file name=(state.systemId + "-state.html")]
+      [@libState.writeApplicationStatePage state=state/]
+    [/@file]
+  [/#if]
+[/#list]
+[#if resourceDefinitions?size > 0]
+[@file name="application-states.html" charset="utf-8"]
+  [@libBoilerplate.writeStartBody label="Application States"/]
+  <div class="container">
+    [@libBoilerplate.writeHeader]
+      <ul class="xbreadcrumbs" id="breadcrumbs">
+        <li><a href="Home.html" class="home">Home</a></li>
+        <li>
+          <a href="application-states.html">Application States</a>
+          <ul>
+            <li><a href="media-types.html">Media Types</a></li>
+            <li><a href="#">Application States</a></li>
+          </ul>
+        </li>
+      </ul>
+    [/@libBoilerplate.writeHeader]
+    <div id="main" class="column first last span-20">
+      <h1>GEDCOM X[#if projectLabelModifier??] ${projectLabelModifier}[/#if] Application States</h1>
+
+      <hr/>
+
+      <table>
+        <tr>
+          <th>name</th>
+          <th>description</th>
+        </tr>
+    [#list resourceDefinitions as state]
+      [#if (projectId!"") = state.projectId]
+        <tr>
+          <td><a href="${state.systemId}-state.html">${state.name}</a></td>
+          <td>${state.description}</td>
+        </tr>
+      [/#if]
+    [/#list]
+      </table>
+
+      <div class="clear" />
+    </div>
+    [@libBoilerplate.writeFooter/]
+  </div> <!--! end of #container -->
+
+  [@libBoilerplate.writeEndBody/]
+[/@file]
+[/#if]
