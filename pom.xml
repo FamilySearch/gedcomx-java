@@ -54,9 +54,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:git:git@github.com:FamilySearch/gedcomx.git</connection>
-    <developerConnection>scm:git:git@github.com:FamilySearch/gedcomx.git</developerConnection>
-    <url>https://github.com/FamilySearch/gedcomx</url>
+    <connection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</connection>
+    <developerConnection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</developerConnection>
+    <url>https://github.com/FamilySearch/gedcomx-java</url>
   </scm>
 
   <build>
