@@ -16,10 +16,17 @@
   </properties>
 
   <modules>
+    <!--gedcomx-core modules-->
     <module>gedcomx-rt-support</module>
     <module>gedcomx-test-support</module>
     <module>enunciate-gedcomx-support</module>
     <module>gedcomx-model</module>
+
+    <!--gedcomx-rs modules-->
+    <module>gedcomx-rs-rt-support</module>
+    <module>enunciate-gedcomx-rs-support</module>
+    <module>gedcomx-atom</module>
+    <module>gedcomx-rs</module>
   </modules>
 
   <dependencies>
@@ -147,23 +154,6 @@
     </plugins>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.codehaus.enunciate</groupId>
-          <artifactId>maven-enunciate-plugin</artifactId>
-          <version>${enunciate.version}</version>
-
-          <configuration>
-            <configFile>${root.basedir}/enunciate.xml</configFile>
-          </configuration>
-
-          <dependencies>
-            <dependency>
-              <groupId>org.gedcomx</groupId>
-              <artifactId>enunciate-gedcomx-support</artifactId>
-              <version>0.33.0-SNAPSHOT</version>
-            </dependency>
-          </dependencies>
-        </plugin>
         <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
