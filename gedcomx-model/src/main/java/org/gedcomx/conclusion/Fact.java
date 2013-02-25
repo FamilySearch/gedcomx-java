@@ -15,29 +15,32 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasSupportingFieldValues;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FactType;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import java.util.List;
 
 /**
  * A conclusion about a fact applicable to a person or relationship.
  */
-@XmlType ( name = "Fact", propOrder = { "date", "place", "value" })
+@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "supportingFieldValues" })
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
-public class Fact extends Conclusion implements HasDateAndPlace {
+public class Fact extends Conclusion implements HasDateAndPlace, HasSupportingFieldValues {
 
   private URI type;
   private Date date;
   private PlaceReference place;
   private String value;
+  private List<ResourceReference> supportingFieldValues;
 
   /**
    * Create a fact.
@@ -165,6 +168,29 @@ public class Fact extends Conclusion implements HasDateAndPlace {
     this.value = value;
   }
 
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @return The list of field values that are being used to support this data.
+   */
+  @Override
+  @XmlElement (name = "fieldValue")
+  @JsonProperty ("fieldValues")
+  @JsonName ("fieldValues")
+  public List<ResourceReference> getSupportingFieldValues() {
+    return supportingFieldValues;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @param supportingFieldValues The list of field values that are being used to support this data.
+   */
+  @Override
+  @JsonProperty ("fieldValues")
+  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+    this.supportingFieldValues = supportingFieldValues;
+  }
 
   @Override
   public String toString() {

@@ -18,22 +18,27 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasSupportingFieldValues;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.List;
 
 
 /**
  * A reference to genealogical place.
  */
 @XmlType ( name = "PlaceReference" )
-public class PlaceReference extends ExtensibleData {
+public class PlaceReference extends ExtensibleData implements HasSupportingFieldValues {
 
   private String original;
   private URI descriptionRef;
+  private List<ResourceReference> supportingFieldValues;
 
   /**
    * The original value as supplied by the user.
@@ -74,6 +79,30 @@ public class PlaceReference extends ExtensibleData {
   @JsonProperty ( "description" )
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @return The list of field values that are being used to support this data.
+   */
+  @Override
+  @XmlElement (name = "fieldValue")
+  @JsonProperty ("fieldValues")
+  @JsonName ("fieldValues")
+  public List<ResourceReference> getSupportingFieldValues() {
+    return supportingFieldValues;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @param supportingFieldValues The list of field values that are being used to support this data.
+   */
+  @Override
+  @JsonProperty ("fieldValues")
+  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+    this.supportingFieldValues = supportingFieldValues;
   }
 
   public String toString() {

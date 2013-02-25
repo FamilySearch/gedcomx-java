@@ -15,22 +15,26 @@
  */
 package org.gedcomx.records;
 
+import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.types.FieldValueType;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import java.util.List;
 
 
 /**
  * An element representing a value in a record field.
  */
 @XmlType ( name = "FieldValue" )
-public final class FieldValue extends Conclusion {
+public final class FieldValue extends Conclusion implements HasSupportingFieldValues {
 
   /**
    * @see FieldValueType
@@ -39,7 +43,7 @@ public final class FieldValue extends Conclusion {
   private String text;
   private URI datatype;
   private URI resource;
-  private ResourceReference referenceToDataExtractedFromThisField;
+  private List<ResourceReference> supportingFieldValues;
 
   public FieldValue() {
   }
@@ -146,20 +150,26 @@ public final class FieldValue extends Conclusion {
   }
 
   /**
-   * Reference to the data that has been derived from this field value.
+   * The list of field values that are being used to support this data.
    *
-   * @return Reference to the data that has been derived from this field value.
+   * @return The list of field values that are being used to support this data.
    */
-  public ResourceReference getReferenceToDataExtractedFromThisField() {
-    return referenceToDataExtractedFromThisField;
+  @Override
+  @XmlElement (name = "fieldValue")
+  @JsonProperty ("fieldValues")
+  @JsonName ("fieldValues")
+  public List<ResourceReference> getSupportingFieldValues() {
+    return supportingFieldValues;
   }
 
   /**
-   * Reference to the data that has been derived from this field value.
+   * The list of field values that are being used to support this data.
    *
-   * @param referenceToDataExtractedFromThisField Reference to the data that has been derived from this field value.
+   * @param supportingFieldValues The list of field values that are being used to support this data.
    */
-  public void setReferenceToDataExtractedFromThisField(ResourceReference referenceToDataExtractedFromThisField) {
-    this.referenceToDataExtractedFromThisField = referenceToDataExtractedFromThisField;
+  @Override
+  @JsonProperty ("fieldValues")
+  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+    this.supportingFieldValues = supportingFieldValues;
   }
 }

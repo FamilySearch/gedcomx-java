@@ -56,7 +56,6 @@ public class RecordTest {
     FieldValue givenNameValue = new FieldValue();
     givenNameValue.setKnownType(FieldValueType.Original);
     givenNameValue.setText("Alma");
-    givenNameValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + givenNameId)));
     givenNameField.getValues().add(givenNameValue);
     fields.add(givenNameField);
 
@@ -69,7 +68,6 @@ public class RecordTest {
     FieldValue surNameValue = new FieldValue();
     surNameValue.setKnownType(FieldValueType.Original);
     surNameValue.setText("Heaton");
-    surNameValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + surnameId)));
     surnameField.getValues().add(surNameValue);
     fields.add(surnameField);
     
@@ -83,7 +81,6 @@ public class RecordTest {
     FieldValue deathDayValue = new FieldValue();
     deathDayValue.setKnownType(FieldValueType.Original);
     deathDayValue.setText("30");
-    deathDayValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + deathDateId)));
     deathDayField.getValues().add(deathDayValue);
     fields.add(deathDayField);
 
@@ -95,7 +92,6 @@ public class RecordTest {
     FieldValue deathMonthValue = new FieldValue();
     deathMonthValue.setKnownType(FieldValueType.Original);
     deathMonthValue.setText("October");
-    deathMonthValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + deathDateId)));
     deathMonthField.getValues().add(deathMonthValue);
     fields.add(deathMonthField);
 
@@ -107,7 +103,6 @@ public class RecordTest {
     FieldValue deathYearValue = new FieldValue();
     deathYearValue.setKnownType(FieldValueType.Original);
     deathYearValue.setText("2002");
-    deathYearValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + deathDateId)));
     deathYearField.getValues().add(deathYearValue);
     fields.add(deathYearField);
     
@@ -120,7 +115,6 @@ public class RecordTest {
     FieldValue deathPlaceValue = new FieldValue();
     deathPlaceValue.setKnownType(FieldValueType.Original);
     deathPlaceValue.setText("Provo, Utah");
-    deathPlaceValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + deathPlaceId)));
     deathPlaceField.getValues().add(deathPlaceValue);
     fields.add(deathPlaceField);
     
@@ -134,7 +128,6 @@ public class RecordTest {
     FieldValue ageValue = new FieldValue();
     ageValue.setKnownType(FieldValueType.Original);
     ageValue.setText("88");
-    ageValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + birthDateId)));
     ageField.getValues().add(ageValue);
     fields.add(ageField);
     
@@ -147,7 +140,6 @@ public class RecordTest {
     FieldValue wifeNameValue = new FieldValue();
     wifeNameValue.setKnownType(FieldValueType.Original);
     wifeNameValue.setText("Marie Bishop");
-    wifeNameValue.setReferenceToDataExtractedFromThisField(new ResourceReference(URI.create("#" + wifeNameId))); //todo: reference to relationship, too?
     wifeNameField.getValues().add(wifeNameValue);
     fields.add(wifeNameField);
 

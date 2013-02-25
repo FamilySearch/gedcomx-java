@@ -16,9 +16,12 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.ClientName;
+import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.records.HasSupportingFieldValues;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -29,12 +32,13 @@ import java.util.List;
  * A concluded genealogical date.
  */
 @ClientName ("DateInfo")
-@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions" })
-public class Date extends ExtensibleData {
+@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "supportingFieldValues" })
+public class Date extends ExtensibleData implements HasSupportingFieldValues {
 
   private String original;
   private String formal;
   private List<TextValue> normalized;
+  private List<ResourceReference> supportingFieldValues;
 
   /**
    * The original text as supplied by the user.
@@ -95,6 +99,30 @@ public class Date extends ExtensibleData {
   @JsonProperty ("normalized")
   public void setNormalizedExtensions(List<TextValue> normalized) {
     this.normalized = normalized;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @return The list of field values that are being used to support this data.
+   */
+  @Override
+  @XmlElement (name = "fieldValue")
+  @JsonProperty ("fieldValues")
+  @JsonName ("fieldValues")
+  public List<ResourceReference> getSupportingFieldValues() {
+    return supportingFieldValues;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @param supportingFieldValues The list of field values that are being used to support this data.
+   */
+  @Override
+  @JsonProperty ("fieldValues")
+  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+    this.supportingFieldValues = supportingFieldValues;
   }
 
   @Override

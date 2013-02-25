@@ -18,6 +18,8 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.records.HasSupportingFieldValues;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.XMLConstants;
@@ -31,12 +33,13 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "NameForm", propOrder = { "fullText", "parts" })
-public class NameForm extends ExtensibleData {
+@XmlType ( name = "NameForm", propOrder = { "fullText", "parts", "supportingFieldValues" })
+public class NameForm extends ExtensibleData implements HasSupportingFieldValues {
 
   private String lang;
   private String fullText;
   private List<NamePart> parts;
+  private List<ResourceReference> supportingFieldValues;
 
   /**
    * The language of the conclusion. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -95,6 +98,30 @@ public class NameForm extends ExtensibleData {
   @JsonProperty ("parts")
   public void setParts(List<NamePart> parts) {
     this.parts = parts;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @return The list of field values that are being used to support this data.
+   */
+  @Override
+  @XmlElement (name = "fieldValue")
+  @JsonProperty ("fieldValues")
+  @JsonName ("fieldValues")
+  public List<ResourceReference> getSupportingFieldValues() {
+    return supportingFieldValues;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @param supportingFieldValues The list of field values that are being used to support this data.
+   */
+  @Override
+  @JsonProperty ("fieldValues")
+  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+    this.supportingFieldValues = supportingFieldValues;
   }
 
   /**

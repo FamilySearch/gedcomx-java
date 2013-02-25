@@ -15,16 +15,18 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasSupportingFieldValues;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.GenderType;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import java.util.List;
 
 /**
  * A gender conclusion.
@@ -34,9 +36,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType ( name = "Gender" )
 @XmlRootElement
 @JsonElementWrapper ( name = "genders" )
-public class Gender extends Conclusion {
+public class Gender extends Conclusion implements HasSupportingFieldValues {
 
   private URI type;
+  private List<ResourceReference> supportingFieldValues;
 
   /**
    * Default constructor.
@@ -91,6 +94,30 @@ public class Gender extends Conclusion {
   @JsonIgnore
   public void setKnownType(GenderType type) {
     setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @return The list of field values that are being used to support this data.
+   */
+  @Override
+  @XmlElement (name = "fieldValue")
+  @JsonProperty ("fieldValues")
+  @JsonName ("fieldValues")
+  public List<ResourceReference> getSupportingFieldValues() {
+    return supportingFieldValues;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @param supportingFieldValues The list of field values that are being used to support this data.
+   */
+  @Override
+  @JsonProperty ("fieldValues")
+  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+    this.supportingFieldValues = supportingFieldValues;
   }
 
   @Override

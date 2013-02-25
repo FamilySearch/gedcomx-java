@@ -21,6 +21,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasSupportingFieldValues;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.NamePartType;
 
@@ -37,11 +38,12 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "NamePart" )
-public final class NamePart extends ExtensibleData {
+public final class NamePart extends ExtensibleData implements HasSupportingFieldValues {
 
   private URI type;
   private String value;
   private List<ResourceReference> qualifiers;
+  private List<ResourceReference> supportingFieldValues;
 
   /**
    * The type of the name part.
@@ -121,6 +123,30 @@ public final class NamePart extends ExtensibleData {
   @JsonProperty ("qualifiers")
   public void setQualifiers(List<ResourceReference> qualifiers) {
     this.qualifiers = qualifiers;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @return The list of field values that are being used to support this data.
+   */
+  @Override
+  @XmlElement (name = "fieldValue")
+  @JsonProperty ("fieldValues")
+  @JsonName ("fieldValues")
+  public List<ResourceReference> getSupportingFieldValues() {
+    return supportingFieldValues;
+  }
+
+  /**
+   * The list of field values that are being used to support this data.
+   *
+   * @param supportingFieldValues The list of field values that are being used to support this data.
+   */
+  @Override
+  @JsonProperty ("fieldValues")
+  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+    this.supportingFieldValues = supportingFieldValues;
   }
 
   /**
