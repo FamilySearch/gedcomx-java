@@ -22,6 +22,7 @@ import org.gedcomx.common.Attribution;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.records.Record;
+import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.MediaTypeDefinition;
@@ -72,7 +73,7 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
-@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "records" })
+@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "records", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
@@ -85,6 +86,7 @@ public class Gedcomx extends HypermediaEnabledData {
   private List<PlaceDescription> places;
   private List<Document> documents;
   private List<Record> records;
+  private List<RecordDescriptor> recordDescriptors;
 
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
@@ -299,6 +301,28 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("records")
   public void setRecords(List<Record> records) {
     this.records = records;
+  }
+
+  /**
+   * The record descriptors included in this genealogical data set.
+   *
+   * @return The record descriptors included in this genealogical data set.
+   */
+  @XmlElement (name="recordDescriptor")
+  @JsonProperty ("recordDescriptors")
+  @JsonName ("recordDescriptors")
+  public List<RecordDescriptor> getRecordDescriptors() {
+    return recordDescriptors;
+  }
+
+  /**
+   * The record descriptors included in this genealogical data set.
+   *
+   * @param recordDescriptors The record descriptors included in this genealogical data set.
+   */
+  @JsonProperty ("recordDescriptors")
+  public void setRecordDescriptors(List<RecordDescriptor> recordDescriptors) {
+    this.recordDescriptors = recordDescriptors;
   }
 
   /**

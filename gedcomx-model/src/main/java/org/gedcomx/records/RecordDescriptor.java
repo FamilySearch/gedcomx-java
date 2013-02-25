@@ -17,8 +17,8 @@ package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.Gedcomx;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -91,5 +91,14 @@ public class RecordDescriptor extends HypermediaEnabledData {
   @JsonProperty ("fields")
   public void setFields(List<FieldDescription> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Accept a visitor.
+   *
+   * @param visitor The visitor.
+   */
+  public void accept(GedcomxModelVisitor visitor) {
+    visitor.visitRecordDescriptor(this);
   }
 }

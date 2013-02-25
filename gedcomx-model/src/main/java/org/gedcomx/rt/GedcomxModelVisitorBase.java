@@ -21,6 +21,7 @@ import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.Record;
+import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
@@ -111,6 +112,15 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       for (Record record : records) {
         if (record != null) {
           record.accept(this);
+        }
+      }
+    }
+
+    List<RecordDescriptor> recordDescriptors = gx.getRecordDescriptors();
+    if (recordDescriptors != null) {
+      for (RecordDescriptor rd : recordDescriptors) {
+        if (rd != null) {
+          rd.accept(this);
         }
       }
     }
@@ -213,6 +223,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         note.accept(this);
       }
     }
+  }
+
+  @Override
+  public void visitRecordDescriptor(RecordDescriptor recordDescriptor) {
+    //no-op.
   }
 
   @Override
