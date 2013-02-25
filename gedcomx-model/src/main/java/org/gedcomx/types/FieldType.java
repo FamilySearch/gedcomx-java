@@ -16,28 +16,36 @@
 package org.gedcomx.types;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
-import org.codehaus.enunciate.qname.XmlQNameEnumValue;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 
 /**
- * Enumeration of standard age part types.
+ * Enumeration of known field types.
  *
  * @author Ryan Heaton
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum DateFormatType {
+public enum FieldType {
 
-  GEDCOM_5_5,
+//  todo: what _are_ these values? what about type hierarchies?
+//  Name,
+//  GivenName,
+//  Surname,
+//  NamePrefix,
+//  NameSuffix,
+//  Date,
+//  Years,
+//  Months,
+//  Days,
+//  Hours,
+//  Minutes,
+//  MaritalStatus,
 
-  @XmlQNameEnumValue(
-    namespace = "iso:",
-    localPart = "8601"
-  )
-  ISO8601,
-
+  /**
+   * Custom
+   */
   @XmlUnknownQNameEnumValue
   OTHER;
 
@@ -56,8 +64,8 @@ public enum DateFormatType {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static DateFormatType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), DateFormatType.class);
+  public static FieldType fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FieldType.class);
   }
 
 }
