@@ -19,20 +19,25 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
+ * A descriptor for a common set of records.
+ *
  * @author Ryan Heaton
  */
+@XmlType( name = "RecordDescriptor" )
+@JsonElementWrapper ( name = "recordDescriptors" )
 public class RecordDescriptor extends HypermediaEnabledData {
 
   private String lang;
-  private String text;
-  private List<FieldDescription> fields;
+  private List<FieldDescriptor> fields;
 
   /**
    * The language of this record description. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -54,24 +59,6 @@ public class RecordDescriptor extends HypermediaEnabledData {
   }
 
   /**
-   * Human-readable text value of this descriptor, used to describe the kinds of records associated with this descriptor.
-   *
-   * @return Human-readable text value of the description.
-   */
-  public String getText() {
-    return text;
-  }
-
-  /**
-   * Human-readable text value of this descriptor, used to describe the kinds of records associated with this descriptor.
-   *
-   * @param text Human-readable text value of the description.
-   */
-  public void setText(String text) {
-    this.text = text;
-  }
-
-  /**
    * The fields that are applicable to this record.
    *
    * @return The fields that are applicable to this record.
@@ -79,7 +66,7 @@ public class RecordDescriptor extends HypermediaEnabledData {
   @XmlElement (name="field")
   @JsonProperty ("fields")
   @JsonName ("fields")
-  public List<FieldDescription> getFields() {
+  public List<FieldDescriptor> getFields() {
     return fields;
   }
 
@@ -89,7 +76,7 @@ public class RecordDescriptor extends HypermediaEnabledData {
    * @param fields The fields that are applicable to this record.
    */
   @JsonProperty ("fields")
-  public void setFields(List<FieldDescription> fields) {
+  public void setFields(List<FieldDescriptor> fields) {
     this.fields = fields;
   }
 
