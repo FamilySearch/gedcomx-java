@@ -3,7 +3,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>gedcomx-parent</artifactId>
-  <groupId>org.gedcomx</groupId>
+  <groupId>org.familysearch.gedcomx.recordfeature</groupId>
   <name>GEDCOM X - Parent Project</name>
   <version>0.33.0-SNAPSHOT</version>
   <packaging>pom</packaging>

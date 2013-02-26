@@ -5,7 +5,7 @@
   <name>GEDCOM X - Resource Definitions</name>
 
   <parent>
-    <groupId>org.gedcomx</groupId>
+    <groupId>org.familysearch.gedcomx.recordfeature</groupId>
     <artifactId>gedcomx-parent</artifactId>
     <version>0.33.0-SNAPSHOT</version>
   </parent>
@@ -37,7 +37,7 @@
         </executions>
         <dependencies>
           <dependency>
-            <groupId>org.gedcomx</groupId>
+            <groupId>org.familysearch.gedcomx.recordfeature</groupId>
             <artifactId>enunciate-gedcomx-rs-support</artifactId>
             <version>${project.version}</version>
           </dependency>
@@ -48,13 +48,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.gedcomx</groupId>
+      <groupId>org.familysearch.gedcomx.recordfeature</groupId>
       <artifactId>gedcomx-atom</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.gedcomx</groupId>
+      <groupId>org.familysearch.gedcomx.recordfeature</groupId>
       <artifactId>gedcomx-rs-rt-support</artifactId>
       <version>${project.version}</version>
     </dependency>
