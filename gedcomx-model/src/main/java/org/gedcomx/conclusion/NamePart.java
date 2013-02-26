@@ -21,7 +21,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.gedcomx.records.HasSupportingFieldValues;
+import org.gedcomx.records.HasFieldValueSources;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.NamePartType;
 
@@ -38,12 +38,12 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "NamePart" )
-public final class NamePart extends ExtensibleData implements HasSupportingFieldValues {
+public final class NamePart extends ExtensibleData implements HasFieldValueSources {
 
   private URI type;
   private String value;
   private List<ResourceReference> qualifiers;
-  private List<ResourceReference> supportingFieldValues;
+  private List<ResourceReference> fieldValueSources;
 
   /**
    * The type of the name part.
@@ -131,11 +131,11 @@ public final class NamePart extends ExtensibleData implements HasSupportingField
    * @return The list of field values that are being used to support this data.
    */
   @Override
-  @XmlElement (name = "fieldValue")
-  @JsonProperty ("fieldValues")
-  @JsonName ("fieldValues")
-  public List<ResourceReference> getSupportingFieldValues() {
-    return supportingFieldValues;
+  @XmlElement (name = "sourceFieldValue")
+  @JsonProperty ("sourceFieldValues")
+  @JsonName ("sourceFieldValues")
+  public List<ResourceReference> getFieldValueSources() {
+    return fieldValueSources;
   }
 
   /**
@@ -144,9 +144,9 @@ public final class NamePart extends ExtensibleData implements HasSupportingField
    * @param supportingFieldValues The list of field values that are being used to support this data.
    */
   @Override
-  @JsonProperty ("fieldValues")
-  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
-    this.supportingFieldValues = supportingFieldValues;
+  @JsonProperty ("sourceFieldValues")
+  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
+    this.fieldValueSources = supportingFieldValues;
   }
 
   /**

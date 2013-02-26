@@ -19,7 +19,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
-import org.gedcomx.records.HasSupportingFieldValues;
+import org.gedcomx.records.HasFieldValueSources;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.XMLConstants;
@@ -33,13 +33,13 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "NameForm", propOrder = { "fullText", "parts", "supportingFieldValues" })
-public class NameForm extends ExtensibleData implements HasSupportingFieldValues {
+@XmlType ( name = "NameForm", propOrder = { "fullText", "parts", "fieldValueSources"})
+public class NameForm extends ExtensibleData implements HasFieldValueSources {
 
   private String lang;
   private String fullText;
   private List<NamePart> parts;
-  private List<ResourceReference> supportingFieldValues;
+  private List<ResourceReference> fieldValueSources;
 
   /**
    * The language of the conclusion. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -106,11 +106,11 @@ public class NameForm extends ExtensibleData implements HasSupportingFieldValues
    * @return The list of field values that are being used to support this data.
    */
   @Override
-  @XmlElement (name = "fieldValue")
-  @JsonProperty ("fieldValues")
-  @JsonName ("fieldValues")
-  public List<ResourceReference> getSupportingFieldValues() {
-    return supportingFieldValues;
+  @XmlElement (name = "sourceFieldValue")
+  @JsonProperty ("sourceFieldValues")
+  @JsonName ("sourceFieldValues")
+  public List<ResourceReference> getFieldValueSources() {
+    return fieldValueSources;
   }
 
   /**
@@ -119,9 +119,9 @@ public class NameForm extends ExtensibleData implements HasSupportingFieldValues
    * @param supportingFieldValues The list of field values that are being used to support this data.
    */
   @Override
-  @JsonProperty ("fieldValues")
-  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
-    this.supportingFieldValues = supportingFieldValues;
+  @JsonProperty ("sourceFieldValues")
+  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
+    this.fieldValueSources = supportingFieldValues;
   }
 
   /**

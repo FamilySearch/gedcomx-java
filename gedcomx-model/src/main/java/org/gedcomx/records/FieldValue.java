@@ -34,7 +34,7 @@ import java.util.List;
  * An element representing a value in a record field.
  */
 @XmlType ( name = "FieldValue" )
-public final class FieldValue extends Conclusion implements HasSupportingFieldValues {
+public final class FieldValue extends Conclusion implements HasFieldValueSources {
 
   /**
    * @see FieldValueType
@@ -43,7 +43,7 @@ public final class FieldValue extends Conclusion implements HasSupportingFieldVa
   private String text;
   private URI datatype;
   private URI resource;
-  private List<ResourceReference> supportingFieldValues;
+  private List<ResourceReference> fieldValueSources;
 
   public FieldValue() {
   }
@@ -155,11 +155,11 @@ public final class FieldValue extends Conclusion implements HasSupportingFieldVa
    * @return The list of field values that are being used to support this data.
    */
   @Override
-  @XmlElement (name = "fieldValue")
-  @JsonProperty ("fieldValues")
-  @JsonName ("fieldValues")
-  public List<ResourceReference> getSupportingFieldValues() {
-    return supportingFieldValues;
+  @XmlElement (name = "sourceFieldValue")
+  @JsonProperty ("sourceFieldValues")
+  @JsonName ("sourceFieldValues")
+  public List<ResourceReference> getFieldValueSources() {
+    return fieldValueSources;
   }
 
   /**
@@ -168,8 +168,8 @@ public final class FieldValue extends Conclusion implements HasSupportingFieldVa
    * @param supportingFieldValues The list of field values that are being used to support this data.
    */
   @Override
-  @JsonProperty ("fieldValues")
-  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
-    this.supportingFieldValues = supportingFieldValues;
+  @JsonProperty ("sourceFieldValues")
+  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
+    this.fieldValueSources = supportingFieldValues;
   }
 }

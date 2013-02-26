@@ -21,7 +21,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
-import org.gedcomx.records.HasSupportingFieldValues;
+import org.gedcomx.records.HasFieldValueSources;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -32,8 +32,8 @@ import java.util.List;
  * A concluded genealogical date.
  */
 @ClientName ("DateInfo")
-@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "supportingFieldValues" })
-public class Date extends ExtensibleData implements HasSupportingFieldValues {
+@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fieldValueSources"})
+public class Date extends ExtensibleData implements HasFieldValueSources {
 
   private String original;
   private String formal;
@@ -107,10 +107,10 @@ public class Date extends ExtensibleData implements HasSupportingFieldValues {
    * @return The list of field values that are being used to support this data.
    */
   @Override
-  @XmlElement (name = "fieldValue")
-  @JsonProperty ("fieldValues")
-  @JsonName ("fieldValues")
-  public List<ResourceReference> getSupportingFieldValues() {
+  @XmlElement (name = "sourceFieldValue")
+  @JsonProperty ("sourceFieldValues")
+  @JsonName ("sourceFieldValues")
+  public List<ResourceReference> getFieldValueSources() {
     return supportingFieldValues;
   }
 
@@ -120,8 +120,8 @@ public class Date extends ExtensibleData implements HasSupportingFieldValues {
    * @param supportingFieldValues The list of field values that are being used to support this data.
    */
   @Override
-  @JsonProperty ("fieldValues")
-  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+  @JsonProperty ("sourceFieldValues")
+  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
     this.supportingFieldValues = supportingFieldValues;
   }
 

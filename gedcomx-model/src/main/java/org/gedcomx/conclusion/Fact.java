@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.gedcomx.records.HasSupportingFieldValues;
+import org.gedcomx.records.HasFieldValueSources;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FactType;
@@ -31,10 +31,10 @@ import java.util.List;
 /**
  * A conclusion about a fact applicable to a person or relationship.
  */
-@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "supportingFieldValues" })
+@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "fieldValueSources"})
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
-public class Fact extends Conclusion implements HasDateAndPlace, HasSupportingFieldValues {
+public class Fact extends Conclusion implements HasDateAndPlace, HasFieldValueSources {
 
   private URI type;
   private Date date;
@@ -174,10 +174,10 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasSupportingFi
    * @return The list of field values that are being used to support this data.
    */
   @Override
-  @XmlElement (name = "fieldValue")
-  @JsonProperty ("fieldValues")
-  @JsonName ("fieldValues")
-  public List<ResourceReference> getSupportingFieldValues() {
+  @XmlElement (name = "sourceFieldValue")
+  @JsonProperty ("sourceFieldValues")
+  @JsonName ("sourceFieldValues")
+  public List<ResourceReference> getFieldValueSources() {
     return supportingFieldValues;
   }
 
@@ -187,8 +187,8 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasSupportingFi
    * @param supportingFieldValues The list of field values that are being used to support this data.
    */
   @Override
-  @JsonProperty ("fieldValues")
-  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
+  @JsonProperty ("sourceFieldValues")
+  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
     this.supportingFieldValues = supportingFieldValues;
   }
 

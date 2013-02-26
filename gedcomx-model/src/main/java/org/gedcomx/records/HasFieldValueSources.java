@@ -22,20 +22,20 @@ import java.util.List;
 /**
  * @author Ryan Heaton
  */
-public interface HasSupportingFieldValues {
+public interface HasFieldValueSources {
 
   /**
-   * The list of field values that are being used to support this data.
+   * The list of field values that are being used as sources for this data.
    *
-   * @return The list of field values that are being used to support this data.
+   * @return The list of field values that are being used as sources for this data.
    */
-  List<ResourceReference> getSupportingFieldValues();
+  List<ResourceReference> getFieldValueSources();
 
   /**
-   * The list of field values that are being used to support this data.
+   * The list of field values that are being used as sources for this data.
    *
-   * @param supportingFieldValues The list of field values that are being used to support this data.
+   * @param supportingFieldValues The list of field values that are being used as sources for this data.
    */
-  void setSupportingFieldValues(List<ResourceReference> supportingFieldValues);
+  void setFieldValueSources(List<ResourceReference> supportingFieldValues);
 
 }

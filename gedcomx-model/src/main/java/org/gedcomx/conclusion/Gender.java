@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.gedcomx.records.HasSupportingFieldValues;
+import org.gedcomx.records.HasFieldValueSources;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.GenderType;
@@ -36,10 +36,10 @@ import java.util.List;
 @XmlType ( name = "Gender" )
 @XmlRootElement
 @JsonElementWrapper ( name = "genders" )
-public class Gender extends Conclusion implements HasSupportingFieldValues {
+public class Gender extends Conclusion implements HasFieldValueSources {
 
   private URI type;
-  private List<ResourceReference> supportingFieldValues;
+  private List<ResourceReference> fieldValueSources;
 
   /**
    * Default constructor.
@@ -102,11 +102,11 @@ public class Gender extends Conclusion implements HasSupportingFieldValues {
    * @return The list of field values that are being used to support this data.
    */
   @Override
-  @XmlElement (name = "fieldValue")
-  @JsonProperty ("fieldValues")
-  @JsonName ("fieldValues")
-  public List<ResourceReference> getSupportingFieldValues() {
-    return supportingFieldValues;
+  @XmlElement (name = "sourceFieldValue")
+  @JsonProperty ("sourceFieldValues")
+  @JsonName ("sourceFieldValues")
+  public List<ResourceReference> getFieldValueSources() {
+    return fieldValueSources;
   }
 
   /**
@@ -115,9 +115,9 @@ public class Gender extends Conclusion implements HasSupportingFieldValues {
    * @param supportingFieldValues The list of field values that are being used to support this data.
    */
   @Override
-  @JsonProperty ("fieldValues")
-  public void setSupportingFieldValues(List<ResourceReference> supportingFieldValues) {
-    this.supportingFieldValues = supportingFieldValues;
+  @JsonProperty ("sourceFieldValues")
+  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
+    this.fieldValueSources = supportingFieldValues;
   }
 
   @Override
