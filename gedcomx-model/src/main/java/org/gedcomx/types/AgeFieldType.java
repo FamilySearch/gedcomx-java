@@ -20,28 +20,21 @@ import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 
 /**
- * Enumeration of known field types.
+ * Enumeration of known age fields.
  *
  * @author Ryan Heaton
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum FieldType {
+public enum AgeFieldType {
 
-//  todo: what _are_ these values? what about type hierarchies?
-//  Name,
-//  GivenName,
-//  Surname,
-//  NamePrefix,
-//  NameSuffix,
-//  Date,
-//  Years,
-//  Months,
-//  Days,
-//  Hours,
-//  Minutes,
-//  MaritalStatus,
+  Age,
+  Years,
+  Months,
+  Days,
+  Hours,
+  Minutes,
 
   /**
    * Custom
@@ -64,8 +57,8 @@ public enum FieldType {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static FieldType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FieldType.class);
+  public static AgeFieldType fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), AgeFieldType.class);
   }
 
 }
