@@ -22,12 +22,13 @@ import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.rt.json.JsonSimpleValue;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import java.io.IOException;
 
@@ -36,7 +37,9 @@ import java.io.IOException;
  *
  * @author Ryan Heaton
  */
+@XmlRootElement
 @XmlType ( name = "ResourceReference" )
+@JsonElementWrapper ( name = "resourceReference" )
 @JsonSerialize (using = ResourceReference.JsonSerializer.class)
 @JsonDeserialize (using = ResourceReference.JsonDeserializer.class)
 @JsonSimpleValue ( example = "http://path/to/resource" )
