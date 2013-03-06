@@ -15,22 +15,13 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.SerializerProvider;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.gedcomx.rt.json.JsonElementWrapper;
-import org.gedcomx.rt.json.JsonSimpleValue;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import java.io.IOException;
 
 /**
  * A generic reference to a resource.
@@ -40,18 +31,30 @@ import java.io.IOException;
 @XmlRootElement
 @XmlType ( name = "ResourceReference" )
 @JsonElementWrapper ( name = "resourceReference" )
-@JsonSerialize (using = ResourceReference.JsonSerializer.class)
-@JsonDeserialize (using = ResourceReference.JsonDeserializer.class)
-@JsonSimpleValue ( example = "http://path/to/resource" )
 public final class ResourceReference {
 
   private URI resource;
+  private String id;
 
   public ResourceReference() {
   }
 
   public ResourceReference(URI resource) {
     this.resource = resource;
+  }
+
+  public ResourceReference(URI resource, String id) {
+    this.resource = resource;
+    this.id = id;
+  }
+
+  @XmlAttribute
+  public String getId() {
+    return id;
+  }
+
+  public void setId( String id ) {
+    this.id = id;
   }
 
   /**
@@ -84,31 +87,5 @@ public final class ResourceReference {
   @Override
   public String toString() {
     return (resource == null) ? "" : resource.toString();
-  }
-
-  public static class JsonSerializer extends org.codehaus.jackson.map.JsonSerializer<ResourceReference> {
-    @Override
-    public void serialize(ResourceReference value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-      if (value == null || value.getResource() == null) {
-        jgen.writeNull();
-      }
-      else {
-        jgen.writeString(value.getResource().toString());
-      }
-    }
-  }
-
-  public static class JsonDeserializer extends org.codehaus.jackson.map.JsonDeserializer<ResourceReference> {
-
-    @Override
-    public ResourceReference deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-      String text = jp.getText();
-      if (text == null) {
-        return null;
-      }
-      else {
-        return new ResourceReference(URI.create(text));
-      }
-    }
   }
 }
