@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 public final class ResourceReference {
 
   private URI resource;
-  private String id;
+  private String refId;
 
   public ResourceReference() {
   }
@@ -43,18 +43,28 @@ public final class ResourceReference {
     this.resource = resource;
   }
 
-  public ResourceReference(URI resource, String id) {
+  public ResourceReference(URI resource, String refId) {
     this.resource = resource;
-    this.id = id;
+    this.refId = refId;
   }
 
+  /**
+   * The fragment id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.
+   *
+   * @return The fragment id of the resource being referenced.
+   */
   @XmlAttribute
-  public String getId() {
-    return id;
+  public String getRefId() {
+    return refId;
   }
 
-  public void setId( String id ) {
-    this.id = id;
+  /**
+   * The fragment id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.
+   *
+   * @param refId The fragment id of the resource being referenced.
+   */
+  public void setRefId(String refId) {
+    this.refId = refId;
   }
 
   /**
