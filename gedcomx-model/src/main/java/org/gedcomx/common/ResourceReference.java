@@ -15,40 +15,56 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.SerializerProvider;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.gedcomx.rt.json.JsonSimpleValue;
+import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import java.io.IOException;
 
 /**
  * A generic reference to a resource.
  *
  * @author Ryan Heaton
  */
+@XmlRootElement
 @XmlType ( name = "ResourceReference" )
-@JsonSerialize (using = ResourceReference.JsonSerializer.class)
-@JsonDeserialize (using = ResourceReference.JsonDeserializer.class)
-@JsonSimpleValue ( example = "http://path/to/resource" )
+@JsonElementWrapper ( name = "resourceReference" )
 public final class ResourceReference {
 
   private URI resource;
+  private String resourceId;
 
   public ResourceReference() {
   }
 
   public ResourceReference(URI resource) {
     this.resource = resource;
+  }
+
+  public ResourceReference(URI resource, String resourceId) {
+    this.resource = resource;
+    this.resourceId = resourceId;
+  }
+
+  /**
+   * The fragment id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.
+   *
+   * @return The fragment id of the resource being referenced.
+   */
+  @XmlAttribute
+  public String getResourceId() {
+    return resourceId;
+  }
+
+  /**
+   * The fragment id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.
+   *
+   * @param resourceId The fragment id of the resource being referenced.
+   */
+  public void setResourceId(String resourceId) {
+    this.resourceId = resourceId;
   }
 
   /**
@@ -81,31 +97,5 @@ public final class ResourceReference {
   @Override
   public String toString() {
     return (resource == null) ? "" : resource.toString();
-  }
-
-  public static class JsonSerializer extends org.codehaus.jackson.map.JsonSerializer<ResourceReference> {
-    @Override
-    public void serialize(ResourceReference value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-      if (value == null || value.getResource() == null) {
-        jgen.writeNull();
-      }
-      else {
-        jgen.writeString(value.getResource().toString());
-      }
-    }
-  }
-
-  public static class JsonDeserializer extends org.codehaus.jackson.map.JsonDeserializer<ResourceReference> {
-
-    @Override
-    public ResourceReference deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-      String text = jp.getText();
-      if (text == null) {
-        return null;
-      }
-      else {
-        return new ResourceReference(URI.create(text));
-      }
-    }
   }
 }

@@ -15,9 +15,15 @@
  */
 package org.gedcomx.search;
 
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.annotate.JsonValue;
+import org.codehaus.jackson.map.DeserializationContext;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
+import java.io.IOException;
 
 /**
  * The levels of confidence of a search result.
@@ -26,10 +32,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType ( name = "ResultConfidence" )
 @XmlEnum ( Integer.class )
+@JsonDeserialize (using = ResultConfidence.ResultConfidenceDeserializer.class)
 public enum ResultConfidence {
 
   /**
-   * Result confidence level 1 (lowest)
+   * Result confidence level 1 (lowest).
    */
   @XmlEnumValue("1")
   one,
@@ -53,9 +60,49 @@ public enum ResultConfidence {
   four,
 
   /**
-   * Result confidence level 5.
+   * Result confidence level 5 (highest).
    */
   @XmlEnumValue("5")
-  five
+  five;
 
+  @JsonValue
+  public Integer value() {
+    switch(this) {
+      case one:
+        return 1;
+      case two:
+        return 2;
+      case three:
+        return 3;
+      case four:
+        return 4;
+      case five:
+        return 5;
+      default:
+        return null;
+    }
+  }
+
+  static class ResultConfidenceDeserializer extends org.codehaus.jackson.map.JsonDeserializer<ResultConfidence>
+  {
+    @Override
+    public ResultConfidence deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
+    {
+      int i = parser.getIntValue();
+      switch(i) {
+        case 1:
+          return ResultConfidence.one;
+        case 2:
+          return ResultConfidence.two;
+        case 3:
+          return ResultConfidence.three;
+        case 4:
+          return ResultConfidence.four;
+        case 5:
+          return ResultConfidence.five;
+        default:
+          return null;
+      }
+    }
+  }
 }
