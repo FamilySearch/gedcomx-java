@@ -42,6 +42,9 @@ public class RecordTest {
   }
 
   static Gedcomx create() {
+
+    // todo: fill in this test better!
+
     Record record = new Record();
 
     //set up the fields.

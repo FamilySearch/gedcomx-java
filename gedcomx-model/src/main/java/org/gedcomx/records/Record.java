@@ -25,6 +25,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.IdentifierType;
+import org.gedcomx.types.RecordType;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "records" )
 public class Record extends HypermediaEnabledData implements Attributable, HasNotes {
 
+  private URI type;
   private List<ResourceReference> principalPersons;
   private ResourceReference primaryEvent;
   private List<SourceReference> sources;
@@ -50,6 +52,46 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   private List<Note> notes;
   private Attribution attribution;
   private URI descriptionRef;
+
+  /**
+   * The type of the field value.
+   *
+   * @return The type of the field value.
+   */
+  @XmlAttribute
+  public URI getType() {
+    return type;
+  }
+
+  /**
+   * The type of the field value.
+   *
+   * @param type The type of the field value.
+   */
+  public void setType(URI type) {
+    this.type = type;
+  }
+
+  /**
+   * The known type of the field value.
+   *
+   * @return The type of the field value.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public RecordType getKnownType() {
+    return getType() == null ? null : RecordType.fromQNameURI(getType());
+  }
+
+  /**
+   * The type of the field value.
+   *
+   * @param type The type of the field value.
+   */
+  @JsonIgnore
+  public void setKnownType(RecordType type) {
+    setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
 
   /**
    * The principal person(s) of this record.
