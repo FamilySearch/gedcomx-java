@@ -56,6 +56,9 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    *
    * @return The principal person(s) of this record.
    */
+  @XmlElement ( name = "principalPerson" )
+  @JsonName ( "principalPersons" )
+  @JsonProperty ( "principalPersons" )
   public List<ResourceReference> getPrincipalPersons() {
     return principalPersons;
   }
@@ -65,6 +68,7 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    *
    * @param principalPersons The principal person(s) of this record.
    */
+  @JsonProperty ( "principalPersons" )
   public void setPrincipalPersons(List<ResourceReference> principalPersons) {
     this.principalPersons = principalPersons;
   }
