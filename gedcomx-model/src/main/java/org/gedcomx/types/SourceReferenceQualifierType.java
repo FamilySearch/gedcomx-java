@@ -29,44 +29,37 @@ import org.gedcomx.common.URI;
 public enum SourceReferenceQualifierType {
 
   /**
-   * The position, in pixels, on the X axis of an image. Used, for example, in describing a bounding region of an image.
+   * A page in a document.
    */
-  XPixels,
+  Page,
 
   /**
-   * The position, in pixels, on the Y axis of an image. Used, for example, in describing a bounding region of an image.
+   * A paragraph in a document.
    */
-  YPixels,
+  Paragraph,
 
   /**
-   * The width, in pixels, of a line on an image. Used, for example, in describing a bounding region of an image.
+   * A region of text in a digital document, in the form of `a,b` where `a` is the start character and `b` is the end character.
    */
-  WidthPixels,
+  CharacterRegion,
 
   /**
-   * The height, in pixels, of a line on an image. Used, for example, in describing a bounding region of an image.
+   * A rectangular region of a digital image, in the form of `x,y,w,h` where `x` is the point on the X axis of the image in pixels,
+   * `y` is the point on the Y axis in pixels, `w` is the width of the rectangle in pixels, and `h` in the height of the rectangle in pixels.
    */
-  HeightPixels,
+  RectangleRegion,
 
   /**
-   * The millisecond starting point of a region of an audio recording.
+   * A polygon region of a digital image, in the form of `x,y,x,y...` where `x` is a point on the X axis of the image in pixels
+   * and `y` is a point on the Y axis in pixels.
    */
-  StartMillisecond,
+  PolygonRegion,
 
   /**
-   * The millisecond ending point of a region of an audio recording.
+   * A region of time of an audio or video recording, in the form of `a,b` where `a` is the starting point in milliseconds
+   * and `b` is the ending point in milliseconds.
    */
-  EndMillisecond,
-
-  /**
-   * The start character of a region of text in a document.
-   */
-  StartCharacter,
-
-  /**
-   * The end character of a region of text in a document.
-   */
-  EndCharacter,
+  TimeRegion,
 
   @XmlUnknownQNameEnumValue
   OTHER;
