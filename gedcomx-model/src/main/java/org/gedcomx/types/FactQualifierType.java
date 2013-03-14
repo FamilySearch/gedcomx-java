@@ -21,52 +21,27 @@ import org.gedcomx.common.URI;
 
 
 /**
- * Enumeration of standard source reference qualifiers.
+ * Enumeration of standard fact qualifiers.
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum SourceReferenceQualifierType {
+public enum FactQualifierType {
 
   /**
-   * The position, in pixels, on the X axis of an image. Used, for example, in describing a bounding region of an image.
+   * The age of a person at the event described by the fact.
    */
-  XPixels,
+  Age,
 
   /**
-   * The position, in pixels, on the Y axis of an image. Used, for example, in describing a bounding region of an image.
+   * The cause of a specific fact, such as the cause of death.
    */
-  YPixels,
+  Cause,
 
   /**
-   * The width, in pixels, of a line on an image. Used, for example, in describing a bounding region of an image.
+   * The religion associated with a religious event such as a baptism or excommunication.
    */
-  WidthPixels,
-
-  /**
-   * The height, in pixels, of a line on an image. Used, for example, in describing a bounding region of an image.
-   */
-  HeightPixels,
-
-  /**
-   * The millisecond starting point of a region of an audio recording.
-   */
-  StartMillisecond,
-
-  /**
-   * The millisecond ending point of a region of an audio recording.
-   */
-  EndMillisecond,
-
-  /**
-   * The start character of a region of text in a document.
-   */
-  StartCharacter,
-
-  /**
-   * The end character of a region of text in a document.
-   */
-  EndCharacter,
+  Religion,
 
   @XmlUnknownQNameEnumValue
   OTHER;
@@ -86,8 +61,8 @@ public enum SourceReferenceQualifierType {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static SourceReferenceQualifierType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), SourceReferenceQualifierType.class);
+  public static FactQualifierType fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FactQualifierType.class);
   }
 
 }
