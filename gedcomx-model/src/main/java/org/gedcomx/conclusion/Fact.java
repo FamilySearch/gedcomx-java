@@ -18,6 +18,7 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.records.HasFieldValueSources;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * A conclusion about a fact applicable to a person or relationship.
  */
-@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "fieldValueSources"})
+@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "qualifiers", "fieldValueSources" })
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
 public class Fact extends Conclusion implements HasDateAndPlace, HasFieldValueSources {
@@ -41,6 +42,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldValueSo
   private PlaceReference place;
   private String value;
   private List<ResourceReference> supportingFieldValues;
+  private List<Qualifier> qualifiers;
 
   /**
    * Create a fact.
@@ -190,6 +192,28 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldValueSo
   @JsonProperty ("sourceFieldValues")
   public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
     this.supportingFieldValues = supportingFieldValues;
+  }
+
+  /**
+   * The qualifiers associated with this fact.
+   *
+   * @return The qualifiers associated with this fact.
+   */
+  @XmlElement (name = "qualifier")
+  @JsonName ("qualifiers")
+  @JsonProperty ("qualifiers")
+  public List<Qualifier> getQualifiers() {
+    return qualifiers;
+  }
+
+  /**
+   * Set the qualifiers associated with this fact.
+   *
+   * @param qualifiers qualifiers to associate with this fact.
+   */
+  @JsonProperty ("qualifiers")
+  public void setQualifiers(List<Qualifier> qualifiers) {
+    this.qualifiers = qualifiers;
   }
 
   @Override

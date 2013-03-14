@@ -24,9 +24,11 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import java.util.List;
 
 
 /**
@@ -42,6 +44,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
   private URI resource;
   private URI descriptionRef;
   private Attribution attribution;
+  private List<Qualifier> qualifiers;
 
   /**
    * The attribution metadata for this source reference.
@@ -107,6 +110,28 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
   @JsonProperty ( "description" )
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
+  }
+
+  /**
+   * The qualifiers associated with this source reference.
+   *
+   * @return The qualifiers associated with this source reference.
+   */
+  @XmlElement (name = "qualifier")
+  @JsonName ("qualifiers")
+  @JsonProperty ("qualifiers")
+  public List<Qualifier> getQualifiers() {
+    return qualifiers;
+  }
+
+  /**
+   * Set the qualifiers associated with this source reference.
+   *
+   * @param qualifiers qualifiers to associate with this source reference.
+   */
+  @JsonProperty ("qualifiers")
+  public void setQualifiers(List<Qualifier> qualifiers) {
+    this.qualifiers = qualifiers;
   }
 
   /**

@@ -19,6 +19,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.records.HasFieldValueSources;
@@ -42,7 +43,7 @@ public final class NamePart extends ExtensibleData implements HasFieldValueSourc
 
   private URI type;
   private String value;
-  private List<ResourceReference> qualifiers;
+  private List<Qualifier> qualifiers;
   private List<ResourceReference> fieldValueSources;
 
   /**
@@ -112,7 +113,7 @@ public final class NamePart extends ExtensibleData implements HasFieldValueSourc
   @XmlElement (name = "qualifier")
   @JsonName ("qualifiers")
   @JsonProperty ("qualifiers")
-  public List<ResourceReference> getQualifiers() {
+  public List<Qualifier> getQualifiers() {
     return qualifiers;
   }
 
@@ -121,7 +122,7 @@ public final class NamePart extends ExtensibleData implements HasFieldValueSourc
    * @param qualifiers qualifiers to associate with this name part
    */
   @JsonProperty ("qualifiers")
-  public void setQualifiers(List<ResourceReference> qualifiers) {
+  public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
   }
 
