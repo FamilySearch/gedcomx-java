@@ -45,6 +45,16 @@ public enum FactType {
   AdultChristening,
 
   /**
+   * A fact of a person's amnesty.
+   */
+  Amnesty,
+
+  /**
+   * A fact of a person's apprenticeship.
+   */
+  Apprenticeship,
+
+  /**
    * A fact of a person's baptism.
    */
   Baptism,
@@ -148,6 +158,11 @@ public enum FactType {
    * A fact of a person's immigration.
    */
   Immigration,
+
+  /**
+   * A fact of a person's imprisonment.
+   */
+  Imprisonment,
 
   /**
    * A fact of a land transaction enacted by a person.
@@ -437,6 +452,8 @@ public enum FactType {
     
     public static final FactType Adoption = include(FactType.Adoption);
     public static final FactType AdultChristening = include(FactType.AdultChristening);
+    public static final FactType Amnesty = include(FactType.Amnesty);
+    public static final FactType Apprenticeship = include(FactType.Apprenticeship);
     public static final FactType Baptism = include(FactType.Baptism);
     public static final FactType BarMitzvah = include(FactType.BarMitzvah);
     public static final FactType BatMitzvah = include(FactType.BatMitzvah);
@@ -459,6 +476,7 @@ public enum FactType {
     public static final FactType Funeral = include(FactType.Funeral);
     public static final FactType Education = include(FactType.Education);
     public static final FactType Immigration = include(FactType.Immigration);
+    public static final FactType Imprisonment = include(FactType.Imprisonment);
     public static final FactType LandTransation = include(FactType.LandTransation);
     public static final FactType MaritalStatus = include(FactType.MaritalStatus);
     public static final FactType Medical = include(FactType.Medical);
