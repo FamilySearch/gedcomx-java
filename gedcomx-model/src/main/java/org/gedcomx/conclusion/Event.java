@@ -22,6 +22,7 @@ import org.gedcomx.common.Attributable;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.EventType;
 
 import javax.xml.bind.annotation.*;
@@ -35,13 +36,14 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "events")
-@XmlType ( name = "Event", propOrder = { "date", "place", "roles" } )
+@XmlType ( name = "Event", propOrder = { "date", "place", "roles", "media" } )
 public class Event extends Conclusion implements HasDateAndPlace, Attributable {
 
   private URI type;
   private Date date;
   private PlaceReference place;
   private List<EventRole> roles;
+  private List<SourceReference> media;
 
   /**
    * Create an event.
@@ -170,6 +172,24 @@ public class Event extends Conclusion implements HasDateAndPlace, Attributable {
    */
   public void setRoles(List<EventRole> roles) {
     this.roles = roles;
+  }
+
+  /**
+   * References to multimedia resources associated with this person.
+   *
+   * @return References to multimedia resources associated with this person.
+   */
+  public List<SourceReference> getMedia() {
+    return media;
+  }
+
+  /**
+   * References to multimedia resources associated with this person.
+   *
+   * @param media References to multimedia resources associated with this person.
+   */
+  public void setMedia(List<SourceReference> media) {
+    this.media = media;
   }
 
   /**

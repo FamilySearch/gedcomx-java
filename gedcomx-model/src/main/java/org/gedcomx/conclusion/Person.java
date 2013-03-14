@@ -22,6 +22,7 @@ import org.gedcomx.common.Attributable;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.NameType;
@@ -42,7 +43,7 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
-@XmlType ( name = "Person", propOrder = { "identifiers", "living", "gender", "names", "facts", "displayExtension"} )
+@XmlType ( name = "Person", propOrder = { "identifiers", "living", "gender", "names", "facts", "media", "displayExtension"} )
 public class Person extends Conclusion implements HasFacts, Attributable {
 
   private List<Identifier> identifiers;
@@ -51,6 +52,7 @@ public class Person extends Conclusion implements HasFacts, Attributable {
   private List<Name> names;
   private List<Fact> facts;
   private DisplayProperties display;
+  private List<SourceReference> media;
 
   /**
    * Find the long-term, persistent identifier for this person from the list of identifiers.
@@ -276,6 +278,24 @@ public class Person extends Conclusion implements HasFacts, Attributable {
       }
       facts.add(fact);
     }
+  }
+
+  /**
+   * References to multimedia resources associated with this person.
+   *
+   * @return References to multimedia resources associated with this person.
+   */
+  public List<SourceReference> getMedia() {
+    return media;
+  }
+
+  /**
+   * References to multimedia resources associated with this person.
+   *
+   * @param media References to multimedia resources associated with this person.
+   */
+  public void setMedia(List<SourceReference> media) {
+    this.media = media;
   }
 
   /**
