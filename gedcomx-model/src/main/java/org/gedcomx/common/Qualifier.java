@@ -1,3 +1,18 @@
+/**
+ * Copyright 2011-2012 Intellectual Reserve, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.gedcomx.common;
 
 import org.codehaus.enunciate.XmlQNameEnumUtil;
@@ -65,11 +80,8 @@ public final class Qualifier {
    * @param vocabulary The enum containing the constrained vocabulary.
    * @return The vocabulary element.
    */
-  @XmlTransient
-  @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public <E extends Enum> E getName(Class<E> vocabulary) {
-    return this.name == null ? null : XmlQNameEnumUtil.fromURI(this.name.toURI(), vocabulary);
+    return this.name == null ? null : (E) XmlQNameEnumUtil.fromURI(this.name.toURI(), vocabulary);
   }
 
   /**
@@ -77,6 +89,7 @@ public final class Qualifier {
    *
    * @param element The element.
    */
+  @XmlTransient
   @JsonIgnore
   public void setName(Enum element) {
     this.name = element == null ? null : new URI(XmlQNameEnumUtil.toURI(element).toString());
