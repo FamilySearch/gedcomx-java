@@ -32,7 +32,7 @@ import java.util.List;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "extractedConclusions", "componentOf", "titles", "notes", "attribution" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "componentOf", "titles", "notes", "attribution" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
   private String id;
@@ -40,7 +40,6 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private URI about;
   private ResourceReference mediator;
   private List<SourceReference> sources;
-  private List<ResourceReference> extractedConclusions;
   private SourceReference componentOf;
   private List<TextValue> titles;
   private List<Note> notes;
@@ -167,28 +166,6 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonProperty ("sources")
   public void setSources(List<SourceReference> sources) {
     this.sources = sources;
-  }
-
-  /**
-   * References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   *
-   * @return References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   */
-  @XmlElement (name="extractedConclusion")
-  @JsonProperty ("extractedConclusions")
-  @JsonName ("extractedConclusions")
-  public List<ResourceReference> getExtractedConclusions() {
-    return extractedConclusions;
-  }
-
-  /**
-   * References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   *
-   * @param extractedConclusions References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   */
-  @JsonProperty ("extractedConclusions")
-  public void setExtractedConclusions(List<ResourceReference> extractedConclusions) {
-    this.extractedConclusions = extractedConclusions;
   }
 
   /**
