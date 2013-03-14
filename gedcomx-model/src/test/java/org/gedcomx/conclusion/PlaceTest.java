@@ -18,7 +18,6 @@ public class PlaceTest {
   public void testPlaceDescription_Tikhvin() throws Exception {
     PlaceDescription tikhvinDesc = new PlaceDescription();
 
-    assertNull(tikhvinDesc.getAbout());
     assertNull(tikhvinDesc.getNames());
     assertNull(tikhvinDesc.getType());
     assertNull(tikhvinDesc.getTemporalDescription());
@@ -28,7 +27,6 @@ public class PlaceTest {
     assertNull(tikhvinDesc.getAttribution());
     assertNull(tikhvinDesc.getExtensionElements());
 
-    tikhvinDesc.setAbout(URI.create("#tikhvin"));
     tikhvinDesc.setNames(new ArrayList<TextValue>());
     tikhvinDesc.getNames().add(new TextValue());
     tikhvinDesc.getNames().add(new TextValue());
@@ -65,7 +63,6 @@ public class PlaceTest {
     tikhvinDesc.getAttribution().setModified(new java.util.Date(1321027871111L)); // 11 Nov 2011 11:11:11.111
     tikhvinDesc.addExtensionElement("tikhvinDesc-junkExtensionElement");
 
-    assertEquals(tikhvinDesc.getAbout().toURI().toString(), "#tikhvin");
     assertEquals(tikhvinDesc.getNames().get(0).getLang(), "ru-Cyrl");
     assertEquals(tikhvinDesc.getNames().get(0).getValue(), "Ти́хвин, Ленингра́дская о́бласть, Россия");
     assertEquals(tikhvinDesc.getNames().get(1).getLang(), "ru-Latn");
@@ -117,7 +114,6 @@ public class PlaceTest {
   public void testPlaceDescription_Luga() throws Exception {
     PlaceDescription lugaDesc = new PlaceDescription();
 
-    assertNull(lugaDesc.getAbout());
     assertNull(lugaDesc.getNames());
     assertNull(lugaDesc.getType());
     assertNull(lugaDesc.getTemporalDescription());
@@ -127,7 +123,6 @@ public class PlaceTest {
     assertNull(lugaDesc.getAttribution());
     assertNull(lugaDesc.getExtensionElements());
 
-    lugaDesc.setAbout(URI.create("#luga"));
     lugaDesc.setNames(new ArrayList<TextValue>());
     lugaDesc.getNames().add(new TextValue());
     lugaDesc.getNames().add(new TextValue());
@@ -164,7 +159,6 @@ public class PlaceTest {
     lugaDesc.getAttribution().setModified(new java.util.Date(1321027871111L)); // 11 Nov 2011 11:11:11.111
     lugaDesc.addExtensionElement("lugaDesc-junkExtensionElement");
 
-    assertEquals(lugaDesc.getAbout().toURI().toString(), "#luga");
     assertEquals(lugaDesc.getNames().get(0).getLang(), "ru-Cyrl");
     assertEquals(lugaDesc.getNames().get(0).getValue(), "Лу́га, Новгоро́дская о́бласть, Россия");
     assertEquals(lugaDesc.getNames().get(1).getLang(), "ru-Latn");

@@ -38,7 +38,6 @@ import java.util.List;
 @XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "identifiers" } )
 public class PlaceDescription extends Conclusion {
 
-  private URI about;
   private List<TextValue> names;
   private URI type;
   private Date temporalDescription;
@@ -46,26 +45,6 @@ public class PlaceDescription extends Conclusion {
   private Double longitude;
   private ResourceReference spatialDescription;
   private List<Identifier> identifiers;
-
-  /**
-   * A uniform resource identifier (URI) for the place being described. This can be used for associating descriptions of the same place.  OPTIONAL.
-   *
-   * @return A uniform resource identifier (URI) for the place being described.
-   */
-  @XmlAttribute
-  @XmlSchemaType (name = "anyURI", namespace = XMLConstants.W3C_XML_SCHEMA_NS_URI)
-  public URI getAbout() {
-    return about;
-  }
-
-  /**
-   * A uniform resource identifier (URI) for the place being described. This can be used for associating descriptions of the same place.  OPTIONAL.
-   *
-   * @param about A uniform resource identifier (URI) for the place being described.
-   */
-  public void setAbout(URI about) {
-    this.about = about;
-  }
 
   /**
    * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
