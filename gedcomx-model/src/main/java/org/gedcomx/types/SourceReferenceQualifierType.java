@@ -29,16 +29,6 @@ import org.gedcomx.common.URI;
 public enum SourceReferenceQualifierType {
 
   /**
-   * A page in a document.
-   */
-  Page,
-
-  /**
-   * A paragraph in a document.
-   */
-  Paragraph,
-
-  /**
    * A region of text in a digital document, in the form of `a,b` where `a` is the start character and `b` is the end character.
    */
   CharacterRegion,
@@ -48,12 +38,6 @@ public enum SourceReferenceQualifierType {
    * `y` is the point on the Y axis in pixels, `w` is the width of the rectangle in pixels, and `h` in the height of the rectangle in pixels.
    */
   RectangleRegion,
-
-  /**
-   * A polygon region of a digital image, in the form of `x,y,x,y...` where `x` is a point on the X axis of the image in pixels
-   * and `y` is a point on the Y axis in pixels.
-   */
-  PolygonRegion,
 
   /**
    * A region of time of an audio or video recording, in the form of `a,b` where `a` is the starting point in milliseconds
