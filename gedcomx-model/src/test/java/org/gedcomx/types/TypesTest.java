@@ -16,7 +16,7 @@ public class TypesTest {
   public void testToQNameURI() throws Exception {
     // NOTE: not a full test, but gets some code coverage
 
-    assertEquals(ConfidenceLevel.fromQNameURI(ConfidenceLevel.Possibly.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Possibly");
+    assertEquals(ConfidenceLevel.fromQNameURI(ConfidenceLevel.Low.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Low");
     assertEquals(DocumentType.fromQNameURI(DocumentType.Analysis.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Analysis");
     assertEquals(EventRoleType.fromQNameURI(EventRoleType.Principal.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Principal");
     assertEquals(EventType.fromQNameURI(EventType.Burial.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Burial");

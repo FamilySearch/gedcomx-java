@@ -20,9 +20,7 @@ import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 
 /**
- * Enumeration of levels of confidence. This is taken directly from <i>Evidence Explained, Section 1.6</i>[1].
- *
- * [1] Mills, Elizabeth Shown. "Fundamentals of Evidence Analysis." <i>Evidence Explained.</i> 2nd ed. (Baltimore, Maryland: Genealogical Publishing Company, 2009), 19-20 (Section 1.6).
+ * Enumeration of levels of confidence.
  *
  * @author Ryan Heaton
  */
@@ -32,35 +30,19 @@ import org.gedcomx.common.URI;
 public enum ConfidenceLevel {
 
   /**
-   * The author has no reasonable doubt about the assertion, based upon sound research and good evidence.
+   * High of confidence.
    */
-  Certainly,
+  High,
 
   /**
-   * The author feels the assertion is more likely than not, based upon sound research and good evidence.
+   * Medium of confidence.
    */
-  Probably,
+  Medium,
 
   /**
-   * The author feels some evidence supports the assertion, but the assertion is far from proved.
+   * Low of confidence.
    */
-  Possibly,
-
-  /**
-   * The author feels the odds weigh at least slightly in favor of the assertion.
-   */
-  Likely,
-
-  /**
-   * The author has formed an impression or presumption, typically based upon common experience, but has not
-   * tested the matter.
-   */
-  Apparently,
-
-  /**
-   * The author suggests that an idea is plausible, although it remains to be tested.
-   */
-  Perhaps,
+  Low,
 
   @XmlUnknownQNameEnumValue
   OTHER;
