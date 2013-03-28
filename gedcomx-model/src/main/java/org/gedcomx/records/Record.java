@@ -51,7 +51,8 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   private List<Field> fields;
   private List<Note> notes;
   private Attribution attribution;
-  private URI descriptionRef;
+  private URI descriptorRef;
+  private URI collectionRef;
 
   /**
    * The type of the field value.
@@ -299,25 +300,47 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   }
 
   /**
-   * A reference to a description of the record.
+   * A reference to a descriptor for the record.
    *
-   * @return A reference to a description of the record.
+   * @return A reference to a descriptor for the record.
    */
-  @XmlAttribute ( name = "description" )
-  @JsonName ( "description" )
-  @JsonProperty ( "description" )
-  public URI getDescriptionRef() {
-    return descriptionRef;
+  @XmlAttribute ( name = "descriptor" )
+  @JsonName ( "descriptor" )
+  @JsonProperty ( "descriptor" )
+  public URI getDescriptorRef() {
+    return descriptorRef;
   }
 
   /**
-   * A reference to a description of the record.
+   * A reference to a descriptor for the record.
    *
-   * @param descriptionRef A reference to a description of the record.
+   * @param descriptorRef A reference to a descriptor for the record.
    */
-  @JsonProperty ( "description" )
-  public void setDescriptionRef(URI descriptionRef) {
-    this.descriptionRef = descriptionRef;
+  @JsonProperty ( "descriptor" )
+  public void setDescriptorRef(URI descriptorRef) {
+    this.descriptorRef = descriptorRef;
+  }
+
+  /**
+   * A reference to the collection containing the record.
+   *
+   * @return A reference to the collection containing the record.
+   */
+  @XmlAttribute ( name = "collection" )
+  @JsonName ( "collection" )
+  @JsonProperty ( "collection" )
+  public URI getCollectionRef() {
+    return collectionRef;
+  }
+
+  /**
+   * A reference to the collection containing the record.
+   *
+   * @param collectionRef A reference to the collection containing the record.
+   */
+  @JsonProperty ( "collection" )
+  public void setCollectionRef(URI collectionRef) {
+    this.collectionRef = collectionRef;
   }
 
   /**

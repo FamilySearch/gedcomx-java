@@ -29,10 +29,9 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * A conclusion about a fact applicable to a person or relationship.
+ * A conclusion about a field of a record.
  */
 @XmlType ( name = "Field", propOrder = { "label", "values" })
-@XmlRootElement
 @JsonElementWrapper ( name = "fields" )
 public class Field extends Conclusion {
 

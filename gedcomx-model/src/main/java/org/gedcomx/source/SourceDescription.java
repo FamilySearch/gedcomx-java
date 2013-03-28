@@ -36,7 +36,6 @@ import java.util.List;
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
-  private String id;
   private List<SourceCitation> citations;
   private String mediaType;
   private URI about;
@@ -47,25 +46,6 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<TextValue> titles;
   private List<Note> notes;
   private Attribution attribution;
-
-  /**
-   * A local, context-specific id for the data.
-   *
-   * @return A local, context-specific id for the data.
-   */
-  @XmlID
-  @XmlAttribute
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * A local, context-specific id for the data.
-   * @param id A local, context-specific id for the data.
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
 
   /**
    * The preferred bibliographic citation for this source.
