@@ -22,6 +22,7 @@ import org.gedcomx.common.*;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.types.ResourceType;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.*;
@@ -32,7 +33,7 @@ import java.util.List;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "extractedConclusions", "componentOf", "titles", "notes", "attribution" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "extractedConclusions", "componentOf", "titles", "notes", "attribution", "sourceType" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -47,6 +48,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<TextValue> titles;
   private List<Note> notes;
   private Attribution attribution;
+  private URI sourceType;
 
   /**
    * A local, context-specific id for the data.
@@ -65,6 +67,45 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setId(String id) {
     this.id = id;
+  }
+
+  /**
+   * The type of the resource being described.
+   *
+   * @return The type of the resource being described.
+   */
+  public URI getSourceType() {
+    return sourceType;
+  }
+
+  /**
+   * The type of the resource being described.
+   *
+   * @param sourceType The type of the resource being described.
+   */
+  public void setSourceType(URI sourceType) {
+    this.sourceType = sourceType;
+  }
+
+  /**
+   * The type of the resource being described.
+   *
+   * @return The type of the resource being described.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public ResourceType getKnownType() {
+    return getSourceType() == null ? null : ResourceType.fromQNameURI(getSourceType());
+  }
+
+  /**
+   * The type of the resource being described.
+   *
+   * @param type The type of the resource being described.
+   */
+  @JsonIgnore
+  public void setKnownType(ResourceType type) {
+    setSourceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
   }
 
   /**
