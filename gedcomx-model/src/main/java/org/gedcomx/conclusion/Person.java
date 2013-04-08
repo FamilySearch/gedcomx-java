@@ -27,10 +27,7 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.NameType;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -53,6 +50,7 @@ public class Person extends Conclusion implements HasFacts, Attributable {
   private List<Fact> facts;
   private DisplayProperties display;
   private List<SourceReference> media;
+  private URI collectionRef;
 
   /**
    * Find the long-term, persistent identifier for this person from the list of identifiers.
@@ -296,6 +294,28 @@ public class Person extends Conclusion implements HasFacts, Attributable {
    */
   public void setMedia(List<SourceReference> media) {
     this.media = media;
+  }
+
+  /**
+   * A reference to the collection containing the person.
+   *
+   * @return A reference to the collection containing the person.
+   */
+  @XmlAttribute ( name = "collection" )
+  @JsonName ( "collection" )
+  @JsonProperty ( "collection" )
+  public URI getCollectionRef() {
+    return collectionRef;
+  }
+
+  /**
+   * A reference to the collection containing the person.
+   *
+   * @param collectionRef A reference to the collection containing the person.
+   */
+  @JsonProperty ( "collection" )
+  public void setCollectionRef(URI collectionRef) {
+    this.collectionRef = collectionRef;
   }
 
   /**

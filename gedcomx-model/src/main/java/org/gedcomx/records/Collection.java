@@ -17,113 +17,129 @@ package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.TextValue;
+import org.gedcomx.common.Attributable;
+import org.gedcomx.common.Attribution;
 import org.gedcomx.common.URI;
-import org.gedcomx.conclusion.Date;
-import org.gedcomx.conclusion.PlaceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import java.util.List;
 
 /**
- * A collection of genealogical data.
+ * A collection of genealogical resources.
  *
  * @author Ryan Heaton
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
 @XmlType ( name = "Collection" )
-public class Collection extends HypermediaEnabledData {
+public class Collection extends HypermediaEnabledData implements Attributable {
 
-  private List<TextValue> titles;
-  private List<TextValue> descriptions; //todo:
-  private PlaceReference spatialCoverage;
-  private Date temporalCoverage;
-  private URI itemType;
-  //todo: recordTypeCoverage??
-  private Integer itemCount;
-  //todo: total number of items (completeness)
+  private String lang;
   private URI collectionRef;
+  private String title;
+  private String description;
+  private Integer itemCount;
+  private Float completeness;
+  private CollectionCoverage coverage;
+  private Attribution attribution;
 
   /**
-   * A list of titles for this collection.
+   * The language of this description of the collection. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *
-   * @return A list of titles for this collection.
+   * @return The language of this description of the collection
    */
-  @XmlElement (name="title")
-  @JsonProperty ("titles")
-  @JsonName ("titles")
-  public List<TextValue> getTitles() {
-    return titles;
+  @XmlAttribute ( namespace = XMLConstants.XML_NS_URI )
+  public String getLang() {
+    return lang;
   }
 
   /**
-   * A list of titles for this collection.
+   * The language of this description of the collection. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *
-   * @param titles A list of titles for this collection.
+   * @param lang The language of this description of the collection.
    */
-  @JsonProperty ("titles")
-  public void setTitles(List<TextValue> titles) {
-    this.titles = titles;
+  public void setLang(String lang) {
+    this.lang = lang;
   }
 
   /**
-   * The spatial (geographic) coverage of this collection.
+   * A reference to the parent of this collection; the collection containing this collection.
    *
-   * @return The spatial (geographic) coverage of this collection.
+   * @return A reference to the collection containing this collection.
    */
-  public PlaceReference getSpatialCoverage() {
-    return spatialCoverage;
+  @XmlAttribute ( name = "collection" )
+  @JsonName ( "collection" )
+  @JsonProperty ( "collection" )
+  public URI getCollectionRef() {
+    return collectionRef;
   }
 
   /**
-   * The spatial (geographic) coverage of this collection.
+   * A reference to the parent of this collection; the collection containing this collection.
    *
-   * @param spatialCoverage The spatial (geographic) coverage of this collection.
+   * @param collectionRef A reference to the collection containing this collection.
    */
-  public void setSpatialCoverage(PlaceReference spatialCoverage) {
-    this.spatialCoverage = spatialCoverage;
+  @JsonProperty ( "collection" )
+  public void setCollectionRef(URI collectionRef) {
+    this.collectionRef = collectionRef;
   }
 
   /**
-   * The temporal coverage (e.g. time period) of this collection.
+   * A title for the collection.
    *
-   * @return The temporal coverage (e.g. time period) of this collection.
+   * @return A title for the collection.
    */
-  public Date getTemporalCoverage() {
-    return temporalCoverage;
+  public String getTitle() {
+    return title;
   }
 
   /**
-   * The temporal coverage (e.g. time period) of this collection.
+   * A title for the collection.
    *
-   * @param temporalCoverage The temporal coverage (e.g. time period) of this collection.
+   * @param title A title for the collection.
    */
-  public void setTemporalCoverage(Date temporalCoverage) {
-    this.temporalCoverage = temporalCoverage;
+  public void setTitle(String title) {
+    this.title = title;
   }
 
   /**
-   * The data type of the individual items contained in the collection.
+   * A description for the collection.
    *
-   * @return The data type of the individual items contained in the collection.
+   * @return A description for the collection.
    */
-  public URI getItemType() {
-    return itemType;
+  public String getDescription() {
+    return description;
   }
 
   /**
-   * The data type of the individual items contained in the collection.
+   * A description for the collection.
    *
-   * @param itemType The data type of the individual items contained in the collection.
+   * @param description A description for the collection.
    */
-  public void setItemType(URI itemType) {
-    this.itemType = itemType;
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
+   * The coverage of the collection.
+   *
+   * @return The coverage of the collection.
+   */
+  public CollectionCoverage getCoverage() {
+    return coverage;
+  }
+
+  /**
+   * The coverage of the collection.
+   *
+   * @param coverage The coverage of the collection.
+   */
+  public void setCoverage(CollectionCoverage coverage) {
+    this.coverage = coverage;
   }
 
   /**
@@ -131,6 +147,7 @@ public class Collection extends HypermediaEnabledData {
    *
    * @return The count of the total number of items in this collection.
    */
+  @XmlAttribute
   public Integer getItemCount() {
     return itemCount;
   }
@@ -145,24 +162,42 @@ public class Collection extends HypermediaEnabledData {
   }
 
   /**
-   * A reference to the collection containing this collection.
+   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
+   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1.
    *
-   * @return A reference to the collection containing this collection.
+   * @return A completeness factor for the collection, a value between 0 and 1.
    */
-  @XmlAttribute ( name = "collection" )
-  @JsonName ( "collection" )
-  @JsonProperty ( "collection" )
-  public URI getCollectionRef() {
-    return collectionRef;
+  public Float getCompleteness() {
+    return completeness;
   }
 
   /**
-   * A reference to the collection containing this collection.
+   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
+   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1.
    *
-   * @param collectionRef A reference to the collection containing this collection.
+   * @param completeness A completeness factor for the collection, a value between 0 and 1.
    */
-  @JsonProperty ( "collection" )
-  public void setCollectionRef(URI collectionRef) {
-    this.collectionRef = collectionRef;
+  public void setCompleteness(Float completeness) {
+    this.completeness = completeness;
+  }
+
+  /**
+   * Attribution metadata for this collection.
+   *
+   * @return Attribution metadata for this collection.
+   */
+  @Override
+  public Attribution getAttribution() {
+    return attribution;
+  }
+
+  /**
+   * Attribution metadata for this collection.
+   *
+   * @param attribution Attribution metadata for this collection.
+   */
+  @Override
+  public void setAttribution(Attribution attribution) {
+    this.attribution = attribution;
   }
 }
