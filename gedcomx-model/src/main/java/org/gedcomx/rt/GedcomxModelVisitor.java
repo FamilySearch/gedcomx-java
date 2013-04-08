@@ -19,6 +19,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
+import org.gedcomx.records.Collection;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.Record;
 import org.gedcomx.records.RecordDescriptor;
@@ -48,6 +49,8 @@ public interface GedcomxModelVisitor {
   void visitSourceDescription(SourceDescription sourceDescription);
 
   void visitSourceCitation(SourceCitation citation);
+
+  void visitCollection(Collection collection);
 
   void visitRecord(Record record);
 

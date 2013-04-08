@@ -21,6 +21,7 @@ import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.records.Collection;
 import org.gedcomx.records.Record;
 import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.rt.GedcomxConstants;
@@ -73,7 +74,7 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
-@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "records", "recordDescriptors" })
+@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "records", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
@@ -85,6 +86,7 @@ public class Gedcomx extends HypermediaEnabledData {
   private List<Event> events;
   private List<PlaceDescription> places;
   private List<Document> documents;
+  private List<Collection> collections;
   private List<Record> records;
   private List<RecordDescriptor> recordDescriptors;
 
@@ -279,6 +281,28 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("documents")
   public void setDocuments(List<Document> documents) {
     this.documents = documents;
+  }
+
+  /**
+   * The collections included in this genealogical data set.
+   *
+   * @return The collections included in this genealogical data set.
+   */
+  @XmlElement (name="collection")
+  @JsonProperty ("collections")
+  @JsonName ("collections")
+  public List<Collection> getCollections() {
+    return collections;
+  }
+
+  /**
+   * The collections included in this genealogical data set.
+   *
+   * @param collections The collections included in this genealogical data set.
+   */
+  @JsonProperty ("collections")
+  public void setCollections(List<Collection> collections) {
+    this.collections = collections;
   }
 
   /**

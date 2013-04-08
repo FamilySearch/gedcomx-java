@@ -19,6 +19,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
+import org.gedcomx.records.Collection;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.Record;
 import org.gedcomx.records.RecordDescriptor;
@@ -203,6 +204,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
   @Override
   public void visitSourceCitation(SourceCitation citation) {
+    //no-op.
+  }
+
+  @Override
+  public void visitCollection(Collection collection) {
     //no-op.
   }
 
