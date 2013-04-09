@@ -74,9 +74,9 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   }
 
   /**
-   * The known type of the field value.
+   * The known type of the record.
    *
-   * @return The type of the field value.
+   * @return The type of the record.
    */
   @XmlTransient
   @JsonIgnore
@@ -85,9 +85,9 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   }
 
   /**
-   * The type of the field value.
+   * The type of the record.
    *
-   * @param type The type of the field value.
+   * @param type The type of the record.
    */
   @JsonIgnore
   public void setKnownType(RecordType type) {

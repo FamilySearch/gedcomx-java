@@ -15,13 +15,17 @@
  */
 package org.gedcomx.records;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.conclusion.PlaceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.types.RecordType;
+import org.gedcomx.types.ResourceType;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
@@ -37,7 +41,8 @@ public class CollectionCoverage extends HypermediaEnabledData {
 
   private PlaceReference spatial;
   private Date temporal;
-  private List<URI> resourceType;
+  private URI resourceType;
+  private URI recordType;
 
   /**
    * Spatial coverage. The geographic area(s) covered by the collection.
@@ -76,20 +81,81 @@ public class CollectionCoverage extends HypermediaEnabledData {
   }
 
   /**
-   * Resource type coverage. The types of resources enclosed by the collection.
+   * The type of resource being covered in this collection.
    *
-   * @return Resource type coverage.
+   * @return The type of resource being covered in this collection.
    */
-  public List<URI> getResourceType() {
+  public URI getResourceType() {
     return resourceType;
   }
 
   /**
-   * Resource type coverage. The types of resources enclosed by the collection.
+   * The type of resource being covered in this collection.
    *
-   * @param resourceType Resource type coverage.
+   * @param resourceType The type of resource being covered in this collection.
    */
-  public void setResourceType(List<URI> resourceType) {
+  public void setResourceType(URI resourceType) {
     this.resourceType = resourceType;
   }
+
+  /**
+   * The type of resource being covered in this collection.
+   *
+   * @return The type of resource being covered in this collection.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public ResourceType getKnownResourceType() {
+    return getResourceType() == null ? null : ResourceType.fromQNameURI(getResourceType());
+  }
+
+  /**
+   * The type of resource being covered in this collection.
+   *
+   * @param type The type of resource being covered in this collection.
+   */
+  @JsonIgnore
+  public void setKnownResourceType(ResourceType type) {
+    setResourceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
+
+  /**
+   * The type of record being covered in this collection, if any.
+   *
+   * @return The type of record being covered in this collection.
+   */
+  public URI getRecordType() {
+    return recordType;
+  }
+
+  /**
+   * The type of record being covered in this collection, if any.
+   *
+   * @param recordType The type of record being covered in this collection.
+   */
+  public void setRecordType(URI recordType) {
+    this.recordType = recordType;
+  }
+
+  /**
+   * The type of record being covered in this collection, if any.
+   *
+   * @return The type of record being covered in this collection, if any.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public RecordType getKnownRecordType() {
+    return getRecordType() == null ? null : RecordType.fromQNameURI(getRecordType());
+  }
+
+  /**
+   * The type of record being covered in this collection, if any.
+   *
+   * @param type The type of record being covered in this collection, if any.
+   */
+  @JsonIgnore
+  public void setKnownRecordType(RecordType type) {
+    setRecordType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
+
 }
