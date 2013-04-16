@@ -21,7 +21,7 @@ import org.gedcomx.common.URI;
 
 
 /**
- * Enumeration of standard name part types.
+ * Enumeration of standard name part qualifiers.
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI

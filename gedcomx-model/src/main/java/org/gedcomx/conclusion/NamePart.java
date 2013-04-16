@@ -19,6 +19,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -41,7 +42,7 @@ public final class NamePart extends ExtensibleData {
 
   private URI type;
   private String value;
-  private List<ResourceReference> qualifiers;
+  private List<Qualifier> qualifiers;
 
   /**
    * The type of the name part.
@@ -110,7 +111,7 @@ public final class NamePart extends ExtensibleData {
   @XmlElement (name = "qualifier")
   @JsonName ("qualifiers")
   @JsonProperty ("qualifiers")
-  public List<ResourceReference> getQualifiers() {
+  public List<Qualifier> getQualifiers() {
     return qualifiers;
   }
 
@@ -119,7 +120,7 @@ public final class NamePart extends ExtensibleData {
    * @param qualifiers qualifiers to associate with this name part
    */
   @JsonProperty ("qualifiers")
-  public void setQualifiers(List<ResourceReference> qualifiers) {
+  public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
   }
 

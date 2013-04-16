@@ -1,6 +1,6 @@
 package org.gedcomx.conclusion;
 
-import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.test.RecipeTest;
@@ -135,13 +135,13 @@ public class PersonRecipesTest extends RecipeTest {
     name.getNameForms().get(0).getParts().add(new NamePart());
     name.getNameForms().get(0).getParts().get(0).setKnownType(NamePartType.Given);
     name.getNameForms().get(0).getParts().get(0).setValue("Никола́й");
-    name.getNameForms().get(0).getParts().get(0).setQualifiers(new ArrayList<ResourceReference>());
-    name.getNameForms().get(0).getParts().get(0).getQualifiers().add(new ResourceReference(NamePartQualifierType.Primary.toQNameURI()));
+    name.getNameForms().get(0).getParts().get(0).setQualifiers(new ArrayList<Qualifier>());
+    name.getNameForms().get(0).getParts().get(0).getQualifiers().add(new Qualifier(NamePartQualifierType.Primary));
     name.getNameForms().get(0).getParts().add(new NamePart());
     name.getNameForms().get(0).getParts().get(1).setKnownType(NamePartType.Given);
     name.getNameForms().get(0).getParts().get(1).setValue("Андре́евич");
-    name.getNameForms().get(0).getParts().get(1).setQualifiers(new ArrayList<ResourceReference>());
-    name.getNameForms().get(0).getParts().get(1).getQualifiers().add(new ResourceReference(NamePartQualifierType.Secondary.toQNameURI()));
+    name.getNameForms().get(0).getParts().get(1).setQualifiers(new ArrayList<Qualifier>());
+    name.getNameForms().get(0).getParts().get(1).getQualifiers().add(new Qualifier(NamePartQualifierType.Secondary));
     name.getNameForms().get(0).getParts().add(new NamePart());
     name.getNameForms().get(0).getParts().get(2).setKnownType(NamePartType.Surname);
     name.getNameForms().get(0).getParts().get(2).setValue("Ри́мский-Ко́рсаков");
@@ -153,13 +153,13 @@ public class PersonRecipesTest extends RecipeTest {
     name.getNameForms().get(1).getParts().add(new NamePart());
     name.getNameForms().get(1).getParts().get(0).setKnownType(NamePartType.Given);
     name.getNameForms().get(1).getParts().get(0).setValue("Nikolai");
-    name.getNameForms().get(1).getParts().get(0).setQualifiers(new ArrayList<ResourceReference>());
-    name.getNameForms().get(1).getParts().get(0).getQualifiers().add(new ResourceReference(NamePartQualifierType.Primary.toQNameURI()));
+    name.getNameForms().get(1).getParts().get(0).setQualifiers(new ArrayList<Qualifier>());
+    name.getNameForms().get(1).getParts().get(0).getQualifiers().add(new Qualifier(NamePartQualifierType.Primary));
     name.getNameForms().get(1).getParts().add(new NamePart());
     name.getNameForms().get(1).getParts().get(1).setKnownType(NamePartType.Given);
     name.getNameForms().get(1).getParts().get(1).setValue("Andreyevich");
-    name.getNameForms().get(1).getParts().get(1).setQualifiers(new ArrayList<ResourceReference>());
-    name.getNameForms().get(1).getParts().get(1).getQualifiers().add(new ResourceReference(NamePartQualifierType.Secondary.toQNameURI()));
+    name.getNameForms().get(1).getParts().get(1).setQualifiers(new ArrayList<Qualifier>());
+    name.getNameForms().get(1).getParts().get(1).getQualifiers().add(new Qualifier(NamePartQualifierType.Secondary));
     name.getNameForms().get(1).getParts().add(new NamePart());
     name.getNameForms().get(1).getParts().get(2).setKnownType(NamePartType.Surname);
     name.getNameForms().get(1).getParts().get(2).setValue("Rimsky-Korsakov");
