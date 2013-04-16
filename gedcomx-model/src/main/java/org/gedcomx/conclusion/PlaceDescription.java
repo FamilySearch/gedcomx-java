@@ -21,6 +21,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.source.SourceReference;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -35,7 +36,7 @@ import java.util.List;
  * and possibly its type, time period, and/or a geospatial description -- a description
  * of a place as a snapshot in time.
  */
-@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "identifiers" } )
+@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "identifiers", "media" } )
 public class PlaceDescription extends Conclusion {
 
   private URI about;
@@ -46,6 +47,7 @@ public class PlaceDescription extends Conclusion {
   private Double longitude;
   private ResourceReference spatialDescription;
   private List<Identifier> identifiers;
+  private List<SourceReference> media;
 
   /**
    * A uniform resource identifier (URI) for the place being described. This can be used for associating descriptions of the same place.  OPTIONAL.
@@ -212,6 +214,24 @@ public class PlaceDescription extends Conclusion {
   @JsonProperty ("identifiers")
   public void setIdentifiers(List<Identifier> identifiers) {
     this.identifiers = identifiers;
+  }
+
+  /**
+   * References to multimedia resources associated with this person.
+   *
+   * @return References to multimedia resources associated with this person.
+   */
+  public List<SourceReference> getMedia() {
+    return media;
+  }
+
+  /**
+   * References to multimedia resources associated with this person.
+   *
+   * @param media References to multimedia resources associated with this person.
+   */
+  public void setMedia(List<SourceReference> media) {
+    this.media = media;
   }
 
   /**

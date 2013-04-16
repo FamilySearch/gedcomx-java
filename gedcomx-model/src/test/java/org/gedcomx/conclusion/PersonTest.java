@@ -139,7 +139,7 @@ public class PersonTest {
     person.setIdentifiers(identifiers);
 
     Fact fact = new Fact();
-    fact.setKnownConfidenceLevel(ConfidenceLevel.Certainly);
+    fact.setKnownConfidenceLevel(ConfidenceLevel.High);
     fact.setDate(new Date());
     fact.getDate().setOriginal("original date");
     fact.getDate().setFormal("formal");
@@ -232,7 +232,7 @@ public class PersonTest {
 
     assertEquals(2, person.getFacts().size());
     fact = person.getFirstFactOfType(FactType.Occupation);
-    assertEquals(ConfidenceLevel.Certainly, fact.getKnownConfidenceLevel());
+    assertEquals(ConfidenceLevel.High, fact.getKnownConfidenceLevel());
     assertEquals("original date", fact.getDate().getOriginal());
     assertEquals("formal", fact.getDate().getFormal());
     assertEquals("normalized date", fact.getDate().getNormalizedExtensions().get(0).getValue());
