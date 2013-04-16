@@ -23,10 +23,8 @@ import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.source.SourceReference;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
