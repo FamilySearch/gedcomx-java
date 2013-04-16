@@ -44,7 +44,7 @@ import java.util.List;
 public class Person extends Conclusion implements HasFacts, Attributable {
 
   private List<Identifier> identifiers;
-  private Boolean persona;
+  private Boolean extracted;
   private Boolean living;
   private Gender gender;
   private List<Name> names;
@@ -98,22 +98,22 @@ public class Person extends Conclusion implements HasFacts, Attributable {
   }
 
   /**
-   * Whether this person has been identified as a persona, meaning it captures data as extracted from a single source.
+   * Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
    *
-   * @return Whether this person has been identified as a persona, meaning it captures data as extracted from a single source.
+   * @return Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
    */
   @XmlAttribute
-  public Boolean getPersona() {
-    return persona;
+  public Boolean getExtracted() {
+    return extracted;
   }
 
   /**
-   * Whether this person has been identified as a persona, meaning it captures data as extracted from a single source.
+   * Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
    *
-   * @param persona Whether this person has been identified as a persona, meaning it captures data as extracted from a single source.
+   * @param extracted Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
    */
-  public void setPersona(Boolean persona) {
-    this.persona = persona;
+  public void setExtracted(Boolean extracted) {
+    this.extracted = extracted;
   }
 
   /**

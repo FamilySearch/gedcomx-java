@@ -43,6 +43,7 @@ import java.util.List;
 public class Relationship extends Conclusion implements HasFacts, Attributable {
 
   private URI type;
+  private Boolean extracted;
   private ResourceReference person1;
   private ResourceReference person2;
   private List<Fact> facts;
@@ -65,6 +66,25 @@ public class Relationship extends Conclusion implements HasFacts, Attributable {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
+   *
+   * @return Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
+   */
+  @XmlAttribute
+  public Boolean getExtracted() {
+    return extracted;
+  }
+
+  /**
+   * Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
+   *
+   * @param extracted Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
+   */
+  public void setExtracted(Boolean extracted) {
+    this.extracted = extracted;
   }
 
   /**
