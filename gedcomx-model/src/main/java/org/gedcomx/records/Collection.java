@@ -19,6 +19,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -26,6 +27,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -40,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
-  private URI collectionRef;
+  private ResourceReference collectionRef;
   private String title;
   private String description;
   private Integer itemCount;
@@ -72,10 +74,10 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    *
    * @return A reference to the collection containing this collection.
    */
-  @XmlAttribute ( name = "collection" )
+  @XmlElement ( name = "collection" )
   @JsonName ( "collection" )
   @JsonProperty ( "collection" )
-  public URI getCollectionRef() {
+  public ResourceReference getCollectionRef() {
     return collectionRef;
   }
 
@@ -85,7 +87,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    * @param collectionRef A reference to the collection containing this collection.
    */
   @JsonProperty ( "collection" )
-  public void setCollectionRef(URI collectionRef) {
+  public void setCollectionRef(ResourceReference collectionRef) {
     this.collectionRef = collectionRef;
   }
 

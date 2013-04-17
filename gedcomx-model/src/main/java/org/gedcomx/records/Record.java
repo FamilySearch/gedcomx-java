@@ -39,7 +39,7 @@ import java.util.List;
  * of the sources from which the data is being extracted.
  */
 @XmlRootElement
-@XmlType ( name = "Record", propOrder = { "sources", "identifiers", "principalPersons", "primaryEvent", "fields", "notes", "attribution" } )
+@XmlType ( name = "Record", propOrder = { "sources", "identifiers", "principalPersons", "primaryEvent", "collectionRef", "descriptorRef", "fields", "notes", "attribution" } )
 @JsonElementWrapper ( name = "records" )
 public class Record extends HypermediaEnabledData implements Attributable, HasNotes {
 
@@ -51,8 +51,8 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   private List<Field> fields;
   private List<Note> notes;
   private Attribution attribution;
-  private URI descriptorRef;
-  private URI collectionRef;
+  private ResourceReference descriptorRef;
+  private ResourceReference collectionRef;
 
   /**
    * The type of the field value.
@@ -304,10 +304,10 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    *
    * @return A reference to a descriptor for the record.
    */
-  @XmlAttribute ( name = "descriptor" )
+  @XmlElement ( name = "descriptor" )
   @JsonName ( "descriptor" )
   @JsonProperty ( "descriptor" )
-  public URI getDescriptorRef() {
+  public ResourceReference getDescriptorRef() {
     return descriptorRef;
   }
 
@@ -317,7 +317,7 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    * @param descriptorRef A reference to a descriptor for the record.
    */
   @JsonProperty ( "descriptor" )
-  public void setDescriptorRef(URI descriptorRef) {
+  public void setDescriptorRef(ResourceReference descriptorRef) {
     this.descriptorRef = descriptorRef;
   }
 
@@ -326,10 +326,10 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    *
    * @return A reference to the collection containing the record.
    */
-  @XmlAttribute ( name = "collection" )
+  @XmlElement ( name = "collection" )
   @JsonName ( "collection" )
   @JsonProperty ( "collection" )
-  public URI getCollectionRef() {
+  public ResourceReference getCollectionRef() {
     return collectionRef;
   }
 
@@ -339,7 +339,7 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    * @param collectionRef A reference to the collection containing the record.
    */
   @JsonProperty ( "collection" )
-  public void setCollectionRef(URI collectionRef) {
+  public void setCollectionRef(ResourceReference collectionRef) {
     this.collectionRef = collectionRef;
   }
 
