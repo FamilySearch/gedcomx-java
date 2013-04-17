@@ -16,15 +16,17 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.types.FieldType;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
@@ -58,7 +60,27 @@ public class Field extends Conclusion {
     this.type = type;
   }
 
-  //todo: known field types?
+  /**
+   * The known type of the field.
+   *
+   * @return The type of the field.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public FieldType getKnownType() {
+    return getType() == null ? null : FieldType.fromQNameURI(getType());
+  }
+
+  /**
+   * The type of the field.
+   *
+   * @param type The type of the field.
+   */
+  @JsonIgnore
+  public void setKnownType(FieldType type) {
+    setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
+
 
   /**
    * A unique label for the field.

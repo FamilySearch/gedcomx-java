@@ -20,21 +20,68 @@ import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 
 /**
- * Enumeration of known age fields.
+ * Enumeration of known fields.
  *
  * @author Ryan Heaton
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum AgeFieldType {
+public enum FieldType {
 
+  //high-level fields
   Age,
+  Date,
+  Place,
+  Gender,
+  Name,
+  Role,
+
+  //age fields
   Years,
   Months,
   Days,
   Hours,
   Minutes,
+
+  //date fields
+  Year,
+  Month,
+  Day,
+  Hour,
+  Minute,
+
+  //place fields
+  Address,
+  Cemetery,
+  City,
+  Church,
+  County,
+  Country,
+  District,
+  Hospital,
+  Island,
+  MilitaryBase,
+  Mortuary,
+  Parish,
+  PlotNumber,
+  PostOffice,
+  PostalCode,
+  Prison,
+  Province,
+  Section,
+  Ship,
+  State,
+  Territory,
+  Town,
+  Township,
+  Ward,
+
+  //name types
+  Prefix,
+  Suffix,
+  Given,
+  Surname,
 
   /**
    * Custom
@@ -57,8 +104,8 @@ public enum AgeFieldType {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static AgeFieldType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), AgeFieldType.class);
+  public static FieldType fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FieldType.class);
   }
 
 }
