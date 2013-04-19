@@ -36,10 +36,13 @@ import javax.xml.bind.annotation.XmlType;
 @JsonElementWrapper (name = "documents")
 @XmlType(name = "Document", propOrder = { "text" })
 public class Document extends Conclusion implements HasText, Attributable {
+  
+  public static final String TEXT_TYPE_PLAIN = "plain";
+  public static final String TEXT_TYPE_XHTML = "xhtml";
 
   private URI type;
+  private String textType;
   private String text;
-
 
   /**
    * The type of the document.
@@ -58,6 +61,49 @@ public class Document extends Conclusion implements HasText, Attributable {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Whether the text of the document is to be interpreted as plain text (as opposed to XHTML).
+   * 
+   * @return Whether the text of the document is to be interpreted as plain text (as opposed to XHTML).
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.enunciate.json.JsonIgnore
+  public boolean isPlainText() {
+    return this.textType == null || TEXT_TYPE_PLAIN.equals(this.textType);
+  }
+
+  /**
+   * Whether the text of the document is to be interpreted as XHTML text (as opposed to plain text).
+   * 
+   * @return Whether the text of the document is to be interpreted as XHTML text (as opposed to plain text).
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.enunciate.json.JsonIgnore
+  public boolean isXhtmlText() {
+    return TEXT_TYPE_XHTML.equals(this.textType);
+  }
+
+  /**
+   * The text type of the document.
+   * 
+   * @return The text type of the document.
+   */
+  @XmlAttribute
+  public String getTextType() {
+    return textType;
+  }
+
+  /**
+   * The text type of the document.
+   * 
+   * @param textType The text type of the document.
+   */
+  public void setTextType(String textType) {
+    this.textType = textType;
   }
 
   /**

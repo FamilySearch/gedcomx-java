@@ -23,10 +23,8 @@ import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.source.SourceReference;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
@@ -39,7 +37,7 @@ import java.util.List;
 @XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "identifiers", "media" } )
 public class PlaceDescription extends Conclusion {
 
-  private URI about;
+  private Boolean extracted;
   private List<TextValue> names;
   private URI type;
   private Date temporalDescription;
@@ -50,23 +48,22 @@ public class PlaceDescription extends Conclusion {
   private List<SourceReference> media;
 
   /**
-   * A uniform resource identifier (URI) for the place being described. This can be used for associating descriptions of the same place.  OPTIONAL.
+   * Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
    *
-   * @return A uniform resource identifier (URI) for the place being described.
+   * @return Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
    */
   @XmlAttribute
-  @XmlSchemaType (name = "anyURI", namespace = XMLConstants.W3C_XML_SCHEMA_NS_URI)
-  public URI getAbout() {
-    return about;
+  public Boolean getExtracted() {
+    return extracted;
   }
 
   /**
-   * A uniform resource identifier (URI) for the place being described. This can be used for associating descriptions of the same place.  OPTIONAL.
+   * Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
    *
-   * @param about A uniform resource identifier (URI) for the place being described.
+   * @param extracted Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
    */
-  public void setAbout(URI about) {
-    this.about = about;
+  public void setExtracted(Boolean extracted) {
+    this.extracted = extracted;
   }
 
   /**

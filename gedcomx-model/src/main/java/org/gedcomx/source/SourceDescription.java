@@ -33,7 +33,7 @@ import java.util.List;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "extractedConclusions", "componentOf", "titles", "notes", "attribution", "sourceType" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "componentOf", "titles", "notes", "attribution" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -43,12 +43,11 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private URI about;
   private ResourceReference mediator;
   private List<SourceReference> sources;
-  private List<ResourceReference> extractedConclusions;
   private SourceReference componentOf;
   private List<TextValue> titles;
   private List<Note> notes;
   private Attribution attribution;
-  private URI sourceType;
+  private URI resourceType;
 
   /**
    * A local, context-specific id for the data.
@@ -74,17 +73,18 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The type of the resource being described.
    */
-  public URI getSourceType() {
-    return sourceType;
+  @XmlAttribute
+  public URI getResourceType() {
+    return resourceType;
   }
 
   /**
    * The type of the resource being described.
    *
-   * @param sourceType The type of the resource being described.
+   * @param resourceType The type of the resource being described.
    */
-  public void setSourceType(URI sourceType) {
-    this.sourceType = sourceType;
+  public void setResourceType(URI resourceType) {
+    this.resourceType = resourceType;
   }
 
   /**
@@ -95,7 +95,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @XmlTransient
   @JsonIgnore
   public ResourceType getKnownType() {
-    return getSourceType() == null ? null : ResourceType.fromQNameURI(getSourceType());
+    return getResourceType() == null ? null : ResourceType.fromQNameURI(getResourceType());
   }
 
   /**
@@ -105,7 +105,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   @JsonIgnore
   public void setKnownType(ResourceType type) {
-    setSourceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setResourceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
   }
 
   /**
@@ -229,28 +229,6 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonProperty ("sources")
   public void setSources(List<SourceReference> sources) {
     this.sources = sources;
-  }
-
-  /**
-   * References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   *
-   * @return References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   */
-  @XmlElement (name="extractedConclusion")
-  @JsonProperty ("extractedConclusions")
-  @JsonName ("extractedConclusions")
-  public List<ResourceReference> getExtractedConclusions() {
-    return extractedConclusions;
-  }
-
-  /**
-   * References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   *
-   * @param extractedConclusions References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-   */
-  @JsonProperty ("extractedConclusions")
-  public void setExtractedConclusions(List<ResourceReference> extractedConclusions) {
-    this.extractedConclusions = extractedConclusions;
   }
 
   /**

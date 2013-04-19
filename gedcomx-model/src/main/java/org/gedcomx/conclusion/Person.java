@@ -27,10 +27,7 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.NameType;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +44,7 @@ import java.util.List;
 public class Person extends Conclusion implements HasFacts, Attributable {
 
   private List<Identifier> identifiers;
+  private Boolean extracted;
   private Boolean living;
   private Gender gender;
   private List<Name> names;
@@ -97,6 +95,25 @@ public class Person extends Conclusion implements HasFacts, Attributable {
     identifier.setKnownType(IdentifierType.Persistent);
     identifier.setValue(persistentId);
     this.identifiers.add(identifier);
+  }
+
+  /**
+   * Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
+   *
+   * @return Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
+   */
+  @XmlAttribute
+  public Boolean getExtracted() {
+    return extracted;
+  }
+
+  /**
+   * Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
+   *
+   * @param extracted Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
+   */
+  public void setExtracted(Boolean extracted) {
+    this.extracted = extracted;
   }
 
   /**
