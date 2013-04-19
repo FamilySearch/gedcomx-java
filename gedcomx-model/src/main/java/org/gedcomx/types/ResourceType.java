@@ -28,11 +28,6 @@ import org.gedcomx.common.URI;
 public enum ResourceType {
 
   /**
-   * A person.
-   */
-  Person,
-
-  /**
    * A historical record.
    */
   Record,
@@ -51,11 +46,6 @@ public enum ResourceType {
    * A physical artifact.
    */
   PhysicalArtifact,
-
-  /**
-   * Negative evidence. The absence of information. Sometimes useful to help researchers draw conclusions.
-   */
-  NegativeEvidence,
 
   @XmlUnknownQNameEnumValue
   OTHER;
