@@ -40,6 +40,7 @@ import java.util.List;
 public class Event extends Conclusion implements HasDateAndPlace, Attributable {
 
   private URI type;
+  private Boolean extracted;
   private Date date;
   private PlaceReference place;
   private List<EventRole> roles;
@@ -111,6 +112,25 @@ public class Event extends Conclusion implements HasDateAndPlace, Attributable {
   @JsonIgnore
   public void setKnownType(org.gedcomx.types.EventType knownType) {
     setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+  }
+
+  /**
+   * Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
+   *
+   * @return Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
+   */
+  @XmlAttribute
+  public Boolean getExtracted() {
+    return extracted;
+  }
+
+  /**
+   * Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
+   *
+   * @param extracted Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
+   */
+  public void setExtracted(Boolean extracted) {
+    this.extracted = extracted;
   }
 
   /**
