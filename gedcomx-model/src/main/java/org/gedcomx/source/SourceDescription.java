@@ -33,7 +33,7 @@ import java.util.List;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "componentOf", "titles", "notes", "attribution" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "notes", "attribution" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -42,6 +42,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private URI about;
   private ResourceReference mediator;
   private List<SourceReference> sources;
+  private ResourceReference analysis;
   private SourceReference componentOf;
   private List<TextValue> titles;
   private List<Note> notes;
@@ -209,6 +210,24 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonProperty ("sources")
   public void setSources(List<SourceReference> sources) {
     this.sources = sources;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this description of the source.
+   *
+   * @return A reference to the analysis document explaining the analysis that went into this description of the source.
+   */
+  public ResourceReference getAnalysis() {
+    return analysis;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this description of the source.
+   *
+   * @param analysis A reference to the analysis document explaining the analysis that went into this description of the source.
+   */
+  public void setAnalysis(ResourceReference analysis) {
+    this.analysis = analysis;
   }
 
   /**

@@ -40,104 +40,15 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
-@XmlType ( name = "Person", propOrder = { "identifiers", "living", "gender", "names", "facts", "media", "displayExtension"} )
-public class Person extends Conclusion implements HasFacts, Attributable {
+@XmlType ( name = "Person", propOrder = { "living", "gender", "names", "facts", "displayExtension"} )
+public class Person extends Subject implements HasFacts {
 
-  private List<Identifier> identifiers;
-  private Boolean extracted;
   private Boolean living;
   private Gender gender;
   private List<Name> names;
   private List<Fact> facts;
   private DisplayProperties display;
-  private List<SourceReference> media;
   private URI collectionRef;
-
-  /**
-   * Find the long-term, persistent identifier for this person from the list of identifiers.
-   *
-   * @return The long-term, persistent identifier for this person.
-   */
-  @XmlTransient
-  @JsonIgnore
-  public URI getPersistentId() {
-    URI identifier = null;
-    if (this.identifiers != null) {
-      for (Identifier id : this.identifiers) {
-        if (IdentifierType.Persistent.equals(id.getKnownType())) {
-          identifier = id.getValue();
-          break;
-        }
-      }
-    }
-    return identifier;
-  }
-
-  /**
-   * A long-term, persistent, globally unique identifier for this person.
-   *
-   * @param persistentId A long-term, persistent, globally unique identifier for this person.
-   */
-  @JsonIgnore
-  public void setPersistentId(URI persistentId) {
-    if (this.identifiers == null) {
-      this.identifiers = new ArrayList<Identifier>();
-    }
-
-    //clear out any other primary ids.
-    Iterator<Identifier> it = this.identifiers.iterator();
-    while (it.hasNext()) {
-      if (IdentifierType.Persistent.equals(it.next().getKnownType())) {
-        it.remove();
-      }
-    }
-
-    Identifier identifier = new Identifier();
-    identifier.setKnownType(IdentifierType.Persistent);
-    identifier.setValue(persistentId);
-    this.identifiers.add(identifier);
-  }
-
-  /**
-   * Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
-   *
-   * @return Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
-   */
-  @XmlAttribute
-  public Boolean getExtracted() {
-    return extracted;
-  }
-
-  /**
-   * Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
-   *
-   * @param extracted Whether this person has been identified as a persona, meaning it captures information extracted from a single source.
-   */
-  public void setExtracted(Boolean extracted) {
-    this.extracted = extracted;
-  }
-
-  /**
-   * The list of identifiers for the person.
-   *
-   * @return The list of identifiers for the person.
-   */
-  @XmlElement (name="identifier")
-  @JsonProperty ("identifiers")
-  @JsonName ("identifiers")
-  public List<Identifier> getIdentifiers() {
-    return identifiers;
-  }
-
-  /**
-   * The list of identifiers of the person.
-   *
-   * @param identifiers The list of identifiers of the person.
-   */
-  @JsonProperty ("identifiers")
-  public void setIdentifiers(List<Identifier> identifiers) {
-    this.identifiers = identifiers;
-  }
 
   /**
    * Living status of the person as treated by the system. The value of this property is intended
@@ -296,24 +207,6 @@ public class Person extends Conclusion implements HasFacts, Attributable {
       }
       facts.add(fact);
     }
-  }
-
-  /**
-   * References to multimedia resources associated with this person.
-   *
-   * @return References to multimedia resources associated with this person.
-   */
-  public List<SourceReference> getMedia() {
-    return media;
-  }
-
-  /**
-   * References to multimedia resources associated with this person.
-   *
-   * @param media References to multimedia resources associated with this person.
-   */
-  public void setMedia(List<SourceReference> media) {
-    this.media = media;
   }
 
   /**
