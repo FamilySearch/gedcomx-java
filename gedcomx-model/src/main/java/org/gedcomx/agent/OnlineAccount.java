@@ -15,6 +15,7 @@
  */
 package org.gedcomx.agent;
 
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 
 import javax.xml.bind.annotation.XmlType;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlType( name = "OnlineAccount" )
-public class OnlineAccount {
+public class OnlineAccount extends ExtensibleData {
 
   private ResourceReference serviceHomepage;
   private String accountName;

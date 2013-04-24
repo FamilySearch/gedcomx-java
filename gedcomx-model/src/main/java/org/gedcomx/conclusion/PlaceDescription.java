@@ -21,7 +21,6 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
-import org.gedcomx.source.SourceReference;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,37 +33,15 @@ import java.util.List;
  * and possibly its type, time period, and/or a geospatial description -- a description
  * of a place as a snapshot in time.
  */
-@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "identifiers", "media" } )
-public class PlaceDescription extends Conclusion {
+@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription" } )
+public class PlaceDescription extends Subject {
 
-  private Boolean extracted;
   private List<TextValue> names;
   private URI type;
   private Date temporalDescription;
   private Double latitude;
   private Double longitude;
   private ResourceReference spatialDescription;
-  private List<Identifier> identifiers;
-  private List<SourceReference> media;
-
-  /**
-   * Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
-   *
-   * @return Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
-   */
-  @XmlAttribute
-  public Boolean getExtracted() {
-    return extracted;
-  }
-
-  /**
-   * Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
-   *
-   * @param extracted Whether this place description has been identified as "extracted", meaning it captures information extracted from a single source.
-   */
-  public void setExtracted(Boolean extracted) {
-    this.extracted = extracted;
-  }
 
   /**
    * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
@@ -189,46 +166,6 @@ public class PlaceDescription extends Conclusion {
    */
   public void setSpatialDescription(ResourceReference spatialDescription) {
     this.spatialDescription = spatialDescription;
-  }
-
-  /**
-   * A list of known identifiers for this place description (e.g., identifiers for a description in place authority).
-   *
-   * @return A list of known identifiers for this place description.
-   */
-  @XmlElement (name = "identifier")
-  @JsonName ("identifiers")
-  @JsonProperty ("identifiers")
-  public List<Identifier> getIdentifiers() {
-    return identifiers;
-  }
-
-  /**
-   * A list of known identifiers for this place description (e.g., identifiers for a description in place authority).
-   *
-   * @param identifiers A list of known identifiers for this place description.
-   */
-  @JsonProperty ("identifiers")
-  public void setIdentifiers(List<Identifier> identifiers) {
-    this.identifiers = identifiers;
-  }
-
-  /**
-   * References to multimedia resources associated with this person.
-   *
-   * @return References to multimedia resources associated with this person.
-   */
-  public List<SourceReference> getMedia() {
-    return media;
-  }
-
-  /**
-   * References to multimedia resources associated with this person.
-   *
-   * @param media References to multimedia resources associated with this person.
-   */
-  public void setMedia(List<SourceReference> media) {
-    this.media = media;
   }
 
   /**

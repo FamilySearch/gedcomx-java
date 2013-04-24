@@ -35,7 +35,7 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "Conclusion", propOrder = { "attribution", "sources", "notes" })
+@XmlType ( name = "Conclusion", propOrder = { "attribution", "sources", "analysis", "notes" })
 public abstract class Conclusion extends HypermediaEnabledData implements Attributable, ReferencesSources, HasNotes {
 
   private String id;
@@ -44,6 +44,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   private List<SourceReference> sources;
   private List<Note> notes;
   private Attribution attribution;
+  private ResourceReference analysis;
 
   /**
    * A local, context-specific id for the data.
@@ -214,6 +215,24 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   @Override
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this conclusion.
+   *
+   * @return A reference to the analysis document explaining the analysis that went into this conclusion.
+   */
+  public ResourceReference getAnalysis() {
+    return analysis;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this conclusion.
+   *
+   * @param analysis A reference to the analysis document explaining the analysis that went into this conclusion.
+   */
+  public void setAnalysis(ResourceReference analysis) {
+    this.analysis = analysis;
   }
 
   /**

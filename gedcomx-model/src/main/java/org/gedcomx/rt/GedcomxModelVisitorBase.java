@@ -117,14 +117,14 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitPlaceDescription(PlaceDescription place) {
     this.contextStack.push(place);
-    visitConclusion(place);
+    visitSubject(place);
     this.contextStack.pop();
   }
 
   @Override
   public void visitEvent(Event event) {
     this.contextStack.push(event);
-    visitConclusion(event);
+    visitSubject(event);
     Date date = event.getDate();
     if (date != null) {
       date.accept(this);
@@ -188,7 +188,7 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitRelationship(Relationship relationship) {
     this.contextStack.push(relationship);
-    visitConclusion(relationship);
+    visitSubject(relationship);
 
     List<Fact> facts = relationship.getFacts();
     if (facts != null) {
@@ -215,10 +215,21 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     }
   }
 
+  protected void visitSubject(Subject subject) {
+    visitConclusion(subject);
+
+    List<SourceReference> media = subject.getMedia();
+    if (media != null) {
+      for (SourceReference reference : media) {
+        reference.accept(this);
+      }
+    }
+  }
+
   @Override
   public void visitPerson(Person person) {
     this.contextStack.push(person);
-    visitConclusion(person);
+    visitSubject(person);
 
     if (person.getGender() != null) {
       person.getGender().accept(this);

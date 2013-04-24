@@ -15,6 +15,8 @@
  */
 package org.gedcomx.agent;
 
+import org.gedcomx.common.ExtensibleData;
+
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -24,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Address" )
-public class Address {
+public class Address extends ExtensibleData {
 
   private String city;
   private String country;

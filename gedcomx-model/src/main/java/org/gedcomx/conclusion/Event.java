@@ -18,11 +18,9 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.Attributable;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
-import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.EventType;
 
 import javax.xml.bind.annotation.*;
@@ -36,15 +34,13 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "events")
-@XmlType ( name = "Event", propOrder = { "date", "place", "roles", "media" } )
-public class Event extends Conclusion implements HasDateAndPlace, Attributable {
+@XmlType ( name = "Event", propOrder = { "date", "place", "roles" } )
+public class Event extends Subject implements HasDateAndPlace {
 
   private URI type;
-  private Boolean extracted;
   private Date date;
   private PlaceReference place;
   private List<EventRole> roles;
-  private List<SourceReference> media;
 
   /**
    * Create an event.
@@ -115,25 +111,6 @@ public class Event extends Conclusion implements HasDateAndPlace, Attributable {
   }
 
   /**
-   * Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
-   *
-   * @return Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
-   */
-  @XmlAttribute
-  public Boolean getExtracted() {
-    return extracted;
-  }
-
-  /**
-   * Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
-   *
-   * @param extracted Whether this event has been identified as "extracted", meaning it captures information extracted from a single source.
-   */
-  public void setExtracted(Boolean extracted) {
-    this.extracted = extracted;
-  }
-
-  /**
    * The date of this event.
    *
    * @return The date of this event.
@@ -192,24 +169,6 @@ public class Event extends Conclusion implements HasDateAndPlace, Attributable {
    */
   public void setRoles(List<EventRole> roles) {
     this.roles = roles;
-  }
-
-  /**
-   * References to multimedia resources associated with this person.
-   *
-   * @return References to multimedia resources associated with this person.
-   */
-  public List<SourceReference> getMedia() {
-    return media;
-  }
-
-  /**
-   * References to multimedia resources associated with this person.
-   *
-   * @param media References to multimedia resources associated with this person.
-   */
-  public void setMedia(List<SourceReference> media) {
-    this.media = media;
   }
 
   /**
