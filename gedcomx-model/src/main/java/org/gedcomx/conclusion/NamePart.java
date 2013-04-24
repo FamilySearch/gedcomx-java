@@ -18,11 +18,8 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.ExtensibleData;
-import org.gedcomx.common.Qualifier;
-import org.gedcomx.common.ResourceReference;
-import org.gedcomx.common.URI;
-import org.gedcomx.records.HasFieldValueSources;
+import org.gedcomx.common.*;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.NamePartType;
 
@@ -39,12 +36,12 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "NamePart" )
-public final class NamePart extends ExtensibleData implements HasFieldValueSources {
+public final class NamePart extends ExtensibleData implements HasFieldBasedEvidence {
 
   private URI type;
   private String value;
   private List<Qualifier> qualifiers;
-  private List<ResourceReference> fieldValueSources;
+  private EvidenceReference fieldReference;
 
   /**
    * The type of the name part.
@@ -127,27 +124,25 @@ public final class NamePart extends ExtensibleData implements HasFieldValueSourc
   }
 
   /**
-   * The list of field values that are being used to support this data.
+   * The reference to the record field being used as evidence.
    *
-   * @return The list of field values that are being used to support this data.
+   * @return The reference to the record field being used as evidence.
    */
-  @Override
-  @XmlElement (name = "sourceFieldValue")
-  @JsonProperty ("sourceFieldValues")
-  @JsonName ("sourceFieldValues")
-  public List<ResourceReference> getFieldValueSources() {
-    return fieldValueSources;
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
   }
 
   /**
-   * The list of field values that are being used to support this data.
+   * The reference to the record field being used as evidence.
    *
-   * @param supportingFieldValues The list of field values that are being used to support this data.
+   * @param fieldReference The reference to the record field being used as evidence.
    */
-  @Override
-  @JsonProperty ("sourceFieldValues")
-  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
-    this.fieldValueSources = supportingFieldValues;
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   /**

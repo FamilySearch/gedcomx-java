@@ -18,10 +18,11 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.ClientName;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
-import org.gedcomx.records.HasFieldValueSources;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -32,13 +33,13 @@ import java.util.List;
  * A concluded genealogical date.
  */
 @ClientName ("DateInfo")
-@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fieldValueSources"})
-public class Date extends ExtensibleData implements HasFieldValueSources {
+@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fieldReference"})
+public class Date extends ExtensibleData implements HasFieldBasedEvidence {
 
   private String original;
   private String formal;
   private List<TextValue> normalized;
-  private List<ResourceReference> supportingFieldValues;
+  private EvidenceReference fieldReference;
 
   /**
    * The original text as supplied by the user.
@@ -102,27 +103,25 @@ public class Date extends ExtensibleData implements HasFieldValueSources {
   }
 
   /**
-   * The list of field values that are being used to support this data.
+   * The reference to the record field being used as evidence.
    *
-   * @return The list of field values that are being used to support this data.
+   * @return The reference to the record field being used as evidence.
    */
-  @Override
-  @XmlElement (name = "sourceFieldValue")
-  @JsonProperty ("sourceFieldValues")
-  @JsonName ("sourceFieldValues")
-  public List<ResourceReference> getFieldValueSources() {
-    return supportingFieldValues;
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
   }
 
   /**
-   * The list of field values that are being used to support this data.
+   * The reference to the record field being used as evidence.
    *
-   * @param supportingFieldValues The list of field values that are being used to support this data.
+   * @param fieldReference The reference to the record field being used as evidence.
    */
-  @Override
-  @JsonProperty ("sourceFieldValues")
-  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
-    this.supportingFieldValues = supportingFieldValues;
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   @Override

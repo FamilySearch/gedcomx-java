@@ -34,7 +34,7 @@ import java.util.List;
  * An element representing a value in a record field.
  */
 @XmlType ( name = "FieldValue" )
-public final class FieldValue extends Conclusion implements HasFieldValueSources {
+public final class FieldValue extends Conclusion {
 
   /**
    * @see FieldValueType
@@ -154,7 +154,6 @@ public final class FieldValue extends Conclusion implements HasFieldValueSources
    *
    * @return The list of field values that are being used to support this data.
    */
-  @Override
   @XmlElement (name = "sourceFieldValue")
   @JsonProperty ("sourceFieldValues")
   @JsonName ("sourceFieldValues")
@@ -167,7 +166,6 @@ public final class FieldValue extends Conclusion implements HasFieldValueSources
    *
    * @param supportingFieldValues The list of field values that are being used to support this data.
    */
-  @Override
   @JsonProperty ("sourceFieldValues")
   public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
     this.fieldValueSources = supportingFieldValues;
