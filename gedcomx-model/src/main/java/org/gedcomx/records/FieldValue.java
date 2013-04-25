@@ -21,6 +21,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
+import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.rt.GedcomxModelVisitorBase;
 import org.gedcomx.types.FieldValueType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,7 +45,7 @@ public final class FieldValue extends Conclusion {
   private String text;
   private URI datatype;
   private URI resource;
-  private List<ResourceReference> fieldValueSources;
+  private List<ResourceReference> interpretationRefs;
 
   public FieldValue() {
   }
@@ -150,24 +152,33 @@ public final class FieldValue extends Conclusion {
   }
 
   /**
-   * The list of field values that are being used to support this data.
+   * References to field values that are interpreting this field value.
    *
-   * @return The list of field values that are being used to support this data.
+   * @return References to field values that are interpreting this field value.
    */
-  @XmlElement (name = "sourceFieldValue")
-  @JsonProperty ("sourceFieldValues")
-  @JsonName ("sourceFieldValues")
-  public List<ResourceReference> getFieldValueSources() {
-    return fieldValueSources;
+  @XmlElement (name = "interpretation")
+  @JsonProperty ("interpretations")
+  @JsonName ("interpretations")
+  public List<ResourceReference> getInterpretationRefs() {
+    return interpretationRefs;
   }
 
   /**
-   * The list of field values that are being used to support this data.
+   * References to field values that are interpreting this field value.
    *
-   * @param supportingFieldValues The list of field values that are being used to support this data.
+   * @param interpretationRefs References to field values that are interpreting this field value.
    */
-  @JsonProperty ("sourceFieldValues")
-  public void setFieldValueSources(List<ResourceReference> supportingFieldValues) {
-    this.fieldValueSources = supportingFieldValues;
+  @JsonProperty ("interpretations")
+  public void setInterpretationRefs(List<ResourceReference> interpretationRefs) {
+    this.interpretationRefs = interpretationRefs;
+  }
+
+  /**
+   * Accept a visitor.
+   *
+   * @param visitor The visitor to accept.
+   */
+  public void accept(GedcomxModelVisitor visitor) {
+    visitor.visitFieldValue(this);
   }
 }

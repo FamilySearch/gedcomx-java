@@ -19,10 +19,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
-import org.gedcomx.records.Collection;
-import org.gedcomx.records.Field;
-import org.gedcomx.records.Record;
-import org.gedcomx.records.RecordDescriptor;
+import org.gedcomx.records.*;
 import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
@@ -238,8 +235,22 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
   @Override
   public void visitField(Field field) {
-    this.contextStack.push(this);
-    visitConclusion(field);
+    this.contextStack.push(field);
+
+    List<FieldValue> values = field.getValues();
+    if (values != null) {
+      for (FieldValue value : values) {
+        value.accept(this);
+      }
+    }
+
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitFieldValue(FieldValue fieldValue) {
+    this.contextStack.push(fieldValue);
+    visitConclusion(fieldValue);
     this.contextStack.pop();
   }
 
