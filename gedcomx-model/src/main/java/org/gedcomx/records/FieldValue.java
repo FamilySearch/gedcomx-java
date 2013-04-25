@@ -22,7 +22,6 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.rt.GedcomxModelVisitor;
-import org.gedcomx.rt.GedcomxModelVisitorBase;
 import org.gedcomx.types.FieldValueType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -45,7 +44,7 @@ public final class FieldValue extends Conclusion {
   private String text;
   private URI datatype;
   private URI resource;
-  private List<ResourceReference> interpretationRefs;
+  private List<ResourceReference> interpretationSources;
 
   public FieldValue() {
   }
@@ -152,25 +151,25 @@ public final class FieldValue extends Conclusion {
   }
 
   /**
-   * References to field values that are interpreting this field value.
+   * References to other field values that this field value is interpreting.
    *
-   * @return References to field values that are interpreting this field value.
+   * @return References to other field values that this field value is interpreting.
    */
-  @XmlElement (name = "interpretation")
-  @JsonProperty ("interpretations")
-  @JsonName ("interpretations")
-  public List<ResourceReference> getInterpretationRefs() {
-    return interpretationRefs;
+  @XmlElement (name = "interpretationSource")
+  @JsonProperty ("interpretationSources")
+  @JsonName ("interpretationSources")
+  public List<ResourceReference> getInterpretationSources() {
+    return interpretationSources;
   }
 
   /**
-   * References to field values that are interpreting this field value.
+   * References to other field values that this field value is interpreting.
    *
-   * @param interpretationRefs References to field values that are interpreting this field value.
+   * @param interpretationSources References to other field values that this field value is interpreting.
    */
-  @JsonProperty ("interpretations")
-  public void setInterpretationRefs(List<ResourceReference> interpretationRefs) {
-    this.interpretationRefs = interpretationRefs;
+  @JsonProperty ("interpretationSources")
+  public void setInterpretationSources(List<ResourceReference> interpretationSources) {
+    this.interpretationSources = interpretationSources;
   }
 
   /**
