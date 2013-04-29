@@ -20,7 +20,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
-import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -30,6 +29,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.List;
 
 /**
  * A collection of genealogical resources.
@@ -49,6 +49,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   private Float completeness;
   private CollectionCoverage coverage;
   private Attribution attribution;
+  private List<Topic> topics;
 
   /**
    * The language of this description of the collection. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -211,5 +212,27 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitCollection(this);
+  }
+
+  /**
+   * The list of browse-able topics for the collection, used to describe the applicable facets of the collection for convenience in browsing.
+   *
+   * @return The list of browse-able topics for the collection.
+   */
+  @XmlElement ( name = "topic" )
+  @JsonName ( "topics" )
+  @JsonProperty ( "topics" )
+  public List<Topic> getTopics() {
+    return topics;
+  }
+
+  /**
+   * The list of browse-able topics for the collection, used to describe the applicable facets of the collection for convenience in browsing.
+   *
+   * @param topics The list of browse-able topics for the collection.
+   */
+  @JsonProperty ( "topics" )
+  public void setTopics(List<Topic> topics) {
+    this.topics = topics;
   }
 }

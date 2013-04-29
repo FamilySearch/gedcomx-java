@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * A conclusion about a field of a record.
+ * A field of a record.
  */
 @XmlType ( name = "Field", propOrder = { "label", "values" })
 @JsonElementWrapper ( name = "fields" )

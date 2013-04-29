@@ -206,7 +206,43 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
   @Override
   public void visitCollection(Collection collection) {
-    //no-op.
+    this.contextStack.push(collection);
+    List<Topic> topics = collection.getTopics();
+    if (topics != null) {
+      for (Topic topic : topics) {
+        topic.accept(this);
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitTopic(Topic topic) {
+    this.contextStack.push(topic);
+    List<Facet> facets = topic.getFacets();
+    if (facets != null) {
+      for (Facet facet : facets) {
+        facet.accept(this);
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitFacet(Facet facet) {
+    this.contextStack.push(facet);
+    List<FacetValue> values = facet.getValues();
+    if (values != null) {
+      for (FacetValue value : values) {
+        value.accept(this);
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitFacetValue(FacetValue facetValue) {
+    visitTopic(facetValue);
   }
 
   @Override

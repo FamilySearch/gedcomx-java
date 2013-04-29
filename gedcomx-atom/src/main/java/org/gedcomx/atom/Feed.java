@@ -21,6 +21,7 @@ import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.records.Topic;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.MediaTypeDefinition;
 import org.gedcomx.rt.Model;
@@ -59,7 +60,7 @@ import java.util.List;
   }
 )
 @XmlRootElement
-@XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries"} )
+@XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries", "topics" } )
 @SuppressWarnings ( "gedcomx:no_id" )
 public class Feed extends ExtensibleElement implements SupportsLinks {
 
@@ -77,6 +78,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   private String title;
   private Date updated;
   private List<Entry> entries;
+  private List<Topic> topics;
 
   /**
    * The author of the feed.
@@ -420,6 +422,28 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   @JsonProperty ( "entries" )
   public void setEntries(List<Entry> entries) {
     this.entries = entries;
+  }
+
+  /**
+   * The list of browse-able topics for the feed, used to describe the applicable facets of the feed for convenience in browsing.
+   *
+   * @return The list of browse-able topics for the feed.
+   */
+  @XmlElement ( name = "topic" )
+  @JsonName ( "topics" )
+  @JsonProperty ( "topics" )
+  public List<Topic> getTopics() {
+    return topics;
+  }
+
+  /**
+   * The list of browse-able topics for the feed, used to describe the applicable facets of the feed for convenience in browsing.
+   *
+   * @param topics The list of browse-able topics for the feed.
+   */
+  @JsonProperty ( "topics" )
+  public void setTopics(List<Topic> topics) {
+    this.topics = topics;
   }
 
   /**

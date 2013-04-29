@@ -20,6 +20,7 @@ import org.gedcomx.atom.Content;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.atom.Person;
+import org.gedcomx.records.Topic;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -54,6 +55,14 @@ public class AtomModelVisitorBase extends GedcomxModelVisitorBase implements Ato
         contributor.accept(this);
       }
     }
+
+    List<Topic> topics = feed.getTopics();
+    if (topics != null) {
+      for (Topic topic : topics) {
+        topic.accept(this);
+      }
+    }
+
     this.contextStack.pop();
   }
 
