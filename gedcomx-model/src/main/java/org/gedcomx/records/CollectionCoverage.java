@@ -24,13 +24,13 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.RecordType;
 import org.gedcomx.types.ResourceType;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import java.util.List;
 
 /**
- * A collection of genealogical data.
+ * A description of the coverage of a collection by resource type.
  *
  * @author Ryan Heaton
  */
@@ -43,9 +43,13 @@ public class CollectionCoverage extends HypermediaEnabledData {
   private Date temporal;
   private URI resourceType;
   private URI recordType;
+  private Integer count;
+  private Float completeness;
 
   /**
-   * Spatial coverage. The geographic area(s) covered by the collection.
+   * Spatial coverage. The geographic area(s) covered by the collection. If the resource type and/or record type is provided,
+   * this spatial coverage describes the coverage of the resources in the collection of that type. Otherwise,
+   * the spatial coverage is applicable to the whole collection.
    *
    * @return Spatial coverage.
    */
@@ -54,7 +58,9 @@ public class CollectionCoverage extends HypermediaEnabledData {
   }
 
   /**
-   * Spatial coverage. The geographic area(s) covered by the collection.
+   * Spatial coverage. The geographic area(s) covered by the collection. If the resource type and/or record type is provided,
+   * this spatial coverage describes the coverage of the resources in the collection of that type. Otherwise,
+   * the spatial coverage is applicable to the whole collection.
    *
    * @param spatial Spatial coverage.
    */
@@ -63,7 +69,9 @@ public class CollectionCoverage extends HypermediaEnabledData {
   }
 
   /**
-   * Temporal coverage. The time period(s) covered by the collection.
+   * Temporal coverage. The time period(s) covered by the collection. If the resource type and/or record type is provided,
+   * this temporal coverage describes the coverage of the resources in the collection of that type. Otherwise,
+   * the temporal coverage is applicable to the whole collection.
    *
    * @return Temporal coverage.
    */
@@ -72,7 +80,9 @@ public class CollectionCoverage extends HypermediaEnabledData {
   }
 
   /**
-   * Temporal coverage. The time period(s) covered by the collection.
+   * Temporal coverage. The time period(s) covered by the collection. If the resource type and/or record type is provided,
+   * this temporal coverage describes the coverage of the resources in the collection of that type. Otherwise,
+   * the temporal coverage is applicable to the whole collection.
    *
    * @param temporal Temporal coverage.
    */
@@ -156,6 +166,50 @@ public class CollectionCoverage extends HypermediaEnabledData {
   @JsonIgnore
   public void setKnownRecordType(RecordType type) {
     setRecordType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
+
+  /**
+   * The count of the total number of items in this collection. If the resource type and/or record type is provided,
+   * the count applies to the resources in the collection of that type. Otherwise,
+   * the count is applicable to the whole collection.
+   *
+   * @return The count of the total number of items in this collection.
+   */
+  public Integer getCount() {
+    return count;
+  }
+
+  /**
+   * The count of the total number of items in this collection. If the resource type and/or record type is provided,
+   * the count applies to the resources in the collection of that type. Otherwise,
+   * the count is applicable to the whole collection.
+   *
+   * @param count The count of the total number of items in this collection.
+   */
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+  /**
+   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
+   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1. If the resource type and/or record type is provided,
+   * this completeness applies to resources in the collection of that type. Otherwise, the coverage is applicable to the whole collection.
+   *
+   * @return A completeness factor for the collection, a value between 0 and 1.
+   */
+  public Float getCompleteness() {
+    return completeness;
+  }
+
+  /**
+   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
+   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1. If the resource type and/or record type is provided,
+   * this completeness applies to resources in the collection of that type. Otherwise, the coverage is applicable to the whole collection.
+   *
+   * @param completeness A completeness factor for the collection, a value between 0 and 1.
+   */
+  public void setCompleteness(Float completeness) {
+    this.completeness = completeness;
   }
 
 }

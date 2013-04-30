@@ -47,6 +47,11 @@ public enum ResourceType {
    */
   PhysicalArtifact,
 
+  /**
+   * A person.
+   */
+  Person,
+
   @XmlUnknownQNameEnumValue
   OTHER;
 

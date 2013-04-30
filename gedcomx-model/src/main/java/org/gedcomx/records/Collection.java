@@ -45,9 +45,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   private ResourceReference collectionRef;
   private String title;
   private String description;
-  private Integer itemCount;
-  private Float completeness;
-  private CollectionCoverage coverage;
+  private List<CollectionCoverage> coverage;
   private Attribution attribution;
   private List<Topic> topics;
 
@@ -133,7 +131,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    *
    * @return The coverage of the collection.
    */
-  public CollectionCoverage getCoverage() {
+  public List<CollectionCoverage> getCoverage() {
     return coverage;
   }
 
@@ -142,47 +140,8 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    *
    * @param coverage The coverage of the collection.
    */
-  public void setCoverage(CollectionCoverage coverage) {
+  public void setCoverage(List<CollectionCoverage> coverage) {
     this.coverage = coverage;
-  }
-
-  /**
-   * The count of the total number of items in this collection.
-   *
-   * @return The count of the total number of items in this collection.
-   */
-  @XmlAttribute
-  public Integer getItemCount() {
-    return itemCount;
-  }
-
-  /**
-   * The count of the total number of items in this collection.
-   *
-   * @param itemCount The count of the total number of items in this collection.
-   */
-  public void setItemCount(Integer itemCount) {
-    this.itemCount = itemCount;
-  }
-
-  /**
-   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
-   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1.
-   *
-   * @return A completeness factor for the collection, a value between 0 and 1.
-   */
-  public Float getCompleteness() {
-    return completeness;
-  }
-
-  /**
-   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
-   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1.
-   *
-   * @param completeness A completeness factor for the collection, a value between 0 and 1.
-   */
-  public void setCompleteness(Float completeness) {
-    this.completeness = completeness;
   }
 
   /**
