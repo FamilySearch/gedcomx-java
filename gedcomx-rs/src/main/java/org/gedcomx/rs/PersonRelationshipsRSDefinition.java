@@ -55,6 +55,7 @@ public interface PersonRelationshipsRSDefinition {
   @GET
   @StatusCodes({
     @ResponseCode ( code = 200, condition = "Upon a successful read."),
+    @ResponseCode ( code = 204, condition = "Upon a successful read and no relationships exist."),
     @ResponseCode ( code = 404, condition = "If the requested resource is not found.")
   })
   Response get();
