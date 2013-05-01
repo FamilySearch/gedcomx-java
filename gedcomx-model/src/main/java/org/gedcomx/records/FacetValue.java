@@ -22,11 +22,30 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>A facet value is the value that is used by a facet to group related resources.</p>
  */
-@XmlType ( name = "FacetValue", propOrder = {"value", "count" })
+@XmlType ( name = "FacetValue", propOrder = {"title", "value", "count" })
 public class FacetValue extends HypermediaEnabledData {
 
+  private String title;
   private String value;
   private Integer count;
+
+  /**
+   * A title for the facet value.
+   *
+   * @return A title for the facet value.
+   */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * A title for the facet value.
+   *
+   * @param title A title for the facet value.
+   */
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
   /**
    * The value.
