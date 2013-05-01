@@ -55,9 +55,9 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   private ResourceReference collectionRef;
 
   /**
-   * The type of the field value.
+   * The type of the record.
    *
-   * @return The type of the field value.
+   * @return The type of the record.
    */
   @XmlAttribute
   public URI getType() {
@@ -65,9 +65,9 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   }
 
   /**
-   * The type of the field value.
+   * The type of the record.
    *
-   * @param type The type of the field value.
+   * @param type The type of the record.
    */
   public void setType(URI type) {
     this.type = type;

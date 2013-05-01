@@ -49,11 +49,7 @@ public interface GedcomxModelVisitor {
 
   void visitCollection(Collection collection);
 
-  void visitTopic(Topic topic);
-
   void visitFacet(Facet facet);
-
-  void visitFacetValue(FacetValue facetValue);
 
   void visitRecord(Record record);
 

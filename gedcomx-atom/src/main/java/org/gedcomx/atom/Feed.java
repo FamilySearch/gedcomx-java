@@ -21,7 +21,7 @@ import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.records.Topic;
+import org.gedcomx.records.Facet;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.MediaTypeDefinition;
 import org.gedcomx.rt.Model;
@@ -60,7 +60,7 @@ import java.util.List;
   }
 )
 @XmlRootElement
-@XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries", "topics" } )
+@XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries", "facets"} )
 @SuppressWarnings ( "gedcomx:no_id" )
 public class Feed extends ExtensibleElement implements SupportsLinks {
 
@@ -78,7 +78,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   private String title;
   private Date updated;
   private List<Entry> entries;
-  private List<Topic> topics;
+  private List<Facet> facets;
 
   /**
    * The author of the feed.
@@ -425,25 +425,25 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   }
 
   /**
-   * The list of browse-able topics for the feed, used to describe the applicable facets of the feed for convenience in browsing.
+   * The list of facets for the feed, used for convenience in browsing and filtering.
    *
-   * @return The list of browse-able topics for the feed.
+   * @return The list of facets for the feed, used for convenience in browsing and filtering.
    */
-  @XmlElement ( name = "topic" )
-  @JsonName ( "topics" )
-  @JsonProperty ( "topics" )
-  public List<Topic> getTopics() {
-    return topics;
+  @XmlElement ( name = "facet" )
+  @JsonName ( "facets" )
+  @JsonProperty ( "facets" )
+  public List<Facet> getFacets() {
+    return facets;
   }
 
   /**
-   * The list of browse-able topics for the feed, used to describe the applicable facets of the feed for convenience in browsing.
+   * The list of facets for the feed, used for convenience in browsing and filtering.
    *
-   * @param topics The list of browse-able topics for the feed.
+   * @param facets The list of facets for the feed, used for convenience in browsing and filtering.
    */
-  @JsonProperty ( "topics" )
-  public void setTopics(List<Topic> topics) {
-    this.topics = topics;
+  @JsonProperty ( "facets" )
+  public void setFacets(List<Facet> facets) {
+    this.facets = facets;
   }
 
   /**

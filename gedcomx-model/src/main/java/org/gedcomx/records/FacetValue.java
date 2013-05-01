@@ -15,78 +15,53 @@
  */
 package org.gedcomx.records;
 
-import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.links.HypermediaEnabledData;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>A facet value is the value that is used by a facet to group related resources.</p>
  */
-@XmlType ( name = "FacetValue", propOrder = { "term", "count" })
-public class FacetValue extends Topic {
+@XmlType ( name = "FacetValue", propOrder = {"value", "count" })
+public class FacetValue extends HypermediaEnabledData {
 
-  private Boolean active;
-  private String term;
+  private String value;
   private Integer count;
 
   /**
-   * Whether this value is currently being applied to the result set (as opposed to just being listed as a possibility).
+   * The value.
    *
-   * @return Whether this value is currently being applied to the result set.
+   * @return The value.
    */
-  @XmlAttribute
-  public Boolean getActive() {
-    return active;
+  public String getValue() {
+    return value;
   }
 
   /**
-   * Whether this value is currently being applied to the result set (as opposed to just being listed as a possibility).
+   * The value.
    *
-   * @param active Whether this value is currently being applied to the result set.
+   * @param value The value.
    */
-  public void setActive(Boolean active) {
-    this.active = active;
+  public void setValue(String value) {
+    this.value = value;
   }
 
   /**
-   * The term to use to apply this value to the facet.
+   * The number of resources applicable to this value.
    *
-   * @return The term to use to apply this value to the facet.
-   */
-  public String getTerm() {
-    return term;
-  }
-
-  /**
-   * The term to use to apply this value to the facet.
-   *
-   * @param term The term to use to apply this value to the facet.
-   */
-  public void setTerm(String term) {
-    this.term = term;
-  }
-
-  /**
-   * The number of resources grouped into this facet value.
-   *
-   * @return The number of resources grouped into this facet value.
+   * @return The number of resources applicable to this value.
    */
   public Integer getCount() {
     return count;
   }
 
   /**
-   * The number of resources grouped by this facet value.
+   * The number of resources applicable to this value.
    *
-   * @param count The number of resources grouped by this facet value.
+   * @param count The number of resources applicable to this value.
    */
   public void setCount(Integer count) {
     this.count = count;
-  }
-
-  public void accept(GedcomxModelVisitor visitor) {
-    visitor.visitFacetValue(this);
   }
 
 }

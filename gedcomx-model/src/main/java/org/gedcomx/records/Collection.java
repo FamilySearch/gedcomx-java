@@ -47,7 +47,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   private String description;
   private List<CollectionCoverage> coverage;
   private Attribution attribution;
-  private List<Topic> topics;
+  private List<Facet> facets;
 
   /**
    * The language of this description of the collection. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -174,24 +174,24 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
-   * The list of browse-able topics for the collection, used to describe the applicable facets of the collection for convenience in browsing.
+   * The list of facets for the collection, used for convenience in browsing and filtering.
    *
-   * @return The list of browse-able topics for the collection.
+   * @return The list of facets for the collection, used for convenience in browsing and filtering.
    */
-  @XmlElement ( name = "topic" )
-  @JsonName ( "topics" )
-  @JsonProperty ( "topics" )
-  public List<Topic> getTopics() {
-    return topics;
+  @XmlElement ( name = "facet" )
+  @JsonName ( "facets" )
+  @JsonProperty ( "facets" )
+  public List<Facet> getFacets() {
+    return facets;
   }
 
   /**
-   * The list of browse-able topics for the collection, used to describe the applicable facets of the collection for convenience in browsing.
+   * The list of facets for the collection, used for convenience in browsing and filtering.
    *
-   * @param topics The list of browse-able topics for the collection.
+   * @param facets The list of facets for the collection, used for convenience in browsing and filtering.
    */
-  @JsonProperty ( "topics" )
-  public void setTopics(List<Topic> topics) {
-    this.topics = topics;
+  @JsonProperty ( "facets" )
+  public void setFacets(List<Facet> facets) {
+    this.facets = facets;
   }
 }
