@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * <p>A <tt>facet</tt> is a logical grouping of resources by specific criteria, used for convenience in browsing a collection or a set of search results.</p>
  */
-@XmlType ( name = "Facet", propOrder = {"title", "key", "values" })
+@XmlType ( name = "Facet", propOrder = {"title", "key", "facets", "values" })
 public class Facet extends HypermediaEnabledData {
 
   private URI type;
