@@ -123,6 +123,15 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
 
+    List<Collection> collections = gx.getCollections();
+    if (collections != null) {
+      for (Collection collection : collections) {
+        if (collection != null) {
+          collection.accept(this);
+        }
+      }
+    }
+
     this.contextStack.pop();
   }
 
