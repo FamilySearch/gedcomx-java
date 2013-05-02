@@ -38,13 +38,14 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection" )
+@XmlType ( name = "Collection", propOrder = { "title", "description", "collectionRef", "count", "coverage", "facets", "attribution" })
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
   private ResourceReference collectionRef;
   private String title;
   private String description;
+  private Integer count;
   private List<CollectionCoverage> coverage;
   private Attribution attribution;
   private List<Facet> facets;
@@ -165,12 +166,21 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
-   * Accept a visitor.
+   * The count of total number of items in this collection.
    *
-   * @param visitor The visitor.
+   * @return The count of total number of items in this collection.
    */
-  public void accept(GedcomxModelVisitor visitor) {
-    visitor.visitCollection(this);
+  public Integer getCount() {
+    return count;
+  }
+
+  /**
+   * The count of total number of items in this collection.
+   *
+   * @param count The count of total number of items in this collection.
+   */
+  public void setCount(Integer count) {
+    this.count = count;
   }
 
   /**
@@ -194,4 +204,14 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   public void setFacets(List<Facet> facets) {
     this.facets = facets;
   }
+
+  /**
+   * Accept a visitor.
+   *
+   * @param visitor The visitor.
+   */
+  public void accept(GedcomxModelVisitor visitor) {
+    visitor.visitCollection(this);
+  }
+
 }

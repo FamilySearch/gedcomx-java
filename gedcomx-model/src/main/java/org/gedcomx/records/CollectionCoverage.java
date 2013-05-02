@@ -24,7 +24,6 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.RecordType;
 import org.gedcomx.types.ResourceType;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -169,44 +168,38 @@ public class CollectionCoverage extends HypermediaEnabledData {
   }
 
   /**
-   * The count of the total number of items in this collection. If the resource type and/or record type is provided,
-   * the count applies to the resources in the collection of that type. Otherwise,
-   * the count is applicable to the whole collection.
+   * The count of the items applicable to this coverage aspect.
    *
-   * @return The count of the total number of items in this collection.
+   * @return The count of the items applicable to this coverage aspect.
    */
   public Integer getCount() {
     return count;
   }
 
   /**
-   * The count of the total number of items in this collection. If the resource type and/or record type is provided,
-   * the count applies to the resources in the collection of that type. Otherwise,
-   * the count is applicable to the whole collection.
+   * The count of the items applicable to this coverage aspect.
    *
-   * @param count The count of the total number of items in this collection.
+   * @param count The count of the items applicable to this coverage aspect.
    */
   public void setCount(Integer count) {
     this.count = count;
   }
 
   /**
-   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
-   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1. If the resource type and/or record type is provided,
-   * this completeness applies to resources in the collection of that type. Otherwise, the coverage is applicable to the whole collection.
+   * A completeness factor for this coverage; i.e. what percentage of the total number of items in the collection is included in this coverage aspect. The
+   * completeness factor is a value between 0 and 1.
    *
-   * @return A completeness factor for the collection, a value between 0 and 1.
+   * @return A completeness factor for this coverage aspect, a value between 0 and 1.
    */
   public Float getCompleteness() {
     return completeness;
   }
 
   /**
-   * A completeness factor for the collection, i.e. what percentage of the known items are actually included in the collection. Used to determine, for example,
-   * reliability of a search of the data in this collection. The completeness factor is a value between 0 and 1. If the resource type and/or record type is provided,
-   * this completeness applies to resources in the collection of that type. Otherwise, the coverage is applicable to the whole collection.
+   * A completeness factor for this coverage; i.e. what percentage of the total number of items in the collection is included in this coverage aspect. The
+   * completeness factor is a value between 0 and 1.
    *
-   * @param completeness A completeness factor for the collection, a value between 0 and 1.
+   * @param completeness A completeness factor for this coverage aspect, a value between 0 and 1.
    */
   public void setCompleteness(Float completeness) {
     this.completeness = completeness;
