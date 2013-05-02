@@ -18,8 +18,10 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FactType;
@@ -30,16 +32,17 @@ import java.util.List;
 /**
  * A conclusion about a fact applicable to a person or relationship.
  */
-@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "qualifiers" })
+@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "qualifiers", "fieldReference" })
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
-public class Fact extends Conclusion implements HasDateAndPlace {
+public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEvidence {
 
   private URI type;
   private Date date;
   private PlaceReference place;
   private String value;
   private List<Qualifier> qualifiers;
+  private EvidenceReference fieldReference;
 
   /**
    * Create a fact.
@@ -187,6 +190,28 @@ public class Fact extends Conclusion implements HasDateAndPlace {
   @JsonProperty ("qualifiers")
   public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @return The reference to the record field being used as evidence.
+   */
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @param fieldReference The reference to the record field being used as evidence.
+   */
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   @Override

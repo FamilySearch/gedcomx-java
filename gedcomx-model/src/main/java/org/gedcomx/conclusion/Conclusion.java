@@ -35,35 +35,15 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "Conclusion", propOrder = { "attribution", "sources", "notes" })
+@XmlType ( name = "Conclusion", propOrder = { "attribution", "sources", "analysis", "notes" })
 public abstract class Conclusion extends HypermediaEnabledData implements Attributable, ReferencesSources, HasNotes {
 
-  private String id;
   private String lang;
   private URI confidence;
   private List<SourceReference> sources;
   private List<Note> notes;
   private Attribution attribution;
-
-  /**
-   * A local, context-specific id for the data.
-   *
-   * @return A local, context-specific id for the data.
-   */
-  @XmlID
-  @XmlAttribute
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * A local, context-specific id for the data.
-   *
-   * @param id A local, context-specific id for the data.
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
+  private ResourceReference analysis;
 
   /**
    * The language of the conclusion. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -214,6 +194,24 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   @Override
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this conclusion.
+   *
+   * @return A reference to the analysis document explaining the analysis that went into this conclusion.
+   */
+  public ResourceReference getAnalysis() {
+    return analysis;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this conclusion.
+   *
+   * @param analysis A reference to the analysis document explaining the analysis that went into this conclusion.
+   */
+  public void setAnalysis(ResourceReference analysis) {
+    this.analysis = analysis;
   }
 
   /**

@@ -21,6 +21,9 @@ import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.records.Collection;
+import org.gedcomx.records.Record;
+import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.MediaTypeDefinition;
@@ -71,10 +74,9 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
-@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents" })
+@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "records", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 
-  private String id;
   private String lang;
   private Attribution attribution;
   private List<Person> persons;
@@ -84,26 +86,9 @@ public class Gedcomx extends HypermediaEnabledData {
   private List<Event> events;
   private List<PlaceDescription> places;
   private List<Document> documents;
-
-  /**
-   * The id of this genealogical data set.
-   *
-   * @return The id of this genealogical data set.
-   */
-  @XmlAttribute
-  @XmlID
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * The id of this genealogical data set.
-   *
-   * @param id The id of this genealogical data set.
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
+  private List<Collection> collections;
+  private List<Record> records;
+  private List<RecordDescriptor> recordDescriptors;
 
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
@@ -296,6 +281,72 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("documents")
   public void setDocuments(List<Document> documents) {
     this.documents = documents;
+  }
+
+  /**
+   * The collections included in this genealogical data set.
+   *
+   * @return The collections included in this genealogical data set.
+   */
+  @XmlElement (name="collection")
+  @JsonProperty ("collections")
+  @JsonName ("collections")
+  public List<Collection> getCollections() {
+    return collections;
+  }
+
+  /**
+   * The collections included in this genealogical data set.
+   *
+   * @param collections The collections included in this genealogical data set.
+   */
+  @JsonProperty ("collections")
+  public void setCollections(List<Collection> collections) {
+    this.collections = collections;
+  }
+
+  /**
+   * The records included in this genealogical data set.
+   *
+   * @return The records included in this genealogical data set.
+   */
+  @XmlElement (name="record")
+  @JsonProperty ("records")
+  @JsonName ("records")
+  public List<Record> getRecords() {
+    return records;
+  }
+
+  /**
+   * The records included in this genealogical data set.
+   *
+   * @param records The records included in this genealogical data set.
+   */
+  @JsonProperty ("records")
+  public void setRecords(List<Record> records) {
+    this.records = records;
+  }
+
+  /**
+   * The record descriptors included in this genealogical data set.
+   *
+   * @return The record descriptors included in this genealogical data set.
+   */
+  @XmlElement (name="recordDescriptor")
+  @JsonProperty ("recordDescriptors")
+  @JsonName ("recordDescriptors")
+  public List<RecordDescriptor> getRecordDescriptors() {
+    return recordDescriptors;
+  }
+
+  /**
+   * The record descriptors included in this genealogical data set.
+   *
+   * @param recordDescriptors The record descriptors included in this genealogical data set.
+   */
+  @JsonProperty ("recordDescriptors")
+  public void setRecordDescriptors(List<RecordDescriptor> recordDescriptors) {
+    this.recordDescriptors = recordDescriptors;
   }
 
   /**

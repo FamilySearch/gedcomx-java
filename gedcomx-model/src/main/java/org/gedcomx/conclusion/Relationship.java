@@ -18,9 +18,10 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.Attributable;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
 import org.gedcomx.rt.RDFSubPropertyOf;
@@ -39,15 +40,14 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "relationships" )
-@XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "identifiers" } )
-public class Relationship extends Conclusion implements HasFacts, Attributable {
+@XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fieldReference" } )
+public class Relationship extends Subject implements HasFacts, HasFieldBasedEvidence {
 
   private URI type;
-  private Boolean extracted;
   private ResourceReference person1;
   private ResourceReference person2;
   private List<Fact> facts;
-  private List<Identifier> identifiers;
+  private EvidenceReference fieldReference;
 
   /**
    * The type of this relationship.
@@ -66,25 +66,6 @@ public class Relationship extends Conclusion implements HasFacts, Attributable {
    */
   public void setType(URI type) {
     this.type = type;
-  }
-
-  /**
-   * Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
-   *
-   * @return Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
-   */
-  @XmlAttribute
-  public Boolean getExtracted() {
-    return extracted;
-  }
-
-  /**
-   * Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
-   *
-   * @param extracted Whether this relationship has been identified as "extracted", meaning it captures information extracted from a single source.
-   */
-  public void setExtracted(Boolean extracted) {
-    this.extracted = extracted;
   }
 
   /**
@@ -201,25 +182,25 @@ public class Relationship extends Conclusion implements HasFacts, Attributable {
   }
 
   /**
-   * The list of identifiers for the relationship.
+   * The reference to the record field being used as evidence.
    *
-   * @return The list of identifiers for the relationship.
+   * @return The reference to the record field being used as evidence.
    */
-  @XmlElement (name="identifier")
-  @JsonProperty ("identifiers")
-  @JsonName ("identifiers")
-  public List<Identifier> getIdentifiers() {
-    return identifiers;
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
   }
 
   /**
-   * The list of identifiers of the relationship.
+   * The reference to the record field being used as evidence.
    *
-   * @param identifiers The list of identifiers of the relationship.
+   * @param fieldReference The reference to the record field being used as evidence.
    */
-  @JsonProperty ("identifiers")
-  public void setIdentifiers(List<Identifier> identifiers) {
-    this.identifiers = identifiers;
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   /**

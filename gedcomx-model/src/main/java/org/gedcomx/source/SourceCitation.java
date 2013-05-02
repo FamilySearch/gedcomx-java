@@ -18,6 +18,7 @@ package org.gedcomx.source;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.XMLConstants;
@@ -31,7 +32,7 @@ import java.util.List;
  * Represents a source citation.
  */
 @XmlType ( name = "SourceCitation" )
-public class SourceCitation {
+public class SourceCitation extends HypermediaEnabledData {
 
   private String lang;
   private String value;

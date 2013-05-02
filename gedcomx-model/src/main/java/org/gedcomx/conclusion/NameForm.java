@@ -17,7 +17,10 @@ package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.XMLConstants;
@@ -31,12 +34,13 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "NameForm", propOrder = { "fullText", "parts" })
-public class NameForm extends ExtensibleData {
+@XmlType ( name = "NameForm", propOrder = { "fullText", "parts", "fieldReference"})
+public class NameForm extends ExtensibleData implements HasFieldBasedEvidence {
 
   private String lang;
   private String fullText;
   private List<NamePart> parts;
+  private EvidenceReference fieldReference;
 
   /**
    * The language of the conclusion. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -95,6 +99,28 @@ public class NameForm extends ExtensibleData {
   @JsonProperty ("parts")
   public void setParts(List<NamePart> parts) {
     this.parts = parts;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @return The reference to the record field being used as evidence.
+   */
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @param fieldReference The reference to the record field being used as evidence.
+   */
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   /**

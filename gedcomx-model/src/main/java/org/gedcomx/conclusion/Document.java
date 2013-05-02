@@ -40,9 +40,29 @@ public class Document extends Conclusion implements HasText, Attributable {
   public static final String TEXT_TYPE_PLAIN = "plain";
   public static final String TEXT_TYPE_XHTML = "xhtml";
 
+  private Boolean extracted;
   private URI type;
   private String textType;
   private String text;
+
+  /**
+   * Whether this document has been identified as "extracted", meaning it captures information extracted from a single source.
+   *
+   * @return Whether this document has been identified as "extracted".
+   */
+  @XmlAttribute
+  public Boolean getExtracted() {
+    return extracted;
+  }
+
+  /**
+   * Whether this document has been identified as "extracted", meaning it captures information extracted from a single source.
+   *
+   * @param extracted Whether this document has been identified as "extracted".
+   */
+  public void setExtracted(Boolean extracted) {
+    this.extracted = extracted;
+  }
 
   /**
    * The type of the document.

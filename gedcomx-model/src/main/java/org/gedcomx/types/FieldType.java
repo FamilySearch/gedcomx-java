@@ -20,38 +20,72 @@ import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 
 /**
- * Enumeration of high-level genealogical resource types.
+ * Enumeration of known fields.
+ *
+ * @author Ryan Heaton
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum ResourceType {
+public enum FieldType {
+
+  //high-level fields
+  Age,
+  Date,
+  Place,
+  Gender,
+  Name,
+  Role,
+
+  //age fields
+  Years,
+  Months,
+  Days,
+  Hours,
+  Minutes,
+
+  //date fields
+  Year,
+  Month,
+  Day,
+  Hour,
+  Minute,
+
+  //place fields
+  Address,
+  Cemetery,
+  City,
+  Church,
+  County,
+  Country,
+  District,
+  Hospital,
+  Island,
+  MilitaryBase,
+  Mortuary,
+  Parish,
+  PlotNumber,
+  PostOffice,
+  PostalCode,
+  Prison,
+  Province,
+  Section,
+  Ship,
+  State,
+  Territory,
+  Town,
+  Township,
+  Ward,
+
+  //name types
+  Prefix,
+  Suffix,
+  Given,
+  Surname,
 
   /**
-   * A historical record.
+   * Custom
    */
-  Record,
-
-  /**
-   * A collection.
-   */
-  Collection,
-
-  /**
-   * A digital artifact, such as a digital image or video.
-   */
-  DigitalArtifact,
-
-  /**
-   * A physical artifact.
-   */
-  PhysicalArtifact,
-
-  /**
-   * A person.
-   */
-  Person,
-
   @XmlUnknownQNameEnumValue
   OTHER;
 
@@ -70,8 +104,8 @@ public enum ResourceType {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static ResourceType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), ResourceType.class);
+  public static FieldType fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FieldType.class);
   }
 
 }

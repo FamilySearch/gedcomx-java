@@ -19,6 +19,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
+import org.gedcomx.records.*;
 import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
@@ -104,6 +105,33 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
 
+    List<Record> records = gx.getRecords();
+    if (records != null) {
+      for (Record record : records) {
+        if (record != null) {
+          record.accept(this);
+        }
+      }
+    }
+
+    List<RecordDescriptor> recordDescriptors = gx.getRecordDescriptors();
+    if (recordDescriptors != null) {
+      for (RecordDescriptor rd : recordDescriptors) {
+        if (rd != null) {
+          rd.accept(this);
+        }
+      }
+    }
+
+    List<Collection> collections = gx.getCollections();
+    if (collections != null) {
+      for (Collection collection : collections) {
+        if (collection != null) {
+          collection.accept(this);
+        }
+      }
+    }
+
     this.contextStack.pop();
   }
 
@@ -117,14 +145,14 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitPlaceDescription(PlaceDescription place) {
     this.contextStack.push(place);
-    visitConclusion(place);
+    visitSubject(place);
     this.contextStack.pop();
   }
 
   @Override
   public void visitEvent(Event event) {
     this.contextStack.push(event);
-    visitConclusion(event);
+    visitSubject(event);
     Date date = event.getDate();
     if (date != null) {
       date.accept(this);
@@ -186,9 +214,78 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   }
 
   @Override
+  public void visitCollection(Collection collection) {
+    this.contextStack.push(collection);
+    List<Facet> facets = collection.getFacets();
+    if (facets != null) {
+      for (Facet facet : facets) {
+        facet.accept(this);
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitFacet(Facet facet) {
+    this.contextStack.push(facet);
+    List<Facet> facets = facet.getFacets();
+    if (facets != null) {
+      for (Facet f : facets) {
+        f.accept(this);
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitRecord(Record record) {
+    this.contextStack.push(record);
+
+    List<Field> fields = record.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
+
+    List<Note> notes = record.getNotes();
+    if (notes != null) {
+      for (Note note : notes) {
+        note.accept(this);
+      }
+    }
+  }
+
+  @Override
+  public void visitRecordDescriptor(RecordDescriptor recordDescriptor) {
+    //no-op.
+  }
+
+  @Override
+  public void visitField(Field field) {
+    this.contextStack.push(field);
+
+    List<FieldValue> values = field.getValues();
+    if (values != null) {
+      for (FieldValue value : values) {
+        value.accept(this);
+      }
+    }
+
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitFieldValue(FieldValue fieldValue) {
+    this.contextStack.push(fieldValue);
+    visitConclusion(fieldValue);
+    this.contextStack.pop();
+  }
+
+  @Override
   public void visitRelationship(Relationship relationship) {
     this.contextStack.push(relationship);
-    visitConclusion(relationship);
+    visitSubject(relationship);
 
     List<Fact> facts = relationship.getFacts();
     if (facts != null) {
@@ -215,10 +312,21 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     }
   }
 
+  protected void visitSubject(Subject subject) {
+    visitConclusion(subject);
+
+    List<SourceReference> media = subject.getMedia();
+    if (media != null) {
+      for (SourceReference reference : media) {
+        reference.accept(this);
+      }
+    }
+  }
+
   @Override
   public void visitPerson(Person person) {
     this.contextStack.push(person);
-    visitConclusion(person);
+    visitSubject(person);
 
     if (person.getGender() != null) {
       person.getGender().accept(this);

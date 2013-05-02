@@ -16,9 +16,13 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.ClientName;
+import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -29,12 +33,13 @@ import java.util.List;
  * A concluded genealogical date.
  */
 @ClientName ("DateInfo")
-@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions" })
-public class Date extends ExtensibleData {
+@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fieldReference"})
+public class Date extends ExtensibleData implements HasFieldBasedEvidence {
 
   private String original;
   private String formal;
   private List<TextValue> normalized;
+  private EvidenceReference fieldReference;
 
   /**
    * The original text as supplied by the user.
@@ -95,6 +100,28 @@ public class Date extends ExtensibleData {
   @JsonProperty ("normalized")
   public void setNormalizedExtensions(List<TextValue> normalized) {
     this.normalized = normalized;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @return The reference to the record field being used as evidence.
+   */
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @param fieldReference The reference to the record field being used as evidence.
+   */
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   @Override

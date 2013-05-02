@@ -15,16 +15,17 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.GenderType;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 /**
  * A gender conclusion.
@@ -34,9 +35,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType ( name = "Gender" )
 @XmlRootElement
 @JsonElementWrapper ( name = "genders" )
-public class Gender extends Conclusion {
+public class Gender extends Conclusion implements HasFieldBasedEvidence {
 
   private URI type;
+  private EvidenceReference fieldReference;
 
   /**
    * Default constructor.
@@ -91,6 +93,28 @@ public class Gender extends Conclusion {
   @JsonIgnore
   public void setKnownType(GenderType type) {
     setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @return The reference to the record field being used as evidence.
+   */
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @param fieldReference The reference to the record field being used as evidence.
+   */
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   @Override

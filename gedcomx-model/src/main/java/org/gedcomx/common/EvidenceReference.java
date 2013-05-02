@@ -15,6 +15,7 @@
  */
 package org.gedcomx.common;
 
+import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
@@ -24,26 +25,28 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * A generic reference to a resource.
+ * A reference to a resource that is being used as evidence.
  *
  * @author Ryan Heaton
  */
 @XmlRootElement
-@XmlType ( name = "ResourceReference" )
-@JsonElementWrapper ( name = "resourceReference" )
-public final class ResourceReference {
+@XmlType ( name = "EvidenceReference" )
+@JsonElementWrapper ( name = "evidence" )
+public final class EvidenceReference extends HypermediaEnabledData implements Attributable {
 
   private URI resource;
   private String resourceId;
+  private ResourceReference analysis;
+  private Attribution attribution;
 
-  public ResourceReference() {
+  public EvidenceReference() {
   }
 
-  public ResourceReference(URI resource) {
+  public EvidenceReference(URI resource) {
     this.resource = resource;
   }
 
-  public ResourceReference(URI resource, String resourceId) {
+  public EvidenceReference(URI resource, String resourceId) {
     this.resource = resource;
     this.resourceId = resourceId;
   }
@@ -68,8 +71,7 @@ public final class ResourceReference {
   }
 
   /**
-   * The URI to the resource. For more information, see <a href="http://www.w3.org/TR/webarch/#identification">Architecture of the World
-   * Wide Web, Volume One, Section 2</a>
+   * The URI to the resource being referenced as evidence.
    *
    * @link http://www.w3.org/TR/webarch/#identification
    * @return The URI to the resource.
@@ -81,14 +83,51 @@ public final class ResourceReference {
   }
 
   /**
-   * The URI to the resource. For more information, see <a href="http://www.w3.org/TR/webarch/#identification">Architecture of the World
-   * Wide Web, Volume One, Section 2</a>
+   * The URI to the resource being referenced as evidence.
    *
    * @link http://www.w3.org/TR/webarch/#identification
    * @param resource The URI to the resource.
    */
   public void setResource(URI resource) {
     this.resource = resource;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this evidence reference.
+   *
+   * @return A reference to the analysis document explaining the analysis that went into this evidence reference.
+   */
+  public ResourceReference getAnalysis() {
+    return analysis;
+  }
+
+  /**
+   * A reference to the analysis document explaining the analysis that went into this evidence reference.
+   *
+   * @param analysis A reference to the analysis document explaining the analysis that went into this evidence reference.
+   */
+  public void setAnalysis(ResourceReference analysis) {
+    this.analysis = analysis;
+  }
+
+  /**
+   * Attribution metadata for this evidence reference.
+   *
+   * @return Attribution metadata for evidence reference.
+   */
+  @Override
+  public Attribution getAttribution() {
+    return attribution;
+  }
+
+  /**
+   * Attribution metadata for evidence reference.
+   *
+   * @param attribution Attribution metadata for evidence reference.
+   */
+  @Override
+  public void setAttribution(Attribution attribution) {
+    this.attribution = attribution;
   }
 
   /**

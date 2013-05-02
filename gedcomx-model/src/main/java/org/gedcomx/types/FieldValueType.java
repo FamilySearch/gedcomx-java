@@ -20,38 +20,28 @@ import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 
 /**
- * Enumeration of high-level genealogical resource types.
+ * Enumeration of known field value types.
+ *
+ * @author Ryan Heaton
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum ResourceType {
+public enum FieldValueType {
 
   /**
-   * A historical record.
+   * The field value is original, extracted directly from the record. What you see is what you get, including misspellings and other errors in the record.
    */
-  Record,
+  Original,
 
   /**
-   * A collection.
+   * The field value is interpreted, meaning a user or other automated process applied some reasoning to interpret the value.
    */
-  Collection,
+  Interpreted,
 
   /**
-   * A digital artifact, such as a digital image or video.
+   * Custom
    */
-  DigitalArtifact,
-
-  /**
-   * A physical artifact.
-   */
-  PhysicalArtifact,
-
-  /**
-   * A person.
-   */
-  Person,
-
   @XmlUnknownQNameEnumValue
   OTHER;
 
@@ -70,8 +60,8 @@ public enum ResourceType {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static ResourceType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), ResourceType.class);
+  public static FieldValueType fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FieldValueType.class);
   }
 
 }

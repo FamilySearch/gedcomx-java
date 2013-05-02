@@ -17,12 +17,15 @@ package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
+import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -30,10 +33,11 @@ import javax.xml.bind.annotation.XmlType;
  * A reference to genealogical place.
  */
 @XmlType ( name = "PlaceReference" )
-public class PlaceReference extends ExtensibleData {
+public class PlaceReference extends ExtensibleData implements HasFieldBasedEvidence {
 
   private String original;
   private URI descriptionRef;
+  private EvidenceReference fieldReference;
 
   /**
    * The original value as supplied by the user.
@@ -74,6 +78,28 @@ public class PlaceReference extends ExtensibleData {
   @JsonProperty ( "description" )
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @return The reference to the record field being used as evidence.
+   */
+  @XmlElement( name = "field" )
+  @JsonProperty( "field" )
+  @JsonName( "field" )
+  public EvidenceReference getFieldReference() {
+    return fieldReference;
+  }
+
+  /**
+   * The reference to the record field being used as evidence.
+   *
+   * @param fieldReference The reference to the record field being used as evidence.
+   */
+  @JsonProperty( "field" )
+  public void setFieldReference(EvidenceReference fieldReference) {
+    this.fieldReference = fieldReference;
   }
 
   public String toString() {
