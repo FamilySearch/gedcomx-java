@@ -58,9 +58,11 @@ public interface ConclusionsRSDefinition {
   @GET
   @StatusCodes ({
     @ResponseCode ( code = 200, condition = "Upon a successful read."),
-    @ResponseCode( code = 204, condition = "Upon a successful query with no results."),
-    @ResponseCode( code = 404, condition = "The specified entity has been moved, deleted, or otherwise not found.")
-  })
+    @ResponseCode ( code = 301, condition = "If the specified person has been merged to another person."),
+    @ResponseCode ( code = 204, condition = "Upon a successful query with no results."),
+    @ResponseCode ( code = 404, condition = "The specified entity has been moved, deleted, or otherwise not found."),
+    @ResponseCode ( code = 410, condition = "If the specified person has been deleted.")
+})
   Response get();
 
   /**
@@ -72,6 +74,7 @@ public interface ConclusionsRSDefinition {
   @POST
   @StatusCodes({
     @ResponseCode ( code = 201, condition = "The creation of the conclusion was successful. Expect a location header specifying the link to the created conclusion."),
+    @ResponseCode ( code = 301, condition = "If the specified person has been merged to another person."),
     @ResponseCode ( code = 410, condition = "If the specified person has been deleted.")
   })
   Response post(Gedcomx conclusions);

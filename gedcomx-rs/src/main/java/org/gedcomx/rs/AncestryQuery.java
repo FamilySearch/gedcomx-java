@@ -60,8 +60,10 @@ public interface AncestryQuery {
    */
   @GET
   @StatusCodes({
-    @ResponseCode ( code = 200, condition = "The query was successful.")
-  })
+    @ResponseCode ( code = 200, condition = "The query was successful."),
+    @ResponseCode ( code = 301, condition = "If the requested person has been merged to another person."),
+    @ResponseCode ( code = 410, condition = "If the requested person has been deleted.")
+    })
   Response get();
 
   /**

@@ -82,6 +82,7 @@ public interface RelationshipRSDefinition {
   @GET
   @StatusCodes({
     @ResponseCode ( code = 200, condition = "Upon a successful read."),
+    @ResponseCode ( code = 301, condition = "If the requested relationship has been merged to another relationship."),
     @ResponseCode ( code = 404, condition = "If the requested relationship is not found."),
     @ResponseCode ( code = 410, condition = "If the requested relationship has been deleted.")
   })
@@ -96,6 +97,7 @@ public interface RelationshipRSDefinition {
   @POST
   @StatusCodes({
     @ResponseCode ( code = 204, condition = "The update was successful."),
+    @ResponseCode ( code = 301, condition = "If the requested relationship has been merged to another relationship."),
     @ResponseCode ( code = 404, condition = "If the requested relationship is not found."),
     @ResponseCode ( code = 410, condition = "If the requested relationship has been deleted.")
 })
@@ -108,6 +110,7 @@ public interface RelationshipRSDefinition {
   @DELETE
   @StatusCodes({
     @ResponseCode ( code = 204, condition = "The delete was successful."),
+    @ResponseCode ( code = 301, condition = "If the requested relationship has been merged to another relationship."),
     @ResponseCode ( code = 404, condition = "If the requested relationship is not found."),
     @ResponseCode ( code = 410, condition = "If the requested relationship has been deleted.")
 })

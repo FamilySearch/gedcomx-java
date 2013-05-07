@@ -98,6 +98,7 @@ public interface PersonRSDefinition {
   @POST
   @StatusCodes({
     @ResponseCode ( code = 204, condition = "The update was successful."),
+    @ResponseCode ( code = 301, condition = "If the requested person has been merged into another person."),
     @ResponseCode ( code = 404, condition = "If the requested person is not found."),
     @ResponseCode ( code = 410, condition = "If the requested person has been deleted.")
   })
@@ -110,6 +111,7 @@ public interface PersonRSDefinition {
   @DELETE
   @StatusCodes({
     @ResponseCode ( code = 204, condition = "The delete was successful."),
+    @ResponseCode ( code = 301, condition = "If the requested person has been merged into another person."),
     @ResponseCode ( code = 404, condition = "If the requested person is not found."),
     @ResponseCode ( code = 410, condition = "If the requested person has already been deleted.")
   })
