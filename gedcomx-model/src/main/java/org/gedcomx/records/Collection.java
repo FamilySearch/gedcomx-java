@@ -38,14 +38,14 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection", propOrder = { "title", "description", "collectionRef", "count", "coverage", "facets", "attribution" })
+@XmlType ( name = "Collection", propOrder = { "title", "description", "collectionRef", "size", "coverage", "facets", "attribution" })
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
   private ResourceReference collectionRef;
   private String title;
   private String description;
-  private Integer count;
+  private Integer size;
   private List<CollectionCoverage> coverage;
   private Attribution attribution;
   private List<Facet> facets;
@@ -166,21 +166,21 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
-   * The count of total number of items in this collection.
+   * The size of the collection, in terms of the number of items in this collection.
    *
-   * @return The count of total number of items in this collection.
+   * @return The size of the collection, in terms of the number of items in this collection.
    */
-  public Integer getCount() {
-    return count;
+  public Integer getSize() {
+    return size;
   }
 
   /**
-   * The count of total number of items in this collection.
+   * The size of the collection, in terms of the number of items in this collection.
    *
-   * @param count The count of total number of items in this collection.
+   * @param size The size of the collection, in terms of the number of items in this collection.
    */
-  public void setCount(Integer count) {
-    this.count = count;
+  public void setSize(Integer size) {
+    this.size = size;
   }
 
   /**
