@@ -43,6 +43,7 @@ import java.util.List;
 @XmlType ( name = "Person", propOrder = { "living", "gender", "names", "facts", "displayExtension"} )
 public class Person extends Subject implements HasFacts {
 
+  private Boolean isPrivate;
   private Boolean living;
   private Gender gender;
   private List<Name> names;
@@ -51,12 +52,32 @@ public class Person extends Subject implements HasFacts {
   private URI collectionRef;
 
   /**
+   * Whether this person has been designated for limited distribution or display.
+   *
+   * @return Whether this person has been designated for limited distribution or display.
+   */
+  @XmlAttribute
+  public Boolean getPrivate() {
+    return isPrivate;
+  }
+
+  /**
+   * Whether this person has been designated for limited distribution or display.
+   *
+   * @param isPrivate Whether this person has been designated for limited distribution or display.
+   */
+  public void setPrivate(Boolean isPrivate) {
+    this.isPrivate = isPrivate;
+  }
+
+  /**
    * Living status of the person as treated by the system. The value of this property is intended
    * to be based on a system-specific calculation and therefore has limited portability. Conclusions
    * about the living status of a person can be modeled with a fact.
    *
    * @return Living status of the person as treated by the system.
    */
+  @XmlAttribute
   public Boolean getLiving() {
     return living;
   }
