@@ -18,18 +18,17 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.Attributable;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
-import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
-import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.NameType;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -40,7 +39,7 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
-@XmlType ( name = "Person", propOrder = { "gender", "names", "facts", "displayExtension"} )
+@XmlType ( name = "Person", propOrder = { "living", "gender", "names", "facts", "displayExtension"} )
 public class Person extends Subject implements HasFacts {
 
   private Boolean isPrivate;
@@ -77,7 +76,6 @@ public class Person extends Subject implements HasFacts {
    *
    * @return Living status of the person as treated by the system.
    */
-  @XmlAttribute
   public Boolean getLiving() {
     return living;
   }
