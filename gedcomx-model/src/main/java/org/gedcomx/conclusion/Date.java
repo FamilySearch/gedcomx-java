@@ -20,7 +20,6 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
-import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.records.HasFieldBasedEvidence;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -33,13 +32,13 @@ import java.util.List;
  * A concluded genealogical date.
  */
 @ClientName ("DateInfo")
-@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fieldReference"})
+@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fieldValueReferences"})
 public class Date extends ExtensibleData implements HasFieldBasedEvidence {
 
   private String original;
   private String formal;
   private List<TextValue> normalized;
-  private EvidenceReference fieldReference;
+  private List<EvidenceReference> fieldValueReferences;
 
   /**
    * The original text as supplied by the user.
@@ -103,25 +102,25 @@ public class Date extends ExtensibleData implements HasFieldBasedEvidence {
   }
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @return The reference to the record field being used as evidence.
+   * @return The references to the record field values being used as evidence.
    */
-  @XmlElement( name = "field" )
-  @JsonProperty( "field" )
-  @JsonName( "field" )
-  public EvidenceReference getFieldReference() {
-    return fieldReference;
+  @XmlElement( name = "fieldValue" )
+  @JsonProperty( "fieldValues" )
+  @JsonName( "fieldValues" )
+  public List<EvidenceReference> getFieldValueReferences() {
+    return fieldValueReferences;
   }
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @param fieldReference The reference to the record field being used as evidence.
+   * @param fieldValueReferences The references to the record field values being used as evidence.
    */
-  @JsonProperty( "field" )
-  public void setFieldReference(EvidenceReference fieldReference) {
-    this.fieldReference = fieldReference;
+  @JsonProperty( "fieldValues" )
+  public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
+    this.fieldValueReferences = fieldValueReferences;
   }
 
   @Override

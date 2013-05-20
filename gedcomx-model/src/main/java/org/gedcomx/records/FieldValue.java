@@ -18,7 +18,7 @@ package org.gedcomx.records;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -35,7 +35,7 @@ import java.util.List;
  * An element representing a value in a record field.
  */
 @XmlType ( name = "FieldValue" )
-public final class FieldValue extends Conclusion {
+public final class FieldValue extends Conclusion implements HasFieldBasedEvidence {
 
   /**
    * @see FieldValueType
@@ -44,7 +44,7 @@ public final class FieldValue extends Conclusion {
   private String text;
   private URI datatype;
   private URI resource;
-  private List<ResourceReference> interpretationSources;
+  private List<EvidenceReference> fieldValueReferences;
 
   public FieldValue() {
   }
@@ -151,25 +151,25 @@ public final class FieldValue extends Conclusion {
   }
 
   /**
-   * References to other field values that this field value is interpreting.
+   * The references to the record field values being used as evidence.
    *
-   * @return References to other field values that this field value is interpreting.
+   * @return The references to the record field values being used as evidence.
    */
-  @XmlElement (name = "interpretationSource")
-  @JsonProperty ("interpretationSources")
-  @JsonName ("interpretationSources")
-  public List<ResourceReference> getInterpretationSources() {
-    return interpretationSources;
+  @XmlElement( name = "fieldValue" )
+  @JsonProperty( "fieldValues" )
+  @JsonName( "fieldValues" )
+  public List<EvidenceReference> getFieldValueReferences() {
+    return fieldValueReferences;
   }
 
   /**
-   * References to other field values that this field value is interpreting.
+   * The references to the record field values being used as evidence.
    *
-   * @param interpretationSources References to other field values that this field value is interpreting.
+   * @param fieldValueReferences The references to the record field values being used as evidence.
    */
-  @JsonProperty ("interpretationSources")
-  public void setInterpretationSources(List<ResourceReference> interpretationSources) {
-    this.interpretationSources = interpretationSources;
+  @JsonProperty( "fieldValues" )
+  public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
+    this.fieldValueReferences = fieldValueReferences;
   }
 
   /**

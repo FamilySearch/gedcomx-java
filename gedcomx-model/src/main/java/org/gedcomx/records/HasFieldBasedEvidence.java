@@ -17,23 +17,25 @@ package org.gedcomx.records;
 
 import org.gedcomx.common.EvidenceReference;
 
+import java.util.List;
+
 /**
  * @author Ryan Heaton
  */
 public interface HasFieldBasedEvidence {
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @return The reference to the record field being used as evidence.
+   * @return The references to the record field values being used as evidence.
    */
-  EvidenceReference getFieldReference();
+  List<EvidenceReference> getFieldValueReferences();
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @param fieldReference The reference to the record field being used as evidence.
+   * @param fieldValueReferences The references to the record field values being used as evidence.
    */
-  void setFieldReference(EvidenceReference fieldReference);
+  void setFieldValueReferences(List<EvidenceReference> fieldValueReferences);
 
 }

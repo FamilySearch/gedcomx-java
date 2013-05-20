@@ -41,7 +41,7 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
   private URI type;
   private String value;
   private List<Qualifier> qualifiers;
-  private EvidenceReference fieldReference;
+  private List<EvidenceReference> fieldValueReferences;
 
   /**
    * The type of the name part.
@@ -124,25 +124,25 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
   }
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @return The reference to the record field being used as evidence.
+   * @return The references to the record field values being used as evidence.
    */
-  @XmlElement( name = "field" )
-  @JsonProperty( "field" )
-  @JsonName( "field" )
-  public EvidenceReference getFieldReference() {
-    return fieldReference;
+  @XmlElement( name = "fieldValue" )
+  @JsonProperty( "fieldValues" )
+  @JsonName( "fieldValues" )
+  public List<EvidenceReference> getFieldValueReferences() {
+    return fieldValueReferences;
   }
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @param fieldReference The reference to the record field being used as evidence.
+   * @param fieldValueReferences The references to the record field values being used as evidence.
    */
-  @JsonProperty( "field" )
-  public void setFieldReference(EvidenceReference fieldReference) {
-    this.fieldReference = fieldReference;
+  @JsonProperty( "fieldValues" )
+  public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
+    this.fieldValueReferences = fieldValueReferences;
   }
 
   /**

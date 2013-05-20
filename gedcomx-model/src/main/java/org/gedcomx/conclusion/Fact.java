@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * A conclusion about a fact applicable to a person or relationship.
  */
-@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "qualifiers", "fieldReference" })
+@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "qualifiers", "fieldValueReferences"})
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
 public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEvidence {
@@ -42,7 +42,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEv
   private PlaceReference place;
   private String value;
   private List<Qualifier> qualifiers;
-  private EvidenceReference fieldReference;
+  private List<EvidenceReference> fieldValueReferences;
 
   /**
    * Create a fact.
@@ -193,25 +193,25 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEv
   }
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @return The reference to the record field being used as evidence.
+   * @return The references to the record field values being used as evidence.
    */
-  @XmlElement( name = "field" )
-  @JsonProperty( "field" )
-  @JsonName( "field" )
-  public EvidenceReference getFieldReference() {
-    return fieldReference;
+  @XmlElement( name = "fieldValue" )
+  @JsonProperty( "fieldValues" )
+  @JsonName( "fieldValues" )
+  public List<EvidenceReference> getFieldValueReferences() {
+    return fieldValueReferences;
   }
 
   /**
-   * The reference to the record field being used as evidence.
+   * The references to the record field values being used as evidence.
    *
-   * @param fieldReference The reference to the record field being used as evidence.
+   * @param fieldValueReferences The references to the record field values being used as evidence.
    */
-  @JsonProperty( "field" )
-  public void setFieldReference(EvidenceReference fieldReference) {
-    this.fieldReference = fieldReference;
+  @JsonProperty( "fieldValues" )
+  public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
+    this.fieldValueReferences = fieldValueReferences;
   }
 
   @Override
