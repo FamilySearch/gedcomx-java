@@ -155,12 +155,12 @@ public class EvidenceRecipesTest extends RecipeTest {
     sourceDescription.setId("KKK-KKKK");
     sourceDescription.setCitations(Arrays.asList(new SourceCitation()));
     sourceDescription.getCitation().setValue("Helen Kelly Brink, Some of the Descendants of Asa Phillips (1793-1844); Who were Born in Vermont and Who Settled in Steuben County, New York in 1802, (Marco Island, Florida, By the Author, 1992) p.34");
-    sourceDescription.getCitation().setFields(new ArrayList<CitationField>());
-    sourceDescription.getCitation().getFields().add(new CitationField("title", "Some of the Descendants of Asa Phillips (1793-1844); Who were Born in Vermont and Who Settled in Steuben County, New York in 1802"));
-    sourceDescription.getCitation().getFields().add(new CitationField("author", "Helen Kelly Brink"));
-    sourceDescription.getCitation().getFields().add(new CitationField("publisher", "Helen Kelly Brink"));
-    sourceDescription.getCitation().getFields().add(new CitationField("publisher-locality", "Steuben County, New York"));
-    sourceDescription.getCitation().getFields().add(new CitationField("publish-date", "1802"));
+    //sourceDescription.getCitation().setFields(new ArrayList<CitationField>());
+    //sourceDescription.getCitation().getFields().add(new CitationField("title", "Some of the Descendants of Asa Phillips (1793-1844); Who were Born in Vermont and Who Settled in Steuben County, New York in 1802"));
+    //sourceDescription.getCitation().getFields().add(new CitationField("author", "Helen Kelly Brink"));
+    //sourceDescription.getCitation().getFields().add(new CitationField("publisher", "Helen Kelly Brink"));
+    //sourceDescription.getCitation().getFields().add(new CitationField("publisher-locality", "Steuben County, New York"));
+    //sourceDescription.getCitation().getFields().add(new CitationField("publish-date", "1802"));
     return sourceDescription;
   }
 
