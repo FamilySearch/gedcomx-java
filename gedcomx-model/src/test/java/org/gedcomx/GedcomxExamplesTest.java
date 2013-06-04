@@ -116,7 +116,6 @@ public class GedcomxExamplesTest {
 
     List<Name> names = new ArrayList<Name>();
     Name name = new Name();
-    name.setPreferred(true);
     NameForm nameForm = new NameForm();
     nameForm.setFullText("George Washington");
     ArrayList<NamePart> parts = new ArrayList<NamePart>();
@@ -173,7 +172,6 @@ public class GedcomxExamplesTest {
 
     List<Name> names = new ArrayList<Name>();
     Name name = new Name();
-    name.setPreferred(true);
     NameForm nameForm = new NameForm();
     nameForm.setFullText("Martha Dandridge Custis");
     ArrayList<NamePart> parts = new ArrayList<NamePart>();
