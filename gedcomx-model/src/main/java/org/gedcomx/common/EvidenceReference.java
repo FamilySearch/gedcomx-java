@@ -36,7 +36,6 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
 
   private URI resource;
   private String resourceId;
-  private ResourceReference analysis;
   private Attribution attribution;
 
   public EvidenceReference() {
@@ -90,24 +89,6 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
    */
   public void setResource(URI resource) {
     this.resource = resource;
-  }
-
-  /**
-   * A reference to the analysis document explaining the analysis that went into this evidence reference.
-   *
-   * @return A reference to the analysis document explaining the analysis that went into this evidence reference.
-   */
-  public ResourceReference getAnalysis() {
-    return analysis;
-  }
-
-  /**
-   * A reference to the analysis document explaining the analysis that went into this evidence reference.
-   *
-   * @param analysis A reference to the analysis document explaining the analysis that went into this evidence reference.
-   */
-  public void setAnalysis(ResourceReference analysis) {
-    this.analysis = analysis;
   }
 
   /**
