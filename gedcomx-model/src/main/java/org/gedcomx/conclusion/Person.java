@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -150,6 +151,20 @@ public class Person extends Subject implements HasFacts {
   @JsonProperty("names")
   public void setNames(List<Name> names) {
     this.names = names;
+  }
+
+  /**
+   * Add a name conclusion to the person.
+   *
+   * @param name The name conclusion to be added.
+   */
+  public void addName(Name name) {
+    if (name != null) {
+      if (names == null) {
+        names = new LinkedList<Name>();
+      }
+      names.add(name);
+    }
   }
 
   /**
