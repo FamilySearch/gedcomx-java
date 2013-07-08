@@ -102,9 +102,9 @@ public class NameForm extends ExtensibleData implements HasFieldBasedEvidence {
   }
 
   /**
-   * Add a name part of the name form.
+   * Add a name part the list of name parts for this name form.
    *
-   * @param part The part conclusion to be added.
+   * @param part The name part to be added.
    */
   public void addPart(NamePart part) {
     if (part != null) {

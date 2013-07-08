@@ -124,7 +124,7 @@ public class Name extends Conclusion {
   }
 
   /**
-   * Add a name form of the name form.
+   * Add a name form to the list of name forms.
    *
    * @param nameForm The name form to be added.
    */
