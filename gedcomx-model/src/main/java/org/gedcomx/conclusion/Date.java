@@ -26,6 +26,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -102,6 +103,20 @@ public class Date extends ExtensibleData implements HasFieldBasedEvidence {
   }
 
   /**
+   * Add a normalized extension to the list.
+   *
+   * @param normalizedExtension The normalizedExtension to be added.
+   */
+  public void addNormalizedExtension(TextValue normalizedExtension) {
+    if (normalizedExtension != null) {
+      if (normalized == null) {
+        normalized = new LinkedList<TextValue>();
+      }
+      normalized.add(normalizedExtension);
+    }
+  }
+
+  /**
    * The references to the record field values being used as evidence.
    *
    * @return The references to the record field values being used as evidence.
@@ -121,6 +136,20 @@ public class Date extends ExtensibleData implements HasFieldBasedEvidence {
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   @Override

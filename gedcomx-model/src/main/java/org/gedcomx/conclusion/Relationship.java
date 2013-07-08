@@ -30,6 +30,7 @@ import org.gedcomx.types.RelationshipType;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -201,6 +202,20 @@ public class Relationship extends Subject implements HasFacts, HasFieldBasedEvid
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   /**

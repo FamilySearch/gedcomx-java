@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -135,6 +136,20 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Add an identifier of the subject.
+   *
+   * @param identifier The identifier to be added.
+   */
+  public void addIdentifier(Identifier identifier) {
+    if (identifier != null) {
+      if (identifiers == null) {
+        identifiers = new LinkedList<Identifier>();
+      }
+      identifiers.add(identifier);
+    }
+  }
+
+  /**
    * References to the evidence being referenced for this subject.
    *
    * @return References to the evidence being referenced.
@@ -153,6 +168,20 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Add an evidence reference for this subject.
+   *
+   * @param evidence The evidence to be added.
+   */
+  public void addEvidence(EvidenceReference evidenceRef) {
+    if (evidenceRef != null) {
+      if (evidence == null) {
+        evidence = new LinkedList<EvidenceReference>();
+      }
+      evidence.add(evidenceRef);
+    }
+  }
+
+  /**
    * References to multimedia resources associated with this subject.
    *
    * @return References to multimedia resources associated with this subject.
@@ -168,5 +197,19 @@ public abstract class Subject extends Conclusion implements Attributable {
    */
   public void setMedia(List<SourceReference> media) {
     this.media = media;
+  }
+
+  /**
+   * Add an media reference associated with this subject.
+   *
+   * @param mediaRef The reference to the media to be added.
+   */
+  public void addMedia(SourceReference mediaRef) {
+    if (mediaRef != null) {
+      if (media == null) {
+        media = new LinkedList<SourceReference>();
+      }
+      media.add(mediaRef);
+    }
   }
 }

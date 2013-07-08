@@ -27,6 +27,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FactType;
 
 import javax.xml.bind.annotation.*;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -72,7 +73,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEv
   public Fact(FactType factType, Date date, PlaceReference place, String value) {
     setKnownType(factType);
     setDate(date);
-    setPlace(place);
+    setPlace( place );
     setValue(value);
   }
 
@@ -212,6 +213,20 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEv
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   @Override

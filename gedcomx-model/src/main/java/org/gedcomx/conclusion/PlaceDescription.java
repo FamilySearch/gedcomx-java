@@ -25,6 +25,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -71,6 +72,20 @@ public class PlaceDescription extends Subject {
   @JsonProperty ("names")
   public void setNames(List<TextValue> names) {
     this.names = names;
+  }
+
+  /**
+   * Add a name to the list of standardized names.
+   *
+   * @param name The name to be added.
+   */
+  public void addName(TextValue name) {
+    if (name != null) {
+      if (names == null) {
+        names = new LinkedList<TextValue>();
+      }
+      names.add(name);
+    }
   }
 
   /**

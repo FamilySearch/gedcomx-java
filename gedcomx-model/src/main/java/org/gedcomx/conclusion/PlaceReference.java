@@ -27,6 +27,7 @@ import org.gedcomx.rt.RDFRange;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -101,6 +102,20 @@ public class PlaceReference extends ExtensibleData implements HasFieldBasedEvide
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   public String toString() {

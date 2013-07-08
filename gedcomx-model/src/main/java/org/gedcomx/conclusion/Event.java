@@ -24,6 +24,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.EventType;
 
 import javax.xml.bind.annotation.*;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -67,7 +68,7 @@ public class Event extends Subject implements HasDateAndPlace {
   public Event(EventType EventType, Date date, PlaceReference place) {
     setKnownType(EventType);
     setDate(date);
-    setPlace(place);
+    setPlace( place );
   }
 
   /**
@@ -169,6 +170,20 @@ public class Event extends Subject implements HasDateAndPlace {
    */
   public void setRoles(List<EventRole> roles) {
     this.roles = roles;
+  }
+
+  /**
+   * Add a role to the list of roles played in this event.
+   *
+   * @param role The role to be added.
+   */
+  public void addRole(EventRole role) {
+    if (role != null) {
+      if (roles == null) {
+        roles = new LinkedList<EventRole>();
+      }
+      roles.add(role);
+    }
   }
 
   /**

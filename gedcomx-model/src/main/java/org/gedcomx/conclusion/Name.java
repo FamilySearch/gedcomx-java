@@ -24,6 +24,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.NameType;
 
 import javax.xml.bind.annotation.*;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -120,6 +121,20 @@ public class Name extends Conclusion {
   @JsonProperty ("nameForms")
   public void setNameForms(List<NameForm> nameForms) {
     this.nameForms = nameForms;
+  }
+
+  /**
+   * Add a name form of the name form.
+   *
+   * @param nameForm The name form to be added.
+   */
+  public void addNameForm(NameForm nameForm) {
+    if (nameForm != null) {
+      if (nameForms == null) {
+        nameForms = new LinkedList<NameForm>();
+      }
+      nameForms.add(nameForm);
+    }
   }
 
   /**
