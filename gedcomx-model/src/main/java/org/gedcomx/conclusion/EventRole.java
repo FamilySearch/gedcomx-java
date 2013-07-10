@@ -15,10 +15,12 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
 import org.gedcomx.types.EventRoleType;
@@ -33,6 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlType ( name = "EventRole", propOrder = { "person", "details" } )
+@Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
 public class EventRole extends Conclusion {
 
   private ResourceReference person;

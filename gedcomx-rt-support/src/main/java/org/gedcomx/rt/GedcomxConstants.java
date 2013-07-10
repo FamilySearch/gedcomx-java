@@ -36,4 +36,6 @@ public class GedcomxConstants {
   public static final String FACET_GEDCOMX_RS = "http://rs.gedcomx.org/";
   public static final String FACET_GEDCOMX_RECORD = "http://record.gedcomx.org/";
   public static final String FACET_GEDCOMX_CITATION = "http://citation.gedcomx.org/";
+  public static final String FACET_FS_FT_UNSUPPORTED = "https://familysearch.org/tree#UNSUPPORTED";
+  public static final String FACET_FS_FT_READ_ONLY = "https://familysearch.org/tree#READ_ONLY";
 }

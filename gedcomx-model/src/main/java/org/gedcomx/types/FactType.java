@@ -15,9 +15,11 @@
  */
 package org.gedcomx.types;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Collections;
@@ -37,26 +39,31 @@ public enum FactType {
   /**
    * A fact of a person's adoption. In the context of a parent-child relationship, it describes a fact of the adoption of a child by a parent.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Adoption,
 
   /**
    * A fact of a person's christening as an adult.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   AdultChristening,
 
   /**
    * A fact of a person's amnesty.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Amnesty,
 
   /**
    * A fact of a person's apprenticeship.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Apprenticeship,
 
   /**
    * A fact of a person's baptism.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Baptism,
 
   /**
@@ -92,6 +99,7 @@ public enum FactType {
   /**
    * A fact of a person's participation in a census.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Census,
 
   /**
@@ -102,6 +110,7 @@ public enum FactType {
   /**
    * A fact of a person's circumcision.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Circumcision,
 
   /**
@@ -112,6 +121,7 @@ public enum FactType {
   /**
    * A fact of a person's confirmation (or other rite of initiation) in a church or religion.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Confirmation,
 
   /**
@@ -127,11 +137,13 @@ public enum FactType {
   /**
    * A fact of an education or an educational achievement (e.g. diploma, graduation, scholarship, etc.) of a person.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Education,
 
   /**
    * A fact of the emigration of a person.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Emigration,
 
   /**
@@ -142,57 +154,68 @@ public enum FactType {
   /**
    * A fact of a person's excommunication from a church.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Excommunication,
 
   /**
    * A fact of a person's first communion in a church.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   FirstCommunion,
 
   /**
    * A fact of a person's funeral.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Funeral,
 
   /**
    * A fact of a person's immigration.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Immigration,
 
   /**
    * A fact of a person's imprisonment.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Imprisonment,
 
   /**
    * A fact of a land transaction enacted by a person.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   LandTransation,
 
   /**
    * A fact of a record of a person's living for a specific period. This is designed to include "flourish", defined to mean the time period
    * in an adult's life where he was most productive, perhaps as a writer or member of the state assembly. It does not reflect the person's birth and death dates.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Living,
 
   /**
    * A fact of a person's marital status.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MaritalStatus,
 
   /**
    * A fact of a person's medical record, such as for an illness or hospital stay.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Medical,
 
   /**
    * A fact of a person's military award.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MilitaryAward,
 
   /**
    * A fact of a person's military discharge.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MilitaryDischarge,
 
   /**
@@ -203,21 +226,25 @@ public enum FactType {
   /**
    * A fact of a person's church mission.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Mission,
 
   /**
    * A fact of a person's move (i.e. change of residence) from a location.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MoveFrom,
 
   /**
    * A fact of a person's move (i.e. change of residence) to a new location.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MoveTo,
 
   /**
    * A fact that a person was born as part of a multiple birth (e.g. twin, triplet, etc.)
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MultipleBirth,
 
   /**
@@ -238,6 +265,7 @@ public enum FactType {
   /**
    * A fact of a person's number of marriages.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   NumberOfMarriages,
 
   /**
@@ -248,6 +276,7 @@ public enum FactType {
   /**
    * A fact of a person's ordination to a stewardship in a church.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Ordination,
 
   /**
@@ -258,11 +287,13 @@ public enum FactType {
   /**
    * A fact of a receipt of probate of a person's property.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Probate,
 
   /**
    * A fact of a person's property or possessions.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Property,
 
   /**
@@ -278,6 +309,7 @@ public enum FactType {
   /**
    * A fact of a person's retirement.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Retirement,
 
   /**
@@ -288,6 +320,7 @@ public enum FactType {
   /**
    * A fact of a person's will.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Will,
 
   /**
@@ -315,11 +348,13 @@ public enum FactType {
   /**
    * The fact of a filing for divorce.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   DivorceFiling,
 
   /**
    * The fact of an engagement to be married.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Engagement,
 
   /**
@@ -330,31 +365,37 @@ public enum FactType {
   /**
    * The fact of a marriage banns.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MarriageBanns,
 
   /**
    * The fact of a marriage contract.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MarriageContract,
 
   /**
    * The fact of a marriage license.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MarriageLicense,
 
   /**
    * The fact of a marriage notice.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MarriageNotice,
 
   /**
    * A fact of the number of children of a person or relationship.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   NumberOfChildren,
 
   /**
    * A fact of a couple's separation.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Separation,
 
   // facts generally applicable within the scope of a parent-child relationship.
@@ -387,6 +428,7 @@ public enum FactType {
   /**
    * A fact about a sociological relationship between a parent and a child, but not definable in typical legal or biological terms.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   SociologicalParent,
 
   @XmlUnknownQNameEnumValue

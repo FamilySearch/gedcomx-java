@@ -15,7 +15,9 @@
  */
 package org.gedcomx.common;
 
+import org.codehaus.enunciate.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -47,6 +49,7 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
    * @return The language of the note.
    */
   @XmlAttribute ( namespace = XMLConstants.XML_NS_URI )
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public String getLang() {
     return lang;
   }

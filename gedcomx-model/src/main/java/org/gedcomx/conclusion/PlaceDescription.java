@@ -15,11 +15,13 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -94,6 +96,7 @@ public class PlaceDescription extends Subject {
    * @return An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
    */
   @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public URI getType() {
     return type;
   }
@@ -112,6 +115,7 @@ public class PlaceDescription extends Subject {
    *
    * @return A description of the time period to which this place description is relevant.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Date getTemporalDescription() {
     return temporalDescription;
   }
@@ -168,6 +172,7 @@ public class PlaceDescription extends Subject {
    *
    * @return  A reference to a geospatial description of this place.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public ResourceReference getSpatialDescription() {
     return spatialDescription;
   }

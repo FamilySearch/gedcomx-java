@@ -183,6 +183,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEv
   @XmlElement (name = "qualifier")
   @JsonName ("qualifiers")
   @JsonProperty ("qualifiers")
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
   }

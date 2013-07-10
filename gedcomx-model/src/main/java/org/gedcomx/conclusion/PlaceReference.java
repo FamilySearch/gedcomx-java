@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * A reference to genealogical place.
  */
-@XmlType ( name = "PlaceReference" )
+@XmlType ( name = "PlaceReference", propOrder = { "original", "fieldValueReferences" })
 public class PlaceReference extends ExtensibleData implements HasFieldBasedEvidence {
 
   private String original;

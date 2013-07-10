@@ -118,6 +118,7 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
   @XmlElement (name = "qualifier")
   @JsonName ("qualifiers")
   @JsonProperty ("qualifiers")
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
   }

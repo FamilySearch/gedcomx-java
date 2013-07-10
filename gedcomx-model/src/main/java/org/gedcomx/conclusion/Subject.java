@@ -15,12 +15,14 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.IdentifierType;
 
@@ -55,6 +57,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    * @return Whether this subject has been identified as "extracted".
    */
   @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Boolean getExtracted() {
     return extracted;
   }
@@ -154,6 +157,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    *
    * @return References to the evidence being referenced.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<EvidenceReference> getEvidence() {
     return evidence;
   }
@@ -170,7 +174,7 @@ public abstract class Subject extends Conclusion implements Attributable {
   /**
    * Add an evidence reference for this subject.
    *
-   * @param evidence The evidence to be added.
+   * @param evidenceRef The evidence to be added.
    */
   public void addEvidence(EvidenceReference evidenceRef) {
     if (evidenceRef != null) {
@@ -186,6 +190,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    *
    * @return References to multimedia resources associated with this subject.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<SourceReference> getMedia() {
     return media;
   }
