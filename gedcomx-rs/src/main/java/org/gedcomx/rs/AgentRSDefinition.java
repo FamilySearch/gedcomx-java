@@ -24,7 +24,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
 
 /**
- * The agent resource defines the interface for an agent, such as a user or other contributor.
+ * <p>The Agent resource defines the interface for an agent, such as a user, a system, or an organization.</p>
  */
 @ResourceDefinition (
   name = "Agent",
