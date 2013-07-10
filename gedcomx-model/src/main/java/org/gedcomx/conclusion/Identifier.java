@@ -47,6 +47,11 @@ public final class Identifier implements HasJsonKey {
     this.value = value;
   }
 
+  public Identifier(URI value, IdentifierType knownType) {
+    this.value = value;
+    setKnownType( knownType );
+  }
+
   /**
    * The id value.
    *
