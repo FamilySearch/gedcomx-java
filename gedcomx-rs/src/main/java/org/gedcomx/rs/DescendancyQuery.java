@@ -25,22 +25,25 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 /**
- * <p>The descendancy query is used to query the application for an descending pedigree rooted at a person for a specific number of generations.
- * The result of the query should provide a list of persons and relationships. Each person MAY supply a descendancy number in the display
- * properties for the person. The descendancy number is interpreted as an d'Aboville number which can be used to determine the position of
- * each person in the descendancy. The descendancy query MAY support the inclusion of the spouses of each person in the descendancy graph. Spouses
- * returned in the query MUST have a "-S" appended to their descendancy number to indicate the person is the spouse of the associated person.</p>
+ * <p>The descendancy query is used to query the application for a descending pedigree rooted at a person and for a specific number of generations. The result
+ * of the query provides a list of persons and relationships. Each person may supply a <tt>descendancy number</tt> in the display properties for the person. The
+ * <tt>descendancy number</tt> is interpreted as a d'Aboville number which can be used to determine the position of each person in the descendancy. The
+ * descendancy query may support the inclusion of the spouses of each person in the descendancy graph. Spouses returned in the query must have an <tt>-S</tt>
+ * appended to their <tt>descendancy number</tt> to indicate the person is the spouse of the associated person.</p>
  *
- * <p>The descendancy query MUST support the following parameters:</p>
+ * <p>The descendancy query must support the following parameters:</p>
  *
  * <ul>
- *   <li>The "person" parameter is the id for the person at the root of the descendancy. Unless the "spouse" parameter is provided,
- *       The descendancy number of the person identified by the "person" parameter will be "1". The "person" parameter is REQUIRED.</li>
- *   <li>The presence of the "spouse" parameter indicates that the descendancy will be narrowed to a specific spouse.
- *       If the value of the "spouse" parameter is empty, the application may select a spouse for the person. If the value of the
- *       "spouse" parameter is not empty, it is interpreted as the id of the spouse selected for the descendancy. When the "spouse"
- *       parameter is supplied, the descendancy number of both the person and the spouse will be "1".</li>
- *   <li>The "generations" parameter indicates the number of generations of the person's descendancy is being queried.</li>
+ *   <li>The <tt>person</tt> parameter is the ID for the person at the root of the descendancy. The <tt>person</tt> parameter is required. The <tt>descendancy
+ *       number</tt> of the person identified by the person parameter is 1, unless the <tt>spouse</tt> parameter is provided. </li>
+ *   <li>The presence of the <tt>spouse</tt> parameter indicates that the descendancy is narrowed to a specific spouse. When the <tt>spouse</tt> parameter is
+ *       supplied, the <tt>descendancy number</tt> of both the person and the spouse will be 1.
+ *       <ul>
+ *         <li>If the value of the <tt>spouse</tt> parameter is empty, the application may select a spouse for the person. </li>
+ *         <li>If the value of the <tt>spouse</tt> parameter is not empty, it is interpreted as the ID of the spouse selected for the descendancy. </li>
+ *       </ul>
+ *   </li>
+ *   <li>The <tt>generations</tt> parameter indicates the number of generations of the person's descendancy that is being queried.</li>
  * </ul>
  */
 @ResourceDefinition (

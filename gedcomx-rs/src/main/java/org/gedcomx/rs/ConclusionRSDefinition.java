@@ -24,7 +24,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.core.Response;
 
 /**
- * The conclusion resource defines the interface for a specific conclusion.
+ * <p>The conclusion resource defines the interface for a specific conclusion.</p>
  *
  * @author Ryan Heaton
  */
