@@ -16,6 +16,7 @@
 package org.gedcomx.source;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
@@ -55,6 +56,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The type of the resource being described.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (ResourceType.class)
   public URI getResourceType() {
     return resourceType;
   }

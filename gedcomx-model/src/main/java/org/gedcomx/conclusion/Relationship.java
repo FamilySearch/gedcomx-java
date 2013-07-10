@@ -16,6 +16,7 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
@@ -56,6 +57,7 @@ public class Relationship extends Subject implements HasFacts, HasFieldBasedEvid
    * @return The type of this relationship.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (RelationshipType.class)
   public URI getType() {
     return type;
   }

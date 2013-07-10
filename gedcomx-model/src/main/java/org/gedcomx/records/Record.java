@@ -16,6 +16,7 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
@@ -60,6 +61,7 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    * @return The type of the record.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (RecordType.class)
   public URI getType() {
     return type;
   }

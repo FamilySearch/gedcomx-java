@@ -16,6 +16,7 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
@@ -59,6 +60,7 @@ public final class FieldValue extends Conclusion implements HasFieldBasedEvidenc
    * @return The type of the field value.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (FieldValueType.class)
   public URI getType() {
     return type;
   }

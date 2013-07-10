@@ -16,6 +16,7 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
@@ -63,6 +64,7 @@ public class Gender extends Conclusion implements HasFieldBasedEvidence {
    * @return The type of the gender.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (GenderType.class)
   public URI getType() {
     return type;
   }

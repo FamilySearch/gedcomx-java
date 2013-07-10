@@ -16,6 +16,7 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
@@ -49,6 +50,7 @@ public class Name extends Conclusion {
    * @return The type of the name.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (NameType.class)
   public URI getType() {
     return type;
   }

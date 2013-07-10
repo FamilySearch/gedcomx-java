@@ -16,6 +16,7 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
@@ -47,6 +48,7 @@ public class Facet extends HypermediaEnabledData {
    * @return The type of the facet.
    */
   @XmlAttribute
+  @XmlQNameEnumRef ( FacetType.class )
   public URI getType() {
     return type;
   }

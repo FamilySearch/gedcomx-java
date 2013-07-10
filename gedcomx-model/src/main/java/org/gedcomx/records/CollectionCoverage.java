@@ -15,6 +15,7 @@
  */
 package org.gedcomx.records;
 
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
@@ -94,6 +95,7 @@ public class CollectionCoverage extends HypermediaEnabledData {
    *
    * @return The type of resource being covered in this collection.
    */
+  @XmlQNameEnumRef(ResourceType.class)
   public URI getResourceType() {
     return resourceType;
   }
@@ -133,6 +135,7 @@ public class CollectionCoverage extends HypermediaEnabledData {
    *
    * @return The type of record being covered in this collection.
    */
+  @XmlQNameEnumRef (RecordType.class)
   public URI getRecordType() {
     return recordType;
   }

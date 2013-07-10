@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.HasText;
@@ -70,6 +71,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    * @return The type of the document.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (DocumentType.class)
   public URI getType() {
     return type;
   }

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
@@ -63,6 +64,7 @@ public class EventRole extends Conclusion {
    * @return The role type.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (EventRoleType.class)
   public URI getType() {
     return type;
   }
