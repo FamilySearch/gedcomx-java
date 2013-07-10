@@ -32,4 +32,8 @@ public class GedcomxConstants {
   public static final String GEDCOMX_NAMESPACE = "http://gedcomx.org/v1/";
   public static final String GEDCOMX_XML_MEDIA_TYPE = "application/x-gedcomx-v1+xml";
   public static final String GEDCOMX_JSON_MEDIA_TYPE = "application/x-gedcomx-v1+json";
+
+  public static final String FACET_GEDCOMX_RS = "http://rs.gedcomx.org/";
+  public static final String FACET_GEDCOMX_RECORD = "http://record.gedcomx.org/";
+  public static final String FACET_GEDCOMX_CITATION = "http://citation.gedcomx.org/";
 }

@@ -15,6 +15,7 @@
  */
 package org.gedcomx;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.agent.Agent;
@@ -387,6 +388,7 @@ public class Gedcomx extends HypermediaEnabledData {
   @XmlElement (name="collection")
   @JsonProperty ("collections")
   @JsonName ("collections")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Collection> getCollections() {
     return collections;
   }
@@ -422,6 +424,7 @@ public class Gedcomx extends HypermediaEnabledData {
   @XmlElement (name="record")
   @JsonProperty ("records")
   @JsonName ("records")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Record> getRecords() {
     return records;
   }
@@ -457,6 +460,7 @@ public class Gedcomx extends HypermediaEnabledData {
   @XmlElement (name="recordDescriptor")
   @JsonProperty ("recordDescriptors")
   @JsonName ("recordDescriptors")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<RecordDescriptor> getRecordDescriptors() {
     return recordDescriptors;
   }

@@ -22,6 +22,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.source.SourceReference;
@@ -42,6 +43,7 @@ import java.util.List;
 @XmlRootElement
 @XmlType ( name = "Record", propOrder = { "sources", "identifiers", "principalPersons", "primaryEvent", "collectionRef", "descriptorRef", "fields", "notes", "attribution" } )
 @JsonElementWrapper ( name = "records" )
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Record extends HypermediaEnabledData implements Attributable, HasNotes {
 
   private URI type;

@@ -21,6 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.FacetType;
 
@@ -34,6 +35,7 @@ import java.util.List;
  * <p>A <tt>facet</tt> is a logical grouping of resources by specific criteria, used for convenience in browsing a collection or a set of search results.</p>
  */
 @XmlType ( name = "Facet", propOrder = {"title", "key", "facets", "values" })
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Facet extends HypermediaEnabledData {
 
   private URI type;

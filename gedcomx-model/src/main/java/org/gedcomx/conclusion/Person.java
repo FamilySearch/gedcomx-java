@@ -15,10 +15,12 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FactType;
@@ -251,6 +253,7 @@ public class Person extends Subject implements HasFacts {
   @XmlAttribute ( name = "collection" )
   @JsonName ( "collection" )
   @JsonProperty ( "collection" )
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public URI getCollectionRef() {
     return collectionRef;
   }
@@ -272,6 +275,7 @@ public class Person extends Subject implements HasFacts {
    */
   @XmlElement(name = "display")
   @JsonProperty("display")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public DisplayProperties getDisplayExtension() {
     return display;
   }

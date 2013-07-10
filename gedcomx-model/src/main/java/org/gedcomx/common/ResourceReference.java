@@ -15,6 +15,8 @@
  */
 package org.gedcomx.common;
 
+import org.codehaus.enunciate.Facet;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
@@ -54,6 +56,7 @@ public final class ResourceReference {
    * @return The resource id of the resource being referenced.
    */
   @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public String getResourceId() {
     return resourceId;
   }

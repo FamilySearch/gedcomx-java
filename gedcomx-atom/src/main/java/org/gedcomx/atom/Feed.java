@@ -62,6 +62,7 @@ import java.util.List;
 @XmlRootElement
 @XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries", "facets"} )
 @SuppressWarnings ( "gedcomx:no_id" )
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public class Feed extends ExtensibleElement implements SupportsLinks {
 
   private List<Person> authors;

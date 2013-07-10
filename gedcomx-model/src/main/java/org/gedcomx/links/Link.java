@@ -15,8 +15,10 @@
  */
 package org.gedcomx.links;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -37,6 +39,7 @@ import java.util.TreeSet;
 @XmlType ( name = "Link" )
 @JsonElementWrapper ( name = "links" )
 @SuppressWarnings("gedcomx:no_id")
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public class Link implements HasJsonKey {
 
   /**

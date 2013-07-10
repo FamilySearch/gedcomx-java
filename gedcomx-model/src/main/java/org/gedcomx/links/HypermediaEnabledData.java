@@ -15,10 +15,12 @@
  */
 package org.gedcomx.links;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
@@ -44,6 +46,7 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
   @XmlElement (name = "link")
   @JsonName ("links")
   @JsonProperty ("links")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public List<Link> getLinks() {
     return links;
   }

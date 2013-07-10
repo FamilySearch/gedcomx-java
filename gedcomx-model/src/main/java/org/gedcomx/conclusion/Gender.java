@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -22,6 +23,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.records.HasFieldBasedEvidence;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.GenderType;
@@ -107,6 +109,7 @@ public class Gender extends Conclusion implements HasFieldBasedEvidence {
   @XmlElement( name = "fieldValue" )
   @JsonProperty( "fieldValues" )
   @JsonName( "fieldValues" )
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<EvidenceReference> getFieldValueReferences() {
     return fieldValueReferences;
   }

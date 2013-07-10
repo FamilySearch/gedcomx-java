@@ -4,6 +4,12 @@
 
   <api-import pattern="org.gedcomx.**"/>
 
+  <facets>
+    <exclude name="http://rs.gedcomx.org/"/>
+    <exclude name="http://record.gedcomx.org/"/>
+    <exclude name="http://citation.gedcomx.org/"/>
+  </facets>
+
   <modules>
     <!--disable the standard docs module, we're using the gedcomx-support module to generate docs.-->
     <docs disabled="true"/>

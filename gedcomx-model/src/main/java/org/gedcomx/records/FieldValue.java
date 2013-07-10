@@ -22,6 +22,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.FieldValueType;
 
@@ -36,6 +37,7 @@ import java.util.List;
  * An element representing a value in a record field.
  */
 @XmlType ( name = "FieldValue" )
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public final class FieldValue extends Conclusion implements HasFieldBasedEvidence {
 
   /**

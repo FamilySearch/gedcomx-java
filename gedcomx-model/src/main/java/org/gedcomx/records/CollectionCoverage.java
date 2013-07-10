@@ -21,6 +21,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.conclusion.PlaceReference;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.RecordType;
 import org.gedcomx.types.ResourceType;
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "collectionCoverage" )
 @XmlType ( name = "CollectionCoverage" )
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class CollectionCoverage extends HypermediaEnabledData {
 
   private PlaceReference spatial;
