@@ -17,14 +17,12 @@ package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.agent.Agent;
-import org.gedcomx.conclusion.PlaceDescription;
+import org.gedcomx.Gedcomx;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.MediaTypeDefinition;
 import org.gedcomx.rt.Model;
 import org.gedcomx.rt.json.JsonElementWrapper;
-import org.gedcomx.source.SourceDescription;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -57,16 +55,12 @@ import java.util.List;
 )
 @XmlRootElement (namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE)
 @JsonElementWrapper (name = "records")
-@XmlType ( name = "RecordSet", namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE, propOrder = { "records", "collections", "places", "agents", "recordDescriptors" })
+@XmlType ( name = "RecordSet", namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE, propOrder = { "metadata", "records" })
 public class RecordSet extends HypermediaEnabledData {
 
   private String lang;
-  private List<Record> records;
-  private List<SourceDescription> sourceDescriptions;
-  private List<Collection> collections;
-  private List<PlaceDescription> places;
-  private List<Agent> agents;
-  private List<RecordDescriptor> recordDescriptors;
+  private Gedcomx metadata;
+  private List<Gedcomx> records;
 
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
@@ -90,25 +84,21 @@ public class RecordSet extends HypermediaEnabledData {
   }
 
   /**
-   * The collections included in this genealogical data set.
+   * Metadata about this record set; shared among all records in the set.
    *
-   * @return The collections included in this genealogical data set.
+   * @return Metadata about this record set; shared among all records in the set.
    */
-  @XmlElement (name="collection")
-  @JsonProperty ("collections")
-  @JsonName ("collections")
-  public List<Collection> getCollections() {
-    return collections;
+  public Gedcomx getMetadata() {
+    return metadata;
   }
 
   /**
-   * The collections included in this genealogical data set.
+   * Metadata about this record set; shared among all records in the set.
    *
-   * @param collections The collections included in this genealogical data set.
+   * @param metadata Metadata about this record set; shared among all records in the set.
    */
-  @JsonProperty ("collections")
-  public void setCollections(List<Collection> collections) {
-    this.collections = collections;
+  public void setMetadata(Gedcomx metadata) {
+    this.metadata = metadata;
   }
 
   /**
@@ -119,7 +109,7 @@ public class RecordSet extends HypermediaEnabledData {
   @XmlElement (name="record")
   @JsonProperty ("records")
   @JsonName ("records")
-  public List<Record> getRecords() {
+  public List<Gedcomx> getRecords() {
     return records;
   }
 
@@ -129,74 +119,8 @@ public class RecordSet extends HypermediaEnabledData {
    * @param records The records included in this genealogical data set.
    */
   @JsonProperty ("records")
-  public void setRecords(List<Record> records) {
+  public void setRecords(List<Gedcomx> records) {
     this.records = records;
-  }
-
-  /**
-   * The places included in this genealogical data set.
-   *
-   * @return The places included in this genealogical data set.
-   */
-  @XmlElement (name="place")
-  @JsonProperty ("places")
-  @JsonName ("places")
-  public List<PlaceDescription> getPlaces() {
-    return places;
-  }
-
-  /**
-   * The places included in this genealogical data set.
-   *
-   * @param places The places included in this genealogical data set.
-   */
-  @JsonProperty ("places")
-  public void setPlaces(List<PlaceDescription> places) {
-    this.places = places;
-  }
-
-  /**
-   * The record descriptors included in this genealogical data set.
-   *
-   * @return The record descriptors included in this genealogical data set.
-   */
-  @XmlElement (name="recordDescriptor")
-  @JsonProperty ("recordDescriptors")
-  @JsonName ("recordDescriptors")
-  public List<RecordDescriptor> getRecordDescriptors() {
-    return recordDescriptors;
-  }
-
-  /**
-   * The record descriptors included in this genealogical data set.
-   *
-   * @param recordDescriptors The record descriptors included in this genealogical data set.
-   */
-  @JsonProperty ("recordDescriptors")
-  public void setRecordDescriptors(List<RecordDescriptor> recordDescriptors) {
-    this.recordDescriptors = recordDescriptors;
-  }
-
-  /**
-   * The agents included in this genealogical data set.
-   *
-   * @return The agents included in this genealogical data set.
-   */
-  @XmlElement (name="agent")
-  @JsonProperty ("agents")
-  @JsonName ("agents")
-  public List<Agent> getAgents() {
-    return agents;
-  }
-
-  /**
-   * The agents included in this genealogical data set.
-   *
-   * @param agents The agents included in this genealogical data set.
-   */
-  @JsonProperty ("agents")
-  public void setAgents(List<Agent> agents) {
-    this.agents = agents;
   }
 
 }
