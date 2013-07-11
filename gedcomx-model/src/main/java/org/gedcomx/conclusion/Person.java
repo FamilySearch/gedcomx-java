@@ -39,7 +39,7 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
-@XmlType ( name = "Person", propOrder = { "living", "gender", "names", "facts", "displayExtension"} )
+@XmlType ( name = "Person", propOrder = { "living", "gender", "names", "facts", "displayExtension", "collec"} )
 public class Person extends Subject implements HasFacts {
 
   private Boolean isPrivate;

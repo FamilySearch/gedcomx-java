@@ -22,7 +22,7 @@ import org.gedcomx.common.Attribution;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.records.Collection;
-import org.gedcomx.records.Record;
+import org.gedcomx.records.Field;
 import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -32,7 +32,10 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.source.SourceDescription;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
@@ -74,7 +77,7 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
-@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "records", "recordDescriptors" })
+@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
@@ -87,7 +90,7 @@ public class Gedcomx extends HypermediaEnabledData {
   private List<PlaceDescription> places;
   private List<Document> documents;
   private List<Collection> collections;
-  private List<Record> records;
+  private List<Field> fields;
   private List<RecordDescriptor> recordDescriptors;
 
   /**
@@ -306,25 +309,25 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
-   * The records included in this genealogical data set.
+   * The extracted fields included in this genealogical data set.
    *
-   * @return The records included in this genealogical data set.
+   * @return The extracted fields included in this genealogical data set.
    */
-  @XmlElement (name="record")
-  @JsonProperty ("records")
-  @JsonName ("records")
-  public List<Record> getRecords() {
-    return records;
+  @XmlElement (name="field")
+  @JsonProperty ("fields")
+  @JsonName ("fields")
+  public List<Field> getFields() {
+    return fields;
   }
 
   /**
-   * The records included in this genealogical data set.
+   * The extracted fields included in this genealogical data set.
    *
-   * @param records The records included in this genealogical data set.
+   * @param fields The extracted fields included in this genealogical data set.
    */
-  @JsonProperty ("records")
-  public void setRecords(List<Record> records) {
-    this.records = records;
+  @JsonProperty ("fields")
+  public void setFields(List<Field> fields) {
+    this.fields = fields;
   }
 
   /**

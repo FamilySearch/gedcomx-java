@@ -196,7 +196,7 @@ public class RecordTest {
     record.setPrincipalPersons(Arrays.asList(new ResourceReference(URI.create("#" + principalId))));
 
     Gedcomx gx = new Gedcomx();
-    gx.setRecords(Arrays.asList(record));
+    gx.setFields(Arrays.asList(record));
     gx.setPersons(Arrays.asList(principal, spouse));
     gx.setRelationships(Arrays.asList(coupleRelationship));
     return gx;

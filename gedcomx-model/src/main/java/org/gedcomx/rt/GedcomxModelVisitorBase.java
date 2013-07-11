@@ -105,7 +105,7 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
 
-    List<Record> records = gx.getRecords();
+    List<Record> records = gx.getFields();
     if (records != null) {
       for (Record record : records) {
         if (record != null) {

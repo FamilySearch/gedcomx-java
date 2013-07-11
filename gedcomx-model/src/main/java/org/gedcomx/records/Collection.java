@@ -16,19 +16,23 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.URI;
+import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.Coverage;
+import org.gedcomx.types.IdentifierType;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -38,15 +42,17 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection", propOrder = { "title", "description", "collectionRef", "size", "coverage", "facets", "attribution" })
+@XmlType ( name = "Collection", propOrder = { "title", "description", "identifiers", "collectionRef", "size", "coverage", "content", "facets", "attribution" })
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
   private ResourceReference collectionRef;
+  private List<Identifier> identifiers;
   private String title;
   private String description;
   private Integer size;
-  private List<CollectionCoverage> coverage;
+  private Coverage coverage;
+  private List<CollectionContent> content;
   private Attribution attribution;
   private List<Facet> facets;
 
@@ -128,11 +134,78 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
+   * Find the long-term, persistent identifier for this person from the list of identifiers.
+   *
+   * @return The long-term, persistent identifier for this person.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public URI getPersistentId() {
+    URI identifier = null;
+    if (this.identifiers != null) {
+      for (Identifier id : this.identifiers) {
+        if (IdentifierType.Persistent.equals(id.getKnownType())) {
+          identifier = id.getValue();
+          break;
+        }
+      }
+    }
+    return identifier;
+  }
+
+  /**
+   * A long-term, persistent, globally unique identifier for this person.
+   *
+   * @param persistentId A long-term, persistent, globally unique identifier for this person.
+   */
+  @JsonIgnore
+  public void setPersistentId(URI persistentId) {
+    if (this.identifiers == null) {
+      this.identifiers = new ArrayList<Identifier>();
+    }
+
+    //clear out any other primary ids.
+    Iterator<Identifier> it = this.identifiers.iterator();
+    while (it.hasNext()) {
+      if (IdentifierType.Persistent.equals(it.next().getKnownType())) {
+        it.remove();
+      }
+    }
+
+    Identifier identifier = new Identifier();
+    identifier.setKnownType(IdentifierType.Persistent);
+    identifier.setValue(persistentId);
+    this.identifiers.add(identifier);
+  }
+
+  /**
+   * The list of identifiers for the person.
+   *
+   * @return The list of identifiers for the person.
+   */
+  @XmlElement (name="identifier")
+  @JsonProperty ("identifiers")
+  @JsonName ("identifiers")
+  public List<Identifier> getIdentifiers() {
+    return identifiers;
+  }
+
+  /**
+   * The list of identifiers of the person.
+   *
+   * @param identifiers The list of identifiers of the person.
+   */
+  @JsonProperty ("identifiers")
+  public void setIdentifiers(List<Identifier> identifiers) {
+    this.identifiers = identifiers;
+  }
+
+  /**
    * The coverage of the collection.
    *
    * @return The coverage of the collection.
    */
-  public List<CollectionCoverage> getCoverage() {
+  public Coverage getCoverage() {
     return coverage;
   }
 
@@ -141,8 +214,26 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    *
    * @param coverage The coverage of the collection.
    */
-  public void setCoverage(List<CollectionCoverage> coverage) {
+  public void setCoverage(Coverage coverage) {
     this.coverage = coverage;
+  }
+
+  /**
+   * Descriptions of the content of this collection.
+   *
+   * @return Descriptions of the content of this collection.
+   */
+  public List<CollectionContent> getContent() {
+    return content;
+  }
+
+  /**
+   * Descriptions of the content of this collection.
+   *
+   * @param content Descriptions of the content of this collection.
+   */
+  public void setContent(List<CollectionContent> content) {
+    this.content = content;
   }
 
   /**

@@ -19,7 +19,9 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
+import org.gedcomx.conclusion.Event;
 import org.gedcomx.conclusion.Identifier;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -39,20 +41,21 @@ import java.util.List;
  * of the sources from which the data is being extracted.
  */
 @XmlRootElement
-@XmlType ( name = "Record", propOrder = { "sources", "identifiers", "principalPersons", "primaryEvent", "collectionRef", "descriptorRef", "fields", "notes", "attribution" } )
+@XmlType ( name = "Record", propOrder = { "persons", "principalPersons", "sources", "identifiers", "primaryEvent", "collectionRef", "descriptorRef", "fields", "notes", "attribution" } )
 @JsonElementWrapper ( name = "records" )
 public class Record extends HypermediaEnabledData implements Attributable, HasNotes {
 
-  private URI type;
-  private List<ResourceReference> principalPersons;
-  private ResourceReference primaryEvent;
-  private List<SourceReference> sources;
-  private List<Identifier> identifiers;
-  private List<Field> fields;
-  private List<Note> notes;
-  private Attribution attribution;
-  private ResourceReference descriptorRef;
-  private ResourceReference collectionRef;
+  private URI type; //in source description coverage
+  private List<Person> persons; //in gx root
+  private List<ResourceReference> principalPersons; //in event
+  private Event primaryEvent; //in gx root.
+  private List<SourceReference> sources; //in source description.
+  private List<Identifier> identifiers; // todo: add it to source description?
+  private List<Field> fields; //in gx root.
+  private List<Note> notes; //in source description.
+  private Attribution attribution; //in source description.
+  private ResourceReference descriptorRef; // todo: add it to source description?
+  private ResourceReference collectionRef; // in source description.
 
   /**
    * The type of the record.
@@ -95,6 +98,28 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
   }
 
   /**
+   * The persons that are extracted from the record.
+   *
+   * @return The persons that are extracted from the record.
+   */
+  @XmlElement (name="person")
+  @JsonProperty ("persons")
+  @JsonName ("persons")
+  public List<Person> getPersons() {
+    return persons;
+  }
+
+  /**
+   * The persons that are extracted from the record.
+   *
+   * @param persons The persons that are extracted from the record.
+   */
+  @JsonProperty ("persons")
+  public void setPersons(List<Person> persons) {
+    this.persons = persons;
+  }
+
+  /**
    * The principal person(s) of this record.
    *
    * @return The principal person(s) of this record.
@@ -121,7 +146,7 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    *
    * @return The primary event of this record.
    */
-  public ResourceReference getPrimaryEvent() {
+  public Event getPrimaryEvent() {
     return primaryEvent;
   }
 
@@ -130,7 +155,7 @@ public class Record extends HypermediaEnabledData implements Attributable, HasNo
    *
    * @param primaryEvent The primary event of this record.
    */
-  public void setPrimaryEvent(ResourceReference primaryEvent) {
+  public void setPrimaryEvent(Event primaryEvent) {
     this.primaryEvent = primaryEvent;
   }
 
