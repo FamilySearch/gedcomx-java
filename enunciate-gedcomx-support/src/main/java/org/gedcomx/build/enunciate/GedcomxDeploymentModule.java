@@ -38,7 +38,6 @@ import org.codehaus.enunciate.modules.FreemarkerDeploymentModule;
 import org.codehaus.enunciate.modules.docs.GenerateExampleXmlMethod;
 import org.codehaus.enunciate.modules.docs.SchemaForNamespaceMethod;
 import org.codehaus.enunciate.modules.objc.ObjCDeploymentModule;
-import org.codehaus.enunciate.template.freemarker.GetGroupsMethod;
 import org.codehaus.enunciate.template.freemarker.IsDefinedGloballyMethod;
 import org.codehaus.enunciate.template.freemarker.UniqueContentTypesMethod;
 import org.gedcomx.build.enunciate.rdf.RDFProcessor;
@@ -364,7 +363,6 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
       model.setVariable("uniqueContentTypes", new UniqueContentTypesMethod());
       model.setVariable("schemaForNamespace", new SchemaForNamespaceMethod(model.getNamespacesToSchemas()));
       model.put("isDefinedGlobally", new IsDefinedGloballyMethod());
-      model.put("getGroups", new GetGroupsMethod());
       model.put("defaultDate", new Date());
       model.setVariable("generateExampleJson", new GenerateExampleJsonMethod(model));
       model.setVariable("generateExampleXml", new GenerateExampleXmlMethod(null, model));

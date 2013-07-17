@@ -16,10 +16,12 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FieldType;
@@ -35,6 +37,7 @@ import java.util.List;
  */
 @XmlType ( name = "Field", propOrder = { "label", "values" })
 @JsonElementWrapper ( name = "fields" )
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Field extends HypermediaEnabledData {
 
   private String label;
@@ -47,6 +50,7 @@ public class Field extends HypermediaEnabledData {
    * @return The type of the gender.
    */
   @XmlAttribute
+  @XmlQNameEnumRef ( FieldType.class )
   public URI getType() {
     return type;
   }

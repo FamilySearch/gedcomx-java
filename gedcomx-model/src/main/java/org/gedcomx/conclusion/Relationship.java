@@ -15,13 +15,16 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.records.HasFieldBasedEvidence;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
 import org.gedcomx.rt.RDFSubPropertyOf;
@@ -30,6 +33,7 @@ import org.gedcomx.types.RelationshipType;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -55,6 +59,7 @@ public class Relationship extends Subject implements HasFacts, HasFieldBasedEvid
    * @return The type of this relationship.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (RelationshipType.class)
   public URI getType() {
     return type;
   }
@@ -189,6 +194,7 @@ public class Relationship extends Subject implements HasFacts, HasFieldBasedEvid
   @XmlElement( name = "fieldValue" )
   @JsonProperty( "fieldValues" )
   @JsonName( "fieldValues" )
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<EvidenceReference> getFieldValueReferences() {
     return fieldValueReferences;
   }
@@ -201,6 +207,20 @@ public class Relationship extends Subject implements HasFacts, HasFieldBasedEvid
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   /**

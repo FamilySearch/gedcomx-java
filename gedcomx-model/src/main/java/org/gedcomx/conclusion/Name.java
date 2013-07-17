@@ -15,15 +15,19 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.NameType;
 
 import javax.xml.bind.annotation.*;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -48,6 +52,7 @@ public class Name extends Conclusion {
    * @return The type of the name.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (NameType.class)
   public URI getType() {
     return type;
   }
@@ -87,6 +92,7 @@ public class Name extends Conclusion {
    *
    * @return The date the name was first applied or adopted.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Date getDate() {
     return date;
   }
@@ -120,6 +126,20 @@ public class Name extends Conclusion {
   @JsonProperty ("nameForms")
   public void setNameForms(List<NameForm> nameForms) {
     this.nameForms = nameForms;
+  }
+
+  /**
+   * Add a name form to the list of name forms.
+   *
+   * @param nameForm The name form to be added.
+   */
+  public void addNameForm(NameForm nameForm) {
+    if (nameForm != null) {
+      if (nameForms == null) {
+        nameForms = new LinkedList<NameForm>();
+      }
+      nameForms.add(nameForm);
+    }
   }
 
   /**

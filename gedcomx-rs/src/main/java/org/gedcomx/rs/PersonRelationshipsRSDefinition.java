@@ -25,11 +25,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
 
 /**
- * The person relationships resource defines the interface for a set of relationships that reference a specific person. Examples might include
- * the set of relationships to the spouses of a person, the set of relationships to the parents of a person, and the set of relationships
- * to the children of a person. The person relationships resource is to be considered an embedded resource, any links to this
- * resource are to be treated as embedded links. This means that some implementations MAY choose to bind this interface
- * to the containing resource (person or relationship).
+ * <p>The Person With Relationships query is used to query for a person and all the relationships of the person.</p>
+ *
+ * <p>The Person With Relationships query supports the <tt>person</tt> parameter as the ID for the person in the query. The <tt>person</tt> parameter is
+ * required.</p>
  */
 @ResourceDefinition (
   name = "Person Relationships",

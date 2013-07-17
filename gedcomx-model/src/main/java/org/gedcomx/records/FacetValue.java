@@ -16,6 +16,7 @@
 package org.gedcomx.records;
 
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlType;
 
@@ -23,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  * <p>A facet value is the value that is used by a facet to group related resources.</p>
  */
 @XmlType ( name = "FacetValue", propOrder = {"title", "value", "count" })
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class FacetValue extends HypermediaEnabledData {
 
   private String title;

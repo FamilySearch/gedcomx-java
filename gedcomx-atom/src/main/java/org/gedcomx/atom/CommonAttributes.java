@@ -15,7 +15,9 @@
  */
 package org.gedcomx.atom;
 
+import org.codehaus.enunciate.Facet;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlType ( name = "CommonAttributes" )
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public abstract class CommonAttributes {
   
   private String lang;

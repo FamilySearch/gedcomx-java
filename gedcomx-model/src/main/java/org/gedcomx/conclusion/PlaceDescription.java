@@ -15,16 +15,19 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -74,11 +77,26 @@ public class PlaceDescription extends Subject {
   }
 
   /**
+   * Add a name to the list of standardized names.
+   *
+   * @param name The name to be added.
+   */
+  public void addName(TextValue name) {
+    if (name != null) {
+      if (names == null) {
+        names = new LinkedList<TextValue>();
+      }
+      names.add(name);
+    }
+  }
+
+  /**
    * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
    *
    * @return An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
    */
   @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public URI getType() {
     return type;
   }
@@ -97,6 +115,7 @@ public class PlaceDescription extends Subject {
    *
    * @return A description of the time period to which this place description is relevant.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Date getTemporalDescription() {
     return temporalDescription;
   }
@@ -153,6 +172,7 @@ public class PlaceDescription extends Subject {
    *
    * @return  A reference to a geospatial description of this place.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public ResourceReference getSpatialDescription() {
     return spatialDescription;
   }

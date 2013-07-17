@@ -15,9 +15,11 @@
  */
 package org.gedcomx.types;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 
 /**
  * Enumeration of known fields.
@@ -27,6 +29,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public enum FieldType {
 
   //high-level fields

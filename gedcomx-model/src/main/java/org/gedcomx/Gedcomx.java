@@ -15,6 +15,7 @@
  */
 package org.gedcomx;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.agent.Agent;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -153,6 +155,20 @@ public class Gedcomx extends HypermediaEnabledData {
   public void setPersons(List<Person> persons) {
     this.persons = persons;
   }
+
+
+  /**
+   * Add a person to the data set.
+   *
+   * @param person The person to be added.
+   */
+  public void addPerson( Person person ) {
+    if (person != null) {
+      if (persons == null)
+        persons = new LinkedList<Person>();
+      persons.add( person );
+    }
+  }
   
   /**
    * The relationships included in this genealogical data set.
@@ -175,7 +191,20 @@ public class Gedcomx extends HypermediaEnabledData {
   public void setRelationships(List<Relationship> relationships) {
     this.relationships = relationships;
   }
-  
+
+  /**
+   * Add a relationship to the data set.
+   *
+   * @param relationship The relationship to be added.
+   */
+  public void addRelationship( Relationship relationship ) {
+    if (relationship != null) {
+      if (relationships == null)
+        relationships = new LinkedList<Relationship>();
+      relationships.add( relationship );
+    }
+  }
+
   /**
    * The descriptions of sources included in this genealogical data set.
    * 
@@ -196,6 +225,19 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("sourceDescriptions")
   public void setSourceDescriptions(List<SourceDescription> sourceDescriptions) {
     this.sourceDescriptions = sourceDescriptions;
+  }
+
+  /**
+   * Add a source description to the data set.
+   *
+   * @param sourceDescription The source description to be added.
+   */
+  public void addSourceDescription( SourceDescription sourceDescription ) {
+    if (sourceDescription != null) {
+      if (sourceDescriptions == null)
+        sourceDescriptions = new LinkedList<SourceDescription>();
+      sourceDescriptions.add( sourceDescription );
+    }
   }
 
   /**
@@ -221,6 +263,19 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Add a agent to the data set.
+   *
+   * @param agent The agent to be added.
+   */
+  public void addAgent( Agent agent ) {
+    if (agent != null) {
+      if (agents == null)
+        agents = new LinkedList<Agent>();
+      agents.add( agent );
+    }
+  }
+
+  /**
    * The events included in this genealogical data set.
    *
    * @return The events included in this genealogical data set.
@@ -240,6 +295,19 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("events")
   public void setEvents(List<Event> events) {
     this.events = events;
+  }
+
+  /**
+   * Add a event to the data set.
+   *
+   * @param event The event to be added.
+   */
+  public void addEvent( Event event ) {
+    if (event != null) {
+      if (events == null)
+        events = new LinkedList<Event>();
+      events.add( event );
+    }
   }
 
   /**
@@ -265,6 +333,19 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Add a place to the data set.
+   *
+   * @param place The place to be added.
+   */
+  public void addPlace( PlaceDescription place ) {
+    if (place != null) {
+      if (places == null)
+        places = new LinkedList<PlaceDescription>();
+      places.add( place );
+    }
+  }
+
+  /**
    * The documents included in this genealogical data set.
    *
    * @return The documents included in this genealogical data set.
@@ -287,6 +368,19 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Add a document to the data set.
+   *
+   * @param document The document to be added.
+   */
+  public void addDocument( Document document ) {
+    if (document != null) {
+      if (documents == null)
+        documents = new LinkedList<Document>();
+      documents.add( document );
+    }
+  }
+
+  /**
    * The collections included in this genealogical data set.
    *
    * @return The collections included in this genealogical data set.
@@ -294,6 +388,7 @@ public class Gedcomx extends HypermediaEnabledData {
   @XmlElement (name="collection")
   @JsonProperty ("collections")
   @JsonName ("collections")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Collection> getCollections() {
     return collections;
   }
@@ -316,6 +411,7 @@ public class Gedcomx extends HypermediaEnabledData {
   @XmlElement (name="field")
   @JsonProperty ("fields")
   @JsonName ("fields")
+  @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }
@@ -338,6 +434,7 @@ public class Gedcomx extends HypermediaEnabledData {
   @XmlElement (name="recordDescriptor")
   @JsonProperty ("recordDescriptors")
   @JsonName ("recordDescriptors")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<RecordDescriptor> getRecordDescriptors() {
     return recordDescriptors;
   }
@@ -350,6 +447,19 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("recordDescriptors")
   public void setRecordDescriptors(List<RecordDescriptor> recordDescriptors) {
     this.recordDescriptors = recordDescriptors;
+  }
+
+  /**
+   * Add a recordDescriptor to the data set.
+   *
+   * @param recordDescriptor The recordDescriptor to be added.
+   */
+  public void addRecordDescriptor( RecordDescriptor recordDescriptor ) {
+    if (recordDescriptor != null) {
+      if (recordDescriptors == null)
+        recordDescriptors = new LinkedList<RecordDescriptor>();
+      recordDescriptors.add( recordDescriptor );
+    }
   }
 
   /**

@@ -46,7 +46,7 @@ public class ResourceDefinitionDeclaration extends Resource {
   private final boolean embedded;
 
   public ResourceDefinitionDeclaration(TypeDeclaration delegate, List<ElementDeclaration> resourceElements, ResourceServiceProcessor processor) {
-    super(delegate);
+    super(delegate, "");
 
     this.resourceElements = resourceElements;
 
@@ -98,11 +98,6 @@ public class ResourceDefinitionDeclaration extends Resource {
       }
     }
     return params;
-  }
-
-  @Override
-  public String getPath() {
-    return "";
   }
 
   @Override

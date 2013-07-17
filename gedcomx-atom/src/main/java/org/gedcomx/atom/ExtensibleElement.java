@@ -15,8 +15,10 @@
  */
 package org.gedcomx.atom;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.HasTransientProperties;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.SupportsExtensionElements;
 
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -28,6 +30,7 @@ import java.util.*;
  * @author Ryan Heaton
  */
 @XmlType ( name = "ExtensibleElement" )
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public abstract class ExtensibleElement extends CommonAttributes implements SupportsExtensionElements, HasTransientProperties {
 
   private List<Object> extensionElements;

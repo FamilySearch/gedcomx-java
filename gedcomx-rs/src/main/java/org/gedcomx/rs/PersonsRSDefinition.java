@@ -24,7 +24,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 
 /**
- * The persons resource defines the interface for the set of persons in the application.
+ * <p>The Persons resource provides the interface for the set of persons in the application.</p>
  *
  * @author Ryan Heaton
  */

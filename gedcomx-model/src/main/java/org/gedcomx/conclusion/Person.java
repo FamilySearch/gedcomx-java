@@ -15,9 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FactType;
@@ -28,6 +30,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -43,7 +46,7 @@ public class Person extends Subject implements HasFacts {
 
   private Boolean isPrivate;
   private Boolean living;
-  private Boolean principal; //todo: record facet.
+  private Boolean principal;
   private Gender gender;
   private List<Name> names;
   private List<Fact> facts;
@@ -97,6 +100,7 @@ public class Person extends Subject implements HasFacts {
    * @return Whether this person is the "principal" person extracted from the record.
    */
   @XmlAttribute
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public Boolean getPrincipal() {
     return principal;
   }
@@ -170,6 +174,20 @@ public class Person extends Subject implements HasFacts {
   @JsonProperty("names")
   public void setNames(List<Name> names) {
     this.names = names;
+  }
+
+  /**
+   * Add a name conclusion to the person.
+   *
+   * @param name The name conclusion to be added.
+   */
+  public void addName(Name name) {
+    if (name != null) {
+      if (names == null) {
+        names = new LinkedList<Name>();
+      }
+      names.add(name);
+    }
   }
 
   /**
@@ -255,6 +273,7 @@ public class Person extends Subject implements HasFacts {
    */
   @XmlElement(name = "display")
   @JsonProperty("display")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public DisplayProperties getDisplayExtension() {
     return display;
   }

@@ -16,16 +16,19 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.ClientName;
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.records.HasFieldBasedEvidence;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -85,6 +88,7 @@ public class Date extends ExtensibleData implements HasFieldBasedEvidence {
    */
   @XmlElement ( name = "normalized" )
   @JsonProperty ("normalized")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public List<TextValue> getNormalizedExtensions() {
     return normalized;
   }
@@ -102,6 +106,20 @@ public class Date extends ExtensibleData implements HasFieldBasedEvidence {
   }
 
   /**
+   * Add a normalized extension to the list.
+   *
+   * @param normalizedExtension The normalizedExtension to be added.
+   */
+  public void addNormalizedExtension(TextValue normalizedExtension) {
+    if (normalizedExtension != null) {
+      if (normalized == null) {
+        normalized = new LinkedList<TextValue>();
+      }
+      normalized.add(normalizedExtension);
+    }
+  }
+
+  /**
    * The references to the record field values being used as evidence.
    *
    * @return The references to the record field values being used as evidence.
@@ -109,6 +127,7 @@ public class Date extends ExtensibleData implements HasFieldBasedEvidence {
   @XmlElement( name = "fieldValue" )
   @JsonProperty( "fieldValues" )
   @JsonName( "fieldValues" )
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<EvidenceReference> getFieldValueReferences() {
     return fieldValueReferences;
   }
@@ -121,6 +140,20 @@ public class Date extends ExtensibleData implements HasFieldBasedEvidence {
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   @Override

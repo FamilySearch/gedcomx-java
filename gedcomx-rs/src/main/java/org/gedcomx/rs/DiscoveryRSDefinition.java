@@ -25,13 +25,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
 
 /**
- * <p>The discovery resource is the starting point for a Web service API. The discovery resource is the index of all available resources in the application.</p>
+ * <p>The Discovery resource is the index of all available resources in the application and the starting point for a Web service API. The Discovery resource
+ * allows a consumer of the API to use links to locate all the resources at runtime. To access resources, consumers are no longer required to hard-code endpoint
+ * URLs nor to plug in identifiers to a URL template. This means that consumers of the API only the URL to the Discovery resource.</p>
  *
- * <p>The discovery resource allows a consumer of the API to use links to figure out at runtime where all the resources are. Consumers shouldn't be
- * required to hard-code endpoint URLs, nor to plug in identifiers into a a URL template to access resources. The only thing consumers of the API should
- * need is the URL to the discovery resource.</p>
- *
- * <p>The links provided by the discovery resource should include:</p>
+ * <p>The links provided by the Discovery resource should include:</p>
  *
  * <ul>
  *   <li>Links to the authentication mechanism that the system supports.</li>
@@ -40,7 +38,7 @@ import javax.ws.rs.core.Response;
  *   <li>Links that assert conformance to the various application profiles supported by the system.</li>
  * </ul>
  *
- * <p>The discovery resource uses an <a href="http://www.ietf.org/rfc/rfc4287">Atom Feed</a> to supply all its links.</p>
+ * <p>The Discovery resource uses an <a href="http://www.ietf.org/rfc/rfc4287">Atom Feed</a> to supply all its links.</p>
  *
  * <p>It is recommended that the discovery resource be mounted at the <tt>/.well-known/app-meta</tt> endpoint. For more information on "well-known" URIs, see
  * <a href="http://tools.ietf.org/html/rfc5785">RFC5785</a>.</p>

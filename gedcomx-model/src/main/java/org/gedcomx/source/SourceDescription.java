@@ -15,12 +15,15 @@
  */
 package org.gedcomx.source;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.IdentifierType;
@@ -38,7 +41,7 @@ import java.util.List;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "notes", "attribution" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "notes", "attribution", "sortKey", "descriptions", "identifiers", "created", "modified", "coverage", "repository", "descriptorRef" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -53,14 +56,14 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<Note> notes;
   private Attribution attribution;
   private URI resourceType;
-  private String sortKey; //todo: record facet.
-  private List<TextValue> descriptions; //todo: record facet.
-  private List<Identifier> identifiers; //todo: record facet.
-  private Date created; //todo: record facet.
-  private Date modified; //todo: record facet.
-  private List<Coverage> coverage; //todo: record facet.
-  private ResourceReference repository; //todo: record facet.
-  private ResourceReference descriptorRef; //todo: record facet.
+  private String sortKey;
+  private List<TextValue> descriptions;
+  private List<Identifier> identifiers;
+  private Date created;
+  private Date modified;
+  private List<Coverage> coverage;
+  private ResourceReference repository;
+  private ResourceReference descriptorRef;
 
   /**
    * The type of the resource being described.
@@ -68,6 +71,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The type of the resource being described.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (ResourceType.class)
   public URI getResourceType() {
     return resourceType;
   }
@@ -415,6 +419,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * 
    * @return A sort key to be used in determining the position of this source relative to other sources in the same collection.
    */
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public String getSortKey() {
     return sortKey;
   }
@@ -436,6 +441,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @XmlElement (name="description")
   @JsonProperty ("descriptions")
   @JsonName ("descriptions")
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public List<TextValue> getDescriptions() {
     return descriptions;
   }
@@ -455,6 +461,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * 
    * @return The date the source was created.
    */
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public Date getCreated() {
     return created;
   }
@@ -473,6 +480,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * 
    * @return The date the source was last modified.
    */
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public Date getModified() {
     return modified;
   }
@@ -491,6 +499,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Declarations of the coverage of the source.
    */
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public List<Coverage> getCoverage() {
     return coverage;
   }
@@ -509,6 +518,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Reference to an agent describing the repository in which the source is found.
    */
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public ResourceReference getRepository() {
     return repository;
   }
@@ -530,6 +540,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @XmlElement (name="descriptor")
   @JsonProperty ("descriptor")
   @JsonName ("descriptor")
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public ResourceReference getDescriptorRef() {
     return descriptorRef;
   }

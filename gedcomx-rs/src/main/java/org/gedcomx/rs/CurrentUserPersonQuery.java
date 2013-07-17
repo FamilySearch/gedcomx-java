@@ -24,7 +24,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
 
 /**
- * The current user person query is used to query the application for the person for the current user.
+ * <p>The Current User Person query is used to query the application to retrieve the Person that represents the current user.</p>
  */
 @ResourceDefinition (
   name = "Current User Person",

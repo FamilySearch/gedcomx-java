@@ -15,6 +15,9 @@
  */
 package org.gedcomx.common;
 
+import org.codehaus.enunciate.Facet;
+import org.gedcomx.rt.GedcomxConstants;
+
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
@@ -43,6 +46,7 @@ public class TextValue {
    * @return The language of the text value.
    */
   @XmlAttribute( namespace = XMLConstants.XML_NS_URI )
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public String getLang() {
     return lang;
   }

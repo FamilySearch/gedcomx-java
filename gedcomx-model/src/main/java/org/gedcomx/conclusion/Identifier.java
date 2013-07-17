@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonValue;
@@ -47,6 +48,11 @@ public final class Identifier implements HasJsonKey {
     this.value = value;
   }
 
+  public Identifier(URI value, IdentifierType knownType) {
+    this.value = value;
+    setKnownType( knownType );
+  }
+
   /**
    * The id value.
    *
@@ -76,6 +82,7 @@ public final class Identifier implements HasJsonKey {
   @XmlAttribute
   @JsonIgnore
   @org.codehaus.enunciate.json.JsonIgnore
+  @XmlQNameEnumRef (IdentifierType.class)
   public URI getType() {
     return type;
   }

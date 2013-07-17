@@ -15,7 +15,9 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlType;
 
@@ -26,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  * application context and are NOT considered canonical for the purposes of data exchange.
  */
 @XmlType ( name = "DisplayProperties" )
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public class DisplayProperties extends ExtensibleData {
 
   private String name;

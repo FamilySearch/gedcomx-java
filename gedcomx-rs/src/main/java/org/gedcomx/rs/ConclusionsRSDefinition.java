@@ -73,7 +73,7 @@ public interface ConclusionsRSDefinition {
    */
   @POST
   @StatusCodes({
-    @ResponseCode ( code = 201, condition = "The creation of the conclusion was successful. Expect a location header specifying the link to the created conclusion."),
+    @ResponseCode ( code = 201, condition = "The creation of the conclusions was successful."),
     @ResponseCode ( code = 301, condition = "If the specified person has been merged to another person."),
     @ResponseCode ( code = 410, condition = "If the specified person has been deleted.")
   })

@@ -15,8 +15,10 @@
  */
 package org.gedcomx.links;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -34,9 +36,10 @@ import java.util.TreeSet;
  * @see <a href="http://tools.ietf.org/html/rfc4287#section-4.2.7">Atom Syndication Format, Section 4.2.7</a>
  */
 @XmlRootElement
-@XmlType ( name = "Link" )
+@XmlType ( name = "Link", propOrder = {"rel", "href", "template", "title", "type", "accept", "allow", "hreflang"})
 @JsonElementWrapper ( name = "links" )
 @SuppressWarnings("gedcomx:no_id")
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public class Link implements HasJsonKey {
 
   /**

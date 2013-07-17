@@ -5,12 +5,12 @@
   <artifactId>gedcomx-parent</artifactId>
   <groupId>org.gedcomx</groupId>
   <name>GEDCOM X - Parent Project</name>
-  <version>0.41.0-SNAPSHOT</version>
+  <version>1.0.3.M1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <enunciate.version>1.26.2</enunciate.version>
+    <enunciate.version>1.27-RC2</enunciate.version>
     <root.basedir>${project.basedir}</root.basedir>
     <year>${inceptionYear}</year>
   </properties>

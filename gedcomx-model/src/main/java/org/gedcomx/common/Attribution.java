@@ -15,6 +15,8 @@
  */
 package org.gedcomx.common;
 
+import org.codehaus.enunciate.Facet;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.RDFRange;
 import org.gedcomx.rt.RDFSubPropertyOf;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -46,6 +48,7 @@ public final class Attribution extends ExtensibleData {
    */
   @RDFRange({})
   @RDFSubPropertyOf( "http://purl.org/dc/terms/contributor")
+  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public ResourceReference getContributor() {
     return contributor;
   }
@@ -65,6 +68,7 @@ public final class Attribution extends ExtensibleData {
    * @return The modified timestamp for the attributed data.
    */
   @RDFSubPropertyOf( "http://purl.org/dc/terms/modified")
+  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public Date getModified() {
     return modified;
   }

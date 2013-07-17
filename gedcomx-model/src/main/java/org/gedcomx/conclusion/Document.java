@@ -15,10 +15,13 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.HasText;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.DocumentType;
@@ -35,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper (name = "documents")
 @XmlType(name = "Document", propOrder = { "text" })
+@Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
 public class Document extends Conclusion implements HasText, Attributable {
   
   public static final String TEXT_TYPE_PLAIN = "plain";
@@ -70,6 +74,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    * @return The type of the document.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (DocumentType.class)
   public URI getType() {
     return type;
   }

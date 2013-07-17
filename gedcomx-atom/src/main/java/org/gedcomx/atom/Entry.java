@@ -15,6 +15,7 @@
  */
 package org.gedcomx.atom;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.atom.rt.AtomModelVisitor;
@@ -42,6 +43,7 @@ import java.util.Map;
 @XmlType ( name = "Entry" )
 @JsonElementWrapper ( name = "entries" )
 @SuppressWarnings ( "gedcomx:no_id" )
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public class Entry extends ExtensibleElement implements SupportsLinks {
 
   private List<Person> authors;

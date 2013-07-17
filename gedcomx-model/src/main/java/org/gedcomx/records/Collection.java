@@ -21,6 +21,7 @@ import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -39,6 +40,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
 @XmlType ( name = "Collection", propOrder = { "collectionRef", "content", "facets", "attribution" })
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;

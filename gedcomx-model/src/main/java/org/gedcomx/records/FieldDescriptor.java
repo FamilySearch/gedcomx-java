@@ -15,6 +15,8 @@
  */
 package org.gedcomx.records;
 
+import org.gedcomx.rt.GedcomxConstants;
+
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
@@ -22,6 +24,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author Ryan Heaton
  */
+@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class FieldDescriptor {
 
   private boolean displayOriginalValue; //flag indicating whether the original value should be displayed

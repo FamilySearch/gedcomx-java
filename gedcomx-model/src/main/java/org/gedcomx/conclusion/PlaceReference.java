@@ -15,25 +15,28 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.records.HasFieldBasedEvidence;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 
 /**
  * A reference to genealogical place.
  */
-@XmlType ( name = "PlaceReference" )
+@XmlType ( name = "PlaceReference", propOrder = { "original", "fieldValueReferences" })
 public class PlaceReference extends ExtensibleData implements HasFieldBasedEvidence {
 
   private String original;
@@ -89,6 +92,7 @@ public class PlaceReference extends ExtensibleData implements HasFieldBasedEvide
   @XmlElement( name = "fieldValue" )
   @JsonProperty( "fieldValues" )
   @JsonName( "fieldValues" )
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<EvidenceReference> getFieldValueReferences() {
     return fieldValueReferences;
   }
@@ -101,6 +105,20 @@ public class PlaceReference extends ExtensibleData implements HasFieldBasedEvide
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   public String toString() {

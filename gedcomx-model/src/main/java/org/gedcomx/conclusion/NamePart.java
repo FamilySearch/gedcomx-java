@@ -15,11 +15,17 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.*;
+import org.gedcomx.common.EvidenceReference;
+import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.Qualifier;
+import org.gedcomx.common.URI;
 import org.gedcomx.records.HasFieldBasedEvidence;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.NamePartType;
 
@@ -27,6 +33,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -49,6 +56,7 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
    * @return The type of the name part.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (NamePartType.class)
   public URI getType() {
     return type;
   }
@@ -110,6 +118,7 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
   @XmlElement (name = "qualifier")
   @JsonName ("qualifiers")
   @JsonProperty ("qualifiers")
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
   }
@@ -124,6 +133,20 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
   }
 
   /**
+   * Add a qualifier associated with this name part.
+   *
+   * @param qualifier The qualifier to be added.
+   */
+  public void addQualifier(Qualifier qualifier) {
+    if (qualifier != null) {
+      if (qualifiers == null) {
+        qualifiers = new LinkedList<Qualifier>();
+      }
+      qualifiers.add(qualifier);
+    }
+  }
+
+  /**
    * The references to the record field values being used as evidence.
    *
    * @return The references to the record field values being used as evidence.
@@ -131,6 +154,7 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
   @XmlElement( name = "fieldValue" )
   @JsonProperty( "fieldValues" )
   @JsonName( "fieldValues" )
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<EvidenceReference> getFieldValueReferences() {
     return fieldValueReferences;
   }
@@ -143,6 +167,20 @@ public final class NamePart extends ExtensibleData implements HasFieldBasedEvide
   @JsonProperty( "fieldValues" )
   public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
     this.fieldValueReferences = fieldValueReferences;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param fieldValueRef The evidence to be added.
+   */
+  public void addFieldValueReference(EvidenceReference fieldValueRef) {
+    if (fieldValueRef != null) {
+      if (fieldValueReferences == null) {
+        fieldValueReferences = new LinkedList<EvidenceReference>();
+      }
+      fieldValueReferences.add(fieldValueRef);
+    }
   }
 
   /**

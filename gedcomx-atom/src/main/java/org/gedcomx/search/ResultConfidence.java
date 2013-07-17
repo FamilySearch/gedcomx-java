@@ -15,10 +15,12 @@
  */
 package org.gedcomx.search;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.annotate.JsonValue;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
@@ -33,6 +35,7 @@ import java.io.IOException;
 @XmlType ( name = "ResultConfidence" )
 @XmlEnum ( Integer.class )
 @JsonDeserialize (using = ResultConfidence.ResultConfidenceDeserializer.class)
+@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public enum ResultConfidence {
 
   /**

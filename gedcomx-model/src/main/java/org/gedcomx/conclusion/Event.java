@@ -15,15 +15,19 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.EventType;
 
 import javax.xml.bind.annotation.*;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -35,6 +39,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper (name = "events")
 @XmlType ( name = "Event", propOrder = { "date", "place", "roles" } )
+@Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
 public class Event extends Subject implements HasDateAndPlace {
 
   private URI type;
@@ -67,7 +72,7 @@ public class Event extends Subject implements HasDateAndPlace {
   public Event(EventType EventType, Date date, PlaceReference place) {
     setKnownType(EventType);
     setDate(date);
-    setPlace(place);
+    setPlace( place );
   }
 
   /**
@@ -76,6 +81,7 @@ public class Event extends Subject implements HasDateAndPlace {
    * @return The type of the event.
    */
   @XmlAttribute
+  @XmlQNameEnumRef (org.gedcomx.types.EventType.class)
   public URI getType() {
     return type;
   }
@@ -169,6 +175,20 @@ public class Event extends Subject implements HasDateAndPlace {
    */
   public void setRoles(List<EventRole> roles) {
     this.roles = roles;
+  }
+
+  /**
+   * Add a role to the list of roles played in this event.
+   *
+   * @param role The role to be added.
+   */
+  public void addRole(EventRole role) {
+    if (role != null) {
+      if (roles == null) {
+        roles = new LinkedList<EventRole>();
+      }
+      roles.add(role);
+    }
   }
 
   /**

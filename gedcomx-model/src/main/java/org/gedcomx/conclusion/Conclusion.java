@@ -15,11 +15,14 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.ReferencesSources;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
@@ -51,6 +54,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    * @return The language of the conclusion.
    */
   @XmlAttribute ( namespace = XMLConstants.XML_NS_URI )
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public String getLang() {
     return lang;
   }
@@ -70,6 +74,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    * @return The level of confidence the contributor has about the data.
    */
   @XmlAttribute
+  @XmlQNameEnumRef(ConfidenceLevel.class)
   public URI getConfidence() {
     return confidence;
   }
@@ -201,6 +206,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    *
    * @return A reference to the analysis document explaining the analysis that went into this conclusion.
    */
+  @Facet( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public ResourceReference getAnalysis() {
     return analysis;
   }

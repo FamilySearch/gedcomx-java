@@ -15,12 +15,14 @@
  */
 package org.gedcomx.conclusion;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.IdentifierType;
 
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,6 +57,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    * @return Whether this subject has been identified as "extracted".
    */
   @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Boolean getExtracted() {
     return extracted;
   }
@@ -135,10 +139,25 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Add an identifier of the subject.
+   *
+   * @param identifier The identifier to be added.
+   */
+  public void addIdentifier(Identifier identifier) {
+    if (identifier != null) {
+      if (identifiers == null) {
+        identifiers = new LinkedList<Identifier>();
+      }
+      identifiers.add(identifier);
+    }
+  }
+
+  /**
    * References to the evidence being referenced for this subject.
    *
    * @return References to the evidence being referenced.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<EvidenceReference> getEvidence() {
     return evidence;
   }
@@ -153,10 +172,25 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Add an evidence reference for this subject.
+   *
+   * @param evidenceRef The evidence to be added.
+   */
+  public void addEvidence(EvidenceReference evidenceRef) {
+    if (evidenceRef != null) {
+      if (evidence == null) {
+        evidence = new LinkedList<EvidenceReference>();
+      }
+      evidence.add(evidenceRef);
+    }
+  }
+
+  /**
    * References to multimedia resources associated with this subject.
    *
    * @return References to multimedia resources associated with this subject.
    */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<SourceReference> getMedia() {
     return media;
   }
@@ -168,5 +202,19 @@ public abstract class Subject extends Conclusion implements Attributable {
    */
   public void setMedia(List<SourceReference> media) {
     this.media = media;
+  }
+
+  /**
+   * Add an media reference associated with this subject.
+   *
+   * @param mediaRef The reference to the media to be added.
+   */
+  public void addMedia(SourceReference mediaRef) {
+    if (mediaRef != null) {
+      if (media == null) {
+        media = new LinkedList<SourceReference>();
+      }
+      media.add(mediaRef);
+    }
   }
 }
