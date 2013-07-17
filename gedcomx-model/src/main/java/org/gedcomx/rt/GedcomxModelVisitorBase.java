@@ -105,11 +105,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
 
-    List<Record> records = gx.getFields();
-    if (records != null) {
-      for (Record record : records) {
-        if (record != null) {
-          record.accept(this);
+    List<Field> fields = gx.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        if (field != null) {
+          field.accept(this);
         }
       }
     }
@@ -235,25 +235,6 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
     this.contextStack.pop();
-  }
-
-  @Override
-  public void visitRecord(Record record) {
-    this.contextStack.push(record);
-
-    List<Field> fields = record.getFields();
-    if (fields != null) {
-      for (Field field : fields) {
-        field.accept(this);
-      }
-    }
-
-    List<Note> notes = record.getNotes();
-    if (notes != null) {
-      for (Note note : notes) {
-        note.accept(this);
-      }
-    }
   }
 
   @Override

@@ -43,6 +43,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEv
   private String value;
   private List<Qualifier> qualifiers;
   private List<EvidenceReference> fieldValueReferences;
+  private Boolean primary; //todo: record facet.
 
   /**
    * Create a fact.
@@ -114,6 +115,27 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFieldBasedEv
   @JsonIgnore
   public void setKnownType(org.gedcomx.types.FactType knownType) {
     setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+  }
+
+  /**
+   * Indicator of whether this fact is the "primary" fact of the record from which the subject was extracted. Applicable
+   * only to extracted persons/relationships. The meaning of this flag outside the scope of an extracted subject is undefined.
+   *
+   * @return Whether this fact is the primary fact of the record from which the subject was extracted.
+   */
+  @XmlAttribute
+  public Boolean getPrimary() {
+    return primary;
+  }
+
+  /**
+   * Indicator of whether this fact is the "primary" fact of the record from which the subject was extracted. Applicable
+   * only to extracted persons/relationships. The meaning of this flag outside the scope of an extracted subject is undefined.
+   *
+   * @param primary Whether this fact is the primary fact of the record from which the subject was extracted.
+   */
+  public void setPrimary(Boolean primary) {
+    this.primary = primary;
   }
 
   /**

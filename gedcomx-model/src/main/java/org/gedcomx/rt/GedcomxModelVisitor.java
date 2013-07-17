@@ -51,8 +51,6 @@ public interface GedcomxModelVisitor {
 
   void visitFacet(Facet facet);
 
-  void visitRecord(Record record);
-
   void visitRecordDescriptor(RecordDescriptor recordDescriptor);
 
   void visitField(Field field);

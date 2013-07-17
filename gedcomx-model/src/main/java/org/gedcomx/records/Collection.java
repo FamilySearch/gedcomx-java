@@ -16,23 +16,19 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
-import org.gedcomx.common.URI;
-import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
-import org.gedcomx.source.Coverage;
-import org.gedcomx.types.IdentifierType;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
@@ -42,17 +38,12 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection", propOrder = { "title", "description", "identifiers", "collectionRef", "size", "coverage", "content", "facets", "attribution" })
+@XmlType ( name = "Collection", propOrder = { "collectionRef", "content", "facets", "attribution" })
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
   private ResourceReference collectionRef;
-  private List<Identifier> identifiers;
-  private String title;
-  private String description;
-  private Integer size;
-  private Coverage coverage;
-  private List<CollectionContent> content;
+  private List<CollectionContent> content; //todo: let's just use facets for this...
   private Attribution attribution;
   private List<Facet> facets;
 
@@ -98,127 +89,6 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
-   * A title for the collection.
-   *
-   * @return A title for the collection.
-   */
-  public String getTitle() {
-    return title;
-  }
-
-  /**
-   * A title for the collection.
-   *
-   * @param title A title for the collection.
-   */
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  /**
-   * A description for the collection.
-   *
-   * @return A description for the collection.
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * A description for the collection.
-   *
-   * @param description A description for the collection.
-   */
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Find the long-term, persistent identifier for this person from the list of identifiers.
-   *
-   * @return The long-term, persistent identifier for this person.
-   */
-  @XmlTransient
-  @JsonIgnore
-  public URI getPersistentId() {
-    URI identifier = null;
-    if (this.identifiers != null) {
-      for (Identifier id : this.identifiers) {
-        if (IdentifierType.Persistent.equals(id.getKnownType())) {
-          identifier = id.getValue();
-          break;
-        }
-      }
-    }
-    return identifier;
-  }
-
-  /**
-   * A long-term, persistent, globally unique identifier for this person.
-   *
-   * @param persistentId A long-term, persistent, globally unique identifier for this person.
-   */
-  @JsonIgnore
-  public void setPersistentId(URI persistentId) {
-    if (this.identifiers == null) {
-      this.identifiers = new ArrayList<Identifier>();
-    }
-
-    //clear out any other primary ids.
-    Iterator<Identifier> it = this.identifiers.iterator();
-    while (it.hasNext()) {
-      if (IdentifierType.Persistent.equals(it.next().getKnownType())) {
-        it.remove();
-      }
-    }
-
-    Identifier identifier = new Identifier();
-    identifier.setKnownType(IdentifierType.Persistent);
-    identifier.setValue(persistentId);
-    this.identifiers.add(identifier);
-  }
-
-  /**
-   * The list of identifiers for the person.
-   *
-   * @return The list of identifiers for the person.
-   */
-  @XmlElement (name="identifier")
-  @JsonProperty ("identifiers")
-  @JsonName ("identifiers")
-  public List<Identifier> getIdentifiers() {
-    return identifiers;
-  }
-
-  /**
-   * The list of identifiers of the person.
-   *
-   * @param identifiers The list of identifiers of the person.
-   */
-  @JsonProperty ("identifiers")
-  public void setIdentifiers(List<Identifier> identifiers) {
-    this.identifiers = identifiers;
-  }
-
-  /**
-   * The coverage of the collection.
-   *
-   * @return The coverage of the collection.
-   */
-  public Coverage getCoverage() {
-    return coverage;
-  }
-
-  /**
-   * The coverage of the collection.
-   *
-   * @param coverage The coverage of the collection.
-   */
-  public void setCoverage(Coverage coverage) {
-    this.coverage = coverage;
-  }
-
-  /**
    * Descriptions of the content of this collection.
    *
    * @return Descriptions of the content of this collection.
@@ -254,24 +124,6 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   @Override
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
-  }
-
-  /**
-   * The size of the collection, in terms of the number of items in this collection.
-   *
-   * @return The size of the collection, in terms of the number of items in this collection.
-   */
-  public Integer getSize() {
-    return size;
-  }
-
-  /**
-   * The size of the collection, in terms of the number of items in this collection.
-   *
-   * @param size The size of the collection, in terms of the number of items in this collection.
-   */
-  public void setSize(Integer size) {
-    this.size = size;
   }
 
   /**

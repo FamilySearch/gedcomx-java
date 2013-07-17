@@ -19,13 +19,18 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
+import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.ResourceType;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -48,6 +53,14 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<Note> notes;
   private Attribution attribution;
   private URI resourceType;
+  private String sortKey; //todo: record facet.
+  private List<TextValue> descriptions; //todo: record facet.
+  private List<Identifier> identifiers; //todo: record facet.
+  private Date created; //todo: record facet.
+  private Date modified; //todo: record facet.
+  private List<Coverage> coverage; //todo: record facet.
+  private ResourceReference repository; //todo: record facet.
+  private ResourceReference descriptorRef; //todo: record facet.
 
   /**
    * The type of the resource being described.
@@ -328,5 +341,206 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitSourceDescription(this);
+  }
+
+  /**
+   * Find the long-term, persistent identifier for this source from the list of identifiers.
+   *
+   * @return The long-term, persistent identifier for this source.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public URI getPersistentId() {
+    URI identifier = null;
+    if (this.identifiers != null) {
+      for (Identifier id : this.identifiers) {
+        if (IdentifierType.Persistent.equals(id.getKnownType())) {
+          identifier = id.getValue();
+          break;
+        }
+      }
+    }
+    return identifier;
+  }
+
+  /**
+   * A long-term, persistent, globally unique identifier for this source.
+   *
+   * @param persistentId A long-term, persistent, globally unique identifier for this source.
+   */
+  @JsonIgnore
+  public void setPersistentId(URI persistentId) {
+    if (this.identifiers == null) {
+      this.identifiers = new ArrayList<Identifier>();
+    }
+
+    //clear out any other primary ids.
+    Iterator<Identifier> it = this.identifiers.iterator();
+    while (it.hasNext()) {
+      if (IdentifierType.Persistent.equals(it.next().getKnownType())) {
+        it.remove();
+      }
+    }
+
+    Identifier identifier = new Identifier();
+    identifier.setKnownType(IdentifierType.Persistent);
+    identifier.setValue(persistentId);
+    this.identifiers.add(identifier);
+  }
+
+  /**
+   * The list of identifiers for the source.
+   *
+   * @return The list of identifiers for the source.
+   */
+  @XmlElement (name="identifier")
+  @JsonProperty ("identifiers")
+  @JsonName ("identifiers")
+  public List<Identifier> getIdentifiers() {
+    return identifiers;
+  }
+
+  /**
+   * The list of identifiers of the source.
+   *
+   * @param identifiers The list of identifiers of the source.
+   */
+  @JsonProperty ("identifiers")
+  public void setIdentifiers(List<Identifier> identifiers) {
+    this.identifiers = identifiers;
+  }
+
+  /**
+   * A sort key to be used in determining the position of this source relative to other sources in the same collection.
+   * 
+   * @return A sort key to be used in determining the position of this source relative to other sources in the same collection.
+   */
+  public String getSortKey() {
+    return sortKey;
+  }
+
+  /**
+   * A sort key to be used in determining the position of this source relative to other sources in the same collection.
+   * 
+   * @param sortKey A sort key to be used in determining the position of this source relative to other sources in the same collection.
+   */
+  public void setSortKey(String sortKey) {
+    this.sortKey = sortKey;
+  }
+
+  /**
+   * Human-readable descriptions of the source.
+   * 
+   * @return Human-readable descriptions of the source.
+   */
+  @XmlElement (name="description")
+  @JsonProperty ("descriptions")
+  @JsonName ("descriptions")
+  public List<TextValue> getDescriptions() {
+    return descriptions;
+  }
+
+  /**
+   * Human-readable descriptions of the source.
+   * 
+   * @param descriptions Human-readable descriptions of the source.
+   */
+  @JsonProperty ("descriptions")
+  public void setDescriptions(List<TextValue> descriptions) {
+    this.descriptions = descriptions;
+  }
+
+  /**
+   * The date the source was created.
+   * 
+   * @return The date the source was created.
+   */
+  public Date getCreated() {
+    return created;
+  }
+
+  /**
+   * The date the source was created.
+   * 
+   * @param created The date the source was created.
+   */
+  public void setCreated(Date created) {
+    this.created = created;
+  }
+
+  /**
+   * The date the source was last modified.
+   * 
+   * @return The date the source was last modified.
+   */
+  public Date getModified() {
+    return modified;
+  }
+
+  /**
+   * The date the source was last modified.
+   * 
+   * @param modified The date the source was last modified.
+   */
+  public void setModified(Date modified) {
+    this.modified = modified;
+  }
+
+  /**
+   * Declarations of the coverage of the source.
+   *
+   * @return Declarations of the coverage of the source.
+   */
+  public List<Coverage> getCoverage() {
+    return coverage;
+  }
+
+  /**
+   * Declarations of the coverage of the source.
+   *
+   * @param coverage Declarations of the coverage of the source.
+   */
+  public void setCoverage(List<Coverage> coverage) {
+    this.coverage = coverage;
+  }
+
+  /**
+   * Reference to an agent describing the repository in which the source is found.
+   *
+   * @return Reference to an agent describing the repository in which the source is found.
+   */
+  public ResourceReference getRepository() {
+    return repository;
+  }
+
+  /**
+   * Reference to an agent describing the repository in which the source is found.
+   *
+   * @param repository Reference to an agent describing the repository in which the source is found.
+   */
+  public void setRepository(ResourceReference repository) {
+    this.repository = repository;
+  }
+
+  /**
+   * Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
+   *
+   * @return Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
+   */
+  @XmlElement (name="descriptor")
+  @JsonProperty ("descriptor")
+  @JsonName ("descriptor")
+  public ResourceReference getDescriptorRef() {
+    return descriptorRef;
+  }
+
+  /**
+   * Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
+   *
+   * @param descriptorRef Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
+   */
+  @JsonProperty ("descriptor")
+  public void setDescriptorRef(ResourceReference descriptorRef) {
+    this.descriptorRef = descriptorRef;
   }
 }

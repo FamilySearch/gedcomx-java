@@ -18,7 +18,6 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FactType;
@@ -39,16 +38,16 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
-@XmlType ( name = "Person", propOrder = { "living", "gender", "names", "facts", "displayExtension", "collec"} )
+@XmlType ( name = "Person", propOrder = { "private", "living", "principal", "gender", "names", "facts", "displayExtension" } )
 public class Person extends Subject implements HasFacts {
 
   private Boolean isPrivate;
   private Boolean living;
+  private Boolean principal; //todo: record facet.
   private Gender gender;
   private List<Name> names;
   private List<Fact> facts;
   private DisplayProperties display;
-  private URI collectionRef;
 
   /**
    * Whether this person has been designated for limited distribution or display.
@@ -89,6 +88,27 @@ public class Person extends Subject implements HasFacts {
    */
   public void setLiving(Boolean living) {
     this.living = living;
+  }
+
+  /**
+   * Indicator of whether this person is the "principal" person extracted from the record. Applicable
+   * only to extracted persons. The meaning of this flag outside the scope of an extracted person is undefined.
+   *
+   * @return Whether this person is the "principal" person extracted from the record.
+   */
+  @XmlAttribute
+  public Boolean getPrincipal() {
+    return principal;
+  }
+
+  /**
+   * Indicator of whether this person is the "principal" person extracted from the record. Applicable
+   * only to extracted persons. The meaning of this flag outside the scope of an extracted person is undefined.
+   *
+   * @param principal Whether this person is the "principal" person extracted from the record.
+   */
+  public void setPrincipal(Boolean principal) {
+    this.principal = principal;
   }
 
   /**
@@ -226,28 +246,6 @@ public class Person extends Subject implements HasFacts {
       }
       facts.add(fact);
     }
-  }
-
-  /**
-   * A reference to the collection containing the person.
-   *
-   * @return A reference to the collection containing the person.
-   */
-  @XmlAttribute ( name = "collection" )
-  @JsonName ( "collection" )
-  @JsonProperty ( "collection" )
-  public URI getCollectionRef() {
-    return collectionRef;
-  }
-
-  /**
-   * A reference to the collection containing the person.
-   *
-   * @param collectionRef A reference to the collection containing the person.
-   */
-  @JsonProperty ( "collection" )
-  public void setCollectionRef(URI collectionRef) {
-    this.collectionRef = collectionRef;
   }
 
   /**
