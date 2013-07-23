@@ -78,6 +78,7 @@ public class Person extends Subject implements HasFacts {
    *
    * @return Living status of the person as treated by the system.
    */
+  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public Boolean getLiving() {
     return living;
   }
