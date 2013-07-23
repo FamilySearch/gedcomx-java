@@ -15,112 +15,95 @@
  */
 package org.gedcomx.records;
 
+import org.gedcomx.common.TextValue;
 import org.gedcomx.rt.GedcomxConstants;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import java.util.List;
 
 /**
  * A description of a field in a record.
  *
  * @author Ryan Heaton
  */
+@XmlType ( name = "FieldDescriptor", propOrder = { "systemLabel", "originalLabel", "display", "description"})
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class FieldDescriptor {
 
-  private boolean displayOriginalValue; //flag indicating whether the original value should be displayed
-  private String description;
-  private String systemLabel;
-  private String originalLabel;
-  private String displayLabel;
+  private String systemLabel; // Computer-understandable (and thus non-localized) field ID, like "PR_NAME"
+  private String originalLabel; // what the original form said, e.g,. "Nombre:"
+  private List<FieldDisplay> display; // localized display labels for the field values
+  private List<TextValue> description; // localized description of this field ("Relationship of the person to the head of household").
 
   /**
-   * Whether the original value should be used when displaying the field.
+   * A system-assigned label for the field.
    *
-   * @return Whether the original value should be used when displaying the field.
-   */
-  @XmlAttribute
-  public boolean isDisplayOriginalValue() {
-    return displayOriginalValue;
-  }
-
-  /**
-   * Whether the original value should be used when displaying the field.
-   *
-   * @param displayOriginalValue Whether the original value should be used when displaying the field.
-   */
-  public void setDisplayOriginalValue(boolean displayOriginalValue) {
-    this.displayOriginalValue = displayOriginalValue;
-  }
-
-  /**
-   * Human-readable description of the field.
-   *
-   * @return Human-readable description of the field.
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * Human-readable description of the field.
-   *
-   * @param description Human-readable description of the field.
-   */
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * A system-specific identifier for the field.
-   *
-   * @return A system-specific identifier for the field.
+   * @return A system-assigned label for the field.
    */
   public String getSystemLabel() {
     return systemLabel;
   }
 
   /**
-   * A system-specific identifier for the field.
+   * A system-assigned label for the field.
    *
-   * @param systemLabel A system-specific identifier for the field.
+   * @param systemLabel A system-assigned label for the field.
    */
   public void setSystemLabel(String systemLabel) {
     this.systemLabel = systemLabel;
   }
 
   /**
-   * The original value of the field label, as it appears on the record.
+   * The original label for the field, as stated on the original record.
    *
-   * @return The original value of the field label, as it appears on the record.
+   * @return The original label for the field, as stated on the original record.
    */
   public String getOriginalLabel() {
     return originalLabel;
   }
 
   /**
-   * The original value of the field label, as it appears on the record.
+   * The original label for the field, as stated on the original record.
    *
-   * @param originalLabel The original value of the field label, as it appears on the record.
+   * @param originalLabel The original label for the field, as stated on the original record.
    */
   public void setOriginalLabel(String originalLabel) {
     this.originalLabel = originalLabel;
   }
 
   /**
-   * The way the label of the field should be displayed, taking into account e.g. the language of the consumer.
+   * The ways the field can be displayed.
    *
-   * @return The way the label of the field should be displayed, taking into account e.g. the language of the consumer.
+   * @return The ways the field can be displayed.
    */
-  public String getDisplayLabel() {
-    return displayLabel;
+  public List<FieldDisplay> getDisplay() {
+    return display;
   }
 
   /**
-   * The way the label of the field should be displayed, taking into account e.g. the language of the consumer.
+   * The ways the field can be displayed.
    *
-   * @param displayLabel The way the label of the field should be displayed, taking into account e.g. the language of the consumer.
+   * @param display The ways the field can be displayed.
    */
-  public void setDisplayLabel(String displayLabel) {
-    this.displayLabel = displayLabel;
+  public void setDisplay(List<FieldDisplay> display) {
+    this.display = display;
+  }
+
+  /**
+   * The description of the field.
+   *
+   * @return The description of the field.
+   */
+  public List<TextValue> getDescription() {
+    return description;
+  }
+
+  /**
+   * The description of the field.
+   *
+   * @param description The description of the field.
+   */
+  public void setDescription(List<TextValue> description) {
+    this.description = description;
   }
 }

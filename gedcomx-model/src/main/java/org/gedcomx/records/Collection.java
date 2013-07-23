@@ -39,12 +39,11 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection", propOrder = { "collectionRef", "content", "facets", "attribution" })
+@XmlType ( name = "Collection", propOrder = { "content", "facets", "attribution" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
-  private ResourceReference collectionRef;
   private List<CollectionContent> content; //todo: let's just use facets for this...
   private Attribution attribution;
   private List<Facet> facets;
@@ -66,28 +65,6 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   public void setLang(String lang) {
     this.lang = lang;
-  }
-
-  /**
-   * A reference to the parent of this collection; the collection containing this collection.
-   *
-   * @return A reference to the collection containing this collection.
-   */
-  @XmlElement ( name = "collection" )
-  @JsonName ( "collection" )
-  @JsonProperty ( "collection" )
-  public ResourceReference getCollectionRef() {
-    return collectionRef;
-  }
-
-  /**
-   * A reference to the parent of this collection; the collection containing this collection.
-   *
-   * @param collectionRef A reference to the collection containing this collection.
-   */
-  @JsonProperty ( "collection" )
-  public void setCollectionRef(ResourceReference collectionRef) {
-    this.collectionRef = collectionRef;
   }
 
   /**

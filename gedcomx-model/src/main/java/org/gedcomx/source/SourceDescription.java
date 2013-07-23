@@ -41,7 +41,7 @@ import java.util.List;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "notes", "attribution", "sortKey", "descriptions", "identifiers", "created", "modified", "coverage", "repository", "descriptorRef" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "notes", "attribution", "sortKey", "description", "identifiers", "created", "modified", "coverage", "repository", "descriptorRef" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -57,7 +57,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private Attribution attribution;
   private URI resourceType;
   private String sortKey;
-  private List<TextValue> descriptions;
+  private List<TextValue> description;
   private List<Identifier> identifiers;
   private Date created;
   private Date modified;
@@ -438,22 +438,18 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * 
    * @return Human-readable descriptions of the source.
    */
-  @XmlElement (name="description")
-  @JsonProperty ("descriptions")
-  @JsonName ("descriptions")
   @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
-  public List<TextValue> getDescriptions() {
-    return descriptions;
+  public List<TextValue> getDescription() {
+    return description;
   }
 
   /**
    * Human-readable descriptions of the source.
    * 
-   * @param descriptions Human-readable descriptions of the source.
+   * @param description Human-readable descriptions of the source.
    */
-  @JsonProperty ("descriptions")
-  public void setDescriptions(List<TextValue> descriptions) {
-    this.descriptions = descriptions;
+  public void setDescription(List<TextValue> description) {
+    this.description = description;
   }
 
   /**
