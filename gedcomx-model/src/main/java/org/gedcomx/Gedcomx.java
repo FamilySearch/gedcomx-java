@@ -20,6 +20,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
+import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.records.Collection;
@@ -83,6 +84,7 @@ import java.util.List;
 public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
+  private URI descriptionRef;
   private Attribution attribution;
   private List<Person> persons;
   private List<Relationship> relationships;
@@ -114,6 +116,29 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   public void setLang(String lang) {
     this.lang = lang;
+  }
+
+  /**
+   * A reference to a description of this data set.
+   *
+   * @return A reference to a description of this data set.
+   */
+  @XmlAttribute ( name = "description" )
+  @JsonName ( "description" )
+  @JsonProperty ( "description" )
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  public URI getDescriptionRef() {
+    return descriptionRef;
+  }
+
+  /**
+   * A reference to a description of this data set.
+   *
+   * @param descriptionRef A reference to a description of this data set.
+   */
+  @JsonProperty ( "description" )
+  public void setDescriptionRef(URI descriptionRef) {
+    this.descriptionRef = descriptionRef;
   }
 
   /**
