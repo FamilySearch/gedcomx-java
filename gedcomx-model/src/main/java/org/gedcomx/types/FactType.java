@@ -185,7 +185,7 @@ public enum FactType {
    * A fact of a land transaction enacted by a person.
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  LandTransation,
+  LandTransaction,
 
   /**
    * A fact of a record of a person's living for a specific period. This is designed to include "flourish", defined to mean the time period
@@ -519,7 +519,7 @@ public enum FactType {
     public static final FactType Education = include(FactType.Education);
     public static final FactType Immigration = include(FactType.Immigration);
     public static final FactType Imprisonment = include(FactType.Imprisonment);
-    public static final FactType LandTransation = include(FactType.LandTransation);
+    public static final FactType LandTransaction = include(FactType.LandTransaction);
     public static final FactType MaritalStatus = include(FactType.MaritalStatus);
     public static final FactType Medical = include(FactType.Medical);
     public static final FactType MilitaryAward = include(FactType.MilitaryAward);

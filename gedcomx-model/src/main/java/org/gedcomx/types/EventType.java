@@ -153,7 +153,7 @@ public enum EventType {
   /**
    * A land transaction event.
    */
-  LandTransation,
+  LandTransaction,
 
   /**
    * A marriage event.
