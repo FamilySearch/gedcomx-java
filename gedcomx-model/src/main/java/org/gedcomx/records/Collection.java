@@ -19,7 +19,6 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
-import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -39,12 +38,14 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection", propOrder = { "content", "facets", "attribution" })
+@XmlType ( name = "Collection", propOrder = { "title", "size", "content", "facets", "attribution" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
   private List<CollectionContent> content; //todo: let's just use facets for this...
+  private String title;
+  private Integer size;
   private Attribution attribution;
   private List<Facet> facets;
 
@@ -65,6 +66,24 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   public void setLang(String lang) {
     this.lang = lang;
+  }
+
+  /**
+   * A title for the collection.
+   *
+   * @return A title for the collection.
+   */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * A title for the collection.
+   *
+   * @param title A title for the collection.
+   */
+  public void setTitle(String title) {
+    this.title = title;
   }
 
   /**
@@ -103,6 +122,24 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   @Override
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * The size of the collection, in terms of the number of items in this collection.
+   *
+   * @return The size of the collection, in terms of the number of items in this collection.
+   */
+  public Integer getSize() {
+    return size;
+  }
+
+  /**
+   * The size of the collection, in terms of the number of items in this collection.
+   *
+   * @param size The size of the collection, in terms of the number of items in this collection.
+   */
+  public void setSize(Integer size) {
+    this.size = size;
   }
 
   /**
