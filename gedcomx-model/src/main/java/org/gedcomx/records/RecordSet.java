@@ -53,7 +53,7 @@ import java.util.List;
     )
   }
 )
-@XmlRootElement (namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE)
+@XmlRootElement ( namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE, name = "records" )
 @JsonElementWrapper (name = "records")
 @XmlType ( name = "RecordSet", namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE, propOrder = { "metadata", "records" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
