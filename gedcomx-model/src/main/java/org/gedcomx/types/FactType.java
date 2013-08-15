@@ -61,6 +61,12 @@ public enum FactType {
   Apprenticeship,
 
   /**
+   * A fact of a person's arrest.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Arrest,
+
+  /**
    * A fact of a person's baptism.
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
@@ -170,6 +176,12 @@ public enum FactType {
   Funeral,
 
   /**
+   * A fact of a person's gender change.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  GenderChange,
+
+  /**
    * A fact of a person's immigration.
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
@@ -186,6 +198,12 @@ public enum FactType {
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   LandTransaction,
+
+  /**
+   * A fact of a language spoken by a person.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Language,
 
   /**
    * A fact of a record of a person's living for a specific period. This is designed to include "flourish", defined to mean the time period
@@ -217,6 +235,18 @@ public enum FactType {
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   MilitaryDischarge,
+
+  /**
+   * A fact of a person's registration for a military draft.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  MilitaryDraftRegistration,
+
+  /**
+   * A fact of a person's military induction.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  MilitaryInduction,
 
   /**
    * A fact of a person's militray service.
@@ -280,6 +310,12 @@ public enum FactType {
   Ordination,
 
   /**
+   * A fact of a person's legal pardon.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Pardon,
+
+  /**
    * A fact of a person's physical description.
    */
   PhysicalDescription,
@@ -328,6 +364,11 @@ public enum FactType {
    */
   Visit,
 
+  /**
+   * A fact of a person's _yahrzeit_ date.  A person's yahzeit is the anniversary of their death as measured by the Hebrew calendar.
+   */
+  Yahrzeit,
+
   // facts generally applicable within the scope of a couple.
 
   /**
@@ -341,6 +382,12 @@ public enum FactType {
   CommonLawMarriage,
 
   /**
+   * The fact of a civil union.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  CivilUnion,
+
+  /**
    * The fact of a divorce of a couple.
    */
   Divorce,
@@ -350,6 +397,12 @@ public enum FactType {
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   DivorceFiling,
+
+  /**
+   * The fact of a domestic partnership.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  DomesticPartnership,
 
   /**
    * The fact of an engagement to be married.
