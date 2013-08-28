@@ -4,12 +4,6 @@
 
   <api-import pattern="org.gedcomx.**"/>
 
-  <facets>
-    <exclude name="http://rs.gedcomx.org/"/>
-    <exclude name="http://record.gedcomx.org/"/>
-    <exclude name="http://citation.gedcomx.org/"/>
-  </facets>
-
   <modules>
     <!--disable the standard docs module, we're using the gedcomx-support module to generate docs.-->
     <docs disabled="true"/>
@@ -17,7 +11,18 @@
     <c forceEnable="true"/>
     <obj-c forceEnable="true"/>
     <java-client generateJsonJar="true"/>
-    <csharp disableCompile="true"/>
+    <csharp disableCompile="true" singleFilePerClass="true">
+      <package-conversions>
+        <convert from="org.gedcomx" to="Gx"/>
+        <convert from="org.gedcomx.agent" to="Gx.Agent"/>
+        <convert from="org.gedcomx.common" to="Gx.Common"/>
+        <convert from="org.gedcomx.conclusion" to="Gx.Conclusion"/>
+        <convert from="org.gedcomx.links" to="Gx.Links"/>
+        <convert from="org.gedcomx.records" to="Gx.Records"/>
+        <convert from="org.gedcomx.source" to="Gx.Source"/>
+        <convert from="org.gedcomx.types" to="Gx.Types"/>
+      </package-conversions>
+    </csharp>
     <ruby forceEnable="true"/>
   </modules>
 
