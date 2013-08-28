@@ -19,6 +19,8 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.records.Field;
+import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -41,8 +43,8 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
-@XmlType ( name = "Person", propOrder = { "private", "living", "principal", "gender", "names", "facts", "displayExtension" } )
-public class Person extends Subject implements HasFacts {
+@XmlType ( name = "Person", propOrder = { "private", "living", "principal", "gender", "names", "facts", "fields", "displayExtension" } )
+public class Person extends Subject implements HasFacts, HasFields {
 
   private Boolean isPrivate;
   private Boolean living;
@@ -50,6 +52,7 @@ public class Person extends Subject implements HasFacts {
   private Gender gender;
   private List<Name> names;
   private List<Fact> facts;
+  private List<Field> fields; // person-specific fields, such as used in an extracted historical record.
   private DisplayProperties display;
 
   /**
@@ -296,5 +299,29 @@ public class Person extends Subject implements HasFacts {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitPerson(this);
+  }
+
+
+  /**
+   * Get the fields being used as evidence.
+   *
+   * @return The references to the record fields being used as evidence.
+   */
+  @XmlElement( name = "field" )
+  @JsonProperty( "fields" )
+  @JsonName( "fields" )
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  public List<Field> getFields() {
+    return fields;
+  }
+
+  /**
+   * Set the list of fields being used as evidence.
+   *
+   * @param fields - List of fields
+   */
+  @JsonProperty( "fields" )
+  public void setFields(List<Field> fields) {
+    this.fields = fields;
   }
 }

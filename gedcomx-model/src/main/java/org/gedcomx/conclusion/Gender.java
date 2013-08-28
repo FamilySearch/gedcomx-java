@@ -20,9 +20,9 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
-import org.gedcomx.records.HasFieldBasedEvidence;
+import org.gedcomx.records.Field;
+import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -40,10 +40,10 @@ import java.util.List;
 @XmlType ( name = "Gender" )
 @XmlRootElement
 @JsonElementWrapper ( name = "genders" )
-public class Gender extends Conclusion implements HasFieldBasedEvidence {
+public class Gender extends Conclusion implements HasFields {
 
   private URI type;
-  private List<EvidenceReference> fieldValueReferences;
+  private List<Field> fields;
 
   /**
    * Default constructor.
@@ -102,39 +102,39 @@ public class Gender extends Conclusion implements HasFieldBasedEvidence {
   }
 
   /**
-   * The references to the record field values being used as evidence.
+   * Get the fields being used as evidence.
    *
-   * @return The references to the record field values being used as evidence.
+   * @return The references to the record fields being used as evidence.
    */
-  @XmlElement( name = "fieldValue" )
-  @JsonProperty( "fieldValues" )
-  @JsonName( "fieldValues" )
+  @XmlElement( name = "field" )
+  @JsonProperty( "fields" )
+  @JsonName( "fields" )
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
-  public List<EvidenceReference> getFieldValueReferences() {
-    return fieldValueReferences;
+  public List<Field> getFields() {
+    return fields;
   }
 
   /**
-   * The references to the record field values being used as evidence.
+   * Set the list of fields being used as evidence.
    *
-   * @param fieldValueReferences The references to the record field values being used as evidence.
+   * @param fields - List of fields
    */
-  @JsonProperty( "fieldValues" )
-  public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
-    this.fieldValueReferences = fieldValueReferences;
+  @JsonProperty( "fields" )
+  public void setFields(List<Field> fields) {
+    this.fields = fields;
   }
 
   /**
-   * Add a reference to the record field values being used as evidence.
+   * Add a record field being used as evidence.
    *
-   * @param fieldValueRef The evidence to be added.
+   * @param field The evidence to be added.
    */
-  public void addFieldValueReference(EvidenceReference fieldValueRef) {
-    if (fieldValueRef != null) {
-      if (fieldValueReferences == null) {
-        fieldValueReferences = new LinkedList<EvidenceReference>();
+  public void addField(Field field) {
+    if (field != null) {
+      if (fields == null) {
+        fields = new LinkedList<Field>();
       }
-      fieldValueReferences.add(fieldValueRef);
+      fields.add(field);
     }
   }
 

@@ -274,6 +274,14 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         fact.accept(this);
       }
     }
+
+    List<Field> fields = relationship.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
+
     this.contextStack.pop();
   }
 
@@ -326,6 +334,13 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         fact.accept(this);
       }
     }
+
+    List<Field> fields = person.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
     this.contextStack.pop();
   }
 
@@ -342,17 +357,35 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     if (place != null) {
       place.accept(this);
     }
+
+    List<Field> fields = fact.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
+
     this.contextStack.pop();
   }
 
   @Override
   public void visitPlaceReference(PlaceReference place) {
-    //no-op.
+    List<Field> fields = place.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
   }
 
   @Override
   public void visitDate(Date date) {
-    //no-op.
+    List<Field> fields = date.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
   }
 
   @Override
@@ -378,18 +411,38 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         part.accept(this);
       }
     }
+
+    List<Field> fields = form.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
     this.contextStack.pop();
   }
 
   @Override
   public void visitNamePart(NamePart part) {
-    //no-op...
+    List<Field> fields = part.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
   }
 
   @Override
   public void visitGender(Gender gender) {
     this.contextStack.push(gender);
     visitConclusion(gender);
+
+    List<Field> fields = gender.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        field.accept(this);
+      }
+    }
+
     this.contextStack.pop();
   }
 

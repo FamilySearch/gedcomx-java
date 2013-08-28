@@ -38,7 +38,7 @@ import java.util.List;
  */
 @XmlType ( name = "FieldValue" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
-public final class FieldValue extends Conclusion implements HasFieldBasedEvidence {
+public final class FieldValue extends Conclusion {
 
   /**
    * @see FieldValueType

@@ -18,6 +18,7 @@ package org.gedcomx.records;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.rt.GedcomxConstants;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
@@ -26,11 +27,11 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "FieldDescriptor", propOrder = { "systemLabel", "originalLabel", "display", "description"})
+@XmlType ( name = "FieldDescriptor", propOrder = {"fieldId", "originalLabel", "display", "description"})
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class FieldDescriptor {
 
-  private String systemLabel; // Computer-understandable (and thus non-localized) field ID, like "PR_NAME"
+  private String fieldId; // Computer-understandable (and thus non-localized) field ID, like "PR_NAME"
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
   private List<FieldDisplay> display; // localized display labels for the field values
   private List<TextValue> description; // localized description of this field ("Relationship of the person to the head of household").
@@ -40,17 +41,18 @@ public class FieldDescriptor {
    *
    * @return A system-assigned label for the field.
    */
-  public String getSystemLabel() {
-    return systemLabel;
+  @XmlAttribute
+  public String getFieldId() {
+    return fieldId;
   }
 
   /**
    * A system-assigned label for the field.
    *
-   * @param systemLabel A system-assigned label for the field.
+   * @param fieldId A system-assigned label for the field.
    */
-  public void setSystemLabel(String systemLabel) {
-    this.systemLabel = systemLabel;
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 
   /**

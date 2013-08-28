@@ -15,27 +15,27 @@
  */
 package org.gedcomx.records;
 
-import org.gedcomx.common.EvidenceReference;
-
 import java.util.List;
 
 /**
- * @author Ryan Heaton
+ * Interface indicating that a class as a list of record Fields.
+ * The list of fields is either directly used as evidence for a value or entity, or is otherwise viewed as logically
+ *   being strongly associated with that value or entity, such that it makes sense to group them within it.
+ * @author Randy Wilson
  */
-public interface HasFieldBasedEvidence {
+public interface HasFields {
 
   /**
-   * The references to the record field values being used as evidence.
+   * Get the fields being used as evidence.
    *
-   * @return The references to the record field values being used as evidence.
+   * @return The references to the record fields being used as evidence.
    */
-  List<EvidenceReference> getFieldValueReferences();
+  public List<Field> getFields();
 
   /**
-   * The references to the record field values being used as evidence.
+   * Set the list of fields being used as evidence.
    *
-   * @param fieldValueReferences The references to the record field values being used as evidence.
+   * @param fields - List of fields
    */
-  void setFieldValueReferences(List<EvidenceReference> fieldValueReferences);
-
+  public void setFields(List<Field> fields);
 }

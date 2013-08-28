@@ -429,7 +429,10 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
-   * The extracted fields included in this genealogical data set.
+   * The extracted fields included in this genealogical data set.  Fields that apply to a particular person,
+   *   relationship or value should be included within that person or value, respectively.
+   * Remaining fields that did not have a place within the person or relationship structure can be included here.
+   * Also, fields that were extracted but not yet fit into a structure can also be included here.
    *
    * @return The extracted fields included in this genealogical data set.
    */

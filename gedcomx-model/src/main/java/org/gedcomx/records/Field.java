@@ -35,12 +35,12 @@ import java.util.List;
 /**
  * A field of a record.
  */
-@XmlType ( name = "Field", propOrder = { "label", "values" })
+@XmlType ( name = "Field", propOrder = {"fieldId", "values" })
 @JsonElementWrapper ( name = "fields" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Field extends HypermediaEnabledData {
 
-  private String label;
+  private String fieldId;
   private URI type;
   private List<FieldValue> values;
 
@@ -91,17 +91,18 @@ public class Field extends HypermediaEnabledData {
    *
    * @return A unique label for the field.
    */
-  public String getLabel() {
-    return label;
+  @XmlAttribute
+  public String getFieldId() {
+    return fieldId;
   }
 
   /**
    * A unique label for the field.
    *
-   * @param label A unique label for the field.
+   * @param fieldId A unique label for the field.
    */
-  public void setLabel(String label) {
-    this.label = label;
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 
   /**
