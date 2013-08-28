@@ -39,7 +39,7 @@ import java.util.List;
  * The <tt>Subject</tt> data type defines the abstract concept of a genealogical <em>subject</em>. A <em>subject</em> is something with a unique and
  * intrinsic identity, e.g., a person, a location on the surface of the earth. We identify that <em>subject</em> in time and space using various supporting
  * <em>conclusions</em>, e.g. for a person: things like name, birth date, age, address, etc. We aggregate these supporting <em>conclusions</em> to form an
- * apparently-unique identity by which we can distinguish our<em>subject</em> from all other possible <em>subjects</em>.
+ * apparently-unique identity by which we can distinguish our <em>subject</em> from all other possible <em>subjects</em>.
  *
  * @author Ryan Heaton
  */
