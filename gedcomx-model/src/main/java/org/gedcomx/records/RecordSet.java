@@ -47,15 +47,15 @@ import java.util.List;
   models = {
     @Model (
       id = "gxbr",
-      namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE,
-      label = "GEDCOM X Bulk Record Model",
-      description = "The model for bulk record data."
+      namespace = "http://gedcomx.org/recordset/v1/",
+      label = "GEDCOM X Record Set Model",
+      description = "The model for defining a set of related records."
     )
   }
 )
-@XmlRootElement ( namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE, name = "records" )
+@XmlRootElement (name = "records")
 @JsonElementWrapper (name = "records")
-@XmlType ( name = "RecordSet", namespace = GedcomxConstants.GEDCOMX_BULK_RECORDS_NAMESPACE, propOrder = { "metadata", "records" })
+@XmlType ( name = "RecordSet", propOrder = { "metadata", "records" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class RecordSet extends HypermediaEnabledData {
 
