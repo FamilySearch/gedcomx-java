@@ -86,6 +86,37 @@ public enum FieldType {
   Given,
   Surname,
 
+  //characteristic fields
+  Abusua,
+  BatchNumber,
+  Caste,
+  Clan,
+  CommonLawMarriage,
+  Education,
+  Ethnicity,
+  FatherBirthPlace,
+  NeverHadChildren,
+  NeverMarried,
+  NumberOfChildren,
+  NumberOfMarriages,
+  Household,
+  IsHeadOfHousehold,
+  MaritalStatus,
+  MotherBirthPlace,
+  MultipleBirth,
+  NameSake,
+  NationalId,
+  Nationality,
+  Occupation,
+  PhysicalDescription,
+  Property,
+  Race,
+  Religion,
+  RelationshipToHead,
+  Stillbirth,
+  TitleOfNobility,
+  Tribe,
+
   /**
    * Custom
    */
