@@ -15,6 +15,7 @@
  */
 package org.gedcomx.source;
 
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
@@ -82,6 +83,7 @@ public class Coverage extends HypermediaEnabledData {
    *
    * @return The type of record being covered.
    */
+  @XmlQNameEnumRef(RecordType.class)
   public URI getRecordType() {
     return recordType;
   }

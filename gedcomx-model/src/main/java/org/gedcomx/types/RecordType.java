@@ -58,6 +58,11 @@ public enum RecordType {
   Arrival,
 
   /**
+   * A bank record.
+   */
+  Bank,
+
+  /**
    * A record of a person's baptism.
    */
   Baptism,
@@ -123,6 +128,11 @@ public enum RecordType {
   Duplicate,
 
   /**
+   * A draft record.
+   */
+  Draft,
+
+  /**
    * todo: document this type.
    */
   Estate,
@@ -138,6 +148,16 @@ public enum RecordType {
   IntendedMarriage,
 
   /**
+   * A land record.
+   */
+  Land,
+
+  /**
+   * A legal record.
+   */
+  Legal,
+
+  /**
    * A marriage record.
    */
   Marriage,
@@ -145,7 +165,7 @@ public enum RecordType {
   /**
    * A marriage affadavit. todo: is this distinguishment necessary? why not just use Marriage?
    */
-  MarriageAffidavits,
+  MarriageAffidavit,
 
   /**
    * todo: document this type.
@@ -208,6 +228,11 @@ public enum RecordType {
   Pension,
 
   /**
+   * A probate record.
+   */
+  Probate,
+
+  /**
    * todo: document this type.
    */
   RelatedDocument,
@@ -218,9 +243,19 @@ public enum RecordType {
   ReligiousCreeds,
 
   /**
+   * A roll.
+   */
+  Roll,
+
+  /**
    * A tax record.
    */
   Tax,
+
+  /**
+   * A vital record.
+   */
+  Vital,
 
   /**
    * Custom
