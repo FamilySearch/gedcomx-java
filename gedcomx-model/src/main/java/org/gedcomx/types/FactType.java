@@ -141,10 +141,16 @@ public enum FactType {
   Death,
 
   /**
-   * A fact of an education or an educational achievement (e.g. diploma, graduation, scholarship, etc.) of a person.
+   * A fact of an education of a person.
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Education,
+
+  /**
+   * A fact of a person's enrollment in an educational program or institution.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  EducationEnrollment,
 
   /**
    * A fact of the emigration of a person.
@@ -180,6 +186,12 @@ public enum FactType {
    */
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   GenderChange,
+
+  /**
+   * A fact of a person's graduation from a scholastic institution.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Graduation,
 
   /**
    * A fact of a person's immigration.
@@ -352,6 +364,12 @@ public enum FactType {
    * A fact of a person's stillbirth.
    */
   Stillbirth,
+
+  /**
+   * A fact of a person's tax assessment.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  TaxAssessment,
 
   /**
    * A fact of a person's will.
