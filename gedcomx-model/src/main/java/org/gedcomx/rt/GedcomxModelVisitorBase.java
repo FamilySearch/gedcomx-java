@@ -174,7 +174,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
   @Override
   public void visitEventRole(EventRole role) {
+    this.contextStack.push(role);
     visitConclusion(role);
+    this.contextStack.pop();
   }
 
   @Override
@@ -370,22 +372,26 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
   @Override
   public void visitPlaceReference(PlaceReference place) {
+    this.contextStack.push(place);
     List<Field> fields = place.getFields();
     if (fields != null) {
       for (Field field : fields) {
         field.accept(this);
       }
     }
+    this.contextStack.pop();
   }
 
   @Override
   public void visitDate(Date date) {
+    this.contextStack.push(date);
     List<Field> fields = date.getFields();
     if (fields != null) {
       for (Field field : fields) {
         field.accept(this);
       }
     }
+    this.contextStack.pop();
   }
 
   @Override
@@ -423,12 +429,14 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
   @Override
   public void visitNamePart(NamePart part) {
+    this.contextStack.push(part);
     List<Field> fields = part.getFields();
     if (fields != null) {
       for (Field field : fields) {
         field.accept(this);
       }
     }
+    this.contextStack.pop();
   }
 
   @Override
