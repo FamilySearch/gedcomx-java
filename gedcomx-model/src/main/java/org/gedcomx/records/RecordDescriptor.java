@@ -61,9 +61,9 @@ public class RecordDescriptor extends HypermediaEnabledData {
   }
 
   /**
-   * The fields that are applicable to this record.
+   * Descriptors of the fields that are applicable to this record.
    *
-   * @return The fields that are applicable to this record.
+   * @return Descriptors of the fields that are applicable to this record.
    */
   @XmlElement (name="field")
   @JsonProperty ("fields")
@@ -73,9 +73,9 @@ public class RecordDescriptor extends HypermediaEnabledData {
   }
 
   /**
-   * The fields that are applicable to this record.
+   * Descriptors of the fields that are applicable to this record.
    *
-   * @param fields The fields that are applicable to this record.
+   * @param fields Descriptors of the fields that are applicable to this record.
    */
   @JsonProperty ("fields")
   public void setFields(List<FieldDescriptor> fields) {

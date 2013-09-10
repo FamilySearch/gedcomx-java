@@ -15,11 +15,8 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.rt.GedcomxConstants;
@@ -27,10 +24,8 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.FieldValueType;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import java.util.List;
 
 
 /**
@@ -44,10 +39,10 @@ public final class FieldValue extends Conclusion {
    * @see FieldValueType
    */
   private URI type;
+  private String labelId;
   private String text;
   private URI datatype;
   private URI resource;
-  private List<EvidenceReference> fieldValueReferences;
 
   public FieldValue() {
   }
@@ -97,6 +92,24 @@ public final class FieldValue extends Conclusion {
     setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
   }
 
+  /**
+   * The id of the label applicable to this field value.
+   *
+   * @return The id of the label applicable to this field value.
+   */
+  @XmlAttribute
+  public String getLabelId() {
+    return labelId;
+  }
+
+  /**
+   * The id of the label applicable to this field value.
+   *
+   * @param labelId The id of the label applicable to this field value.
+   */
+  public void setLabelId(String labelId) {
+    this.labelId = labelId;
+  }
 
   /**
    * The text value.
@@ -152,28 +165,6 @@ public final class FieldValue extends Conclusion {
    */
   public void setResource(URI resource) {
     this.resource = resource;
-  }
-
-  /**
-   * The references to the record field values being used as evidence.
-   *
-   * @return The references to the record field values being used as evidence.
-   */
-  @XmlElement( name = "fieldValue" )
-  @JsonProperty( "fieldValues" )
-  @JsonName( "fieldValues" )
-  public List<EvidenceReference> getFieldValueReferences() {
-    return fieldValueReferences;
-  }
-
-  /**
-   * The references to the record field values being used as evidence.
-   *
-   * @param fieldValueReferences The references to the record field values being used as evidence.
-   */
-  @JsonProperty( "fieldValues" )
-  public void setFieldValueReferences(List<EvidenceReference> fieldValueReferences) {
-    this.fieldValueReferences = fieldValueReferences;
   }
 
   /**

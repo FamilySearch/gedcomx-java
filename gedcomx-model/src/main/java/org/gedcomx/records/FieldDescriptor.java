@@ -15,10 +15,14 @@
  */
 package org.gedcomx.records;
 
+import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
@@ -27,14 +31,14 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "FieldDescriptor", propOrder = {"fieldId", "originalLabel", "display", "description"})
+@XmlType ( name = "FieldDescriptor", propOrder = {"fieldId", "originalLabel", "description", "values"})
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
-public class FieldDescriptor {
+public class FieldDescriptor extends HypermediaEnabledData {
 
   private String fieldId; // Computer-understandable (and thus non-localized) field ID, like "PR_NAME"
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
-  private List<FieldDisplay> display; // localized display labels for the field values
   private List<TextValue> description; // localized description of this field ("Relationship of the person to the head of household").
+  private List<FieldValueDescriptor> values; // localized display labels for the field values
 
   /**
    * A system-assigned label for the field.
@@ -74,24 +78,6 @@ public class FieldDescriptor {
   }
 
   /**
-   * The ways the field can be displayed.
-   *
-   * @return The ways the field can be displayed.
-   */
-  public List<FieldDisplay> getDisplay() {
-    return display;
-  }
-
-  /**
-   * The ways the field can be displayed.
-   *
-   * @param display The ways the field can be displayed.
-   */
-  public void setDisplay(List<FieldDisplay> display) {
-    this.display = display;
-  }
-
-  /**
    * The description of the field.
    *
    * @return The description of the field.
@@ -108,4 +94,27 @@ public class FieldDescriptor {
   public void setDescription(List<TextValue> description) {
     this.description = description;
   }
+
+  /**
+   * Descriptors of the values that are applicable to the field.
+   *
+   * @return Descriptors of the values that are applicable to the field.
+   */
+  @XmlElement (name="value")
+  @JsonProperty ("values")
+  @JsonName ("values")
+  public List<FieldValueDescriptor> getValues() {
+    return values;
+  }
+
+  /**
+   * Descriptors of the values that are applicable to the field.
+   *
+   * @param values Descriptors of the values that are applicable to the field.
+   */
+  @JsonProperty ("values")
+  public void setValues(List<FieldValueDescriptor> values) {
+    this.values = values;
+  }
+
 }

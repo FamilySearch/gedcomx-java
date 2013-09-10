@@ -35,12 +35,11 @@ import java.util.List;
 /**
  * A field of a record.
  */
-@XmlType ( name = "Field", propOrder = {"fieldId", "values" })
+@XmlType ( name = "Field" )
 @JsonElementWrapper ( name = "fields" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Field extends HypermediaEnabledData {
 
-  private String fieldId;
   private URI type;
   private List<FieldValue> values;
 
@@ -85,25 +84,6 @@ public class Field extends HypermediaEnabledData {
     setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
   }
 
-
-  /**
-   * A unique label for the field.
-   *
-   * @return A unique label for the field.
-   */
-  @XmlAttribute
-  public String getFieldId() {
-    return fieldId;
-  }
-
-  /**
-   * A unique label for the field.
-   *
-   * @param fieldId A unique label for the field.
-   */
-  public void setFieldId(String fieldId) {
-    this.fieldId = fieldId;
-  }
 
   /**
    * The set of values for the field.
