@@ -31,33 +31,13 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "FieldDescriptor", propOrder = {"fieldId", "originalLabel", "description", "values"})
+@XmlType ( name = "FieldDescriptor", propOrder = { "originalLabel", "description", "values"})
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class FieldDescriptor extends HypermediaEnabledData {
 
-  private String fieldId; // Computer-understandable (and thus non-localized) field ID, like "PR_NAME"
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
   private List<TextValue> description; // localized description of this field ("Relationship of the person to the head of household").
   private List<FieldValueDescriptor> values; // localized display labels for the field values
-
-  /**
-   * A system-assigned label for the field.
-   *
-   * @return A system-assigned label for the field.
-   */
-  @XmlAttribute
-  public String getFieldId() {
-    return fieldId;
-  }
-
-  /**
-   * A system-assigned label for the field.
-   *
-   * @param fieldId A system-assigned label for the field.
-   */
-  public void setFieldId(String fieldId) {
-    this.fieldId = fieldId;
-  }
 
   /**
    * The original label for the field, as stated on the original record.

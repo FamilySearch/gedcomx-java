@@ -25,7 +25,6 @@ import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.types.FieldValueType;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -51,7 +50,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    *
    * @return The id of the label applicable to the field value
    */
-  @XmlAttribute ( namespace = XMLConstants.XML_NS_URI )
+  @XmlAttribute
   public String getLabelId() {
     return labelId;
   }
