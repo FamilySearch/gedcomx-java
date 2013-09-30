@@ -190,7 +190,6 @@ public abstract class Subject extends Conclusion implements Attributable {
    *
    * @return References to multimedia resources associated with this subject.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<SourceReference> getMedia() {
     return media;
   }
