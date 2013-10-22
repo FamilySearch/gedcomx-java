@@ -89,6 +89,38 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
   }
 
   /**
+   * Remove extension elements of a given type.
+   *
+   * @param clazz The type of extension element to remove.
+   * @return The removed extension elements.
+   */
+  @SuppressWarnings ( {"unchecked"} )
+  public <E> List<E> removeExtensionElements(Class<E> clazz) {
+    List<E> removed = new ArrayList<E>();
+    if (this.extensionElements != null) {
+      Iterator<Object> elements = this.extensionElements.iterator();
+      while (elements.hasNext()) {
+        E next = (E) elements.next();
+        if (clazz.isInstance(next)) {
+          removed.add(next);
+          elements.remove();
+        }
+      }
+    }
+    return removed;
+  }
+
+  /**
+   * Sets an extension element by first removing all previous elements of the same type, then adding it to the list.
+   *
+   * @param element The element to set.
+   */
+  public void setExtensionElement(Object element) {
+    removeExtensionElements(element.getClass());
+    addExtensionElement(element);
+  }
+
+  /**
    * Finds the first extension of a specified type.
    *
    * @param clazz The type.
