@@ -92,13 +92,32 @@ public class GedcomxApiDescriptor {
     }
   }
 
+  private void refreshIfNeeded() {
+    if (isExpired()) {
+      refresh();
+    }
+  }
+
+  private String findHref(String rel) {
+    Link link = this.links.get(rel);
+    return link != null && link.getHref() != null ? link.getHref().toString() : null;
+  }
+
   public URI getDiscoveryUri() {
     return discoveryUri;
   }
 
-  public String getOAuth2AuthenticationUri() {
-    Link link = this.links.get(Rel.OAUTH2_AUTHORIZE);
-    return link != null  && link.getHref() != null ? link.getHref().toString() : null;
+  public Client getClient() {
+    return client;
   }
 
+  public String getOAuth2AuthenticationUri() {
+    refreshIfNeeded();
+    return findHref(Rel.OAUTH2_AUTHORIZE);
+  }
+
+  public String getOAuth2TokenUri() {
+    refreshIfNeeded();
+    return findHref(Rel.OAUTH2_TOKEN);
+  }
 }
