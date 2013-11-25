@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>gedcomx-atom</artifactId>
-  <name>GEDCOM X - Atom Model</name>
+  <artifactId>gedcomx-rs-client</artifactId>
+  <name>GEDCOM X - Client for RS APIs</name>
 
   <parent>
     <groupId>org.gedcomx</groupId>
     <artifactId>gedcomx-parent</artifactId>
-    <version>1.0.12.M1-SNAPSHOT</version>
+    <version>1.0.11.M1-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -49,16 +49,20 @@
   <dependencies>
     <dependency>
       <groupId>org.gedcomx</groupId>
-      <artifactId>gedcomx-model</artifactId>
+      <artifactId>gedcomx-rs</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-server</artifactId>
+      <artifactId>jersey-client</artifactId>
       <version>${jersey.version}</version>
+    </dependency>
 
-      <scope>test</scope>
+    <dependency>
+      <groupId>com.damnhandy</groupId>
+      <artifactId>handy-uri-templates</artifactId>
+      <version>2.0.1</version>
     </dependency>
   </dependencies>
 

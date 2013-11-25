@@ -13,6 +13,8 @@
     <enunciate.version>1.27</enunciate.version>
     <root.basedir>${project.basedir}</root.basedir>
     <year>${inceptionYear}</year>
+
+    <jersey.version>1.17</jersey.version>
   </properties>
 
   <modules>
@@ -27,6 +29,7 @@
     <module>enunciate-gedcomx-rs-support</module>
     <module>gedcomx-atom</module>
     <module>gedcomx-rs</module>
+    <module>gedcomx-rs-client</module>
   </modules>
 
   <dependencies>
