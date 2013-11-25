@@ -31,6 +31,7 @@ public final class Rel {
   public static final String COLLECTION = "collection";
   public static final String CONCLUSION = "conclusion";
   public static final String CONCLUSIONS = "conclusions";
+  public static final String CURRENT_USER_PERSON = "current-user-person";
   public static final String DESCENDANCY = "descendancy";
   public static final String DESCRIPTION = "description";
   public static final String DESCRIPTIONS = "descriptions";
@@ -50,8 +51,11 @@ public final class Rel {
   public static final String PERSONA = "persona";
   public static final String EVIDENCE_REFERENCE = "evidence-reference";
   public static final String PERSON = "person";
+  public static final String PERSONS = "persons";
+  public static final String PERSON_SEARCH = "person-search";
   public static final String RECORD = "record";
   public static final String RELATIONSHIP = "relationship";
+  public static final String RELATIONSHIPS = "relationships";
   public static final String SOURCE_REFERENCE = "source-reference";
   public static final String SOURCE_REFERENCES = "source-references";
   public static final String SPOUSE_RELATIONSHIPS = "spouse-relationships";

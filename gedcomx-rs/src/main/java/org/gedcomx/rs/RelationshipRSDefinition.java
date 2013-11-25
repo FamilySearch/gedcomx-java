@@ -57,9 +57,9 @@ import javax.ws.rs.core.Response;
 )
 public interface RelationshipRSDefinition {
 
-  public static final String REL = "relationship";
-  public static final String REL_PERSON1 = "person1";
-  public static final String REL_PERSON2 = "person2";
+  public static final String REL = Rel.RELATIONSHIP;
+  public static final String REL_PERSON1 = Rel.PERSON1;
+  public static final String REL_PERSON2 = Rel.PERSON2;
 
   /**
    * Read a relationship header attributes.

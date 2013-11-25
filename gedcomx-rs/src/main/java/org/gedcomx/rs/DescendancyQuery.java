@@ -54,7 +54,7 @@ import javax.ws.rs.core.Response;
 )
 public interface DescendancyQuery {
 
-  public static final String REL = "descendancy";
+  public static final String REL = Rel.DESCENDANCY;
 
   /**
    * Query for a person and the descendants of the person for a number of generations.

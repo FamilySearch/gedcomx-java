@@ -34,7 +34,7 @@ import javax.ws.rs.core.Response;
 )
 public interface AgentRSDefinition {
 
-  public static final String REL = "agent";
+  public static final String REL = Rel.AGENT;
 
   /**
    * Read an agent.

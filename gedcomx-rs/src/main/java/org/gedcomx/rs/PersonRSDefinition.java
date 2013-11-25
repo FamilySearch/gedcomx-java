@@ -59,7 +59,7 @@ import javax.ws.rs.core.Response;
 )
 public interface PersonRSDefinition {
 
-  public static final String REL = "person";
+  public static final String REL = Rel.PERSON;
 
   /**
    * Read a person header attributes.

@@ -48,7 +48,7 @@ import javax.ws.rs.core.Response;
 )
 public interface SourceReferencesRSDefinition {
 
-  public static final String REL = "source-references";
+  public static final String REL = Rel.SOURCE_REFERENCES;
 
   /**
    * Read the references to sources.

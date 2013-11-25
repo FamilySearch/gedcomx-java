@@ -34,7 +34,7 @@ import javax.ws.rs.core.Response;
 )
 public interface CurrentUserPersonQuery {
 
-  public static final String REL = "current-user-person";
+  public static final String REL = Rel.CURRENT_USER_PERSON;
 
   /**
    * Read a person and their relationships.

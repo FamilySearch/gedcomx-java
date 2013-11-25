@@ -29,13 +29,13 @@ import javax.ws.rs.core.Response;
  */
 @ResourceDefinition (
   name = "Source Descriptions",
-  id = SourceDescriptionsRSDefinition.REL,
+  id = "source-descriptions",
   description = "The set of source descriptions in the application.",
   resourceElement = Gedcomx.class
 )
 public interface SourceDescriptionsRSDefinition {
 
-  public static final String REL = "source-descriptions";
+  public static final String REL = Rel.DESCRIPTIONS;
 
   /**
    * Add a source description.

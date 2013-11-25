@@ -51,7 +51,7 @@ import javax.ws.rs.core.Response;
 )
 public interface AncestryQuery {
 
-  public static final String REL = "ancestry";
+  public static final String REL = Rel.ANCESTRY;
 
   /**
    * Query for a person and the ancestors of a person for a number of generations.

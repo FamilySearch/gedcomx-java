@@ -36,7 +36,7 @@ import javax.ws.rs.core.Response;
 )
 public interface SourceReferenceRSDefinition {
 
-  public static final String REL = "source-reference";
+  public static final String REL = Rel.SOURCE_REFERENCE;
 
   /**
    * Delete a source reference.

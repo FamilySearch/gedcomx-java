@@ -32,13 +32,13 @@ import javax.ws.rs.core.Response;
  */
 @ResourceDefinition (
   name = "Source Description",
-  id = SourceDescriptionRSDefinition.REL,
+  id = "source-description",
   description = "A source description",
   resourceElement = Gedcomx.class
 )
 public interface SourceDescriptionRSDefinition {
 
-  public static final String REL = "source-description";
+  public static final String REL = Rel.DESCRIPTION;
 
   /**
    * Read a source description's header attributes.

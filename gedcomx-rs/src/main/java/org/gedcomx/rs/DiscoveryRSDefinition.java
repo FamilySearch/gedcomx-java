@@ -48,7 +48,7 @@ import javax.ws.rs.core.Response;
  */
 @ResourceDefinition(
   name = "Discovery",
-  id = DiscoveryRSDefinition.REL,
+  id = "discovery",
   description = "The root index of the application, providing links to the various application states.",
   resourceElement = Feed.class,
   transitions = {
@@ -74,8 +74,6 @@ import javax.ws.rs.core.Response;
   }
 )
 public interface DiscoveryRSDefinition {
-
-  String REL = "discovery";
 
   /**
    * Read the host metadata.

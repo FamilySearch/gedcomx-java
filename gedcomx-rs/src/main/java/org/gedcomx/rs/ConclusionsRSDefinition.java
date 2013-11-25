@@ -48,7 +48,7 @@ import javax.ws.rs.core.Response;
 )
 public interface ConclusionsRSDefinition {
 
-  public static final String REL = "conclusions";
+  public static final String REL = Rel.CONCLUSIONS;
 
   /**
    * Read a conclusions of an entity.

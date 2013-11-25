@@ -36,7 +36,7 @@ import javax.ws.rs.core.Response;
 )
 public interface PersonsRSDefinition {
 
-  public static final String REL = "persons";
+  public static final String REL = Rel.PERSONS;
 
   /**
    * Create a person.

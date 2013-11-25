@@ -37,7 +37,7 @@ import javax.ws.rs.core.Response;
 )
 public interface ConclusionRSDefinition {
 
-  public static final String REL = "conclusion";
+  public static final String REL = Rel.CONCLUSION;
 
   /**
    * Delete a conclusion.

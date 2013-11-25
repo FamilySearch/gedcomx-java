@@ -47,7 +47,7 @@ import javax.ws.rs.core.Response;
 )
 public interface NotesRSDefinition {
 
-  public static final String REL = "notes";
+  public static final String REL = Rel.NOTES;
 
   /**
    * Read the list of notes on the entity.

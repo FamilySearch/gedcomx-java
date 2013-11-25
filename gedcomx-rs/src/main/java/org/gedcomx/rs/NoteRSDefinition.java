@@ -49,7 +49,7 @@ import javax.ws.rs.core.Response;
 )
 public interface NoteRSDefinition {
 
-  public static final String REL = "note";
+  public static final String REL = Rel.NOTE;
 
   /**
    * Read a note.
