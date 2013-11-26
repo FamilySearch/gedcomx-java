@@ -33,7 +33,7 @@ import java.net.URI;
 public class BasicGedcomxClient implements GedcomxApi {
 
   protected final GedcomxApiDescriptor descriptor;
-  protected String accessToken;
+  protected String currentAccessToken;
 
   public BasicGedcomxClient(String discoveryUri) {
     this(new GedcomxApiDescriptor(discoveryUri));
@@ -51,6 +51,18 @@ public class BasicGedcomxClient implements GedcomxApi {
     return this.descriptor.getClient(); //we'll just use the descriptors client as ours.
   }
 
+  public GedcomxApiDescriptor getDescriptor() {
+    return descriptor;
+  }
+
+  public String getCurrentAccessToken() {
+    return currentAccessToken;
+  }
+
+  public boolean isAuthenticated() {
+    return this.currentAccessToken != null;
+  }
+
   @Override
   public URI buildOAuth2AuthenticationUri(String clientId, String redirectUri) {
     String authenticationUri = this.descriptor.getOAuth2AuthenticationUri();
@@ -60,11 +72,11 @@ public class BasicGedcomxClient implements GedcomxApi {
     return UriBuilder.fromUri(authenticationUri).queryParam("response_type", "code").queryParam("client_id", clientId).queryParam("redirect_uri", redirectUri).build();
   }
 
-  public void authenticateViaOAuth2Password(String username, String password, String clientId) {
-    authenticateViaOAuth2Password(username, password, clientId, null);
+  public BasicGedcomxClient authenticateViaOAuth2Password(String username, String password, String clientId) {
+    return authenticateViaOAuth2Password(username, password, clientId, null);
   }
 
-  public void authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
+  public BasicGedcomxClient authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "password");
     formData.putSingle("username", username);
@@ -73,14 +85,14 @@ public class BasicGedcomxClient implements GedcomxApi {
     if (clientSecret != null) {
       formData.putSingle("client_secret", clientSecret);
     }
-    authenticateViaOAuth2(formData);
+    return authenticateViaOAuth2(formData);
   }
 
-  public void authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
-    authenticateViaOAuth2Password(authCode, authCode, clientId, null);
+  public BasicGedcomxClient authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
+    return authenticateViaOAuth2Password(authCode, authCode, clientId, null);
   }
 
-  public void authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
+  public BasicGedcomxClient authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "authorization_code");
     formData.putSingle("code", authCode);
@@ -89,20 +101,20 @@ public class BasicGedcomxClient implements GedcomxApi {
     if (clientSecret != null) {
       formData.putSingle("client_secret", clientSecret);
     }
-    authenticateViaOAuth2(formData);
+    return authenticateViaOAuth2(formData);
   }
 
-  public void authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
+  public BasicGedcomxClient authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "client_credentials");
     formData.putSingle("client_id", clientId);
     if (clientSecret != null) {
       formData.putSingle("client_secret", clientSecret);
     }
-    authenticateViaOAuth2(formData);
+    return authenticateViaOAuth2(formData);
   }
 
-  public void authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
+  public BasicGedcomxClient authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
     String tokenUri = this.descriptor.getOAuth2TokenUri();
     if (tokenUri == null) {
       throw new GedcomxApiException(String.format("No OAuth2 token URI supplied for API at %s", this.descriptor.getDiscoveryUri()));
@@ -119,14 +131,12 @@ public class BasicGedcomxClient implements GedcomxApi {
       if (access_token == null) {
         throw new GedcomxApiException("Illegal access token response: no access_token provided.", response);
       }
-      this.accessToken = access_token.getValueAsText();
+      this.currentAccessToken = access_token.getValueAsText();
     }
     else {
       throw new GedcomxApiException("Unable to obtain an access token.", response);
     }
+    return this;
   }
 
-  public boolean isAuthenticated() {
-    return this.accessToken != null;
-  }
 }
