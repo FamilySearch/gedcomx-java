@@ -17,15 +17,26 @@ package org.gedcomx.rs.client;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
+import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
+import org.gedcomx.conclusion.Relationship;
+import org.gedcomx.links.Link;
+import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Ryan Heaton
@@ -34,6 +45,7 @@ public class BasicGedcomxClient implements GedcomxApi {
 
   protected final GedcomxApiDescriptor descriptor;
   protected String currentAccessToken;
+  private final Set<String> embeddedRels;
 
   public BasicGedcomxClient(String discoveryUri) {
     this(new GedcomxApiDescriptor(discoveryUri));
@@ -45,6 +57,11 @@ public class BasicGedcomxClient implements GedcomxApi {
 
   public BasicGedcomxClient(GedcomxApiDescriptor descriptor) {
     this.descriptor = descriptor;
+    this.embeddedRels = loadEmbeddedRels();
+  }
+
+  protected TreeSet<String> loadEmbeddedRels() {
+    return new TreeSet<String>(Arrays.asList(Rel.CHILD_RELATIONSHIPS, Rel.CONCLUSIONS, Rel.NOTES, Rel.PARENT_RELATIONSHIPS, Rel.SOURCE_REFERENCES, Rel.SPOUSE_RELATIONSHIPS));
   }
 
   public Client getClient() {
@@ -67,7 +84,7 @@ public class BasicGedcomxClient implements GedcomxApi {
   public URI buildOAuth2AuthenticationUri(String clientId, String redirectUri) {
     String authenticationUri = this.descriptor.getOAuth2AuthenticationUri();
     if (authenticationUri == null) {
-      throw new GedcomxApiException(String.format("No OAuth2 authentication URI supplied for API at %s", this.descriptor.getDiscoveryUri()));
+      throw new GedcomxApiException(String.format("No OAuth2 authentication URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
     }
     return UriBuilder.fromUri(authenticationUri).queryParam("response_type", "code").queryParam("client_id", clientId).queryParam("redirect_uri", redirectUri).build();
   }
@@ -117,12 +134,12 @@ public class BasicGedcomxClient implements GedcomxApi {
   public BasicGedcomxClient authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
     String tokenUri = this.descriptor.getOAuth2TokenUri();
     if (tokenUri == null) {
-      throw new GedcomxApiException(String.format("No OAuth2 token URI supplied for API at %s", this.descriptor.getDiscoveryUri()));
+      throw new GedcomxApiException(String.format("No OAuth2 token URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
     }
 
     ClientResponse response = getClient()
       .resource(tokenUri)
-      .type(MediaType.APPLICATION_JSON_TYPE)
+      .accept(MediaType.APPLICATION_JSON_TYPE)
       .type(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
       .post(ClientResponse.class, formData);
     if (response.getClientResponseStatus().getFamily() == Response.Status.Family.SUCCESSFUL) {
@@ -137,6 +154,110 @@ public class BasicGedcomxClient implements GedcomxApi {
       throw new GedcomxApiException("Unable to obtain an access token.", response);
     }
     return this;
+  }
+
+  public ApplicationState<Gedcomx> getPersonForCurrentUser() {
+    return getPersonForCurrentUser(true);
+  }
+
+  public ApplicationState<Gedcomx> getPersonForCurrentUser(boolean includeEmbedded) {
+    String currentUserPersonUri = this.descriptor.getCurrentUserPersonUri();
+    if (currentUserPersonUri == null) {
+      throw new GedcomxApiException(String.format("No current user person URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
+    }
+
+    ClientResponse response = authenticatedRequest(currentUserPersonUri)
+      .accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE)
+      .get(ClientResponse.class);
+
+    Gedcomx entity = null;
+    ClientResponse.Status responseCode = response.getClientResponseStatus();
+    switch (responseCode) {
+      case OK:
+        entity = response.getEntity(Gedcomx.class);
+        break;
+      default:
+        switch (responseCode.getFamily()) {
+          case CLIENT_ERROR:
+          case SERVER_ERROR:
+            throw new GedcomxApiException(responseCode.getReasonPhrase(), response);
+        }
+    }
+
+    if (entity != null && includeEmbedded) {
+      includeEmbeddedResources(entity);
+    }
+
+    return new ApplicationState<Gedcomx>(response, entity);
+  }
+
+  protected void includeEmbeddedResources(Gedcomx entity) {
+    List<Person> persons = entity.getPersons();
+    if (persons != null) {
+      for (Person person : persons) {
+        for (String embeddedRel : this.embeddedRels) {
+          Link link = person.getLink(embeddedRel);
+          if (link != null) {
+            embed(link.getHref().toString(), entity);
+          }
+        }
+      }
+    }
+
+    List<Relationship> relationships = entity.getRelationships();
+    if (relationships != null) {
+      for (Relationship relationship : relationships) {
+        for (String embeddedRel : this.embeddedRels) {
+          Link link = relationship.getLink(embeddedRel);
+          if (link != null) {
+            embed(link.getHref().toString(), entity);
+          }
+        }
+      }
+    }
+  }
+
+  private WebResource.Builder authenticatedRequest(String uri) {
+    return getClient()
+      .resource(uri)
+      .header("Authorization", "Bearer");
+  }
+
+  protected void embed(String href, Gedcomx entity) {
+    ClientResponse response = authenticatedRequest(href).get(ClientResponse.class);
+    if (response.getClientResponseStatus() == ClientResponse.Status.OK) {
+      embed(response.getEntity(Gedcomx.class), entity);
+    }
+    else {
+      //todo: log a warning? throw an error?
+    }
+  }
+
+  protected void embed(Gedcomx embedded, Gedcomx entity) {
+    List<Person> persons = embedded.getPersons();
+    if (persons != null && entity.getPersons() != null) {
+      for (Person person : persons) {
+        if (person.getId() != null) {
+          for (Person target : entity.getPersons()) {
+            if (person.getId().equals(target.getId())) {
+              target.embed(person);
+            }
+          }
+        }
+      }
+    }
+    List<Relationship> relationships = embedded.getRelationships();
+    if (relationships != null && entity.getRelationships() != null) {
+      for (Relationship relationship : relationships) {
+        if (relationship.getId() != null) {
+          for (Relationship target : entity.getRelationships()) {
+            if (relationship.getId().equals(target.getId())) {
+              target.embed(relationship);
+            }
+          }
+        }
+      }
+    }
   }
 
 }

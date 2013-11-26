@@ -216,4 +216,23 @@ public abstract class Subject extends Conclusion implements Attributable {
       media.add(mediaRef);
     }
   }
+
+  protected void embed(Subject subject) {
+    this.extracted = this.extracted == null ? subject.extracted : this.extracted;
+
+    if (subject.identifiers != null) {
+      this.identifiers = this.identifiers == null ? new ArrayList<Identifier>() : this.identifiers;
+      this.identifiers.addAll(subject.identifiers);
+    }
+    if (subject.media != null) {
+      this.media = this.media == null ? new ArrayList<SourceReference>() : this.media;
+      this.media.addAll(subject.media);
+    }
+    if (subject.evidence != null) {
+      this.evidence = this.evidence == null ? new ArrayList<EvidenceReference>() : this.evidence;
+      this.evidence.addAll(subject.evidence);
+    }
+
+    super.embed(subject);
+  }
 }

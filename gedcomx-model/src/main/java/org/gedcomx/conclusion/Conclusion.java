@@ -28,7 +28,10 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -228,4 +231,19 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
     return (getId() == null) ? "" : getId();
   }
 
+  protected void embed(Conclusion conclusion) {
+    this.lang = this.lang == null ? conclusion.lang : this.lang;
+    this.confidence = this.confidence == null ? conclusion.confidence : this.confidence;
+    this.attribution = this.attribution == null ? conclusion.attribution : this.attribution;
+    this.analysis = this.analysis == null ? conclusion.analysis : this.analysis;
+    if (conclusion.notes != null) {
+      this.notes = this.notes == null ? new ArrayList<Note>() : this.notes;
+      this.notes.addAll(conclusion.notes);
+    }
+    if (conclusion.sources != null) {
+      this.sources = this.sources == null ? new ArrayList<SourceReference>() : this.sources;
+      this.sources.addAll(conclusion.sources);
+    }
+    super.embed(conclusion);
+  }
 }

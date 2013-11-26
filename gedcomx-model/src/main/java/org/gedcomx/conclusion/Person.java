@@ -324,4 +324,31 @@ public class Person extends Subject implements HasFacts, HasFields {
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }
+
+  /**
+   * Embed the specified person into this one.
+   * 
+   * @param person The person to embed.
+   */
+  public void embed(Person person) {
+    this.isPrivate = this.isPrivate == null ? person.isPrivate : this.isPrivate;
+    this.living = this.living == null ? person.living : this.living;
+    this.principal = this.principal == null ? person.principal : this.principal;
+    this.gender = this.gender == null ? person.gender : this.gender;
+    this.display = this.display == null ? person.display : this.display;
+    if (person.names != null) {
+      this.names = this.names == null ? new ArrayList<Name>() : this.names;
+      this.names.addAll(person.names);
+    }
+    if (person.facts != null) {
+      this.facts = this.facts == null ? new ArrayList<Fact>() : this.facts;
+      this.facts.addAll(person.facts);
+    }
+    if (person.fields != null) {
+      this.fields = this.fields == null ? new ArrayList<Field>() : this.fields;
+      this.fields.addAll(person.fields);
+    }
+    super.embed(person);
+
+  }
 }

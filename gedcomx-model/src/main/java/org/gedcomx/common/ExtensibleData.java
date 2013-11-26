@@ -234,4 +234,11 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
   public void setTransientProperty(String name, Object value) {
     this.transientProperties.put(name, value);
   }
+
+  protected void embed(ExtensibleData data) {
+    if (data.extensionElements != null) {
+      this.extensionElements = this.extensionElements == null ? new ArrayList<Object>() : this.extensionElements;
+      this.extensionElements.addAll(data.extensionElements);
+    }
+  }
 }

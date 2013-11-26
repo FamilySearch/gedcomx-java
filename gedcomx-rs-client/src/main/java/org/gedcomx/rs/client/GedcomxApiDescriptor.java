@@ -120,4 +120,9 @@ public class GedcomxApiDescriptor {
     refreshIfNeeded();
     return findHref(Rel.OAUTH2_TOKEN);
   }
+
+  public String getCurrentUserPersonUri() {
+    refreshIfNeeded();
+    return findHref(Rel.CURRENT_USER_PERSON);
+  }
 }

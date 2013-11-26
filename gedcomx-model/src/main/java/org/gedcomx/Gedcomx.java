@@ -17,6 +17,7 @@ package org.gedcomx;
 
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
@@ -32,12 +33,11 @@ import org.gedcomx.rt.MediaTypeDefinition;
 import org.gedcomx.rt.Model;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.source.SourceDescription;
+import org.gedcomx.types.RelationshipType;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -160,6 +160,18 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Get the first person in the document.
+   *
+   * @return The first person in the document.
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.enunciate.json.JsonIgnore
+  public Person getPerson() {
+    return this.persons != null && this.persons.size() > 0 ? this.persons.get(0) : null;
+  }
+
+  /**
    * The persons included in this genealogical data set.
    * 
    * @return The persons included in this genealogical data set.
@@ -194,7 +206,49 @@ public class Gedcomx extends HypermediaEnabledData {
       persons.add( person );
     }
   }
-  
+
+  /**
+   * Get the list of couple relationships in the document.
+   *
+   * @return The list of couple relationships in the document.
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.enunciate.json.JsonIgnore
+  public List<Relationship> getCoupleRelationships() {
+    ArrayList<Relationship> filtered = null;
+    if (this.relationships != null) {
+      filtered = new ArrayList<Relationship>();
+      for (Relationship relationship : this.relationships) {
+        if (relationship.getKnownType() == RelationshipType.Couple) {
+          filtered.add(relationship);
+        }
+      }
+    }
+    return filtered;
+  }
+
+  /**
+   * Get the list of parent-child relationships in the document.
+   *
+   * @return The list of parent-child relationships in the document.
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.enunciate.json.JsonIgnore
+  public List<Relationship> getParentChildRelationships() {
+    ArrayList<Relationship> filtered = null;
+    if (this.relationships != null) {
+      filtered = new ArrayList<Relationship>();
+      for (Relationship relationship : this.relationships) {
+        if (relationship.getKnownType() == RelationshipType.ParentChild) {
+          filtered.add(relationship);
+        }
+      }
+    }
+    return filtered;
+  }
+
   /**
    * The relationships included in this genealogical data set.
    * 
@@ -228,6 +282,18 @@ public class Gedcomx extends HypermediaEnabledData {
         relationships = new LinkedList<Relationship>();
       relationships.add( relationship );
     }
+  }
+
+  /**
+   * Get the first source description in the document.
+   *
+   * @return The first source description in the document.
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.enunciate.json.JsonIgnore
+  public SourceDescription getSourceDescription() {
+    return this.sourceDescriptions != null && this.sourceDescriptions.size() > 0 ? this.sourceDescriptions.get(0) : null;
   }
 
   /**

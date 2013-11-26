@@ -231,4 +231,16 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitRelationship(this);
   }
+
+  public void embed(Relationship relationship) {
+    if (relationship.facts != null) {
+      this.facts = this.facts == null ? new ArrayList<Fact>() : this.facts;
+      this.facts.addAll(relationship.facts);
+    }
+    if (relationship.fields != null) {
+      this.fields = this.fields == null ? new ArrayList<Field>() : this.fields;
+      this.fields.addAll(relationship.fields);
+    }
+    super.embed(relationship);
+  }
 }

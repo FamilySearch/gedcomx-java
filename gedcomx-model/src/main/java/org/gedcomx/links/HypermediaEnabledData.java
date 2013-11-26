@@ -135,4 +135,8 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
     }
     return links;
   }
+
+  protected void embed(HypermediaEnabledData data) {
+    super.embed(data);
+  }
 }
