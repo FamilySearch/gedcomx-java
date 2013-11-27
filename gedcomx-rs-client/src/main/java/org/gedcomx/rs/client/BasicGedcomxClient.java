@@ -142,6 +142,12 @@ public class BasicGedcomxClient implements GedcomxApi {
     if (response.getClientResponseStatus().getFamily() == Response.Status.Family.SUCCESSFUL) {
       ObjectNode accessToken = response.getEntity(ObjectNode.class);
       JsonNode access_token = accessToken.get("access_token");
+
+      if (access_token == null) {
+        //workaround to accommodate providers that were built on an older version of the oauth2 specification.
+        access_token = accessToken.get("token");
+      }
+
       if (access_token == null) {
         throw new GedcomxApiException("Illegal access token response: no access_token provided.", response);
       }
@@ -215,9 +221,11 @@ public class BasicGedcomxClient implements GedcomxApi {
   }
 
   protected WebResource.Builder authenticatedRequest(String uri) {
-    return getClient()
-      .resource(uri)
-      .header("Authorization", "Bearer");
+    WebResource.Builder builder = getClient().resource(uri).getRequestBuilder();
+    if (isAuthenticated()) {
+      builder = builder.header("Authorization", "Bearer " + this.currentAccessToken);
+    }
+    return builder;
   }
 
   protected void embed(String href, Gedcomx entity) {

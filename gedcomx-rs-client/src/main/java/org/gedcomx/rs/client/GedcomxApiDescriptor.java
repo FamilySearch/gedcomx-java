@@ -17,10 +17,15 @@ package org.gedcomx.rs.client;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.gedcomx.atom.AtomModel;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.json.GedcomJsonProvider;
+import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 import javax.ws.rs.core.CacheControl;
 import java.net.URI;
@@ -39,7 +44,11 @@ public class GedcomxApiDescriptor {
   private long expires;
 
   public GedcomxApiDescriptor(String discoveryUri) {
-    this(discoveryUri, new Client());
+    this(discoveryUri, loadDefaultClient());
+  }
+
+  protected static Client loadDefaultClient() {
+    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class, JacksonJsonProvider.class));
   }
 
   public GedcomxApiDescriptor(String discoveryUri, Client client) {
