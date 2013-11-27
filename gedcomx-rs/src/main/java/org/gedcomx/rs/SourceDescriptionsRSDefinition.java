@@ -35,7 +35,7 @@ import javax.ws.rs.core.Response;
 )
 public interface SourceDescriptionsRSDefinition {
 
-  public static final String REL = Rel.DESCRIPTIONS;
+  public static final String REL = Rel.SOURCE_DESCRIPTIONS;
 
   /**
    * Add a source description.

@@ -25,25 +25,21 @@ import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
 
 /**
- * <p>The person relationships resource defines a list of relationships on a person, such as
- * child relationships, parent relationships, and spouse relationships. The person relationships resource is to be considered
- * an embedded resource, any links to this resource are to be treated as embedded links. This means that some implementations
- * MAY choose to bind this interface to the containing person.</p>
+ * <p>The person parents resource defines the set of parents for a person. This includes the parents, the relationships to each parent, and
+ * the spouse relationships of the parents.</p>
  */
 @ResourceDefinition (
-  name = "Person Relationships",
-  id = "person-relationships",
-  description = "A set of relationships that reference a specific person, such as the spouse relationships, parent relationships, or child relationships.",
+  name = "Person Parents",
+  id = "person-parents",
+  description = "The set of parents for a person.",
   resourceElement = Gedcomx.class,
   transitions = {
     @StateTransition( rel = PersonRSDefinition.REL, description = "The person.", targetResource = PersonRSDefinition.class )
   }
 )
-public interface PersonRelationshipsRSDefinition {
+public interface PersonParentsRSDefinition {
 
-  public static final String SPOUSE_RELATIONSHIPS_REL = Rel.SPOUSE_RELATIONSHIPS;
-  public static final String PARENT_RELATIONSHIPS_REL = Rel.PARENT_RELATIONSHIPS;
-  public static final String CHILD_RELATIONSHIPS_REL = Rel.CHILD_RELATIONSHIPS;
+  public static final String REL = Rel.PARENTS;
 
   /**
    * Read the set of relationships for a specific person.

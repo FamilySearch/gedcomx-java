@@ -54,7 +54,10 @@ import javax.ws.rs.core.Response;
     @StateTransition ( rel = RelationshipRSDefinition.REL, description = "A relationship.", scope = Relationship.class, targetResource = RelationshipRSDefinition.class ),
     @StateTransition ( rel = PersonRelationshipsRSDefinition.SPOUSE_RELATIONSHIPS_REL, description = "The relationships to the spouses of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonRelationshipsRSDefinition.class ),
     @StateTransition ( rel = PersonRelationshipsRSDefinition.CHILD_RELATIONSHIPS_REL, description = "The relationships to the children of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonRelationshipsRSDefinition.class  ),
-    @StateTransition ( rel = PersonRelationshipsRSDefinition.PARENT_RELATIONSHIPS_REL, description = "The relationships to the parents of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonRelationshipsRSDefinition.class  )
+    @StateTransition ( rel = PersonRelationshipsRSDefinition.PARENT_RELATIONSHIPS_REL, description = "The relationships to the parents of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonRelationshipsRSDefinition.class  ),
+    @StateTransition ( rel = PersonParentsRSDefinition.REL, description = "The parents of this person.", scope = Person.class, conditional = true, targetResource = PersonParentsRSDefinition.class ),
+    @StateTransition ( rel = PersonChildrenRSDefinition.REL, description = "The children of this person.", scope = Person.class, conditional = true, targetResource = PersonChildrenRSDefinition.class ),
+    @StateTransition ( rel = PersonSpousesRSDefinition.REL, description = "The spouses of this person.", scope = Person.class, conditional = true, targetResource = PersonSpousesRSDefinition.class )
   }
 )
 public interface PersonRSDefinition {

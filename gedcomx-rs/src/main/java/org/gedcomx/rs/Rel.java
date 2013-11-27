@@ -27,6 +27,7 @@ public final class Rel {
   public static final String AGENT = "agent";
   public static final String ANCESTRY = "ancestry";
   public static final String CHILD = "child";
+  public static final String CHILDREN = "children";
   public static final String CHILD_RELATIONSHIPS = "child-relationships";
   public static final String COLLECTION = "collection";
   public static final String CONCLUSION = "conclusion";
@@ -34,7 +35,7 @@ public final class Rel {
   public static final String CURRENT_USER_PERSON = "current-user-person";
   public static final String DESCENDANCY = "descendancy";
   public static final String DESCRIPTION = "description";
-  public static final String DESCRIPTIONS = "descriptions";
+  public static final String SOURCE_DESCRIPTIONS = "source-descriptions";
   public static final String FATHER = "father";
   public static final String IMAGE = "image";
   public static final String MAN = "man";
@@ -50,6 +51,7 @@ public final class Rel {
   public static final String PERSON2 = "person2";
   public static final String PERSONA = "persona";
   public static final String EVIDENCE_REFERENCE = "evidence-reference";
+  public static final String PARENTS = "parents";
   public static final String PERSON = "person";
   public static final String PERSONS = "persons";
   public static final String PERSON_SEARCH = "person-search";
@@ -58,6 +60,7 @@ public final class Rel {
   public static final String RELATIONSHIPS = "relationships";
   public static final String SOURCE_REFERENCE = "source-reference";
   public static final String SOURCE_REFERENCES = "source-references";
+  public static final String SPOUSES = "spouses";
   public static final String SPOUSE_RELATIONSHIPS = "spouse-relationships";
   public static final String WOMAN = "woman";
 
