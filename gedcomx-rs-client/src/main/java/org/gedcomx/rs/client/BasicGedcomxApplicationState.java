@@ -22,10 +22,7 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.conclusion.Person;
-import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.core.MediaType;
@@ -33,32 +30,28 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.util.*;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
  */
-public class BasicGedcomxClient implements GedcomxApi {
+public class BasicGedcomxApplicationState {
+
+  protected static final EmbeddedLinkLoader DEFAULT_EMBEDDED_LINK_LOADER = new EmbeddedLinkLoader();
 
   protected final GedcomxApiDescriptor descriptor;
   protected String currentAccessToken;
-  private final Set<String> embeddedRels;
 
-  public BasicGedcomxClient(String discoveryUri) {
+  public BasicGedcomxApplicationState(String discoveryUri) {
     this(new GedcomxApiDescriptor(discoveryUri));
   }
 
-  public BasicGedcomxClient(String discoveryUri, Client client) {
+  public BasicGedcomxApplicationState(String discoveryUri, Client client) {
     this(new GedcomxApiDescriptor(discoveryUri, client));
   }
 
-  public BasicGedcomxClient(GedcomxApiDescriptor descriptor) {
+  public BasicGedcomxApplicationState(GedcomxApiDescriptor descriptor) {
     this.descriptor = descriptor;
-    this.embeddedRels = loadEmbeddedRels();
-  }
-
-  protected TreeSet<String> loadEmbeddedRels() {
-    return new TreeSet<String>(Arrays.asList(Rel.CHILD_RELATIONSHIPS, Rel.CONCLUSIONS, Rel.NOTES, Rel.PARENT_RELATIONSHIPS, Rel.SOURCE_REFERENCES, Rel.SPOUSE_RELATIONSHIPS));
   }
 
   public Client getClient() {
@@ -77,7 +70,6 @@ public class BasicGedcomxClient implements GedcomxApi {
     return this.currentAccessToken != null;
   }
 
-  @Override
   public URI buildOAuth2AuthenticationUri(String clientId, String redirectUri) {
     String authenticationUri = this.descriptor.getOAuth2AuthenticationUri();
     if (authenticationUri == null) {
@@ -86,11 +78,11 @@ public class BasicGedcomxClient implements GedcomxApi {
     return UriBuilder.fromUri(authenticationUri).queryParam("response_type", "code").queryParam("client_id", clientId).queryParam("redirect_uri", redirectUri).build();
   }
 
-  public BasicGedcomxClient authenticateViaOAuth2Password(String username, String password, String clientId) {
+  public BasicGedcomxApplicationState authenticateViaOAuth2Password(String username, String password, String clientId) {
     return authenticateViaOAuth2Password(username, password, clientId, null);
   }
 
-  public BasicGedcomxClient authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
+  public BasicGedcomxApplicationState authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "password");
     formData.putSingle("username", username);
@@ -102,11 +94,11 @@ public class BasicGedcomxClient implements GedcomxApi {
     return authenticateViaOAuth2(formData);
   }
 
-  public BasicGedcomxClient authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
+  public BasicGedcomxApplicationState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
     return authenticateViaOAuth2Password(authCode, authCode, clientId, null);
   }
 
-  public BasicGedcomxClient authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
+  public BasicGedcomxApplicationState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "authorization_code");
     formData.putSingle("code", authCode);
@@ -118,7 +110,7 @@ public class BasicGedcomxClient implements GedcomxApi {
     return authenticateViaOAuth2(formData);
   }
 
-  public BasicGedcomxClient authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
+  public BasicGedcomxApplicationState authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "client_credentials");
     formData.putSingle("client_id", clientId);
@@ -128,7 +120,7 @@ public class BasicGedcomxClient implements GedcomxApi {
     return authenticateViaOAuth2(formData);
   }
 
-  public BasicGedcomxClient authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
+  public BasicGedcomxApplicationState authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
     String tokenUri = this.descriptor.getOAuth2TokenUri();
     if (tokenUri == null) {
       throw new GedcomxApiException(String.format("No OAuth2 token URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
@@ -195,29 +187,14 @@ public class BasicGedcomxClient implements GedcomxApi {
   }
 
   protected void includeEmbeddedResources(Gedcomx entity) {
-    List<Person> persons = entity.getPersons();
-    if (persons != null) {
-      for (Person person : persons) {
-        for (String embeddedRel : this.embeddedRels) {
-          Link link = person.getLink(embeddedRel);
-          if (link != null) {
-            embed(link.getHref().toString(), entity);
-          }
-        }
-      }
+    List<Link> links = getEmbeddedLinkLoader().loadEmbeddedLinks(entity);
+    for (Link link : links) {
+      embed(link.getHref().toString(), entity);
     }
+  }
 
-    List<Relationship> relationships = entity.getRelationships();
-    if (relationships != null) {
-      for (Relationship relationship : relationships) {
-        for (String embeddedRel : this.embeddedRels) {
-          Link link = relationship.getLink(embeddedRel);
-          if (link != null) {
-            embed(link.getHref().toString(), entity);
-          }
-        }
-      }
-    }
+  protected EmbeddedLinkLoader getEmbeddedLinkLoader() {
+    return DEFAULT_EMBEDDED_LINK_LOADER;
   }
 
   protected WebResource.Builder authenticatedRequest(String uri) {
