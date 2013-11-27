@@ -27,6 +27,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -195,5 +196,23 @@ public class PlaceDescription extends Subject {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitPlaceDescription(this);
+  }
+
+  /**
+   * Embed another place.
+   * 
+   * @param place The place to embed.
+   */
+  public void embed(PlaceDescription place) {
+    if (place.names != null) {
+      this.names = this.names == null ? new ArrayList<TextValue>() : this.names;
+      this.names.addAll(place.names);
+    }
+    this.type = this.type == null ? place.type : this.type;
+    this.temporalDescription = this.temporalDescription == null ? place.temporalDescription : this.temporalDescription;
+    this.latitude = this.latitude == null ? place.latitude : this.latitude;
+    this.longitude = this.longitude == null ? place.longitude : this.longitude;
+    this.spatialDescription = this.spatialDescription == null ? place.spatialDescription : this.spatialDescription;
+    super.embed(place);
   }
 }

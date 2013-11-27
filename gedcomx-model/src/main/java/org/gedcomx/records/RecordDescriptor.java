@@ -26,6 +26,7 @@ import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -89,5 +90,19 @@ public class RecordDescriptor extends HypermediaEnabledData {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitRecordDescriptor(this);
+  }
+
+  /**
+   * Embed another record descriptor.
+   * 
+   * @param recordDescriptor The descriptor to embed.
+   */
+  public void embed(RecordDescriptor recordDescriptor) {
+    this.lang = this.lang == null ? recordDescriptor.lang : this.lang;
+    if (recordDescriptor.fields != null) {
+      this.fields = this.fields == null ? new ArrayList<FieldDescriptor>() : this.fields;
+      this.fields.addAll(recordDescriptor.fields);
+    }
+    super.embed(recordDescriptor);
   }
 }

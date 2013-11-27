@@ -26,6 +26,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -239,5 +240,47 @@ public class Agent extends HypermediaEnabledData {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitAgent(this);
+  }
+
+  /**
+   * Embed another agent.
+   *
+   * @param agent The agent to embed.
+   */
+  public void embed(Agent agent) {
+    if (agent.names != null) {
+      this.names = this.names == null ? new ArrayList<TextValue>() : this.names;
+      this.names.addAll(agent.names);
+    }
+
+    if (agent.identifiers != null) {
+      this.identifiers = this.identifiers == null ? new ArrayList<Identifier>() : this.identifiers;
+      this.identifiers.addAll(agent.identifiers);
+    }
+
+    if (agent.accounts != null) {
+      this.accounts = this.accounts == null ? new ArrayList<OnlineAccount>() : this.accounts;
+      this.accounts.addAll(agent.accounts);
+    }
+    
+    if (agent.emails != null) {
+      this.emails = this.emails == null ? new ArrayList<ResourceReference>() : this.emails;
+      this.emails.addAll(agent.emails);
+    }
+    
+    if (agent.phones != null) {
+      this.phones = this.phones == null ? new ArrayList<ResourceReference>() : this.phones;
+      this.phones.addAll(agent.phones);
+    }
+    
+    if (agent.addresses != null) {
+      this.addresses = this.addresses == null ? new ArrayList<Address>() : this.addresses;
+      this.addresses.addAll(agent.addresses);
+    }
+
+    this.homepage = this.homepage == null ? agent.homepage : this.homepage;
+    this.openid = this.openid == null ? agent.openid : this.openid;
+
+    super.embed(agent);
   }
 }

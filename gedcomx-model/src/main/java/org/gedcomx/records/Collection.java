@@ -23,12 +23,14 @@ import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.Coverage;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -173,4 +175,26 @@ public class Collection extends HypermediaEnabledData implements Attributable {
     visitor.visitCollection(this);
   }
 
+  /**
+   * Embed another collection.
+   * 
+   * @param collection The collection to embed.
+   */
+  public void embed(Collection collection) {
+    this.lang = this.lang == null ? collection.lang : this.lang;
+    this.title = this.title == null ? collection.title : this.title;
+    this.size = this.size == null ? collection.size : this.size;
+    this.attribution = this.attribution == null ? collection.attribution : this.attribution;
+    this.attribution = this.attribution == null ? collection.attribution : this.attribution;
+    if (collection.content != null) {
+      this.content = this.content == null ? new ArrayList<CollectionContent>() : this.content;
+      this.content.addAll(collection.content);
+    }
+    if (collection.facets != null) {
+      this.facets = this.facets == null ? new ArrayList<Facet>() : this.facets;
+      this.facets.addAll(collection.facets);
+    }
+
+    super.embed(collection);
+  }
 }

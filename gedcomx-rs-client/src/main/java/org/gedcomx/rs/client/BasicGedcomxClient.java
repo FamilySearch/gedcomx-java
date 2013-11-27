@@ -33,10 +33,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * @author Ryan Heaton
@@ -217,7 +214,7 @@ public class BasicGedcomxClient implements GedcomxApi {
     }
   }
 
-  private WebResource.Builder authenticatedRequest(String uri) {
+  protected WebResource.Builder authenticatedRequest(String uri) {
     return getClient()
       .resource(uri)
       .header("Authorization", "Bearer");
@@ -226,37 +223,10 @@ public class BasicGedcomxClient implements GedcomxApi {
   protected void embed(String href, Gedcomx entity) {
     ClientResponse response = authenticatedRequest(href).get(ClientResponse.class);
     if (response.getClientResponseStatus() == ClientResponse.Status.OK) {
-      embed(response.getEntity(Gedcomx.class), entity);
+      entity.embed(response.getEntity(Gedcomx.class));
     }
     else {
       //todo: log a warning? throw an error?
-    }
-  }
-
-  protected void embed(Gedcomx embedded, Gedcomx entity) {
-    List<Person> persons = embedded.getPersons();
-    if (persons != null && entity.getPersons() != null) {
-      for (Person person : persons) {
-        if (person.getId() != null) {
-          for (Person target : entity.getPersons()) {
-            if (person.getId().equals(target.getId())) {
-              target.embed(person);
-            }
-          }
-        }
-      }
-    }
-    List<Relationship> relationships = embedded.getRelationships();
-    if (relationships != null && entity.getRelationships() != null) {
-      for (Relationship relationship : relationships) {
-        if (relationship.getId() != null) {
-          for (Relationship target : entity.getRelationships()) {
-            if (relationship.getId().equals(target.getId())) {
-              target.embed(relationship);
-            }
-          }
-        }
-      }
     }
   }
 

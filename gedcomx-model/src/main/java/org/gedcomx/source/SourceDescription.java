@@ -22,6 +22,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
+import org.gedcomx.conclusion.Name;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -549,5 +550,59 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonProperty ("descriptor")
   public void setDescriptorRef(ResourceReference descriptorRef) {
     this.descriptorRef = descriptorRef;
+  }
+
+  /**
+   * Embed the specified description.
+   *
+   * @param description The description to embed.
+   */
+  public void embed(SourceDescription description) {
+    if (description.citations != null) {
+      this.citations = this.citations == null ? new ArrayList<SourceCitation>() : this.citations;
+      this.citations.addAll(description.citations);
+    }
+
+    this.mediaType = this.mediaType == null ? description.mediaType : this.mediaType;
+    this.about = this.about == null ? description.about : this.about;
+    this.mediator = this.mediator == null ? description.mediator : this.mediator;
+
+    if (description.sources != null) {
+      this.sources = this.sources == null ? new ArrayList<SourceReference>() : this.sources;
+      this.sources.addAll(description.sources);
+    }
+
+    this.analysis = this.analysis == null ? description.analysis : this.analysis;
+    this.componentOf = this.componentOf == null ? description.componentOf : this.componentOf;
+    if (description.titles != null) {
+      this.titles = this.titles == null ? new ArrayList<TextValue>() : this.titles;
+      this.titles.addAll(description.titles);
+    }
+    if (description.notes != null) {
+      this.notes = this.notes == null ? new ArrayList<Note>() : this.notes;
+      this.notes.addAll(description.notes);
+    }
+    this.attribution = this.attribution == null ? description.attribution : this.attribution;
+    this.resourceType = this.resourceType == null ? description.resourceType : this.resourceType;
+    this.sortKey = this.sortKey == null ? description.sortKey : this.sortKey;
+    if (description.description != null) {
+      this.description = this.description == null ? new ArrayList<TextValue>() : this.description;
+      this.description.addAll(description.description);
+    }
+    if (description.identifiers != null) {
+      this.identifiers = this.identifiers == null ? new ArrayList<Identifier>() : this.identifiers;
+      this.identifiers.addAll(description.identifiers);
+    }
+    this.created = this.created == null ? description.created : this.created;
+    this.modified = this.modified == null ? description.modified : this.modified;
+    this.modified = this.modified == null ? description.modified : this.modified;
+    if (description.coverage != null) {
+      this.coverage = this.coverage == null ? new ArrayList<Coverage>() : this.coverage;
+      this.coverage.addAll(description.coverage);
+    }
+    this.repository = this.repository == null ? description.repository : this.repository;
+    this.descriptorRef = this.descriptorRef == null ? description.descriptorRef : this.descriptorRef;
+
+    super.embed(description);
   }
 }

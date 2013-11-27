@@ -178,4 +178,17 @@ public class Document extends Conclusion implements HasText, Attributable {
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitDocument(this);
   }
+
+  /**
+   * Embed a document.
+   *
+   * @param document The document to embed.
+   */
+  public void embed(Document document) {
+    this.extracted = this.extracted == null ? document.extracted : this.extracted;
+    this.type = this.type == null ? document.type : this.type;
+    this.textType = this.textType == null ? document.textType : this.textType;
+    this.text = this.text == null ? document.text : this.text;
+    super.embed(document);
+  }
 }

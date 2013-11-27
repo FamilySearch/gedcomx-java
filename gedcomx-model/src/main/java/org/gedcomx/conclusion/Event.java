@@ -27,6 +27,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.EventType;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -198,5 +199,21 @@ public class Event extends Subject implements HasDateAndPlace {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitEvent(this);
+  }
+
+  /**
+   * Embed another event.
+   *
+   * @param event The event to embed.
+   */
+  public void embed(Event event) {
+    this.type = this.type == null ? event.type : this.type;
+    this.date = this.date == null ? event.date : this.date;
+    this.place = this.place == null ? event.place : this.place;
+    if (event.roles != null) {
+      this.roles = this.roles == null ? new ArrayList<EventRole>() : this.roles;
+      this.roles.addAll(event.roles);
+    }
+    super.embed(event);
   }
 }

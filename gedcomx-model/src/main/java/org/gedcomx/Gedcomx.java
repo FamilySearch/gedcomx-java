@@ -495,6 +495,19 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Add a collection to the data set.
+   *
+   * @param collection The collection to be added.
+   */
+  public void addCollection( Collection collection ) {
+    if (collection != null) {
+      if (collections == null)
+        collections = new LinkedList<Collection>();
+      collections.add( collection );
+    }
+  }
+
+  /**
    * The extracted fields included in this genealogical data set.  Fields that apply to a particular person,
    *   relationship or value should be included within that person or value, respectively.
    * Remaining fields that did not have a place within the person or relationship structure can be included here.
@@ -518,6 +531,19 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("fields")
   public void setFields(List<Field> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Add a field to the data set.
+   *
+   * @param field The field to be added.
+   */
+  public void addField( Field field ) {
+    if (field != null) {
+      if (fields == null)
+        fields = new LinkedList<Field>();
+      fields.add( field );
+    }
   }
 
   /**
@@ -563,6 +589,227 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitGedcomx(this);
+  }
+
+  public void embed(Gedcomx gedcomx) {
+    List<Person> persons = gedcomx.getPersons();
+    if (persons != null) {
+      for (Person person : persons) {
+        boolean found = false;
+        if (person.getId() != null) {
+          if (getPersons() != null) {
+            for (Person target : gedcomx.getPersons()) {
+              if (person.getId().equals(target.getId())) {
+                target.embed(person);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addPerson(person);
+        }
+      }
+    }
+
+    List<Relationship> relationships = gedcomx.getRelationships();
+    if (relationships != null) {
+      for (Relationship relationship : relationships) {
+        boolean found = false;
+        if (relationship.getId() != null) {
+          if (getRelationships() != null) {
+            for (Relationship target : getRelationships()) {
+              if (relationship.getId().equals(target.getId())) {
+                target.embed(relationship);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addRelationship(relationship);
+        }
+      }
+    }
+
+    List<SourceDescription> sourceDescriptions = gedcomx.getSourceDescriptions();
+    if (sourceDescriptions != null) {
+      for (SourceDescription sourceDescription : sourceDescriptions) {
+        boolean found = false;
+        if (sourceDescription.getId() != null) {
+          if (getSourceDescriptions() != null) {
+            for (SourceDescription target : getSourceDescriptions()) {
+              if (sourceDescription.getId().equals(target.getId())) {
+                target.embed(sourceDescription);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addSourceDescription(sourceDescription);
+        }
+      }
+    }
+
+    List<Agent> agents = gedcomx.getAgents();
+    if (agents != null) {
+      for (Agent agent : agents) {
+        boolean found = false;
+        if (agent.getId() != null) {
+          if (getAgents() != null) {
+            for (Agent target : getAgents()) {
+              if (agent.getId().equals(target.getId())) {
+                target.embed(agent);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addAgent(agent);
+        }
+      }
+    }
+
+    List<Event> events = gedcomx.getEvents();
+    if (events != null) {
+      for (Event event : events) {
+        boolean found = false;
+        if (event.getId() != null) {
+          if (getEvents() != null) {
+            for (Event target : getEvents()) {
+              if (event.getId().equals(target.getId())) {
+                target.embed(event);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addEvent(event);
+        }
+      }
+    }
+
+    List<PlaceDescription> placeDescriptions = gedcomx.getPlaces();
+    if (placeDescriptions != null) {
+      for (PlaceDescription placeDescription : placeDescriptions) {
+        boolean found = false;
+        if (placeDescription.getId() != null) {
+          if (getPlaces() != null) {
+            for (PlaceDescription target : getPlaces()) {
+              if (placeDescription.getId().equals(target.getId())) {
+                target.embed(placeDescription);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addPlace(placeDescription);
+        }
+      }
+    }
+
+    List<Document> documents = gedcomx.getDocuments();
+    if (documents != null) {
+      for (Document document : documents) {
+        boolean found = false;
+        if (document.getId() != null) {
+          if (getDocuments() != null) {
+            for (Document target : getDocuments()) {
+              if (document.getId().equals(target.getId())) {
+                target.embed(document);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addDocument(document);
+        }
+      }
+    }
+
+    List<Collection> collections = gedcomx.getCollections();
+    if (collections != null) {
+      for (Collection collection : collections) {
+        boolean found = false;
+        if (collection.getId() != null) {
+          if (getCollections() != null) {
+            for (Collection target : getCollections()) {
+              if (collection.getId().equals(target.getId())) {
+                target.embed(collection);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addCollection(collection);
+        }
+      }
+    }
+
+    List<Field> fields = gedcomx.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        boolean found = false;
+        if (field.getId() != null) {
+          if (getFields() != null) {
+            for (Field target : getFields()) {
+              if (field.getId().equals(target.getId())) {
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addField(field);
+        }
+      }
+    }
+
+    List<RecordDescriptor> recordDescriptors = gedcomx.getRecordDescriptors();
+    if (recordDescriptors != null) {
+      for (RecordDescriptor recordDescriptor : recordDescriptors) {
+        boolean found = false;
+        if (recordDescriptor.getId() != null) {
+          if (getRecordDescriptors() != null) {
+            for (RecordDescriptor target : getRecordDescriptors()) {
+              if (recordDescriptor.getId().equals(target.getId())) {
+                target.embed(recordDescriptor);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addRecordDescriptor(recordDescriptor);
+        }
+      }
+    }
   }
 
 }
