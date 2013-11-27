@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertNull;
 
 /**
  * @author Ryan Heaton
@@ -23,5 +24,12 @@ public class BasicGedcomxClientTest {
   public void testGetCurrentUser() {
     ApplicationState<Gedcomx> personState = this.client.getPersonForCurrentUser(false);
     assertNotNull(personState.getEntity().getPersons());
+    assertNull(personState.getEntity().getRelationships());
+  }
+
+  public void testGetFullCurrentUser() {
+    ApplicationState<Gedcomx> personState = this.client.getPersonForCurrentUser();
+    assertNotNull(personState.getEntity().getPersons());
+    assertNotNull(personState.getEntity().getRelationships());
   }
 }

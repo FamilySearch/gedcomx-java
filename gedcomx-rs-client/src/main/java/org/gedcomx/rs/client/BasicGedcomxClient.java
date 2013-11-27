@@ -221,7 +221,7 @@ public class BasicGedcomxClient implements GedcomxApi {
   }
 
   protected WebResource.Builder authenticatedRequest(String uri) {
-    WebResource.Builder builder = getClient().resource(uri).getRequestBuilder();
+    WebResource.Builder builder = getClient().resource(uri).accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
     if (isAuthenticated()) {
       builder = builder.header("Authorization", "Bearer " + this.currentAccessToken);
     }
