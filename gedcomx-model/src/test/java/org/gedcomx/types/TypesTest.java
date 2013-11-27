@@ -1,5 +1,5 @@
 /**
- * Copyright 2011-2012 Intellectual Reserve, Inc. All Rights reserved.
+ * Copyright Intellectual Reserve, Inc. All Rights reserved.
  */
 package org.gedcomx.types;
 

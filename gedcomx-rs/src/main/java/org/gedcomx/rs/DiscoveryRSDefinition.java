@@ -1,5 +1,5 @@
 /**
- * Copyright 2011-2012 Intellectual Reserve, Inc.
+ * Copyright Intellectual Reserve, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,8 +64,7 @@ import javax.ws.rs.core.Response;
     @StateTransition (rel = PersonRSDefinition.REL, description = "The templated link to the person resources of the application.", template = true, targetResource = PersonRSDefinition.class ),
     @StateTransition (rel = PersonsRSDefinition.REL, description = "The link to the persons of the application.", conditional = true, targetResource = PersonsRSDefinition.class ),
     @StateTransition (rel = RelationshipRSDefinition.REL, description = "The templated link to the relationship resources of the application.", template = true, targetResource = RelationshipRSDefinition.class ),
-    @StateTransition (rel = RelationshipsRSDefinition.COUPLE_RELATIONSHIPS_REL, description = "The link to the couple relationships for this application.", conditional = true, targetResource = RelationshipsRSDefinition.class ),
-    @StateTransition (rel = RelationshipsRSDefinition.PARENT_CHILD_RELATIONSHIPS_REL, description = "The link to the parent-child relationships for this application.", conditional = true, targetResource = RelationshipsRSDefinition.class ),
+    @StateTransition (rel = RelationshipsRSDefinition.REL, description = "The link to the relationships for this application.", conditional = true, targetResource = RelationshipsRSDefinition.class ),
     @StateTransition (rel = SourceReferencesRSDefinition.REL, description = "The templated link to the source references resources of the application.", template = true, conditional = true, targetResource = SourceReferencesRSDefinition.class ),
     @StateTransition (rel = SourceReferenceRSDefinition.REL, description = "The templated link to the source reference resources of the application.", template = true, conditional = true, targetResource = SourceReferenceRSDefinition.class ),
     @StateTransition (rel = SourceDescriptionRSDefinition.REL, description = "The templated link to the source description resources for this application.", template = true, targetResource = SourceDescriptionRSDefinition.class ),
