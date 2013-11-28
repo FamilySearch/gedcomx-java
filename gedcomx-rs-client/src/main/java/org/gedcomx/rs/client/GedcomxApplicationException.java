@@ -20,23 +20,23 @@ import com.sun.jersey.api.client.ClientResponse;
 /**
  * @author Ryan Heaton
  */
-public class GedcomxApiException extends RuntimeException {
+public class GedcomxApplicationException extends RuntimeException {
 
   private ClientResponse response;
 
-  public GedcomxApiException() {
+  public GedcomxApplicationException() {
   }
 
-  public GedcomxApiException(String message) {
+  public GedcomxApplicationException(String message) {
     super(message);
   }
 
-  public GedcomxApiException(String message, ClientResponse response) {
+  public GedcomxApplicationException(String message, ClientResponse response) {
     super(message);
     this.response = response;
   }
 
-  public GedcomxApiException(ClientResponse response) {
+  public GedcomxApplicationException(ClientResponse response) {
     this.response = response;
   }
 

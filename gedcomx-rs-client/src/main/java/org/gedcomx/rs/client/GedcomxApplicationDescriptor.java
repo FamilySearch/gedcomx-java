@@ -16,6 +16,7 @@
 package org.gedcomx.rs.client;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
@@ -27,7 +28,9 @@ import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.json.GedcomJsonProvider;
 import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
@@ -36,14 +39,16 @@ import java.util.Map;
 /**
  * @author Ryan Heaton
  */
-public class GedcomxApiDescriptor {
+public class GedcomxApplicationDescriptor {
 
-  private final Client client;
   private final Map<String, Link> links;
   private final URI discoveryUri;
+  private final Client client;
+  private ClientRequest request;
+  private ClientResponse response;
   private long expires;
 
-  public GedcomxApiDescriptor(String discoveryUri) {
+  public GedcomxApplicationDescriptor(URI discoveryUri) {
     this(discoveryUri, loadDefaultClient());
   }
 
@@ -51,9 +56,9 @@ public class GedcomxApiDescriptor {
     return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class, JacksonJsonProvider.class));
   }
 
-  public GedcomxApiDescriptor(String discoveryUri, Client client) {
+  public GedcomxApplicationDescriptor(URI discoveryUri, Client client) {
     this.client = client;
-    this.discoveryUri = URI.create(discoveryUri);
+    this.discoveryUri = discoveryUri;
     this.links = new HashMap<String, Link>();
     refresh();
   }
@@ -63,14 +68,12 @@ public class GedcomxApiDescriptor {
   }
 
   public void refresh() {
-    ClientResponse response = this.client
-      .resource(this.discoveryUri)
-      .accept(AtomModel.ATOM_XML_MEDIA_TYPE)
-      .get(ClientResponse.class);
+    this.request = ClientRequest.create().accept(AtomModel.ATOM_XML_MEDIA_TYPE).build(this.discoveryUri, HttpMethod.GET);
+    this.response = this.client.handle(request);
 
     long now = System.currentTimeMillis();
-    if (response.getClientResponseStatus() != ClientResponse.Status.OK) {
-      throw new GedcomxApiException("Unable to read the discovery resource.", response);
+    if (this.response.getClientResponseStatus() != ClientResponse.Status.OK) {
+      throw new GedcomxApplicationException("Unable to read the discovery resource.", response);
     }
 
     long expirationPeriod = 1000 * 60 * 60 * 24 * 7; //default to an expiration in a week.
@@ -90,7 +93,7 @@ public class GedcomxApiDescriptor {
     if (feed != null) {
       List<Link> links = feed.getLinks();
       if (links == null) {
-        throw new GedcomxApiException("Invalid discovery resource: no links.");
+        throw new GedcomxApplicationException("Invalid discovery resource: no links.");
       }
 
       for (Link link : links) {
@@ -107,9 +110,9 @@ public class GedcomxApiDescriptor {
     }
   }
 
-  private String findHref(String rel) {
+  private URI findHref(String rel) {
     Link link = this.links.get(rel);
-    return link != null && link.getHref() != null ? link.getHref().toString() : null;
+    return link != null && link.getHref() != null ? link.getHref().toURI() : null;
   }
 
   public URI getDiscoveryUri() {
@@ -120,17 +123,33 @@ public class GedcomxApiDescriptor {
     return client;
   }
 
-  public String getOAuth2AuthenticationUri() {
+  public ClientRequest getRequest() {
+    return request;
+  }
+
+  public ClientResponse getResponse() {
+    return response;
+  }
+
+  public URI getOAuth2AuthenticationUri() {
     refreshIfNeeded();
     return findHref(Rel.OAUTH2_AUTHORIZE);
   }
 
-  public String getOAuth2TokenUri() {
+  public URI buildOAuth2AuthenticationUri(String clientId, String redirectUri) {
+    URI authenticationUri = getOAuth2AuthenticationUri();
+    if (authenticationUri == null) {
+      throw new GedcomxApplicationException(String.format("No OAuth2 authentication URI supplied for API at %s.", getDiscoveryUri()));
+    }
+    return UriBuilder.fromUri(authenticationUri).queryParam("response_type", "code").queryParam("client_id", clientId).queryParam("redirect_uri", redirectUri).build();
+  }
+
+  public URI getOAuth2TokenUri() {
     refreshIfNeeded();
     return findHref(Rel.OAUTH2_TOKEN);
   }
 
-  public String getCurrentUserPersonUri() {
+  public URI getCurrentUserPersonUri() {
     refreshIfNeeded();
     return findHref(Rel.CURRENT_USER_PERSON);
   }
