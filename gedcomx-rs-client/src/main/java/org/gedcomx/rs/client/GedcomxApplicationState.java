@@ -22,7 +22,9 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
+import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
@@ -100,6 +102,10 @@ public class GedcomxApplicationState<E> {
     return entity;
   }
 
+  public URI getUri() {
+    return this.request.getURI();
+  }
+
 
 
 
@@ -171,7 +177,7 @@ public class GedcomxApplicationState<E> {
         throw new GedcomxApplicationException("Illegal access token response: no access_token provided.", response);
       }
 
-      return new GedcomxApplicationState<E>(this.descriptor, access_token.getValueAsText(), request, response, entity);
+      return newApplicationState(this.descriptor, access_token.getValueAsText(), request, response, entity);
     }
     else {
       throw new GedcomxApplicationException("Unable to obtain an access token.", response);
@@ -180,19 +186,12 @@ public class GedcomxApplicationState<E> {
 
 
 
-
-
-  public GedcomxApplicationState<? extends Gedcomx> getPersonForCurrentUser() {
-    return getPersonForCurrentUser(true);
+  public GedcomxApplicationState<? extends Gedcomx> getGedcomxResource(URI personUri) {
+    return getGedcomxResource(personUri, true);
   }
 
-  public GedcomxApplicationState<? extends Gedcomx> getPersonForCurrentUser(boolean includeEmbedded) {
-    URI currentUserPersonUri = this.descriptor.getCurrentUserPersonUri();
-    if (currentUserPersonUri == null) {
-      throw new GedcomxApplicationException(String.format("No current user person URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
-    }
-
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(currentUserPersonUri, HttpMethod.GET);
+  public GedcomxApplicationState<? extends Gedcomx> getGedcomxResource(URI personUri, boolean includeEmbedded) {
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(personUri, HttpMethod.GET);
     ClientResponse response = invoke(request);
 
     Gedcomx entity = null;
@@ -213,10 +212,162 @@ public class GedcomxApplicationState<E> {
       includeEmbeddedResources(entity);
     }
 
-    return new GedcomxApplicationState<Gedcomx>(this.descriptor, this.accessToken, request, response, entity);
+    return newApplicationState(this.descriptor, this.accessToken, request, response, entity);
   }
 
-  private ClientRequest.Builder createAuthenticatedGedcomxRequest() {
+  public GedcomxApplicationState<? extends Gedcomx> getAncestry() {
+    Person person = null;
+    if (this.entity instanceof Gedcomx) {
+      person = ((Gedcomx) this.entity).getPerson();
+    }
+
+    if (person == null) {
+      throw new GedcomxApplicationException("Unable to determine children: state does not include a person.");
+    }
+
+    return getAncestry(person);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getAncestry(Person person) {
+    return getAncestry(person, true);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getAncestry(Person person, boolean includeEmbedded) {
+    Link link = person.getLink(Rel.ANCESTRY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getDescendancy() {
+    Person person = null;
+    if (this.entity instanceof Gedcomx) {
+      person = ((Gedcomx) this.entity).getPerson();
+    }
+
+    if (person == null) {
+      throw new GedcomxApplicationException("Unable to determine children: state does not include a person.");
+    }
+
+    return getDescendancy(person);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getDescendancy(Person person) {
+    return getDescendancy(person, true);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getDescendancy(Person person, boolean includeEmbedded) {
+    Link link = person.getLink(Rel.DESCENDANCY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getPersonForCurrentUser() {
+    return getPersonForCurrentUser(true);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getPersonForCurrentUser(boolean includeEmbedded) {
+    URI currentUserPersonUri = this.descriptor.getCurrentUserPersonUri();
+    if (currentUserPersonUri == null) {
+      throw new GedcomxApplicationException(String.format("No current user person URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
+    }
+
+    return getGedcomxResource(currentUserPersonUri, includeEmbedded);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getPerson(URI personUri) {
+    return getGedcomxResource(personUri, true);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getParents() {
+    Person person = null;
+    if (this.entity instanceof Gedcomx) {
+      person = ((Gedcomx) this.entity).getPerson();
+    }
+
+    if (person == null) {
+      throw new GedcomxApplicationException("Unable to determine parents: state does not include a person.");
+    }
+
+    return getParents(person);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getParents(Person person) {
+    return getParents(person, true);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getParents(Person person, boolean includeEmbedded) {
+    Link link = person.getLink(Rel.PARENTS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getChildren() {
+    Person person = null;
+    if (this.entity instanceof Gedcomx) {
+      person = ((Gedcomx) this.entity).getPerson();
+    }
+
+    if (person == null) {
+      throw new GedcomxApplicationException("Unable to determine children: state does not include a person.");
+    }
+
+    return getChildren(person);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getChildren(Person person) {
+    return getChildren(person, true);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getChildren(Person person, boolean includeEmbedded) {
+    Link link = person.getLink(Rel.CHILDREN);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getSpouses() {
+    Person person = null;
+    if (this.entity instanceof Gedcomx) {
+      person = ((Gedcomx) this.entity).getPerson();
+    }
+
+    if (person == null) {
+      throw new GedcomxApplicationException("Unable to determine spouses: state does not include a person.");
+    }
+
+    return getSpouses(person);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getSpouses(Person person) {
+    return getSpouses(person, true);
+  }
+
+  public GedcomxApplicationState<? extends Gedcomx> getSpouses(Person person, boolean includeEmbedded) {
+    Link link = person.getLink(Rel.SPOUSES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
+  }
+
+
+  protected <T> GedcomxApplicationState<T> newApplicationState(GedcomxApplicationDescriptor descriptor, String token, ClientRequest request, ClientResponse response, T entity) {
+    return new GedcomxApplicationState<T>(descriptor, token, request, response, entity);
+  }
+
+  protected ClientRequest.Builder createAuthenticatedGedcomxRequest() {
     return createAuthenticatedRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
   }
 
