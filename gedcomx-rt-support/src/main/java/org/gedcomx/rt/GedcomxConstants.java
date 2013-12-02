@@ -39,6 +39,6 @@ public class GedcomxConstants {
   public static final String FACET_FS_FT_UNSUPPORTED = "https://familysearch.org/tree#UNSUPPORTED";
   public static final String FACET_FS_FT_READ_ONLY = "https://familysearch.org/tree#READ_ONLY";
 
-  public static final String GEDCOMX_BULK_RECORDS_XML_MEDIA_TYPE = "application/x-gedcomx-bulk-records-v1+xml";
-  public static final String GEDCOMX_BULK_RECORDS_JSON_MEDIA_TYPE = "application/x-gedcomx-bulk-records-v1+json";
+  public static final String GEDCOMX_RECORDSET_XML_MEDIA_TYPE = "application/x-gedcomx-records-v1+xml";
+  public static final String GEDCOMX_RECORDSET_JSON_MEDIA_TYPE = "application/x-gedcomx-records-v1+json";
 }

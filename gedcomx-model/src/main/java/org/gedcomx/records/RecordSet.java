@@ -37,16 +37,16 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "gxbr",
-  name = "GEDCOM X Bulk Record",
-  description = "The GEDCOM X bulk record media types are used to exchange bulk genealogical data sets, assembled into records.",
+  id = "gxrecs",
+  name = "GEDCOM X Record Set",
+  description = "The GEDCOM X record set media type is used to exchange multiple, distinct genealogical data sets.",
   version = "1.0",
-  xmlMediaType = GedcomxConstants.GEDCOMX_BULK_RECORDS_XML_MEDIA_TYPE,
-  jsonMediaType = GedcomxConstants.GEDCOMX_BULK_RECORDS_JSON_MEDIA_TYPE,
-  projectId = "gedcomx-br",
+  xmlMediaType = GedcomxConstants.GEDCOMX_RECORDSET_XML_MEDIA_TYPE,
+  jsonMediaType = GedcomxConstants.GEDCOMX_RECORDSET_JSON_MEDIA_TYPE,
+  projectId = "gedcomx-recset",
   models = {
     @Model (
-      id = "gxbr",
+      id = "gxrecs",
       namespace = "http://gedcomx.org/recordset/v1/",
       label = "GEDCOM X Record Set Model",
       description = "The model for defining a set of related records."
