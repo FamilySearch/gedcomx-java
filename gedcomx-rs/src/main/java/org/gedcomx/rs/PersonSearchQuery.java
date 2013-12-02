@@ -54,6 +54,10 @@ import javax.ws.rs.core.Response;
  *           <th>description</td>
  *         </tr>
  *         <tr>
+ *           <td>name:</td>
+ *           <td>The full name of the person being searched.</td>
+ *         </tr>
+ *         <tr>
  *           <td>givenName:</td>
  *           <td>The given name of the person being searched.</td>
  *         </tr>
@@ -95,6 +99,10 @@ import javax.ws.rs.core.Response;
  *             <p>The following set of standard parameters is defined as the substitution of <tt>{relation}</tt> with all of the
  *             values "<tt>father</tt>", "<tt>mother</tt>", "<tt>spouse</tt>", and "<tt>parent</tt>".</p>
  *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>{relation}Name:</td>
+ *           <td>The full name of the {relation} of the person being searched.</td>
  *         </tr>
  *         <tr>
  *           <td>{relation}GivenName:</td>

@@ -22,6 +22,8 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.atom.AtomModel;
+import org.gedcomx.atom.Feed;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.Rel;
@@ -184,7 +186,17 @@ public class GedcomxApplicationState<E> {
     }
   }
 
+  public GedcomxApplicationState<? extends Feed> searchForPersons(GedcomxSearchQueryBuilder query) {
+    return searchForPersons(query.build());
+  }
 
+  public GedcomxApplicationState<? extends Feed> searchForPersons(String query) {
+//    String template = this.descriptor.getPersonSearchTemplate();
+//    if (template == null) {
+//      throw new GedcomxApplicationException(String.format("No person search endpoint supplied for API at %s.", this.descriptor.getDiscoveryUri()));
+//    }
+    throw new UnsupportedOperationException();
+  }
 
   public GedcomxApplicationState<? extends Gedcomx> getGedcomxResource(URI personUri) {
     return getGedcomxResource(personUri, true);
@@ -367,8 +379,12 @@ public class GedcomxApplicationState<E> {
     return new GedcomxApplicationState<T>(descriptor, token, request, response, entity);
   }
 
+  protected ClientRequest.Builder createAuthenticatedFeedRequest() {
+    return createAuthenticatedRequest().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE);
+  }
+
   protected ClientRequest.Builder createAuthenticatedGedcomxRequest() {
-    return createAuthenticatedRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
+    return createAuthenticatedRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
   }
 
   protected ClientResponse invoke(ClientRequest request) {
