@@ -25,30 +25,27 @@ import javax.ws.rs.GET;
 import javax.ws.rs.core.Response;
 
 /**
- * <p>The person relationships resource defines a list of relationships on a person, such as
- * child relationships, parent relationships, and spouse relationships. The person relationships resource is to be considered
- * an embedded resource, any links to this resource are to be treated as embedded links. This means that some implementations
- * MAY choose to bind this interface to the containing person.</p>
+ * <p>The person spouse relationships resource defines a list of relationships to spouses of a person. The person spouse relationships
+ * resource is to be considered an embedded resource, any links to this resource are to be treated as embedded links. This means
+ * that some implementations MAY choose to bind this interface to the containing person.</p>
  */
 @ResourceDefinition (
-  name = "Person Relationships",
-  id = "person-relationships",
-  description = "A set of relationships that reference a specific person, such as the spouse relationships, parent relationships, or child relationships.",
+  name = "Person Spouse Relationships",
+  id = PersonSpouseRelationshipsRSDefinition.REL,
+  description = "A set of relationships to spouses of a person.",
   resourceElement = Gedcomx.class,
   transitions = {
     @StateTransition( rel = PersonRSDefinition.REL, description = "The person.", targetResource = PersonRSDefinition.class )
   }
 )
-public interface PersonRelationshipsRSDefinition {
+public interface PersonSpouseRelationshipsRSDefinition {
 
-  public static final String SPOUSE_RELATIONSHIPS_REL = Rel.SPOUSE_RELATIONSHIPS;
-  public static final String PARENT_RELATIONSHIPS_REL = Rel.PARENT_RELATIONSHIPS;
-  public static final String CHILD_RELATIONSHIPS_REL = Rel.CHILD_RELATIONSHIPS;
+  public static final String REL = Rel.SPOUSE_RELATIONSHIPS;
 
   /**
-   * Read the set of relationships for a specific person.
+   * Read the set of spouse relationships for a specific person.
    *
-   * @return The set of relationships.
+   * @return The set of spouse relationships.
    */
   @GET
   @StatusCodes({

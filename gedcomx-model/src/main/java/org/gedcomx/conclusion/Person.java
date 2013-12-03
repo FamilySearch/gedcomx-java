@@ -335,7 +335,12 @@ public class Person extends Subject implements HasFacts, HasFields {
     this.living = this.living == null ? person.living : this.living;
     this.principal = this.principal == null ? person.principal : this.principal;
     this.gender = this.gender == null ? person.gender : this.gender;
-    this.display = this.display == null ? person.display : this.display;
+    if (this.display != null && person.display != null) {
+      this.display.embed(person.display);
+    }
+    else if (person.display != null) {
+      this.display = person.display;
+    }
     if (person.names != null) {
       this.names = this.names == null ? new ArrayList<Name>() : this.names;
       this.names.addAll(person.names);

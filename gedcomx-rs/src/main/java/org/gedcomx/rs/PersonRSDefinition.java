@@ -16,6 +16,7 @@
 package org.gedcomx.rs;
 
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.rt.rs.ResourceDefinition;
@@ -49,16 +50,20 @@ import javax.ws.rs.core.Response;
     @StateTransition ( rel = ConclusionsRSDefinition.REL, description = "The conclusions for the person (embedded link).", scope = Person.class, conditional = true, targetResource = ConclusionsRSDefinition.class ),
     @StateTransition ( rel = SourceReferencesRSDefinition.REL, description = "The source references for the person (embedded link).", scope = Person.class, conditional = true, targetResource = SourceReferencesRSDefinition.class ),
     @StateTransition ( rel = SourceReferenceRSDefinition.REL, description = "A source reference.", scope = SourceReference.class, conditional = true, targetResource = SourceReferenceRSDefinition.class ),
+    @StateTransition ( rel = EvidenceReferencesRSDefinition.REL, description = "The evidence references for the person (embedded link).", scope = Person.class, conditional = true, targetResource = EvidenceReferencesRSDefinition.class ),
+    @StateTransition ( rel = EvidenceReferenceRSDefinition.REL, description = "A evidence reference.", scope = EvidenceReference.class, conditional = true, targetResource = EvidenceReferenceRSDefinition.class ),
+    @StateTransition ( rel = MediaReferencesRSDefinition.REL, description = "The media references for the person (embedded link).", scope = Person.class, conditional = true, targetResource = MediaReferencesRSDefinition.class ),
+    @StateTransition ( rel = MediaReferenceRSDefinition.REL, description = "A media reference.", scope = SourceReference.class, conditional = true, targetResource = MediaReferenceRSDefinition.class ),
     @StateTransition ( rel = NotesRSDefinition.REL, description = "The notes for the person (embedded link).", scope = Person.class, conditional = true, targetResource = NotesRSDefinition.class ),
     @StateTransition ( rel = NoteRSDefinition.REL, description = "A note.", scope = Note.class, conditional = true, targetResource = NoteRSDefinition.class ),
     @StateTransition ( rel = RelationshipRSDefinition.REL, description = "A relationship.", scope = Relationship.class, targetResource = RelationshipRSDefinition.class ),
-    @StateTransition ( rel = PersonRelationshipsRSDefinition.SPOUSE_RELATIONSHIPS_REL, description = "The relationships to the spouses of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonRelationshipsRSDefinition.class ),
-    @StateTransition ( rel = PersonRelationshipsRSDefinition.CHILD_RELATIONSHIPS_REL, description = "The relationships to the children of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonRelationshipsRSDefinition.class  ),
-    @StateTransition ( rel = PersonRelationshipsRSDefinition.PARENT_RELATIONSHIPS_REL, description = "The relationships to the parents of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonRelationshipsRSDefinition.class  ),
+    @StateTransition ( rel = PersonParentRelationshipsRSDefinition.REL, description = "The relationships to the parents of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonParentRelationshipsRSDefinition.class ),
+    @StateTransition ( rel = PersonChildRelationshipsRSDefinition.REL, description = "The relationships to the children of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonChildRelationshipsRSDefinition.class ),
+    @StateTransition ( rel = PersonSpouseRelationshipsRSDefinition.REL, description = "The relationships to the spouses of the person (embedded link).", scope = Person.class, conditional = true, targetResource = PersonSpouseRelationshipsRSDefinition.class ),
     @StateTransition ( rel = PersonParentsRSDefinition.REL, description = "The parents of this person.", scope = Person.class, conditional = true, targetResource = PersonParentsRSDefinition.class ),
     @StateTransition ( rel = PersonChildrenRSDefinition.REL, description = "The children of this person.", scope = Person.class, conditional = true, targetResource = PersonChildrenRSDefinition.class ),
     @StateTransition ( rel = PersonSpousesRSDefinition.REL, description = "The spouses of this person.", scope = Person.class, conditional = true, targetResource = PersonSpousesRSDefinition.class )
-  }
+ }
 )
 public interface PersonRSDefinition {
 

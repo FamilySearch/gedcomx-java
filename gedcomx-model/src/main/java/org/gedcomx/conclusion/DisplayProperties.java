@@ -38,6 +38,8 @@ public class DisplayProperties extends ExtensibleData {
   private String birthPlace;
   private String deathDate;
   private String deathPlace;
+  private String marriageDate;
+  private String marriagePlace;
   private String ascendancyNumber;
   private String descendancyNumber;
 
@@ -168,6 +170,42 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * The displayable label for the marriage date of the person.
+   * 
+   * @return The displayable label for the marriage date of the person.
+   */
+  public String getMarriageDate() {
+    return marriageDate;
+  }
+
+  /**
+   * The displayable label for the marriage date of the person.
+   * 
+   * @param marriageDate The displayable label for the marriage date of the person.
+   */
+  public void setMarriageDate(String marriageDate) {
+    this.marriageDate = marriageDate;
+  }
+
+  /**
+   * The displayable label for the marriage place of the person.
+   * 
+   * @return The displayable label for the marriage place of the person.
+   */
+  public String getMarriagePlace() {
+    return marriagePlace;
+  }
+
+  /**
+   * The displayable label for the marriage place of the person.
+   * 
+   * @param marriagePlace The displayable label for the marriage place of the person.
+   */
+  public void setMarriagePlace(String marriagePlace) {
+    this.marriagePlace = marriagePlace;
+  }
+
+  /**
    * The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
    *
    * @return The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
@@ -201,5 +239,25 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setDescendancyNumber(String descendancyNumber) {
     this.descendancyNumber = descendancyNumber;
+  }
+
+  /**
+   * Embed a set of display properties.
+   *
+   * @param data The data to embed.
+   */
+  public void embed(DisplayProperties data) {
+    this.name = this.name == null ? data.name : this.name;
+    this.gender = this.gender == null ? data.gender : this.gender;
+    this.lifespan = this.lifespan == null ? data.lifespan : this.lifespan;
+    this.birthDate = this.birthDate == null ? data.birthDate : this.birthDate;
+    this.birthPlace = this.birthPlace == null ? data.birthPlace : this.birthPlace;
+    this.deathDate = this.deathDate == null ? data.deathDate : this.deathDate;
+    this.deathPlace = this.deathPlace == null ? data.deathPlace : this.deathPlace;
+    this.marriageDate = this.marriageDate == null ? data.marriageDate : this.marriageDate;
+    this.marriagePlace = this.marriagePlace == null ? data.marriagePlace : this.marriagePlace;
+    this.ascendancyNumber = this.ascendancyNumber == null ? data.ascendancyNumber : this.ascendancyNumber;
+    this.descendancyNumber = this.descendancyNumber == null ? data.descendancyNumber : this.descendancyNumber;
+    super.embed(data);
   }
 }

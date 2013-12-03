@@ -30,7 +30,16 @@ import java.util.*;
  */
 public class EmbeddedLinkLoader {
 
-  public static final Set<String> DEFAULT_EMBEDDED_LINK_RELS = Collections.unmodifiableSet(new TreeSet<String>(Arrays.asList(Rel.CHILD_RELATIONSHIPS, Rel.CONCLUSIONS, Rel.NOTES, Rel.PARENT_RELATIONSHIPS, Rel.SOURCE_REFERENCES, Rel.SPOUSE_RELATIONSHIPS)));
+  public static final Set<String> DEFAULT_EMBEDDED_LINK_RELS = Collections.unmodifiableSet(new TreeSet<String>(Arrays.asList(
+    Rel.CHILD_RELATIONSHIPS,
+    Rel.CONCLUSIONS,
+    Rel.EVIDENCE_REFERENCES,
+    Rel.MEDIA_REFERENCES,
+    Rel.NOTES,
+    Rel.PARENT_RELATIONSHIPS,
+    Rel.SOURCE_REFERENCES,
+    Rel.SPOUSE_RELATIONSHIPS
+  )));
 
   protected Set<String> getEmbeddedLinkRels() {
     return DEFAULT_EMBEDDED_LINK_RELS;
