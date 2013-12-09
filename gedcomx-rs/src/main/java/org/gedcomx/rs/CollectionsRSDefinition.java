@@ -36,7 +36,7 @@ import javax.ws.rs.core.Response;
   description = "A set of collections.",
   resourceElement = Gedcomx.class,
   transitions = {
-    @StateTransition( rel = CollectionRSDefinition.REL, description = "A collection.", scope = CollectionRSDefinition.class, conditional = true, targetResource = CollectionRSDefinition.class )
+    @StateTransition( rel = Rel.SELF, description = "A collection.", scope = CollectionRSDefinition.class, conditional = true, targetResource = CollectionRSDefinition.class )
   }
 )
 public interface CollectionsRSDefinition {

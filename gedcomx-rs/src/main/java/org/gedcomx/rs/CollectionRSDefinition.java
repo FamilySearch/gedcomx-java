@@ -41,6 +41,8 @@ import javax.ws.rs.core.Response;
     @StateTransition( rel = RelationshipsRSDefinition.REL, description = "The relationships in this collection.", scope = Collection.class, conditional = true, targetResource = RelationshipsRSDefinition.class ),
     @StateTransition( rel = SourceDescriptionsRSDefinition.REL, description = "The source descriptions in this collection.", scope = Collection.class, conditional = true, targetResource = RelationshipsRSDefinition.class ),
     @StateTransition( rel = CollectionsRSDefinition.REL, description = "The subcollections in this collection.", scope = Collection.class, conditional = true, targetResource = CollectionsRSDefinition.class ),
+    @StateTransition( rel = CollectionRSDefinition.REL, description = "The collection in which this collection is found, if any.", scope = Collection.class, conditional = true, targetResource = CollectionRSDefinition.class ),
+    @StateTransition( rel = Rel.SELF, description = "Self link to this collection.", scope = Collection.class, conditional = true, targetResource = CollectionRSDefinition.class ),
     @StateTransition( rel = PersonSearchQuery.REL, description = "The query to search this collection by person.", scope = Collection.class, targetResource = PersonSearchQuery.class, template = true ),
     @StateTransition( rel = CurrentUserPersonQuery.REL, description = "The person in this collection that represents the current user.", scope = Collection.class, conditional = true, targetResource = CurrentUserPersonQuery.class )
   }

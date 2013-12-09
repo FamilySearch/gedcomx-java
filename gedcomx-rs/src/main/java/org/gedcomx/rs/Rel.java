@@ -24,6 +24,16 @@ public final class Rel {
 
   private Rel(){}
 
+  //Standard well-known RELs
+  public static final String SELF = "self";
+  public static final String NEXT = "next";
+  public static final String PREV = "prev";
+  public static final String PREVIOUS = PREV;
+  public static final String FIRST = "first";
+  public static final String LAST = "last";
+
+
+  //GEDCOM-X specific rels.
   public static final String AGENT = "agent";
   public static final String ANCESTRY = "ancestry";
   public static final String ARTIFACTS = "artifacts";
