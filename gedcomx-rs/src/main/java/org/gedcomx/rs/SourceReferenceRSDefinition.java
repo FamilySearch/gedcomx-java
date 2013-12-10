@@ -31,8 +31,7 @@ import javax.ws.rs.core.Response;
   name = "Source Reference",
   id = SourceReferenceRSDefinition.REL,
   description = "A source reference.",
-  resourceElement = Gedcomx.class,
-  embedded = true
+  resourceElement = Gedcomx.class
 )
 public interface SourceReferenceRSDefinition {
 

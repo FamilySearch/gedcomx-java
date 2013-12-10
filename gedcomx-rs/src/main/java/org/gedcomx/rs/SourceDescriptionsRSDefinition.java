@@ -20,6 +20,7 @@ import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StatusCodes;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 
@@ -36,6 +37,18 @@ import javax.ws.rs.core.Response;
 public interface SourceDescriptionsRSDefinition {
 
   public static final String REL = Rel.SOURCE_DESCRIPTIONS;
+
+  /**
+   * Read the source descriptions.
+   *
+   * @return The list of source descriptions.
+   */
+  @GET
+  @StatusCodes ( {
+    @ResponseCode ( code = 200, condition = "Upon a successful read." ),
+    @ResponseCode ( code = 204, condition = "Upon a successful read with no results." )
+  } )
+  Response get();
 
   /**
    * Add a source description.

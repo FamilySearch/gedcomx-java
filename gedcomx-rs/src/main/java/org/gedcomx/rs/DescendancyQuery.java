@@ -16,8 +16,10 @@
 package org.gedcomx.rs;
 
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
+import org.gedcomx.rt.rs.StateTransition;
 import org.gedcomx.rt.rs.StatusCodes;
 
 import javax.ws.rs.GET;
@@ -50,7 +52,10 @@ import javax.ws.rs.core.Response;
   name = "Descendancy",
   id = DescendancyQuery.REL,
   description = "The query for the descendancy of a person.",
-  resourceElement = Gedcomx.class
+  resourceElement = Gedcomx.class,
+  transitions = {
+    @StateTransition ( rel = Rel.PERSON, description = "A person.", scope = Person.class, conditional = true, targetResource = PersonRSDefinition.class )
+  }
 )
 public interface DescendancyQuery {
 

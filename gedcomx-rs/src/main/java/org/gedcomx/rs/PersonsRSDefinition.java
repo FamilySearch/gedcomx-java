@@ -20,6 +20,7 @@ import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StatusCodes;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 
@@ -37,6 +38,18 @@ import javax.ws.rs.core.Response;
 public interface PersonsRSDefinition {
 
   public static final String REL = Rel.PERSONS;
+
+  /**
+   * Read the persons.
+   *
+   * @return The list of persons.
+   */
+  @GET
+  @StatusCodes ( {
+    @ResponseCode ( code = 200, condition = "Upon a successful read." ),
+    @ResponseCode ( code = 204, condition = "Upon a successful read with no results." )
+  } )
+  Response get();
 
   /**
    * Create a person.

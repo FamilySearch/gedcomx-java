@@ -32,8 +32,7 @@ import javax.ws.rs.core.Response;
   name = "Conclusion",
   id = ConclusionRSDefinition.REL,
   description = "A single name, gender, or fact on a person or relationship.",
-  resourceElement = Gedcomx.class,
-  embedded = true
+  resourceElement = Gedcomx.class
 )
 public interface ConclusionRSDefinition {
 

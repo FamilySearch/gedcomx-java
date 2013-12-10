@@ -31,8 +31,7 @@ import javax.ws.rs.core.Response;
   name = "Evidence Reference",
   id = EvidenceReferenceRSDefinition.REL,
   description = "A evidence reference.",
-  resourceElement = Gedcomx.class,
-  embedded = true
+  resourceElement = Gedcomx.class
 )
 public interface EvidenceReferenceRSDefinition {
 

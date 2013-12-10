@@ -43,7 +43,7 @@ import javax.ws.rs.core.Response;
   transitions = {
     @StateTransition( rel = ConclusionRSDefinition.REL, description = "A conclusion.", scope = { Name.class, Gender.class, Fact.class }, conditional = true, targetResource = ConclusionRSDefinition.class ),
     @StateTransition( rel = PersonRSDefinition.REL, description = "The person containing this set of conclusions.", scope = Person.class, conditional = true, targetResource = PersonRSDefinition.class ),
-    @StateTransition( rel = RelationshipRSDefinition.REL, description = "The person containing this set of conclusions.", scope = Relationship.class, conditional = true, targetResource = RelationshipRSDefinition.class )
+    @StateTransition( rel = RelationshipRSDefinition.REL, description = "The relationship containing this set of conclusions.", scope = Relationship.class, conditional = true, targetResource = RelationshipRSDefinition.class )
   }
 )
 public interface ConclusionsRSDefinition {

@@ -31,8 +31,7 @@ import javax.ws.rs.core.Response;
   name = "Media Reference",
   id = MediaReferenceRSDefinition.REL,
   description = "A media reference.",
-  resourceElement = Gedcomx.class,
-  embedded = true
+  resourceElement = Gedcomx.class
 )
 public interface MediaReferenceRSDefinition {
 

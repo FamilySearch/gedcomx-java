@@ -16,6 +16,7 @@
 package org.gedcomx.rs;
 
 import org.gedcomx.Gedcomx;
+import org.gedcomx.records.Collection;
 import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StateTransition;
@@ -36,7 +37,7 @@ import javax.ws.rs.core.Response;
   description = "A set of collections.",
   resourceElement = Gedcomx.class,
   transitions = {
-    @StateTransition( rel = Rel.SELF, description = "A collection.", scope = CollectionRSDefinition.class, conditional = true, targetResource = CollectionRSDefinition.class )
+    @StateTransition( rel = Rel.SELF, description = "A collection.", scope = Collection.class, conditional = true, targetResource = CollectionRSDefinition.class )
   }
 )
 public interface CollectionsRSDefinition {

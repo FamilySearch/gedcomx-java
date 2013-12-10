@@ -34,6 +34,7 @@ import javax.ws.rs.core.Response;
   id = PersonChildRelationshipsRSDefinition.REL,
   description = "A set of relationships to children of a person.",
   resourceElement = Gedcomx.class,
+  embedded = true,
   transitions = {
     @StateTransition( rel = PersonRSDefinition.REL, description = "The person.", targetResource = PersonRSDefinition.class )
   }

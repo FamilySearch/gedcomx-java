@@ -20,6 +20,7 @@ import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StatusCodes;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
@@ -38,6 +39,18 @@ import java.io.InputStream;
 public interface ArtifactsRSDefinition {
 
   public static final String REL = Rel.ARTIFACTS;
+
+  /**
+   * Read the artifacts.
+   *
+   * @return The list of artifacts.
+   */
+  @GET
+  @StatusCodes ( {
+    @ResponseCode ( code = 200, condition = "Upon a successful read." ),
+    @ResponseCode ( code = 204, condition = "Upon a successful read with no results." )
+  } )
+  Response get();
 
   /**
    * Create a artifact.
