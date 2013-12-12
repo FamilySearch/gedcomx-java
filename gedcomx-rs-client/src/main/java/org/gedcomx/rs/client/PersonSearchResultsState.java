@@ -18,6 +18,7 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.SupportsLinks;
 
@@ -43,6 +44,26 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
   @Override
   public PersonSearchResultsState ifSuccessful() {
     return (PersonSearchResultsState) super.ifSuccessful();
+  }
+
+  @Override
+  public PersonSearchResultsState head() {
+    return (PersonSearchResultsState) super.head();
+  }
+
+  @Override
+  public PersonSearchResultsState get() {
+    return (PersonSearchResultsState) super.get();
+  }
+
+  @Override
+  public PersonSearchResultsState delete() {
+    return (PersonSearchResultsState) super.delete();
+  }
+
+  @Override
+  public PersonSearchResultsState put(Feed e) {
+    return (PersonSearchResultsState) super.put(e);
   }
 
   @Override

@@ -54,6 +54,26 @@ public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
+  public DescendancyResultsState head() {
+    return (DescendancyResultsState) super.head();
+  }
+
+  @Override
+  public DescendancyResultsState get() {
+    return (DescendancyResultsState) super.get();
+  }
+
+  @Override
+  public DescendancyResultsState delete() {
+    return (DescendancyResultsState) super.delete();
+  }
+
+  @Override
+  public DescendancyResultsState put(Gedcomx e) {
+    return (DescendancyResultsState) super.put(e);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getEntity();
   }

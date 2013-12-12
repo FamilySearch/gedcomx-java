@@ -53,6 +53,26 @@ public class RecordState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public RecordState head() {
+    return (RecordState) super.head();
+  }
+
+  @Override
+  public RecordState get() {
+    return (RecordState) super.get();
+  }
+
+  @Override
+  public RecordState delete() {
+    return (RecordState) super.delete();
+  }
+
+  @Override
+  public RecordState put(Gedcomx e) {
+    return (RecordState) super.put(e);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
   }

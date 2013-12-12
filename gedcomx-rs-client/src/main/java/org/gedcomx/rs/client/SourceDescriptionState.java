@@ -54,6 +54,26 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public SourceDescriptionState head() {
+    return (SourceDescriptionState) super.head();
+  }
+
+  @Override
+  public SourceDescriptionState get() {
+    return (SourceDescriptionState) super.get();
+  }
+
+  @Override
+  public SourceDescriptionState delete() {
+    return (SourceDescriptionState) super.delete();
+  }
+
+  @Override
+  public SourceDescriptionState put(Gedcomx e) {
+    return (SourceDescriptionState) super.put(e);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
   }

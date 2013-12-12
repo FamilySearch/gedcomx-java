@@ -59,6 +59,26 @@ public class NoteState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public NoteState head() {
+    return (NoteState) super.head();
+  }
+
+  @Override
+  public NoteState get() {
+    return (NoteState) super.get();
+  }
+
+  @Override
+  public NoteState delete() {
+    return (NoteState) super.delete();
+  }
+
+  @Override
+  public NoteState put(Gedcomx e) {
+    return (NoteState) super.put(e);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getNote();
   }

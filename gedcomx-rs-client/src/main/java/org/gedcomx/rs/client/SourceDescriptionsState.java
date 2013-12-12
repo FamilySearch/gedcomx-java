@@ -53,6 +53,31 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
+  public SourceDescriptionsState ifSuccessful() {
+    return (SourceDescriptionsState) super.ifSuccessful();
+  }
+
+  @Override
+  public SourceDescriptionsState head() {
+    return (SourceDescriptionsState) super.head();
+  }
+
+  @Override
+  public SourceDescriptionsState get() {
+    return (SourceDescriptionsState) super.get();
+  }
+
+  @Override
+  public SourceDescriptionsState delete() {
+    return (SourceDescriptionsState) super.delete();
+  }
+
+  @Override
+  public SourceDescriptionsState put(Gedcomx e) {
+    return (SourceDescriptionsState) super.put(e);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getEntity();
   }

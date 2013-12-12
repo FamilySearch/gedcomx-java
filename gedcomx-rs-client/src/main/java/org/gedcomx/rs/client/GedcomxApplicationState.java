@@ -40,14 +40,12 @@ import org.gedcomx.rt.json.GedcomJsonProvider;
 import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * @author Ryan Heaton
@@ -87,9 +85,15 @@ public abstract class GedcomxApplicationState<E> {
   protected abstract SupportsLinks getScope();
 
   protected List<Link> loadLinks(ClientResponse response, E entity) {
+    ArrayList<Link> links = new ArrayList<Link>();
+
+    //if there's a location, we'll consider it a "self" link.
+    if (response.getLocation() != null) {
+      links.add(new Link(Rel.SELF, new org.gedcomx.common.URI(response.getLocation().toString())));
+    }
+
     //load link headers.
     List<String> linkHeaders = response.getHeaders().get("Link");
-    ArrayList<Link> links = new ArrayList<Link>(linkHeaders.size());
     for (String header : linkHeaders) {
       LinkHeader lh = LinkHeader.valueOf(header);
       for (String rel : lh.getRel()) {
@@ -104,6 +108,7 @@ public abstract class GedcomxApplicationState<E> {
       }
     }
 
+    //load the links from the hypermedia scope
     SupportsLinks scope = getScope();
     if (scope != null && scope.getLinks() != null) {
       links.addAll(scope.getLinks());
@@ -149,6 +154,40 @@ public abstract class GedcomxApplicationState<E> {
 
   public boolean hasError() {
     return hasClientError() || hasServerError();
+  }
+
+  public EntityTag getETag() {
+    return this.response.getEntityTag();
+  }
+
+  public Date getLastModified() {
+    return this.response.getLastModified();
+  }
+
+  public MultivaluedMap<String, String> getHeaders() {
+    return response.getHeaders();
+  }
+
+  public URI getSelfUri() {
+    Link link = getLink(Rel.SELF);
+    URI self = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
+    return self == null ? getUri() : self;
+  }
+
+  public GedcomxApplicationState head() {
+    return newApplicationState(createSelfRequest().build(getSelfUri(), HttpMethod.HEAD), this.client, this.accessToken);
+  }
+
+  public GedcomxApplicationState get() {
+    return newApplicationState(createSelfRequest().build(getSelfUri(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public GedcomxApplicationState delete() {
+    return newApplicationState(createSelfRequest().build(getSelfUri(), HttpMethod.DELETE), this.client, this.accessToken);
+  }
+
+  public GedcomxApplicationState put(E entity) {
+    return newApplicationState(createSelfRequest().entity(entity).build(getSelfUri(), HttpMethod.PUT), this.client, this.accessToken);
   }
 
   public List<HttpWarning> getWarnings() {
@@ -257,6 +296,10 @@ public abstract class GedcomxApplicationState<E> {
 
   protected ClientRequest.Builder createAuthenticatedGedcomxRequest() {
     return createAuthenticatedRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
+  }
+
+  protected ClientRequest.Builder createSelfRequest() {
+    return createAuthenticatedRequest().accept((String) this.request.getHeaders().getFirst("Accept")).type((String) this.request.getHeaders().getFirst("Content-Type"));
   }
 
   protected ClientResponse invoke(ClientRequest request) {

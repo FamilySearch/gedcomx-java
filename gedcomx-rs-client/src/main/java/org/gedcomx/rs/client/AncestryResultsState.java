@@ -59,6 +59,26 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public AncestryResultsState head() {
+    return (AncestryResultsState) super.head();
+  }
+
+  @Override
+  public AncestryResultsState get() {
+    return (AncestryResultsState) super.get();
+  }
+
+  @Override
+  public AncestryResultsState delete() {
+    return (AncestryResultsState) super.delete();
+  }
+
+  @Override
+  public AncestryResultsState put(Gedcomx e) {
+    return (AncestryResultsState) super.put(e);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getEntity();
   }

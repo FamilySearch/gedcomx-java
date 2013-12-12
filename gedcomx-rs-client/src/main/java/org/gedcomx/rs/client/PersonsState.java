@@ -53,6 +53,26 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public PersonsState head() {
+    return (PersonsState) super.head();
+  }
+
+  @Override
+  public PersonsState get() {
+    return (PersonsState) super.get();
+  }
+
+  @Override
+  public PersonsState delete() {
+    return (PersonsState) super.delete();
+  }
+
+  @Override
+  public PersonsState put(Gedcomx e) {
+    return (PersonsState) super.put(e);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
   }

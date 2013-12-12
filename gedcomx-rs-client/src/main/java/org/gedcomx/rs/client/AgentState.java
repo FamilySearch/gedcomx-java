@@ -59,6 +59,26 @@ public class AgentState<E> extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public AgentState head() {
+    return (AgentState) super.head();
+  }
+
+  @Override
+  public AgentState get() {
+    return (AgentState) super.get();
+  }
+
+  @Override
+  public AgentState delete() {
+    return (AgentState) super.delete();
+  }
+
+  @Override
+  public AgentState put(Gedcomx e) {
+    return (AgentState) super.put(e);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getAgent();
   }

@@ -74,6 +74,26 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return getCollection();
   }
 
+  @Override
+  public CollectionState head() {
+    return (CollectionState) super.head();
+  }
+
+  @Override
+  public CollectionState get() {
+    return (CollectionState) super.get();
+  }
+
+  @Override
+  public CollectionState delete() {
+    return (CollectionState) super.delete();
+  }
+
+  @Override
+  public CollectionState put(Gedcomx e) {
+    return (CollectionState) super.put(e);
+  }
+
   public Collection getCollection() {
     return getEntity() == null ? null : getEntity().getCollections() == null ? null : getEntity().getCollections().isEmpty() ? null : getEntity().getCollections().get(0);
   }
