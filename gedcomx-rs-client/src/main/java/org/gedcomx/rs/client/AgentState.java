@@ -29,7 +29,7 @@ import java.net.URI;
 /**
  * @author Ryan Heaton
  */
-public class AgentState<E> extends GedcomxApplicationState<Gedcomx> {
+public class AgentState extends GedcomxApplicationState<Gedcomx> {
 
   public AgentState(URI discoveryUri) {
     this(discoveryUri, loadDefaultClient());

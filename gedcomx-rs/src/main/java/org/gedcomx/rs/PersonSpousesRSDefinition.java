@@ -16,6 +16,7 @@
 package org.gedcomx.rs;
 
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StateTransition;
@@ -34,7 +35,9 @@ import javax.ws.rs.core.Response;
   description = "The set of spouses for a person.",
   resourceElement = Gedcomx.class,
   transitions = {
-    @StateTransition( rel = PersonRSDefinition.REL, description = "The person.", targetResource = PersonRSDefinition.class )
+    @StateTransition( rel = PersonRSDefinition.REL, description = "The person.", targetResource = PersonRSDefinition.class ),
+    @StateTransition( rel = RelationshipRSDefinition.REL, description = "The relationship.", targetResource = RelationshipRSDefinition.class ),
+    @StateTransition( rel = PersonRSDefinition.REL, description = "The spouse.", scope = Person.class, targetResource = PersonRSDefinition.class )
   }
 )
 public interface PersonSpousesRSDefinition {
