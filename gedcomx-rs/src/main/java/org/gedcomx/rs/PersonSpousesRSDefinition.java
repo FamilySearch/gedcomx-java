@@ -37,7 +37,9 @@ import javax.ws.rs.core.Response;
   transitions = {
     @StateTransition( rel = PersonRSDefinition.REL, description = "The person.", targetResource = PersonRSDefinition.class ),
     @StateTransition( rel = RelationshipRSDefinition.REL, description = "The relationship.", targetResource = RelationshipRSDefinition.class ),
-    @StateTransition( rel = PersonRSDefinition.REL, description = "The spouse.", scope = Person.class, targetResource = PersonRSDefinition.class )
+    @StateTransition( rel = PersonRSDefinition.REL, description = "The spouse.", scope = Person.class, targetResource = PersonRSDefinition.class ),
+    @StateTransition( rel = AncestryQuery.REL, description = "The ancestry query for the person and this particular spouse.", scope = Person.class, targetResource = AncestryQuery.class ),
+    @StateTransition( rel = DescendancyQuery.REL, description = "The descendancy query for the person and this particular spouse.", scope = Person.class, targetResource = DescendancyQuery.class )
   }
 )
 public interface PersonSpousesRSDefinition {

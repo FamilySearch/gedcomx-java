@@ -138,6 +138,24 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
     return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
+  public PersonState readAncestryWithSpouse(Person person) {
+    Link link = person.getLink(Rel.ANCESTRY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public PersonState readDescendancyWithSpouse(Person person) {
+    Link link = person.getLink(Rel.DESCENDANCY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
   public RelationshipState readRelationship(Relationship relationship) {
     Link link = relationship.getLink(Rel.RELATIONSHIP);
     link = link == null ? relationship.getLink(Rel.SELF) : link;
