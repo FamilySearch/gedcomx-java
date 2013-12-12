@@ -41,8 +41,8 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  public PersonSearchResultsState ifSuccessfull() {
-    return (PersonSearchResultsState) super.ifSuccessfull();
+  public PersonSearchResultsState ifSuccessful() {
+    return (PersonSearchResultsState) super.ifSuccessful();
   }
 
   @Override

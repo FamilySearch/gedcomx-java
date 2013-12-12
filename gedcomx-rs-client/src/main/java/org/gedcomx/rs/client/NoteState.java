@@ -19,7 +19,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Note;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rt.GedcomxConstants;
@@ -55,8 +54,8 @@ public class NoteState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public NoteState ifSuccessfull() {
-    return (NoteState) super.ifSuccessfull();
+  public NoteState ifSuccessful() {
+    return (NoteState) super.ifSuccessful();
   }
 
   @Override

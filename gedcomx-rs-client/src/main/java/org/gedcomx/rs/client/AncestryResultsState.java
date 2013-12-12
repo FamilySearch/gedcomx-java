@@ -54,8 +54,8 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public AncestryResultsState ifSuccessfull() {
-    return (AncestryResultsState) super.ifSuccessfull();
+  public AncestryResultsState ifSuccessful() {
+    return (AncestryResultsState) super.ifSuccessful();
   }
 
   @Override

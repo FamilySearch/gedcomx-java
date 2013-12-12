@@ -162,7 +162,11 @@ public abstract class GedcomxApplicationState<E> {
     return warnings;
   }
 
-  public GedcomxApplicationState ifSuccessfull() {
+  public Link getLink(String rel) {
+    return this.links.get(rel);
+  }
+
+  public GedcomxApplicationState ifSuccessful() {
     if (hasError()) {
       throw new GedcomxApplicationException(this.response);
     }

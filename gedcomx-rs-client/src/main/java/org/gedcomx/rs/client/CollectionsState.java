@@ -52,8 +52,8 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public CollectionsState ifSuccessfull() {
-    return (CollectionsState) super.ifSuccessfull();
+  public CollectionsState ifSuccessful() {
+    return (CollectionsState) super.ifSuccessful();
   }
 
   @Override
@@ -80,7 +80,7 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public CollectionState readCollection() {
-    Link link = this.entity != null ? this.entity.getLink(Rel.COLLECTION) : null;
+    Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -89,11 +89,11 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public CollectionState add(Collection collection) {
-    Link link = collection.getLink("self");
+    Link link = getLink("self");
     URI href = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
     href = href == null ? getUri() : href;
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST), this.client, this.accessToken).ifSuccessfull();
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST), this.client, this.accessToken).ifSuccessful();
   }
 
 }

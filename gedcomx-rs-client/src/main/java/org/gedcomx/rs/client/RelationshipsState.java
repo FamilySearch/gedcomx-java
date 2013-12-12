@@ -48,8 +48,8 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public RelationshipsState ifSuccessfull() {
-    return (RelationshipsState) super.ifSuccessfull();
+  public RelationshipsState ifSuccessful() {
+    return (RelationshipsState) super.ifSuccessful();
   }
 
   @Override

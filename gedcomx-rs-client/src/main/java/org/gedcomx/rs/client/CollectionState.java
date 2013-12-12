@@ -65,8 +65,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public CollectionState ifSuccessfull() {
-    return (CollectionState) super.ifSuccessfull();
+  public CollectionState ifSuccessful() {
+    return (CollectionState) super.ifSuccessful();
   }
 
   @Override

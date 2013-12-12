@@ -54,8 +54,8 @@ public class AgentState<E> extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public AgentState ifSuccessfull() {
-    return (AgentState) super.ifSuccessfull();
+  public AgentState ifSuccessful() {
+    return (AgentState) super.ifSuccessful();
   }
 
   @Override

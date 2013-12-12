@@ -48,8 +48,8 @@ public class RecordState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public RecordState ifSuccessfull() {
-    return (RecordState) super.ifSuccessfull();
+  public RecordState ifSuccessful() {
+    return (RecordState) super.ifSuccessful();
   }
 
   @Override

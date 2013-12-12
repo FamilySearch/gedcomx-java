@@ -56,8 +56,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public PersonState ifSuccessfull() {
-    return (PersonState) super.ifSuccessfull();
+  public PersonState ifSuccessful() {
+    return (PersonState) super.ifSuccessful();
   }
 
   @Override

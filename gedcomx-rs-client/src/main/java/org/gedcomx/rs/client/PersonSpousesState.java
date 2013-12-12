@@ -48,8 +48,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public PersonSpousesState ifSuccessfull() {
-    return (PersonSpousesState) super.ifSuccessfull();
+  public PersonSpousesState ifSuccessful() {
+    return (PersonSpousesState) super.ifSuccessful();
   }
 
   @Override

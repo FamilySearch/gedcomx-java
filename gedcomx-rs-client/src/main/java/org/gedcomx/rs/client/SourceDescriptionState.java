@@ -49,8 +49,8 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public SourceDescriptionState ifSuccessfull() {
-    return (SourceDescriptionState) super.ifSuccessfull();
+  public SourceDescriptionState ifSuccessful() {
+    return (SourceDescriptionState) super.ifSuccessful();
   }
 
   @Override
