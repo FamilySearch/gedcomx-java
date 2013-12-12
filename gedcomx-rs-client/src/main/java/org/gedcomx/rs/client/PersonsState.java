@@ -19,7 +19,10 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
@@ -80,6 +83,23 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
   @Override
   protected SupportsLinks getScope() {
     return getEntity();
+  }
+
+  public CollectionState readCollection() {
+    Link link = getLink(Rel.COLLECTION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public PersonState addPerson(Person person) {
+    Link link = getLink("self");
+    URI href = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
+    href = href == null ? getUri() : href;
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST), this.client, this.accessToken).ifSuccessful();
   }
 
   @Override
