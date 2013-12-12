@@ -22,7 +22,9 @@ import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StateTransition;
 import org.gedcomx.rt.rs.StatusCodes;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HEAD;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Response;
 
@@ -56,6 +58,17 @@ public interface CollectionRSDefinition {
   public static final String REL = Rel.COLLECTION;
 
   /**
+   * Read a collection header attributes.
+   *
+   * @return The header attributes for the collection.
+   */
+  @HEAD
+  @StatusCodes({
+    @ResponseCode ( code = 200, condition = "Upon a successful read.")
+  })
+  Response head();
+
+  /**
    * Read the collection.
    *
    * @return The collection.
@@ -81,4 +94,13 @@ public interface CollectionRSDefinition {
   } )
   Response post(Gedcomx collection);
 
+  /**
+   * Delete a person.
+   *
+   */
+  @DELETE
+  @StatusCodes({
+    @ResponseCode ( code = 204, condition = "The delete was successful.")
+  })
+  Response delete();
 }

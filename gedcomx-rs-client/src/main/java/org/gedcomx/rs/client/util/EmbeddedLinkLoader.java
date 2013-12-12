@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.gedcomx.rs.client;
+package org.gedcomx.rs.client.util;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Person;

@@ -18,70 +18,101 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+import com.sun.jersey.core.header.LinkHeader;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.conclusion.Person;
+import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
+import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.rs.client.util.EmbeddedLinkLoader;
+import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.rt.json.GedcomJsonProvider;
+import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Ryan Heaton
  */
-public class GedcomxApplicationState<E> {
+public abstract class GedcomxApplicationState<E> {
 
   protected static final EmbeddedLinkLoader DEFAULT_EMBEDDED_LINK_LOADER = new EmbeddedLinkLoader();
 
-  protected final GedcomxApplicationDescriptor descriptor;
-  protected final String accessToken;
+  protected final Map<String, Link> links;
+  protected final Client client;
   protected final ClientRequest request;
   protected final ClientResponse response;
   protected final E entity;
+  protected String accessToken;
 
-  public GedcomxApplicationState(URI discoveryUri) {
-    this(new GedcomxApplicationDescriptor(discoveryUri));
-  }
-
-  public GedcomxApplicationState(URI discoveryUri, Client client) {
-    this(new GedcomxApplicationDescriptor(discoveryUri, client));
-  }
-
-  public GedcomxApplicationState(GedcomxApplicationDescriptor descriptor) {
-    this.descriptor = descriptor;
-    this.accessToken = null;
-    this.request = descriptor.getRequest();
-    this.response = descriptor.getResponse();
-    this.entity = null;
-  }
-
-  protected GedcomxApplicationState(GedcomxApplicationDescriptor descriptor, String accessToken, ClientRequest request, ClientResponse response, E entity) {
-    this.descriptor = descriptor;
+  protected GedcomxApplicationState(ClientRequest request, Client client, String accessToken) {
+    this.client = client;
     this.accessToken = accessToken;
     this.request = request;
-    this.response = response;
-    this.entity = entity;
+    this.response = invoke(this.request);
+    this.entity = loadEntity(this.response);
+    List<Link> links = loadLinks(this.response, this.entity);
+    this.links = new TreeMap<String, Link>();
+    for (Link link : links) {
+      this.links.put(link.getRel(), link);
+    }
   }
 
+  protected static Client loadDefaultClient() {
+    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class, JacksonJsonProvider.class));
+  }
 
+  protected abstract GedcomxApplicationState newApplicationState(ClientRequest request, Client client, String accessToken);
 
+  protected abstract E loadEntity(ClientResponse response);
+
+  protected abstract SupportsLinks getScope();
+
+  protected List<Link> loadLinks(ClientResponse response, E entity) {
+    //load link headers.
+    List<String> linkHeaders = response.getHeaders().get("Link");
+    ArrayList<Link> links = new ArrayList<Link>(linkHeaders.size());
+    for (String header : linkHeaders) {
+      LinkHeader lh = LinkHeader.valueOf(header);
+      for (String rel : lh.getRel()) {
+        Link link = new Link(rel, lh.getUri() == null ? null : org.gedcomx.common.URI.create(lh.getUri().toString()));
+        link.setTemplate(lh.getParams().getFirst("template"));
+        link.setTitle(lh.getParams().getFirst("title"));
+        link.setAccept(lh.getParams().getFirst("accept"));
+        link.setAllow(lh.getParams().getFirst("allow"));
+        link.setHreflang(lh.getParams().getFirst("hreflang"));
+        link.setType(lh.getParams().getFirst("type"));
+        links.add(link);
+      }
+    }
+
+    SupportsLinks scope = getScope();
+    if (scope != null && scope.getLinks() != null) {
+      links.addAll(scope.getLinks());
+    }
+    return links;
+  }
 
   public Client getClient() {
-    return this.descriptor.getClient(); //we'll just use the descriptors client as ours.
-  }
-
-  public GedcomxApplicationDescriptor getDescriptor() {
-    return descriptor;
+    return this.client; //we'll just use the descriptors client as ours.
   }
 
   public String getAccessToken() {
@@ -107,15 +138,42 @@ public class GedcomxApplicationState<E> {
   public URI getUri() {
     return this.request.getURI();
   }
+  
+  public boolean hasClientError() {
+    return this.response.getClientResponseStatus().getFamily() == Response.Status.Family.CLIENT_ERROR;
+  }
 
+  public boolean hasServerError() {
+    return this.response.getClientResponseStatus().getFamily() == Response.Status.Family.SERVER_ERROR;
+  }
 
+  public boolean hasError() {
+    return hasClientError() || hasServerError();
+  }
 
+  public List<HttpWarning> getWarnings() {
+    ArrayList<HttpWarning> warnings = new ArrayList<HttpWarning>();
+    List<String> warningValues = this.response.getHeaders().get("Warning");
+    if (warningValues != null) {
+      for (String warningValue : warningValues) {
+        warnings.add(HttpWarning.parse(warningValue));
+      }
+    }
+    return warnings;
+  }
 
-  public GedcomxApplicationState<E> authenticateViaOAuth2Password(String username, String password, String clientId) {
+  public GedcomxApplicationState ifSuccessfull() {
+    if (hasError()) {
+      throw new GedcomxApplicationException(this.response);
+    }
+    return this;
+  }
+
+  protected GedcomxApplicationState authenticateViaOAuth2Password(String username, String password, String clientId) {
     return authenticateViaOAuth2Password(username, password, clientId, null);
   }
 
-  public GedcomxApplicationState<E> authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
+  protected GedcomxApplicationState authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "password");
     formData.putSingle("username", username);
@@ -127,11 +185,11 @@ public class GedcomxApplicationState<E> {
     return authenticateViaOAuth2(formData);
   }
 
-  public GedcomxApplicationState<E> authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
+  protected GedcomxApplicationState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
     return authenticateViaOAuth2Password(authCode, authCode, clientId, null);
   }
 
-  public GedcomxApplicationState<E> authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
+  protected GedcomxApplicationState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "authorization_code");
     formData.putSingle("code", authCode);
@@ -143,7 +201,7 @@ public class GedcomxApplicationState<E> {
     return authenticateViaOAuth2(formData);
   }
 
-  public GedcomxApplicationState<E> authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
+  protected GedcomxApplicationState authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.putSingle("grant_type", "client_credentials");
     formData.putSingle("client_id", clientId);
@@ -153,11 +211,12 @@ public class GedcomxApplicationState<E> {
     return authenticateViaOAuth2(formData);
   }
 
-  public GedcomxApplicationState<E> authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
-    URI tokenUri = this.descriptor.getOAuth2TokenUri();
-    if (tokenUri == null) {
-      throw new GedcomxApplicationException(String.format("No OAuth2 token URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
+  protected GedcomxApplicationState authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
+    Link tokenLink = this.links.get(Rel.OAUTH2_TOKEN);
+    if (tokenLink == null || tokenLink.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("No OAuth2 token URI supplied for resource at %s.", getUri()));
     }
+    URI tokenUri = tokenLink.getHref().toURI();
 
     ClientRequest request = createRequest()
       .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -179,205 +238,14 @@ public class GedcomxApplicationState<E> {
         throw new GedcomxApplicationException("Illegal access token response: no access_token provided.", response);
       }
 
-      return newApplicationState(this.descriptor, access_token.getValueAsText(), request, response, entity);
+      this.accessToken = access_token.getValueAsText();
+      return this;
     }
     else {
       throw new GedcomxApplicationException("Unable to obtain an access token.", response);
     }
   }
 
-  public GedcomxApplicationState<? extends Feed> searchForPersons(GedcomxSearchQueryBuilder query) {
-    return searchForPersons(query.build());
-  }
-
-  public GedcomxApplicationState<? extends Feed> searchForPersons(String query) {
-//    String template = this.descriptor.getPersonSearchTemplate();
-//    if (template == null) {
-//      throw new GedcomxApplicationException(String.format("No person search endpoint supplied for API at %s.", this.descriptor.getDiscoveryUri()));
-//    }
-    throw new UnsupportedOperationException();
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getGedcomxResource(URI personUri) {
-    return getGedcomxResource(personUri, true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getGedcomxResource(URI personUri, boolean includeEmbedded) {
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(personUri, HttpMethod.GET);
-    ClientResponse response = invoke(request);
-
-    Gedcomx entity = null;
-    ClientResponse.Status responseCode = response.getClientResponseStatus();
-    switch (responseCode) {
-      case OK:
-        entity = response.getEntity(Gedcomx.class);
-        break;
-      default:
-        switch (responseCode.getFamily()) {
-          case CLIENT_ERROR:
-          case SERVER_ERROR:
-            throw new GedcomxApplicationException(responseCode.getReasonPhrase(), response);
-        }
-    }
-
-    if (entity != null && includeEmbedded) {
-      includeEmbeddedResources(entity);
-    }
-
-    return newApplicationState(this.descriptor, this.accessToken, request, response, entity);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getAncestry() {
-    Person person = null;
-    if (this.entity instanceof Gedcomx) {
-      person = ((Gedcomx) this.entity).getPerson();
-    }
-
-    if (person == null) {
-      throw new GedcomxApplicationException("Unable to determine children: state does not include a person.");
-    }
-
-    return getAncestry(person);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getAncestry(Person person) {
-    return getAncestry(person, true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getAncestry(Person person, boolean includeEmbedded) {
-    Link link = person.getLink(Rel.ANCESTRY);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getDescendancy() {
-    Person person = null;
-    if (this.entity instanceof Gedcomx) {
-      person = ((Gedcomx) this.entity).getPerson();
-    }
-
-    if (person == null) {
-      throw new GedcomxApplicationException("Unable to determine children: state does not include a person.");
-    }
-
-    return getDescendancy(person);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getDescendancy(Person person) {
-    return getDescendancy(person, true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getDescendancy(Person person, boolean includeEmbedded) {
-    Link link = person.getLink(Rel.DESCENDANCY);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getPersonForCurrentUser() {
-    return getPersonForCurrentUser(true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getPersonForCurrentUser(boolean includeEmbedded) {
-    URI currentUserPersonUri = this.descriptor.getCurrentUserPersonUri();
-    if (currentUserPersonUri == null) {
-      throw new GedcomxApplicationException(String.format("No current user person URI supplied for API at %s.", this.descriptor.getDiscoveryUri()));
-    }
-
-    return getGedcomxResource(currentUserPersonUri, includeEmbedded);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getPerson(URI personUri) {
-    return getGedcomxResource(personUri, true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getParents() {
-    Person person = null;
-    if (this.entity instanceof Gedcomx) {
-      person = ((Gedcomx) this.entity).getPerson();
-    }
-
-    if (person == null) {
-      throw new GedcomxApplicationException("Unable to determine parents: state does not include a person.");
-    }
-
-    return getParents(person);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getParents(Person person) {
-    return getParents(person, true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getParents(Person person, boolean includeEmbedded) {
-    Link link = person.getLink(Rel.PARENTS);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getChildren() {
-    Person person = null;
-    if (this.entity instanceof Gedcomx) {
-      person = ((Gedcomx) this.entity).getPerson();
-    }
-
-    if (person == null) {
-      throw new GedcomxApplicationException("Unable to determine children: state does not include a person.");
-    }
-
-    return getChildren(person);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getChildren(Person person) {
-    return getChildren(person, true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getChildren(Person person, boolean includeEmbedded) {
-    Link link = person.getLink(Rel.CHILDREN);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getSpouses() {
-    Person person = null;
-    if (this.entity instanceof Gedcomx) {
-      person = ((Gedcomx) this.entity).getPerson();
-    }
-
-    if (person == null) {
-      throw new GedcomxApplicationException("Unable to determine spouses: state does not include a person.");
-    }
-
-    return getSpouses(person);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getSpouses(Person person) {
-    return getSpouses(person, true);
-  }
-
-  public GedcomxApplicationState<? extends Gedcomx> getSpouses(Person person, boolean includeEmbedded) {
-    Link link = person.getLink(Rel.SPOUSES);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    return getGedcomxResource(link.getHref().toURI(), includeEmbedded);
-  }
-
-
-  protected <T> GedcomxApplicationState<T> newApplicationState(GedcomxApplicationDescriptor descriptor, String token, ClientRequest request, ClientResponse response, T entity) {
-    return new GedcomxApplicationState<T>(descriptor, token, request, response, entity);
-  }
 
   protected ClientRequest.Builder createAuthenticatedFeedRequest() {
     return createAuthenticatedRequest().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE);

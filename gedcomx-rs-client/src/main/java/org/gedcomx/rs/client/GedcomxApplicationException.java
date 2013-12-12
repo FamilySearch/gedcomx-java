@@ -31,6 +31,10 @@ public class GedcomxApplicationException extends RuntimeException {
     super(message);
   }
 
+  public GedcomxApplicationException(Throwable cause) {
+    super(cause);
+  }
+
   public GedcomxApplicationException(String message, ClientResponse response) {
     super(message);
     this.response = response;
