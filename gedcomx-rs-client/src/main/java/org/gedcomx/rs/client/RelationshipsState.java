@@ -82,4 +82,23 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
     return getEntity();
   }
 
+  @Override
+  public RelationshipsState readNextPage() {
+    return (RelationshipsState) super.readNextPage();
+  }
+
+  @Override
+  public RelationshipsState readPreviousPage() {
+    return (RelationshipsState) super.readPreviousPage();
+  }
+
+  @Override
+  public RelationshipsState readFirstPage() {
+    return (RelationshipsState) super.readFirstPage();
+  }
+
+  @Override
+  public RelationshipsState readLastPage() {
+    return (RelationshipsState) super.readLastPage();
+  }
 }

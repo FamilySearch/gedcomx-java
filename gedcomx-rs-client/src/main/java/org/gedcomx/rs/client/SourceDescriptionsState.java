@@ -82,4 +82,23 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
     return getEntity();
   }
 
+  @Override
+  public SourceDescriptionsState readNextPage() {
+    return (SourceDescriptionsState) super.readNextPage();
+  }
+
+  @Override
+  public SourceDescriptionsState readPreviousPage() {
+    return (SourceDescriptionsState) super.readPreviousPage();
+  }
+
+  @Override
+  public SourceDescriptionsState readFirstPage() {
+    return (SourceDescriptionsState) super.readFirstPage();
+  }
+
+  @Override
+  public SourceDescriptionsState readLastPage() {
+    return (SourceDescriptionsState) super.readLastPage();
+  }
 }

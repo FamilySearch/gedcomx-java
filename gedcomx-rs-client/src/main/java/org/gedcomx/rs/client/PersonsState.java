@@ -82,4 +82,23 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
     return getEntity();
   }
 
+  @Override
+  public PersonsState readNextPage() {
+    return (PersonsState) super.readNextPage();
+  }
+
+  @Override
+  public PersonsState readPreviousPage() {
+    return (PersonsState) super.readPreviousPage();
+  }
+
+  @Override
+  public PersonsState readFirstPage() {
+    return (PersonsState) super.readFirstPage();
+  }
+
+  @Override
+  public PersonsState readLastPage() {
+    return (PersonsState) super.readLastPage();
+  }
 }

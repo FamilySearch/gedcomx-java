@@ -82,4 +82,23 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
     return getEntity();
   }
 
+  @Override
+  public RecordsState readNextPage() {
+    return (RecordsState) super.readNextPage();
+  }
+
+  @Override
+  public RecordsState readPreviousPage() {
+    return (RecordsState) super.readPreviousPage();
+  }
+
+  @Override
+  public RecordsState readFirstPage() {
+    return (RecordsState) super.readFirstPage();
+  }
+
+  @Override
+  public RecordsState readLastPage() {
+    return (RecordsState) super.readLastPage();
+  }
 }

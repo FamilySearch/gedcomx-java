@@ -116,4 +116,23 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
     return new CollectionState(createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST), this.client, this.accessToken).ifSuccessful();
   }
 
+  @Override
+  public CollectionState readNextPage() {
+    return (CollectionState) super.readNextPage();
+  }
+
+  @Override
+  public CollectionState readPreviousPage() {
+    return (CollectionState) super.readPreviousPage();
+  }
+
+  @Override
+  public CollectionState readFirstPage() {
+    return (CollectionState) super.readFirstPage();
+  }
+
+  @Override
+  public CollectionState readLastPage() {
+    return (CollectionState) super.readLastPage();
+  }
 }

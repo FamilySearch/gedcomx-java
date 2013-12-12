@@ -18,9 +18,14 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.gedcomx.Gedcomx;
+import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
+import org.gedcomx.conclusion.Person;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
+
+import javax.ws.rs.HttpMethod;
 
 /**
  * @author Ryan Heaton
@@ -73,5 +78,45 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
 
   public Feed getResults() {
     return getEntity();
+  }
+
+  public PersonState readPerson(Entry person) {
+    Link link = person.getLink(Rel.PERSON);
+    link = link == null ? person.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public PersonState readPerson(Person person) {
+    Link link = person.getLink(Rel.PERSON);
+    link = link == null ? person.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  @Override
+  public PersonSearchResultsState readNextPage() {
+    return (PersonSearchResultsState) super.readNextPage();
+  }
+
+  @Override
+  public PersonSearchResultsState readPreviousPage() {
+    return (PersonSearchResultsState) super.readPreviousPage();
+  }
+
+  @Override
+  public PersonSearchResultsState readFirstPage() {
+    return (PersonSearchResultsState) super.readFirstPage();
+  }
+
+  @Override
+  public PersonSearchResultsState readLastPage() {
+    return (PersonSearchResultsState) super.readLastPage();
   }
 }

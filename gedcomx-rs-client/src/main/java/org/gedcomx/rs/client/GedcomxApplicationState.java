@@ -27,9 +27,6 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
-import org.gedcomx.atom.Feed;
-import org.gedcomx.conclusion.Person;
-import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
@@ -289,6 +286,30 @@ public abstract class GedcomxApplicationState<E> {
     }
   }
 
+  protected GedcomxApplicationState readPage(String rel) {
+    Link link = getLink(rel);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return newApplicationState(createAuthenticatedRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  protected GedcomxApplicationState readNextPage() {
+    return readPage(Rel.NEXT);
+  }
+
+  protected GedcomxApplicationState readPreviousPage() {
+    return readPage(Rel.PREVIOUS);
+  }
+
+  protected GedcomxApplicationState readFirstPage() {
+    return readPage(Rel.FIRST);
+  }
+
+  protected GedcomxApplicationState readLastPage() {
+    return readPage(Rel.LAST);
+  }
 
   protected ClientRequest.Builder createAuthenticatedFeedRequest() {
     return createAuthenticatedRequest().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE);
