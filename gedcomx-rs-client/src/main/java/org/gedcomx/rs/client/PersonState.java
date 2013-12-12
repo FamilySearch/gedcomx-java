@@ -39,7 +39,11 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public PersonState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
+    this(discoveryUri, client, HttpMethod.GET);
+  }
+
+  public PersonState(URI discoveryUri, Client client, String httpMethod) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, httpMethod), client, null);
   }
 
   public PersonState(ClientRequest request, Client client, String accessToken) {

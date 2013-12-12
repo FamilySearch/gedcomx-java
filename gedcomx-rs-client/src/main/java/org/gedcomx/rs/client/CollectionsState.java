@@ -19,11 +19,15 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.records.Collection;
+import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -60,6 +64,36 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   @Override
   protected SupportsLinks getScope() {
     return getEntity();
+  }
+
+  public List<Collection> getCollections() {
+    return this.entity == null ? null : this.entity.getCollections();
+  }
+
+  public CollectionState readCollection(Collection collection) {
+    Link link = collection.getLink("self");
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public CollectionState readCollection() {
+    Link link = this.entity != null ? this.entity.getLink(Rel.COLLECTION) : null;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public CollectionState add(Collection collection) {
+    Link link = collection.getLink("self");
+    URI href = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
+    href = href == null ? getUri() : href;
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST), this.client, this.accessToken).ifSuccessfull();
   }
 
 }

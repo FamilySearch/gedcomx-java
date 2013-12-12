@@ -43,7 +43,11 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public CollectionState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
+    this(discoveryUri, client, HttpMethod.GET);
+  }
+
+  public CollectionState(URI discoveryUri, Client client, String method) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, method), client, null);
   }
 
   public CollectionState(ClientRequest request, Client client, String accessToken) {
