@@ -108,7 +108,7 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
     return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
-  public CollectionState add(Collection collection) {
+  public CollectionState addCollection(Collection collection) {
     Link link = getLink("self");
     URI href = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
     href = href == null ? getUri() : href;

@@ -22,15 +22,19 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
+import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.GedcomxSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
+import java.io.InputStream;
 import java.net.URI;
 
 /**
@@ -128,13 +132,136 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return (CollectionState) super.authenticateViaOAuth2(formData);
   }
 
+  public RecordsState readRecords() {
+    Link link = getLink(Rel.RECORDS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new RecordsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public RecordState addRecord(Gedcomx record) {
+    Link link = getLink(Rel.RECORDS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding records.", getUri()));
+    }
+
+    return new RecordState(createAuthenticatedGedcomxRequest().entity(record).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public PersonsState readPersons() {
+    Link link = getLink(Rel.PERSONS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new PersonsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public PersonState addPerson(Person person) {
+    Link link = getLink(Rel.PERSONS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding persons.", getUri()));
+    }
+
+    Gedcomx entity = new Gedcomx();
+    entity.addPerson(person);
+    return new PersonState(createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public PersonState getPersonForCurrentUser() {
+    Link currentPersonLink = getLink(Rel.CURRENT_USER_PERSON);
+    if (currentPersonLink == null || currentPersonLink.getHref() == null) {
+      return null;
+    }
+    URI currentUserPersonUri = currentPersonLink.getHref().toURI();
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(currentUserPersonUri, HttpMethod.GET), this.client, this.accessToken);
+  }
 
   public PersonSearchResultsState searchForPersons(GedcomxSearchQueryBuilder query) {
     return searchForPersons(query.build());
   }
 
+  public RelationshipsState readRelationships() {
+    Link link = getLink(Rel.RELATIONSHIPS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new RelationshipsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public RelationshipState addRelationship(Relationship relationship) {
+    Link link = getLink(Rel.RELATIONSHIPS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding relationships.", getUri()));
+    }
+
+    Gedcomx entity = new Gedcomx();
+    entity.addRelationship(relationship);
+    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public SourceDescriptionState addArtifact(InputStream artifact) {
+    Link link = getLink(Rel.ARTIFACTS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding artifacts.", getUri()));
+    }
+
+    return new SourceDescriptionState(createAuthenticatedGedcomxRequest().entity(artifact).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public SourceDescriptionsState readSourceDescriptions() {
+    Link link = getLink(Rel.SOURCE_DESCRIPTIONS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new SourceDescriptionsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public SourceDescriptionState addSourceDescription(SourceDescription source) {
+    Link link = getLink(Rel.SOURCE_DESCRIPTIONS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding source descriptions.", getUri()));
+    }
+
+    Gedcomx entity = new Gedcomx();
+    entity.addSourceDescription(source);
+    return new SourceDescriptionState(createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public CollectionState readCollection() {
+    Link link = getLink(Rel.COLLECTION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public CollectionsState readSubcollections() {
+    Link link = getLink(Rel.COLLECTIONS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new CollectionsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public CollectionState addCollection(Collection collection) {
+    Link link = getLink(Rel.COLLECTIONS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding subcollections.", getUri()));
+    }
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken).ifSuccessful();
+  }
+
   public PersonSearchResultsState searchForPersons(String query) {
-    Link searchLink = this.links.get(Rel.PERSON_SEARCH);
+    Link searchLink = getLink(Rel.PERSON_SEARCH);
     if (searchLink == null || searchLink.getTemplate() == null) {
       return null;
     }
@@ -152,16 +279,6 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     }
 
     return new PersonSearchResultsState(createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET), this.client, this.accessToken);
-  }
-
-  public PersonState getPersonForCurrentUser() {
-    Link currentPersonLink = this.links.get(Rel.CURRENT_USER_PERSON);
-    if (currentPersonLink == null || currentPersonLink.getHref() == null) {
-      return null;
-    }
-    URI currentUserPersonUri = currentPersonLink.getHref().toURI();
-
-    return new PersonState(createAuthenticatedGedcomxRequest().build(currentUserPersonUri, HttpMethod.GET), this.client, this.accessToken);
   }
 
 }

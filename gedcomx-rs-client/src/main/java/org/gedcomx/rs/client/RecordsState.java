@@ -18,9 +18,9 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.gedcomx.Gedcomx;
+import org.gedcomx.atom.AtomModel;
+import org.gedcomx.atom.Feed;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
@@ -28,14 +28,14 @@ import java.net.URI;
 /**
  * @author Ryan Heaton
  */
-public class RecordsState extends GedcomxApplicationState<Gedcomx> {
+public class RecordsState extends GedcomxApplicationState<Feed> {
 
   public RecordsState(URI discoveryUri) {
     this(discoveryUri, loadDefaultClient());
   }
 
   public RecordsState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
+    this(ClientRequest.create().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
   }
 
   public RecordsState(ClientRequest request, Client client, String accessToken) {
@@ -68,13 +68,13 @@ public class RecordsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public RecordsState put(Gedcomx e) {
+  public RecordsState put(Feed e) {
     return (RecordsState) super.put(e);
   }
 
   @Override
-  protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+  protected Feed loadEntity(ClientResponse response) {
+    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Feed.class) : null;
   }
 
   @Override
