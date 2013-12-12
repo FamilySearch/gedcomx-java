@@ -18,12 +18,18 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
+import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -100,5 +106,39 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
   @Override
   public RecordsState readLastPage() {
     return (RecordsState) super.readLastPage();
+  }
+
+  public List<Gedcomx> getRecords() {
+    ArrayList<Gedcomx> records = null;
+
+    Feed feed = getEntity();
+    if (feed != null && feed.getEntries() != null && feed.getEntries().size() > 0) {
+      records = new ArrayList<Gedcomx>();
+      for (Entry entry : feed.getEntries()) {
+        if (entry.getContent() != null && entry.getContent().getGedcomx() != null) {
+          records.add(entry.getContent().getGedcomx());
+        }
+      }
+    }
+
+    return records;
+  }
+
+  public RecordState readRecord(Entry entry) {
+    Link link = entry.getLink(Rel.RECORD);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new RecordState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public RecordState readRecord(Gedcomx record) {
+    Link link = record.getLink(Rel.RECORD);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new RecordState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 }

@@ -16,6 +16,8 @@
 package org.gedcomx.rs;
 
 import org.gedcomx.Gedcomx;
+import org.gedcomx.atom.Entry;
+import org.gedcomx.atom.Feed;
 import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StateTransition;
@@ -34,8 +36,9 @@ import javax.ws.rs.core.Response;
   name = "Records",
   id = RecordsRSDefinition.REL,
   description = "A set of records.",
-  resourceElement = Gedcomx.class,
+  resourceElement = Feed.class,
   transitions = {
+    @StateTransition( rel = RecordRSDefinition.REL, description = "A record.", scope = Entry.class, conditional = true, targetResource = RecordRSDefinition.class ),
     @StateTransition( rel = RecordRSDefinition.REL, description = "A record.", scope = Gedcomx.class, conditional = true, targetResource = RecordRSDefinition.class )
   }
 )
