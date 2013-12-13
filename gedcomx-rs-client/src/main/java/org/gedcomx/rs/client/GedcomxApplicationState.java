@@ -355,9 +355,13 @@ public abstract class GedcomxApplicationState<E> {
 
   protected void embed(Link link, Gedcomx entity) {
     if (link.getHref() != null) {
-      ClientResponse response = invoke(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET));
+      ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+      ClientResponse response = invoke(request);
       if (response.getClientResponseStatus() == ClientResponse.Status.OK) {
         entity.embed(response.getEntity(Gedcomx.class));
+      }
+      else if (response.getClientResponseStatus().getFamily() == Response.Status.Family.SERVER_ERROR) {
+        throw new GedcomxApplicationException(String.format("Unable to load embedded resources: server says \"%s\" at %s.", response.getClientResponseStatus().getReasonPhrase(), request.getURI()), response);
       }
       else {
         //todo: log a warning? throw an error?

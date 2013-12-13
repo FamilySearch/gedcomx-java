@@ -48,6 +48,7 @@ import javax.ws.rs.core.Response;
   transitions = {
     @StateTransition ( rel = AncestryQuery.REL, description = "The ancestry query for this person.", scope = Person.class, conditional = true, targetResource = AncestryQuery.class ),
     @StateTransition ( rel = DescendancyQuery.REL, description = "The descendancy query for this person.", scope = Person.class, conditional = true, targetResource = DescendancyQuery.class ),
+    @StateTransition ( rel = CollectionRSDefinition.REL, description = "The collection containing this person.", scope = Person.class, conditional = true, targetResource = CollectionRSDefinition.class ),
     @StateTransition ( rel = ConclusionRSDefinition.REL, description = "A conclusion.", scope = { Name.class, Gender.class, Fact.class }, conditional = true, targetResource = ConclusionRSDefinition.class ),
     @StateTransition ( rel = ConclusionsRSDefinition.REL, description = "The conclusions for the person (embedded link).", scope = Person.class, conditional = true, targetResource = ConclusionsRSDefinition.class ),
     @StateTransition ( rel = SourceReferencesRSDefinition.REL, description = "The source references for the person (embedded link).", scope = Person.class, conditional = true, targetResource = SourceReferencesRSDefinition.class ),

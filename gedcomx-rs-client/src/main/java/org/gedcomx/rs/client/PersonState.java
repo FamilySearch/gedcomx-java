@@ -19,15 +19,24 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.conclusion.Person;
+import org.gedcomx.common.EvidenceReference;
+import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -93,6 +102,102 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   public Person getPerson() {
     return getEntity() == null ? null : getEntity().getPersons() == null ? null : getEntity().getPersons().isEmpty() ? null : getEntity().getPersons().get(0);
   }
+  
+  public List<Relationship> getRelationships() {
+    return getEntity() == null ? null : getEntity().getRelationships();
+  }
+  
+  public List<Relationship> getSpouseRelationships() {
+    List<Relationship> relationships = getRelationships();
+    relationships = relationships == null ? null : new ArrayList<Relationship>(relationships);
+    if (relationships != null) {
+      Iterator<Relationship> it = relationships.iterator();
+      while (it.hasNext()) {
+        if (it.next().getKnownType() != RelationshipType.Couple) {
+          it.remove();
+        }
+      }
+    }
+    return relationships;
+  }
+  
+  public List<Relationship> getChildRelationships() {
+    List<Relationship> relationships = getRelationships();
+    relationships = relationships == null ? null : new ArrayList<Relationship>(relationships);
+    if (relationships != null) {
+      Iterator<Relationship> it = relationships.iterator();
+      while (it.hasNext()) {
+        Relationship relationship = it.next();
+        if (relationship.getKnownType() != RelationshipType.ParentChild || !refersToMe(relationship.getPerson1())) {
+          it.remove();
+        }
+      }
+    }
+    return relationships;
+  }
+  
+  public List<Relationship> getParentRelationships() {
+    List<Relationship> relationships = getRelationships();
+    relationships = relationships == null ? null : new ArrayList<Relationship>(relationships);
+    if (relationships != null) {
+      Iterator<Relationship> it = relationships.iterator();
+      while (it.hasNext()) {
+        Relationship relationship = it.next();
+        if (relationship.getKnownType() != RelationshipType.ParentChild || !refersToMe(relationship.getPerson2())) {
+          it.remove();
+        }
+      }
+    }
+    return relationships;
+  }
+
+  protected boolean refersToMe(ResourceReference ref) {
+    return ref != null && ref.getResource() != null && ref.getResource().toString().equals("#" + getLocalSelfId());
+  }
+
+  public DisplayProperties getDisplayProperties() {
+    Person person = getPerson();
+    return person == null ? null : person.getDisplayExtension();
+  }
+
+  public Conclusion getConclusion() {
+    return getName() != null ? getName() : getGender() != null ? getGender() : getFact() != null ? getFact() : null;
+  }
+  
+  public Name getName() {
+    Person person = getPerson();
+    return person == null ? null : person.getNames() == null ? null : person.getNames().isEmpty() ? null : person.getNames().get(0);
+  }
+
+  public Gender getGender() {
+    Person person = getPerson();
+    return person == null ? null : person.getGender();
+  }
+
+  public Fact getFact() {
+    Person person = getPerson();
+    return person == null ? null : person.getFacts() == null ? null : person.getFacts().isEmpty() ? null : person.getFacts().get(0);
+  }
+
+  public Note getNote() {
+    Person person = getPerson();
+    return person == null ? null : person.getNotes() == null ? null : person.getNotes().isEmpty() ? null : person.getNotes().get(0);
+  }
+
+  public SourceReference getSourceReference() {
+    Person person = getPerson();
+    return person == null ? null : person.getSources() == null ? null : person.getSources().isEmpty() ? null : person.getSources().get(0);
+  }
+
+  public EvidenceReference getEvidenceReference() {
+    Person person = getPerson();
+    return person == null ? null : person.getEvidence() == null ? null : person.getEvidence().isEmpty() ? null : person.getEvidence().get(0);
+  }
+
+  public SourceReference getMediaReference() {
+    Person person = getPerson();
+    return person == null ? null : person.getMedia() == null ? null : person.getMedia().isEmpty() ? null : person.getMedia().get(0);
+  }
 
   @Override
   public PersonState authenticateViaOAuth2Password(String username, String password, String clientId) {
@@ -124,13 +229,17 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return (PersonState) super.authenticateViaOAuth2(formData);
   }
 
-  public PersonState loadEmbeddedResources() {
-    includeEmbeddedResources(this.entity);
-    return this;
+  public CollectionState readCollection() {
+    Link link = getLink(Rel.COLLECTION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
-  public AncestryResultsState getAncestry() {
-    Link link = this.links.get(Rel.ANCESTRY);
+  public AncestryResultsState readAncestry() {
+    Link link = getLink(Rel.ANCESTRY);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -138,8 +247,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return new AncestryResultsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
-  public DescendancyResultsState getDescendancy() {
-    Link link = this.links.get(Rel.DESCENDANCY);
+  public DescendancyResultsState readDescendancy() {
+    Link link = getLink(Rel.DESCENDANCY);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -147,8 +256,405 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return new DescendancyResultsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
-  public PersonChildrenState getChildren() {
-    Link link = this.links.get(Rel.CHILDREN);
+  public PersonState loadEmbeddedResources() {
+    includeEmbeddedResources(this.entity);
+    return this;
+  }
+
+  public PersonState loadEmbeddedResources(String... rels) {
+    for (String rel : rels) {
+      Link link = getLink(rel);
+      if (this.entity != null && link != null && link.getHref() != null) {
+        embed(link, this.entity);
+      }
+    }
+    return this;
+  }
+
+  public PersonState loadConclusions() {
+    return loadEmbeddedResources(Rel.CONCLUSIONS);
+  }
+
+  public PersonState loadSourceReferences() {
+    return loadEmbeddedResources(Rel.SOURCE_REFERENCES);
+  }
+
+  public PersonState loadMediaReferences() {
+    return loadEmbeddedResources(Rel.MEDIA_REFERENCES);
+  }
+
+  public PersonState loadEvidenceReferences() {
+    return loadEmbeddedResources(Rel.EVIDENCE_REFERENCES);
+  }
+
+  public PersonState loadNotes() {
+    return loadEmbeddedResources(Rel.EVIDENCE_REFERENCES);
+  }
+
+  public PersonState loadParentRelationships() {
+    return loadEmbeddedResources(Rel.PARENT_RELATIONSHIPS);
+  }
+
+  public PersonState loadSpouseRelationships() {
+    return loadEmbeddedResources(Rel.SPOUSE_RELATIONSHIPS);
+  }
+
+  public PersonState loadChildRelationships() {
+    return loadEmbeddedResources(Rel.CHILD_RELATIONSHIPS);
+  }
+
+  protected Person createEmptySelf() {
+    Person person = new Person();
+    person.setId(getLocalSelfId());
+    return person;
+  }
+
+  protected String getLocalSelfId() {
+    Person me = getPerson();
+    return me == null ? null : me.getId();
+  }
+
+  public PersonState addGender(Gender gender) {
+    Person person = createEmptySelf();
+    person.setGender(gender);
+    return updateConclusions(person);
+  }
+
+  public PersonState addName(Name name) {
+    return addNames(name);
+  }
+
+  public PersonState addNames(Name... names) {
+    Person person = createEmptySelf();
+    person.setNames(Arrays.asList(names));
+    return updateConclusions(person);
+  }
+
+  public PersonState addFact(Fact fact) {
+    return addFacts(fact);
+  }
+
+  public PersonState addFacts(Fact... facts) {
+    Person person = createEmptySelf();
+    person.setFacts(Arrays.asList(facts));
+    return updateConclusions(person);
+  }
+
+  public PersonState updateGender(Gender gender) {
+    Person person = createEmptySelf();
+    person.setGender(gender);
+    return updateConclusions(person);
+  }
+
+  public PersonState updateName(Name name) {
+    return updateNames(name);
+  }
+
+  public PersonState updateNames(Name... names) {
+    Person person = createEmptySelf();
+    person.setNames(Arrays.asList(names));
+    return updateConclusions(person);
+  }
+
+  public PersonState updateFact(Fact fact) {
+    return updateFacts(fact);
+  }
+
+  public PersonState updateFacts(Fact... facts) {
+    Person person = createEmptySelf();
+    person.setFacts(Arrays.asList(facts));
+    return updateConclusions(person);
+  }
+
+  protected PersonState updateConclusions(Person person) {
+    URI target = getSelfUri();
+    Link conclusionsLink = getLink(Rel.CONCLUSIONS);
+    if (conclusionsLink != null && conclusionsLink.getHref() != null) {
+      target = conclusionsLink.getHref().toURI();
+    }
+
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+  }
+  
+  public PersonState deleteName(Name name) {
+    return doDeleteConclusion(name);
+  }
+
+  public PersonState deleteGender(Gender gender) {
+    return doDeleteConclusion(gender);
+  }
+
+  public PersonState deleteFact(Fact fact) {
+    return doDeleteConclusion(fact);
+  }
+
+  protected PersonState doDeleteConclusion(Conclusion conclusion) {
+    Link link = conclusion.getLink(Rel.CONCLUSION);
+    link = link == null ? conclusion.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+  }
+
+  public PersonState addSourceReference(SourceReference reference) {
+    return addSourceReferences(reference);
+  }
+
+  public PersonState addSourceReferences(SourceReference... refs) {
+    Person person = createEmptySelf();
+    person.setSources(Arrays.asList(refs));
+    return updateSourceReferences(person);
+  }
+
+  public PersonState updateSourceReference(SourceReference reference) {
+    return updateSourceReferences(reference);
+  }
+
+  public PersonState updateSourceReferences(SourceReference... refs) {
+    Person person = createEmptySelf();
+    person.setSources(Arrays.asList(refs));
+    return updateSourceReferences(person);
+  }
+
+  protected PersonState updateSourceReferences(Person person) {
+    URI target = getSelfUri();
+    Link conclusionsLink = getLink(Rel.SOURCE_REFERENCES);
+    if (conclusionsLink != null && conclusionsLink.getHref() != null) {
+      target = conclusionsLink.getHref().toURI();
+    }
+
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public PersonState deleteSourceReference(SourceReference reference) {
+    Link link = reference.getLink(Rel.SOURCE_REFERENCE);
+    link = link == null ? reference.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+  }
+
+  public PersonState addMediaReference(SourceReference reference) {
+    return addMediaReferences(reference);
+  }
+
+  public PersonState addMediaReferences(SourceReference... refs) {
+    Person person = createEmptySelf();
+    person.setMedia(Arrays.asList(refs));
+    return updateMediaReferences(person);
+  }
+
+  public PersonState updateMediaReference(SourceReference reference) {
+    return updateMediaReferences(reference);
+  }
+
+  public PersonState updateMediaReferences(SourceReference... refs) {
+    Person person = createEmptySelf();
+    person.setMedia(Arrays.asList(refs));
+    return updateMediaReferences(person);
+  }
+
+  protected PersonState updateMediaReferences(Person person) {
+    URI target = getSelfUri();
+    Link conclusionsLink = getLink(Rel.MEDIA_REFERENCES);
+    if (conclusionsLink != null && conclusionsLink.getHref() != null) {
+      target = conclusionsLink.getHref().toURI();
+    }
+
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public PersonState deleteMediaReference(SourceReference reference) {
+    Link link = reference.getLink(Rel.MEDIA_REFERENCE);
+    link = link == null ? reference.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+  }
+
+  public PersonState addEvidenceReference(EvidenceReference reference) {
+    return addEvidenceReferences(reference);
+  }
+
+  public PersonState addEvidenceReferences(EvidenceReference... refs) {
+    Person person = createEmptySelf();
+    person.setEvidence(Arrays.asList(refs));
+    return updateEvidenceReferences(person);
+  }
+
+  public PersonState updateEvidenceReference(EvidenceReference reference) {
+    return updateEvidenceReferences(reference);
+  }
+
+  public PersonState updateEvidenceReferences(EvidenceReference... refs) {
+    Person person = createEmptySelf();
+    person.setEvidence(Arrays.asList(refs));
+    return updateEvidenceReferences(person);
+  }
+
+  protected PersonState updateEvidenceReferences(Person person) {
+    URI target = getSelfUri();
+    Link conclusionsLink = getLink(Rel.EVIDENCE_REFERENCES);
+    if (conclusionsLink != null && conclusionsLink.getHref() != null) {
+      target = conclusionsLink.getHref().toURI();
+    }
+
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public PersonState deleteEvidenceReference(EvidenceReference reference) {
+    Link link = reference.getLink(Rel.EVIDENCE_REFERENCE);
+    link = link == null ? reference.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+  }
+
+  public PersonState readNote(Note note) {
+    Link link = note.getLink(Rel.NOTE);
+    link = link == null ? note.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Note cannot be read: missing link.");
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public PersonState addNote(Note note) {
+    return addNotes(note);
+  }
+
+  public PersonState addNotes(Note... notes) {
+    Person person = createEmptySelf();
+    person.setNotes(Arrays.asList(notes));
+    return updateNotes(person);
+  }
+
+  public PersonState updateNote(Note note) {
+    return updateNotes(note);
+  }
+
+  public PersonState updateNotes(Note... notes) {
+    Person person = createEmptySelf();
+    person.setNotes(Arrays.asList(notes));
+    return updateNotes(person);
+  }
+
+  protected PersonState updateNotes(Person person) {
+    URI target = getSelfUri();
+    Link conclusionsLink = getLink(Rel.NOTES);
+    if (conclusionsLink != null && conclusionsLink.getHref() != null) {
+      target = conclusionsLink.getHref().toURI();
+    }
+
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+  }
+
+  public PersonState deleteNote(Note note) {
+    Link link = note.getLink(Rel.NOTE);
+    link = link == null ? note.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
+    }
+
+    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+  }
+  
+  public RelationshipState readRelationship(Relationship relationship) {
+    Link link = relationship.getLink(Rel.RELATIONSHIP);
+    link = link == null ? relationship.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+    
+    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public PersonState readRelative(Relationship relationship) {
+    ResourceReference reference = null;
+    if (refersToMe(relationship.getPerson1())) {
+      reference = relationship.getPerson2();
+    }
+    else if (refersToMe(relationship.getPerson2())) {
+      reference = relationship.getPerson1();
+    }
+    if (reference == null || reference.getResource() == null) {
+      return null;
+    }
+    
+    return new PersonState(createAuthenticatedGedcomxRequest().build(reference.getResource().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+  
+  public PersonState readFirstSpouse() {
+    return readSpouse(0);
+  }
+  
+  public PersonState readSpouse(int index) {
+    List<Relationship> spouseRelationships = getSpouseRelationships();
+    if (spouseRelationships.size() <= index) {
+      return null;
+    }
+    return readSpouse(spouseRelationships.get(index));
+  }
+  
+  public PersonState readSpouse(Relationship relationship) {
+    return readRelative(relationship);
+  }
+
+  public PersonSpousesState readSpouses() {
+    Link link = getLink(Rel.SPOUSES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new PersonSpousesState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public RelationshipState addSpouse(PersonState person) {
+    CollectionState collection = readCollection();
+    if (collection == null || collection.hasError()) {
+      throw new GedcomxApplicationException("Unable to add relationship: collection unavailable.");
+    }
+
+    return collection.addSpouseRelationship(this, person);
+  }
+
+  public PersonState readFirstChild() {
+    return readChild(0);
+  }
+
+  public PersonState readChild(int index) {
+    List<Relationship> childRelationships = getChildRelationships();
+    if (childRelationships.size() <= index) {
+      return null;
+    }
+    return readChild(childRelationships.get(index));
+  }
+
+  public PersonState readChild(Relationship relationship) {
+    return readRelative(relationship);
+  }
+
+  public PersonChildrenState readChildren() {
+    Link link = getLink(Rel.CHILDREN);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -156,8 +662,33 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return new PersonChildrenState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
-  public PersonParentsState getParents() {
-    Link link = this.links.get(Rel.PARENTS);
+  public RelationshipState addChild(PersonState person) {
+    CollectionState collection = readCollection();
+    if (collection == null || collection.hasError()) {
+      throw new GedcomxApplicationException("Unable to add relationship: collection unavailable.");
+    }
+
+    return collection.addParentChildRelationship(this, person);
+  }
+
+  public PersonState readFirstParent() {
+    return readParent(0);
+  }
+
+  public PersonState readParent(int index) {
+    List<Relationship> parentRelationships = getParentRelationships();
+    if (parentRelationships.size() <= index) {
+      return null;
+    }
+    return readParent(parentRelationships.get(index));
+  }
+
+  public PersonState readParent(Relationship relationship) {
+    return readRelative(relationship);
+  }
+
+  public PersonParentsState readParents() {
+    Link link = getLink(Rel.PARENTS);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -165,13 +696,14 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return new PersonParentsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
-  public PersonSpousesState getSpouses() {
-    Link link = this.links.get(Rel.SPOUSES);
-    if (link == null || link.getHref() == null) {
-      return null;
+  public RelationshipState addParent(PersonState person) {
+    CollectionState collection = readCollection();
+    if (collection == null || collection.hasError()) {
+      throw new GedcomxApplicationException("Unable to add relationship: collection unavailable.");
     }
 
-    return new PersonSpousesState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    return collection.addParentChildRelationship(person, this);
   }
+
 
 }

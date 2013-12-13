@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
@@ -31,6 +32,7 @@ import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.GedcomxSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
+import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
@@ -191,6 +193,22 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     }
 
     return new RelationshipsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+  }
+
+  public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2) {
+    Relationship relationship = new Relationship();
+    relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(person1.getSelfUri().toString())));
+    relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(person2.getSelfUri().toString())));
+    relationship.setKnownType(RelationshipType.Couple);
+    return addRelationship(relationship);
+  }
+
+  public RelationshipState addParentChildRelationship(PersonState parent, PersonState child) {
+    Relationship relationship = new Relationship();
+    relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(parent.getSelfUri().toString())));
+    relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
+    relationship.setKnownType(RelationshipType.ParentChild);
+    return addRelationship(relationship);
   }
 
   public RelationshipState addRelationship(Relationship relationship) {
