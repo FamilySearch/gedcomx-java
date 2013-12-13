@@ -17,10 +17,7 @@ package org.gedcomx.rs;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.Note;
-import org.gedcomx.conclusion.Fact;
-import org.gedcomx.conclusion.Gender;
-import org.gedcomx.conclusion.Name;
-import org.gedcomx.conclusion.Relationship;
+import org.gedcomx.conclusion.*;
 import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
 import org.gedcomx.rt.rs.StateTransition;
@@ -45,6 +42,7 @@ import javax.ws.rs.core.Response;
   description = "A relationship.",
   resourceElement = Gedcomx.class,
   transitions = {
+    @StateTransition ( rel = CollectionRSDefinition.REL, description = "The collection containing this relationship.", scope = Relationship.class, conditional = true, targetResource = CollectionRSDefinition.class ),
     @StateTransition ( rel = ConclusionRSDefinition.REL, description = "A conclusion.", scope = { Name.class, Gender.class, Fact.class }, conditional = true, targetResource = ConclusionRSDefinition.class ),
     @StateTransition ( rel = ConclusionsRSDefinition.REL, description = "The conclusions for the relationship (embedded link).", scope = Relationship.class, conditional = true, targetResource = ConclusionsRSDefinition.class ),
     @StateTransition ( rel = SourceReferenceRSDefinition.REL, description = "A source reference.", scope = SourceReference.class, conditional = true, targetResource = SourceReferenceRSDefinition.class ),
