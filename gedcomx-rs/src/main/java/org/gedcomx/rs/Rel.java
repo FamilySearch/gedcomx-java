@@ -20,9 +20,9 @@ package org.gedcomx.rs;
  * 
  * @author Ryan Heaton
  */
-public final class Rel {
+public class Rel {
 
-  private Rel(){}
+  protected Rel(){}
 
   //Standard well-known RELs
   public static final String SELF = "self";
