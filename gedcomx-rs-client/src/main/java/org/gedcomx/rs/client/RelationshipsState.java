@@ -19,8 +19,13 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.conclusion.Relationship;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
@@ -101,4 +106,27 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   public RelationshipsState readLastPage() {
     return (RelationshipsState) super.readLastPage();
   }
+
+  public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2) {
+    Relationship relationship = new Relationship();
+    relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(person1.getSelfUri().toString())));
+    relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(person2.getSelfUri().toString())));
+    relationship.setKnownType(RelationshipType.Couple);
+    return addRelationship(relationship);
+  }
+
+  public RelationshipState addParentChildRelationship(PersonState parent, PersonState child) {
+    Relationship relationship = new Relationship();
+    relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(parent.getSelfUri().toString())));
+    relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
+    relationship.setKnownType(RelationshipType.ParentChild);
+    return addRelationship(relationship);
+  }
+
+  public RelationshipState addRelationship(Relationship relationship) {
+    Gedcomx entity = new Gedcomx();
+    entity.addRelationship(relationship);
+    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST), this.client, this.accessToken);
+  }
+
 }
