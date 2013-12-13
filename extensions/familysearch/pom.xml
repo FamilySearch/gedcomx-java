@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.gedcomx.extensions.familysearch</groupId>
+  <artifactId>fs-extensions-parent</artifactId>
+  <name>GEDCOM X Extensions - FamilySearch - Parent Project</name>
+  <packaging>pom</packaging>
+  <url>http://developer.familysearch.org/</url>
+
+  <parent>
+    <groupId>org.gedcomx</groupId>
+    <artifactId>gedcomx-parent</artifactId>
+    <version>1.0.13.M1-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <root.basedir>${basedir}/../..</root.basedir>
+  </properties>
+
+  <modules>
+    <module>fs-platform-model</module>
+    <module>familysearch-api-client</module>
+  </modules>
+
+</project>

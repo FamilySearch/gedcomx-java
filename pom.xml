@@ -30,6 +30,9 @@
     <module>gedcomx-atom</module>
     <module>gedcomx-rs</module>
     <module>gedcomx-rs-client</module>
+
+    <!--extension modules-->
+    <module>extensions/familysearch</module>
   </modules>
 
   <dependencies>
@@ -147,7 +150,7 @@
         </configuration>
         <executions>
           <execution>
-            <phase>verify</phase>
+            <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>

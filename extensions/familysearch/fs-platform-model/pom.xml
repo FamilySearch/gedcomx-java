@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.familysearch.platform</groupId>
+  <artifactId>fs-platform-model</artifactId>
+  <name>GEDCOM X Extensions - FamilySearch - Model Extensions</name>
+
+  <parent>
+    <groupId>org.gedcomx.extensions.familysearch</groupId>
+    <artifactId>fs-extensions-parent</artifactId>
+    <version>1.0.13.M1-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <!--we either have to refer to the parent directory (making modules-->
+    <!--incapable of building outside the context of the parent) or-->
+    <!--we have to duplicate the config files to all modules. Currently-->
+    <!--opting for the former.-->
+    <root.basedir>${basedir}/../../..</root.basedir>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.enunciate</groupId>
+        <artifactId>maven-enunciate-plugin</artifactId>
+        <version>${enunciate.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>assemble</goal>
+            </goals>
+            <configuration>
+              <stepTo>build</stepTo>
+              <forceWarPackaging>false</forceWarPackaging>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.gedcomx</groupId>
+            <artifactId>enunciate-gedcomx-support</artifactId>
+            <version>${project.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.gedcomx</groupId>
+      <artifactId>gedcomx-atom</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>5.14</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>

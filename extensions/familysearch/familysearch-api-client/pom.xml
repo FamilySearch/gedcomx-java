@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>gedcomx-rs-client</artifactId>
-  <name>GEDCOM X - Client for RS APIs</name>
+  <groupId>org.familysearch.platform</groupId>
+  <artifactId>familysearch-api-client</artifactId>
+  <name>GEDCOM X Extensions - FamilySearch - API Client</name>
 
   <parent>
-    <groupId>org.gedcomx</groupId>
-    <artifactId>gedcomx-parent</artifactId>
-    <version>1.0.14.M1-SNAPSHOT</version>
+    <groupId>org.gedcomx.extensions.familysearch</groupId>
+    <artifactId>fs-extensions-parent</artifactId>
+    <version>1.0.13.M1-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -15,26 +16,14 @@
     <!--incapable of building outside the context of the parent) or-->
     <!--we have to duplicate the config files to all modules. Currently-->
     <!--opting for the former.-->
-    <root.basedir>${basedir}/..</root.basedir>
+    <root.basedir>${basedir}/../../..</root.basedir>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.gedcomx</groupId>
-      <artifactId>gedcomx-rs</artifactId>
+      <artifactId>gedcomx-rs-client</artifactId>
       <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-client</artifactId>
-      <version>${jersey.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.damnhandy</groupId>
-      <artifactId>handy-uri-templates</artifactId>
-      <version>2.0.1</version>
     </dependency>
   </dependencies>
 
