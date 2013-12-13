@@ -29,6 +29,7 @@ import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -82,6 +83,10 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
   }
 
+  public List<Relationship> getRelationships() {
+    return getEntity() == null ? null : getEntity().getRelationships();
+  }
+
   @Override
   protected SupportsLinks getScope() {
     return getEntity();
@@ -105,6 +110,15 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   @Override
   public RelationshipsState readLastPage() {
     return (RelationshipsState) super.readLastPage();
+  }
+
+  public CollectionState readCollection() {
+    Link link = getLink(Rel.COLLECTION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
   }
 
   public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2) {

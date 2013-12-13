@@ -18,6 +18,7 @@ package org.gedcomx.rs;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
+import org.gedcomx.rt.rs.StateTransition;
 import org.gedcomx.rt.rs.StatusCodes;
 
 import javax.ws.rs.GET;
@@ -32,7 +33,10 @@ import javax.ws.rs.core.Response;
   name = "Source Descriptions",
   id = "source-descriptions",
   description = "The set of source descriptions in the application.",
-  resourceElement = Gedcomx.class
+  resourceElement = Gedcomx.class,
+  transitions = {
+    @StateTransition ( rel = CollectionRSDefinition.REL, description = "The collection containing these source descriptions.", conditional = true, targetResource = CollectionRSDefinition.class )
+  }
 )
 public interface SourceDescriptionsRSDefinition {
 

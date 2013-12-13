@@ -25,6 +25,7 @@ import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
+import java.util.Arrays;
 
 /**
  * @author Ryan Heaton
@@ -85,6 +86,12 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
 
   public SourceDescription getSourceDescription() {
     return getEntity() == null ? null : getEntity().getSourceDescriptions() == null ? null : getEntity().getSourceDescriptions().isEmpty() ? null : getEntity().getSourceDescriptions().get(0);
+  }
+
+  public SourceDescriptionState update(SourceDescription description) {
+    Gedcomx entity = new Gedcomx();
+    entity.setSourceDescriptions(Arrays.asList(description));
+    return new SourceDescriptionState(createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST), this.client, this.accessToken);
   }
 
 }

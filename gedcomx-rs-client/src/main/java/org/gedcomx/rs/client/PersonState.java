@@ -400,6 +400,12 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
   }
 
+  public PersonState addSourceReference(SourceDescriptionState source) {
+    SourceReference reference = new SourceReference();
+    reference.setDescriptionRef(new org.gedcomx.common.URI(source.getSelfUri().toString()));
+    return addSourceReference(reference);
+  }
+
   public PersonState addSourceReference(SourceReference reference) {
     return addSourceReferences(reference);
   }
@@ -442,6 +448,12 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
   }
 
+  public PersonState addMediaReference(SourceDescriptionState description) {
+    SourceReference reference = new SourceReference();
+    reference.setDescriptionRef(new org.gedcomx.common.URI(description.getSelfUri().toString()));
+    return addMediaReference(reference);
+  }
+
   public PersonState addMediaReference(SourceReference reference) {
     return addMediaReferences(reference);
   }
@@ -482,6 +494,12 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     }
 
     return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+  }
+
+  public PersonState addEvidenceReference(PersonState evidence) {
+    EvidenceReference reference = new EvidenceReference();
+    reference.setResource(new org.gedcomx.common.URI(evidence.getSelfUri().toString()));
+    return addEvidenceReference(reference);
   }
 
   public PersonState addEvidenceReference(EvidenceReference reference) {

@@ -18,6 +18,7 @@ package org.gedcomx.rs;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.rs.ResourceDefinition;
 import org.gedcomx.rt.rs.ResponseCode;
+import org.gedcomx.rt.rs.StateTransition;
 import org.gedcomx.rt.rs.StatusCodes;
 
 import javax.ws.rs.POST;
@@ -30,7 +31,10 @@ import javax.ws.rs.core.Response;
   name = "Relationships",
   id = RelationshipsRSDefinition.REL,
   description = "The set of relationships in the application.",
-  resourceElement = Gedcomx.class
+  resourceElement = Gedcomx.class,
+  transitions = {
+    @StateTransition ( rel = CollectionRSDefinition.REL, description = "The collection containing these relationships.", conditional = true, targetResource = CollectionRSDefinition.class )
+  }
 )
 public interface RelationshipsRSDefinition {
 
