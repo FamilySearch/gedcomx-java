@@ -22,8 +22,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
-import org.gedcomx.conclusion.Name;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.records.FacetTag;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -63,6 +63,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private Date created;
   private Date modified;
   private List<Coverage> coverage;
+  private List<FacetTag> facets;
   private ResourceReference repository;
   private ResourceReference descriptorRef;
 
@@ -498,7 +499,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
   public List<Coverage> getCoverage() {
-    return coverage;
+    return this.coverage;
   }
 
   /**
@@ -508,6 +509,25 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setCoverage(List<Coverage> coverage) {
     this.coverage = coverage;
+  }
+
+  /**
+   * The facets of the resource.
+   *
+   * @return The facets of the resource.
+   */
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  public List<FacetTag> getFacets() {
+    return this.facets;
+  }
+
+  /**
+   * The facets of the resource.
+   *
+   * @param facets The facets of the resource.
+   */
+  public void setFacets(List<FacetTag> facets) {
+    this.facets = facets;
   }
 
   /**
@@ -599,6 +619,10 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
     if (description.coverage != null) {
       this.coverage = this.coverage == null ? new ArrayList<Coverage>() : this.coverage;
       this.coverage.addAll(description.coverage);
+    }
+    if (description.facets != null) {
+      this.facets = this.facets == null ? new ArrayList<FacetTag>() : this.facets;
+      this.facets.addAll(description.facets);
     }
     this.repository = this.repository == null ? description.repository : this.repository;
     this.descriptorRef = this.descriptorRef == null ? description.descriptorRef : this.descriptorRef;

@@ -15,22 +15,41 @@
  */
 package org.gedcomx.records;
 
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>A facet value is the value that is used by a facet to group related resources.</p>
+ * <p>A facet tag is applied to a resource to declare what facets apply to the resource.</p>
  */
-@XmlType ( name = "FacetValue", propOrder = { "value" })
+@XmlType ( name = "FacetTag", propOrder = { "facet", "value" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
-public class FacetValue extends HypermediaEnabledData {
+public class FacetTag extends HypermediaEnabledData {
 
+  private ResourceReference facet;
   private String value;
-  //todo: parent ref?
-  //todo: formal value?
-  //todo: sort value?
+  //todo: primary?
+  //todo: label?
+
+  /**
+   * The facet.
+   *
+   * @return The facet.
+   */
+  public ResourceReference getFacet() {
+    return facet;
+  }
+
+  /**
+   * The facet.
+   *
+   * @param facet The facet.
+   */
+  public void setFacet(ResourceReference facet) {
+    this.facet = facet;
+  }
 
   /**
    * The value.

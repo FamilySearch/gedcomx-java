@@ -19,6 +19,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
@@ -34,15 +35,18 @@ import java.util.List;
 /**
  * <p>A <tt>facet</tt> is a logical grouping of resources by specific criteria, used for convenience in browsing a collection or a set of search results.</p>
  */
-@XmlType ( name = "Facet", propOrder = {"title", "key", "facets", "values" })
+@XmlType ( name = "Facet", propOrder = {"titles", "facets", "values" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Facet extends HypermediaEnabledData {
 
   private URI type;
-  private String title;
-  private String key;
+  private List<TextValue> titles;
   private List<Facet> facets;
   private List<FacetValue> values;
+  //todo: data type?
+  //todo: formal value?
+  //todo: description?
+
 
   /**
    * The type of the facet.
@@ -86,39 +90,25 @@ public class Facet extends HypermediaEnabledData {
   }
 
   /**
-   * A title for the facet.
+   * The titles for the facet.
    *
-   * @return A title for the facet.
+   * @return The titles for the facet.
    */
-  public String getTitle() {
-    return title;
+  @XmlElement (name="title")
+  @JsonProperty ("titles")
+  @JsonName ("titles")
+  public List<TextValue> getTitles() {
+    return titles;
   }
 
   /**
-   * A title for the facet.
+   * The titles for the facet.
    *
-   * @param title A title for the facet.
+   * @param titles The titles for the facet.
    */
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  /**
-   * A key unique within the context of this facet, used to apply the facet.
-   *
-   * @return A key unique within the context of this facet, used to apply the facet.
-   */
-  public String getKey() {
-    return key;
-  }
-
-  /**
-   * A key unique within the context of this facet, used to apply the facet.
-   *
-   * @param key A key unique within the context of this facet, used to apply the facet.
-   */
-  public void setKey(String key) {
-    this.key = key;
+  @JsonProperty ("titles")
+  public void setTitles(List<TextValue> titles) {
+    this.titles = titles;
   }
 
   /**
