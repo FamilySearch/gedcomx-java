@@ -15,37 +15,24 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rt.GedcomxConstants;
-
-import javax.ws.rs.HttpMethod;
-import java.net.URI;
 
 /**
  * @author Ryan Heaton
  */
 public class AgentState extends GedcomxApplicationState<Gedcomx> {
 
-  public AgentState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public AgentState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public AgentState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected AgentState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected AgentState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new AgentState(request, client, accessToken);
+  protected AgentState clone(ClientRequest request, ClientResponse response) {
+    return new AgentState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override

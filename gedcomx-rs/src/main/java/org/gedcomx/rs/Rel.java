@@ -61,6 +61,7 @@ public class Rel {
   public static final String PERSON = "person";
   public static final String PERSONS = "persons";
   public static final String PERSON_SEARCH = "person-search";
+  public static final String PROFILE = "profile";
   public static final String RECORD = "record";
   public static final String RECORDS = "records";
   public static final String RELATIONSHIP = "relationship";

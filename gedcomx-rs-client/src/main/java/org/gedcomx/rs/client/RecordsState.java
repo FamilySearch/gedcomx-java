@@ -15,11 +15,9 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.atom.AtomModel;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.Link;
@@ -27,7 +25,6 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 
 import javax.ws.rs.HttpMethod;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,21 +33,13 @@ import java.util.List;
  */
 public class RecordsState extends GedcomxApplicationState<Feed> {
 
-  public RecordsState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public RecordsState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public RecordsState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected RecordsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected RecordsState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new RecordsState(request, client, accessToken);
+  protected RecordsState clone(ClientRequest request, ClientResponse response) {
+    return new RecordsState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -130,7 +119,8 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
       return null;
     }
 
-    return new RecordState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRecordState(request, invoke(request), this.accessToken);
   }
 
   public RecordState readRecord(Gedcomx record) {
@@ -139,6 +129,7 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
       return null;
     }
 
-    return new RecordState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRecordState(request, invoke(request), this.accessToken);
   }
 }

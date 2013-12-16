@@ -15,7 +15,6 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -27,7 +26,6 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
@@ -39,21 +37,13 @@ import java.util.Arrays;
  */
 public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
-  public RelationshipState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public RelationshipState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public RelationshipState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected RelationshipState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected RelationshipState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new RelationshipState(request, client, accessToken);
+  protected RelationshipState clone(ClientRequest request, ClientResponse response) {
+    return new RelationshipState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -130,7 +120,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState loadEmbeddedResources() {
@@ -208,7 +199,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
-    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState deleteFact(Fact fact) {
@@ -218,7 +210,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addSourceReference(SourceReference reference) {
@@ -250,7 +243,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
-    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState deleteSourceReference(SourceReference reference) {
@@ -260,7 +254,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addMediaReference(SourceReference reference) {
@@ -292,7 +287,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
-    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState deleteMediaReference(SourceReference reference) {
@@ -302,7 +298,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addEvidenceReference(EvidenceReference reference) {
@@ -334,7 +331,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
-    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState deleteEvidenceReference(EvidenceReference reference) {
@@ -344,7 +342,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState readNote(Note note) {
@@ -354,7 +353,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Note cannot be read: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addNote(Note note) {
@@ -386,7 +386,8 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
-    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState deleteNote(Note note) {
@@ -396,6 +397,7 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 }

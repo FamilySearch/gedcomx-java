@@ -18,7 +18,6 @@ package org.gedcomx.rs.client;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -30,7 +29,6 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.GedcomxSearchQueryBuilder;
-import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.types.RelationshipType;
 
@@ -44,25 +42,13 @@ import java.net.URI;
  */
 public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
-  public CollectionState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public CollectionState(URI discoveryUri, Client client) {
-    this(discoveryUri, client, HttpMethod.GET);
-  }
-
-  public CollectionState(URI discoveryUri, Client client, String method) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, method), client, null);
-  }
-
-  public CollectionState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected CollectionState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected CollectionState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new CollectionState(request, client, accessToken);
+  protected CollectionState clone(ClientRequest request, ClientResponse response) {
+    return new CollectionState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -140,7 +126,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new RecordsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRecordsState(request, invoke(request), this.accessToken);
   }
 
   public RecordState addRecord(Gedcomx record) {
@@ -149,7 +136,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding records.", getUri()));
     }
 
-    return new RecordState(createAuthenticatedGedcomxRequest().entity(record).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(record).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newRecordState(request, invoke(request), this.accessToken);
   }
 
   public PersonsState readPersons() {
@@ -158,7 +146,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonsState(request, invoke(request), this.accessToken);
   }
 
   public PersonState addPerson(Person person) {
@@ -169,7 +158,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx entity = new Gedcomx();
     entity.addPerson(person);
-    return new PersonState(createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState getPersonForCurrentUser() {
@@ -179,11 +169,34 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     }
     URI currentUserPersonUri = currentPersonLink.getHref().toURI();
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(currentUserPersonUri, HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(currentUserPersonUri, HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonSearchResultsState searchForPersons(GedcomxSearchQueryBuilder query) {
     return searchForPersons(query.build());
+  }
+
+  public PersonSearchResultsState searchForPersons(String query) {
+    Link searchLink = getLink(Rel.PERSON_SEARCH);
+    if (searchLink == null || searchLink.getTemplate() == null) {
+      return null;
+    }
+    String template = searchLink.getTemplate();
+
+    String uri;
+    try {
+      uri = UriTemplate.fromTemplate(template).set("q", query).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
+    return this.stateFactory.newPersonSearchResultsState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipsState readRelationships() {
@@ -192,7 +205,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new RelationshipsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRelationshipsState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2) {
@@ -219,7 +233,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx entity = new Gedcomx();
     entity.addRelationship(relationship);
-    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public SourceDescriptionState addArtifact(InputStream artifact) {
@@ -228,7 +243,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding artifacts.", getUri()));
     }
 
-    return new SourceDescriptionState(createAuthenticatedGedcomxRequest().entity(artifact).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(artifact).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request), this.accessToken);
   }
 
   public SourceDescriptionsState readSourceDescriptions() {
@@ -237,7 +253,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new SourceDescriptionsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionsState(request, invoke(request), this.accessToken);
   }
 
   public SourceDescriptionState addSourceDescription(SourceDescription source) {
@@ -248,7 +265,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx entity = new Gedcomx();
     entity.addSourceDescription(source);
-    return new SourceDescriptionState(createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request), this.accessToken);
   }
 
   public CollectionState readCollection() {
@@ -257,7 +275,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
   }
 
   public CollectionsState readSubcollections() {
@@ -266,7 +285,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new CollectionsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionsState(request, invoke(request), this.accessToken);
   }
 
   public CollectionState addCollection(Collection collection) {
@@ -275,28 +295,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding subcollections.", getUri()));
     }
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.POST), this.client, this.accessToken).ifSuccessful();
-  }
-
-  public PersonSearchResultsState searchForPersons(String query) {
-    Link searchLink = getLink(Rel.PERSON_SEARCH);
-    if (searchLink == null || searchLink.getTemplate() == null) {
-      return null;
-    }
-    String template = searchLink.getTemplate();
-
-    String uri;
-    try {
-      uri = UriTemplate.fromTemplate(template).set("q", query).expand();
-    }
-    catch (VariableExpansionException e) {
-      throw new GedcomxApplicationException(e);
-    }
-    catch (MalformedUriTemplateException e) {
-      throw new GedcomxApplicationException(e);
-    }
-
-    return new PersonSearchResultsState(createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken).ifSuccessful();
   }
 
 }

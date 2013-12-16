@@ -1,6 +1,5 @@
 package org.familysearch.api.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.platform.FamilySearchPlatform;
@@ -13,13 +12,13 @@ import org.gedcomx.rs.client.GedcomxApplicationState;
  */
 public class UserState extends GedcomxApplicationState<FamilySearchPlatform> {
 
-  protected UserState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  public UserState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected UserState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new UserState(request, client, accessToken);
+  protected UserState clone(ClientRequest request, ClientResponse response) {
+    return new UserState(request, response, this.accessToken, (FamilySearchStateFactory) this.stateFactory);
   }
 
   @Override

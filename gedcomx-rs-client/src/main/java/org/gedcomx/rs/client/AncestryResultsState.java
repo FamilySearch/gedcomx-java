@@ -15,37 +15,24 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.util.AncestryTree;
-import org.gedcomx.rt.GedcomxConstants;
-
-import javax.ws.rs.HttpMethod;
-import java.net.URI;
 
 /**
  * @author Ryan Heaton
  */
 public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
 
-  public AncestryResultsState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public AncestryResultsState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public AncestryResultsState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected AncestryResultsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected AncestryResultsState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new AncestryResultsState(request, client, accessToken);
+  protected AncestryResultsState clone(ClientRequest request, ClientResponse response) {
+    return new AncestryResultsState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override

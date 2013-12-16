@@ -16,6 +16,10 @@
 package org.gedcomx.rs.client;
 
 import com.sun.jersey.api.client.ClientResponse;
+import org.gedcomx.rs.client.util.HttpWarning;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -50,5 +54,35 @@ public class GedcomxApplicationException extends RuntimeException {
 
   public ClientResponse.Status getResponseStatus() {
     return this.response == null ? null : this.response.getClientResponseStatus();
+  }
+
+  public List<HttpWarning> getWarnings() {
+    ArrayList<HttpWarning> warnings = null;
+
+    if (this.response != null) {
+      List<String> values = this.response.getHeaders().get("Warning");
+      if (values != null && !values.isEmpty()) {
+        warnings = new ArrayList<HttpWarning>(values.size());
+        for (String value : values) {
+          warnings.add(HttpWarning.parse(value));
+        }
+      }
+    }
+
+    return warnings;
+  }
+
+  @Override
+  public String getMessage() {
+    String message = super.getMessage();
+    List<HttpWarning> warnings = getWarnings();
+    if (message != null || warnings.size() > 0) {
+      StringBuilder builder = new StringBuilder(message == null ? "" : message);
+      for (HttpWarning warning : warnings) {
+        builder.append(" Warning: ").append(warning.getMessage());
+      }
+      message = builder.toString();
+    }
+    return message;
   }
 }

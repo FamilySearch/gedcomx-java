@@ -15,7 +15,6 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -25,10 +24,8 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -36,21 +33,13 @@ import java.util.List;
  */
 public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
 
-  public PersonSpousesState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public PersonSpousesState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public PersonSpousesState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected PersonSpousesState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected PersonSpousesState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new PersonSpousesState(request, client, accessToken);
+  protected PersonSpousesState clone(ClientRequest request, ClientResponse response) {
+    return new PersonSpousesState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -125,7 +114,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState readSpouse(Person person) {
@@ -135,7 +125,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState readAncestryWithSpouse(Person person) {
@@ -144,7 +135,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState readDescendancyWithSpouse(Person person) {
@@ -153,7 +145,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState readRelationship(Relationship relationship) {
@@ -163,7 +156,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState removeRelationship(Relationship relationship) {
@@ -173,7 +167,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState removeRelationshipTo(Person spouse) {
@@ -188,7 +183,8 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
 }

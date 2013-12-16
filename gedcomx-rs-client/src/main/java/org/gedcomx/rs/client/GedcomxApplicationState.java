@@ -18,12 +18,9 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import com.sun.jersey.core.header.LinkHeader;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
@@ -33,8 +30,6 @@ import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.EmbeddedLinkLoader;
 import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
-import org.gedcomx.rt.json.GedcomJsonProvider;
-import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.EntityTag;
@@ -51,6 +46,7 @@ public abstract class GedcomxApplicationState<E> {
 
   protected static final EmbeddedLinkLoader DEFAULT_EMBEDDED_LINK_LOADER = new EmbeddedLinkLoader();
 
+  protected final StateFactory stateFactory;
   protected final Map<String, Link> links;
   protected final Client client;
   protected final ClientRequest request;
@@ -58,11 +54,12 @@ public abstract class GedcomxApplicationState<E> {
   protected final E entity;
   protected String accessToken;
 
-  protected GedcomxApplicationState(ClientRequest request, Client client, String accessToken) {
-    this.client = client;
-    this.accessToken = accessToken;
+  protected GedcomxApplicationState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     this.request = request;
-    this.response = invoke(this.request);
+    this.response = response;
+    this.client = response.getClient();
+    this.accessToken = accessToken;
+    this.stateFactory = stateFactory;
     this.entity = loadEntity(this.response);
     List<Link> links = loadLinks(this.response, this.entity);
     this.links = new TreeMap<String, Link>();
@@ -71,11 +68,7 @@ public abstract class GedcomxApplicationState<E> {
     }
   }
 
-  protected static Client loadDefaultClient() {
-    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class, JacksonJsonProvider.class));
-  }
-
-  protected abstract GedcomxApplicationState newApplicationState(ClientRequest request, Client client, String accessToken);
+  protected abstract GedcomxApplicationState clone(ClientRequest request, ClientResponse response);
 
   protected abstract E loadEntity(ClientResponse response);
 
@@ -172,19 +165,23 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public GedcomxApplicationState head() {
-    return newApplicationState(createSelfRequest().build(getSelfUri(), HttpMethod.HEAD), this.client, this.accessToken);
+    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.HEAD);
+    return clone(request, invoke(request));
   }
 
   public GedcomxApplicationState get() {
-    return newApplicationState(createSelfRequest().build(getSelfUri(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.GET);
+    return clone(request, invoke(request));
   }
 
   public GedcomxApplicationState delete() {
-    return newApplicationState(createSelfRequest().build(getSelfUri(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.DELETE);
+    return clone(request, invoke(request));
   }
 
   public GedcomxApplicationState put(E entity) {
-    return newApplicationState(createSelfRequest().entity(entity).build(getSelfUri(), HttpMethod.PUT), this.client, this.accessToken);
+    ClientRequest request = createSelfRequest().entity(entity).build(getSelfUri(), HttpMethod.PUT);
+    return clone(request, invoke(request));
   }
 
   public List<HttpWarning> getWarnings() {
@@ -292,7 +289,8 @@ public abstract class GedcomxApplicationState<E> {
       return null;
     }
 
-    return newApplicationState(createAuthenticatedRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return clone(request, invoke(request));
   }
 
   protected GedcomxApplicationState readNextPage() {

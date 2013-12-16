@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client;
+package org.familysearch.api.client.ft;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
+import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.FamilySearchCollectionState;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.RelationshipState;
@@ -29,36 +32,20 @@ import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
-import java.net.URI;
+import java.util.Arrays;
 
 /**
  * @author Ryan Heaton
  */
-public class FamilyTreeCollectionState extends CollectionState {
+public class FamilyTreeCollectionState extends FamilySearchCollectionState {
 
-  public FamilyTreeCollectionState() {
-    this(URI.create("https://familysearch.org/platform/collections/tree"));
-  }
-
-  public FamilyTreeCollectionState(URI discoveryUri) {
-    super(discoveryUri);
-  }
-
-  public FamilyTreeCollectionState(URI discoveryUri, Client client) {
-    super(discoveryUri, client);
-  }
-
-  public FamilyTreeCollectionState(URI discoveryUri, Client client, String method) {
-    super(discoveryUri, client, method);
-  }
-
-  public FamilyTreeCollectionState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected FamilyTreeCollectionState(ClientRequest request, ClientResponse client, String accessToken, FamilyTreeStateFactory stateFactory) {
+    super(request, client, accessToken, stateFactory);
   }
 
   @Override
-  protected FamilyTreeCollectionState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new FamilyTreeCollectionState(request, client, accessToken);
+  protected FamilyTreeCollectionState clone(ClientRequest request, ClientResponse response) {
+    return new FamilyTreeCollectionState(request, response, this.accessToken, (FamilyTreeStateFactory) this.stateFactory);
   }
 
   @Override
@@ -117,24 +104,40 @@ public class FamilyTreeCollectionState extends CollectionState {
   }
 
   @Override
-  public RelationshipState addParentChildRelationship(PersonState parent, PersonState child) {
-    throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding two-person parent-child relationships.");
+  public FamilySearchCollectionState readCollection() {
+    return (FamilySearchCollectionState) super.readCollection();
   }
 
   @Override
   public RelationshipState addRelationship(Relationship relationship) {
     if (relationship.getKnownType() == RelationshipType.ParentChild) {
-      throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding two-person parent-child relationships.");
+      throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding parent-child relationships. You must instead add a child-and-parents relationship.");
     }
     return super.addRelationship(relationship);
   }
 
-  public UserState readCurrentUser() {
-    Link link = getLink(Rel.CURRENT_USER);
+  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother) {
+    ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
+    chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
+    if (father != null) {
+      chap.setFather(new ResourceReference(new org.gedcomx.common.URI(father.getSelfUri().toString())));
+    }
+    if (mother != null) {
+      chap.setMother(new ResourceReference(new org.gedcomx.common.URI(mother.getSelfUri().toString())));
+    }
+    return addChildAndParentsRelationship(chap);
+  }
+
+  public ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap) {
+    Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
     if (link == null || link.getHref() == null) {
-      return null;
+      throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
     }
 
-    return new UserState(RequestUtil.applyFamilySearchContent(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    FamilySearchPlatform entity = new FamilySearchPlatform();
+    entity.setChildAndParentsRelationships(Arrays.asList(chap));
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(getSelfUri(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
+
 }

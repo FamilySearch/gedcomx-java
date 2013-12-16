@@ -15,7 +15,6 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -25,10 +24,8 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -36,21 +33,13 @@ import java.util.List;
  */
 public class PersonChildrenState extends GedcomxApplicationState<Gedcomx> {
 
-  public PersonChildrenState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public PersonChildrenState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public PersonChildrenState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected PersonChildrenState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected PersonChildrenState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new PersonChildrenState(request, client, accessToken);
+  protected PersonChildrenState clone(ClientRequest request, ClientResponse response) {
+    return new PersonChildrenState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -118,7 +107,8 @@ public class PersonChildrenState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState readChild(Person person) {
@@ -128,7 +118,8 @@ public class PersonChildrenState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState readRelationship(Relationship relationship) {
@@ -138,7 +129,8 @@ public class PersonChildrenState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState removeRelationship(Relationship relationship) {
@@ -148,7 +140,8 @@ public class PersonChildrenState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState removeRelationshipTo(Person child) {
@@ -163,7 +156,8 @@ public class PersonChildrenState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
     }
 
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
 }

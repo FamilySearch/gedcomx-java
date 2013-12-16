@@ -15,7 +15,6 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -24,11 +23,9 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -36,21 +33,13 @@ import java.util.List;
  */
 public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
 
-  public RelationshipsState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public RelationshipsState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public RelationshipsState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected RelationshipsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected RelationshipsState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new RelationshipsState(request, client, accessToken);
+  protected RelationshipsState clone(ClientRequest request, ClientResponse response) {
+    return new RelationshipsState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -118,7 +107,8 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2) {
@@ -140,7 +130,8 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   public RelationshipState addRelationship(Relationship relationship) {
     Gedcomx entity = new Gedcomx();
     entity.addRelationship(relationship);
-    return new RelationshipState(createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
 }

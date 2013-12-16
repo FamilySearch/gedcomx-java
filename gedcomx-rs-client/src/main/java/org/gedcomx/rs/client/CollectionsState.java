@@ -15,7 +15,6 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -23,7 +22,6 @@ import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
@@ -34,21 +32,13 @@ import java.util.List;
  */
 public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
 
-  public CollectionsState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public CollectionsState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public CollectionsState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected CollectionsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected CollectionsState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new CollectionsState(request, client, accessToken);
+  protected CollectionsState clone(ClientRequest request, ClientResponse response) {
+    return new CollectionsState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -96,7 +86,8 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
   }
 
   public CollectionState readCollection() {
@@ -105,7 +96,8 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
   }
 
   public CollectionState addCollection(Collection collection) {
@@ -113,7 +105,8 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
     URI href = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
     href = href == null ? getUri() : href;
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST), this.client, this.accessToken).ifSuccessful();
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken).ifSuccessful();
   }
 
   @Override

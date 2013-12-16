@@ -15,7 +15,6 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.atom.Entry;
@@ -32,13 +31,13 @@ import javax.ws.rs.HttpMethod;
  */
 public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
 
-  protected PersonSearchResultsState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected PersonSearchResultsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected PersonSearchResultsState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new PersonSearchResultsState(request, client, accessToken);
+  protected PersonSearchResultsState clone(ClientRequest request, ClientResponse response) {
+    return new PersonSearchResultsState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -87,7 +86,8 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState readPerson(Person person) {
@@ -97,7 +97,8 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
       return null;
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   @Override

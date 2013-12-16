@@ -15,16 +15,13 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
-import java.net.URI;
 import java.util.Arrays;
 
 /**
@@ -32,21 +29,13 @@ import java.util.Arrays;
  */
 public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
 
-  public SourceDescriptionState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public SourceDescriptionState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public SourceDescriptionState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected SourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected SourceDescriptionState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new SourceDescriptionState(request, client, accessToken);
+  protected SourceDescriptionState clone(ClientRequest request, ClientResponse response) {
+    return new SourceDescriptionState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -91,7 +80,8 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   public SourceDescriptionState update(SourceDescription description) {
     Gedcomx entity = new Gedcomx();
     entity.setSourceDescriptions(Arrays.asList(description));
-    return new SourceDescriptionState(createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request), this.accessToken);
   }
 
 }

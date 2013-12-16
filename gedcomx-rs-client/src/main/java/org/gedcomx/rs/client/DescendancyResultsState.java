@@ -15,37 +15,24 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.util.DescendancyTree;
-import org.gedcomx.rt.GedcomxConstants;
-
-import javax.ws.rs.HttpMethod;
-import java.net.URI;
 
 /**
  * @author Ryan Heaton
  */
 public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx> {
 
-  public DescendancyResultsState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public DescendancyResultsState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public DescendancyResultsState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected DescendancyResultsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected DescendancyResultsState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new DescendancyResultsState(request, client, accessToken);
+  protected DescendancyResultsState clone(ClientRequest request, ClientResponse response) {
+    return new DescendancyResultsState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override

@@ -15,7 +15,6 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -26,7 +25,6 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.RelationshipType;
 
@@ -43,25 +41,13 @@ import java.util.List;
  */
 public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
-  public PersonState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public PersonState(URI discoveryUri, Client client) {
-    this(discoveryUri, client, HttpMethod.GET);
-  }
-
-  public PersonState(URI discoveryUri, Client client, String httpMethod) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, httpMethod), client, null);
-  }
-
-  public PersonState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  protected PersonState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected PersonState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new PersonState(request, client, accessToken);
+  protected PersonState clone(ClientRequest request, ClientResponse response) {
+    return new PersonState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
@@ -235,7 +221,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new CollectionState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
   }
 
   public AncestryResultsState readAncestry() {
@@ -244,7 +231,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new AncestryResultsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newAncestryResultsState(request, invoke(request), this.accessToken);
   }
 
   public DescendancyResultsState readDescendancy() {
@@ -253,7 +241,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new DescendancyResultsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newDescendancyResultsState(request, invoke(request), this.accessToken);
   }
 
   public PersonState loadEmbeddedResources() {
@@ -375,7 +364,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setPersons(Arrays.asList(person));
-    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
   
   public PersonState deleteName(Name name) {
@@ -397,7 +387,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState addSourceReference(SourceDescriptionState source) {
@@ -435,7 +426,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setPersons(Arrays.asList(person));
-    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState deleteSourceReference(SourceReference reference) {
@@ -445,7 +437,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState addMediaReference(SourceDescriptionState description) {
@@ -483,7 +476,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setPersons(Arrays.asList(person));
-    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState deleteMediaReference(SourceReference reference) {
@@ -493,7 +487,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState addEvidenceReference(PersonState evidence) {
@@ -531,7 +526,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setPersons(Arrays.asList(person));
-    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState deleteEvidenceReference(EvidenceReference reference) {
@@ -541,7 +537,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState readNote(Note note) {
@@ -551,7 +548,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Note cannot be read: missing link.");
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState addNote(Note note) {
@@ -583,7 +581,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     Gedcomx gx = new Gedcomx();
     gx.setPersons(Arrays.asList(person));
-    return new PersonState(createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
   public PersonState deleteNote(Note note) {
@@ -593,7 +592,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
     }
 
-    return new PersonState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
   
   public RelationshipState readRelationship(Relationship relationship) {
@@ -602,8 +602,9 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     if (link == null || link.getHref() == null) {
       return null;
     }
-    
-    return new RelationshipState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
   public PersonState readRelative(Relationship relationship) {
@@ -617,8 +618,9 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     if (reference == null || reference.getResource() == null) {
       return null;
     }
-    
-    return new PersonState(createAuthenticatedGedcomxRequest().build(reference.getResource().toURI(), HttpMethod.GET), this.client, this.accessToken);
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(reference.getResource().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
   
   public PersonState readFirstSpouse() {
@@ -643,7 +645,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonSpousesState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonSpousesState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addSpouse(PersonState person) {
@@ -677,7 +680,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonChildrenState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonChildrenState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addChild(PersonState person) {
@@ -711,7 +715,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    return new PersonParentsState(createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET), this.client, this.accessToken);
+    ClientRequest requset = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonParentsState(requset, invoke(request), this.accessToken);
   }
 
   public RelationshipState addParent(PersonState person) {

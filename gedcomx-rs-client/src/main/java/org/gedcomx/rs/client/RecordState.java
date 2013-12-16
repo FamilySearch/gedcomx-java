@@ -15,36 +15,23 @@
  */
 package org.gedcomx.rs.client;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rt.GedcomxConstants;
-
-import javax.ws.rs.HttpMethod;
-import java.net.URI;
 
 /**
  * @author Ryan Heaton
  */
 public class RecordState extends GedcomxApplicationState<Gedcomx> {
 
-  public RecordState(URI discoveryUri) {
-    this(discoveryUri, loadDefaultClient());
-  }
-
-  public RecordState(URI discoveryUri, Client client) {
-    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, HttpMethod.GET), client, null);
-  }
-
-  public RecordState(ClientRequest request, Client client, String accessToken) {
-    super(request, client, accessToken);
+  public RecordState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+    super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected RecordState newApplicationState(ClientRequest request, Client client, String accessToken) {
-    return new RecordState(request, client, accessToken);
+  protected RecordState clone(ClientRequest request, ClientResponse response) {
+    return new RecordState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override

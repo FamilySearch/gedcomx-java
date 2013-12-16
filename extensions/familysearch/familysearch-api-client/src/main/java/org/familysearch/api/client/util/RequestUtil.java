@@ -8,7 +8,7 @@ import org.familysearch.platform.FamilySearchConstants;
  */
 public class RequestUtil {
 
-  public static ClientRequest.Builder applyFamilySearchContent(ClientRequest.Builder request) {
+  public static ClientRequest.Builder applyFamilySearchConneg(ClientRequest.Builder request) {
     return request.accept(FamilySearchConstants.FS_PLATFORM_V1_JSON_MEDIA_TYPE).type(FamilySearchConstants.FS_PLATFORM_V1_JSON_MEDIA_TYPE);
   }
 }
