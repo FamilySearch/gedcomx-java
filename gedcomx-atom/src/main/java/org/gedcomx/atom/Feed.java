@@ -21,7 +21,7 @@ import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.records.Facet;
+import org.gedcomx.records.Field;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.MediaTypeDefinition;
 import org.gedcomx.rt.Model;
@@ -79,7 +79,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   private String title;
   private Date updated;
   private List<Entry> entries;
-  private List<Facet> facets;
+  private List<Field> facets; //todo: facets need to be nested?
 
   /**
    * The author of the feed.
@@ -433,7 +433,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   @XmlElement ( name = "facet" )
   @JsonName ( "facets" )
   @JsonProperty ( "facets" )
-  public List<Facet> getFacets() {
+  public List<Field> getFacets() {
     return facets;
   }
 
@@ -443,7 +443,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @param facets The list of facets for the feed, used for convenience in browsing and filtering.
    */
   @JsonProperty ( "facets" )
-  public void setFacets(List<Facet> facets) {
+  public void setFacets(List<Field> facets) {
     this.facets = facets;
   }
 

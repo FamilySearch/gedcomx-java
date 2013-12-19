@@ -49,8 +49,6 @@ public interface GedcomxModelVisitor {
 
   void visitCollection(Collection collection);
 
-  void visitFacet(Facet facet);
-
   void visitRecordDescriptor(RecordDescriptor recordDescriptor);
 
   void visitField(Field field);

@@ -23,7 +23,6 @@ import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
-import org.gedcomx.source.Coverage;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -49,7 +48,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   private String title;
   private Integer size;
   private Attribution attribution;
-  private List<Facet> facets;
+  private List<Field> facets; //todo: facets need to be nested?
 
   /**
    * The language of this description of the collection. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -152,7 +151,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   @XmlElement ( name = "facet" )
   @JsonName ( "facets" )
   @JsonProperty ( "facets" )
-  public List<Facet> getFacets() {
+  public List<Field> getFacets() {
     return facets;
   }
 
@@ -162,7 +161,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    * @param facets The list of facets for the collection, used for convenience in browsing and filtering.
    */
   @JsonProperty ( "facets" )
-  public void setFacets(List<Facet> facets) {
+  public void setFacets(List<Field> facets) {
     this.facets = facets;
   }
 
@@ -191,7 +190,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
       this.content.addAll(collection.content);
     }
     if (collection.facets != null) {
-      this.facets = this.facets == null ? new ArrayList<Facet>() : this.facets;
+      this.facets = this.facets == null ? new ArrayList<Field>() : this.facets;
       this.facets.addAll(collection.facets);
     }
 

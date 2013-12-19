@@ -20,7 +20,7 @@ import org.gedcomx.atom.Content;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.atom.Person;
-import org.gedcomx.records.Facet;
+import org.gedcomx.records.Field;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -56,9 +56,9 @@ public class AtomModelVisitorBase extends GedcomxModelVisitorBase implements Ato
       }
     }
 
-    List<Facet> facets = feed.getFacets();
+    List<Field> facets = feed.getFacets();
     if (facets != null) {
-      for (Facet facet : facets) {
+      for (Field facet : facets) {
         facet.accept(this);
       }
     }

@@ -23,7 +23,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
-import org.gedcomx.records.FacetTag;
+import org.gedcomx.records.FieldValue;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -63,7 +63,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private Date created;
   private Date modified;
   private List<Coverage> coverage;
-  private List<FacetTag> facets;
+  private List<FieldValue> facets; //todo: facets need to refer to their facet descriptors?
   private ResourceReference repository;
   private ResourceReference descriptorRef;
 
@@ -517,7 +517,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The facets of the resource.
    */
   @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
-  public List<FacetTag> getFacets() {
+  public List<FieldValue> getFacets() {
     return this.facets;
   }
 
@@ -526,7 +526,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param facets The facets of the resource.
    */
-  public void setFacets(List<FacetTag> facets) {
+  public void setFacets(List<FieldValue> facets) {
     this.facets = facets;
   }
 
@@ -621,7 +621,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
       this.coverage.addAll(description.coverage);
     }
     if (description.facets != null) {
-      this.facets = this.facets == null ? new ArrayList<FacetTag>() : this.facets;
+      this.facets = this.facets == null ? new ArrayList<FieldValue>() : this.facets;
       this.facets.addAll(description.facets);
     }
     this.repository = this.repository == null ? description.repository : this.repository;

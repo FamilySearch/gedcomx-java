@@ -218,22 +218,10 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitCollection(Collection collection) {
     this.contextStack.push(collection);
-    List<Facet> facets = collection.getFacets();
+    List<Field> facets = collection.getFacets();
     if (facets != null) {
-      for (Facet facet : facets) {
+      for (Field facet : facets) {
         facet.accept(this);
-      }
-    }
-    this.contextStack.pop();
-  }
-
-  @Override
-  public void visitFacet(Facet facet) {
-    this.contextStack.push(facet);
-    List<Facet> facets = facet.getFacets();
-    if (facets != null) {
-      for (Facet f : facets) {
-        f.accept(this);
       }
     }
     this.contextStack.pop();
