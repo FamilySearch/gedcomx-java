@@ -42,7 +42,6 @@ import org.codehaus.enunciate.template.freemarker.IsDefinedGloballyMethod;
 import org.codehaus.enunciate.template.freemarker.UniqueContentTypesMethod;
 import org.gedcomx.build.enunciate.rdf.RDFProcessor;
 import org.gedcomx.rt.*;
-import org.gedcomx.test.Recipe;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +62,6 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
   private RDFProcessor rdfProcessor;
   private final Map<String, String> primaryNav = new LinkedHashMap<String, String>();
   private boolean disableProcessing = true;
-  private RecipeClasspathHandler recipeManager;
   private String stylesheet;
 
   /**
@@ -198,10 +196,6 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
     return GedcomxDeploymentModule.class.getResource("rdfschema.fmt");
   }
 
-  protected URL getRecipeTemplateURL() {
-    return GedcomxDeploymentModule.class.getResource("recipes.fmt");
-  }
-
   @Override
   public void init(Enunciate enunciate) throws EnunciateException {
     super.init(enunciate);
@@ -217,8 +211,6 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
     }
 
     this.rdfProcessor = new RDFProcessor();
-    this.recipeManager = new RecipeClasspathHandler(enunciate);
-    enunciate.addClasspathHandler(this.recipeManager);
   }
 
   @Override
@@ -394,26 +386,9 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
           }
         }
 
-        List<Recipe> recipes = this.recipeManager.getRecipes();
-        Map<String, List<Recipe>> recipesByFqn = new HashMap<String, List<Recipe>>();
-        for (Recipe recipe : recipes) {
-          for (String modelFqn : recipe.getApplicableTypes()) {
-            List<Recipe> recipeList = recipesByFqn.get(modelFqn);
-            if (recipeList == null) {
-              recipeList = new ArrayList<Recipe>();
-              recipesByFqn.put(modelFqn, recipeList);
-            }
-            recipeList.add(recipe);
-          }
-        }
-
-        model.put("recipes", recipes);
-        model.put("recipesByFqn", recipesByFqn);
-
         if (!isDisableProcessing()) {
           processTemplate(getDocsTemplateURL(), model);
           processTemplate(getCodeTemplateURL(), model);
-          processTemplate(getRecipeTemplateURL(), model);
         }
       }
       catch (TemplateException e) {

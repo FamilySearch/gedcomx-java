@@ -44,13 +44,7 @@
   <div class="container">
     <ol class="breadcrumb">
       <li><a href="Home.html">Home</a></li>
-      <li class="active dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="data-formats.html">Data Formats <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Data Formats</a></li>
-          <li><a href="recipes.html">Recipes</a></li>
-        </ul>
-      </li>
+      <li class="active"><a href="#">Data Formats</a></li>
     </ol>
 
     <div class="page-header">

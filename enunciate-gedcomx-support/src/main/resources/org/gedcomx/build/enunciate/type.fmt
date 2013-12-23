@@ -10,13 +10,7 @@
   <div class="container">
     <ol class="breadcrumb">
       <li><a href="Home.html">Home</a></li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="data-formats.html">Data Formats <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="data-formats.html">Data Formats</a></li>
-          <li><a href="recipes.html">Recipes</a></li>
-        </ul>
-      </li>
+      <li><a href="data-formats.html">Data Formats</a></li>
       [#if schema.properties.mediaType??]
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="mt_${schema.properties.mediaType.id}_xml.html">${schema.properties.mediaType.name} XML <span class="caret"></span></a>
@@ -210,13 +204,7 @@ ${generateExampleXml(type)?html}
   <div class="container">
     <ol class="breadcrumb">
       <li><a href="Home.html">Home</a></li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="data-formats.html">Data Formats <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="data-formats.html">Data Formats</a></li>
-          <li><a href="recipes.html">Recipes</a></li>
-        </ul>
-      </li>
+      <li><a href="data-formats.html">Data Formats</a></li>
       [#if schema.properties.mediaType??]
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="mt_${schema.properties.mediaType.id}_json.html">${schema.properties.mediaType.name} JSON <span class="caret"></span></a>
