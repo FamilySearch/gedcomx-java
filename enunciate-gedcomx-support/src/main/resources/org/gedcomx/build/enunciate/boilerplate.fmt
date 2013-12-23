@@ -34,7 +34,12 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">GEDCOM X</a>
+    <a href="Home.html">
+      <ul class="nav navbar-nav">
+        <li><img src="gxlogo.png"></li>
+        <li class="navbar-brand">GEDCOM X</li>
+      </ul>
+    </a>
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
