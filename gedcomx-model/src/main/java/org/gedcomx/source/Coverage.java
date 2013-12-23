@@ -15,12 +15,14 @@
  */
 package org.gedcomx.source;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.conclusion.PlaceReference;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.RecordType;
 
@@ -83,6 +85,7 @@ public class Coverage extends HypermediaEnabledData {
    *
    * @return The type of record being covered.
    */
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   @XmlQNameEnumRef(RecordType.class)
   public URI getRecordType() {
     return recordType;
