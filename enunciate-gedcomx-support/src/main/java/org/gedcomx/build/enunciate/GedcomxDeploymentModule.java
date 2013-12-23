@@ -62,7 +62,7 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
   private final Map<String, String> baseProjectUris = new HashMap<String, String>();
   private RDFProcessor rdfProcessor;
   private final Map<String, String> primaryNav = new LinkedHashMap<String, String>();
-  private boolean disableProcessing = false;
+  private boolean disableProcessing = true;
   private RecipeClasspathHandler recipeManager;
   private String stylesheet;
 

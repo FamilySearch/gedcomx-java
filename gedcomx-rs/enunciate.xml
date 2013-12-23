@@ -8,7 +8,7 @@
     <!--disable the standard docs module, we're using the gedcomx-support module to generate docs.-->
     <docs disabled="true"/>
 
-    <gedcomx projectId="gedcomx-rs" projectLabelModifier="RS" stylesheet="../rs-style.css">
+    <gedcomx projectId="gedcomx-rs" projectLabelModifier="RS" stylesheet="../rs-style.css" disableProcessing="false">
       <project id="gedcomx" baseUri="http://www.gedcomx.org/"/>
       <project id="gedcomx-rs" baseUri="http://rs.gedcomx.org/"/>
     </gedcomx>

@@ -32,14 +32,14 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 /**
- * The GEDCOM X bulk record media types are used to exchange bulk genealogical data sets, grouped into records.
+ * The GEDCOM X bulk record data formats are used to exchange bulk genealogical data sets, grouped into records.
  *
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
   id = "gxrecs",
   name = "GEDCOM X Record Set",
-  description = "The GEDCOM X record set media type is used to exchange multiple, distinct genealogical data sets.",
+  description = "The GEDCOM X record set data format is used to exchange multiple, distinct genealogical data sets.",
   version = "1.0",
   xmlMediaType = GedcomxConstants.GEDCOMX_RECORDSET_XML_MEDIA_TYPE,
   jsonMediaType = GedcomxConstants.GEDCOMX_RECORDSET_JSON_MEDIA_TYPE,

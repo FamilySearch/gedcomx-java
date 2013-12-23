@@ -54,18 +54,16 @@ public class FindTargetResourceMethod implements TemplateMethodModelEx {
     }
 
     StateTransition link = (StateTransition) unwrapped;
-    if (link.getTargetResourceQualifiedName() == null) {
-      throw new TemplateModelException("Unable to find the target resource for link rel=\"" + link.getRel() + "\": no 'targetResource' supplied.");
-    }
-
-    Collection<ResourceDefinitionDeclaration> defs = this.processor.getResourceDefinitions();
-    for (ResourceDefinitionDeclaration def : defs) {
-      if (link.getTargetResourceQualifiedName().equals(def.getQualifiedName())) {
-        return def;
+    if (link.getTargetResourceQualifiedName() != null) {
+      Collection<ResourceDefinitionDeclaration> defs = this.processor.getResourceDefinitions();
+      for (ResourceDefinitionDeclaration def : defs) {
+        if (link.getTargetResourceQualifiedName().equals(def.getQualifiedName())) {
+          return def;
+        }
       }
     }
 
-    throw new TemplateModelException("Unable to find the target resource for link rel=\"" + link.getRel() + "\": " + link.getTargetResourceQualifiedName() + " doesn't appear to be a resource definition.");
+    return null;
   }
 
 }

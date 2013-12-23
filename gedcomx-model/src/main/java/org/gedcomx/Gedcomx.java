@@ -42,7 +42,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <p>The GEDCOM X media types define the serialization formats of the GEDCOM X conceptual model. The canonical documentation
+ * <p>The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation
  * is provided by the formal specification documents:</p>
  *
  * <ul>
@@ -58,7 +58,7 @@ import java.util.List;
 @MediaTypeDefinition (
   id = "gx",
   name = "GEDCOM X",
-  description = "The GEDCOM X media types define the serialization formats of the GEDCOM X conceptual model.",
+  description = "The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model.",
   version = "1.0",
   xmlMediaType = GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE,
   jsonMediaType = GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE,

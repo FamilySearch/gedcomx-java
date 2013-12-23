@@ -36,8 +36,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>The Atom media types provide a format for web content and metadata syndication. The XML media type is defined by
- * <a href="http://tools.ietf.org/html/rfc4287#section-4">RFC 4287</a>. The JSON media type is specific to GEDCOM X and is a
+ * <p>The Atom data formats provide a format for web content and metadata syndication. The XML media type is defined by
+ * <a href="http://tools.ietf.org/html/rfc4287#section-4">RFC 4287</a>. The JSON data format is specific to GEDCOM X and is a
  * translation to JSON from the XML.</p>
  *
  * @author Ryan Heaton
@@ -45,7 +45,7 @@ import java.util.List;
 @MediaTypeDefinition (
   id = "atom",
   name = "Atom",
-  description = "The Atom media types provide a format for web content and metadata syndication.",
+  description = "The Atom data formats provide a format for web content and metadata syndication.",
   version = "1.0",
   xmlMediaType = AtomModel.ATOM_XML_MEDIA_TYPE,
   jsonMediaType = AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE,

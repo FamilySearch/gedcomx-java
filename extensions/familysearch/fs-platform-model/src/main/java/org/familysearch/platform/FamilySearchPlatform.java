@@ -37,8 +37,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <p>The FamilySearch media types define serialization formats that are specific the FamilySearch developer platform. These
- * media types are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
+ * <p>The FamilySearch data types define serialization formats that are specific the FamilySearch developer platform. These
+ * data formats are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
  * that are specific to FamilySearch and therefore haven't been adopted into a formal, more general specification.</p>
  *
  * @author Ryan Heaton
@@ -46,7 +46,7 @@ import java.util.List;
 @MediaTypeDefinition (
   id = "fs",
   name = "FamilySearch",
-  description = "The FamilySearch media types define serialization formats that are specific the FamilySearch developer platform.",
+  description = "The FamilySearch data formats define serialization formats that are specific the FamilySearch developer API.",
   version = "1.0",
   xmlMediaType = FamilySearchConstants.FS_PLATFORM_V1_XML_MEDIA_TYPE,
   jsonMediaType = FamilySearchConstants.FS_PLATFORM_V1_JSON_MEDIA_TYPE,

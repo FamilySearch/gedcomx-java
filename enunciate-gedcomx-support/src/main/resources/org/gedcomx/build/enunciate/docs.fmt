@@ -1,6 +1,6 @@
 [#ftl]
 [#-- @ftlvariable name="schema" type="org.codehaus.enunciate.config.SchemaInfo" --]
-[#import "mediatype.fmt" as libMediaType/]
+[#import "dataformat.fmt" as libMediaType/]
 [#import "element.fmt" as libElement/]
 [#import "type.fmt" as libType/]
 [#import "boilerplate.fmt" as libBoilerplate/]
@@ -38,80 +38,99 @@
     [/#if]
   [/#if]
 [/#list]
-[@file name="media-types.html" charset="utf-8"]
-  [@libBoilerplate.writeStartBody label="Media Types"/]
+[@file name="data-formats.html" charset="utf-8"]
+  [@libBoilerplate.writeStartBody label="Data Formats"/]
+  [@libBoilerplate.writeHeader/]
   <div class="container">
-    [@libBoilerplate.writeHeader]
-      <ul class="xbreadcrumbs" id="breadcrumbs">
-        <li><a href="Home.html" class="home">Home</a></li>
-        <li class="current">
-          <a href="media-types.html">Media Types</a>
-          <ul>
-            <li><a href="#">Media Types</a></li>
-            <li><a href="recipes.html">Recipes</a></li>
-          </ul>
-        </li>
-      </ul>
-    [/@libBoilerplate.writeHeader]
-    <div id="main" class="column first last span-20">
-      <h1>GEDCOM X[#if projectLabelModifier??] ${projectLabelModifier}[/#if] Media Types</h1>
+    <ol class="breadcrumb">
+      <li><a href="Home.html">Home</a></li>
+      <li class="active dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="data-formats.html">Data Formats <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Data Formats</a></li>
+          <li><a href="recipes.html">Recipes</a></li>
+        </ul>
+      </li>
+    </ol>
 
-      <hr/>
+    <div class="page-header">
+      <h1>GEDCOM X[#if projectLabelModifier??] ${projectLabelModifier}[/#if] Data Formats</h1>
+    </div>
+
     [#list mediaTypeDeclarations as mt]
       [#if (mt.projectId = projectId)]
         [#if mt.jsonMediaType??]
 
-      <h3><a href="mt_${mt.id}_json.html">${mt.name} (JSON)</a></h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <p class="lead"><a href="mt_${mt.id}_json.html">${mt.name} (JSON)</a></p>
+      </div>
+      <div class="panel-body">
 
-      <p>${mt.description}</p>
+    <p>${mt.description}</p>
 
-      <table>
+    <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
         [#if mt.version??]
-        <tr>
-          <td align="right">Version:</td>
-          <td>${mt.version}</td>
-        </tr>
+        <th>version</th>
         [/#if]
-        <tr>
-          <td align="right">Media Type:</td>
-          <td>${mt.jsonMediaType}</td>
-        </tr>
-        <tr>
-          <td align="right">Root Element:</td>
-          <td><a href="${ns2prefix[mt.rootElement.namespace]}_el_${mt.rootElement.name}_json.html">${mt.rootElement.name}</a></td>
-        </tr>
-      </table>
+        <th>data format</th>
+        <th>root element</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        [#if mt.version??]
+        <td>${mt.version}</td>
+        [/#if]
+        <td>${mt.jsonMediaType}</td>
+        <td><a class="btn btn-info" href="${ns2prefix[mt.rootElement.namespace]}_el_${mt.rootElement.name}_json.html">${mt.rootElement.name}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
         [/#if]
         [#if mt.xmlMediaType??]
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <p class="lead"><a href="mt_${mt.id}_xml.html">${mt.name} (XML)</a></p>
+          </div>
+          <div class="panel-body">
 
-      <h3><a href="mt_${mt.id}_xml.html">${mt.name} (XML)</a></h3>
+    <p>${mt.description}</p>
 
-      <p>${mt.description}</p>
-
-      <table>
+    <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
         [#if mt.version??]
-        <tr>
-          <td align="right">Version:</td>
-          <td>${mt.version}</td>
-        </tr>
+        <th>version</th>
         [/#if]
-        <tr>
-          <td align="right">Media Type:</td>
-          <td>${mt.xmlMediaType}</td>
-        </tr>
-        <tr>
-          <td align="right">Root Element:</td>
-          <td><a href="${ns2prefix[mt.rootElement.namespace]}_el_${mt.rootElement.name}_xml.html">${mt.rootElement.name}</a></td>
-        </tr>
-      </table>
+        <th>data format</th>
+        <th>root element</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        [#if mt.version??]
+        <td>${mt.version}</td>
+        [/#if]
+        <td>${mt.xmlMediaType}</td>
+        <td><a class="btn btn-info" href="${ns2prefix[mt.rootElement.namespace]}_el_${mt.rootElement.name}_xml.html">${mt.rootElement.name}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
         [/#if]
       [/#if]
     [/#list]
-
-      <div class="clear" />
-    </div>
-    [@libBoilerplate.writeFooter/]
+  [@libBoilerplate.writeFooter/]
   </div> <!--! end of #container -->
-
   [@libBoilerplate.writeEndBody/]
 [/@file]

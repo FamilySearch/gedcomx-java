@@ -15,7 +15,7 @@
  */
 
 /**
- * The base GEDCOM X media type.
+ * The base GEDCOM X data format.
  */
 @XmlSchema(
   namespace = GedcomxConstants.GEDCOMX_NAMESPACE,

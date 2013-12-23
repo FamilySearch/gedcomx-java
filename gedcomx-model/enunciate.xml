@@ -8,6 +8,8 @@
     <!--disable the standard docs module, we're using the gedcomx-support module to generate docs.-->
     <docs disabled="true"/>
 
+    <gedcomx disableProcessing="false"/>
+
     <c forceEnable="true"/>
     <obj-c forceEnable="true"/>
     <java-client generateJsonJar="true"/>

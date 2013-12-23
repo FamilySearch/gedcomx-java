@@ -10,7 +10,7 @@
         <li>
           <a href="application-states.html">Application States</a>
           <ul>
-            <li><a href="media-types.html">Media Types</a></li>
+            <li><a href="data-formats.html">Data Formats</a></li>
             <li><a href="application-states.html">Application States</a></li>
           </ul>
         </li>
@@ -36,7 +36,7 @@
         </tr>
         [#if state.resourceElements?size > 0]
           <tr>
-            <td align="right">Media Types:</td>
+            <td align="right">Data Formats:</td>
             <td>
               <ul>
                 [#list state.resourceElements as resourceElement]
@@ -68,10 +68,10 @@
           <th>Description</th>
         </tr>
         [#list state.transitions as link]
-          [#assign targetState=findTargetResource(link)/]
+          [#assign targetState=findTargetResource(link)!({})/]
           <tr>
             <td>${link.rel}</td>
-            <td><a href="${targetState.systemId}-state.html">${targetState.name}</a></td>
+            <td>[#if targetState?? && targetState.systemId??]<a href="${targetState.systemId}-state.html">${targetState.name}</a>[/#if]</td>
             <td>${link.description}</td>
           </tr>
         [/#list]
