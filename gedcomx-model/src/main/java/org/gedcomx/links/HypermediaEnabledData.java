@@ -63,6 +63,29 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
   }
 
   /**
+   * Build up this data with a link.
+   *
+   * @param link The link.
+   * @return this.
+   */
+  public HypermediaEnabledData link(Link link) {
+    addLink(link);
+    return this;
+  }
+
+  /**
+   * Build up this data with a link.
+   *
+   * @param rel The rel.
+   * @param href The href.
+   * @return this.
+   */
+  public HypermediaEnabledData link(String rel, URI href) {
+    addLink(rel, href);
+    return this;
+  }
+
+  /**
    * Add a hypermedia link. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    *
    * @param link The hypermedia link. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.

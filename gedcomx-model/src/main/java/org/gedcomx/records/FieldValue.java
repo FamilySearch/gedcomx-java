@@ -17,10 +17,18 @@ package org.gedcomx.records;
 
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
+import org.gedcomx.conclusion.Document;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.FieldValueType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -51,6 +59,71 @@ public final class FieldValue extends Conclusion {
     this.text = text;
   }
 
+  @Override
+  public FieldValue id(String id) {
+    return (FieldValue) super.id(id);
+  }
+
+  @Override
+  public FieldValue link(String rel, URI href) {
+    return (FieldValue) super.link(rel, href);
+  }
+
+  @Override
+  public FieldValue link(Link link) {
+    return (FieldValue) super.link(link);
+  }
+
+  @Override
+  public FieldValue lang(String lang) {
+    return (FieldValue) super.lang(lang);
+  }
+
+  @Override
+  public FieldValue confidence(URI confidence) {
+    return (FieldValue) super.confidence(confidence);
+  }
+
+  @Override
+  public FieldValue confidence(ConfidenceLevel confidence) {
+    return (FieldValue) super.confidence(confidence);
+  }
+
+  @Override
+  public FieldValue source(SourceReference sourceReference) {
+    return (FieldValue) super.source(sourceReference);
+  }
+
+  @Override
+  public FieldValue source(SourceDescription source) {
+    return (FieldValue) super.source(source);
+  }
+
+  @Override
+  public FieldValue note(Note note) {
+    return (FieldValue) super.note(note);
+  }
+
+  @Override
+  public FieldValue attribution(Attribution attribution) {
+    return (FieldValue) super.attribution(attribution);
+  }
+
+  @Override
+  public FieldValue analysis(ResourceReference analysis) {
+    return (FieldValue) super.analysis(analysis);
+  }
+
+  @Override
+  public FieldValue analysis(Document analysis) {
+    return (FieldValue) super.analysis(analysis);
+  }
+
+  @Override
+  public FieldValue analysis(URI analysis) {
+    return (FieldValue) super.analysis(analysis);
+  }
+
   /**
    * The type of the field value.
    *
@@ -69,6 +142,28 @@ public final class FieldValue extends Conclusion {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build out this field value with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public FieldValue type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build out this field value with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public FieldValue type(FieldValueType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -112,6 +207,17 @@ public final class FieldValue extends Conclusion {
   }
 
   /**
+   * Build out this field value with a label id.
+   *
+   * @param labelId The label id.
+   * @return this.
+   */
+  public FieldValue labelId(String labelId) {
+    setLabelId(labelId);
+    return this;
+  }
+
+  /**
    * The text value.
    *
    * @return The text value.
@@ -127,6 +233,16 @@ public final class FieldValue extends Conclusion {
    */
   public void setText(String text) {
     this.text = text;
+  }
+
+  /**
+   * Build out this field value with text.
+   * @param text the text.
+   * @return this.
+   */
+  public FieldValue text(String text) {
+    setText(text);
+    return this;
   }
 
   /**
@@ -149,6 +265,16 @@ public final class FieldValue extends Conclusion {
   }
 
   /**
+   * Build out this field value with a data type.
+   * @param datatype The data type.
+   * @return this
+   */
+  public FieldValue datatype(URI datatype) {
+    setDatatype(datatype);
+    return this;
+  }
+
+  /**
    * URI that resolves to the value of the field.
    *
    * @return URI that resolves to the value of the field.
@@ -165,6 +291,16 @@ public final class FieldValue extends Conclusion {
    */
   public void setResource(URI resource) {
     this.resource = resource;
+  }
+
+  /**
+   * Build out this field value with a resource.
+   * @param resource The resource.
+   * @return this.
+   */
+  public FieldValue resource(URI resource) {
+    setResource(resource);
+    return this;
   }
 
   /**

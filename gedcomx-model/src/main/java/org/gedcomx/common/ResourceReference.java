@@ -75,6 +75,17 @@ public final class ResourceReference {
   }
 
   /**
+   * Build up this resource reference with a resource id.
+   *
+   * @param resourceId The resource id.
+   * @return this.
+   */
+  public ResourceReference resourceId(String resourceId) {
+    setResourceId(resourceId);
+    return this;
+  }
+
+  /**
    * The URI to the resource. For more information, see <a href="http://www.w3.org/TR/webarch/#identification">Architecture of the World
    * Wide Web, Volume One, Section 2</a>
    *
@@ -96,6 +107,17 @@ public final class ResourceReference {
    */
   public void setResource(URI resource) {
     this.resource = resource;
+  }
+
+  /**
+   * Build up this resource reference with a resource.
+   *
+   * @param resource The resource.
+   * @return this.
+   */
+  public ResourceReference resource(URI resource) {
+    setResource(resource);
+    return this;
   }
 
   /**

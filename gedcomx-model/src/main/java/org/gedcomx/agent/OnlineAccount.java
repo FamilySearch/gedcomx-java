@@ -31,6 +31,11 @@ public class OnlineAccount extends ExtensibleData {
   private ResourceReference serviceHomepage;
   private String accountName;
 
+  @Override
+  public OnlineAccount id(String id) {
+    return (OnlineAccount) super.id(id);
+  }
+
   /**
    * The homepage of the service that provides this account.
    *
@@ -47,6 +52,17 @@ public class OnlineAccount extends ExtensibleData {
    */
   public void setServiceHomepage(ResourceReference serviceHomepage) {
     this.serviceHomepage = serviceHomepage;
+  }
+
+  /**
+   * Build up this online account with a service homepage.
+   *
+   * @param serviceHomepage The service homepage.
+   * @return this.
+   */
+  public OnlineAccount serviceHomepage(ResourceReference serviceHomepage) {
+    this.serviceHomepage = serviceHomepage;
+    return this;
   }
 
   /**
@@ -67,4 +83,13 @@ public class OnlineAccount extends ExtensibleData {
     this.accountName = accountName;
   }
 
+  /**
+   * Build up this online account with an account name.
+   *
+   * @param accountName The account name.
+   */
+  public OnlineAccount accountName(String accountName) {
+    this.accountName = accountName;
+    return this;
+  }
 }

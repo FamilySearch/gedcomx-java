@@ -19,11 +19,12 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.Attributable;
-import org.gedcomx.common.EvidenceReference;
-import org.gedcomx.common.URI;
+import org.gedcomx.common.*;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.IdentifierType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -51,6 +52,71 @@ public abstract class Subject extends Conclusion implements Attributable {
   private List<SourceReference> media;
   private List<EvidenceReference> evidence;
 
+  @Override
+  public Subject id(String id) {
+    return (Subject) super.id(id);
+  }
+
+  @Override
+  public Subject link(String rel, URI href) {
+    return (Subject) super.link(rel, href);
+  }
+
+  @Override
+  public Subject link(Link link) {
+    return (Subject) super.link(link);
+  }
+
+  @Override
+  public Subject lang(String lang) {
+    return (Subject) super.lang(lang);
+  }
+
+  @Override
+  public Subject confidence(URI confidence) {
+    return (Subject) super.confidence(confidence);
+  }
+
+  @Override
+  public Subject confidence(ConfidenceLevel confidence) {
+    return (Subject) super.confidence(confidence);
+  }
+
+  @Override
+  public Subject source(SourceReference sourceReference) {
+    return (Subject) super.source(sourceReference);
+  }
+
+  @Override
+  public Subject source(SourceDescription source) {
+    return (Subject) super.source(source);
+  }
+
+  @Override
+  public Subject note(Note note) {
+    return (Subject) super.note(note);
+  }
+
+  @Override
+  public Subject attribution(Attribution attribution) {
+    return (Subject) super.attribution(attribution);
+  }
+
+  @Override
+  public Subject analysis(ResourceReference analysis) {
+    return (Subject) super.analysis(analysis);
+  }
+
+  @Override
+  public Subject analysis(URI analysis) {
+    return (Subject) super.analysis(analysis);
+  }
+
+  @Override
+  public Subject analysis(Document analysis) {
+    return (Subject) super.analysis(analysis);
+  }
+
   /**
    * Whether this subject has been identified as "extracted", meaning it captures information extracted from a single source.
    *
@@ -69,6 +135,17 @@ public abstract class Subject extends Conclusion implements Attributable {
    */
   public void setExtracted(Boolean extracted) {
     this.extracted = extracted;
+  }
+
+  /**
+   * Build up this subject with an extracted flag.
+   *
+   * @param extracted The extracted flag.
+   * @return this.
+   */
+  public Subject extracted(Boolean extracted) {
+    setExtracted(extracted);
+    return this;
   }
 
   /**
@@ -139,6 +216,17 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Build up this subject with an identifier.
+   *
+   * @param identifier The identifier.
+   * @return this.
+   */
+  public Subject identifier(Identifier identifier) {
+    addIdentifier(identifier);
+    return this;
+  }
+
+  /**
    * Add an identifier of the subject.
    *
    * @param identifier The identifier to be added.
@@ -172,6 +260,17 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Build up this subject with an evidence reference.
+   *
+   * @param evidence The evidence reference.
+   * @return this.
+   */
+  public Subject evidence(EvidenceReference evidence) {
+    addEvidence(evidence);
+    return this;
+  }
+
+  /**
    * Add an evidence reference for this subject.
    *
    * @param evidenceRef The evidence to be added.
@@ -201,6 +300,28 @@ public abstract class Subject extends Conclusion implements Attributable {
    */
   public void setMedia(List<SourceReference> media) {
     this.media = media;
+  }
+
+  /**
+   * Build up this subject with a media reference.
+   *
+   * @param media The media reference.
+   * @return this.
+   */
+  public Subject media(SourceReference media) {
+    addMedia(media);
+    return this;
+  }
+
+  /**
+   * Build up this subject with a media reference.
+   *
+   * @param media The media reference.
+   * @return this.
+   */
+  public Subject media(SourceDescription media) {
+    addMedia(new SourceReference().description(media));
+    return this;
   }
 
   /**

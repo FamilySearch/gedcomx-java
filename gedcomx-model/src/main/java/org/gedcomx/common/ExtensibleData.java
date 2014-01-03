@@ -55,6 +55,16 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
   }
 
   /**
+   * Build up this object with an id.
+   *
+   * @param id The id.
+   */
+  public ExtensibleData id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
    * Custom extension elements for a conclusion.
    *
    * @return Custom extension elements for a conclusion.

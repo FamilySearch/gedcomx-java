@@ -20,10 +20,17 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.NameType;
 
 import javax.xml.bind.annotation.*;
@@ -46,6 +53,71 @@ public class Name extends Conclusion {
   private List<NameForm> nameForms;
   private Boolean preferred;
 
+  @Override
+  public Name id(String id) {
+    return (Name) super.id(id);
+  }
+
+  @Override
+  public Name link(String rel, URI href) {
+    return (Name) super.link(rel, href);
+  }
+
+  @Override
+  public Name link(Link link) {
+    return (Name) super.link(link);
+  }
+
+  @Override
+  public Name lang(String lang) {
+    return (Name) super.lang(lang);
+  }
+
+  @Override
+  public Name confidence(URI confidence) {
+    return (Name) super.confidence(confidence);
+  }
+
+  @Override
+  public Name confidence(ConfidenceLevel confidence) {
+    return (Name) super.confidence(confidence);
+  }
+
+  @Override
+  public Name source(SourceReference sourceReference) {
+    return (Name) super.source(sourceReference);
+  }
+
+  @Override
+  public Name source(SourceDescription source) {
+    return (Name) super.source(source);
+  }
+
+  @Override
+  public Name note(Note note) {
+    return (Name) super.note(note);
+  }
+
+  @Override
+  public Name attribution(Attribution attribution) {
+    return (Name) super.attribution(attribution);
+  }
+
+  @Override
+  public Name analysis(ResourceReference analysis) {
+    return (Name) super.analysis(analysis);
+  }
+
+  @Override
+  public Name analysis(Document analysis) {
+    return (Name) super.analysis(analysis);
+  }
+
+  @Override
+  public Name analysis(URI analysis) {
+    return (Name) super.analysis(analysis);
+  }
+
   /**
    * The type of the name.
    *
@@ -64,6 +136,26 @@ public class Name extends Conclusion {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build up this name with a type.
+   * @param type The type.
+   * @return this.
+   */
+  public Name type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this name with a type.
+   * @param type The type.
+   * @return this.
+   */
+  public Name type(NameType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -107,6 +199,16 @@ public class Name extends Conclusion {
   }
 
   /**
+   * Build up this name with a date.
+   * @param date The date.
+   * @return this.
+   */
+  public Name date(Date date) {
+    setDate(date);
+    return this;
+  }
+
+  /**
    * Alternate forms of the name, such as the romanized form of a non-latin name.
    *
    * @return Alternate forms of the name, such as the romanized form of a non-latin name.
@@ -126,6 +228,17 @@ public class Name extends Conclusion {
   @JsonProperty ("nameForms")
   public void setNameForms(List<NameForm> nameForms) {
     this.nameForms = nameForms;
+  }
+
+  /**
+   * Build up this name with a name form.
+   *
+   * @param nameForm The name form.
+   * @return this.
+   */
+  public Name nameForm(NameForm nameForm) {
+    addNameForm(nameForm);
+    return this;
   }
 
   /**
@@ -158,6 +271,16 @@ public class Name extends Conclusion {
    */
   public void setPreferred(Boolean preferred) {
     this.preferred = preferred;
+  }
+
+  /**
+   * Build up this name with a preferred flag.
+   * @param preferred The preferred flag.
+   * @return this.
+   */
+  public Name preferred(Boolean preferred) {
+    setPreferred(preferred);
+    return this;
   }
 
   @Override

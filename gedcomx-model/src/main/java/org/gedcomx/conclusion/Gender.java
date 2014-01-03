@@ -20,12 +20,19 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.GenderType;
 
 import javax.xml.bind.annotation.*;
@@ -60,6 +67,71 @@ public class Gender extends Conclusion implements HasFields {
     setKnownType(type);
   }
 
+  @Override
+  public Gender id(String id) {
+    return (Gender) super.id(id);
+  }
+
+  @Override
+  public Gender link(String rel, URI href) {
+    return (Gender) super.link(rel, href);
+  }
+
+  @Override
+  public Gender link(Link link) {
+    return (Gender) super.link(link);
+  }
+
+  @Override
+  public Gender lang(String lang) {
+    return (Gender) super.lang(lang);
+  }
+
+  @Override
+  public Gender confidence(URI confidence) {
+    return (Gender) super.confidence(confidence);
+  }
+
+  @Override
+  public Gender confidence(ConfidenceLevel confidence) {
+    return (Gender) super.confidence(confidence);
+  }
+
+  @Override
+  public Gender source(SourceReference sourceReference) {
+    return (Gender) super.source(sourceReference);
+  }
+
+  @Override
+  public Gender source(SourceDescription source) {
+    return (Gender) super.source(source);
+  }
+
+  @Override
+  public Gender note(Note note) {
+    return (Gender) super.note(note);
+  }
+
+  @Override
+  public Gender attribution(Attribution attribution) {
+    return (Gender) super.attribution(attribution);
+  }
+
+  @Override
+  public Gender analysis(ResourceReference analysis) {
+    return (Gender) super.analysis(analysis);
+  }
+
+  @Override
+  public Gender analysis(Document analysis) {
+    return (Gender) super.analysis(analysis);
+  }
+
+  @Override
+  public Gender analysis(URI analysis) {
+    return (Gender) super.analysis(analysis);
+  }
+
   /**
    * The type of the gender.
    *
@@ -78,6 +150,28 @@ public class Gender extends Conclusion implements HasFields {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build up this gender with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public Gender type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this gender with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public Gender type(GenderType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -122,6 +216,17 @@ public class Gender extends Conclusion implements HasFields {
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Build up this gender with a field.
+   *
+   * @param field The field.
+   * @return this.
+   */
+  public Gender field(Field field) {
+    addField(field);
+    return this;
   }
 
   /**

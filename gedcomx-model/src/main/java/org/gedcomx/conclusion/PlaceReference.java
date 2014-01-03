@@ -20,6 +20,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
@@ -37,12 +38,13 @@ import java.util.List;
 /**
  * A reference to genealogical place.
  */
-@XmlType ( name = "PlaceReference", propOrder = { "original", "fields" })
+@XmlType ( name = "PlaceReference", propOrder = { "original", "normalizedExtensions", "fields" })
 public class PlaceReference extends ExtensibleData implements HasFields {
 
   private String original;
   private URI descriptionRef;
   private List<Field> fields;
+  private List<TextValue> normalized;
 
   /**
    * The original value as supplied by the user.
@@ -84,6 +86,33 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
   }
+
+  /**
+   * The list of normalized values for the place, provided for display purposes by the application. Normalized values are
+   * not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   *
+   * @return The list of normalized values for the place, provided for display purposes by the application. Normalized values
+   * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   */
+  @XmlElement ( name = "normalized" )
+  @JsonProperty ("normalized")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  public List<TextValue> getNormalizedExtensions() {
+    return normalized;
+  }
+
+  /**
+   * The list of normalized values for the place, provided for display purposes by the application. Normalized values are
+   * not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   *
+   * @param normalized The list of normalized values for the place, provided for display purposes by the application. Normalized values are
+   * not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   */
+  @JsonProperty ("normalized")
+  public void setNormalizedExtensions(List<TextValue> normalized) {
+    this.normalized = normalized;
+  }
+
 
   /**
    * Get the fields being used as evidence.

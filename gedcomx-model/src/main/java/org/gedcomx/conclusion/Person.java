@@ -19,12 +19,18 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.*;
+import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.FactType;
+import org.gedcomx.types.GenderType;
 import org.gedcomx.types.NameType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -54,6 +60,103 @@ public class Person extends Subject implements HasFacts, HasFields {
   private List<Fact> facts;
   private List<Field> fields; // person-specific fields, such as used in an extracted historical record.
   private DisplayProperties display;
+
+  @Override
+  public Person id(String id) {
+    return (Person) super.id(id);
+  }
+
+  @Override
+  public Person link(String rel, URI href) {
+    return (Person) super.link(rel, href);
+  }
+
+  @Override
+  public Person link(Link link) {
+    return (Person) super.link(link);
+  }
+
+  @Override
+  public Person lang(String lang) {
+    return (Person) super.lang(lang);
+  }
+
+  @Override
+  public Person confidence(URI confidence) {
+    return (Person) super.confidence(confidence);
+  }
+
+  @Override
+  public Person confidence(ConfidenceLevel confidence) {
+    return (Person) super.confidence(confidence);
+  }
+
+  @Override
+  public Person source(SourceReference sourceReference) {
+    return (Person) super.source(sourceReference);
+  }
+
+  @Override
+  public Person source(SourceDescription source) {
+    return (Person) super.source(source);
+  }
+
+  @Override
+  public Person note(Note note) {
+    return (Person) super.note(note);
+  }
+
+  @Override
+  public Person analysis(ResourceReference analysis) {
+    return (Person) super.analysis(analysis);
+  }
+
+  @Override
+  public Person attribution(Attribution attribution) {
+    return (Person) super.attribution(attribution);
+  }
+
+  @Override
+  public Person analysis(Document analysis) {
+    return (Person) super.analysis(analysis);
+  }
+
+  @Override
+  public Person analysis(URI analysis) {
+    return (Person) super.analysis(analysis);
+  }
+
+  @Override
+  public Person extracted(Boolean extracted) {
+    return (Person) super.extracted(extracted);
+  }
+
+  @Override
+  public Person identifier(Identifier identifier) {
+    return (Person) super.identifier(identifier);
+  }
+
+  @Override
+  public Person evidence(EvidenceReference evidence) {
+    return (Person) super.evidence(evidence);
+  }
+
+  public Person evidence(Person evidence) {
+    if (evidence.getId() == null) {
+      throw new IllegalArgumentException("Unable to add person as evidence: no id.");
+    }
+    return (Person) super.evidence(new EvidenceReference(URI.create("#" + evidence.getId())));
+  }
+
+  @Override
+  public Person media(SourceReference media) {
+    return (Person) super.media(media);
+  }
+
+  @Override
+  public Person media(SourceDescription media) {
+    return (Person) super.media(media);
+  }
 
   /**
    * Whether this person has been designated for limited distribution or display.
@@ -98,6 +201,16 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * Build out this person with a living flag.
+   * @param living The flag.
+   * @return this.
+   */
+  public Person living(Boolean living) {
+    setLiving(living);
+    return this;
+  }
+
+  /**
    * Indicator of whether this person is the "principal" person extracted from the record. Applicable
    * only to extracted persons. The meaning of this flag outside the scope of an extracted person is undefined.
    *
@@ -120,6 +233,17 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * Build out this person with a principal flag.
+   *
+   * @param principal The principal flag.
+   * @return this
+   */
+  public Person principal(Boolean principal) {
+    setPrincipal(principal);
+    return this;
+  }
+
+  /**
    * The gender conclusion for the person.
    *
    * @return The gender conclusion for the person.
@@ -135,6 +259,26 @@ public class Person extends Subject implements HasFacts, HasFields {
    */
   public void setGender(Gender gender) {
     this.gender = gender;
+  }
+
+  /**
+   * Build out this person with a gender.
+   * @param gender The gender.
+   * @return this.
+   */
+  public Person gender(Gender gender) {
+    setGender(gender);
+    return this;
+  }
+
+  /**
+   * Build out this person with a gender.
+   * @param gender The gender.
+   * @return this.
+   */
+  public Person gender(GenderType gender) {
+    setGender(new Gender().type(gender));
+    return this;
   }
 
   /**
@@ -178,6 +322,26 @@ public class Person extends Subject implements HasFacts, HasFields {
   @JsonProperty("names")
   public void setNames(List<Name> names) {
     this.names = names;
+  }
+
+  /**
+   * Build out this person with a name.
+   * @param name The name.
+   * @return this.
+   */
+  public Person name(Name name) {
+    addName(name);
+    return this;
+  }
+
+  /**
+   * Build out this person with a name.
+   * @param name The name.
+   * @return this.
+   */
+  public Person name(String name) {
+    addName(new Name().nameForm(new NameForm().fullText(name)));
+    return this;
   }
 
   /**
@@ -257,6 +421,17 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * Build out this person with a fact.
+   *
+   * @param fact The fact.
+   * @return this.
+   */
+  public Person fact(Fact fact) {
+    addFact(fact);
+    return this;
+  }
+
+  /**
    * Add a fact conclusion to the person.
    *
    * @param fact The fact conclusion to be added.
@@ -293,6 +468,17 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * Build out this person with a display exension.
+   *
+   * @param display the display.
+   * @return this
+   */
+  public Person displayExtension(DisplayProperties display) {
+    setDisplayExtension(display);
+    return this;
+  }
+
+  /**
    * Accept a visitor.
    *
    * @param visitor The visitor.
@@ -323,6 +509,30 @@ public class Person extends Subject implements HasFacts, HasFields {
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Build out this person with a field.
+   * @param field The field.
+   * @return this.
+   */
+  public Person field(Field field) {
+    addField(field);
+    return this;
+  }
+
+  /**
+   * Add a reference to the record field values being used as evidence.
+   *
+   * @param field The field to be added.
+   */
+  public void addField(Field field) {
+    if (field != null) {
+      if (fields == null) {
+        fields = new LinkedList<Field>();
+      }
+      fields.add(field);
+    }
   }
 
   /**

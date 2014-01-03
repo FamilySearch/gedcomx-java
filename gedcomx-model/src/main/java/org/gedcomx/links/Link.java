@@ -96,6 +96,17 @@ public class Link implements HasJsonKey {
   }
 
   /**
+   * Build out this link with a rel.
+   *
+   * @param rel The rel.
+   * @return this.
+   */
+  public Link rel(String rel) {
+    setRel(rel);
+    return this;
+  }
+
+  /**
    * The json key that is used define this link in a map.
    *
    * @return The json key that is used define this link in a map.
@@ -139,6 +150,17 @@ public class Link implements HasJsonKey {
   }
 
   /**
+   * Build out this link with an href.
+   *
+   * @param href The href.
+   * @return this.
+   */
+  public Link href(URI href) {
+    setHref(href);
+    return this;
+  }
+
+  /**
    * A URI template per <a href="http://tools.ietf.org/html/rfc6570">RFC 6570</a>, used to link to a range of
    * URIs, such as for the purpose of linking to a query. A link specifying a template can be formally referred to
    * as a "Templated Link (LT)" per Amundsen, M. (2011). <i>Hypermedia APIs with HTML5 and Node</i>. O'Reilly.
@@ -161,6 +183,16 @@ public class Link implements HasJsonKey {
    */
   public void setTemplate(String template) {
     this.template = template;
+  }
+
+  /**
+   * Build out this link with a template.
+   * @param template The template
+   * @return this.
+   */
+  public Link template(String template) {
+    setTemplate(template);
+    return this;
   }
 
   /**
@@ -189,6 +221,16 @@ public class Link implements HasJsonKey {
   }
 
   /**
+   * Build out this link with a type.
+   * @param type The type.
+   * @return this.
+   */
+  public Link type(String type) {
+    setType(type);
+    return this;
+  }
+
+  /**
    * Metadata about the acceptable media type(s) that can be used to update (i.e. change the state of) the resource being linked to. The value of
    * the "accept" attribute is as defined by the HTTP specification, <a href="http://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>, Section 3.7.
    *
@@ -211,6 +253,17 @@ public class Link implements HasJsonKey {
    */
   public void setAccept(String accept) {
     this.accept = accept;
+  }
+
+  /**
+   * Build out this link with an accept.
+   *
+   * @param accept The accept.
+   * @return this.
+   */
+  public Link accept(String accept) {
+    setAccept(accept);
+    return this;
   }
 
   /**
@@ -239,6 +292,17 @@ public class Link implements HasJsonKey {
   }
 
   /**
+   * Build out this link with an 'allow'.
+   *
+   * @param allow The allow.
+   * @return this.
+   */
+  public Link allow(String allow) {
+    setAllow(allow);
+    return this;
+  }
+
+  /**
    * The language of the resource being linked to.
    *
    * Note that this attribute can be considered an "Update Control (CU)" per Amundsen, M. (2011). <i>Hypermedia APIs with HTML5 and Node</i>. O'Reilly.
@@ -262,6 +326,16 @@ public class Link implements HasJsonKey {
   }
 
   /**
+   * Build out this link with an href lang.
+   * @param hreflang The hreflang.
+   * @return this.
+   */
+  public Link hreflang(String hreflang) {
+    setHreflang(hreflang);
+    return this;
+  }
+
+  /**
    * Human-readable information about the link.
    *
    * @return Human-readable information about the link.
@@ -278,6 +352,17 @@ public class Link implements HasJsonKey {
    */
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  /**
+   * Build out this link with a title.
+   *
+   * @param title The title.
+   * @return this.
+   */
+  public Link title(String title) {
+    setTitle(title);
+    return this;
   }
 
   /**

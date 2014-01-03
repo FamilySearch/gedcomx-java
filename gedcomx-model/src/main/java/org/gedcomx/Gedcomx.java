@@ -119,6 +119,17 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this envelope with a lang.
+   * 
+   * @param lang The lang.
+   * @return this.
+   */
+  public Gedcomx lang(String lang) {
+    setLang(lang);
+    return this;
+  }
+
+  /**
    * A reference to a description of this data set.
    *
    * @return A reference to a description of this data set.
@@ -142,6 +153,17 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this with a description ref.
+   * 
+   * @param descriptionRef The description ref.
+   * @return this.
+   */
+  public Gedcomx descriptionRef(URI descriptionRef) {
+    setDescriptionRef(descriptionRef);
+    return this;
+  }
+
+  /**
    * The attribution of this genealogical data.
    *
    * @return The attribution of this genealogical data.
@@ -157,6 +179,16 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * Build this out with an attribution.
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public Gedcomx attribution(Attribution attribution) {
+    setAttribution(attribution);
+    return this;
   }
 
   /**
@@ -193,6 +225,15 @@ public class Gedcomx extends HypermediaEnabledData {
     this.persons = persons;
   }
 
+  /**
+   * Build this out with a person.
+   * @param person The person.
+   * @return this.
+   */
+  public Gedcomx person(Person person) {
+    addPerson(person);
+    return this;
+  }
 
   /**
    * Add a person to the data set.
@@ -272,6 +313,16 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Build this out with a relationship.
+   * @param relationship The relationship.
+   * @return this.
+   */
+  public Gedcomx relationship(Relationship relationship) {
+    addRelationship(relationship);
+    return this;
+  }
+
+  /**
    * Add a relationship to the data set.
    *
    * @param relationship The relationship to be added.
@@ -319,6 +370,16 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Build this out with a source description.
+   * @param sourceDescription The source description.
+   * @return this.
+   */
+  public Gedcomx sourceDescription(SourceDescription sourceDescription) {
+    addSourceDescription(sourceDescription);
+    return this;
+  }
+
+  /**
    * Add a source description to the data set.
    *
    * @param sourceDescription The source description to be added.
@@ -351,6 +412,16 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("agents")
   public void setAgents(List<Agent> agents) {
     this.agents = agents;
+  }
+
+  /**
+   * Build this out with a agent.
+   * @param agent The agent.
+   * @return this.
+   */
+  public Gedcomx agent(Agent agent) {
+    addAgent(agent);
+    return this;
   }
 
   /**
@@ -389,6 +460,16 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Build this out with a event.
+   * @param event The event.
+   * @return this.
+   */
+  public Gedcomx event(Event event) {
+    addEvent(event);
+    return this;
+  }
+
+  /**
    * Add a event to the data set.
    *
    * @param event The event to be added.
@@ -421,6 +502,16 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("places")
   public void setPlaces(List<PlaceDescription> places) {
     this.places = places;
+  }
+
+  /**
+   * Build this out with a place.
+   * @param place The place.
+   * @return this.
+   */
+  public Gedcomx place(PlaceDescription place) {
+    addPlace(place);
+    return this;
   }
 
   /**
@@ -459,6 +550,16 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Build this out with a document.
+   * @param document The document.
+   * @return this.
+   */
+  public Gedcomx document(Document document) {
+    addDocument(document);
+    return this;
+  }
+
+  /**
    * Add a document to the data set.
    *
    * @param document The document to be added.
@@ -492,6 +593,16 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("collections")
   public void setCollections(List<Collection> collections) {
     this.collections = collections;
+  }
+
+  /**
+   * Build this out with a collection.
+   * @param collection The collection.
+   * @return this.
+   */
+  public Gedcomx collection(Collection collection) {
+    addCollection(collection);
+    return this;
   }
 
   /**
@@ -534,6 +645,16 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Build this out with a field.
+   * @param field The field.
+   * @return this.
+   */
+  public Gedcomx field(Field field) {
+    addField(field);
+    return this;
+  }
+
+  /**
    * Add a field to the data set.
    *
    * @param field The field to be added.
@@ -567,6 +688,17 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("recordDescriptors")
   public void setRecordDescriptors(List<RecordDescriptor> recordDescriptors) {
     this.recordDescriptors = recordDescriptors;
+  }
+
+  /**
+   * Build this out with a record descriptor.
+   *
+   * @param recordDescriptor The record descriptor.
+   * @return this.
+   */
+  public Gedcomx recordDescriptor(RecordDescriptor recordDescriptor) {
+    addRecordDescriptor(recordDescriptor);
+    return this;
   }
 
   /**

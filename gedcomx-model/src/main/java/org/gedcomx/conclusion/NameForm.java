@@ -44,6 +44,11 @@ public class NameForm extends ExtensibleData implements HasFields {
   private List<NamePart> parts;
   private List<Field> fields;
 
+  @Override
+  public NameForm id(String id) {
+    return (NameForm) super.id(id);
+  }
+
   /**
    * The language of the conclusion. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *
@@ -64,6 +69,17 @@ public class NameForm extends ExtensibleData implements HasFields {
   }
 
   /**
+   * Build up this name form with a lang.
+   *
+   * @param lang The lang.
+   * @return this.
+   */
+  public NameForm lang(String lang) {
+    setLang(lang);
+    return this;
+  }
+
+  /**
    * The full text of the name form.
    *
    * @return The full text of the name form.
@@ -79,6 +95,17 @@ public class NameForm extends ExtensibleData implements HasFields {
    */
   public void setFullText(String fullText) {
     this.fullText = fullText;
+  }
+
+  /**
+   * Build up this name form with full text.
+   *
+   * @param fullText The full text.
+   * @return this
+   */
+  public NameForm fullText(String fullText) {
+    setFullText(fullText);
+    return this;
   }
 
   /**
@@ -101,6 +128,17 @@ public class NameForm extends ExtensibleData implements HasFields {
   @JsonProperty ("parts")
   public void setParts(List<NamePart> parts) {
     this.parts = parts;
+  }
+
+  /**
+   * Build up this name form with a part.
+   *
+   * @param part The part.
+   * @return this.
+   */
+  public NameForm parts(NamePart part) {
+    addPart(part);
+    return this;
   }
 
   /**
@@ -139,6 +177,17 @@ public class NameForm extends ExtensibleData implements HasFields {
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Build up this name form with a field.
+   *
+   * @param field The field.
+   * @return this.
+   */
+  public NameForm field(Field field) {
+    addField(field);
+    return this;
   }
 
   /**

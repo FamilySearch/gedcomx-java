@@ -18,10 +18,13 @@ package org.gedcomx.agent;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -50,6 +53,21 @@ public class Agent extends HypermediaEnabledData {
   private List<ResourceReference> emails;
   private List<ResourceReference> phones;
   private List<Address> addresses;
+
+  @Override
+  public Agent id(String id) {
+    return (Agent) super.id(id);
+  }
+
+  @Override
+  public Agent link(String rel, URI href) {
+    return (Agent) super.link(rel, href);
+  }
+
+  @Override
+  public Agent link(Link link) {
+    return (Agent) super.link(link);
+  }
 
   /**
    * The preferred name for this agent.
@@ -85,6 +103,40 @@ public class Agent extends HypermediaEnabledData {
   }
 
   /**
+   * Build up this agent with a name.
+   * 
+   * @param name The name.
+   * @return this.
+   */
+  public Agent name(TextValue name) {
+    addName(name);
+    return this;
+  }
+
+  /**
+   * Build up this agent with a name.
+   *
+   * @param name The name.
+   * @return this.
+   */
+  public Agent name(String name) {
+    return name(new TextValue(name));
+  }
+
+  /**
+   * Add a name.
+   * 
+   * param name The name.
+   */
+  public void addName(TextValue name) {
+    if (this.names == null) {
+      this.names = new ArrayList<TextValue>();
+    }
+
+    this.names.add(name);
+  }
+
+  /**
    * The list of identifiers for the agent.
    *
    * @return The list of identifiers for the agent.
@@ -104,6 +156,30 @@ public class Agent extends HypermediaEnabledData {
   @JsonProperty ("identifiers")
   public void setIdentifiers(List<Identifier> identifiers) {
     this.identifiers = identifiers;
+  }
+
+  /**
+   * Build up this agent with an identifier.
+   * 
+   * @param identifier The identifier.
+   * @return this.
+   */
+  public Agent identifier(Identifier identifier) {
+    addIdentifier(identifier);
+    return this;
+  }
+
+  /**
+   * Add an identifier.
+   * 
+   * @param identifier The identifier to add.
+   */
+  public void addIdentifier(Identifier identifier) {
+    if (this.identifiers == null) {
+      this.identifiers = new ArrayList<Identifier>();
+    }
+
+    this.identifiers.add(identifier);
   }
 
   /**
@@ -127,6 +203,25 @@ public class Agent extends HypermediaEnabledData {
   }
 
   /**
+   * Build up this agent with a home page.
+   * @param homepage The home page of the agent.
+   * @return this.
+   */
+  public Agent homepage(ResourceReference homepage) {
+    this.homepage = homepage;
+    return this;
+  }
+
+  /**
+   * Build up this agent with a home page.
+   * @param homepage The home page of the agent.
+   * @return this.
+   */
+  public Agent homepage(URI homepage) {
+    return homepage(new ResourceReference(homepage));
+  }
+
+  /**
    * The <a href="http://openid.net/">openid</a> of the person or organization.
    *
    * @return The <a href="http://openid.net/">openid</a> of the person or organization.
@@ -142,6 +237,25 @@ public class Agent extends HypermediaEnabledData {
    */
   public void setOpenid(ResourceReference openid) {
     this.openid = openid;
+  }
+
+  /**
+   * Build up this agent with a open id.
+   * @param openid The open id of the agent.
+   * @return this.
+   */
+  public Agent openid(ResourceReference openid) {
+    this.openid = openid;
+    return this;
+  }
+
+  /**
+   * Build up this agent with a open id.
+   * @param openid The open id of the agent.
+   * @return this.
+   */
+  public Agent openid(URI openid) {
+    return openid(new ResourceReference(openid));
   }
 
   /**
@@ -167,6 +281,29 @@ public class Agent extends HypermediaEnabledData {
   }
 
   /**
+   * Build up this agent with an online account.
+   * @param account The account.
+   * @return this.
+   */
+  public Agent account(OnlineAccount account) {
+    addAccount(account);
+    return this;
+  }
+
+  /**
+   * Add an account.
+   *
+   * @param account The account to add.
+   */
+  public void addAccount(OnlineAccount account) {
+    if (this.accounts == null) {
+      this.accounts = new ArrayList<OnlineAccount>();
+    }
+
+    this.accounts.add(account);
+  }
+
+  /**
    * The emails that belong to this person or organization.
    *
    * @return The emails that belong to this person or organization.
@@ -186,6 +323,50 @@ public class Agent extends HypermediaEnabledData {
   @JsonProperty ("emails")
   public void setEmails(List<ResourceReference> emails) {
     this.emails = emails;
+  }
+
+  /**
+   * Build up this agent with an email address.
+   *
+   * @param email The email address.
+   * @return this.
+   */
+  public Agent email(ResourceReference email) {
+    addEmail(email);
+    return this;
+  }
+
+  /**
+   * Build up this agent with an email address.
+   *
+   * @param email The email address.
+   * @return this.
+   */
+  public Agent email(URI email) {
+    return email(new ResourceReference(email));
+  }
+
+  /**
+   * Build up this agent with an email address.
+   *
+   * @param email The email address.
+   * @return this.
+   */
+  public Agent email(String email) {
+    return email(URI.create("mailto:" + email));
+  }
+
+  /**
+   * Add an email.
+   *
+   * @param email The email.
+   */
+  public void addEmail(ResourceReference email) {
+    if (this.emails == null) {
+      this.emails = new ArrayList<ResourceReference>();
+    }
+
+    this.emails.add(email);
   }
 
   /**
@@ -211,6 +392,47 @@ public class Agent extends HypermediaEnabledData {
   }
 
   /**
+   * Build up this agent with a phone number.
+   * @param phone The phone number.
+   * @return this.
+   */
+  public Agent phone(ResourceReference phone) {
+    addPhone(phone);
+    return this;
+  }
+
+  /**
+   * Build up this agent with a phone number.
+   * @param phone The phone number.
+   * @return this.
+   */
+  public Agent phone(URI phone) {
+    return phone(new ResourceReference(phone));
+  }
+
+  /**
+   * Build up this agent with a phone number.
+   * @param phone The phone number.
+   * @return this.
+   */
+  public Agent phone(String phone) {
+    return phone(URI.create("tel:" + phone));
+  }
+
+  /**
+   * Add a phone.
+   *
+   * @param phone The phone to add.
+   */
+  public void addPhone(ResourceReference phone) {
+    if (this.phones == null) {
+      this.phones = new ArrayList<ResourceReference>();
+    }
+
+    this.phones.add(phone);
+  }
+
+  /**
    * The addresses that belong to this person or organization.
    *
    * @return The addresses that belong to this person or organization.
@@ -232,6 +454,30 @@ public class Agent extends HypermediaEnabledData {
   public void setAddresses(List<Address> addresses) {
     this.addresses = addresses;
   }
+
+  /**
+   * Build up this agent with an address.
+   * @param address The address.
+   * @return this.
+   */
+  public Agent address(Address address) {
+    addAddress(address);
+    return this;
+  }
+
+  /**
+   * Add an address.
+   *
+   * @param address The address to add.
+   */
+  public void addAddress(Address address) {
+    if (this.addresses == null) {
+      this.addresses = new ArrayList<Address>();
+    }
+
+    this.addresses.add(address);
+  }
+
 
   /**
    * Accept a visitor.

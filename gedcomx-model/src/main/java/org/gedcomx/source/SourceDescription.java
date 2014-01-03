@@ -23,6 +23,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
+import org.gedcomx.records.Field;
 import org.gedcomx.records.FieldValue;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -32,10 +34,7 @@ import org.gedcomx.types.ResourceType;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -67,6 +66,21 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private ResourceReference repository;
   private ResourceReference descriptorRef;
 
+  @Override
+  public SourceDescription id(String id) {
+    return (SourceDescription) super.id(id);
+  }
+
+  @Override
+  public SourceDescription link(String rel, URI href) {
+    return (SourceDescription) super.link(rel, href);
+  }
+
+  @Override
+  public SourceDescription link(Link link) {
+    return (SourceDescription) super.link(link);
+  }
+
   /**
    * The type of the resource being described.
    *
@@ -85,6 +99,26 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setResourceType(URI resourceType) {
     this.resourceType = resourceType;
+  }
+
+  /**
+   * Build of this source description with a resource type.
+   * @param resourceType The resource type.
+   * @return this.
+   */
+  public SourceDescription resourceType(URI resourceType) {
+    setResourceType(resourceType);
+    return this;
+  }
+
+  /**
+   * Build of this source description with a resource type.
+   * @param resourceType The resource type.
+   * @return this.
+   */
+  public SourceDescription resourceType(ResourceType resourceType) {
+    setKnownType(resourceType);
+    return this;
   }
 
   /**
@@ -132,6 +166,40 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * The bibliographic citations for this source.
+   *
+   * @param citations The bibliographic citations for this source.
+   */
+  @JsonProperty ("citations")
+  public void setCitations(List<SourceCitation> citations) {
+    this.citations = citations;
+  }
+
+  /**
+   * Build out this source description with a citation.
+   * @param citation The citation.
+   * @return this.
+   */
+  public SourceDescription citation(SourceCitation citation) {
+    addCitation(citation);
+    return this;
+  }
+
+  /**
+   * Add a citation.
+   *
+   * @param citation The citation to be added.
+   */
+  public void addCitation(SourceCitation citation) {
+    if (citation != null) {
+      if (citations == null) {
+        citations = new LinkedList<SourceCitation>();
+      }
+      citations.add(citation);
+    }
+  }
+
+  /**
    * Hint about the media (MIME) type of the resource being described.
    *
    * @return Hint about the media (MIME) type of the resource being described.
@@ -151,13 +219,13 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
-   * The bibliographic citations for this source.
-   *
-   * @param citations The bibliographic citations for this source.
+   * Build out this source description with a media type.
+   * @param mediaType The media type.
+   * @return this.
    */
-  @JsonProperty ("citations")
-  public void setCitations(List<SourceCitation> citations) {
-    this.citations = citations;
+  public SourceDescription mediaType(String mediaType) {
+    setMediaType(mediaType);
+    return this;
   }
 
   /**
@@ -181,6 +249,16 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with an about reference.
+   * @param about the about.
+   * @return this.
+   */
+  public SourceDescription about(URI about) {
+    setAbout(about);
+    return this;
+  }
+
+  /**
    * A reference to the entity that mediates access to the described source.
    *
    * @return A reference to the entity that mediates access to the described source.
@@ -196,6 +274,17 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setMediator(ResourceReference mediator) {
     this.mediator = mediator;
+  }
+
+  /**
+   * Build out this source description with a mediator.
+   * 
+   * @param mediator The mediator.
+   * @return this.
+   */
+  public SourceDescription mediator(ResourceReference mediator) {
+    setMediator(mediator);
+    return this;
   }
 
   /**
@@ -232,6 +321,19 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description by adding a source reference.
+   * @param source The source reference.
+   * @return this.
+   */
+  public SourceDescription source(SourceReference source) {
+    if (this.sources == null) {
+      this.sources = new ArrayList<SourceReference>();
+    }
+    this.sources.add(source);
+    return this;
+  }
+
+  /**
    * A reference to the analysis document explaining the analysis that went into this description of the source.
    *
    * @return A reference to the analysis document explaining the analysis that went into this description of the source.
@@ -250,6 +352,16 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with an analyis.
+   * @param analysis The analysis.
+   * @return this.
+   */
+  public SourceDescription analysis(ResourceReference analysis) {
+    setAnalysis(analysis);
+    return this;
+  }
+
+  /**
    * A reference to the source that contains this source.
    *
    * @return A reference to the source that contains this source.
@@ -265,6 +377,26 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setComponentOf(SourceReference componentOf) {
     this.componentOf = componentOf;
+  }
+
+  /**
+   * Build out this source description with a component of.
+   * @param componentOf The component of.
+   * @return this.
+   */
+  public SourceDescription componentOf(SourceReference componentOf) {
+    setComponentOf(componentOf);
+    return this;
+  }
+
+  /**
+   * Build out this source description with a component of.
+   * @param componentOf The component of.
+   * @return this.
+   */
+  public SourceDescription componentOf(SourceDescription componentOf) {
+    setComponentOf(new SourceReference().description(componentOf));
+    return this;
   }
 
   /**
@@ -301,6 +433,29 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with a title.
+   * @param title The title. 
+   * @return this.
+   */
+  public SourceDescription title(TextValue title) {
+    if (this.titles == null) {
+      this.titles = new ArrayList<TextValue>();
+    }
+
+    this.titles.add(title);
+    return this;
+  }
+
+  /**
+   * Build out this source description with a title.
+   * @param title The title. 
+   * @return this.
+   */
+  public SourceDescription title(String title) {
+    return title(new TextValue(title));
+  }
+
+  /**
    * Notes about a source.
    *
    * @return Notes about a source.
@@ -323,6 +478,19 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with a note.
+   * @param note the note.
+   * @return this.
+   */
+  public SourceDescription note(Note note) {
+    if (this.notes == null) {
+      this.notes = new ArrayList<Note>();
+    }
+    this.notes.add(note);
+    return this;
+  }
+
+  /**
    * The attribution metadata for this source description.
    *
    * @return The attribution metadata for this source description.
@@ -338,6 +506,16 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * Build out this source description with attribution.
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public SourceDescription attribution(Attribution attribution) {
+    setAttribution(attribution);
+    return this;
   }
 
   /**
@@ -417,6 +595,19 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with an identifier.
+   * @param identifier the identifier.
+   * @return this.
+   */
+  public SourceDescription identifier(Identifier identifier) {
+    if (this.identifiers == null) {
+      this.identifiers = new ArrayList<Identifier>();
+    }
+    this.identifiers.add(identifier);
+    return this;
+  }
+
+  /**
    * A sort key to be used in determining the position of this source relative to other sources in the same collection.
    * 
    * @return A sort key to be used in determining the position of this source relative to other sources in the same collection.
@@ -433,6 +624,16 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setSortKey(String sortKey) {
     this.sortKey = sortKey;
+  }
+
+  /**
+   * Build out this source description with a sort key.
+   * @param sortKey The sort key.
+   * @return This.
+   */
+  public SourceDescription sortKey(String sortKey) {
+    setSortKey(sortKey);
+    return this;
   }
 
   /**
@@ -455,6 +656,29 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with a description.
+   * @param description The description. 
+   * @return this.
+   */
+  public SourceDescription description(TextValue description) {
+    if (this.description == null) {
+      this.description = new ArrayList<TextValue>();
+    }
+
+    this.description.add(description);
+    return this;
+  }
+
+  /**
+   * Build out this source description with a description.
+   * @param description The description. 
+   * @return this.
+   */
+  public SourceDescription description(String description) {
+    return description(new TextValue(description));
+  }
+
+  /**
    * The date the source was created.
    * 
    * @return The date the source was created.
@@ -471,6 +695,17 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setCreated(Date created) {
     this.created = created;
+  }
+
+  /**
+   * Build out this source description with a created date.
+   *
+   * @param created The created date.
+   * @return this.
+   */
+  public SourceDescription created(Date created) {
+    setCreated(created);
+    return this;
   }
 
   /**
@@ -493,6 +728,15 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with a modified date.
+   * @param modified the modified date.
+   */
+  public SourceDescription modified(Date modified) {
+    setModified(modified);
+    return this;
+  }
+
+  /**
    * Declarations of the coverage of the source.
    *
    * @return Declarations of the coverage of the source.
@@ -509,6 +753,20 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setCoverage(List<Coverage> coverage) {
     this.coverage = coverage;
+  }
+
+  /**
+   * Build out this source description with coverage.
+   * @param coverage The coverage.
+   * @return this.
+   */
+  public SourceDescription coverage(Coverage coverage) {
+    if (this.coverage == null) {
+      this.coverage = new ArrayList<Coverage>();
+    }
+
+    this.coverage.add(coverage);
+    return this;
   }
 
   /**
@@ -550,6 +808,17 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with a repository.
+   *
+   * @param repository The repository.
+   * @return this.
+   */
+  public SourceDescription repository(ResourceReference repository) {
+    setRepository(repository);
+    return this;
+  }
+
+  /**
    * Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
    *
    * @return Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
@@ -570,6 +839,17 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonProperty ("descriptor")
   public void setDescriptorRef(ResourceReference descriptorRef) {
     this.descriptorRef = descriptorRef;
+  }
+
+  /**
+   * Build out this source description with a descriptor ref.
+   *
+   * @param descriptorRef The descriptor ref.
+   * @return this.
+   */
+  public SourceDescription descriptorRef(ResourceReference descriptorRef) {
+    setDescriptorRef(descriptorRef);
+    return this;
   }
 
   /**

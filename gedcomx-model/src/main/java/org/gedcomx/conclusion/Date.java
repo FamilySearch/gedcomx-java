@@ -18,6 +18,7 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.ClientName;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
@@ -25,8 +26,11 @@ import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.util.date.Duration;
+import org.gedcomx.util.date.FormalDate;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +46,11 @@ public class Date extends ExtensibleData implements HasFields {
   private String formal;
   private List<TextValue> normalized;
   private List<Field> fields;
+
+  @Override
+  public Date id(String id) {
+    return (Date) super.id(id);
+  }
 
   /**
    * The original text as supplied by the user.
@@ -62,6 +71,17 @@ public class Date extends ExtensibleData implements HasFields {
   }
 
   /**
+   * Build up this date with original text as supplied by the user.
+   *
+   * @param original the original text.
+   * @return this.
+   */
+  public Date original(String original) {
+    setOriginal(original);
+    return this;
+  }
+
+  /**
    * The standardized and/or normalized formal value.
    *
    * @return The formal value.
@@ -77,6 +97,38 @@ public class Date extends ExtensibleData implements HasFields {
    */
   public void setFormal(String formal) {
     this.formal = formal;
+  }
+
+  /**
+   * The standardized and/or normalized formal value.
+   *
+   * @param formal The formal value.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public void setFormalDate(FormalDate formal) {
+    setFormal(formal.toString());
+  }
+
+  /**
+   * Build up this date with a formal representation of the date.
+   *
+   * @param formal The formal date.
+   * @return this.
+   */
+  public Date formal(String formal) {
+    setFormal(formal);
+    return this;
+  }
+
+  /**
+   * Build up this date with a formal representation of the date.
+   *
+   * @param formal The formal date.
+   * @return this.
+   */
+  public Date formal(FormalDate formal) {
+    return formal(formal.toString());
   }
 
   /**
@@ -140,6 +192,17 @@ public class Date extends ExtensibleData implements HasFields {
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Build up this date with a field.
+   *
+   * @param field The field.
+   * @return this.
+   */
+  public Date field(Field field) {
+    addField(field);
+    return this;
   }
 
   /**

@@ -17,13 +17,17 @@ package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,6 +42,21 @@ public class FieldDescriptor extends HypermediaEnabledData {
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
   private List<TextValue> description; // localized description of this field ("Relationship of the person to the head of household").
   private List<FieldValueDescriptor> values; // localized display labels for the field values
+
+  @Override
+  public FieldDescriptor id(String id) {
+    return (FieldDescriptor) super.id(id);
+  }
+
+  @Override
+  public FieldDescriptor link(Link link) {
+    return (FieldDescriptor) super.link(link);
+  }
+
+  @Override
+  public FieldDescriptor link(String rel, URI href) {
+    return (FieldDescriptor) super.link(rel, href);
+  }
 
   /**
    * The original label for the field, as stated on the original record.
@@ -58,6 +77,17 @@ public class FieldDescriptor extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this field descriptor with an original label.
+   *
+   * @param originalLabel The original label.
+   * @return this.
+   */
+  public FieldDescriptor originalLabel(String originalLabel) {
+    setOriginalLabel(originalLabel);
+    return this;
+  }
+
+  /**
    * The description of the field.
    *
    * @return The description of the field.
@@ -73,6 +103,40 @@ public class FieldDescriptor extends HypermediaEnabledData {
    */
   public void setDescription(List<TextValue> description) {
     this.description = description;
+  }
+
+  /**
+   * Build out this descriptor with a description.
+   * @param description The description.
+   * @return this.
+   */
+  public FieldDescriptor description(TextValue description) {
+    addDescription(description);
+    return this;
+  }
+
+  /**
+   * Build out this descriptor with a description.
+   * @param description The description.
+   * @return this.
+   */
+  public FieldDescriptor description(String description) {
+    addDescription(new TextValue(description));
+    return this;
+  }
+
+  /**
+   * Add a description.
+   *
+   * @param description The description to be added.
+   */
+  public void addDescription(TextValue description) {
+    if (description != null) {
+      if (this.description == null) {
+        this.description = new LinkedList<TextValue>();
+      }
+      this.description.add(description);
+    }
   }
 
   /**

@@ -61,6 +61,17 @@ public class TextValue {
   }
 
   /**
+   * Build up this text value with a lang.
+   *
+   * @param lang The lang.
+   * @return this.
+   */
+  public TextValue lang(String lang) {
+    setLang(lang);
+    return this;
+  }
+
+  /**
    * The text value.
    *
    * @return The text value.
@@ -77,6 +88,17 @@ public class TextValue {
    */
   public void setValue(String value) {
     this.value = value;
+  }
+
+  /**
+   * Build up this text value with a value.
+   *
+   * @param value The value.
+   * @return this.
+   */
+  public TextValue value(String value) {
+    setValue(value);
+    return this;
   }
 
   @Override

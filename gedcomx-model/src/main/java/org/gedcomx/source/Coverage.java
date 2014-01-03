@@ -63,6 +63,17 @@ public class Coverage extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this coverage with spatial coverage.
+   *
+   * @param spatial The spatial coverage.
+   * @return this.
+   */
+  public Coverage spatial(PlaceReference spatial) {
+    setSpatial(spatial);
+    return this;
+  }
+
+  /**
    * Temporal coverage.
    *
    * @return Temporal coverage.
@@ -78,6 +89,16 @@ public class Coverage extends HypermediaEnabledData {
    */
   public void setTemporal(Date temporal) {
     this.temporal = temporal;
+  }
+
+  /**
+   * Build out this coverage with temporal coverage.
+   * @param temporal The temporal coverage.
+   * @return This.
+   */
+  public Coverage temporal(Date temporal) {
+    setTemporal(temporal);
+    return this;
   }
 
   /**
@@ -98,6 +119,28 @@ public class Coverage extends HypermediaEnabledData {
    */
   public void setRecordType(URI recordType) {
     this.recordType = recordType;
+  }
+
+  /**
+   * Build out this coverage with a record type.
+   *
+   * @param recordType The record type.
+   * @return this.
+   */
+  public Coverage recordType(URI recordType) {
+    setRecordType(recordType);
+    return this;
+  }
+
+  /**
+   * Build out this coverage with a record type.
+   *
+   * @param recordType The record type.
+   * @return this.
+   */
+  public Coverage recordType(RecordType recordType) {
+    setKnownRecordType(recordType);
+    return this;
   }
 
   /**

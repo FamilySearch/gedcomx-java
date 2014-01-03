@@ -22,8 +22,10 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.ReferencesSources;
+import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 
@@ -51,6 +53,21 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   private Attribution attribution;
   private ResourceReference analysis;
 
+  @Override
+  public Conclusion id(String id) {
+    return (Conclusion) super.id(id);
+  }
+
+  @Override
+  public Conclusion link(String rel, URI href) {
+    return (Conclusion) super.link(rel, href);
+  }
+
+  @Override
+  public Conclusion link(Link link) {
+    return (Conclusion) super.link(link);
+  }
+
   /**
    * The language of the conclusion. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *
@@ -72,6 +89,17 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   }
 
   /**
+   * Build up this conclusion with a lang.
+   *
+   * @param lang The lang.
+   * @return this.
+   */
+  public Conclusion lang(String lang) {
+    this.lang = lang;
+    return this;
+  }
+
+  /**
    * The level of confidence the contributor has about the data.
    *
    * @return The level of confidence the contributor has about the data.
@@ -89,6 +117,28 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    */
   public void setConfidence(URI confidence) {
     this.confidence = confidence;
+  }
+
+  /**
+   * Build up this conclusion with a confidence level.
+   *
+   * @param confidence The confidence level.
+   * @return this.
+   */
+  public Conclusion confidence(URI confidence) {
+    setConfidence(confidence);
+    return this;
+  }
+
+  /**
+   * Build up this conclusion with a confidence level.
+   *
+   * @param confidence The confidence level.
+   * @return this.
+   */
+  public Conclusion confidence(ConfidenceLevel confidence) {
+    setKnownConfidenceLevel(confidence);
+    return this;
   }
 
   /**
@@ -135,6 +185,27 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   }
 
   /**
+   * Build up this conclusion with a source reference.
+   *
+   * @param sourceReference The source reference.
+   * @return this.
+   */
+  public Conclusion source(SourceReference sourceReference) {
+    addSource(sourceReference);
+    return this;
+  }
+
+  /**
+   * Build up this conclusion with a source reference.
+   *
+   * @param source The source description being referenced.
+   * @return this.
+   */
+  public Conclusion source(SourceDescription source) {
+    return source(new SourceReference().description(source));
+  }
+
+  /**
    * Add a source reference.
    *
    * @param source The source reference to be added.
@@ -168,6 +239,17 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   @JsonProperty ("notes")
   public void setNotes(List<Note> notes) {
     this.notes = notes;
+  }
+
+  /**
+   * Build up this conclusion with a note.
+   *
+   * @param note The note.
+   * @return this.
+   */
+  public Conclusion note(Note note) {
+    addNote(note);
+    return this;
   }
 
   /**
@@ -205,6 +287,17 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   }
 
   /**
+   * Build up this conclusion with attribution.
+   *
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public Conclusion attribution(Attribution attribution) {
+    setAttribution(attribution);
+    return this;
+  }
+
+  /**
    * A reference to the analysis document explaining the analysis that went into this conclusion.
    *
    * @return A reference to the analysis document explaining the analysis that went into this conclusion.
@@ -221,6 +314,41 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    */
   public void setAnalysis(ResourceReference analysis) {
     this.analysis = analysis;
+  }
+
+  /**
+   * Add a reference to the analysis for this conclusion.
+   *
+   * @param analysis The analysis.
+   * @return this.
+   */
+  public Conclusion analysis(ResourceReference analysis) {
+    setAnalysis(analysis);
+    return this;
+  }
+
+  /**
+   * Add a reference to the analysis for this conclusion.
+   *
+   * @param analysis The analysis.
+   * @return this.
+   */
+  public Conclusion analysis(URI analysis) {
+    return analysis(new ResourceReference(analysis));
+  }
+
+  /**
+   * Add a reference to the analysis for this conclusion.
+   *
+   * @param analysis The analysis.
+   * @return this.
+   */
+  public Conclusion analysis(Document analysis) {
+    if (analysis.getId() == null) {
+      throw new IllegalArgumentException("Cannot reference analysis: no id.");
+    }
+
+    return analysis(URI.create("#" + analysis.getId()));
   }
 
   /**

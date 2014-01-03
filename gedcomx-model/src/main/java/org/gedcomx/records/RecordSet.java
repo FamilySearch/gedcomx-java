@@ -18,7 +18,10 @@ package org.gedcomx.records;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.MediaTypeDefinition;
 import org.gedcomx.rt.Model;
@@ -29,6 +32,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,6 +67,21 @@ public class RecordSet extends HypermediaEnabledData {
   private Gedcomx metadata;
   private List<Gedcomx> records;
 
+  @Override
+  public RecordSet id(String id) {
+    return (RecordSet) super.id(id);
+  }
+
+  @Override
+  public RecordSet link(String rel, URI href) {
+    return (RecordSet) super.link(rel, href);
+  }
+
+  @Override
+  public RecordSet link(Link link) {
+    return (RecordSet) super.link(link);
+  }
+
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
    * Note that some language-enabled elements MAY override the language. 
@@ -85,6 +104,16 @@ public class RecordSet extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this record set with a lang.
+   * @param lang The lang.
+   * @return this.
+   */
+  public RecordSet lang(String lang) {
+    setLang(lang);
+    return this;
+  }
+
+  /**
    * Metadata about this record set; shared among all records in the set.
    *
    * @return Metadata about this record set; shared among all records in the set.
@@ -100,6 +129,17 @@ public class RecordSet extends HypermediaEnabledData {
    */
   public void setMetadata(Gedcomx metadata) {
     this.metadata = metadata;
+  }
+
+  /**
+   * Build out this record set with metadata.
+   *
+   * @param metadata The metadata.
+   * @return this.
+   */
+  public RecordSet metadata(Gedcomx metadata) {
+    setMetadata(metadata);
+    return this;
   }
 
   /**
@@ -122,6 +162,19 @@ public class RecordSet extends HypermediaEnabledData {
   @JsonProperty ("records")
   public void setRecords(List<Gedcomx> records) {
     this.records = records;
+  }
+
+  /**
+   * Build out this record set with a record.
+   * @param record The record.
+   * @return this.
+   */
+  public RecordSet record(Gedcomx record) {
+    if (this.records == null) {
+      this.records = new ArrayList<Gedcomx>();
+    }
+    this.records.add(record);
+    return this;
   }
 
 }

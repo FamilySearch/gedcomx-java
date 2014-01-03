@@ -16,8 +16,10 @@
 package org.gedcomx.records;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.ResourceType;
@@ -41,6 +43,21 @@ public class CollectionContent extends HypermediaEnabledData {
   private Integer count;
   private Float completeness;
 
+  @Override
+  public CollectionContent id(String id) {
+    return (CollectionContent) super.id(id);
+  }
+
+  @Override
+  public CollectionContent link(String rel, URI href) {
+    return (CollectionContent) super.link(rel, href);
+  }
+
+  @Override
+  public CollectionContent link(Link link) {
+    return (CollectionContent) super.link(link);
+  }
+
   /**
    * The type of resource being covered in this collection.
    *
@@ -57,6 +74,26 @@ public class CollectionContent extends HypermediaEnabledData {
    */
   public void setResourceType(URI resourceType) {
     this.resourceType = resourceType;
+  }
+
+  /**
+   * Build out the content with a resource type.
+   * @param resourceType The resource type.
+   * @return this.
+   */
+  public CollectionContent resourceType(URI resourceType) {
+    setResourceType(resourceType);
+    return this;
+  }
+
+  /**
+   * Build out the content with a resource type.
+   * @param resourceType The resource type.
+   * @return this.
+   */
+  public CollectionContent resourceType(ResourceType resourceType) {
+    setKnownResourceType(resourceType);
+    return this;
   }
 
   /**
@@ -99,6 +136,16 @@ public class CollectionContent extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this collection content with a count.
+   * @param count The count.
+   * @return this.
+   */
+  public CollectionContent count(Integer count) {
+    setCount(count);
+    return this;
+  }
+
+  /**
    * A completeness factor for this content; i.e. what percentage of the total number of items in the collection is included in this content aspect. The
    * completeness factor is a value between 0 and 1.
    *
@@ -116,6 +163,16 @@ public class CollectionContent extends HypermediaEnabledData {
    */
   public void setCompleteness(Float completeness) {
     this.completeness = completeness;
+  }
+
+  /**
+   * Build out this content with completeness.
+   * @param completeness The completeness.
+   * @return this.
+   */
+  public CollectionContent completeness(Float completeness) {
+    setCompleteness(completeness);
+    return this;
   }
 
 }

@@ -21,7 +21,7 @@ import org.gedcomx.common.URI;
 import javax.xml.bind.annotation.XmlAttribute;
 
 
-public class AgentName  extends TextValue {
+public class AgentName extends TextValue {
   private URI type;
 
   public AgentName() {

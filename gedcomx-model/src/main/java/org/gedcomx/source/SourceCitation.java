@@ -18,8 +18,12 @@ package org.gedcomx.source;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
+import org.gedcomx.records.Field;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
@@ -27,6 +31,7 @@ import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -40,6 +45,21 @@ public class SourceCitation extends HypermediaEnabledData {
   private String value;
   private ResourceReference citationTemplate;
   private List<CitationField> fields;
+
+  @Override
+  public SourceCitation id(String id) {
+    return (SourceCitation) super.id(id);
+  }
+
+  @Override
+  public SourceCitation link(Link link) {
+    return (SourceCitation) super.link(link);
+  }
+
+  @Override
+  public SourceCitation link(String rel, URI href) {
+    return (SourceCitation) super.link(rel, href);
+  }
 
   /**
    * The language of the citation. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -61,6 +81,16 @@ public class SourceCitation extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this source citation with a lang.
+   * @param lang The lang.
+   * @return this.
+   */
+  public SourceCitation lang(String lang) {
+    setLang(lang);
+    return this;
+  }
+
+  /**
    * A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
    *
    * @return A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
@@ -79,6 +109,17 @@ public class SourceCitation extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this source citation with a value.
+   *
+   * @param value The value.
+   * @return this.
+   */
+  public SourceCitation value(String value) {
+    setValue(value);
+    return this;
+  }
+
+  /**
    * A reference to the citation template for this citation.
    *
    * @return A reference to the citation template for this citation.
@@ -92,10 +133,20 @@ public class SourceCitation extends HypermediaEnabledData {
   /**
    * A reference to the citation template for this citation.
    *
-   * @return A reference to the citation template for this citation.
+   * @param citationTemplate A reference to the citation template for this citation.
    */
   public void setCitationTemplate(ResourceReference citationTemplate) {
     this.citationTemplate = citationTemplate;
+  }
+
+  /**
+   * Build out this source citation with a template.
+   * @param citationTemplate The template.
+   * @return this.
+   */
+  public SourceCitation citationTemplate(ResourceReference citationTemplate) {
+    setCitationTemplate(citationTemplate);
+    return this;
   }
 
   /**
@@ -119,6 +170,30 @@ public class SourceCitation extends HypermediaEnabledData {
   @JsonProperty ("fields")
   public void setFields(List<CitationField> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Build out this citation with a field.
+   * @param fields The field.
+   * @return This.
+   */
+  public SourceCitation field(CitationField fields) {
+    addField(fields);
+    return this;
+  }
+
+  /**
+   * Add a reference to the citation fields.
+   *
+   * @param field The field to be added.
+   */
+  public void addField(CitationField field) {
+    if (field != null) {
+      if (fields == null) {
+        fields = new LinkedList<CitationField>();
+      }
+      fields.add(field);
+    }
   }
 
   /**

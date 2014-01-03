@@ -49,14 +49,6 @@ public class User extends HypermediaEnabledData
   private String treeUserId;
   private Boolean ldsMemberAccount;
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId( String id ) {
-    this.id = id;
-  }
-
   public String getContactName() {
     return contactName;
   }

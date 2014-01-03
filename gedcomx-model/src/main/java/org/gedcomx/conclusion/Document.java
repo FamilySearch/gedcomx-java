@@ -18,12 +18,14 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.gedcomx.common.Attributable;
-import org.gedcomx.common.HasText;
-import org.gedcomx.common.URI;
+import org.gedcomx.common.*;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.DocumentType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -49,6 +51,71 @@ public class Document extends Conclusion implements HasText, Attributable {
   private String textType;
   private String text;
 
+  @Override
+  public Document id(String id) {
+    return (Document) super.id(id);
+  }
+
+  @Override
+  public Document link(String rel, URI href) {
+    return (Document) super.link(rel, href);
+  }
+
+  @Override
+  public Document link(Link link) {
+    return (Document) super.link(link);
+  }
+
+  @Override
+  public Document lang(String lang) {
+    return (Document) super.lang(lang);
+  }
+
+  @Override
+  public Document confidence(URI confidence) {
+    return (Document) super.confidence(confidence);
+  }
+
+  @Override
+  public Document confidence(ConfidenceLevel confidence) {
+    return (Document) super.confidence(confidence);
+  }
+
+  @Override
+  public Document source(SourceReference sourceReference) {
+    return (Document) super.source(sourceReference);
+  }
+
+  @Override
+  public Document source(SourceDescription source) {
+    return (Document) super.source(source);
+  }
+
+  @Override
+  public Document note(Note note) {
+    return (Document) super.note(note);
+  }
+
+  @Override
+  public Document attribution(Attribution attribution) {
+    return (Document) super.attribution(attribution);
+  }
+
+  @Override
+  public Document analysis(ResourceReference analysis) {
+    return (Document) super.analysis(analysis);
+  }
+
+  @Override
+  public Document analysis(Document analysis) {
+    return (Document) super.analysis(analysis);
+  }
+
+  @Override
+  public Document analysis(URI analysis) {
+    return (Document) super.analysis(analysis);
+  }
+
   /**
    * Whether this document has been identified as "extracted", meaning it captures information extracted from a single source.
    *
@@ -69,6 +136,16 @@ public class Document extends Conclusion implements HasText, Attributable {
   }
 
   /**
+   * Build up this document with an extracted flag.
+   * @param extracted The extracted flag.
+   * @return this.
+   */
+  public Document extracted(Boolean extracted) {
+    setExtracted(extracted);
+    return this;
+  }
+
+  /**
    * The type of the document.
    *
    * @return The type of the document.
@@ -86,6 +163,28 @@ public class Document extends Conclusion implements HasText, Attributable {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build up this document with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public Document type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this document with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public Document type(DocumentType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -132,6 +231,17 @@ public class Document extends Conclusion implements HasText, Attributable {
   }
 
   /**
+   * Build up this document with a text type.
+   *
+   * @param textType The text type.
+   * @return this.
+   */
+  public Document textType(String textType) {
+    setTextType(textType);
+    return this;
+  }
+
+  /**
    * The enum referencing the known type of the document, or {@link org.gedcomx.types.DocumentType#OTHER} if not known.
    *
    * @return The enum referencing the known type of the document, or {@link org.gedcomx.types.DocumentType#OTHER} if not known.
@@ -168,6 +278,17 @@ public class Document extends Conclusion implements HasText, Attributable {
    */
   public void setText(String text) {
     this.text = text;
+  }
+
+  /**
+   * Build up this document with some text.
+   *
+   * @param text The text.
+   * @return this.
+   */
+  public Document text(String text) {
+    setText(text);
+    return this;
   }
 
   /**

@@ -78,6 +78,17 @@ public class CitationField implements HasJsonKey {
   }
 
   /**
+   * Build out this citation field with a name.
+   *
+   * @param name the name.
+   * @return this.
+   */
+  public CitationField name(URI name) {
+    setName(name);
+    return this;
+  }
+
+  /**
    * The citation field's name.
    *
    * @param name The citation field's name.
@@ -86,6 +97,16 @@ public class CitationField implements HasJsonKey {
   @JsonIgnore
   public void setNameValue(String name) {
     this.name = name != null ? new URI(name) : null;
+  }
+
+  /**
+   * Build out this citation field with a name.
+   * @param name The name.
+   * @return this.
+   */
+  public CitationField nameValue(String name) {
+    setNameValue(name);
+    return this;
   }
 
   /**
@@ -128,5 +149,15 @@ public class CitationField implements HasJsonKey {
    */
   public void setValue(String value) {
     this.value = value;
+  }
+
+  /**
+   * Build out this citation field with a value.
+   * @param value The value.
+   * @return this.
+   */
+  public CitationField value(String value) {
+    setValue(value);
+    return this;
   }
 }

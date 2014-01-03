@@ -17,11 +17,9 @@ package org.gedcomx.source;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.Attributable;
-import org.gedcomx.common.Attribution;
-import org.gedcomx.common.Qualifier;
-import org.gedcomx.common.URI;
+import org.gedcomx.common.*;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -47,6 +45,21 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
   private Attribution attribution;
   private List<Qualifier> qualifiers;
 
+  @Override
+  public SourceReference id(String id) {
+    return (SourceReference) super.id(id);
+  }
+
+  @Override
+  public SourceReference link(Link link) {
+    return (SourceReference) super.link(link);
+  }
+
+  @Override
+  public SourceReference link(String rel, URI href) {
+    return (SourceReference) super.link(rel, href);
+  }
+
   /**
    * The attribution metadata for this source reference.
    *
@@ -63,6 +76,17 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    */
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * Build up this source reference with attribution.
+   *
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public SourceReference attribution(Attribution attribution) {
+    setAttribution(attribution);
+    return this;
   }
 
   /**
@@ -88,6 +112,30 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
   }
 
   /**
+   * Build up this source reference with a description reference.
+   *
+   * @param descriptionRef The description ref.
+   * @return this.
+   */
+  public SourceReference descriptionRef(URI descriptionRef) {
+    setDescriptionRef(descriptionRef);
+    return this;
+  }
+
+  /**
+   * Build up this source reference with a description reference.
+   *
+   * @param description The description.
+   * @return this.
+   */
+  public SourceReference description(SourceDescription description) {
+    if (description.getId() == null) {
+      throw new IllegalArgumentException("Cannot reference description: no id.");
+    }
+    return descriptionRef(URI.create("#" + description.getId()));
+  }
+
+  /**
    * The qualifiers associated with this source reference.
    *
    * @return The qualifiers associated with this source reference.
@@ -109,6 +157,22 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
     this.qualifiers = qualifiers;
   }
 
+  /**
+   * Build up this source reference with a qualifier.
+   *
+   * @param qualifier The qualifier.
+   * @return this.
+   */
+  public SourceReference qualifier(Qualifier qualifier) {
+    addQualifier(qualifier);
+    return this;
+  }
+
+  /**
+   * Add a qualifier.
+   *
+   * @param qualifier The qualifier.
+   */
   public void addQualifier(Qualifier qualifier) {
     if (qualifiers == null) {
       qualifiers = new ArrayList<Qualifier>();

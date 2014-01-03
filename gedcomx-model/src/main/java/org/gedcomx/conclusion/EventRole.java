@@ -18,11 +18,17 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.EventRoleType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -41,6 +47,71 @@ public class EventRole extends Conclusion {
   private ResourceReference person;
   private URI type;
   private String details;
+
+  @Override
+  public EventRole id(String id) {
+    return (EventRole) super.id(id);
+  }
+
+  @Override
+  public EventRole link(String rel, URI href) {
+    return (EventRole) super.link(rel, href);
+  }
+
+  @Override
+  public EventRole link(Link link) {
+    return (EventRole) super.link(link);
+  }
+
+  @Override
+  public EventRole lang(String lang) {
+    return (EventRole) super.lang(lang);
+  }
+
+  @Override
+  public EventRole confidence(URI confidence) {
+    return (EventRole) super.confidence(confidence);
+  }
+
+  @Override
+  public EventRole confidence(ConfidenceLevel confidence) {
+    return (EventRole) super.confidence(confidence);
+  }
+
+  @Override
+  public EventRole source(SourceReference sourceReference) {
+    return (EventRole) super.source(sourceReference);
+  }
+
+  @Override
+  public EventRole source(SourceDescription source) {
+    return (EventRole) super.source(source);
+  }
+
+  @Override
+  public EventRole note(Note note) {
+    return (EventRole) super.note(note);
+  }
+
+  @Override
+  public EventRole attribution(Attribution attribution) {
+    return (EventRole) super.attribution(attribution);
+  }
+
+  @Override
+  public EventRole analysis(ResourceReference analysis) {
+    return (EventRole) super.analysis(analysis);
+  }
+
+  @Override
+  public EventRole analysis(URI analysis) {
+    return (EventRole) super.analysis(analysis);
+  }
+
+  @Override
+  public EventRole analysis(Document analysis) {
+    return (EventRole) super.analysis(analysis);
+  }
 
   /**
    * Reference to the person playing the role in the event.
@@ -62,6 +133,29 @@ public class EventRole extends Conclusion {
   }
 
   /**
+   * Build up this event role with a person.
+   * @param person The person.
+   * @return this.
+   */
+  public EventRole person(ResourceReference person) {
+    setPerson(person);
+    return this;
+  }
+
+  /**
+   * Build up this event role with a person.
+   * @param person The person.
+   * @return this.
+   */
+  public EventRole person(Person person) {
+    if (person.getId() == null) {
+      throw new IllegalStateException("Cannot reference person: no id.");
+    }
+    setPerson(new ResourceReference(URI.create("#" + person.getId())));
+    return this;
+  }
+
+  /**
    * The role type.
    *
    * @return The role type.
@@ -79,6 +173,28 @@ public class EventRole extends Conclusion {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build up this role with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public EventRole type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this role with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public EventRole type(EventRoleType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -118,6 +234,18 @@ public class EventRole extends Conclusion {
    */
   public void setDetails(String details) {
     this.details = details;
+  }
+
+  /**
+   * Build up this event role with details.
+   *
+   *
+   * @param details The details.
+   * @return this.
+   */
+  public EventRole details(String details) {
+    setDetails(details);
+    return this;
   }
 
   /**

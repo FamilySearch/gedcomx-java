@@ -17,6 +17,7 @@ package org.gedcomx.common;
 
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -52,6 +53,21 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
     this.resourceId = resourceId;
   }
 
+  @Override
+  public EvidenceReference link(Link link) {
+    return (EvidenceReference) super.link(link);
+  }
+
+  @Override
+  public EvidenceReference link(String rel, URI href) {
+    return (EvidenceReference) super.link(rel, href);
+  }
+
+  @Override
+  public EvidenceReference id(String id) {
+    return (EvidenceReference) super.id(id);
+  }
+
   /**
    * The resource id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.
    *
@@ -70,6 +86,16 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
    */
   public void setResourceId(String resourceId) {
     this.resourceId = resourceId;
+  }
+
+  /**
+   * Build up this reference with a resource id.
+   *
+   * @param resourceId The resource id.
+   */
+  public EvidenceReference resourceId(String resourceId) {
+    this.resourceId = resourceId;
+    return this;
   }
 
   /**
@@ -95,6 +121,16 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
   }
 
   /**
+   * Build up this reference with a resource URI.
+   *
+   * @param resource The resource.
+   */
+  public EvidenceReference resource(URI resource) {
+    this.resource = resource;
+    return this;
+  }
+
+  /**
    * Attribution metadata for this evidence reference.
    *
    * @return Attribution metadata for evidence reference.
@@ -112,6 +148,17 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
   @Override
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * Build up this evidence reference with an attribution.
+   *
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public EvidenceReference attribution(Attribution attribution) {
+    this.attribution = attribution;
+    return this;
   }
 
   /**

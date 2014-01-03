@@ -75,6 +75,17 @@ public final class Identifier implements HasJsonKey {
   }
 
   /**
+   * Build up this identifier with a value.
+   *
+   * @param value The value.
+   * @return this.
+   */
+  public Identifier value(URI value) {
+    setValue(value);
+    return this;
+  }
+
+  /**
    * The type of the id.
    *
    * @return The type of the id.
@@ -95,6 +106,26 @@ public final class Identifier implements HasJsonKey {
   @JsonIgnore
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build up this identifier with a type.
+   * @param type The type.
+   * @return this.
+   */
+  public Identifier type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this identifier with a type.
+   * @param type The type.
+   * @return this.
+   */
+  public Identifier type(IdentifierType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**

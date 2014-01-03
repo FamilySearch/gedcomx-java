@@ -43,6 +43,11 @@ public class DisplayProperties extends ExtensibleData {
   private String ascendancyNumber;
   private String descendancyNumber;
 
+  @Override
+  public DisplayProperties id(String id) {
+    return (DisplayProperties) super.id(id);
+  }
+
   /**
    * The displayable name of the person.
    *
@@ -59,6 +64,17 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * Build up these properties with a name.
+   * 
+   * @param name The name.
+   * @return this.
+   */
+  public DisplayProperties name(String name) {
+    setName(name);
+    return this;
   }
 
   /**
@@ -80,6 +96,17 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * Build up these properties with a gender.
+   *
+   * @param gender The gender.
+   * @return this.
+   */
+  public DisplayProperties gender(String gender) {
+    setGender(gender);
+    return this;
+  }
+
+  /**
    * The displayable label for the lifespan of the person.
    *
    * @return The displayable label for the lifespan of the person.
@@ -95,6 +122,17 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setLifespan(String lifespan) {
     this.lifespan = lifespan;
+  }
+
+  /**
+   * Build up these properties with a lifespan.
+   *
+   * @param lifespan The lifespan.
+   * @return this.
+   */
+  public DisplayProperties lifespan(String lifespan) {
+    setLifespan(lifespan);
+    return this;
   }
 
   /**
@@ -116,6 +154,17 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * Build up these properties with a birth date.
+   *
+   * @param birthdate The birth date.
+   * @return this.
+   */
+  public DisplayProperties birthDate(String birthdate) {
+    setBirthDate(birthdate);
+    return this;
+  }
+
+  /**
    * The displayable label for the birth place of the person.
    * 
    * @return The displayable label for the birth place of the person.
@@ -131,6 +180,17 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setBirthPlace(String birthPlace) {
     this.birthPlace = birthPlace;
+  }
+
+  /**
+   * Build up these properties with a birth place.
+   *
+   * @param birthplace The birth place.
+   * @return this.
+   */
+  public DisplayProperties birthPlace(String birthplace) {
+    setBirthPlace(birthplace);
+    return this;
   }
 
   /**
@@ -152,6 +212,17 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * Build up these properties with a death date.
+   *
+   * @param deathdate The death date.
+   * @return this.
+   */
+  public DisplayProperties deathDate(String deathdate) {
+    setDeathDate(deathdate);
+    return this;
+  }
+
+  /**
    * The displayable label for the death place of the person.
    * 
    * @return The displayable label for the death place of the person.
@@ -167,6 +238,17 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setDeathPlace(String deathPlace) {
     this.deathPlace = deathPlace;
+  }
+
+  /**
+   * Build up these properties with a death place.
+   *
+   * @param deathplace The death place.
+   * @return this.
+   */
+  public DisplayProperties deathPlace(String deathplace) {
+    setDeathPlace(deathplace);
+    return this;
   }
 
   /**
@@ -188,6 +270,17 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * Build up these properties with a marriage date.
+   *
+   * @param marriagedate The marriage date.
+   * @return this.
+   */
+  public DisplayProperties marriageDate(String marriagedate) {
+    setMarriageDate(marriagedate);
+    return this;
+  }
+
+  /**
    * The displayable label for the marriage place of the person.
    * 
    * @return The displayable label for the marriage place of the person.
@@ -203,6 +296,17 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setMarriagePlace(String marriagePlace) {
     this.marriagePlace = marriagePlace;
+  }
+
+  /**
+   * Build up these properties with a marriage place.
+   *
+   * @param marriageplace The marriage place.
+   * @return this.
+   */
+  public DisplayProperties marriagePlace(String marriageplace) {
+    setMarriagePlace(marriageplace);
+    return this;
   }
 
   /**
@@ -224,6 +328,17 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * Build up these properties with a ascendancy number.
+   *
+   * @param ascendancynumber The ascendancy number.
+   * @return this.
+   */
+  public DisplayProperties ascendancyNumber(String ascendancynumber) {
+    setAscendancyNumber(ascendancynumber);
+    return this;
+  }
+
+  /**
    * The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
    *
    * @return The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
@@ -239,6 +354,17 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setDescendancyNumber(String descendancyNumber) {
     this.descendancyNumber = descendancyNumber;
+  }
+
+  /**
+   * Build up these properties with a descendancy number.
+   *
+   * @param descendancynumber The descendancy number.
+   * @return this.
+   */
+  public DisplayProperties descendancyNumber(String descendancynumber) {
+    setDescendancyNumber(descendancynumber);
+    return this;
   }
 
   /**

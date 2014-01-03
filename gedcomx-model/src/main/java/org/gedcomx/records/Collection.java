@@ -19,7 +19,10 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
+import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -30,6 +33,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -49,6 +53,21 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   private Integer size;
   private Attribution attribution;
   private List<Field> facets; //todo: facets need to be nested?
+
+  @Override
+  public Collection id(String id) {
+    return (Collection) super.id(id);
+  }
+
+  @Override
+  public Collection link(Link link) {
+    return (Collection) super.link(link);
+  }
+
+  @Override
+  public Collection link(String rel, URI href) {
+    return (Collection) super.link(rel, href);
+  }
 
   /**
    * The language of this description of the collection. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
@@ -70,6 +89,16 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
+   * Build out this collection with a lang.
+   * @param lang The lang.
+   * @return this.
+   */
+  public Collection lang(String lang) {
+    setLang(lang);
+    return this;
+  }
+
+  /**
    * A title for the collection.
    *
    * @return A title for the collection.
@@ -85,6 +114,16 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  /**
+   * Build out this collection with a title.
+   * @param title the title.
+   * @return this.
+   */
+  public Collection title(String title) {
+    setTitle(title);
+    return this;
   }
 
   /**
@@ -104,6 +143,31 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   public void setContent(List<CollectionContent> content) {
     this.content = content;
   }
+
+  /**
+   * Build out this collection with content.
+   * @param content The content.
+   * @return this.
+   */
+  public Collection content(CollectionContent content) {
+    addContent(content);
+    return this;
+  }
+
+  /**
+   * Add a reference to the record content values being used as evidence.
+   *
+   * @param content The content to be added.
+   */
+  public void addContent(CollectionContent content) {
+    if (content != null) {
+      if (this.content == null) {
+        this.content = new LinkedList<CollectionContent>();
+      }
+      this.content.add(content);
+    }
+  }
+
 
   /**
    * Attribution metadata for this collection.
@@ -126,6 +190,16 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
+   * Build out this collection with attribution.
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public Collection attribution(Attribution attribution) {
+    setAttribution(attribution);
+    return this;
+  }
+
+  /**
    * The size of the collection, in terms of the number of items in this collection.
    *
    * @return The size of the collection, in terms of the number of items in this collection.
@@ -141,6 +215,17 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   public void setSize(Integer size) {
     this.size = size;
+  }
+
+  /**
+   * Build out this collection with size.
+   *
+   * @param size the size.
+   * @return this.
+   */
+  public Collection size(Integer size) {
+    setSize(size);
+    return this;
   }
 
   /**

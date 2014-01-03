@@ -75,6 +75,17 @@ public final class Qualifier {
   }
 
   /**
+   * Build up this qualifier with a name.
+   *
+   * @param name the name.
+   * @return this.
+   */
+  public Qualifier name(URI name) {
+    this.name = name;
+    return this;
+  }
+
+  /**
    * Get the name as an element of a constrained vocabulary.
    *
    * @param vocabulary The enum containing the constrained vocabulary.
@@ -96,6 +107,17 @@ public final class Qualifier {
   }
 
   /**
+   * Build up this qualifier with a name.
+   *
+   * @param name the name.
+   * @return this.
+   */
+  public Qualifier name(Enum name) {
+    setName(name);
+    return this;
+  }
+
+  /**
    * The value of the qualifier. Some qualifiers may not have values, indicating that the qualifier is to be treated more like a "tag".
    *
    * @return The value of the qualifier.
@@ -112,5 +134,16 @@ public final class Qualifier {
    */
   public void setValue(String value) {
     this.value = value;
+  }
+
+  /**
+   * Build up this qualifier with a value.
+   *
+   * @param value The value of the qualifier.
+   * @return this.
+   */
+  public Qualifier value(String value) {
+    setValue(value);
+    return this;
   }
 }

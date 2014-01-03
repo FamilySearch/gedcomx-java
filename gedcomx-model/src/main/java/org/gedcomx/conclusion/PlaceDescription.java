@@ -18,11 +18,13 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.ResourceReference;
-import org.gedcomx.common.TextValue;
-import org.gedcomx.common.URI;
+import org.gedcomx.common.*;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -46,6 +48,103 @@ public class PlaceDescription extends Subject {
   private Double latitude;
   private Double longitude;
   private ResourceReference spatialDescription;
+
+  @Override
+  public PlaceDescription id(String id) {
+    return (PlaceDescription) super.id(id);
+  }
+
+  @Override
+  public PlaceDescription link(String rel, URI href) {
+    return (PlaceDescription) super.link(rel, href);
+  }
+
+  @Override
+  public PlaceDescription link(Link link) {
+    return (PlaceDescription) super.link(link);
+  }
+
+  @Override
+  public PlaceDescription lang(String lang) {
+    return (PlaceDescription) super.lang(lang);
+  }
+
+  @Override
+  public PlaceDescription confidence(URI confidence) {
+    return (PlaceDescription) super.confidence(confidence);
+  }
+
+  @Override
+  public PlaceDescription confidence(ConfidenceLevel confidence) {
+    return (PlaceDescription) super.confidence(confidence);
+  }
+
+  @Override
+  public PlaceDescription source(SourceReference sourceReference) {
+    return (PlaceDescription) super.source(sourceReference);
+  }
+
+  @Override
+  public PlaceDescription source(SourceDescription source) {
+    return (PlaceDescription) super.source(source);
+  }
+
+  @Override
+  public PlaceDescription note(Note note) {
+    return (PlaceDescription) super.note(note);
+  }
+
+  @Override
+  public PlaceDescription analysis(ResourceReference analysis) {
+    return (PlaceDescription) super.analysis(analysis);
+  }
+
+  @Override
+  public PlaceDescription attribution(Attribution attribution) {
+    return (PlaceDescription) super.attribution(attribution);
+  }
+
+  @Override
+  public PlaceDescription analysis(Document analysis) {
+    return (PlaceDescription) super.analysis(analysis);
+  }
+
+  @Override
+  public PlaceDescription analysis(URI analysis) {
+    return (PlaceDescription) super.analysis(analysis);
+  }
+
+  @Override
+  public PlaceDescription extracted(Boolean extracted) {
+    return (PlaceDescription) super.extracted(extracted);
+  }
+
+  @Override
+  public PlaceDescription identifier(Identifier identifier) {
+    return (PlaceDescription) super.identifier(identifier);
+  }
+
+  @Override
+  public PlaceDescription evidence(EvidenceReference evidence) {
+    return (PlaceDescription) super.evidence(evidence);
+  }
+
+  public PlaceDescription evidence(PlaceDescription evidence) {
+    if (evidence.getId() == null) {
+      throw new IllegalArgumentException("Unable to add event as evidence: no id.");
+    }
+    return (PlaceDescription) super.evidence(new EvidenceReference(URI.create("#" + evidence.getId())));
+  }
+
+  @Override
+  public PlaceDescription media(SourceReference media) {
+    return (PlaceDescription) super.media(media);
+  }
+
+  @Override
+  public PlaceDescription media(SourceDescription media) {
+    return (PlaceDescription) super.media(media);
+  }
 
   /**
    * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
@@ -75,6 +174,28 @@ public class PlaceDescription extends Subject {
   @JsonProperty ("names")
   public void setNames(List<TextValue> names) {
     this.names = names;
+  }
+
+  /**
+   * Build out this description with a name.
+   *
+   * @param name The name.
+   * @return this.
+   */
+  public PlaceDescription name(TextValue name) {
+    addName(name);
+    return this;
+  }
+
+  /**
+   * Build out this description with a name.
+   *
+   * @param name The name.
+   * @return this.
+   */
+  public PlaceDescription name(String name) {
+    addName(new TextValue(name));
+    return this;
   }
 
   /**
@@ -112,6 +233,16 @@ public class PlaceDescription extends Subject {
   }
 
   /**
+   * Build out this place description with a type.
+   * @param type The type.
+   * @return this.
+   */
+  public PlaceDescription type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
    * A description of the time period to which this place description is relevant.
    *
    * @return A description of the time period to which this place description is relevant.
@@ -128,6 +259,16 @@ public class PlaceDescription extends Subject {
    */
   public void setTemporalDescription(Date temporalDescription) {
     this.temporalDescription = temporalDescription;
+  }
+
+  /**
+   * Build out this place description with a temporal description.
+   * @param temporalDescription the temporal description.
+   * @return this.
+   */
+  public PlaceDescription temporalDescription(Date temporalDescription) {
+    setTemporalDescription(temporalDescription);
+    return this;
   }
 
   /**
@@ -149,6 +290,17 @@ public class PlaceDescription extends Subject {
   }
 
   /**
+   * Build out this place description with a latitude.
+   *
+   * @param latitude The latitude.
+   * @return this.
+   */
+  public PlaceDescription latitude(Double latitude) {
+    setLatitude(latitude);
+    return this;
+  }
+
+  /**
    * Angular distance in degrees, relative to the Prime Meridian.   Values range from −180.0 degrees (west of the Meridian) to 180.0 degrees (east of the Meridian).
    *
    * @return Angular distance in degrees, relative to the Prime Meridian.
@@ -164,6 +316,16 @@ public class PlaceDescription extends Subject {
    */
   public void setLongitude(Double longitude) {
     this.longitude = longitude;
+  }
+
+  /**
+   * Build out this place description with a longitude.
+   * @param longitude The longitude.
+   * @return this.
+   */
+  public PlaceDescription longitude(Double longitude) {
+    setLongitude(longitude);
+    return this;
   }
 
   /**
@@ -187,6 +349,16 @@ public class PlaceDescription extends Subject {
    */
   public void setSpatialDescription(ResourceReference spatialDescription) {
     this.spatialDescription = spatialDescription;
+  }
+
+  /**
+   * Build out this place description with a spacial description.
+   * @param spatialDescription The spatial description.
+   * @return this
+   */
+  public PlaceDescription spatialDescription(ResourceReference spatialDescription) {
+    setSpatialDescription(spatialDescription);
+    return this;
   }
 
   /**

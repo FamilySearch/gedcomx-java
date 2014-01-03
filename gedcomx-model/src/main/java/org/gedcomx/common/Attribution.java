@@ -16,6 +16,7 @@
 package org.gedcomx.common;
 
 import org.codehaus.enunciate.Facet;
+import org.gedcomx.agent.Agent;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.RDFRange;
 import org.gedcomx.rt.RDFSubPropertyOf;
@@ -41,6 +42,11 @@ public final class Attribution extends ExtensibleData {
   private Date modified;
   private String changeMessage;
 
+  @Override
+  public Attribution id(String id) {
+    return (Attribution) super.id(id);
+  }
+
   /**
    * Reference to the contributor of the attributed data.
    *
@@ -60,6 +66,40 @@ public final class Attribution extends ExtensibleData {
    */
   public void setContributor(ResourceReference contributor) {
     this.contributor = contributor;
+  }
+
+  /**
+   * Build up this attribution with a contributor.
+   *
+   * @param contributor The contributor.
+   * @return this.
+   */
+  public Attribution contributor(ResourceReference contributor) {
+    this.contributor = contributor;
+    return this;
+  }
+
+  /**
+   * Build up this attribution with a contributor.
+   *
+   * @param contributor The contributor.
+   * @return this.
+   */
+  public Attribution contributor(URI contributor) {
+    return contributor(new ResourceReference(contributor));
+  }
+
+  /**
+   * Build up this attribution with a contributor.
+   *
+   * @param agent The contributor.
+   * @return this.
+   */
+  public Attribution contributor(Agent agent) {
+    if (agent.getId() == null) {
+      throw new IllegalArgumentException("Can't reference agent as a contributor: no id.");
+    }
+    return contributor(URI.create("#" + agent.getId()));
   }
 
   /**
@@ -83,6 +123,17 @@ public final class Attribution extends ExtensibleData {
   }
 
   /**
+   * Build up this attribution with a modified date.
+   *
+   * @param modified The modified date.
+   * @return this.
+   */
+  public Attribution modified(Date modified) {
+    this.modified = modified;
+    return this;
+  }
+
+  /**
    * The "change message" for the attributed data provided by the contributor.
    *
    * @return The "change message" for the attributed data provided by the contributor.
@@ -98,6 +149,15 @@ public final class Attribution extends ExtensibleData {
    * @param changeMessage The "change message" for the attributed data provided by the contributor.
    */
   public void setChangeMessage(String changeMessage) {
+    this.changeMessage = changeMessage;
+  }
+
+  /**
+   * Build up this attribution with a change message.
+   *
+   * @param changeMessage The change message.
+   */
+  public void changeMessage(String changeMessage) {
     this.changeMessage = changeMessage;
   }
 

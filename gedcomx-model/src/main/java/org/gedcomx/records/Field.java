@@ -19,8 +19,10 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -42,6 +45,21 @@ public class Field extends HypermediaEnabledData {
 
   private URI type;
   private List<FieldValue> values;
+
+  @Override
+  public Field id(String id) {
+    return (Field) super.id(id);
+  }
+
+  @Override
+  public Field link(Link link) {
+    return (Field) super.link(link);
+  }
+
+  @Override
+  public Field link(String rel, URI href) {
+    return (Field) super.link(rel, href);
+  }
 
   /**
    * The type of the gender.
@@ -61,6 +79,28 @@ public class Field extends HypermediaEnabledData {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build out this field with a type.
+   * 
+   * @param type The type.
+   * @return this.
+   */
+  public Field type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build out this field with a type.
+   * 
+   * @param type The type.
+   * @return this.
+   */
+  public Field type(FieldType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -105,6 +145,30 @@ public class Field extends HypermediaEnabledData {
   @JsonProperty ("values")
   public void setValues(List<FieldValue> values) {
     this.values = values;
+  }
+
+  /**
+   * Build out this field with a field value.
+   * @param value The value.
+   * @return this.
+   */
+  public Field value(FieldValue value) {
+    addValue(value);
+    return this;
+  }
+
+  /**
+   * Add a reference to the record value values being used as evidence.
+   *
+   * @param value The value to be added.
+   */
+  public void addValue(FieldValue value) {
+    if (value != null) {
+      if (values == null) {
+        values = new LinkedList<FieldValue>();
+      }
+      values.add(value);
+    }
   }
 
   public void accept(GedcomxModelVisitor visitor) {

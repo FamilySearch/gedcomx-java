@@ -50,6 +50,11 @@ public final class NamePart extends ExtensibleData implements HasFields {
   private List<Qualifier> qualifiers;
   private List<Field> fields;
 
+  @Override
+  public NamePart id(String id) {
+    return (NamePart) super.id(id);
+  }
+
   /**
    * The type of the name part.
    *
@@ -68,6 +73,28 @@ public final class NamePart extends ExtensibleData implements HasFields {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build out this name part with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public NamePart type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build out this name part with a type.
+   *
+   * @param type The type.
+   * @return this.
+   */
+  public NamePart type(NamePartType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -111,6 +138,17 @@ public final class NamePart extends ExtensibleData implements HasFields {
   }
 
   /**
+   * Build out this name part with a value.
+   *
+   * @param value The value.
+   * @return this.
+   */
+  public NamePart value(String value) {
+    setValue(value);
+    return this;
+  }
+
+  /**
    * The qualifiers associated with this name part.
    *
    * @return The qualifiers associated with this name part.
@@ -130,6 +168,17 @@ public final class NamePart extends ExtensibleData implements HasFields {
   @JsonProperty ("qualifiers")
   public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
+  }
+
+  /**
+   * Build out this name part with a qualifier.
+   *
+   * @param qualifier The qualifier.
+   * @return this.
+   */
+  public NamePart qualifier(Qualifier qualifier) {
+    addQualifier(qualifier);
+    return this;
   }
 
   /**
@@ -167,6 +216,16 @@ public final class NamePart extends ExtensibleData implements HasFields {
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Build out this name part with a field.
+   * @param field The field.
+   * @return this.
+   */
+  public NamePart field(Field field) {
+    addField(field);
+    return this;
   }
 
   /**

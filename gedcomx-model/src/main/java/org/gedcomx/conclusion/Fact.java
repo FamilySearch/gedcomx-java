@@ -20,16 +20,20 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.Qualifier;
-import org.gedcomx.common.URI;
+import org.gedcomx.common.*;
+import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.FactType;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,8 +81,73 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   public Fact(FactType factType, Date date, PlaceReference place, String value) {
     setKnownType(factType);
     setDate(date);
-    setPlace( place );
+    setPlace(place);
     setValue(value);
+  }
+
+  @Override
+  public Fact id(String id) {
+    return (Fact) super.id(id);
+  }
+
+  @Override
+  public Fact link(String rel, URI href) {
+    return (Fact) super.link(rel, href);
+  }
+
+  @Override
+  public Fact link(Link link) {
+    return (Fact) super.link(link);
+  }
+
+  @Override
+  public Fact lang(String lang) {
+    return (Fact) super.lang(lang);
+  }
+
+  @Override
+  public Fact confidence(URI confidence) {
+    return (Fact) super.confidence(confidence);
+  }
+
+  @Override
+  public Fact confidence(ConfidenceLevel confidence) {
+    return (Fact) super.confidence(confidence);
+  }
+
+  @Override
+  public Fact source(SourceReference sourceReference) {
+    return (Fact) super.source(sourceReference);
+  }
+
+  @Override
+  public Fact source(SourceDescription source) {
+    return (Fact) super.source(source);
+  }
+
+  @Override
+  public Fact note(Note note) {
+    return (Fact) super.note(note);
+  }
+
+  @Override
+  public Fact attribution(Attribution attribution) {
+    return (Fact) super.attribution(attribution);
+  }
+
+  @Override
+  public Fact analysis(ResourceReference analysis) {
+    return (Fact) super.analysis(analysis);
+  }
+
+  @Override
+  public Fact analysis(Document analysis) {
+    return (Fact) super.analysis(analysis);
+  }
+
+  @Override
+  public Fact analysis(URI analysis) {
+    return (Fact) super.analysis(analysis);
   }
 
   /**
@@ -99,6 +168,28 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build up this fact with a type.
+   *
+   * @param type The type.
+   * @return this
+   */
+  public Fact type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this fact with a type.
+   *
+   * @param type The type.
+   * @return this
+   */
+  public Fact type(org.gedcomx.types.FactType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -145,6 +236,16 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   }
 
   /**
+   * Build up this fact with a 'primary' flag.
+   * @param primary The primary flag.
+   * @return this.
+   */
+  public Fact primary(Boolean primary) {
+    setPrimary(primary);
+    return this;
+  }
+
+  /**
    * The date of applicability of this fact.
    *
    * @return The date of applicability of this fact.
@@ -160,6 +261,16 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    */
   public void setDate(Date date) {
     this.date = date;
+  }
+
+  /**
+   * Build up this fact with a date.
+   * @param date the date.
+   * @return this.
+   */
+  public Fact date(Date date) {
+    setDate(date);
+    return this;
   }
 
   /**
@@ -181,6 +292,17 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   }
 
   /**
+   * Build up this fact with a place.
+   *
+   * @param place The place.
+   * @return this.
+   */
+  public Fact place(PlaceReference place) {
+    setPlace(place);
+    return this;
+  }
+
+  /**
    * The value as supplied by the user.
    *
    * @return The value as supplied by the user.
@@ -196,6 +318,16 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    */
   public void setValue(String value) {
     this.value = value;
+  }
+
+  /**
+   * Build up this fact with a value.
+   * @param value The value.
+   * @return this.
+   */
+  public Fact value(String value) {
+    setValue(value);
+    return this;
   }
 
   /**
@@ -222,6 +354,29 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   }
 
   /**
+   * Build up this fact with a qualifier.
+   *
+   * @param qualifier The qualifier.
+   * @return this.
+   */
+  public Fact qualifier(Qualifier qualifier) {
+    addQualifier(qualifier);
+    return this;
+  }
+
+  /**
+   * Add a qualifier.
+   *
+   * @param qualifier The qualifier.
+   */
+  public void addQualifier(Qualifier qualifier) {
+    if (this.qualifiers == null) {
+      this.qualifiers = new ArrayList<Qualifier>();
+    }
+    this.qualifiers.add(qualifier);
+  }
+
+  /**
    * Get the fields being used as evidence.
    *
    * @return The references to the record fields being used as evidence.
@@ -242,6 +397,17 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
+  }
+
+  /**
+   * Build up this fact with a field.
+   *
+   * @param field The field.
+   * @return this.
+   */
+  public Fact field(Field field) {
+    addField(field);
+    return this;
   }
 
   /**

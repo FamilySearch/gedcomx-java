@@ -17,6 +17,7 @@ package org.gedcomx.common;
 
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -43,6 +44,21 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
   private String text;
   private Attribution attribution;
 
+  @Override
+  public Note id(String id) {
+    return (Note) super.id(id);
+  }
+
+  @Override
+  public Note link(String rel, URI href) {
+    return (Note) super.link(rel, href);
+  }
+
+  @Override
+  public Note link(Link link) {
+    return (Note) super.link(link);
+  }
+
   /**
    * The language of the note. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *
@@ -64,6 +80,16 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
   }
 
   /**
+   * Build up this note with a locale.
+   *
+   * @param lang The locale.
+   */
+  public Note lang(String lang) {
+    this.lang = lang;
+    return this;
+  }
+
+  /**
    * The subject of the note. This is a short title describing the contents of the note text.
    *
    * @return The subject of the note.
@@ -79,6 +105,17 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
    */
   public void setSubject(String text) {
     this.subject = text;
+  }
+
+  /**
+   * Build up this note with a subject.
+   *
+   * @param text The subject.
+   * @return this.
+   */
+  public Note subject(String text) {
+    this.subject = text;
+    return this;
   }
 
   /**
@@ -102,6 +139,16 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
   }
 
   /**
+   * Build up this note with some text.
+   *
+   * @param text The text.
+   */
+  public Note text(String text) {
+    this.text = text;
+    return this;
+  }
+
+  /**
    * Attribution metadata for a note.
    *
    * @return Attribution metadata for a note.
@@ -119,6 +166,17 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
   @Override
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
+  }
+
+  /**
+   * Build up this note with attribution.
+   *
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public Note attribution(Attribution attribution) {
+    this.attribution = attribution;
+    return this;
   }
 
   @Override

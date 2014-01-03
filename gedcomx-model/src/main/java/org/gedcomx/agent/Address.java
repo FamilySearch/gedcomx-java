@@ -37,6 +37,11 @@ public class Address extends ExtensibleData {
   private String street3;
   private String value;
 
+  @Override
+  public Address id(String id) {
+    return (Address) super.id(id);
+  }
+
   /**
    * The city.
    *
@@ -56,12 +61,34 @@ public class Address extends ExtensibleData {
   }
 
   /**
+   * Build up this address with a city.
+   * 
+   * @param city The city.
+   * @return this.
+   */
+  public Address city(String city) {
+    this.city = city;
+    return this;
+  }
+
+  /**
    * The country.
    *
    * @return The country.
    */
   public String getCountry() {
     return country;
+  }
+
+  /**
+   * Build up this address with a country.
+   *
+   * @param country The country.
+   * @return this.
+   */
+  public Address country(String country) {
+    this.country = country;
+    return this;
   }
 
   /**
@@ -92,6 +119,17 @@ public class Address extends ExtensibleData {
   }
 
   /**
+   * Build up this address with a postalcode.
+   *
+   * @param postalCode The postalcode.
+   * @return this.
+   */
+  public Address postalCode(String postalCode) {
+    this.postalCode = postalCode;
+    return this;
+  }
+
+  /**
    * The state or province.
    *
    * @return The state or province.
@@ -107,6 +145,17 @@ public class Address extends ExtensibleData {
    */
   public void setStateOrProvince(String stateOrProvince) {
     this.stateOrProvince = stateOrProvince;
+  }
+
+  /**
+   * Build up this address with a state or province.
+   *
+   * @param stateOrProvince The state or province.
+   * @return this.
+   */
+  public Address stateOrProvince(String stateOrProvince) {
+    this.stateOrProvince = stateOrProvince;
+    return this;
   }
 
   /**
@@ -128,6 +177,17 @@ public class Address extends ExtensibleData {
   }
 
   /**
+   * Build up this address with a street.
+   *
+   * @param street The street.
+   * @return this.
+   */
+  public Address street(String street) {
+    this.street = street;
+    return this;
+  }
+
+  /**
    * Additional street information.
    *
    * @return Additional street information.
@@ -143,6 +203,17 @@ public class Address extends ExtensibleData {
    */
   public void setStreet2(String street2) {
     this.street2 = street2;
+  }
+
+  /**
+   * Build up this address with a street2.
+   *
+   * @param street2 The street2.
+   * @return this.
+   */
+  public Address street2(String street2) {
+    this.street2 = street2;
+    return this;
   }
 
   /**
@@ -164,6 +235,17 @@ public class Address extends ExtensibleData {
   }
 
   /**
+   * Build up this address with a street3.
+   *
+   * @param street3 The street3.
+   * @return this.
+   */
+  public Address street3(String street3) {
+    this.street3 = street3;
+    return this;
+  }
+
+  /**
    * The value of the property, if it can be expressed as a string.
    *
    * @return The value of the property.
@@ -179,5 +261,16 @@ public class Address extends ExtensibleData {
    */
   public void setValue(String value) {
     this.value = value;
+  }
+
+  /**
+   * Build up this address with a value.
+   *
+   * @param value The value.
+   * @return this.
+   */
+  public Address value(String value) {
+    this.value = value;
+    return this;
   }
 }

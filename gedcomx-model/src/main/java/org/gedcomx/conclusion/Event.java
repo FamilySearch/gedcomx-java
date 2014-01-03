@@ -20,10 +20,14 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.URI;
+import org.gedcomx.common.*;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.EventType;
 
 import javax.xml.bind.annotation.*;
@@ -73,7 +77,104 @@ public class Event extends Subject implements HasDateAndPlace {
   public Event(EventType EventType, Date date, PlaceReference place) {
     setKnownType(EventType);
     setDate(date);
-    setPlace( place );
+    setPlace(place);
+  }
+
+  @Override
+  public Event id(String id) {
+    return (Event) super.id(id);
+  }
+
+  @Override
+  public Event link(String rel, URI href) {
+    return (Event) super.link(rel, href);
+  }
+
+  @Override
+  public Event link(Link link) {
+    return (Event) super.link(link);
+  }
+
+  @Override
+  public Event lang(String lang) {
+    return (Event) super.lang(lang);
+  }
+
+  @Override
+  public Event confidence(URI confidence) {
+    return (Event) super.confidence(confidence);
+  }
+
+  @Override
+  public Event confidence(ConfidenceLevel confidence) {
+    return (Event) super.confidence(confidence);
+  }
+
+  @Override
+  public Event source(SourceReference sourceReference) {
+    return (Event) super.source(sourceReference);
+  }
+
+  @Override
+  public Event source(SourceDescription source) {
+    return (Event) super.source(source);
+  }
+
+  @Override
+  public Event note(Note note) {
+    return (Event) super.note(note);
+  }
+
+  @Override
+  public Event analysis(ResourceReference analysis) {
+    return (Event) super.analysis(analysis);
+  }
+
+  @Override
+  public Event attribution(Attribution attribution) {
+    return (Event) super.attribution(attribution);
+  }
+
+  @Override
+  public Event analysis(Document analysis) {
+    return (Event) super.analysis(analysis);
+  }
+
+  @Override
+  public Event analysis(URI analysis) {
+    return (Event) super.analysis(analysis);
+  }
+
+  @Override
+  public Event extracted(Boolean extracted) {
+    return (Event) super.extracted(extracted);
+  }
+
+  @Override
+  public Event identifier(Identifier identifier) {
+    return (Event) super.identifier(identifier);
+  }
+
+  @Override
+  public Event evidence(EvidenceReference evidence) {
+    return (Event) super.evidence(evidence);
+  }
+
+  public Event evidence(Event evidence) {
+    if (evidence.getId() == null) {
+      throw new IllegalArgumentException("Unable to add event as evidence: no id.");
+    }
+    return (Event) super.evidence(new EvidenceReference(URI.create("#" + evidence.getId())));
+  }
+
+  @Override
+  public Event media(SourceReference media) {
+    return (Event) super.media(media);
+  }
+
+  @Override
+  public Event media(SourceDescription media) {
+    return (Event) super.media(media);
   }
 
   /**
@@ -94,6 +195,28 @@ public class Event extends Subject implements HasDateAndPlace {
    */
   public void setType(URI type) {
     this.type = type;
+  }
+
+  /**
+   * Build up this event with a type.
+   *
+   * @param type The type of the event.
+   * @return this.
+   */
+  public Event type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this event with a type.
+   *
+   * @param type The type of the event.
+   * @return this.
+   */
+  public Event type(org.gedcomx.types.EventType type) {
+    setKnownType(type);
+    return this;
   }
 
   /**
@@ -138,6 +261,17 @@ public class Event extends Subject implements HasDateAndPlace {
   }
 
   /**
+   * Build up this event with a date.
+   *
+   * @param date The date.
+   * @return this.
+   */
+  public Event date(Date date) {
+    setDate(date);
+    return this;
+  }
+
+  /**
    * The place of this event.
    *
    * @return The place of this event.
@@ -155,6 +289,17 @@ public class Event extends Subject implements HasDateAndPlace {
   @Override
   public void setPlace(PlaceReference place) {
     this.place = place;
+  }
+
+  /**
+   * Build up this event with a place.
+   *
+   * @param place The place.
+   * @return this.
+   */
+  public Event place(PlaceReference place) {
+    setPlace(place);
+    return this;
   }
 
   /**
@@ -176,6 +321,17 @@ public class Event extends Subject implements HasDateAndPlace {
    */
   public void setRoles(List<EventRole> roles) {
     this.roles = roles;
+  }
+
+  /**
+   * Build up this event with a role.
+   *
+   * @param role The role.
+   * @return this.
+   */
+  public Event role(EventRole role) {
+    addRole(role);
+    return this;
   }
 
   /**
