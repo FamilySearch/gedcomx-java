@@ -23,6 +23,7 @@
     <module>gedcomx-test-support</module>
     <module>enunciate-gedcomx-support</module>
     <module>gedcomx-model</module>
+    <module>gedcomx-fileformat</module>
 
     <!--gedcomx-rs modules-->
     <module>gedcomx-rs-rt-support</module>
