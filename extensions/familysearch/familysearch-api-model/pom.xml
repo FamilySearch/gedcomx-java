@@ -57,7 +57,7 @@
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>5.14</version>
-      <scope>compile</scope>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
