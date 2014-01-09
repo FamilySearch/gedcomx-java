@@ -16,6 +16,7 @@
 package org.gedcomx.source;
 
 import org.codehaus.enunciate.Facet;
+import org.codehaus.enunciate.Facets;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -25,7 +26,6 @@ import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
-import org.gedcomx.records.FieldValue;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -41,7 +41,7 @@ import java.util.*;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "notes", "attribution", "sortKey", "description", "identifiers", "created", "modified", "coverage", "facets", "repository", "descriptorRef" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "sortKey", "description", "identifiers", "created", "modified", "coverage", "fields", "repository", "descriptorRef" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -53,6 +53,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private ResourceReference analysis;
   private SourceReference componentOf;
   private List<TextValue> titles;
+  private TextValue titleLabel;
   private List<Note> notes;
   private Attribution attribution;
   private URI resourceType;
@@ -62,7 +63,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private Date created;
   private Date modified;
   private List<Coverage> coverage;
-  private List<FieldValue> facets; //todo: facets need to refer to their facet descriptors?
+  private List<Field> fields;
   private ResourceReference repository;
   private ResourceReference descriptorRef;
 
@@ -456,6 +457,35 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * A label for the title of this description.
+   *
+   * @return A label for the title of this description.
+   */
+  @Facets({@Facet(name = GedcomxConstants.FACET_GEDCOMX_RECORD), @Facet(name = GedcomxConstants.FACET_GEDCOMX_RS)})
+  public TextValue getTitleLabel() {
+    return titleLabel;
+  }
+
+  /**
+   * A label for the title of this description.
+   *
+   * @param titleLabel A label for the title of this description.
+   */
+  public void setTitleLabel(TextValue titleLabel) {
+    this.titleLabel = titleLabel;
+  }
+
+  /**
+   * Build this out by applying a label for the title of this description.
+   * @param titleLabel The title label.
+   * @return this.
+   */
+  public SourceDescription titleLabel(TextValue titleLabel) {
+    setTitleLabel(titleLabel);
+    return this;
+  }
+
+  /**
    * Notes about a source.
    *
    * @return Notes about a source.
@@ -770,22 +800,49 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
-   * The facets of the resource.
+   * The fields that are applicable to the resource being described.
    *
-   * @return The facets of the resource.
+   * @return The fields that are applicable to the resource being described.
    */
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
-  public List<FieldValue> getFacets() {
-    return this.facets;
+  @XmlElement (name="field")
+  @JsonProperty ("fields")
+  @JsonName ("fields")
+  @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  public List<Field> getFields() {
+    return fields;
   }
 
   /**
-   * The facets of the resource.
+   * The fields that are applicable to the resource being described.
    *
-   * @param facets The facets of the resource.
+   * @param fields The fields that are applicable to the resource being described.
    */
-  public void setFacets(List<FieldValue> facets) {
-    this.facets = facets;
+  @JsonProperty ("fields")
+  public void setFields(List<Field> fields) {
+    this.fields = fields;
+  }
+
+  /**
+   * Build this out with a field.
+   * @param field The field.
+   * @return this.
+   */
+  public SourceDescription field(Field field) {
+    addField(field);
+    return this;
+  }
+
+  /**
+   * Add a field to the source description.
+   *
+   * @param field The field to be added.
+   */
+  public void addField( Field field ) {
+    if (field != null) {
+      if (fields == null)
+        fields = new LinkedList<Field>();
+      fields.add( field );
+    }
   }
 
   /**
@@ -900,9 +957,9 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
       this.coverage = this.coverage == null ? new ArrayList<Coverage>() : this.coverage;
       this.coverage.addAll(description.coverage);
     }
-    if (description.facets != null) {
-      this.facets = this.facets == null ? new ArrayList<FieldValue>() : this.facets;
-      this.facets.addAll(description.facets);
+    if (description.fields != null) {
+      this.fields = this.fields == null ? new ArrayList<Field>() : this.fields;
+      this.fields.addAll(description.fields);
     }
     this.repository = this.repository == null ? description.repository : this.repository;
     this.descriptorRef = this.descriptorRef == null ? description.descriptorRef : this.descriptorRef;

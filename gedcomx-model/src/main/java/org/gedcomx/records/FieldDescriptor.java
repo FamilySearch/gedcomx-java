@@ -18,6 +18,7 @@ package org.gedcomx.records;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -42,6 +43,7 @@ public class FieldDescriptor extends HypermediaEnabledData {
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
   private List<TextValue> description; // localized description of this field ("Relationship of the person to the head of household").
   private List<FieldValueDescriptor> values; // localized display labels for the field values
+  private ResourceReference parent;
 
   @Override
   public FieldDescriptor id(String id) {

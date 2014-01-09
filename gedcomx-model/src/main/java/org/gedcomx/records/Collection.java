@@ -15,11 +15,8 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
-import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -29,7 +26,6 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
@@ -43,16 +39,15 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection", propOrder = { "title", "size", "content", "facets", "attribution" })
+@XmlType ( name = "Collection", propOrder = { "title", "size", "content", "attribution" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
-  private List<CollectionContent> content; //todo: let's just use facets for this...
+  private List<CollectionContent> content;
   private String title;
   private Integer size;
   private Attribution attribution;
-  private List<Field> facets; //todo: facets need to be nested?
 
   @Override
   public Collection id(String id) {
@@ -229,28 +224,6 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   }
 
   /**
-   * The list of facets for the collection, used for convenience in browsing and filtering.
-   *
-   * @return The list of facets for the collection, used for convenience in browsing and filtering.
-   */
-  @XmlElement ( name = "facet" )
-  @JsonName ( "facets" )
-  @JsonProperty ( "facets" )
-  public List<Field> getFacets() {
-    return facets;
-  }
-
-  /**
-   * The list of facets for the collection, used for convenience in browsing and filtering.
-   *
-   * @param facets The list of facets for the collection, used for convenience in browsing and filtering.
-   */
-  @JsonProperty ( "facets" )
-  public void setFacets(List<Field> facets) {
-    this.facets = facets;
-  }
-
-  /**
    * Accept a visitor.
    *
    * @param visitor The visitor.
@@ -273,10 +246,6 @@ public class Collection extends HypermediaEnabledData implements Attributable {
     if (collection.content != null) {
       this.content = this.content == null ? new ArrayList<CollectionContent>() : this.content;
       this.content.addAll(collection.content);
-    }
-    if (collection.facets != null) {
-      this.facets = this.facets == null ? new ArrayList<Field>() : this.facets;
-      this.facets.addAll(collection.facets);
     }
 
     super.embed(collection);
