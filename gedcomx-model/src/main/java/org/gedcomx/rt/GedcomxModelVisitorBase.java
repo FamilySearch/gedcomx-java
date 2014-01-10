@@ -17,6 +17,7 @@ package org.gedcomx.rt;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.records.*;
@@ -292,6 +293,13 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         reference.accept(this);
       }
     }
+
+    List<EvidenceReference> evidence = subject.getEvidence();
+    if (evidence != null) {
+      for (EvidenceReference evidenceReference : evidence) {
+        evidenceReference.accept(this);
+      }
+    }
   }
 
   @Override
@@ -442,6 +450,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitNote(Note note) {
     //no-op.
+  }
+
+  @Override
+  public void visitEvidenceReference(EvidenceReference evidenceReference) {
+    //no-op
   }
 
   public LinkedList<Object> getContextStack() {

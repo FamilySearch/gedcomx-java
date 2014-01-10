@@ -17,6 +17,7 @@ package org.gedcomx.rt;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
+import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.records.*;
@@ -76,4 +77,6 @@ public interface GedcomxModelVisitor {
   void visitSourceReference(SourceReference sourceReference);
 
   void visitNote(Note note);
+
+  void visitEvidenceReference(EvidenceReference evidenceReference);
 }

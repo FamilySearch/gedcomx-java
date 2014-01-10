@@ -19,6 +19,7 @@ import org.codehaus.enunciate.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
@@ -159,6 +160,15 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
   public EvidenceReference attribution(Attribution attribution) {
     this.attribution = attribution;
     return this;
+  }
+
+  /**
+   * Accept a visitor.
+   *
+   * @param visitor The visitor.
+   */
+  public void accept(GedcomxModelVisitor visitor) {
+    visitor.visitEvidenceReference(this);
   }
 
   /**
