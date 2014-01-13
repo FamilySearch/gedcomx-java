@@ -48,13 +48,13 @@ import java.util.List;
   name = "FamilySearch",
   description = "The FamilySearch data formats define serialization formats that are specific the FamilySearch developer API.",
   version = "1.0",
-  xmlMediaType = FamilySearchConstants.FS_PLATFORM_V1_XML_MEDIA_TYPE,
-  jsonMediaType = FamilySearchConstants.FS_PLATFORM_V1_JSON_MEDIA_TYPE,
-  projectId = FamilySearchConstants.FS_PROJECT_ID,
+  xmlMediaType = FamilySearchPlatform.XML_MEDIA_TYPE,
+  jsonMediaType = FamilySearchPlatform.JSON_MEDIA_TYPE,
+  projectId = FamilySearchPlatform.PROJECT_ID,
   models = {
     @Model (
       id = "fs",
-      namespace = FamilySearchConstants.FS_PLATFORM_V1_NAMESPACE,
+      namespace = FamilySearchPlatform.NAMESPACE,
       label = "FamilySearch Model",
       description = "The FamilySearch model defines data types and elements that are specific to FamilySearch."
     )
@@ -66,8 +66,10 @@ import java.util.List;
 @DefaultNamespace( GedcomxConstants.GEDCOMX_NAMESPACE )
 public class FamilySearchPlatform extends Gedcomx {
 
-  public static final String XML_MEDIA_TYPE = FamilySearchConstants.FS_PLATFORM_V1_XML_MEDIA_TYPE;
-  public static final String JSON_MEDIA_TYPE = FamilySearchConstants.FS_PLATFORM_V1_JSON_MEDIA_TYPE;
+  public static final String PROJECT_ID = "fs-platform";
+  public static final String NAMESPACE = "http://familysearch.org/v1/";
+  public static final String XML_MEDIA_TYPE = "application/x-fs-v1+xml";
+  public static final String JSON_MEDIA_TYPE = "application/x-fs-v1+json";
 
   private List<MergeAnalysis> mergeAnalyses;
   private List<Merge> merges;

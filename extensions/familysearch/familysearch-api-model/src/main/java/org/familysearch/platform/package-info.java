@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 @XmlSchema (
-  namespace = FamilySearchConstants.FS_PLATFORM_V1_NAMESPACE,
+  namespace = FamilySearchPlatform.NAMESPACE,
   elementFormDefault = XmlNsForm.QUALIFIED
 )
 @XmlAccessorOrder ( XmlAccessOrder.ALPHABETICAL )

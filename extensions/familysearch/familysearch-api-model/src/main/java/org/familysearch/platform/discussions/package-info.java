@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 @XmlSchema (
-  namespace = FamilySearchConstants.FS_PLATFORM_V1_NAMESPACE,
+  namespace = FamilySearchPlatform.NAMESPACE,
   elementFormDefault = XmlNsForm.QUALIFIED
 )
 @XmlAccessorOrder ( XmlAccessOrder.ALPHABETICAL )
 package org.familysearch.platform.discussions;
 
-import org.familysearch.platform.FamilySearchConstants;
+import org.familysearch.platform.FamilySearchPlatform;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessorOrder;

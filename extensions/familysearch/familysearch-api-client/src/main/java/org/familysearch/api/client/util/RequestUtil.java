@@ -16,7 +16,7 @@
 package org.familysearch.api.client.util;
 
 import com.sun.jersey.api.client.ClientRequest;
-import org.familysearch.platform.FamilySearchConstants;
+import org.familysearch.platform.FamilySearchPlatform;
 
 /**
  * @author Ryan Heaton
@@ -24,6 +24,6 @@ import org.familysearch.platform.FamilySearchConstants;
 public class RequestUtil {
 
   public static ClientRequest.Builder applyFamilySearchConneg(ClientRequest.Builder request) {
-    return request.accept(FamilySearchConstants.FS_PLATFORM_V1_JSON_MEDIA_TYPE).type(FamilySearchConstants.FS_PLATFORM_V1_JSON_MEDIA_TYPE);
+    return request.accept(FamilySearchPlatform.JSON_MEDIA_TYPE).type(FamilySearchPlatform.JSON_MEDIA_TYPE);
   }
 }

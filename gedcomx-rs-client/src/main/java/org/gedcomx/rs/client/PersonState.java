@@ -715,8 +715,8 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
       return null;
     }
 
-    ClientRequest requset = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newPersonParentsState(requset, invoke(request), this.accessToken);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonParentsState(request, invoke(request), this.accessToken);
   }
 
   public RelationshipState addParent(PersonState person) {
