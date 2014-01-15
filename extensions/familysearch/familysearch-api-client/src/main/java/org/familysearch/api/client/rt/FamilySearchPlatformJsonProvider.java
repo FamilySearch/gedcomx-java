@@ -38,7 +38,7 @@ public class FamilySearchPlatformJsonProvider extends GedcomJsonProvider {
   }
 
   public FamilySearchPlatformJsonProvider(Class<?>... classes) {
-    super(GedcomJacksonModule.createObjectMapper(classes), DEFAULT_ANNOTATIONS, FamilySearchPlatform.class, MediaType.valueOf(FamilySearchPlatform.JSON_MEDIA_TYPE));
+    super(GedcomJacksonModule.createObjectMapper(classes), DEFAULT_ANNOTATIONS, FamilySearchPlatform.class, MediaType.WILDCARD_TYPE);
   }
 
 }

@@ -59,6 +59,6 @@ public class FamilySearchStateFactory extends StateFactory {
 
   @Override
   protected Client loadDefaultClient() {
-    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(FamilySearchPlatformJsonProvider.class, FamilySearchPlatformXmlProvider.class, GedcomJsonProvider.class, GedcomxXmlProvider.class, JacksonJsonProvider.class));
+    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(FamilySearchPlatformJsonProvider.class, FamilySearchPlatformXmlProvider.class, JacksonJsonProvider.class));
   }
 }
