@@ -16,6 +16,7 @@
 package org.familysearch.api.client.rt;
 
 import org.familysearch.platform.FamilySearchPlatform;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 import javax.ws.rs.Consumes;
@@ -30,8 +31,8 @@ import javax.xml.namespace.QName;
  * @author Ryan Heaton
  */
 @Provider
-@Produces ( FamilySearchPlatform.XML_MEDIA_TYPE )
-@Consumes ( FamilySearchPlatform.XML_MEDIA_TYPE )
+@Produces ( { GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE, FamilySearchPlatform.XML_MEDIA_TYPE } )
+@Consumes ( { GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE, FamilySearchPlatform.XML_MEDIA_TYPE } )
 public class FamilySearchPlatformXmlProvider extends GedcomxXmlProvider {
 
   public FamilySearchPlatformXmlProvider(@Context Providers ps) {

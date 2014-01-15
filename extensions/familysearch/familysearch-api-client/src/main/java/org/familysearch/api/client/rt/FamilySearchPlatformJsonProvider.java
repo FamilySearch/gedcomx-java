@@ -16,6 +16,7 @@
 package org.familysearch.api.client.rt;
 
 import org.familysearch.platform.FamilySearchPlatform;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.rt.json.GedcomJsonProvider;
 
@@ -28,8 +29,8 @@ import javax.ws.rs.ext.Provider;
  * @author Ryan Heaton
  */
 @Provider
-@Produces ( FamilySearchPlatform.JSON_MEDIA_TYPE )
-@Consumes ( FamilySearchPlatform.JSON_MEDIA_TYPE )
+@Produces ( { GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE, FamilySearchPlatform.JSON_MEDIA_TYPE } )
+@Consumes ( { GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE, FamilySearchPlatform.JSON_MEDIA_TYPE } )
 public class FamilySearchPlatformJsonProvider extends GedcomJsonProvider {
 
   public FamilySearchPlatformJsonProvider() {
