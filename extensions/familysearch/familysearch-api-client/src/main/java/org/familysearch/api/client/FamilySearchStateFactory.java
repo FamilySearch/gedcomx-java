@@ -15,9 +15,17 @@
  */
 package org.familysearch.api.client;
 
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
+import org.familysearch.api.client.rt.FamilySearchPlatformXmlProvider;
 import org.gedcomx.rs.client.StateFactory;
+import org.gedcomx.rt.json.GedcomJsonProvider;
+import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 /**
  * @author Ryan Heaton
@@ -49,4 +57,8 @@ public class FamilySearchStateFactory extends StateFactory {
     return new FamilySearchCollectionState(request, response, accessToken, this);
   }
 
+  @Override
+  protected Client loadDefaultClient() {
+    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(FamilySearchPlatformJsonProvider.class, FamilySearchPlatformXmlProvider.class, GedcomJsonProvider.class, GedcomxXmlProvider.class, JacksonJsonProvider.class));
+  }
 }
