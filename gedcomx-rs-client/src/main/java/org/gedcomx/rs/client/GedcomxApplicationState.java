@@ -84,18 +84,25 @@ public abstract class GedcomxApplicationState<E> {
 
     //load link headers.
     List<String> linkHeaders = response.getHeaders().get("Link");
-    for (String header : linkHeaders) {
-      LinkHeader lh = LinkHeader.valueOf(header);
-      for (String rel : lh.getRel()) {
-        Link link = new Link(rel, lh.getUri() == null ? null : org.gedcomx.common.URI.create(lh.getUri().toString()));
-        link.setTemplate(lh.getParams().getFirst("template"));
-        link.setTitle(lh.getParams().getFirst("title"));
-        link.setAccept(lh.getParams().getFirst("accept"));
-        link.setAllow(lh.getParams().getFirst("allow"));
-        link.setHreflang(lh.getParams().getFirst("hreflang"));
-        link.setType(lh.getParams().getFirst("type"));
-        links.add(link);
+    if (linkHeaders != null) {
+      for (String header : linkHeaders) {
+        LinkHeader lh = LinkHeader.valueOf(header);
+        for (String rel : lh.getRel()) {
+          Link link = new Link(rel, lh.getUri() == null ? null : org.gedcomx.common.URI.create(lh.getUri().toString()));
+          link.setTemplate(lh.getParams().getFirst("template"));
+          link.setTitle(lh.getParams().getFirst("title"));
+          link.setAccept(lh.getParams().getFirst("accept"));
+          link.setAllow(lh.getParams().getFirst("allow"));
+          link.setHreflang(lh.getParams().getFirst("hreflang"));
+          link.setType(lh.getParams().getFirst("type"));
+          links.add(link);
+        }
       }
+    }
+
+    //load additional links from entity
+    if(entity instanceof Gedcomx && ((Gedcomx) entity).getLinks() != null) {
+      links.addAll(((Gedcomx)entity).getLinks());
     }
 
     //load the links from the hypermedia scope
@@ -103,6 +110,7 @@ public abstract class GedcomxApplicationState<E> {
     if (scope != null && scope.getLinks() != null) {
       links.addAll(scope.getLinks());
     }
+
     return links;
   }
 

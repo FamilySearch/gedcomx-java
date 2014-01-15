@@ -78,8 +78,10 @@ public class GedcomxApplicationException extends RuntimeException {
     List<HttpWarning> warnings = getWarnings();
     if (message != null || warnings.size() > 0) {
       StringBuilder builder = new StringBuilder(message == null ? "" : message);
-      for (HttpWarning warning : warnings) {
-        builder.append(" Warning: ").append(warning.getMessage());
+      if(warnings != null){
+        for (HttpWarning warning : warnings) {
+          builder.append(" Warning: ").append(warning.getMessage());
+        }
       }
       message = builder.toString();
     }
