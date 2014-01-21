@@ -53,9 +53,9 @@ public class ChangeTypeTest {
     testChangeType( "Not A Match Declaration Set", ChangeType.SET_NOT_A_MATCH_DECLARATION );
     testChangeType( "Not A Match Declaration Cleared", ChangeType.CLEAR_NOT_A_MATCH_DECLARATION );
     */
-    testChangeType( "Person Source Reference Added", ChangeType.ADD_PERSON_SOURCE_REFERENCE);
     testChangeType( "Set Person Not a Match", ChangeType.ADD_PERSON_NOT_A_MATCH);
     testChangeType( "Remove Person Not a Match", ChangeType.REMOVE_PERSON_NOT_A_MATCH);
+    testChangeType( "Person Source Reference Added", ChangeType.ADD_PERSON_SOURCE_REFERENCE);
     testChangeType( "Person Source Reference Changed", ChangeType.EDIT_PERSON_SOURCE_REFERENCE);
     testChangeType( "Person Source Reference Removed", ChangeType.DELETE_PERSON_SOURCE_REFERENCE);
     testChangeType( "Couple Source Reference Added", ChangeType.ADD_COUPLE_SOURCE_REFERENCE);
@@ -64,6 +64,24 @@ public class ChangeTypeTest {
     testChangeType( "Child and Parents Source Reference Added", ChangeType.ADD_CHILD_PARENTS_SOURCE_REFERENCE);
     testChangeType( "Child and Parents Source Reference Changed", ChangeType.EDIT_CHILD_PARENTS_SOURCE_REFERENCE);
     testChangeType( "Child and Parents Source Reference Removed", ChangeType.DELETE_CHILD_PARENTS_SOURCE_REFERENCE);
+    testChangeType( "Person Discussion Reference Added", ChangeType.ADD_PERSON_DISCUSSION_REFERENCE);
+    testChangeType( "Person Discussion Reference Changed", ChangeType.EDIT_PERSON_DISCUSSION_REFERENCE);
+    testChangeType( "Person Discussion Reference Removed", ChangeType.DELETE_PERSON_DISCUSSION_REFERENCE);
+    testChangeType( "Couple Discussion Reference Added", ChangeType.ADD_COUPLE_DISCUSSION_REFERENCE);
+    testChangeType( "Couple Discussion Reference Changed", ChangeType.EDIT_COUPLE_DISCUSSION_REFERENCE);
+    testChangeType( "Couple Discussion Reference Removed", ChangeType.DELETE_COUPLE_DISCUSSION_REFERENCE);
+    testChangeType( "Child and Parents Discussion Reference Added", ChangeType.ADD_CHILD_PARENTS_DISCUSSION_REFERENCE);
+    testChangeType( "Child and Parents Discussion Reference Changed", ChangeType.EDIT_CHILD_PARENTS_DISCUSSION_REFERENCE);
+    testChangeType( "Child and Parents Discussion Reference Removed", ChangeType.DELETE_CHILD_PARENTS_DISCUSSION_REFERENCE);
+    testChangeType( "Person Evidence Reference Added", ChangeType.ADD_PERSON_EVIDENCE_REFERENCE);
+    testChangeType( "Person Evidence Reference Changed", ChangeType.EDIT_PERSON_EVIDENCE_REFERENCE);
+    testChangeType( "Person Evidence Reference Removed", ChangeType.DELETE_PERSON_EVIDENCE_REFERENCE);
+    testChangeType( "Couple Evidence Reference Added", ChangeType.ADD_COUPLE_EVIDENCE_REFERENCE);
+    testChangeType( "Couple Evidence Reference Changed", ChangeType.EDIT_COUPLE_EVIDENCE_REFERENCE);
+    testChangeType( "Couple Evidence Reference Removed", ChangeType.DELETE_COUPLE_EVIDENCE_REFERENCE);
+    testChangeType( "Child and Parents Evidence Reference Added", ChangeType.ADD_CHILD_PARENTS_EVIDENCE_REFERENCE);
+    testChangeType( "Child and Parents Evidence Reference Changed", ChangeType.EDIT_CHILD_PARENTS_EVIDENCE_REFERENCE);
+    testChangeType( "Child and Parents Evidence Reference Removed", ChangeType.DELETE_CHILD_PARENTS_EVIDENCE_REFERENCE);
     testChangeType( "Affiliation Added", ChangeType.ADD_AFFILIATION );
     testChangeType( "Affiliation Changed", ChangeType.EDIT_AFFILIATION );
     testChangeType( "Affiliation Removed", ChangeType.DELETE_AFFILIATION );

@@ -67,6 +67,7 @@ public class MatchInfo {
    */
   @XmlTransient
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public MatchSystem getKnownSystem() {
     return getSystem() == null ? null : MatchSystem.fromQNameURI(getSystem());
   }
@@ -77,6 +78,7 @@ public class MatchInfo {
    * @param knownSystem The enum referencing the known system of this match.
    */
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownSystem(MatchSystem knownSystem) {
     setSystem(knownSystem == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownSystem)));
   }
@@ -108,6 +110,7 @@ public class MatchInfo {
    */
   @XmlTransient
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public MatchResolution getKnownResolution() {
     return getResolution() == null ? null : MatchResolution.fromQNameURI(getResolution());
   }
@@ -118,6 +121,7 @@ public class MatchInfo {
    * @param knownResolution The enum referencing the known resolution of this match.
    */
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownResolution(MatchResolution knownResolution) {
     setResolution(knownResolution == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownResolution)));
   }

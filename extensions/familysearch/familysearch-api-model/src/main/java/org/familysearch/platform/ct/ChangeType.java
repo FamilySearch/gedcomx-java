@@ -79,6 +79,28 @@ public enum ChangeType {
   EDIT_CHILD_PARENTS_SOURCE_REFERENCE("Child and Parents Source Reference Changed", ChangeOperation.Update, ChangeObjectType.SourceReference, ChangeObjectModifier.ChildAndParentsRelationship),
   DELETE_CHILD_PARENTS_SOURCE_REFERENCE("Child and Parents Source Reference Removed", ChangeOperation.Delete, ChangeObjectType.SourceReference, ChangeObjectModifier.ChildAndParentsRelationship),
 
+  // DISCUSSION REFERENCE
+  ADD_PERSON_DISCUSSION_REFERENCE("Person Discussion Reference Added", ChangeOperation.Create, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Person),
+  EDIT_PERSON_DISCUSSION_REFERENCE("Person Discussion Reference Changed", ChangeOperation.Update, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Person),
+  DELETE_PERSON_DISCUSSION_REFERENCE("Person Discussion Reference Removed", ChangeOperation.Delete, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Person),
+  ADD_COUPLE_DISCUSSION_REFERENCE("Couple Discussion Reference Added", ChangeOperation.Create, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Couple),
+  EDIT_COUPLE_DISCUSSION_REFERENCE("Couple Discussion Reference Changed", ChangeOperation.Update, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Couple),
+  DELETE_COUPLE_DISCUSSION_REFERENCE("Couple Discussion Reference Removed", ChangeOperation.Delete, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Couple),
+  ADD_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Added", ChangeOperation.Create, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
+  EDIT_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Changed", ChangeOperation.Update, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
+  DELETE_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Removed", ChangeOperation.Delete, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
+
+  // EVIDENCE REFERENCE
+  ADD_PERSON_EVIDENCE_REFERENCE("Person Evidence Reference Added", ChangeOperation.Create, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Person),
+  EDIT_PERSON_EVIDENCE_REFERENCE("Person Evidence Reference Changed", ChangeOperation.Update, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Person),
+  DELETE_PERSON_EVIDENCE_REFERENCE("Person Evidence Reference Removed", ChangeOperation.Delete, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Person),
+  ADD_COUPLE_EVIDENCE_REFERENCE("Couple Evidence Reference Added", ChangeOperation.Create, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Couple),
+  EDIT_COUPLE_EVIDENCE_REFERENCE("Couple Evidence Reference Changed", ChangeOperation.Update, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Couple),
+  DELETE_COUPLE_EVIDENCE_REFERENCE("Couple Evidence Reference Removed", ChangeOperation.Delete, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Couple),
+  ADD_CHILD_PARENTS_EVIDENCE_REFERENCE("Child and Parents Evidence Reference Added", ChangeOperation.Create, ChangeObjectType.EvidenceReference, ChangeObjectModifier.ChildAndParentsRelationship),
+  EDIT_CHILD_PARENTS_EVIDENCE_REFERENCE("Child and Parents Evidence Reference Changed", ChangeOperation.Update, ChangeObjectType.EvidenceReference, ChangeObjectModifier.ChildAndParentsRelationship),
+  DELETE_CHILD_PARENTS_EVIDENCE_REFERENCE("Child and Parents Evidence Reference Removed", ChangeOperation.Delete, ChangeObjectType.EvidenceReference, ChangeObjectModifier.ChildAndParentsRelationship),
+
   /* Conclusion changes */
   // EVENT
   ADD_AFFILIATION("Affiliation Added", ChangeOperation.Create, ChangeObjectType.Affiliation, ChangeObjectModifier.Person),

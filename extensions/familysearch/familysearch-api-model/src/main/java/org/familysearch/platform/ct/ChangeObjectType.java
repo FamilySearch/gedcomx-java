@@ -82,6 +82,16 @@ public enum ChangeObjectType {
   SourceReference,
 
   /**
+   * A discussion reference was changed.
+   */
+  DiscussionReference,
+
+  /**
+   * An evidence reference was changed.
+   */
+  EvidenceReference,
+
+  /**
    * An affiliation fact was changed.
    */
   Affiliation,

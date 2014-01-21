@@ -80,6 +80,7 @@ public class ChangeInfo {
    */
   @XmlTransient
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public ChangeOperation getKnownOperation() {
     return getOperation() == null ? null : ChangeOperation.fromQNameURI(getOperation());
   }
@@ -90,6 +91,7 @@ public class ChangeInfo {
    * @param knownOperation the change operation.
    */
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownOperation(ChangeOperation knownOperation) {
     setOperation(knownOperation == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownOperation)));
   }
@@ -121,6 +123,7 @@ public class ChangeInfo {
    */
   @XmlTransient
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public ChangeObjectType getKnownObjectType() {
     return getObjectType() == null ? null : ChangeObjectType.fromQNameURI(getObjectType());
   }
@@ -131,6 +134,7 @@ public class ChangeInfo {
    * @param knownObject the change object.
    */
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownObjectType(ChangeObjectType knownObject) {
     setObjectType(knownObject == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownObject)));
   }
@@ -164,6 +168,7 @@ public class ChangeInfo {
    */
   @XmlTransient
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public ChangeObjectModifier getKnownObjectModifier() {
     return getObjectModifier() == null ? null : ChangeObjectModifier.fromQNameURI(getObjectModifier());
   }
@@ -174,6 +179,7 @@ public class ChangeInfo {
    * @param knownObject the change object.
    */
   @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownObjectModifier(ChangeObjectModifier knownObject) {
     setObjectModifier(knownObject == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownObject)));
   }
