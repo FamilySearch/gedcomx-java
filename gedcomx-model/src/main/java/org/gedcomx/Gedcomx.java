@@ -24,6 +24,7 @@ import org.gedcomx.common.Attribution;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.links.Link;
 import org.gedcomx.records.Collection;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.RecordDescriptor;
@@ -724,6 +725,27 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   public void embed(Gedcomx gedcomx) {
+    List<Link> links = gedcomx.getLinks();
+    if (links != null) {
+      for (Link link : links) {
+        boolean found = false;
+        if (link.getRel() != null) {
+          if (getLinks() != null) {
+            for (Link target : gedcomx.getLinks()) {
+              if (link.getRel().equals(target.getRel())) {
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addLink(link);
+        }
+      }
+    }
+
     List<Person> persons = gedcomx.getPersons();
     if (persons != null) {
       for (Person person : persons) {
