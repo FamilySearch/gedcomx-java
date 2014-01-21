@@ -1,4 +1,4 @@
-package org.gedcomx.rt.atom;
+package org.gedcomx.rs.client.atom;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class PagedFeedIterator implements Iterator<Feed> {
   /**
-   * The default {@link WebResourceProvider} which simply calls {@link Client#resource(String)}.
+   * The default {@link WebResourceProvider} which simply calls {@link com.sun.jersey.api.client.Client#resource(String)}.
    */
   public static WebResourceProvider DEFAULT_WEB_RESOURCE_PROVIDER = new WebResourceProvider() {
     @Override
@@ -49,25 +49,25 @@ public class PagedFeedIterator implements Iterator<Feed> {
    *
    * @param uri the {@link org.gedcomx.common.URI} to use to get the initial (next) paged feed document and from which
    *            future values of first, last, previous, and next hypertext references will be acquired.
-   * @return a new {@link PagedFeedIterator}
+   * @return a new {@link org.gedcomx.rs.client.atom.PagedFeedIterator}
    */
   public static PagedFeedIterator fromUri(URI uri) {
     return new PagedFeedIterator(uri);
   }
 
   /**
-   * Creates a new paged feed iterator using the specified {@link Feed}.
+   * Creates a new paged feed iterator using the specified {@link org.gedcomx.atom.Feed}.
    *
    * @param feed the feed document from which the initial first, last, previous, and next hypertext references will be
    *             acquired.
-   * @return a new {@link PagedFeedIterator}
+   * @return a new {@link org.gedcomx.rs.client.atom.PagedFeedIterator}
    */
   public static PagedFeedIterator fromFeed(Feed feed) {
     return new PagedFeedIterator(feed);
   }
 
   /**
-   * Gets the hypertext reference from the specified {@link Feed} for the specified rel link.
+   * Gets the hypertext reference from the specified {@link org.gedcomx.atom.Feed} for the specified rel link.
    *
    * @param feed the source feed document
    * @param rel  the desired rel
@@ -110,7 +110,7 @@ public class PagedFeedIterator implements Iterator<Feed> {
    * GET request.
    *
    * @param extension the extension
-   * @return a reference to this {@link PagedFeedIterator} for fluent configuration chaining
+   * @return a reference to this {@link org.gedcomx.rs.client.atom.PagedFeedIterator} for fluent configuration chaining
    */
   public PagedFeedIterator withWebResourceBuilderExtension(WebResourceBuilderExtension extension) {
     addWebResourceBuilderExtension(extension);
@@ -118,9 +118,9 @@ public class PagedFeedIterator implements Iterator<Feed> {
   }
 
   /**
-   * Gets the {@link Client} being used to get paged feed documents.
+   * Gets the {@link com.sun.jersey.api.client.Client} being used to get paged feed documents.
    *
-   * @return the {@link Client} being used to get paged feed documents.
+   * @return the {@link com.sun.jersey.api.client.Client} being used to get paged feed documents.
    */
   public Client getClient() {
     if (client == null) {
@@ -130,19 +130,19 @@ public class PagedFeedIterator implements Iterator<Feed> {
   }
 
   /**
-   * Sets the {@link Client} to use to get paged feed documents.
+   * Sets the {@link com.sun.jersey.api.client.Client} to use to get paged feed documents.
    *
-   * @param client the {@link Client} to use to get paged feed documents.
+   * @param client the {@link com.sun.jersey.api.client.Client} to use to get paged feed documents.
    */
   public synchronized void setClient(Client client) {
     this.client = client;
   }
 
   /**
-   * Sets the {@link Client} to use to get paged feed documents.
+   * Sets the {@link com.sun.jersey.api.client.Client} to use to get paged feed documents.
    *
-   * @param client the {@link Client} to use to get paged feed documents.
-   * @return a reference to this {@link PagedFeedIterator} for fluent configuration chaining
+   * @param client the {@link com.sun.jersey.api.client.Client} to use to get paged feed documents.
+   * @return a reference to this {@link org.gedcomx.rs.client.atom.PagedFeedIterator} for fluent configuration chaining
    */
   public PagedFeedIterator withClient(Client client) {
     setClient(client);
@@ -173,7 +173,7 @@ public class PagedFeedIterator implements Iterator<Feed> {
    * Sets the {@link WebResourceProvider}.
    *
    * @param webResourceProvider the desired {@link WebResourceProvider}.
-   * @return a reference to this {@link PagedFeedIterator} for fluent configuration chaining
+   * @return a reference to this {@link org.gedcomx.rs.client.atom.PagedFeedIterator} for fluent configuration chaining
    * @see #DEFAULT_WEB_RESOURCE_PROVIDER
    */
   public PagedFeedIterator withWebResourceProvider(WebResourceProvider webResourceProvider) {
@@ -276,16 +276,16 @@ public class PagedFeedIterator implements Iterator<Feed> {
   }
 
   /**
-   * Interface for providing {@link WebResource}s to use for fetching paged feed documents.
+   * Interface for providing {@link com.sun.jersey.api.client.WebResource}s to use for fetching paged feed documents.
    */
   public static interface WebResourceProvider {
     /**
-     * Provide the {@link WebResource} to use for fetching a paged feed document.
+     * Provide the {@link com.sun.jersey.api.client.WebResource} to use for fetching a paged feed document.
      *
      * @param client the configured client to use
      * @param uri    the specified {@link org.gedcomx.common.URI} for the first, last, previous, and/or next paged feed
      *               document
-     * @return a {@link WebResource} for acquiring the desired paged feed document
+     * @return a {@link com.sun.jersey.api.client.WebResource} for acquiring the desired paged feed document
      */
     WebResource provide(Client client, URI uri);
   }
@@ -295,10 +295,10 @@ public class PagedFeedIterator implements Iterator<Feed> {
    */
   public static interface WebResourceBuilderExtension {
     /**
-     * Extends a {@link WebResource.Builder}.
+     * Extends a {@link com.sun.jersey.api.client.WebResource.Builder}.
      *
-     * @param builder the base {@link WebResource.Builder}
-     * @return the extended {@link WebResource.Builder}
+     * @param builder the base {@link com.sun.jersey.api.client.WebResource.Builder}
+     * @return the extended {@link com.sun.jersey.api.client.WebResource.Builder}
      */
     WebResource.Builder extend(WebResource.Builder builder);
   }

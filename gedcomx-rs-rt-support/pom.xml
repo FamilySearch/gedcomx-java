@@ -49,22 +49,10 @@
     </dependency>
 
     <dependency>
-      <groupId>org.gedcomx</groupId>
-      <artifactId>gedcomx-atom</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
       <version>${jersey.version}</version>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-bundle</artifactId>
-      <version>${jersey.version}</version>
     </dependency>
 
   </dependencies>
