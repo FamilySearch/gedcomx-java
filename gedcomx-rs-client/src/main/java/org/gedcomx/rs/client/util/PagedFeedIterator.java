@@ -1,4 +1,4 @@
-package org.gedcomx.rs.client.atom;
+package org.gedcomx.rs.client.util;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -49,7 +49,7 @@ public class PagedFeedIterator implements Iterator<Feed> {
    *
    * @param uri the {@link org.gedcomx.common.URI} to use to get the initial (next) paged feed document and from which
    *            future values of first, last, previous, and next hypertext references will be acquired.
-   * @return a new {@link org.gedcomx.rs.client.atom.PagedFeedIterator}
+   * @return a new {@link PagedFeedIterator}
    */
   public static PagedFeedIterator fromUri(URI uri) {
     return new PagedFeedIterator(uri);
@@ -60,7 +60,7 @@ public class PagedFeedIterator implements Iterator<Feed> {
    *
    * @param feed the feed document from which the initial first, last, previous, and next hypertext references will be
    *             acquired.
-   * @return a new {@link org.gedcomx.rs.client.atom.PagedFeedIterator}
+   * @return a new {@link PagedFeedIterator}
    */
   public static PagedFeedIterator fromFeed(Feed feed) {
     return new PagedFeedIterator(feed);
@@ -110,7 +110,7 @@ public class PagedFeedIterator implements Iterator<Feed> {
    * GET request.
    *
    * @param extension the extension
-   * @return a reference to this {@link org.gedcomx.rs.client.atom.PagedFeedIterator} for fluent configuration chaining
+   * @return a reference to this {@link PagedFeedIterator} for fluent configuration chaining
    */
   public PagedFeedIterator withWebResourceBuilderExtension(WebResourceBuilderExtension extension) {
     addWebResourceBuilderExtension(extension);
@@ -142,7 +142,7 @@ public class PagedFeedIterator implements Iterator<Feed> {
    * Sets the {@link com.sun.jersey.api.client.Client} to use to get paged feed documents.
    *
    * @param client the {@link com.sun.jersey.api.client.Client} to use to get paged feed documents.
-   * @return a reference to this {@link org.gedcomx.rs.client.atom.PagedFeedIterator} for fluent configuration chaining
+   * @return a reference to this {@link PagedFeedIterator} for fluent configuration chaining
    */
   public PagedFeedIterator withClient(Client client) {
     setClient(client);
@@ -173,7 +173,7 @@ public class PagedFeedIterator implements Iterator<Feed> {
    * Sets the {@link WebResourceProvider}.
    *
    * @param webResourceProvider the desired {@link WebResourceProvider}.
-   * @return a reference to this {@link org.gedcomx.rs.client.atom.PagedFeedIterator} for fluent configuration chaining
+   * @return a reference to this {@link PagedFeedIterator} for fluent configuration chaining
    * @see #DEFAULT_WEB_RESOURCE_PROVIDER
    */
   public PagedFeedIterator withWebResourceProvider(WebResourceProvider webResourceProvider) {

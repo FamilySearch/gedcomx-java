@@ -1,4 +1,4 @@
-package org.gedcomx.rs.client.atom;
+package org.gedcomx.rs.client.util;
 
 import org.gedcomx.atom.Feed;
 import org.gedcomx.common.URI;
