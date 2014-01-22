@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class MatchInfo {
 
   private URI system;
-  private URI resolution;
+  private URI status;
 
   public MatchInfo() {
   }
@@ -89,18 +89,18 @@ public class MatchInfo {
    * @return The way this match has been resolved.
    */
   @XmlAttribute
-  @XmlQNameEnumRef (MatchResolution.class)
-  public URI getResolution() {
-    return resolution;
+  @XmlQNameEnumRef (MatchStatus.class)
+  public URI getStatus() {
+    return status;
   }
 
   /**
    * The way this match has been resolved.
    *
-   * @param resolution The way this match has been resolved.
+   * @param status The way this match has been resolved.
    */
-  public void setResolution(URI resolution) {
-    this.resolution = resolution;
+  public void setStatus(URI status) {
+    this.status = status;
   }
 
   /**
@@ -111,8 +111,8 @@ public class MatchInfo {
   @XmlTransient
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
-  public MatchResolution getKnownResolution() {
-    return getResolution() == null ? null : MatchResolution.fromQNameURI(getResolution());
+  public MatchStatus getKnownStatus() {
+    return getStatus() == null ? null : MatchStatus.fromQNameURI(getStatus());
   }
 
   /**
@@ -122,7 +122,7 @@ public class MatchInfo {
    */
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
-  public void setKnownResolution(MatchResolution knownResolution) {
-    setResolution(knownResolution == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownResolution)));
+  public void setKnownStatus(MatchStatus knownResolution) {
+    setStatus(knownResolution == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownResolution)));
   }
 }

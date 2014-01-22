@@ -24,13 +24,13 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum MatchResolution {
+public enum MatchStatus {
 
-  Unset,
+  Pending,
 
-  Positive,
+  Accepted,
 
-  Negative;
+  Rejected;
 
 
   /**
@@ -48,7 +48,7 @@ public enum MatchResolution {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static MatchResolution fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), MatchResolution.class);
+  public static MatchStatus fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), MatchStatus.class);
   }
 }
