@@ -20,8 +20,13 @@ import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataBodyPart;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.MultiPart;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.TextValue;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
@@ -29,11 +34,16 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.GedcomxSearchQueryBuilder;
+import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.types.RelationshipType;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
@@ -237,13 +247,60 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
-  public SourceDescriptionState addArtifact(InputStream artifact) {
+  public SourceDescriptionState addArtifact(DataSource artifact) {
+    return addArtifact(null, artifact);
+  }
+
+  public SourceDescriptionState addArtifact(SourceDescription description, DataSource artifact) {
     Link link = getLink(Rel.ARTIFACTS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding artifacts.", getUri()));
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(artifact).build(link.getHref().toURI(), HttpMethod.POST);
+    FormDataMultiPart multiPart = new FormDataMultiPart();
+    String mediaType =  artifact.getContentType();
+
+    if (description != null) {
+      if (description.getTitles() != null) {
+        for (TextValue value : description.getTitles()) {
+          multiPart.field("title", value.getValue());
+        }
+      }
+      if (description.getDescription() != null) {
+        for (TextValue value : description.getDescription()) {
+          multiPart.field("description", value.getValue());
+        }
+      }
+      if (description.getCitations() != null) {
+        for (SourceCitation citation : description.getCitations()) {
+          multiPart.field("citation", citation.getValue());
+        }
+      }
+      if (description.getMediaType() != null) {
+        mediaType = description.getMediaType();
+      }
+    }
+
+    if (mediaType == null) {
+      mediaType = MediaType.APPLICATION_OCTET_STREAM;//default to octet stream?
+    }
+
+    InputStream inputStream;
+    try {
+      inputStream = artifact.getInputStream();
+    }
+    catch (IOException e) {
+      throw new IllegalArgumentException(e);
+    }
+
+    FormDataContentDisposition.FormDataContentDispositionBuilder cd = FormDataContentDisposition.name("artifact");
+    if (artifact.getName() != null) {
+      cd = cd.fileName(artifact.getName());
+    }
+
+    FormDataBodyPart artifactPart = new FormDataBodyPart(cd.build(), inputStream, MediaType.valueOf(mediaType));
+    multiPart.getBodyParts().add(artifactPart);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(multiPart).build(link.getHref().toURI(), HttpMethod.POST);
     return this.stateFactory.newSourceDescriptionState(request, invoke(request), this.accessToken);
   }
 
