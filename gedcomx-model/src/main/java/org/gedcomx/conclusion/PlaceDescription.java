@@ -39,7 +39,7 @@ import java.util.List;
  * and possibly its type, time period, and/or a geospatial description -- a description
  * of a place as a snapshot in time.
  */
-@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription" } )
+@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "jurisdiction", "displayExtension" } )
 public class PlaceDescription extends Subject {
 
   private List<TextValue> names;
@@ -48,6 +48,8 @@ public class PlaceDescription extends Subject {
   private Double latitude;
   private Double longitude;
   private ResourceReference spatialDescription;
+  private ResourceReference jurisdiction;
+  private PlaceDisplayProperties display;
 
   @Override
   public PlaceDescription id(String id) {
@@ -362,6 +364,68 @@ public class PlaceDescription extends Subject {
   }
 
   /**
+   * A reference to a description of the jurisdiction this place.
+   *
+   * @return A reference to a description of the jurisdiction this place.
+   */
+  public ResourceReference getJurisdiction() {
+    return jurisdiction;
+  }
+
+  /**
+   *  A reference to a description of the jurisdiction this place.
+   *
+   * @param jurisdiction A reference to a description of the jurisdiction this place.
+   */
+  public void setJurisdiction(ResourceReference jurisdiction) {
+    this.jurisdiction = jurisdiction;
+  }
+
+  /**
+   * Build out this place description with a jurisdiction.
+   * @param jurisdiction The reference to the jurisdiction.
+   * @return this
+   */
+  public PlaceDescription jurisdiction(ResourceReference jurisdiction) {
+    setJurisdiction(jurisdiction);
+    return this;
+  }
+
+  /**
+   * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   *
+   * @return Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   */
+  @XmlElement(name = "display")
+  @JsonProperty("display")
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  public PlaceDisplayProperties getDisplayExtension() {
+    return display;
+  }
+
+  /**
+   * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   *
+   * @param display Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   */
+  @JsonProperty("display")
+  public void setDisplayExtension(PlaceDisplayProperties display) {
+    this.display = display;
+  }
+
+  /**
+   * Build out this place with a display exension.
+   *
+   * @param display the display.
+   * @return this
+   */
+  public PlaceDescription displayExtension(PlaceDisplayProperties display) {
+    setDisplayExtension(display);
+    return this;
+  }
+
+
+  /**
    * Accept a visitor.
    *
    * @param visitor The visitor.
@@ -385,6 +449,10 @@ public class PlaceDescription extends Subject {
     this.latitude = this.latitude == null ? place.latitude : this.latitude;
     this.longitude = this.longitude == null ? place.longitude : this.longitude;
     this.spatialDescription = this.spatialDescription == null ? place.spatialDescription : this.spatialDescription;
+    this.jurisdiction = this.jurisdiction == null ? place.jurisdiction : this.jurisdiction;
+    if (this.display != null && place.display != null) {
+      this.display.embed(place.display);
+    }
     super.embed(place);
   }
 }
