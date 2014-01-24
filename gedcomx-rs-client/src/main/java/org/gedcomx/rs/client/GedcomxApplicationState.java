@@ -173,22 +173,46 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public GedcomxApplicationState head() {
-    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.HEAD);
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    Object accept = this.request.getHeaders().getFirst("Accept");
+    if (accept != null) {
+      builder = builder.accept(String.valueOf(accept));
+    }
+    ClientRequest request = builder.build(getSelfUri(), HttpMethod.HEAD);
     return clone(request, invoke(request));
   }
 
   public GedcomxApplicationState get() {
-    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.GET);
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    Object accept = this.request.getHeaders().getFirst("Accept");
+    if (accept != null) {
+      builder = builder.accept(String.valueOf(accept));
+    }
+    ClientRequest request = builder.build(getSelfUri(), HttpMethod.GET);
     return clone(request, invoke(request));
   }
 
   public GedcomxApplicationState delete() {
-    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.DELETE);
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    Object accept = this.request.getHeaders().getFirst("Accept");
+    if (accept != null) {
+      builder = builder.accept(String.valueOf(accept));
+    }
+    ClientRequest request = builder.build(getSelfUri(), HttpMethod.DELETE);
     return clone(request, invoke(request));
   }
 
   public GedcomxApplicationState put(E entity) {
-    ClientRequest request = createSelfRequest().entity(entity).build(getSelfUri(), HttpMethod.PUT);
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    Object accept = this.request.getHeaders().getFirst("Accept");
+    Object contentType = this.request.getHeaders().getFirst("Content-Type");
+    if (accept != null) {
+      builder = builder.accept(String.valueOf(accept));
+    }
+    if (contentType != null) {
+      builder = builder.type(String.valueOf(contentType));
+    }
+    ClientRequest request = builder.entity(entity).build(getSelfUri(), HttpMethod.PUT);
     return clone(request, invoke(request));
   }
 
@@ -327,17 +351,6 @@ public abstract class GedcomxApplicationState<E> {
 
   protected ClientRequest.Builder createAuthenticatedGedcomxRequest() {
     return createAuthenticatedRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
-  }
-
-  protected ClientRequest.Builder createSelfRequest() {
-    ClientRequest.Builder builder = createAuthenticatedRequest();
-    if (this.request.getHeaders().getFirst("Accept") != null) {
-      builder = builder.accept(String.valueOf(this.request.getHeaders().getFirst("Accept")));
-    }
-    if (this.request.getHeaders().getFirst("Content-Type") != null) {
-      builder = builder.type(String.valueOf(this.request.getHeaders().getFirst("Content-Type")));
-    }
-    return builder;
   }
 
   protected ClientResponse invoke(ClientRequest request) {

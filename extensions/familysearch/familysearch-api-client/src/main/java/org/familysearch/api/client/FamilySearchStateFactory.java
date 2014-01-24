@@ -23,6 +23,13 @@ import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
 import org.familysearch.api.client.rt.FamilySearchPlatformXmlProvider;
+import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.HealthConfig;
+import org.familysearch.platform.Tag;
+import org.familysearch.platform.artifacts.ArtifactMetadata;
+import org.familysearch.platform.ct.*;
+import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.users.User;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rt.json.GedcomJsonProvider;
 import org.gedcomx.rt.xml.GedcomxXmlProvider;
@@ -59,6 +66,13 @@ public class FamilySearchStateFactory extends StateFactory {
 
   @Override
   protected Client loadDefaultClient() {
-    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(FamilySearchPlatformJsonProvider.class, FamilySearchPlatformXmlProvider.class, JacksonJsonProvider.class));
+    DefaultClientConfig config = new DefaultClientConfig();
+    Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
+      ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
+      Error.class, HealthConfig.class, MatchInfo.class, Merge.class, MergeAnalysis.class, MergeConflict.class,
+      Tag.class, User.class };
+    config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
+    config.getSingletons().add( new JacksonJsonProvider() );
+    return new Client(new URLConnectionClientHandler(), config);
   }
 }
