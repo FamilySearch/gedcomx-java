@@ -207,6 +207,10 @@ public abstract class GedcomxApplicationState<E> {
     return this.links.get(rel);
   }
 
+  public List<Link> getLinks() {
+    return Arrays.asList(this.links.values().toArray(new Link[links.size()]));
+  }
+
   public GedcomxApplicationState ifSuccessful() {
     if (hasError()) {
       throw new GedcomxApplicationException(this.response);
@@ -326,7 +330,14 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected ClientRequest.Builder createSelfRequest() {
-    return createAuthenticatedRequest().accept((String) this.request.getHeaders().getFirst("Accept")).type((String) this.request.getHeaders().getFirst("Content-Type"));
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    if (this.request.getHeaders().getFirst("Accept") != null) {
+      builder = builder.accept(String.valueOf(this.request.getHeaders().getFirst("Accept")));
+    }
+    if (this.request.getHeaders().getFirst("Content-Type") != null) {
+      builder = builder.type(String.valueOf(this.request.getHeaders().getFirst("Content-Type")));
+    }
+    return builder;
   }
 
   protected ClientResponse invoke(ClientRequest request) {
