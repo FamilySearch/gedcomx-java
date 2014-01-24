@@ -300,7 +300,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     FormDataBodyPart artifactPart = new FormDataBodyPart(cd.build(), inputStream, MediaType.valueOf(mediaType));
     multiPart.getBodyParts().add(artifactPart);
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(multiPart).build(link.getHref().toURI(), HttpMethod.POST);
+    ClientRequest request = createAuthenticatedGedcomxRequest().type(MediaType.MULTIPART_FORM_DATA_TYPE).entity(multiPart).build(link.getHref().toURI(), HttpMethod.POST);
     return this.stateFactory.newSourceDescriptionState(request, invoke(request), this.accessToken);
   }
 
