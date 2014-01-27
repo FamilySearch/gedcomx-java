@@ -237,7 +237,7 @@ public abstract class GedcomxApplicationState<E> {
 
   public GedcomxApplicationState ifSuccessful() {
     if (hasError()) {
-      throw new GedcomxApplicationException(this.response);
+      throw new GedcomxApplicationException(String.format("Unsuccessful %s to %s", this.request.getMethod(), getUri()), this.response);
     }
     return this;
   }

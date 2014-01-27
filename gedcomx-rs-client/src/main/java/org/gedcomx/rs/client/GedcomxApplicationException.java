@@ -75,16 +75,25 @@ public class GedcomxApplicationException extends RuntimeException {
   @Override
   public String getMessage() {
     String message = super.getMessage();
+    StringBuilder builder = new StringBuilder(message == null ? "Error processing GEDCOM X request." : message);
     List<HttpWarning> warnings = getWarnings();
     if (message != null || warnings.size() > 0) {
-      StringBuilder builder = new StringBuilder(message == null ? "" : message);
       if(warnings != null){
         for (HttpWarning warning : warnings) {
-          builder.append(" Warning: ").append(warning.getMessage());
+          builder.append("\nWarning: ").append(warning.getMessage());
         }
       }
       message = builder.toString();
     }
-    return message;
+
+    String body = null;
+    if (this.response != null) {
+      body = this.response.getEntity(String.class);
+    }
+    if (body != null) {
+      builder.append('\n').append(body);
+    }
+
+    return builder.toString();
   }
 }
