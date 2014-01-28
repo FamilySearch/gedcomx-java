@@ -38,6 +38,8 @@ public class ArtifactMetadata
 
   private String filename;
   private URI artifactType;
+  private Integer width;
+  private Integer height;
 
   /**
    * The original filename of the memories item.
@@ -98,4 +100,39 @@ public class ArtifactMetadata
     setArtifactType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
   }
 
+  /**
+   * The width of the artifact (presumably an image).
+   *
+   * @return The width of the artifact (presumably an image).
+   */
+  public Integer getWidth() {
+    return width;
+  }
+
+  /**
+   * The width of the artifact (presumably an image).
+   *
+   * @param width The width of the artifact (presumably an image).
+   */
+  public void setWidth(Integer width) {
+    this.width = width;
+  }
+
+  /**
+   * The height of the artifact (presumably an image).
+   *
+   * @return The height of the artifact (presumably an image).
+   */
+  public Integer getHeight() {
+    return height;
+  }
+
+  /**
+   * The height of the artifact (presumably an image).
+   *
+   * @param height The height of the artifact (presumably an image).
+   */
+  public void setHeight(Integer height) {
+    this.height = height;
+  }
 }

@@ -41,7 +41,7 @@ import java.util.*;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "sortKey", "description", "identifiers", "created", "modified", "coverage", "fields", "repository", "descriptorRef" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "sortKey", "description", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -57,6 +57,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<Note> notes;
   private Attribution attribution;
   private URI resourceType;
+  private List<URI> rights;
   private String sortKey;
   private List<TextValue> description;
   private List<Identifier> identifiers;
@@ -141,6 +142,52 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonIgnore
   public void setKnownType(ResourceType type) {
     setResourceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+  }
+
+  /**
+   * The rights for this source.
+   *
+   * @return The rights for this source.
+   */
+  @XmlElement (name="rights")
+  @JsonProperty ("rights")
+  @JsonName ("rights")
+  public List<URI> getRights() {
+    return rights;
+  }
+
+  /**
+   * The rights for this source.
+   *
+   * @param rights The rights for this source.
+   */
+  @JsonProperty ("rights")
+  public void setRights(List<URI> rights) {
+    this.rights = rights;
+  }
+
+  /**
+   * Build out this source description with a rights.
+   * @param rights The rights.
+   * @return this.
+   */
+  public SourceDescription rights(URI rights) {
+    addRights(rights);
+    return this;
+  }
+
+  /**
+   * Add a rights.
+   *
+   * @param rights The rights to be added.
+   */
+  public void addRights(URI rights) {
+    if (rights != null) {
+      if (this.rights == null) {
+        this.rights = new LinkedList<URI>();
+      }
+      this.rights.add(rights);
+    }
   }
 
   /**
@@ -945,6 +992,10 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
     if (description.description != null) {
       this.description = this.description == null ? new ArrayList<TextValue>() : this.description;
       this.description.addAll(description.description);
+    }
+    if (description.rights != null) {
+      this.rights = this.rights == null ? new ArrayList<URI>() : this.rights;
+      this.rights.addAll(description.rights);
     }
     if (description.identifiers != null) {
       this.identifiers = this.identifiers == null ? new ArrayList<Identifier>() : this.identifiers;
