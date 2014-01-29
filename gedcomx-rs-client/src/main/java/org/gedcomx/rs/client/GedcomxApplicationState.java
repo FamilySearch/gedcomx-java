@@ -212,7 +212,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public GedcomxApplicationState options() {
-    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.OPTIONS);
+    ClientRequest request = createAuthenticatedRequest().build(getSelfUri(), HttpMethod.OPTIONS);
     return clone(request, invoke(request));
   }
 
