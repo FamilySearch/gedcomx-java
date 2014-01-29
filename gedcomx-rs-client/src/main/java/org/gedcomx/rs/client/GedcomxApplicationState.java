@@ -60,11 +60,20 @@ public abstract class GedcomxApplicationState<E> {
     this.client = response.getClient();
     this.accessToken = accessToken;
     this.stateFactory = stateFactory;
-    this.entity = loadEntity(this.response);
+    this.entity = loadEntityConditionally(this.response);
     List<Link> links = loadLinks(this.response, this.entity);
     this.links = new TreeMap<String, Link>();
     for (Link link : links) {
       this.links.put(link.getRel(), link);
+    }
+  }
+
+  protected E loadEntityConditionally(ClientResponse response) {
+    if (!HttpMethod.HEAD.equals(request.getMethod()) && response.getClientResponseStatus() == ClientResponse.Status.OK) {
+      return loadEntity(response);
+    }
+    else {
+      return null;
     }
   }
 
@@ -199,6 +208,11 @@ public abstract class GedcomxApplicationState<E> {
       builder = builder.accept(String.valueOf(accept));
     }
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.DELETE);
+    return clone(request, invoke(request));
+  }
+
+  public GedcomxApplicationState options() {
+    ClientRequest request = createSelfRequest().build(getSelfUri(), HttpMethod.OPTIONS);
     return clone(request, invoke(request));
   }
 

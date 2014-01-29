@@ -42,7 +42,7 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
 
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+    return response.getEntity(Gedcomx.class);
   }
 
   @Override
@@ -57,6 +57,11 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
   @Override
   public SourceDescriptionsState head() {
     return (SourceDescriptionsState) super.head();
+  }
+
+  @Override
+  public SourceDescriptionsState options() {
+    return (SourceDescriptionsState) super.options();
   }
 
   @Override

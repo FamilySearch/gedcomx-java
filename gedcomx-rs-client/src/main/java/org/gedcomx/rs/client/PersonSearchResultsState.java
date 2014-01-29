@@ -42,7 +42,7 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
 
   @Override
   protected Feed loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Feed.class) : null;
+    return response.getEntity(Feed.class);
   }
 
   @Override
@@ -53,6 +53,11 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
   @Override
   public PersonSearchResultsState head() {
     return (PersonSearchResultsState) super.head();
+  }
+
+  @Override
+  public PersonSearchResultsState options() {
+    return (PersonSearchResultsState) super.options();
   }
 
   @Override

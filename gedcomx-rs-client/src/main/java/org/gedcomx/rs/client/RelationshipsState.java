@@ -53,6 +53,11 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public RelationshipsState options() {
+    return (RelationshipsState) super.options();
+  }
+
+  @Override
   public RelationshipsState get() {
     return (RelationshipsState) super.get();
   }
@@ -69,7 +74,7 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+    return response.getEntity(Gedcomx.class);
   }
 
   public List<Relationship> getRelationships() {

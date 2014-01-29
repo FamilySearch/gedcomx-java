@@ -37,7 +37,7 @@ public class AgentState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+    return response.getEntity(Gedcomx.class);
   }
 
   @Override
@@ -48,6 +48,11 @@ public class AgentState extends GedcomxApplicationState<Gedcomx> {
   @Override
   public AgentState head() {
     return (AgentState) super.head();
+  }
+
+  @Override
+  public AgentState options() {
+    return (AgentState) super.options();
   }
 
   @Override

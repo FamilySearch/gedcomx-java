@@ -37,12 +37,17 @@ public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx>
 
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+    return response.getEntity(Gedcomx.class);
   }
 
   @Override
   public DescendancyResultsState head() {
     return (DescendancyResultsState) super.head();
+  }
+
+  @Override
+  public DescendancyResultsState options() {
+    return (DescendancyResultsState) super.options();
   }
 
   @Override

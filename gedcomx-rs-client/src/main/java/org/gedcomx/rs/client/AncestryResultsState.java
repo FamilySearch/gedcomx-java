@@ -37,7 +37,7 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+    return response.getEntity(Gedcomx.class);
   }
 
   @Override
@@ -48,6 +48,11 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
   @Override
   public AncestryResultsState head() {
     return (AncestryResultsState) super.head();
+  }
+
+  @Override
+  public AncestryResultsState options() {
+    return (AncestryResultsState) super.options();
   }
 
   @Override

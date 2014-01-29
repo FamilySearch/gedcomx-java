@@ -53,6 +53,11 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
+  public RecordsState options() {
+    return (RecordsState) super.options();
+  }
+
+  @Override
   public RecordsState get() {
     return (RecordsState) super.get();
   }
@@ -69,7 +74,7 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
 
   @Override
   protected Feed loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Feed.class) : null;
+    return response.getEntity(Feed.class);
   }
 
   @Override

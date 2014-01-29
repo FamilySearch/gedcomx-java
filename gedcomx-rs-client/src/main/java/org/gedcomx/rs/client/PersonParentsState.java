@@ -53,6 +53,11 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public PersonParentsState options() {
+    return (PersonParentsState) super.options();
+  }
+
+  @Override
   public PersonParentsState get() {
     return (PersonParentsState) super.get();
   }
@@ -69,7 +74,7 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+    return response.getEntity(Gedcomx.class);
   }
 
   @Override

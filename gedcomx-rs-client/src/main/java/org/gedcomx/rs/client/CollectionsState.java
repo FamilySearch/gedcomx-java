@@ -48,7 +48,7 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Gedcomx.class) : null;
+    return response.getEntity(Gedcomx.class);
   }
 
   @Override
@@ -59,6 +59,11 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   @Override
   public CollectionState head() {
     return (CollectionState) super.head();
+  }
+
+  @Override
+  public CollectionsState options() {
+    return (CollectionsState) super.options();
   }
 
   @Override
