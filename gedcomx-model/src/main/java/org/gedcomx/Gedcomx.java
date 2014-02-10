@@ -86,6 +86,7 @@ public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
   private URI descriptionRef;
+  private URI profile;
   private Attribution attribution;
   private List<Person> persons;
   private List<Relationship> relationships;
@@ -128,6 +129,29 @@ public class Gedcomx extends HypermediaEnabledData {
   public Gedcomx lang(String lang) {
     setLang(lang);
     return this;
+  }
+
+  /**
+   * A reference to the profile that describes this data set.
+   *
+   * @return A reference to the profile that describes this data set.
+   */
+  @XmlAttribute ( name = "profile" )
+  @JsonName ( "profile" )
+  @JsonProperty ( "profile" )
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  public URI getProfile() {
+    return profile;
+  }
+
+  /**
+   * A reference to the profile that describes this data set.
+   *
+   * @param profile A reference to the profile that describes this data set.
+   */
+  @JsonProperty ( "profile" )
+  public void setProfile(URI profile) {
+    this.profile = profile;
   }
 
   /**
