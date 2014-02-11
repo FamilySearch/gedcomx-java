@@ -15,8 +15,11 @@
  */
 package org.familysearch.platform.ct;
 
+import org.codehaus.enunciate.Facet;
+import org.codehaus.enunciate.Facets;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
@@ -33,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 public final class DiscussionReference extends HypermediaEnabledData {
 
   private URI resource;
+  private String resourceId;
 
   public DiscussionReference() {
   }
@@ -40,6 +44,43 @@ public final class DiscussionReference extends HypermediaEnabledData {
   public DiscussionReference(URI resource) {
     this.resource = resource;
   }
+
+  public DiscussionReference(URI resource, String resourceId) {
+    this.resource = resource;
+    this.resourceId = resourceId;
+  }
+
+  /**
+   * The id of the discussion being referenced.
+   *
+   * @return The id of the discussion being referenced.
+   */
+  @XmlAttribute
+  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  public String getResourceId() {
+    return resourceId;
+  }
+
+  /**
+   * The id of the discussion being referenced.
+   *
+   * @param resourceId The id of the discussion being referenced.
+   */
+  public void setResourceId(String resourceId) {
+    this.resourceId = resourceId;
+  }
+
+  /**
+   * Build up this discussion reference with a resource id.
+   *
+   * @param resourceId The resource id.
+   * @return this.
+   */
+  public DiscussionReference resourceId(String resourceId) {
+    setResourceId(resourceId);
+    return this;
+  }
+
 
   /**
    * The URI to the resource. For more information, see <a href="http://www.w3.org/TR/webarch/#identification">Architecture of the World
