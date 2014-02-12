@@ -101,6 +101,11 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return (CollectionState) super.put(e);
   }
 
+  @Override
+  public CollectionState locales(String...locales) {
+    return (CollectionState) super.locales(locales);
+  }
+
   public Collection getCollection() {
     return getEntity() == null ? null : getEntity().getCollections() == null ? null : getEntity().getCollections().isEmpty() ? null : getEntity().getCollections().get(0);
   }
@@ -177,7 +182,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 
-  public PersonState getPersonForCurrentUser() {
+  public PersonState readPersonForCurrentUser() {
     Link currentPersonLink = getLink(Rel.CURRENT_USER_PERSON);
     if (currentPersonLink == null || currentPersonLink.getHref() == null) {
       return null;
@@ -185,6 +190,15 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     URI currentUserPersonUri = currentPersonLink.getHref().toURI();
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(currentUserPersonUri, HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+  }
+
+  public PersonState readPerson(URI personUri) {
+    if (personUri == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(personUri, HttpMethod.GET);
     return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
 

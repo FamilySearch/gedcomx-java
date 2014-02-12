@@ -90,6 +90,11 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return getPerson();
   }
 
+  @Override
+  public PersonState locales(String...locales) {
+    return (PersonState) super.locales(locales);
+  }
+
   public Person getPerson() {
     return getEntity() == null ? null : getEntity().getPersons() == null ? null : getEntity().getPersons().isEmpty() ? null : getEntity().getPersons().get(0);
   }
