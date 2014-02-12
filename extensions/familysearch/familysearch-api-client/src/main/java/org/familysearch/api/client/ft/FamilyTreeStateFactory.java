@@ -34,6 +34,10 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
     return (FamilyTreeCollectionState) newCollectionState(URI.create(production ? "https://familysearch.org/platform/collections/tree" : "https://sandbox.familysearch.org/platform/collections/tree"));
   }
 
+  public FamilyTreeCollectionState newFamilyTreeState(URI discoveryUri) {
+    return (FamilyTreeCollectionState) super.newCollectionState(discoveryUri);
+  }
+
   protected ChildAndParentsRelationshipState newChildAndParentsRelationshipState(ClientRequest request, ClientResponse response, String accessToken) {
     return new ChildAndParentsRelationshipState(request, response, accessToken, this);
   }
