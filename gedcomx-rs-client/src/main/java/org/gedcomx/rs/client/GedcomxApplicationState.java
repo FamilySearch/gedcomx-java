@@ -53,6 +53,7 @@ public abstract class GedcomxApplicationState<E> {
   protected final ClientResponse response;
   protected final E entity;
   protected String accessToken;
+  protected List<String> locales;
 
   protected GedcomxApplicationState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     this.request = request;
@@ -66,6 +67,7 @@ public abstract class GedcomxApplicationState<E> {
     for (Link link : links) {
       this.links.put(link.getRel(), link);
     }
+    this.locales = new ArrayList<String>();
   }
 
   protected E loadEntityConditionally(ClientResponse response) {
@@ -147,6 +149,11 @@ public abstract class GedcomxApplicationState<E> {
     return entity;
   }
 
+  public GedcomxApplicationState locales(String...locales) {
+    this.locales = locales != null ? Arrays.asList(locales) : null;
+    return this;
+  }
+
   public URI getUri() {
     return this.request.getURI();
   }
@@ -212,7 +219,12 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public GedcomxApplicationState options() {
-    ClientRequest request = createAuthenticatedRequest().build(getSelfUri(), HttpMethod.OPTIONS);
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    Object accept = this.request.getHeaders().getFirst("Accept");
+    if (accept != null) {
+      builder = builder.accept(String.valueOf(accept));
+    }
+    ClientRequest request = builder.build(getSelfUri(), HttpMethod.OPTIONS);
     return clone(request, invoke(request));
   }
 
@@ -372,7 +384,9 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected ClientRequest.Builder createRequest() {
-    return ClientRequest.create();
+    ClientRequest.Builder builder = ClientRequest.create();
+    builder = locales.size() > 0 ? builder.acceptLanguage((String[])locales.toArray()) : builder;
+    return builder;
   }
 
   protected ClientRequest.Builder createAuthenticatedRequest() {
