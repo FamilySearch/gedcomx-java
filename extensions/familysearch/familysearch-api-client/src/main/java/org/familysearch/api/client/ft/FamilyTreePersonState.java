@@ -28,6 +28,7 @@ import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.source.SourceReference;
 
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,8 +49,20 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
+  protected FamilySearchPlatform loadEntityConditionally(ClientResponse response) {
+    if (HttpMethod.GET.equals(request.getMethod()) && (response.getClientResponseStatus() == ClientResponse.Status.OK
+          || response.getClientResponseStatus() == ClientResponse.Status.GONE)) {
+      return loadEntity(response);
+    }
+    else {
+      return null;
+    }
+
+  }
+
+  @Override
   protected FamilySearchPlatform loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
+    return response.getEntity(FamilySearchPlatform.class);
   }
 
   @Override
