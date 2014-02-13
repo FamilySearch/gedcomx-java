@@ -28,7 +28,7 @@ public enum MatchStatus {
 
   Pending,
 
-  Confirmed,
+  Accepted,
 
   Rejected;
 
