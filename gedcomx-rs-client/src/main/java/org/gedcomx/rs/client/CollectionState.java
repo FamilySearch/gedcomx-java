@@ -102,8 +102,13 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public CollectionState locales(String...locales) {
-    return (CollectionState) super.locales(locales);
+  public CollectionState withLocales(String...locales) {
+    return (CollectionState) super.withLocales(locales);
+  }
+
+  @Override
+  public CollectionState withAccessToken(String accessToken) {
+    return (CollectionState) super.withAccessToken(accessToken);
   }
 
   public Collection getCollection() {
@@ -171,13 +176,17 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public PersonState addPerson(Person person) {
+    Gedcomx entity = new Gedcomx();
+    entity.addPerson(person);
+    return addPerson(entity);
+  }
+
+  public PersonState addPerson(Gedcomx entity) {
     Link link = getLink(Rel.PERSONS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding persons.", getUri()));
     }
 
-    Gedcomx entity = new Gedcomx();
-    entity.addPerson(person);
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
     return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }

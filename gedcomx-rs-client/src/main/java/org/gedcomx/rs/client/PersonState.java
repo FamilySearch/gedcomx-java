@@ -91,8 +91,13 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public PersonState locales(String...locales) {
-    return (PersonState) super.locales(locales);
+  public PersonState withLocales(String...locales) {
+    return (PersonState) super.withLocales(locales);
+  }
+
+  @Override
+  public PersonState withAccessToken(String accessToken) {
+    return (PersonState) super.withAccessToken(accessToken);
   }
 
   public Person getPerson() {
@@ -365,19 +370,24 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return updateConclusions(person);
   }
 
-  protected PersonState updateConclusions(Person person) {
+  public PersonState updateConclusions(Person person) {
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+
+    return updateConclusions(gx);
+  }
+
+  public PersonState updateConclusions(Gedcomx gx) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.CONCLUSIONS);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
       target = conclusionsLink.getHref().toURI();
     }
 
-    Gedcomx gx = new Gedcomx();
-    gx.setPersons(Arrays.asList(person));
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
     return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
   }
-  
+
   public PersonState deleteName(Name name) {
     return doDeleteConclusion(name);
   }

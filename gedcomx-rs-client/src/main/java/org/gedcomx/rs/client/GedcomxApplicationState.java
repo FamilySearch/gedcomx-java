@@ -149,8 +149,13 @@ public abstract class GedcomxApplicationState<E> {
     return entity;
   }
 
-  public GedcomxApplicationState locales(String...locales) {
+  public GedcomxApplicationState withLocales(String...locales) {
     this.locales = locales != null ? Arrays.asList(locales) : null;
+    return this;
+  }
+
+  public GedcomxApplicationState withAccessToken(String accessToken) {
+    this.accessToken = accessToken != null ? accessToken : null;
     return this;
   }
 
