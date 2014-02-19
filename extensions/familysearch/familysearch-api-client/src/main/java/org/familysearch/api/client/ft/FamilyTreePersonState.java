@@ -265,8 +265,13 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  protected FamilyTreePersonState updateConclusions(Person person) {
+  public FamilyTreePersonState updateConclusions(Person person) {
     return (FamilyTreePersonState) super.updateConclusions(person);
+  }
+
+  @Override
+  public FamilyTreePersonState updateConclusions(Gedcomx entity) {
+    return (FamilyTreePersonState) super.updateConclusions(entity);
   }
 
   @Override
