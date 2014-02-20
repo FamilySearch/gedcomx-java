@@ -24,7 +24,8 @@ import org.gedcomx.common.URI;
  * Identifiers for a system that might contain match results.
  */
 @XmlQNameEnum (
-  base = XmlQNameEnum.BaseType.URI
+  base = XmlQNameEnum.BaseType.URI,
+  namespace = "https://familysearch.org/platform/collections/"
 )
 public enum MatchSystem {
 
