@@ -34,53 +34,103 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType ( name = "MatchInfo" )
 public class MatchInfo {
 
-  private URI system;
+  private URI collection;
   private URI status;
 
   public MatchInfo() {
   }
 
   /**
-   * The system in which this match was found.
+   * The collection in which this match was found.
    *
-   * @return The system in which this match was found.
+   * @return The collection in which this match was found.
    */
   @XmlAttribute
   @XmlQNameEnumRef (MatchSystem.class)
+  public URI getCollection() {
+    return collection;
+  }
+
+  /**
+   * The collection in which this match was found.
+   *
+   * @param collection The collection in which this match was found.
+   */
+  public void setCollection(URI collection) {
+    this.collection = collection;
+  }
+
+  /**
+   * The system in which this match was found.
+   *
+   * @return The system in which this match was found.
+   * @deprecated Use get/setCollection
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public URI getSystem() {
-    return system;
+    return getCollection();
   }
 
   /**
    * The system in which this match was found.
    *
    * @param system The system in which this match was found.
+   * @deprecated Use get/setCollection
    */
+  @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
   public void setSystem(URI system) {
-    this.system = system;
+    setCollection(system);
   }
 
   /**
    * The enum referencing the known system of this match.
    *
    * @return The enum referencing the known system of this match.
+   * @deprecated Use get/setKnownCollection
    */
   @XmlTransient
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
   public MatchSystem getKnownSystem() {
-    return getSystem() == null ? null : MatchSystem.fromQNameURI(getSystem());
+    return getKnownCollection();
   }
 
   /**
    * The enum referencing the known system of this match.
    *
    * @param knownSystem The enum referencing the known system of this match.
+   * @deprecated Use get/setKnownCollection
    */
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownSystem(MatchSystem knownSystem) {
-    setSystem(knownSystem == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownSystem)));
+    setKnownCollection(knownSystem);
+  }
+
+  /**
+   * The enum referencing the known collection of this match.
+   *
+   * @return The enum referencing the known collection of this match.
+   */
+  @XmlTransient
+  @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
+  public MatchSystem getKnownCollection() {
+    return getCollection() == null ? null : MatchSystem.fromQNameURI(getCollection());
+  }
+
+  /**
+   * The enum referencing the known collection of this match.
+   *
+   * @param knownCollection The enum referencing the known collection of this match.
+   */
+  @JsonIgnore
+  @org.codehaus.jackson.annotate.JsonIgnore
+  public void setKnownCollection(MatchSystem knownCollection) {
+    setCollection(knownCollection == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownCollection)));
   }
 
   /**
