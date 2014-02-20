@@ -46,7 +46,6 @@ public class MatchInfo {
    * @return The collection in which this match was found.
    */
   @XmlAttribute
-  @XmlQNameEnumRef (MatchSystem.class)
   public URI getCollection() {
     return collection;
   }
