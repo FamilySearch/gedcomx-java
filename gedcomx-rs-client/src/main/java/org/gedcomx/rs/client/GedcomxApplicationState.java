@@ -175,6 +175,10 @@ public abstract class GedcomxApplicationState<E> {
     return hasClientError() || hasServerError();
   }
 
+  public boolean hasStatus(ClientResponse.Status status) {
+    return this.response.getClientResponseStatus().equals(status);
+  }
+
   public EntityTag getETag() {
     return this.response.getEntityTag();
   }
