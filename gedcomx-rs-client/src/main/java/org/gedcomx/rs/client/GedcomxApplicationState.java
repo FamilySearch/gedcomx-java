@@ -79,6 +79,10 @@ public abstract class GedcomxApplicationState<E> {
     }
   }
 
+  public GedcomxApplicationState inject(ClientRequest request) {
+    return clone(request, invoke(request));
+  }
+
   protected abstract GedcomxApplicationState clone(ClientRequest request, ClientResponse response);
 
   protected abstract E loadEntity(ClientResponse response);
