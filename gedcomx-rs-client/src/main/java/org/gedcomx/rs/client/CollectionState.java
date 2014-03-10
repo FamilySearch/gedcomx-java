@@ -23,7 +23,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.jersey.multipart.MultiPart;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
@@ -38,7 +37,6 @@ import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.types.RelationshipType;
 
-import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MediaType;
@@ -382,6 +380,16 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.POST);
     return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken).ifSuccessful();
+  }
+
+  public SourceDescriptionsState readResourcesOfCurrentUser() {
+    Link link = getLink(Rel.CURRENT_USER_RESOURCES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionsState(request, invoke(request), this.accessToken);
   }
 
 }

@@ -44,6 +44,7 @@ public class Rel {
   public static final String CONCLUSION = "conclusion";
   public static final String CONCLUSIONS = "conclusions";
   public static final String CURRENT_USER_PERSON = "current-user-person";
+  public static final String CURRENT_USER_RESOURCES = "current-user-resources";
   public static final String DESCENDANCY = "descendancy";
   public static final String DESCRIPTION = "description";
   public static final String EVIDENCE_REFERENCE = "evidence-reference";
