@@ -318,6 +318,33 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return me == null ? null : me.getId();
   }
 
+  public PersonState update(Person person) {
+    if (getLink(Rel.CONCLUSIONS) != null && (person.getNames() != null || person.getFacts() != null || person.getGender() != null)) {
+      updateConclusions(person);
+    }
+
+    if (getLink(Rel.EVIDENCE_REFERENCES) != null && person.getEvidence() != null) {
+      updateEvidenceReferences(person);
+    }
+
+    if (getLink(Rel.MEDIA_REFERENCES) != null && person.getMedia() != null) {
+      updateMediaReferences(person);
+    }
+
+    if (getLink(Rel.SOURCE_REFERENCES) != null && person.getSources() != null) {
+      updateSourceReferences(person);
+    }
+
+    if (getLink(Rel.NOTES) != null && person.getNotes() != null) {
+      updateNotes(person);
+    }
+
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(getSelfUri(), HttpMethod.POST);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+  }
+
   public PersonState addGender(Gender gender) {
     Person person = createEmptySelf();
     person.setGender(gender);
@@ -437,7 +464,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return updateSourceReferences(person);
   }
 
-  protected PersonState updateSourceReferences(Person person) {
+  public PersonState updateSourceReferences(Person person) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.SOURCE_REFERENCES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -487,7 +514,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return updateMediaReferences(person);
   }
 
-  protected PersonState updateMediaReferences(Person person) {
+  public PersonState updateMediaReferences(Person person) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.MEDIA_REFERENCES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -537,7 +564,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return updateEvidenceReferences(person);
   }
 
-  protected PersonState updateEvidenceReferences(Person person) {
+  public PersonState updateEvidenceReferences(Person person) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.EVIDENCE_REFERENCES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -592,7 +619,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return updateNotes(person);
   }
 
-  protected PersonState updateNotes(Person person) {
+  public PersonState updateNotes(Person person) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.NOTES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {

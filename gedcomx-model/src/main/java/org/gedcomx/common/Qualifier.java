@@ -17,6 +17,7 @@ package org.gedcomx.common;
 
 import org.codehaus.enunciate.XmlQNameEnumUtil;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
@@ -61,6 +62,7 @@ public final class Qualifier {
    * @return The name of the qualifier.
    */
   @XmlAttribute
+  @JsonProperty ( "name" )
   public URI getName() {
     return name;
   }
@@ -70,6 +72,7 @@ public final class Qualifier {
    *
    * @param name The name of the qualifier.
    */
+  @JsonProperty ( "name" )
   public void setName(URI name) {
     this.name = name;
   }

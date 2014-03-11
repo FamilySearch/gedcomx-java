@@ -25,6 +25,7 @@ import org.gedcomx.rs.Rel;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -88,6 +89,11 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
+  }
+
+  public List<Person> getPersons() {
+    Gedcomx entity = getEntity();
+    return entity == null ? null : entity.getPersons();
   }
 
   public PersonState addPerson(Person person) {
