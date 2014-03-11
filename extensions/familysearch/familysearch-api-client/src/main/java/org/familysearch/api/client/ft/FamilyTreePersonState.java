@@ -320,7 +320,7 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  protected FamilyTreePersonState updateSourceReferences(Person person) {
+  public FamilyTreePersonState updateSourceReferences(Person person) {
     return (FamilyTreePersonState) super.updateSourceReferences(person);
   }
 
@@ -355,7 +355,7 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  protected FamilyTreePersonState updateMediaReferences(Person person) {
+  public FamilyTreePersonState updateMediaReferences(Person person) {
     return (FamilyTreePersonState) super.updateMediaReferences(person);
   }
 
@@ -390,7 +390,7 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  protected FamilyTreePersonState updateEvidenceReferences(Person person) {
+  public FamilyTreePersonState updateEvidenceReferences(Person person) {
     return (FamilyTreePersonState) super.updateEvidenceReferences(person);
   }
 
@@ -420,7 +420,7 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  protected FamilyTreePersonState updateNotes(Person person) {
+  public FamilyTreePersonState updateNotes(Person person) {
     return (FamilyTreePersonState) super.updateNotes(person);
   }
 
