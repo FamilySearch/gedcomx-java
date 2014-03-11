@@ -22,7 +22,6 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
-import org.familysearch.api.client.rt.FamilySearchPlatformXmlProvider;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.HealthConfig;
 import org.familysearch.platform.Tag;
@@ -30,9 +29,8 @@ import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
+import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateFactory;
-import org.gedcomx.rt.json.GedcomJsonProvider;
-import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 /**
  * @author Ryan Heaton
@@ -62,6 +60,11 @@ public class FamilySearchStateFactory extends StateFactory {
   @Override
   protected FamilySearchCollectionState newCollectionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilySearchCollectionState(request, response, accessToken, this);
+  }
+
+  @Override
+  protected SourceDescriptionState newSourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchSourceDescriptionState(request, response, accessToken, this);
   }
 
   @Override

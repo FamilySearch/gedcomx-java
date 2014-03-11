@@ -65,6 +65,17 @@ public class Discussion extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this discussion by applying a title.
+   * 
+   * @param title The title.
+   * @return this.
+   */
+  public Discussion title(String title) {
+    setTitle(title);
+    return this;
+  }
+
+  /**
    * Get detailed text of the discussion
    * @return  The text or "message body" of the discussion
    */
@@ -78,6 +89,17 @@ public class Discussion extends HypermediaEnabledData {
    */
   public void setDetails(String details) {
     this.details = details;
+  }
+
+  /**
+   * Build out this discussion by applying details.
+   *
+   * @param details The details.
+   * @return this.
+   */
+  public Discussion details(String details) {
+    setDetails(details);
+    return this;
   }
 
   /**
@@ -97,6 +119,18 @@ public class Discussion extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this discussion by applying a contributor.
+   *
+   * @param contributor The contributor.
+   * @return this.
+   */
+  public Discussion contributor(ResourceReference contributor) {
+    setContributor(contributor);
+    return this;
+  }
+
+
+  /**
    * Get the date of discussion creation
    * @return date of creation
    */
@@ -110,6 +144,17 @@ public class Discussion extends HypermediaEnabledData {
    */
   public void setCreated(Date created) {
     this.created = created;
+  }
+
+  /**
+   * Build out this discussion by applying a created date.
+   *
+   * @param created The created date.
+   * @return this.
+   */
+  public Discussion created(Date created) {
+    setCreated(created);
+    return this;
   }
 
   /** Last date of any change to comments or discussion details
@@ -128,6 +173,17 @@ public class Discussion extends HypermediaEnabledData {
   }
 
   /**
+   * Build out this discussion by applying a modified date.
+   *
+   * @param modified The modified date.
+   * @return this.
+   */
+  public Discussion modified(Date modified) {
+    setModified(modified);
+    return this;
+  }
+
+  /**
    * Get the number of comments associated with this discussion
    * @return Number of comments
    */
@@ -141,6 +197,17 @@ public class Discussion extends HypermediaEnabledData {
    */
   public void setNumberOfComments(Integer numberOfComments) {
     this.numberOfComments = numberOfComments;
+  }
+
+  /**
+   * Build our this discussion by setting a number of comments.
+   *
+   * @param numberOfComments The number of comments.
+   * @return this.
+   */
+  public Discussion numberOfComments(Integer numberOfComments) {
+    setNumberOfComments(numberOfComments);
+    return this;
   }
 
   /**
@@ -165,11 +232,27 @@ public class Discussion extends HypermediaEnabledData {
     this.comments = comments;
   }
 
+  /**
+   * Add a comment.
+   *
+   * @param comment The comment to add.
+   */
   public void addComment(Comment comment) {
     if (comments == null) {
       comments = new ArrayList<Comment>();
     }
     comments.add( comment );
+  }
+
+  /**
+   * Build out this discussion by adding a comment.
+   *
+   * @param comment The comment to add.
+   * @return this.
+   */
+  public Discussion comment(Comment comment) {
+    addComment(comment);
+    return this;
   }
 
   /**

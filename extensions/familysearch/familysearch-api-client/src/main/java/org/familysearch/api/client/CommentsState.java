@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class CommentsState extends GedcomxApplicationState<FamilySearchPlatform> {
 
-  public CommentsState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
+  protected CommentsState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
   }
 
@@ -96,6 +96,10 @@ public class CommentsState extends GedcomxApplicationState<FamilySearchPlatform>
   protected String getLocalSelfId() {
     Discussion me = getDiscussion();
     return me == null ? null : me.getId();
+  }
+
+  public CommentsState addComment(String comment) {
+    return addComments(new Comment(comment));
   }
 
   public CommentsState addComment(Comment comment) {

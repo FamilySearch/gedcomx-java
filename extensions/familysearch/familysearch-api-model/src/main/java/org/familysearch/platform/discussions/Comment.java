@@ -27,9 +27,17 @@ import java.util.Date;
 @XmlType ( name = "Comment", propOrder = { "text", "created", "contributor" } )
 @SuppressWarnings("gedcomx:no_id")
 public class Comment extends HypermediaEnabledData {
+
   private String text;
   private ResourceReference contributor;
   private Date created;
+
+  public Comment() {
+  }
+
+  public Comment(String text) {
+    this.text = text;
+  }
 
   /**
    * Get the text of the comment
@@ -45,6 +53,17 @@ public class Comment extends HypermediaEnabledData {
    */
   public void setText(String text) {
     this.text = text;
+  }
+
+  /**
+   * Update this comment by applying text.
+   *
+   * @param text The text to apply.
+   * @return The comment.
+   */
+  public Comment text(String text) {
+    setText(text);
+    return this;
   }
 
   /**
@@ -64,6 +83,17 @@ public class Comment extends HypermediaEnabledData {
   }
 
   /**
+   * Build this comment by applying a contributor.
+   *
+   * @param contributor The contributor.
+   * @return this.
+   */
+  public Comment contributor(ResourceReference contributor) {
+    setContributor(contributor);
+    return this;
+  }
+
+  /**
    * Get the date of comment creation
    * @return date of creation
    */
@@ -77,6 +107,17 @@ public class Comment extends HypermediaEnabledData {
    */
   public void setCreated(Date created) {
     this.created = created;
+  }
+
+  /**
+   * Build this comment by applying a created date.
+   *
+   * @param created The created date.
+   * @return The comment.
+   */
+  public Comment created(Date created) {
+    setCreated(created);
+    return this;
   }
 
   /**
