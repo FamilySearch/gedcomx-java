@@ -21,65 +21,55 @@ import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 
 /**
- * @deprecated replaced by {@link MatchCollection}
- * Identifiers for a system that might contain match results.
+ * Identifiers for a collection that might contain match results.
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI,
   namespace = "https://familysearch.org/platform/collections/"
 )
-@Deprecated
-public enum MatchSystem {
+public enum MatchCollection {
 
   /**
    * The FamilySearch Family Tree.
-   * @deprecated replaced by {@link MatchCollection#tree}
    */
-  @Deprecated tree,
+  tree,
 
   /**
    * The FamilySearch Record Set.
-   * @deprecated replaced by {@link MatchCollection#records}
    */
-  @Deprecated records,
+  records,
 
   /**
    * The FamilySearch User-Submitted Trees.
-   * @deprecated replaced by {@link MatchCollection#lls}
    */
   @XmlQNameEnumValue ( localPart = "trees" )
-  @Deprecated lls,
+  lls,
 
   /**
    * The FamilySearch Temple System.
-   * @deprecated replaced by {@link MatchCollection#tss}
    */
   @XmlQNameEnumValue ( localPart = "temple" )
-  @Deprecated tss,
+  tss,
 
-  /**
-   * @deprecated replaced by {@link MatchCollection#OTHER}
-   */
   @XmlUnknownQNameEnumValue
-  @Deprecated OTHER;
+  OTHER;
 
   /**
    * Return the QName value for this enum.
-   * @deprecated replaced by {@link MatchCollection#toQNameURI()}
+   *
    * @return The QName value for this enum.
    */
-  @Deprecated public URI toQNameURI() {
+  public URI toQNameURI() {
     return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
   }
 
   /**
    * Get the enumeration from the QName.
-   * @deprecated replaced by {@link MatchCollection#fromQNameURI(URI)}
    *
    * @param qname The qname.
    * @return The enumeration.
    */
-  @Deprecated public static MatchSystem fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), MatchSystem.class);
+  public static MatchCollection fromQNameURI(URI qname) {
+    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), MatchCollection.class);
   }
 }
