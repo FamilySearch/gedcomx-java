@@ -85,31 +85,6 @@ public class MatchInfo {
   }
 
   /**
-   * The enum referencing the known system of this match.
-   *
-   * @return The enum referencing the known system of this match.
-   * @deprecated Use get/setKnownCollection
-   */
-  @XmlTransient
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
-  public MatchSystem getKnownSystem() {
-    return getKnownCollection();
-  }
-
-  /**
-   * The enum referencing the known system of this match.
-   *
-   * @param knownSystem The enum referencing the known system of this match.
-   * @deprecated Use get/setKnownCollection
-   */
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
-  public void setKnownSystem(MatchSystem knownSystem) {
-    setKnownCollection(knownSystem);
-  }
-
-  /**
    * The enum referencing the known collection of this match.
    *
    * @return The enum referencing the known collection of this match.
@@ -117,8 +92,8 @@ public class MatchInfo {
   @XmlTransient
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
-  public MatchSystem getKnownCollection() {
-    return getCollection() == null ? null : MatchSystem.fromQNameURI(getCollection());
+  public MatchCollection getKnownCollection() {
+    return getCollection() == null ? null : MatchCollection.fromQNameURI(getCollection());
   }
 
   /**
@@ -128,7 +103,7 @@ public class MatchInfo {
    */
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
-  public void setKnownCollection(MatchSystem knownCollection) {
+  public void setKnownCollection(MatchCollection knownCollection) {
     setCollection(knownCollection == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownCollection)));
   }
 
