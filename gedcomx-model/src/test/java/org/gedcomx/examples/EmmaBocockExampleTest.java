@@ -53,6 +53,8 @@ public class EmmaBocockExampleTest {
     Person emmaConclusion = new Person().id("C-1").evidence(emma).analysis(analysis);
 
     Gedcomx gx = new Gedcomx()
+      .agent(contributor)
+      .agent(repository)
       .attribution(attribution)
       .sourceDescription(sourceDescription)
       .person(emma)
