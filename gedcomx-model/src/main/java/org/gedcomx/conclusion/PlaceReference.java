@@ -65,6 +65,17 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   }
 
   /**
+   * Build out this place reference with an original string.
+   * 
+   * @param original The original string.
+   * @return this.
+   */
+  public PlaceReference original(String original) {
+    setOriginal(original);
+    return this;
+  }
+
+  /**
    * A reference to a description of the place being referenced.
    *
    * @return A reference to a description of the place being referenced.
@@ -85,6 +96,28 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   @JsonProperty ( "description" )
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
+  }
+
+  /**
+   * Build out this place reference with a reference to a place description.
+   *
+   * @param description The reference to the place description.
+   * @return this.
+   */
+  public PlaceReference description(PlaceDescription description) {
+    setDescriptionRef(URI.create("#" + description.getId()));
+    return this;
+  }
+
+  /**
+   * Build out this place reference with a reference to a place description.
+   *
+   * @param ref The reference to the place description.
+   * @return this.
+   */
+  public PlaceReference description(URI ref) {
+    setDescriptionRef(ref);
+    return this;
   }
 
   /**
@@ -113,6 +146,16 @@ public class PlaceReference extends ExtensibleData implements HasFields {
     this.normalized = normalized;
   }
 
+  /**
+   * Build out this place reference with an normalized string.
+   *
+   * @param normalized The normalized string.
+   * @return this.
+   */
+  public PlaceReference normalized(String normalized) {
+    setOriginal(normalized);
+    return this;
+  }
 
   /**
    * Get the fields being used as evidence.
@@ -150,6 +193,18 @@ public class PlaceReference extends ExtensibleData implements HasFields {
       fields.add(field);
     }
   }
+
+  /**
+   * Build out this place reference with a field.
+   *
+   * @param field The field.
+   * @return this.
+   */
+  public PlaceReference field(Field field) {
+    addField(field);
+    return this;
+  }
+
 
   public String toString() {
     return "PlaceReference{" + "original='" + original + "', " + "descriptionRef='" + descriptionRef + '\'' + '}';

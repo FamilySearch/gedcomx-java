@@ -21,6 +21,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.agent.Agent;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -909,6 +910,16 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void setRepository(ResourceReference repository) {
     this.repository = repository;
+  }
+
+  /**
+   * Build out this source description with a repository.
+   *
+   * @param repository The repository.
+   * @return this.
+   */
+  public SourceDescription repository(Agent repository) {
+    return repository(new ResourceReference(URI.create("#" + repository.getId())));
   }
 
   /**

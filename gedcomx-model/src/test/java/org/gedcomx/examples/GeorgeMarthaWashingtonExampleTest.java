@@ -1,5 +1,6 @@
-package org.gedcomx;
+package org.gedcomx.examples;
 
+import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
@@ -23,7 +24,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @Test
-public class GedcomxExamplesTest {
+public class GeorgeMarthaWashingtonExampleTest {
 
   public void testExample() throws Exception {
     PlaceDescription popesCreek = createPopesCreek();
