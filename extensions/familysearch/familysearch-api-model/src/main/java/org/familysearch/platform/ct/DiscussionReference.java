@@ -16,7 +16,7 @@
 package org.familysearch.platform.ct;
 
 import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.Facets;
+import org.gedcomx.common.Attribution;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 public final class DiscussionReference extends HypermediaEnabledData {
 
   private URI resource;
+  private Attribution attribution;
   private String resourceId;
 
   public DiscussionReference() {
@@ -104,6 +105,35 @@ public final class DiscussionReference extends HypermediaEnabledData {
    */
   public void setResource(URI resource) {
     this.resource = resource;
+  }
+
+  /**
+   * The attribution metadata for this discussion reference.
+   *
+   * @return The attribution metadata for this discussion reference.
+   */
+  public Attribution getAttribution() {
+    return attribution;
+  }
+
+  /**
+   * The attribution metadata for this discussion reference.
+   *
+   * @param attribution The attribution metadata for this discussion reference.
+   */
+  public void setAttribution(Attribution attribution) {
+    this.attribution = attribution;
+  }
+
+  /**
+   * Build up this discussion reference with attribution.
+   *
+   * @param attribution The attribution.
+   * @return this.
+   */
+  public DiscussionReference attribution(Attribution attribution) {
+    setAttribution(attribution);
+    return this;
   }
 
   /**
