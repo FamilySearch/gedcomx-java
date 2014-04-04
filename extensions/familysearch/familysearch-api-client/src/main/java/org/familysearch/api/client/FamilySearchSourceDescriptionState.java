@@ -83,4 +83,15 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request), this.accessToken);
   }
+
+  //TODO: Create FamilysearchSourceReferencesQueryState class, add it to FamilySearchStateFactory when link is created
+/*  public FamilySearchSourceReferencesQueryState readSourceReferencesQuery() {
+    Link link = getLink( //TODO: Put Rel here when added );
+    if (link == null || link.getHref() = null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newFamilySearchSourceReferencesQueryState(request, invoke(request), this.accessToken);
+  }  */
 }
