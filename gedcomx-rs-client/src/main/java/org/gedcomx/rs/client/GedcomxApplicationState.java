@@ -142,7 +142,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public ClientRequest getRequest() {
-    return request;
+    return request.clone();
   }
 
   public ClientResponse getResponse() {
@@ -188,7 +188,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public Date getLastModified() {
-    return this.response.getLastModified();
+    return new Date(this.response.getLastModified().getTime());
   }
 
   public MultivaluedMap<String, String> getHeaders() {
