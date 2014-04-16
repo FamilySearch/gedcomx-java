@@ -26,6 +26,18 @@
       </package-conversions>
     </csharp>
     <ruby forceEnable="true"/>
+    <php forceEnable="true" singleFilePerClass="true">
+      <package-conversions>
+        <convert from="org.gedcomx" to="Gedcomx"/>
+        <convert from="org.gedcomx.agent" to="Gedcomx\Agent"/>
+        <convert from="org.gedcomx.common" to="Gedcomx\Common"/>
+        <convert from="org.gedcomx.conclusion" to="Gedcomx\Conclusion"/>
+        <convert from="org.gedcomx.links" to="Gedcomx\Links"/>
+        <convert from="org.gedcomx.records" to="Gedcomx\Records"/>
+        <convert from="org.gedcomx.source" to="Gedcomx\Source"/>
+        <convert from="org.gedcomx.types" to="Gedcomx\Types"/>
+      </package-conversions>
+    </php>
   </modules>
 
 </enunciate>
