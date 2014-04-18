@@ -18,10 +18,10 @@ public class ChangeTypeTest {
     // test the contract that the @XmlEnumValue is unique and does not change its value
     testChangeType( "Person Created", ChangeType.CREATE_PERSON );
     testChangeType( "Couple Relationship Created", ChangeType.CREATE_COUPLE_RELATIONSHIP );
-    testChangeType( "Child and Parents Relationship Created", ChangeType.CREATE_COUPLE_CHILD_RELATIONSHIP );
+    testChangeType( "Child and Parents Relationship Created", ChangeType.CREATE_CHILD_AND_PARENTS_RELATIONSHIP);
     testChangeType( "Person Removed", ChangeType.DELETE_PERSON );
     testChangeType( "Couple Relationship Removed", ChangeType.DELETE_COUPLE_RELATIONSHIP );
-    testChangeType( "Child and Parents Relationship Removed", ChangeType.DELETE_COUPLE_CHILD_RELATIONSHIP );
+    testChangeType( "Child and Parents Relationship Removed", ChangeType.DELETE_CHILD_AND_PARENTS_RELATIONSHIP);
     testChangeType( "Man Added", ChangeType.ADD_MAN );
     testChangeType( "Woman Added", ChangeType.ADD_WOMAN );
     testChangeType( "Father Added", ChangeType.ADD_FATHER );
@@ -36,13 +36,13 @@ public class ChangeTypeTest {
     testChangeType( "Mother Removed", ChangeType.REMOVE_MOTHER );
     testChangeType( "Person Merged", ChangeType.MERGE_PERSON );
     testChangeType( "Couple Relationship Merged", ChangeType.MERGE_COUPLE_RELATIONSHIP );
-    testChangeType( "Child and Parents Relationship Merged", ChangeType.MERGE_COUPLE_CHILD_RELATIONSHIP );
+    testChangeType( "Child and Parents Relationship Merged", ChangeType.MERGE_CHILD_AND_PARENTS_RELATIONSHIP);
     testChangeType( "Person Unmerged", ChangeType.UNMERGE_PERSON );
     testChangeType( "Couple Relationship Unmerged", ChangeType.UNMERGE_COUPLE_RELATIONSHIP );
-    testChangeType( "Child and Parents Relationship Unmerged", ChangeType.UNMERGE_COUPLE_CHILD_RELATIONSHIP );
+    testChangeType( "Child and Parents Relationship Unmerged", ChangeType.UNMERGE_CHILD_AND_PARENTS_RELATIONSHIP);
     testChangeType( "Person Restored", ChangeType.UNTOMBSTONE_PERSON );
     testChangeType( "Couple Relationship Restored", ChangeType.UNTOMBSTONE_COUPLE_RELATIONSHIP );
-    testChangeType( "Child and Parents Relationship Restored", ChangeType.UNTOMBSTONE_COUPLE_CHILD_RELATIONSHIP );
+    testChangeType( "Child and Parents Relationship Restored", ChangeType.UNTOMBSTONE_CHILD_AND_PARENTS_RELATIONSHIP);
     /* Not currently supported
     testChangeType( "PersonAccessControl Changed", ChangeType.EDIT_PERSON_ACCESS_CONTROL );
     testChangeType( "Couple Relationship AccessControl Changed", ChangeType.EDIT_COUPLE_RELATIONSHIP_ACCESS_CONTROL );

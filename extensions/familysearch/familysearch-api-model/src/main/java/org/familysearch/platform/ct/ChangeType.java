@@ -43,8 +43,8 @@ public enum ChangeType {
   UNMERGE_COUPLE_RELATIONSHIP("Couple Relationship Unmerged", ChangeOperation.Unmerge, ChangeObjectType.Couple, null),
   UNTOMBSTONE_COUPLE_RELATIONSHIP("Couple Relationship Restored", ChangeOperation.Restore, ChangeObjectType.Couple, null),
 
-  CREATE_COUPLE_CHILD_RELATIONSHIP("Child and Parents Relationship Created", ChangeOperation.Create, ChangeObjectType.CoupleChildRelationship, null),
-  DELETE_COUPLE_CHILD_RELATIONSHIP("Child and Parents Relationship Removed", ChangeOperation.Delete, ChangeObjectType.CoupleChildRelationship, null),
+  CREATE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Created", ChangeOperation.Create, ChangeObjectType.ChildAndParentsRelationship, null),
+  DELETE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Removed", ChangeOperation.Delete, ChangeObjectType.ChildAndParentsRelationship, null),
   ADD_FATHER("Father Added", ChangeOperation.Create, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_FATHER("Father Changed", ChangeOperation.Update, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
   REMOVE_FATHER("Father Removed", ChangeOperation.Delete, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
@@ -53,9 +53,9 @@ public enum ChangeType {
   REMOVE_MOTHER("Mother Removed", ChangeOperation.Delete, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
   ADD_CHILD("Child Added", ChangeOperation.Create, ChangeObjectType.Child, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_CHILD("Child Changed", ChangeOperation.Update, ChangeObjectType.Child, ChangeObjectModifier.ChildAndParentsRelationship),
-  MERGE_COUPLE_CHILD_RELATIONSHIP("Child and Parents Relationship Merged", ChangeOperation.Merge, ChangeObjectType.CoupleChildRelationship, null),
-  UNMERGE_COUPLE_CHILD_RELATIONSHIP("Child and Parents Relationship Unmerged", ChangeOperation.Unmerge, ChangeObjectType.CoupleChildRelationship, null),
-  UNTOMBSTONE_COUPLE_CHILD_RELATIONSHIP("Child and Parents Relationship Restored", ChangeOperation.Restore, ChangeObjectType.CoupleChildRelationship, null),
+  MERGE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Merged", ChangeOperation.Merge, ChangeObjectType.ChildAndParentsRelationship, null),
+  UNMERGE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Unmerged", ChangeOperation.Unmerge, ChangeObjectType.ChildAndParentsRelationship, null),
+  UNTOMBSTONE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Restored", ChangeOperation.Restore, ChangeObjectType.ChildAndParentsRelationship, null),
 
   /* Todo: Not currently supported
   EDIT_PERSON_ACCESS_CONTROL("PersonAccessControl Changed", , ),
