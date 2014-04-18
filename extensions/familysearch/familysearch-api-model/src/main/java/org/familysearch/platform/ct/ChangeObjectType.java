@@ -43,11 +43,8 @@ public enum ChangeObjectType {
   Couple,
 
   /**
-   * A couple-child relationship was changed.
-   * @deprecated use {@link #ChildAndParentsRelationship}
+   * A child-and-parents relationship was changed.
    */
-  @Deprecated
-  CoupleChildRelationship,
   ChildAndParentsRelationship,
 
   /**
