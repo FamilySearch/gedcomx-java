@@ -21,7 +21,7 @@ public class GedcomxApplicationStateTest {
 //  @BeforeClass
 //  protected void setup() {
 //    this.initialState = new GedcomxApplicationState<Feed>(URI.create("https://sandbox.familysearch.org/.well-known/app-meta"))
-//      .authenticateViaOAuth2Password("heatonra", "1234cispass", "WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK");
+//      .authenticateViaOAuth2Password("sdktester", "1234sdkpass", "WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK");
 //  }
 //
 //  public void testGetCurrentUser() {
