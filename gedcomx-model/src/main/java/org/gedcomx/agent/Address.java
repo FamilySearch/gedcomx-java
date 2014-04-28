@@ -35,6 +35,9 @@ public class Address extends ExtensibleData {
   private String street;
   private String street2;
   private String street3;
+  private String street4;
+  private String street5;
+  private String street6;
   private String value;
 
   @Override
@@ -242,6 +245,93 @@ public class Address extends ExtensibleData {
    */
   public Address street3(String street3) {
     this.street3 = street3;
+    return this;
+  }
+
+  /**
+   * Additional street information.
+   *
+   * @return Additional street information.
+   */
+  public String getStreet4() {
+    return street4;
+  }
+
+  /**
+   * Additional street information.
+   *
+   * @param street4 Additional street information.
+   */
+  public void setStreet4(String street4) {
+    this.street4 = street4;
+  }
+
+  /**
+   * Build up this address with a street4.
+   *
+   * @param street4 The street4.
+   * @return this.
+   */
+  public Address street4(String street4) {
+    this.street4 = street4;
+    return this;
+  }
+
+  /**
+   * Additional street information.
+   *
+   * @return Additional street information.
+   */
+  public String getStreet5() {
+    return street5;
+  }
+
+  /**
+   * Additional street information.
+   *
+   * @param street5 Additional street information.
+   */
+  public void setStreet5(String street5) {
+    this.street5 = street5;
+  }
+
+  /**
+   * Build up this address with a street5.
+   *
+   * @param street5 The street5.
+   * @return this.
+   */
+  public Address street5(String street5) {
+    this.street5 = street5;
+    return this;
+  }
+
+  /**
+   * Additional street information.
+   *
+   * @return Additional street information.
+   */
+  public String getStreet6() {
+    return street6;
+  }
+
+  /**
+   * Additional street information.
+   *
+   * @param street6 Additional street information.
+   */
+  public void setStreet6(String street6) {
+    this.street6 = street6;
+  }
+
+  /**
+   * Build up this address with a street6.
+   *
+   * @param street6 The street6.
+   * @return this.
+   */
+  public Address street6(String street6) {
+    this.street6 = street6;
     return this;
   }
 
