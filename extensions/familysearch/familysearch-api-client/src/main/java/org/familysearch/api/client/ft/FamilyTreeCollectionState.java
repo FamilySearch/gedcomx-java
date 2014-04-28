@@ -136,7 +136,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
 
     FamilySearchPlatform entity = new FamilySearchPlatform();
     entity.setChildAndParentsRelationships(Arrays.asList(chap));
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(getSelfUri(), HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
