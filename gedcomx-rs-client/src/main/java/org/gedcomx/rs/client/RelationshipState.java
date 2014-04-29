@@ -83,6 +83,11 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public RelationshipState inject(ClientRequest request) {
+    return (RelationshipState) super.inject(request);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
   }
