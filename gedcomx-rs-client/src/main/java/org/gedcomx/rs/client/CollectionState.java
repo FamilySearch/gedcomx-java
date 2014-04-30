@@ -41,9 +41,11 @@ import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
 
 /**
  * @author Ryan Heaton
@@ -208,7 +210,15 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return searchForPersons(query.build());
   }
 
+  public PersonSearchResultsState searchForPersons(GedcomxSearchQueryBuilder query, QueryParameters params) {
+    return searchForPersons(query.build(), params);
+  }
+
   public PersonSearchResultsState searchForPersons(String query) {
+    return searchForPersons(query, null);
+  }
+
+  public PersonSearchResultsState searchForPersons(String query, QueryParameters params) {
     Link searchLink = getLink(Rel.PERSON_SEARCH);
     if (searchLink == null || searchLink.getTemplate() == null) {
       return null;
@@ -226,7 +236,13 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
+    UriBuilder uriBuilder = UriBuilder.fromUri(uri);
+    if (params != null) {
+      for (Map.Entry<String, String> param : params.getParams().entrySet()) {
+        uriBuilder = uriBuilder.queryParam(param.getKey(), param.getValue());
+      }
+    }
+    ClientRequest request = createAuthenticatedFeedRequest().build(uriBuilder.build(), HttpMethod.GET);
     return this.stateFactory.newPersonSearchResultsState(request, invoke(request), this.accessToken);
   }
 

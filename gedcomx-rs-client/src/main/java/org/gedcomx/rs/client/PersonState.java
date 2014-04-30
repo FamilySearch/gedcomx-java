@@ -30,11 +30,9 @@ import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Ryan Heaton
@@ -236,22 +234,42 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public AncestryResultsState readAncestry() {
+    return readAncestry(null);
+  }
+
+  public AncestryResultsState readAncestry(QueryParameters params) {
     Link link = getLink(Rel.ANCESTRY);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    UriBuilder builder = UriBuilder.fromUri(link.getHref().toURI());
+    if (params != null) {
+      for (Map.Entry<String, String> param : params.getParams().entrySet()) {
+        builder = builder.queryParam(param.getKey(), param.getValue());
+      }
+    }
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(builder.build(), HttpMethod.GET);
     return this.stateFactory.newAncestryResultsState(request, invoke(request), this.accessToken);
   }
 
   public DescendancyResultsState readDescendancy() {
+    return readDescendancy(null);
+  }
+
+  public DescendancyResultsState readDescendancy(QueryParameters params) {
     Link link = getLink(Rel.DESCENDANCY);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    UriBuilder builder = UriBuilder.fromUri(link.getHref().toURI());
+    if (params != null) {
+      for (Map.Entry<String, String> param : params.getParams().entrySet()) {
+        builder = builder.queryParam(param.getKey(), param.getValue());
+      }
+    }
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(builder.build(), HttpMethod.GET);
     return this.stateFactory.newDescendancyResultsState(request, invoke(request), this.accessToken);
   }
 
