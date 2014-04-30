@@ -28,11 +28,13 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.RelationshipState;
+import org.gedcomx.rs.client.RelationshipsState;
 import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -116,6 +118,16 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     return super.addRelationship(relationship);
   }
 
+  @Override
+  public RelationshipsState addRelationships(List<Relationship> relationships) {
+    for (Relationship relationship : relationships) {
+      if (relationship.getKnownType() == RelationshipType.ParentChild) {
+        throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding parent-child relationships. You must instead add a child-and-parents relationship.");
+      }
+    }
+    return super.addRelationships(relationships);
+  }
+
   public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother) {
     ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
     chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
@@ -139,6 +151,19 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
     request.setEntity(entity);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
+  }
+
+  public RelationshipsState addChildAndParentsRelationships(List<ChildAndParentsRelationship> chaps) {
+    Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
+    }
+
+    FamilySearchPlatform entity = new FamilySearchPlatform();
+    entity.setChildAndParentsRelationships(chaps);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
+    request.setEntity(entity);
+    return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipsState(request, invoke(request), this.accessToken);
   }
 
 }

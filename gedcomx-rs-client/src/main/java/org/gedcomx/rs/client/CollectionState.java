@@ -45,6 +45,7 @@ import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -281,7 +282,20 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     Gedcomx entity = new Gedcomx();
     entity.addRelationship(relationship);
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    request.setEntity(entity);
     return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+  }
+
+  public RelationshipsState addRelationships(List<Relationship> relationships) {
+    Link link = getLink(Rel.RELATIONSHIPS);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding relationships.", getUri()));
+    }
+
+    Gedcomx entity = new Gedcomx();
+    entity.setRelationships(relationships);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newRelationshipsState(request, invoke(request), this.accessToken);
   }
 
   public SourceDescriptionState addArtifact(DataSource artifact) {
