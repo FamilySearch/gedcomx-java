@@ -90,16 +90,6 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return getPerson();
   }
 
-  @Override
-  public PersonState withLocales(String...locales) {
-    return (PersonState) super.withLocales(locales);
-  }
-
-  @Override
-  public PersonState withAccessToken(String accessToken) {
-    return (PersonState) super.withAccessToken(accessToken);
-  }
-
   public Person getPerson() {
     return getEntity() == null ? null : getEntity().getPersons() == null ? null : getEntity().getPersons().isEmpty() ? null : getEntity().getPersons().get(0);
   }
@@ -223,6 +213,11 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   @Override
   public PersonState authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
     return (PersonState) super.authenticateViaOAuth2ClientCredentials(clientId, clientSecret);
+  }
+
+  @Override
+  public PersonState authenticateWithAccessToken(String accessToken) {
+    return (PersonState) super.authenticateWithAccessToken(accessToken);
   }
 
   @Override

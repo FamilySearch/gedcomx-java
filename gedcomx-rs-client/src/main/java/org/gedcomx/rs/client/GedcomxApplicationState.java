@@ -53,7 +53,6 @@ public abstract class GedcomxApplicationState<E> {
   protected final ClientResponse response;
   protected final E entity;
   protected String accessToken;
-  protected List<String> locales;
 
   protected GedcomxApplicationState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     this.request = request;
@@ -67,7 +66,6 @@ public abstract class GedcomxApplicationState<E> {
     for (Link link : links) {
       this.links.put(link.getRel(), link);
     }
-    this.locales = new ArrayList<String>();
   }
 
   protected E loadEntityConditionally(ClientResponse response) {
@@ -151,16 +149,6 @@ public abstract class GedcomxApplicationState<E> {
 
   public E getEntity() {
     return entity;
-  }
-
-  public GedcomxApplicationState withLocales(String...locales) {
-    this.locales = locales != null ? Arrays.asList(locales) : null;
-    return this;
-  }
-
-  public GedcomxApplicationState withAccessToken(String accessToken) {
-    this.accessToken = accessToken != null ? accessToken : null;
-    return this;
   }
 
   public URI getUri() {
@@ -323,6 +311,11 @@ public abstract class GedcomxApplicationState<E> {
     return authenticateViaOAuth2(formData);
   }
 
+  protected GedcomxApplicationState authenticateWithAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+    return this;
+  }
+
   protected GedcomxApplicationState authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
     Link tokenLink = this.links.get(Rel.OAUTH2_TOKEN);
     if (tokenLink == null || tokenLink.getHref() == null) {
@@ -350,8 +343,7 @@ public abstract class GedcomxApplicationState<E> {
         throw new GedcomxApplicationException("Illegal access token response: no access_token provided.", response);
       }
 
-      this.accessToken = access_token.getValueAsText();
-      return this;
+      return authenticateWithAccessToken(access_token.getValueAsText());
     }
     else {
       throw new GedcomxApplicationException("Unable to obtain an access token.", response);
@@ -397,9 +389,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected ClientRequest.Builder createRequest() {
-    ClientRequest.Builder builder = ClientRequest.create();
-    builder = locales.size() > 0 ? builder.acceptLanguage((String[])locales.toArray()) : builder;
-    return builder;
+    return ClientRequest.create();
   }
 
   protected ClientRequest.Builder createAuthenticatedRequest() {

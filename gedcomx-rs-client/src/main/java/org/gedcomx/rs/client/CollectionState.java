@@ -99,18 +99,13 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return (CollectionState) super.put(e);
   }
 
-  @Override
-  public CollectionState withLocales(String...locales) {
-    return (CollectionState) super.withLocales(locales);
-  }
-
-  @Override
-  public CollectionState withAccessToken(String accessToken) {
-    return (CollectionState) super.withAccessToken(accessToken);
-  }
-
   public Collection getCollection() {
     return getEntity() == null ? null : getEntity().getCollections() == null ? null : getEntity().getCollections().isEmpty() ? null : getEntity().getCollections().get(0);
+  }
+
+  @Override
+  public CollectionState authenticateWithAccessToken(String accessToken) {
+    return (CollectionState) super.authenticateWithAccessToken(accessToken);
   }
 
   @Override
