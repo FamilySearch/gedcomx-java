@@ -18,8 +18,13 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.AncestryTree;
+
+import javax.ws.rs.HttpMethod;
+import java.net.URI;
 
 /**
  * @author Ryan Heaton
@@ -79,4 +84,23 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
     return getEntity() != null ? new AncestryTree(getEntity()) : null;
   }
 
+  public PersonState readPerson(int ancestorNumber) {
+    AncestryTree.AncestryNode ancestor = getTree().getAncestor(ancestorNumber);
+    if (ancestor == null) {
+      return null;
+    }
+
+    Link selfLink = ancestor.getPerson().getLink(Rel.PERSON);
+    if (selfLink == null || selfLink.getHref() == null) {
+      selfLink = ancestor.getPerson().getLink(Rel.SELF);
+    }
+
+    URI personUri = selfLink == null || selfLink.getHref() == null ? null : selfLink.getHref().toURI();
+    if (personUri == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(personUri, HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+  }
 }
