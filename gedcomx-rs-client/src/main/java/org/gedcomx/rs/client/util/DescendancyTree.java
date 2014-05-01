@@ -46,23 +46,17 @@ public class DescendancyTree {
           int[] coordinates = parseCoordinates(number);
           List<DescendancyNode> current = rootArray;
           int i = 0;
+          DescendancyNode node = null;
           while (current != null) {
             int coordinate = coordinates[i];
             while (current.size() < coordinate) {
               current.add(null);
             }
 
-            DescendancyNode node = current.get(i - 1);
+            node = current.get(coordinate - 1);
             if (node == null) {
               node = new DescendancyNode();
-              current.set(i - 1, node);
-            }
-
-            if (spouse) {
-              node.setSpouse(person);
-            }
-            else {
-              node.setPerson(person);
+              current.set(coordinate - 1, node);
             }
 
             if (++i < coordinates.length) {
@@ -77,6 +71,13 @@ public class DescendancyTree {
             else {
               current = null;
             }
+          }
+
+          if (spouse) {
+            node.setSpouse(person);
+          }
+          else {
+            node.setPerson(person);
           }
         }
       }
@@ -99,11 +100,14 @@ public class DescendancyTree {
       char ch = number.charAt(i);
       if (ch == '.') {
         coords.add(current);
+        current = new StringBuilder();
       }
       else {
         current.append(ch);
       }
     }
+    coords.add(current);
+    
     int[] coordinates = new int[coords.size()];
     for (int i = 0; i < coords.size(); i++) {
       StringBuilder num = coords.get(i);
