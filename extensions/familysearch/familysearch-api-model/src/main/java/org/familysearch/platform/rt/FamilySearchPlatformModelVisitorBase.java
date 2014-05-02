@@ -21,6 +21,7 @@ import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
+import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
 
@@ -60,6 +61,41 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     }
 
     List<ChildAndParentsRelationship> childAndParentsRelationships = fsp.getChildAndParentsRelationships();
+    if (childAndParentsRelationships != null) {
+      for (ChildAndParentsRelationship pcr : childAndParentsRelationships) {
+        pcr.accept(this);
+      }
+    }
+
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitGedcomx(Gedcomx gx) {
+    super.visitGedcomx(gx);
+    this.contextStack.push(gx);
+    List<Discussion> discussions = gx.findExtensionsOfType(Discussion.class);
+    if (discussions != null) {
+      for (Discussion discussion : discussions) {
+        discussion.accept(this);
+      }
+    }
+
+    List<Merge> merges = gx.findExtensionsOfType(Merge.class);
+    if (merges != null) {
+      for (Merge merge : merges) {
+        merge.accept(this);
+      }
+    }
+
+    List<MergeAnalysis> mergeAnalyses = gx.findExtensionsOfType(MergeAnalysis.class);
+    if (mergeAnalyses != null) {
+      for (MergeAnalysis merge : mergeAnalyses) {
+        merge.accept(this);
+      }
+    }
+
+    List<ChildAndParentsRelationship> childAndParentsRelationships = gx.findExtensionsOfType(ChildAndParentsRelationship.class);
     if (childAndParentsRelationships != null) {
       for (ChildAndParentsRelationship pcr : childAndParentsRelationships) {
         pcr.accept(this);

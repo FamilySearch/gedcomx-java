@@ -56,4 +56,8 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   protected FamilyTreePersonState newPersonState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilyTreePersonState(request, response, accessToken, this);
   }
+
+  protected ChangeHistoryState newChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new ChangeHistoryState(request, response, accessToken, this);
+  }
 }

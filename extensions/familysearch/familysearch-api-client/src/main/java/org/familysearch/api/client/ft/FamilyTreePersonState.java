@@ -17,13 +17,14 @@ package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
-import org.gedcomx.rs.client.AncestryResultsState;
+import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.source.SourceReference;
@@ -57,7 +58,6 @@ public class FamilyTreePersonState extends PersonState {
     else {
       return null;
     }
-
   }
 
   @Override
@@ -484,6 +484,14 @@ public class FamilyTreePersonState extends PersonState {
     return (FamilyTreePersonState) super.readParent(relationship);
   }
 
+  public ChangeHistoryState readChangeHistory() {
+    Link link = getLink(Rel.CHANGE_HISTORY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
 
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request), this.accessToken);
+  }
 
 }

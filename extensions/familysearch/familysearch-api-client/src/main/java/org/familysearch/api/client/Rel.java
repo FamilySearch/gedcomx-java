@@ -20,6 +20,7 @@ package org.familysearch.api.client;
  */
 public class Rel extends org.gedcomx.rs.Rel {
 
+  public static final String CHANGE_HISTORY = "change-history";
   public static final String COMMENT = "comment";
   public static final String COMMENTS = "comments";
   public static final String CURRENT_USER = "current-user";
