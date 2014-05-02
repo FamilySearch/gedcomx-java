@@ -755,7 +755,7 @@ public class Gedcomx extends HypermediaEnabledData {
         boolean found = false;
         if (link.getRel() != null) {
           if (getLinks() != null) {
-            for (Link target : gedcomx.getLinks()) {
+            for (Link target : getLinks()) {
               if (link.getRel().equals(target.getRel())) {
                 found = true;
                 break;
@@ -776,7 +776,7 @@ public class Gedcomx extends HypermediaEnabledData {
         boolean found = false;
         if (person.getId() != null) {
           if (getPersons() != null) {
-            for (Person target : gedcomx.getPersons()) {
+            for (Person target : getPersons()) {
               if (person.getId().equals(target.getId())) {
                 target.embed(person);
                 found = true;
