@@ -23,6 +23,7 @@ import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomJsonProvider;
+import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
 import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 import javax.ws.rs.HttpMethod;
@@ -73,7 +74,7 @@ public class StateFactory {
   }
 
   protected Client loadDefaultClient() {
-    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class, JacksonJsonProvider.class));
+    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class, GedcomxAtomJsonProvider.class, JacksonJsonProvider.class));
   }
 
   protected AgentState newAgentState(ClientRequest request, ClientResponse response, String accessToken) {

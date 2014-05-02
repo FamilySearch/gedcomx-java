@@ -26,9 +26,9 @@
     <module>gedcomx-fileformat</module>
 
     <!--gedcomx-rs modules-->
-    <module>gedcomx-rs-rt-support</module>
     <module>enunciate-gedcomx-rs-support</module>
     <module>gedcomx-atom</module>
+    <module>gedcomx-rs-rt-support</module>
     <module>gedcomx-rs</module>
     <module>gedcomx-rs-client</module>
 

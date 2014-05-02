@@ -31,6 +31,7 @@ import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateFactory;
+import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
 
 /**
  * @author Ryan Heaton
@@ -75,6 +76,7 @@ public class FamilySearchStateFactory extends StateFactory {
       Error.class, HealthConfig.class, MatchInfo.class, Merge.class, MergeAnalysis.class, MergeConflict.class,
       Tag.class, User.class };
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
+    config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
     return new Client(new URLConnectionClientHandler(), config);
   }
