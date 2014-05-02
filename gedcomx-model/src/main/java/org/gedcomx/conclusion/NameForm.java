@@ -136,7 +136,7 @@ public class NameForm extends ExtensibleData implements HasFields {
    * @param part The part.
    * @return this.
    */
-  public NameForm parts(NamePart part) {
+  public NameForm part(NamePart part) {
     addPart(part);
     return this;
   }
