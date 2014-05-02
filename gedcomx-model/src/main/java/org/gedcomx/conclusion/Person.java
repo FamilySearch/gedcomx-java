@@ -33,10 +33,7 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 import org.gedcomx.types.NameType;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -291,6 +288,17 @@ public class Person extends Subject implements HasFacts, HasFields {
   @JsonName("names")
   public List<Name> getNames() {
     return names;
+  }
+
+  /**
+   * Get the first name of this person.
+   *
+   * @return The first name of this person.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public Name getName() {
+    return this.names != null && this.names.size() > 0 ? this.names.get(0) : null;
   }
 
   /**

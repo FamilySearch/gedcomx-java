@@ -221,6 +221,17 @@ public class Name extends Conclusion {
   }
 
   /**
+   * The first name form of this name.
+   *
+   * @return The first name form of this name.
+   */
+  @JsonIgnore
+  @XmlTransient
+  public NameForm getNameForm() {
+    return this.nameForms != null && this.nameForms.size() > 0 ? this.nameForms.get(0) : null;
+  }
+
+  /**
    * Alternate forms of the name, such as the romanized form of a non-latin name.
    *
    * @param nameForms Alternate forms of the name, such as the romanized form of a non-latin name.
