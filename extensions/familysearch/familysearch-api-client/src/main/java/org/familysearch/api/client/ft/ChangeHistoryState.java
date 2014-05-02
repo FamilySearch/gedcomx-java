@@ -18,6 +18,7 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.ChangeEntry;
+import org.familysearch.api.client.util.ChangeHistoryPage;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.SupportsLinks;
@@ -95,14 +96,9 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
     return (ChangeHistoryState) super.readLastPage();
   }
 
-  public List<ChangeEntry> getEntries() {
-    List<Entry> entries = this.entity.getEntries();
-    ArrayList<ChangeEntry> changes = new ArrayList<ChangeEntry>();
-    if (entries != null) {
-      for (Entry entry : entries) {
-        changes.add(new ChangeEntry(entry));
-      }
-    }
-    return changes;
+  public ChangeHistoryPage getPage() {
+    Feed feed = getEntity();
+    return feed == null ? null : new ChangeHistoryPage(feed);
   }
+
 }
