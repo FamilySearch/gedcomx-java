@@ -50,6 +50,14 @@ public final class NamePart extends ExtensibleData implements HasFields {
   private List<Qualifier> qualifiers;
   private List<Field> fields;
 
+  public NamePart() {
+  }
+
+  public NamePart(NamePartType type, String text) {
+    setKnownType(type);
+    setValue(text);
+  }
+
   @Override
   public NamePart id(String id) {
     return (NamePart) super.id(id);

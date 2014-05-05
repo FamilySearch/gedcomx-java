@@ -219,6 +219,12 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
+  public RelationshipState addSourceReference(SourceDescriptionState source) {
+    SourceReference reference = new SourceReference();
+    reference.setDescriptionRef(new org.gedcomx.common.URI(source.getSelfUri().toString()));
+    return addSourceReference(reference);
+  }
+
   public RelationshipState addSourceReference(SourceReference reference) {
     return addSourceReferences(reference);
   }
@@ -263,6 +269,12 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
+  public RelationshipState addMediaReference(SourceDescriptionState description) {
+    SourceReference reference = new SourceReference();
+    reference.setDescriptionRef(new org.gedcomx.common.URI(description.getSelfUri().toString()));
+    return addMediaReference(reference);
+  }
+
   public RelationshipState addMediaReference(SourceReference reference) {
     return addMediaReferences(reference);
   }
@@ -305,6 +317,12 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
     return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+  }
+
+  public RelationshipState addEvidenceReference(RelationshipState evidence) {
+    EvidenceReference reference = new EvidenceReference();
+    reference.setResource(new org.gedcomx.common.URI(evidence.getSelfUri().toString()));
+    return addEvidenceReference(reference);
   }
 
   public RelationshipState addEvidenceReference(EvidenceReference reference) {

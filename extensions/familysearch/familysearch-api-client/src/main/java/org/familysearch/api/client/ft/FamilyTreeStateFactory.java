@@ -18,6 +18,7 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
+import org.gedcomx.rs.client.RelationshipState;
 
 import java.net.URI;
 
@@ -55,6 +56,11 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   @Override
   protected FamilyTreePersonState newPersonState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilyTreePersonState(request, response, accessToken, this);
+  }
+
+  @Override
+  protected FamilyTreeRelationshipState newRelationshipState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilyTreeRelationshipState(request, response, accessToken, this);
   }
 
   protected ChangeHistoryState newChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken) {

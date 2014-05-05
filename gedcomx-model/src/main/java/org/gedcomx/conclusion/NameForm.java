@@ -44,6 +44,16 @@ public class NameForm extends ExtensibleData implements HasFields {
   private List<NamePart> parts;
   private List<Field> fields;
 
+  public NameForm() {
+  }
+
+  public NameForm(String fullText, NamePart... parts) {
+    this.fullText = fullText;
+    for (NamePart part : parts) {
+      addPart(part);
+    }
+  }
+
   @Override
   public NameForm id(String id) {
     return (NameForm) super.id(id);

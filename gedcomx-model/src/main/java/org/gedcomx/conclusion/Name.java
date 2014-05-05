@@ -53,6 +53,13 @@ public class Name extends Conclusion {
   private List<NameForm> nameForms;
   private Boolean preferred;
 
+  public Name() {
+  }
+
+  public Name(String fullText, NamePart... parts) {
+    addNameForm(new NameForm(fullText, parts));
+  }
+
   @Override
   public Name id(String id) {
     return (Name) super.id(id);

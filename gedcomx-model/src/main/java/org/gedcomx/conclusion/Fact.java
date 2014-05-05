@@ -76,6 +76,28 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @param factType the fact type.
    * @param date The date of applicability of this fact.
    * @param place The place of applicability of this fact.
+   */
+  public Fact(FactType factType, String date, String place) {
+    this(factType, new Date().original(date), new PlaceReference().original(place), null);
+  }
+
+  /**
+   * Create a date/place fact with the passed in type and values.
+   *
+   * @param factType the fact type.
+   * @param date The date of applicability of this fact.
+   * @param place The place of applicability of this fact.
+   */
+  public Fact(FactType factType, Date date, PlaceReference place) {
+    this(factType, date, place, null);
+  }
+
+  /**
+   * Create a date/place fact with the passed in type and values.
+   *
+   * @param factType the fact type.
+   * @param date The date of applicability of this fact.
+   * @param place The place of applicability of this fact.
    * @param value The value as supplied by the user.
    */
   public Fact(FactType factType, Date date, PlaceReference place, String value) {
