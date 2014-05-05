@@ -15,15 +15,11 @@
  */
 package org.familysearch.api.client.util;
 
-import org.familysearch.platform.ct.ChangeInfo;
 import org.familysearch.platform.ct.ChangeObjectModifier;
 import org.familysearch.platform.ct.ChangeObjectType;
 import org.familysearch.platform.ct.ChangeOperation;
-import org.familysearch.platform.rt.FamilySearchPlatformLocalReferenceResolver;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
-import org.gedcomx.common.ExtensibleData;
-import org.gedcomx.common.ResourceReference;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -61,7 +57,11 @@ public class ChangeHistoryPage extends Entry {
   }
 
   public ChangeEntry findChange(ChangeOperation operation, ChangeObjectType objectType) {
-    List<ChangeEntry> changes = findChanges(operation, objectType);
+    return findChange(operation, objectType, null);
+  }
+
+  public ChangeEntry findChange(ChangeOperation operation, ChangeObjectType objectType, ChangeObjectModifier modifier) {
+    List<ChangeEntry> changes = findChanges(operation, objectType, modifier);
     return changes.size() > 0 ? changes.get(0) : null;
   }
 
@@ -69,13 +69,24 @@ public class ChangeHistoryPage extends Entry {
     return findChanges(EnumSet.of(operation), EnumSet.of(objectType));
   }
 
+  public List<ChangeEntry> findChanges(ChangeOperation operation, ChangeObjectType objectType, ChangeObjectModifier modifier) {
+    return findChanges(EnumSet.of(operation), EnumSet.of(objectType), modifier != null ? EnumSet.of(modifier) : EnumSet.allOf(ChangeObjectModifier.class));
+  }
+
   public List<ChangeEntry> findChanges(Set<ChangeOperation> operations, Set<ChangeObjectType> types) {
+    return findChanges(operations, types, EnumSet.allOf(ChangeObjectModifier.class));
+  }
+
+  public List<ChangeEntry> findChanges(Set<ChangeOperation> operations, Set<ChangeObjectType> types, Set<ChangeObjectModifier> modifiers) {
     ArrayList<ChangeEntry> changes = new ArrayList<ChangeEntry>();
     for (ChangeEntry entry : this.entries) {
       ChangeOperation operation = entry.getOperation();
       ChangeObjectType type = entry.getObjectType();
+      ChangeObjectModifier modifier = entry.getObjectModifier();
       if (operation != null && type != null & operations.contains(operation) && types.contains(type)) {
-        changes.add(entry);
+        if (modifier == null || modifiers.contains(modifier)) {
+          changes.add(entry);
+        }
       }
     }
     return changes;
