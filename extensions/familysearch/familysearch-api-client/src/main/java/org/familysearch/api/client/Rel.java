@@ -26,5 +26,6 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String CURRENT_USER = "current-user";
   public static final String DISCUSSIONS = "discussions";
   public static final String PERSON_MATCHES_QUERY = "person-matches-query";
+  public static final String RESTORE = "restore";
 
 }

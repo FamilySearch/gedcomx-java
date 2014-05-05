@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
+import org.gedcomx.atom.Entry;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.Conclusion;

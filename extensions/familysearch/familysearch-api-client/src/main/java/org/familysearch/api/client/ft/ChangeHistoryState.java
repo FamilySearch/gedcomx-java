@@ -17,15 +17,16 @@ package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.util.ChangeEntry;
 import org.familysearch.api.client.util.ChangeHistoryPage;
+import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.ws.rs.HttpMethod;
 
 /**
  * @author Ryan Heaton
@@ -101,4 +102,13 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
     return feed == null ? null : new ChangeHistoryPage(feed);
   }
 
+  public ChangeHistoryState restoreChange(Entry change) {
+    Link link = change.getLink(org.familysearch.api.client.Rel.RESTORE);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Unrestorable change: " + change.getId());
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request), this.accessToken);
+  }
 }
