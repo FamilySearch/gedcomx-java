@@ -37,7 +37,7 @@ public enum ChangeType {
   DELETE_COUPLE_RELATIONSHIP("Couple Relationship Removed", ChangeOperation.Delete, ChangeObjectType.Couple, null),
   ADD_MAN("Man Added", ChangeOperation.Create, ChangeObjectType.Man, ChangeObjectModifier.Couple),
   EDIT_MAN("Man Changed", ChangeOperation.Update, ChangeObjectType.Man, ChangeObjectModifier.Couple),
-  ADD_WOMAN("Woman Added", ChangeOperation.Update, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
+  ADD_WOMAN("Woman Added", ChangeOperation.Create, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
   EDIT_WOMAN("Woman Changed", ChangeOperation.Update, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
   MERGE_COUPLE_RELATIONSHIP("Couple Relationship Merged", ChangeOperation.Merge, ChangeObjectType.Couple, null),
   UNMERGE_COUPLE_RELATIONSHIP("Couple Relationship Unmerged", ChangeOperation.Unmerge, ChangeObjectType.Couple, null),
