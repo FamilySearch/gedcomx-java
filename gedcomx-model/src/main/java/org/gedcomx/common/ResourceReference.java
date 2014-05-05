@@ -46,6 +46,10 @@ public final class ResourceReference {
     this.resource = resource;
   }
 
+  public ResourceReference(java.net.URI resource) {
+    this.resource = URI.create(resource.toString());
+  }
+
   public ResourceReference(URI resource, String resourceId) {
     this.resource = resource;
     this.resourceId = resourceId;

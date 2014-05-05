@@ -26,6 +26,7 @@ import com.sun.jersey.multipart.FormDataMultiPart;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.conclusion.Fact;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
@@ -257,19 +258,25 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newRelationshipsState(request, invoke(request), this.accessToken);
   }
 
-  public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2) {
+  public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2, Fact... facts) {
     Relationship relationship = new Relationship();
     relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(person1.getSelfUri().toString())));
     relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(person2.getSelfUri().toString())));
     relationship.setKnownType(RelationshipType.Couple);
+    for (Fact fact : facts) {
+      relationship.addFact(fact);
+    }
     return addRelationship(relationship);
   }
 
-  public RelationshipState addParentChildRelationship(PersonState parent, PersonState child) {
+  public RelationshipState addParentChildRelationship(PersonState parent, PersonState child, Fact... facts) {
     Relationship relationship = new Relationship();
     relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(parent.getSelfUri().toString())));
     relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
     relationship.setKnownType(RelationshipType.ParentChild);
+    for (Fact fact : facts) {
+      relationship.addFact(fact);
+    }
     return addRelationship(relationship);
   }
 
