@@ -282,7 +282,6 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     Gedcomx entity = new Gedcomx();
     entity.addRelationship(relationship);
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
-    request.setEntity(entity);
     return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
   }
 
