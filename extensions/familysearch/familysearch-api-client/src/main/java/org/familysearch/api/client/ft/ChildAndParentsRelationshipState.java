@@ -29,6 +29,7 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
@@ -242,6 +243,12 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
+  public ChildAndParentsRelationshipState addSourceReference(SourceDescriptionState source) {
+    SourceReference reference = new SourceReference();
+    reference.setDescriptionRef(new org.gedcomx.common.URI(source.getSelfUri().toString()));
+    return addSourceReference(reference);
+  }
+
   public ChildAndParentsRelationshipState addSourceReference(SourceReference reference) {
     return addSourceReferences(reference);
   }
@@ -271,7 +278,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
 
     FamilySearchPlatform gx = new FamilySearchPlatform();
     gx.setChildAndParentsRelationships(Arrays.asList(relationship));
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(target, HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -282,7 +289,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
       throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -315,7 +322,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
 
     FamilySearchPlatform gx = new FamilySearchPlatform();
     gx.setChildAndParentsRelationships(Arrays.asList(relationship));
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(target, HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -326,7 +333,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
       throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -359,7 +366,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
 
     FamilySearchPlatform gx = new FamilySearchPlatform();
     gx.setChildAndParentsRelationships(Arrays.asList(relationship));
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(target, HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -370,7 +377,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
       throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -381,7 +388,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
       throw new GedcomxApplicationException("Note cannot be read: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -414,7 +421,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
 
     FamilySearchPlatform gx = new FamilySearchPlatform();
     gx.setChildAndParentsRelationships(Arrays.asList(relationship));
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(target, HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
   }
 
@@ -425,7 +432,17 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
       throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
+  }
+
+  public ChangeHistoryState readChangeHistory() {
+    Link link = getLink(org.familysearch.api.client.Rel.CHANGE_HISTORY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request), this.accessToken);
   }
 }
