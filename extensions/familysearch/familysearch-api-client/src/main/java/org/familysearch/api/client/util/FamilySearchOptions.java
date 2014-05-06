@@ -18,6 +18,7 @@ package org.familysearch.api.client.util;
 import org.familysearch.platform.artifacts.ArtifactType;
 import org.familysearch.platform.ct.MatchStatus;
 import org.gedcomx.common.URI;
+import org.gedcomx.rs.client.options.HeaderParameter;
 import org.gedcomx.rs.client.options.QueryParameter;
 import org.gedcomx.types.ConfidenceLevel;
 
@@ -92,5 +93,9 @@ public class FamilySearchOptions {
 
   public static QueryParameter matchStatus(MatchStatus status) {
     return new QueryParameter(false, STATUS, status.toQNameURI().toString());
+  }
+
+  public static HeaderParameter reason(String reason) {
+    return new HeaderParameter(true, "X-Reason", reason);
   }
 }
