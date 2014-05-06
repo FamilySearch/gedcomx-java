@@ -71,6 +71,11 @@ public class CommentsState extends GedcomxApplicationState<FamilySearchPlatform>
   }
 
   @Override
+  public CommentsState post(FamilySearchPlatform entity, StateTransitionOption... options) {
+    return (CommentsState) super.post(entity, options);
+  }
+
+  @Override
   protected FamilySearchPlatform loadEntity(ClientResponse response) {
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
   }

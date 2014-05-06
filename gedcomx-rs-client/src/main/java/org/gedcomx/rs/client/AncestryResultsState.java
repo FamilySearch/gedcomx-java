@@ -76,6 +76,11 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public AncestryResultsState post(Gedcomx entity, StateTransitionOption... options) {
+    return (AncestryResultsState) super.post(entity, options);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getEntity();
   }

@@ -73,6 +73,11 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
+  public RecordsState post(Feed entity, StateTransitionOption... options) {
+    return (RecordsState) super.post(entity, options);
+  }
+
+  @Override
   protected Feed loadEntity(ClientResponse response) {
     return response.getEntity(Feed.class);
   }

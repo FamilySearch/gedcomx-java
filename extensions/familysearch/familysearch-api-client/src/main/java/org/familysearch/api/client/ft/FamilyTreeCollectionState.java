@@ -73,6 +73,11 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
   }
 
   @Override
+  public FamilyTreeCollectionState post(Gedcomx entity, StateTransitionOption... options) {
+    return (FamilyTreeCollectionState) super.post(entity, options);
+  }
+
+  @Override
   public FamilyTreeCollectionState authenticateViaOAuth2Password(String username, String password, String clientId) {
     return (FamilyTreeCollectionState) super.authenticateViaOAuth2Password(username, password, clientId);
   }

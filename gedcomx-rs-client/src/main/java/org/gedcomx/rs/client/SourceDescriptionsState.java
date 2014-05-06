@@ -80,6 +80,11 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
+  public SourceDescriptionsState post(Gedcomx entity, StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.post(entity, options);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getEntity();
   }

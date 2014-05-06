@@ -71,6 +71,11 @@ public class AgentState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public AgentState post(Gedcomx entity, StateTransitionOption... options) {
+    return (AgentState) super.post(entity, options);
+  }
+
+  @Override
   protected SupportsLinks getScope() {
     return getAgent();
   }

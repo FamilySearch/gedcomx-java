@@ -77,6 +77,11 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   @Override
+  public ChildAndParentsRelationshipState post(FamilySearchPlatform entity, StateTransitionOption... options) {
+    return (ChildAndParentsRelationshipState) super.post(entity, options);
+  }
+
+  @Override
   protected FamilySearchPlatform loadEntity(ClientResponse response) {
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
   }

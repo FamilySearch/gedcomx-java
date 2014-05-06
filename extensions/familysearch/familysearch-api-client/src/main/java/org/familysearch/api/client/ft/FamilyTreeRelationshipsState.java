@@ -75,6 +75,11 @@ public class FamilyTreeRelationshipsState extends RelationshipsState {
   }
 
   @Override
+  public FamilyTreeRelationshipsState post(Gedcomx entity, StateTransitionOption... options) {
+    return (FamilyTreeRelationshipsState) super.post(entity, options);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
   }

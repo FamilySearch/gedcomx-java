@@ -71,6 +71,11 @@ public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
+  public DescendancyResultsState post(Gedcomx entity, StateTransitionOption... options) {
+    return (DescendancyResultsState) super.post(entity, options);
+  }
+
+  @Override
   public DescendancyResultsState ifSuccessful() {
     return (DescendancyResultsState) super.ifSuccessful();
   }

@@ -73,6 +73,11 @@ public class PersonChildrenState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public PersonChildrenState post(Gedcomx entity, StateTransitionOption... options) {
+    return (PersonChildrenState) super.post(entity, options);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
   }

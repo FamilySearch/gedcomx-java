@@ -73,6 +73,11 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public RelationshipsState post(Gedcomx entity, StateTransitionOption... options) {
+    return (RelationshipsState) super.post(entity, options);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
   }

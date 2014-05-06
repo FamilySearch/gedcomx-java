@@ -73,6 +73,11 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public SourceDescriptionState post(Gedcomx entity, StateTransitionOption... options) {
+    return (SourceDescriptionState) super.post(entity, options);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
   }

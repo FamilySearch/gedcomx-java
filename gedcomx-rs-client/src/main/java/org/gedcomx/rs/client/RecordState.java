@@ -65,6 +65,11 @@ public class RecordState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public RecordState post(Gedcomx entity, StateTransitionOption... options) {
+    return (RecordState) super.post(entity, options);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
   }

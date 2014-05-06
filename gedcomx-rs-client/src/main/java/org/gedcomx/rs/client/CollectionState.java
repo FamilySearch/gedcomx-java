@@ -101,6 +101,11 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return (CollectionState) super.put(e, options);
   }
 
+  @Override
+  public CollectionState post(Gedcomx entity, StateTransitionOption... options) {
+    return (CollectionState) super.post(entity, options);
+  }
+
   public Collection getCollection() {
     return getEntity() == null ? null : getEntity().getCollections() == null ? null : getEntity().getCollections().isEmpty() ? null : getEntity().getCollections().get(0);
   }

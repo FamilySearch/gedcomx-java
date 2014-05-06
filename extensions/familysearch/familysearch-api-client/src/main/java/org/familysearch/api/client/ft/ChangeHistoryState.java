@@ -79,6 +79,11 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
+  public ChangeHistoryState post(Feed entity, StateTransitionOption... options) {
+    return (ChangeHistoryState) super.post(entity, options);
+  }
+
+  @Override
   public ChangeHistoryState readNextPage(StateTransitionOption... options) {
     return (ChangeHistoryState) super.readNextPage(options);
   }

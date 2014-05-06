@@ -243,6 +243,20 @@ public abstract class GedcomxApplicationState<E> {
     return clone(request, invoke(request, options));
   }
 
+  public GedcomxApplicationState post(E entity, StateTransitionOption... options) {
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    Object accept = this.request.getHeaders().getFirst("Accept");
+    Object contentType = this.request.getHeaders().getFirst("Content-Type");
+    if (accept != null) {
+      builder = builder.accept(String.valueOf(accept));
+    }
+    if (contentType != null) {
+      builder = builder.type(String.valueOf(contentType));
+    }
+    ClientRequest request = builder.entity(entity).build(getSelfUri(), HttpMethod.POST);
+    return clone(request, invoke(request, options));
+  }
+
   public List<HttpWarning> getWarnings() {
     ArrayList<HttpWarning> warnings = new ArrayList<HttpWarning>();
     List<String> warningValues = this.response.getHeaders().get("Warning");

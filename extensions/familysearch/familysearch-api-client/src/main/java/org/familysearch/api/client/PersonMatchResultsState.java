@@ -18,6 +18,7 @@ package org.familysearch.api.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.atom.Feed;
+import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.PersonSearchResultsState;
 import org.gedcomx.rs.client.StateTransitionOption;
 
@@ -58,6 +59,11 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
   @Override
   public PersonMatchResultsState put(Feed e, StateTransitionOption... options) {
     return (PersonMatchResultsState) super.put(e, options);
+  }
+
+  @Override
+  public PersonMatchResultsState post(Feed entity, StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.post(entity, options);
   }
 
   @Override

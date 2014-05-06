@@ -73,6 +73,11 @@ public class PersonSpousesState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public PersonSpousesState post(Gedcomx entity, StateTransitionOption... options) {
+    return (PersonSpousesState) super.post(entity, options);
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
   }

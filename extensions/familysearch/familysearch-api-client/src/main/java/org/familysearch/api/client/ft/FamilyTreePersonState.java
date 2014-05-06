@@ -25,6 +25,7 @@ import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
+import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
@@ -128,6 +129,11 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   public FamilyTreePersonState put(Gedcomx e, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.put(e, options);
+  }
+
+  @Override
+  public FamilyTreePersonState post(Gedcomx entity, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.post(entity, options);
   }
 
   @Override

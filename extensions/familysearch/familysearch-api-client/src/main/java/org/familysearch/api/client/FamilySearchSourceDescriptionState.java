@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
+import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.source.SourceDescription;
@@ -68,6 +69,11 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
   @Override
   public FamilySearchSourceDescriptionState put(Gedcomx e, StateTransitionOption... options) {
     return (FamilySearchSourceDescriptionState) super.put(e, options);
+  }
+
+  @Override
+  public FamilySearchSourceDescriptionState post(Gedcomx entity, StateTransitionOption... options) {
+    return (FamilySearchSourceDescriptionState) super.post(entity, options);
   }
 
   @Override
