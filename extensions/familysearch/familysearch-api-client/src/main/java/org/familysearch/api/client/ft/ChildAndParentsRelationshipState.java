@@ -22,15 +22,13 @@ import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rs.client.GedcomxApplicationException;
-import org.gedcomx.rs.client.GedcomxApplicationState;
-import org.gedcomx.rs.client.SourceDescriptionState;
-import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rs.client.*;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
@@ -450,5 +448,50 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
 
     ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState readChild(StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = getRelationship();
+    if (relationship == null) {
+      return null;
+    }
+
+    ResourceReference child = relationship.getChild();
+    if (child == null || child.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(child.getResource().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState readFather(StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = getRelationship();
+    if (relationship == null) {
+      return null;
+    }
+
+    ResourceReference father = relationship.getFather();
+    if (father == null || father.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(father.getResource().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState readMother(StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = getRelationship();
+    if (relationship == null) {
+      return null;
+    }
+
+    ResourceReference mother = relationship.getMother();
+    if (mother == null || mother.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(mother.getResource().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 }

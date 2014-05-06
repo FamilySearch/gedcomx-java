@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.conclusion.Relationship;
@@ -132,6 +133,36 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState readPerson1(StateTransitionOption... options) {
+    Relationship relationship = getRelationship();
+    if (relationship == null) {
+      return null;
+    }
+
+    ResourceReference person1 = relationship.getPerson1();
+    if (person1 == null || person1.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(person1.getResource().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState readPerson2(StateTransitionOption... options) {
+    Relationship relationship = getRelationship();
+    if (relationship == null) {
+      return null;
+    }
+
+    ResourceReference person2 = relationship.getPerson2();
+    if (person2 == null || person2.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(person2.getResource().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
   public RelationshipState loadEmbeddedResources(StateTransitionOption... options) {
