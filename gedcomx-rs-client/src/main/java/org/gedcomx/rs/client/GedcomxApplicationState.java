@@ -461,7 +461,7 @@ public abstract class GedcomxApplicationState<E> {
 
   protected void embed(Link link, Gedcomx entity, StateTransitionOption... options) {
     if (link.getHref() != null) {
-      ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+      ClientRequest request = createRequestForEmbeddedResource().build(link.getHref().toURI(), HttpMethod.GET);
       ClientResponse response = invoke(request, options);
       if (response.getClientResponseStatus() == ClientResponse.Status.OK) {
         entity.embed(response.getEntity(Gedcomx.class));
@@ -473,6 +473,10 @@ public abstract class GedcomxApplicationState<E> {
         //todo: log a warning? throw an error?
       }
     }
+  }
+
+  protected ClientRequest.Builder createRequestForEmbeddedResource() {
+    return createAuthenticatedGedcomxRequest();
   }
 
 }
