@@ -24,6 +24,9 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
+import org.gedcomx.common.Attributable;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
@@ -477,6 +480,34 @@ public abstract class GedcomxApplicationState<E> {
 
   protected ClientRequest.Builder createRequestForEmbeddedResource() {
     return createAuthenticatedGedcomxRequest();
+  }
+
+  public AgentState readContributor(StateTransitionOption... options) {
+    SupportsLinks scope = getScope();
+    if (scope instanceof Attributable) {
+      return readContributor((Attributable) scope, options);
+    }
+    else {
+      return null;
+    }
+  }
+
+  public AgentState readContributor(Attributable attributable, StateTransitionOption... options) {
+    Attribution attribution = attributable.getAttribution();
+    if (attribution == null) {
+      return null;
+    }
+
+    return readContributor(attribution.getContributor(), options);
+  }
+
+  public AgentState readContributor(ResourceReference contributor, StateTransitionOption... options) {
+    if (contributor == null || contributor.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(contributor.getResource().toURI(), HttpMethod.GET);
+    return this.stateFactory.newAgentState(request, invoke(request, options), this.accessToken);
   }
 
 }
