@@ -189,47 +189,47 @@ public abstract class GedcomxApplicationState<E> {
     return self == null ? getUri() : self;
   }
 
-  public GedcomxApplicationState head() {
+  public GedcomxApplicationState head(StateTransitionOption... options) {
     ClientRequest.Builder builder = createAuthenticatedRequest();
     Object accept = this.request.getHeaders().getFirst("Accept");
     if (accept != null) {
       builder = builder.accept(String.valueOf(accept));
     }
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.HEAD);
-    return clone(request, invoke(request));
+    return clone(request, invoke(request, options));
   }
 
-  public GedcomxApplicationState get() {
+  public GedcomxApplicationState get(StateTransitionOption... options) {
     ClientRequest.Builder builder = createAuthenticatedRequest();
     Object accept = this.request.getHeaders().getFirst("Accept");
     if (accept != null) {
       builder = builder.accept(String.valueOf(accept));
     }
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.GET);
-    return clone(request, invoke(request));
+    return clone(request, invoke(request, options));
   }
 
-  public GedcomxApplicationState delete() {
+  public GedcomxApplicationState delete(StateTransitionOption... options) {
     ClientRequest.Builder builder = createAuthenticatedRequest();
     Object accept = this.request.getHeaders().getFirst("Accept");
     if (accept != null) {
       builder = builder.accept(String.valueOf(accept));
     }
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.DELETE);
-    return clone(request, invoke(request));
+    return clone(request, invoke(request, options));
   }
 
-  public GedcomxApplicationState options() {
+  public GedcomxApplicationState options(StateTransitionOption... options) {
     ClientRequest.Builder builder = createAuthenticatedRequest();
     Object accept = this.request.getHeaders().getFirst("Accept");
     if (accept != null) {
       builder = builder.accept(String.valueOf(accept));
     }
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.OPTIONS);
-    return clone(request, invoke(request));
+    return clone(request, invoke(request, options));
   }
 
-  public GedcomxApplicationState put(E entity) {
+  public GedcomxApplicationState put(E entity, StateTransitionOption... options) {
     ClientRequest.Builder builder = createAuthenticatedRequest();
     Object accept = this.request.getHeaders().getFirst("Accept");
     Object contentType = this.request.getHeaders().getFirst("Content-Type");
@@ -240,7 +240,7 @@ public abstract class GedcomxApplicationState<E> {
       builder = builder.type(String.valueOf(contentType));
     }
     ClientRequest request = builder.entity(entity).build(getSelfUri(), HttpMethod.PUT);
-    return clone(request, invoke(request));
+    return clone(request, invoke(request, options));
   }
 
   public List<HttpWarning> getWarnings() {
@@ -316,7 +316,7 @@ public abstract class GedcomxApplicationState<E> {
     return this;
   }
 
-  protected GedcomxApplicationState authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
+  protected GedcomxApplicationState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
     Link tokenLink = this.links.get(Rel.OAUTH2_TOKEN);
     if (tokenLink == null || tokenLink.getHref() == null) {
       throw new GedcomxApplicationException(String.format("No OAuth2 token URI supplied for resource at %s.", getUri()));
@@ -328,7 +328,7 @@ public abstract class GedcomxApplicationState<E> {
       .type(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
       .entity(formData)
       .build(tokenUri, HttpMethod.POST);
-    ClientResponse response = invoke(request);
+    ClientResponse response = invoke(request, options);
 
     if (response.getClientResponseStatus().getFamily() == Response.Status.Family.SUCCESSFUL) {
       ObjectNode accessToken = response.getEntity(ObjectNode.class);
@@ -350,29 +350,29 @@ public abstract class GedcomxApplicationState<E> {
     }
   }
 
-  protected GedcomxApplicationState readPage(String rel) {
+  protected GedcomxApplicationState readPage(String rel, StateTransitionOption... options) {
     Link link = getLink(rel);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return clone(request, invoke(request));
+    return clone(request, invoke(request, options));
   }
 
-  protected GedcomxApplicationState readNextPage() {
+  protected GedcomxApplicationState readNextPage(StateTransitionOption... options) {
     return readPage(Rel.NEXT);
   }
 
-  protected GedcomxApplicationState readPreviousPage() {
+  protected GedcomxApplicationState readPreviousPage(StateTransitionOption... options) {
     return readPage(Rel.PREVIOUS);
   }
 
-  protected GedcomxApplicationState readFirstPage() {
+  protected GedcomxApplicationState readFirstPage(StateTransitionOption... options) {
     return readPage(Rel.FIRST);
   }
 
-  protected GedcomxApplicationState readLastPage() {
+  protected GedcomxApplicationState readLastPage(StateTransitionOption... options) {
     return readPage(Rel.LAST);
   }
 
@@ -384,7 +384,10 @@ public abstract class GedcomxApplicationState<E> {
     return createAuthenticatedRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
   }
 
-  protected ClientResponse invoke(ClientRequest request) {
+  protected ClientResponse invoke(ClientRequest request, StateTransitionOption... options) {
+    for (StateTransitionOption option : options) {
+      option.apply(request);
+    }
     return getClient().handle(request);
   }
 
@@ -400,13 +403,13 @@ public abstract class GedcomxApplicationState<E> {
     return request;
   }
 
-  protected void includeEmbeddedResources(Gedcomx entity) {
-    embed(getEmbeddedLinkLoader().loadEmbeddedLinks(entity), entity);
+  protected void includeEmbeddedResources(Gedcomx entity, StateTransitionOption... options) {
+    embed(getEmbeddedLinkLoader().loadEmbeddedLinks(entity), entity, options);
   }
 
-  protected void embed(List<Link> links, Gedcomx entity) {
+  protected void embed(List<Link> links, Gedcomx entity, StateTransitionOption... options) {
     for (Link link : links) {
-      embed(link, entity);
+      embed(link, entity, options);
     }
   }
 
@@ -414,10 +417,10 @@ public abstract class GedcomxApplicationState<E> {
     return DEFAULT_EMBEDDED_LINK_LOADER;
   }
 
-  protected void embed(Link link, Gedcomx entity) {
+  protected void embed(Link link, Gedcomx entity, StateTransitionOption... options) {
     if (link.getHref() != null) {
       ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-      ClientResponse response = invoke(request);
+      ClientResponse response = invoke(request, options);
       if (response.getClientResponseStatus() == ClientResponse.Status.OK) {
         entity.embed(response.getEntity(Gedcomx.class));
       }

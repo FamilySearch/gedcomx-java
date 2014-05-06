@@ -25,6 +25,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
 import java.util.Arrays;
@@ -50,23 +51,23 @@ public class CommentsState extends GedcomxApplicationState<FamilySearchPlatform>
   }
 
   @Override
-  public CommentsState head() {
-    return (CommentsState) super.head();
+  public CommentsState head(StateTransitionOption... options) {
+    return (CommentsState) super.head(options);
   }
 
   @Override
-  public CommentsState get() {
-    return (CommentsState) super.get();
+  public CommentsState get(StateTransitionOption... options) {
+    return (CommentsState) super.get(options);
   }
 
   @Override
-  public CommentsState delete() {
-    return (CommentsState) super.delete();
+  public CommentsState delete(StateTransitionOption... options) {
+    return (CommentsState) super.delete(options);
   }
 
   @Override
-  public CommentsState put(FamilySearchPlatform e) {
-    return (CommentsState) super.put(e);
+  public CommentsState put(FamilySearchPlatform e, StateTransitionOption... options) {
+    return (CommentsState) super.put(e, options);
   }
 
   @Override
@@ -98,38 +99,38 @@ public class CommentsState extends GedcomxApplicationState<FamilySearchPlatform>
     return me == null ? null : me.getId();
   }
 
-  public CommentsState addComment(String comment) {
-    return addComments(new Comment(comment));
+  public CommentsState addComment(String comment, StateTransitionOption... options) {
+    return addComments(new Comment[]{new Comment(comment)}, options);
   }
 
-  public CommentsState addComment(Comment comment) {
-    return addComments(comment);
+  public CommentsState addComment(Comment comment, StateTransitionOption... options) {
+    return addComments(new Comment[]{comment}, options);
   }
 
-  public CommentsState addComments(Comment... comments) {
+  public CommentsState addComments(Comment[] comments, StateTransitionOption... options) {
     Discussion discussion = createEmptySelf();
     discussion.setComments(Arrays.asList(comments));
-    return updateComments(discussion);
+    return updateComments(discussion, options);
   }
 
-  public CommentsState updateComment(Comment comment) {
-    return updateComments(comment);
+  public CommentsState updateComment(Comment comment, StateTransitionOption... options) {
+    return updateComments(new Comment[]{comment}, options);
   }
 
-  public CommentsState updateComments(Comment... comments) {
+  public CommentsState updateComments(Comment[] comments, StateTransitionOption... options) {
     Discussion discussion = createEmptySelf();
     discussion.setComments(Arrays.asList(comments));
-    return updateComments(discussion);
+    return updateComments(discussion, options);
   }
 
-  protected CommentsState updateComments(Discussion discussion) {
+  protected CommentsState updateComments(Discussion discussion, StateTransitionOption... options) {
     FamilySearchPlatform gx = new FamilySearchPlatform();
     gx.setDiscussions(Arrays.asList(discussion));
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(getSelfUri(), HttpMethod.POST);
-    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request, options), this.accessToken);
   }
 
-  public CommentsState deleteComment(Comment comment) {
+  public CommentsState deleteComment(Comment comment, StateTransitionOption... options) {
     Link link = comment.getLink(Rel.COMMENT);
     link = link == null ? comment.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -137,26 +138,26 @@ public class CommentsState extends GedcomxApplicationState<FamilySearchPlatform>
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request, options), this.accessToken);
   }
 
   @Override
-  protected CommentsState readNextPage() {
-    return (CommentsState) super.readNextPage();
+  protected CommentsState readNextPage(StateTransitionOption... options) {
+    return (CommentsState) super.readNextPage(options);
   }
 
   @Override
-  protected CommentsState readPreviousPage() {
-    return (CommentsState) super.readPreviousPage();
+  protected CommentsState readPreviousPage(StateTransitionOption... options) {
+    return (CommentsState) super.readPreviousPage(options);
   }
 
   @Override
-  protected CommentsState readFirstPage() {
-    return (CommentsState) super.readFirstPage();
+  protected CommentsState readFirstPage(StateTransitionOption... options) {
+    return (CommentsState) super.readFirstPage(options);
   }
 
   @Override
-  protected CommentsState readLastPage() {
-    return (CommentsState) super.readLastPage();
+  protected CommentsState readLastPage(StateTransitionOption... options) {
+    return (CommentsState) super.readLastPage(options);
   }
 }

@@ -48,28 +48,28 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public RelationshipsState head() {
-    return (RelationshipsState) super.head();
+  public RelationshipsState head(StateTransitionOption... options) {
+    return (RelationshipsState) super.head(options);
   }
 
   @Override
-  public RelationshipsState options() {
-    return (RelationshipsState) super.options();
+  public RelationshipsState options(StateTransitionOption... options) {
+    return (RelationshipsState) super.options(options);
   }
 
   @Override
-  public RelationshipsState get() {
-    return (RelationshipsState) super.get();
+  public RelationshipsState get(StateTransitionOption... options) {
+    return (RelationshipsState) super.get(options);
   }
 
   @Override
-  public RelationshipsState delete() {
-    return (RelationshipsState) super.delete();
+  public RelationshipsState delete(StateTransitionOption... options) {
+    return (RelationshipsState) super.delete(options);
   }
 
   @Override
-  public RelationshipsState put(Gedcomx e) {
-    return (RelationshipsState) super.put(e);
+  public RelationshipsState put(Gedcomx e, StateTransitionOption... options) {
+    return (RelationshipsState) super.put(e, options);
   }
 
   @Override
@@ -87,56 +87,56 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public RelationshipsState readNextPage() {
-    return (RelationshipsState) super.readNextPage();
+  public RelationshipsState readNextPage(StateTransitionOption... options) {
+    return (RelationshipsState) super.readNextPage(options);
   }
 
   @Override
-  public RelationshipsState readPreviousPage() {
-    return (RelationshipsState) super.readPreviousPage();
+  public RelationshipsState readPreviousPage(StateTransitionOption... options) {
+    return (RelationshipsState) super.readPreviousPage(options);
   }
 
   @Override
-  public RelationshipsState readFirstPage() {
-    return (RelationshipsState) super.readFirstPage();
+  public RelationshipsState readFirstPage(StateTransitionOption... options) {
+    return (RelationshipsState) super.readFirstPage(options);
   }
 
   @Override
-  public RelationshipsState readLastPage() {
-    return (RelationshipsState) super.readLastPage();
+  public RelationshipsState readLastPage(StateTransitionOption... options) {
+    return (RelationshipsState) super.readLastPage(options);
   }
 
-  public CollectionState readCollection() {
+  public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2) {
+  public RelationshipState addSpouseRelationship(PersonState person1, PersonState person2, StateTransitionOption... options) {
     Relationship relationship = new Relationship();
     relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(person1.getSelfUri().toString())));
     relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(person2.getSelfUri().toString())));
     relationship.setKnownType(RelationshipType.Couple);
-    return addRelationship(relationship);
+    return addRelationship(relationship, options);
   }
 
-  public RelationshipState addParentChildRelationship(PersonState parent, PersonState child) {
+  public RelationshipState addParentChildRelationship(PersonState parent, PersonState child, StateTransitionOption... options) {
     Relationship relationship = new Relationship();
     relationship.setPerson1(new ResourceReference(new org.gedcomx.common.URI(parent.getSelfUri().toString())));
     relationship.setPerson2(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
     relationship.setKnownType(RelationshipType.ParentChild);
-    return addRelationship(relationship);
+    return addRelationship(relationship, options);
   }
 
-  public RelationshipState addRelationship(Relationship relationship) {
+  public RelationshipState addRelationship(Relationship relationship, StateTransitionOption... options) {
     Gedcomx entity = new Gedcomx();
     entity.addRelationship(relationship);
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
 }

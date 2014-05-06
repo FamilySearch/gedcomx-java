@@ -52,28 +52,28 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public RelationshipState head() {
-    return (RelationshipState) super.head();
+  public RelationshipState head(StateTransitionOption... options) {
+    return (RelationshipState) super.head(options);
   }
 
   @Override
-  public RelationshipState options() {
-    return (RelationshipState) super.options();
+  public RelationshipState options(StateTransitionOption... options) {
+    return (RelationshipState) super.options(options);
   }
 
   @Override
-  public RelationshipState get() {
-    return (RelationshipState) super.get();
+  public RelationshipState get(StateTransitionOption... options) {
+    return (RelationshipState) super.get(options);
   }
 
   @Override
-  public RelationshipState delete() {
-    return (RelationshipState) super.delete();
+  public RelationshipState delete(StateTransitionOption... options) {
+    return (RelationshipState) super.delete(options);
   }
 
   @Override
-  public RelationshipState put(Gedcomx e) {
-    return (RelationshipState) super.put(e);
+  public RelationshipState put(Gedcomx e, StateTransitionOption... options) {
+    return (RelationshipState) super.put(e, options);
   }
 
   @Override
@@ -119,49 +119,49 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     return relationship == null ? null : relationship.getMedia() == null ? null : relationship.getMedia().isEmpty() ? null : relationship.getMedia().get(0);
   }
 
-  public CollectionState readCollection() {
+  public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState loadEmbeddedResources() {
+  public RelationshipState loadEmbeddedResources(StateTransitionOption... options) {
     includeEmbeddedResources(this.entity);
     return this;
   }
 
-  public RelationshipState loadEmbeddedResources(String... rels) {
+  public RelationshipState loadEmbeddedResources(String[] rels, StateTransitionOption... options) {
     for (String rel : rels) {
       Link link = getLink(rel);
       if (this.entity != null && link != null && link.getHref() != null) {
-        embed(link, this.entity);
+        embed(link, this.entity, options);
       }
     }
     return this;
   }
 
-  public RelationshipState loadConclusions() {
-    return loadEmbeddedResources(Rel.CONCLUSIONS);
+  public RelationshipState loadConclusions(StateTransitionOption... options) {
+    return loadEmbeddedResources(new String[]{Rel.CONCLUSIONS}, options);
   }
 
-  public RelationshipState loadSourceReferences() {
-    return loadEmbeddedResources(Rel.SOURCE_REFERENCES);
+  public RelationshipState loadSourceReferences(StateTransitionOption... options) {
+    return loadEmbeddedResources(new String[]{Rel.SOURCE_REFERENCES}, options);
   }
 
-  public RelationshipState loadMediaReferences() {
-    return loadEmbeddedResources(Rel.MEDIA_REFERENCES);
+  public RelationshipState loadMediaReferences(StateTransitionOption... options) {
+    return loadEmbeddedResources(new String[]{Rel.MEDIA_REFERENCES}, options);
   }
 
-  public RelationshipState loadEvidenceReferences() {
-    return loadEmbeddedResources(Rel.EVIDENCE_REFERENCES);
+  public RelationshipState loadEvidenceReferences(StateTransitionOption... options) {
+    return loadEmbeddedResources(new String[]{Rel.EVIDENCE_REFERENCES}, options);
   }
 
-  public RelationshipState loadNotes() {
-    return loadEmbeddedResources(Rel.EVIDENCE_REFERENCES);
+  public RelationshipState loadNotes(StateTransitionOption... options) {
+    return loadEmbeddedResources(new String[]{Rel.EVIDENCE_REFERENCES}, options);
   }
 
   protected Relationship createEmptySelf() {
@@ -175,27 +175,27 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     return me == null ? null : me.getId();
   }
 
-  public RelationshipState addFact(Fact fact) {
-    return addFacts(fact);
+  public RelationshipState addFact(Fact fact, StateTransitionOption... options) {
+    return addFacts(new Fact[]{fact}, options);
   }
 
-  public RelationshipState addFacts(Fact... facts) {
+  public RelationshipState addFacts(Fact[] facts, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setFacts(Arrays.asList(facts));
-    return updateConclusions(relationship);
+    return updateConclusions(relationship, options);
   }
 
-  public RelationshipState updateFact(Fact fact) {
-    return updateFacts(fact);
+  public RelationshipState updateFact(Fact fact, StateTransitionOption... options) {
+    return updateFacts(new Fact[]{fact}, options);
   }
 
-  public RelationshipState updateFacts(Fact... facts) {
+  public RelationshipState updateFacts(Fact[] facts, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setFacts(Arrays.asList(facts));
-    return updateConclusions(relationship);
+    return updateConclusions(relationship, options);
   }
 
-  protected RelationshipState updateConclusions(Relationship relationship) {
+  protected RelationshipState updateConclusions(Relationship relationship, StateTransitionOption... options) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.CONCLUSIONS);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -205,10 +205,10 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState deleteFact(Fact fact) {
+  public RelationshipState deleteFact(Fact fact, StateTransitionOption... options) {
     Link link = fact.getLink(Rel.CONCLUSION);
     link = link == null ? fact.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -216,36 +216,36 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState addSourceReference(SourceDescriptionState source) {
+  public RelationshipState addSourceReference(SourceDescriptionState source, StateTransitionOption... options) {
     SourceReference reference = new SourceReference();
     reference.setDescriptionRef(new org.gedcomx.common.URI(source.getSelfUri().toString()));
-    return addSourceReference(reference);
+    return addSourceReference(reference, options);
   }
 
-  public RelationshipState addSourceReference(SourceReference reference) {
-    return addSourceReferences(reference);
+  public RelationshipState addSourceReference(SourceReference reference, StateTransitionOption... options) {
+    return addSourceReferences(new SourceReference[]{reference}, options);
   }
 
-  public RelationshipState addSourceReferences(SourceReference... refs) {
+  public RelationshipState addSourceReferences(SourceReference[] refs, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setSources(Arrays.asList(refs));
-    return updateSourceReferences(relationship);
+    return updateSourceReferences(relationship, options);
   }
 
-  public RelationshipState updateSourceReference(SourceReference reference) {
-    return updateSourceReferences(reference);
+  public RelationshipState updateSourceReference(SourceReference reference, StateTransitionOption... options) {
+    return updateSourceReferences(new SourceReference[]{reference}, options);
   }
 
-  public RelationshipState updateSourceReferences(SourceReference... refs) {
+  public RelationshipState updateSourceReferences(SourceReference[] refs, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setSources(Arrays.asList(refs));
-    return updateSourceReferences(relationship);
+    return updateSourceReferences(relationship, options);
   }
 
-  protected RelationshipState updateSourceReferences(Relationship relationship) {
+  protected RelationshipState updateSourceReferences(Relationship relationship, StateTransitionOption... options) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.SOURCE_REFERENCES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -255,10 +255,10 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState deleteSourceReference(SourceReference reference) {
+  public RelationshipState deleteSourceReference(SourceReference reference, StateTransitionOption... options) {
     Link link = reference.getLink(Rel.SOURCE_REFERENCE);
     link = link == null ? reference.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -266,36 +266,36 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState addMediaReference(SourceDescriptionState description) {
+  public RelationshipState addMediaReference(SourceDescriptionState description, StateTransitionOption... options) {
     SourceReference reference = new SourceReference();
     reference.setDescriptionRef(new org.gedcomx.common.URI(description.getSelfUri().toString()));
-    return addMediaReference(reference);
+    return addMediaReference(reference, options);
   }
 
-  public RelationshipState addMediaReference(SourceReference reference) {
-    return addMediaReferences(reference);
+  public RelationshipState addMediaReference(SourceReference reference, StateTransitionOption... options) {
+    return addMediaReferences(new SourceReference[]{reference}, options);
   }
 
-  public RelationshipState addMediaReferences(SourceReference... refs) {
+  public RelationshipState addMediaReferences(SourceReference[] refs, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setMedia(Arrays.asList(refs));
-    return updateMediaReferences(relationship);
+    return updateMediaReferences(relationship, options);
   }
 
-  public RelationshipState updateMediaReference(SourceReference reference) {
-    return updateMediaReferences(reference);
+  public RelationshipState updateMediaReference(SourceReference reference, StateTransitionOption... options) {
+    return updateMediaReferences(new SourceReference[]{reference}, options);
   }
 
-  public RelationshipState updateMediaReferences(SourceReference... refs) {
+  public RelationshipState updateMediaReferences(SourceReference[] refs, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setMedia(Arrays.asList(refs));
-    return updateMediaReferences(relationship);
+    return updateMediaReferences(relationship, options);
   }
 
-  protected RelationshipState updateMediaReferences(Relationship relationship) {
+  protected RelationshipState updateMediaReferences(Relationship relationship, StateTransitionOption... options) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.MEDIA_REFERENCES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -305,10 +305,10 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState deleteMediaReference(SourceReference reference) {
+  public RelationshipState deleteMediaReference(SourceReference reference, StateTransitionOption... options) {
     Link link = reference.getLink(Rel.MEDIA_REFERENCE);
     link = link == null ? reference.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -316,36 +316,36 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState addEvidenceReference(RelationshipState evidence) {
+  public RelationshipState addEvidenceReference(RelationshipState evidence, StateTransitionOption... options) {
     EvidenceReference reference = new EvidenceReference();
     reference.setResource(new org.gedcomx.common.URI(evidence.getSelfUri().toString()));
-    return addEvidenceReference(reference);
+    return addEvidenceReference(reference, options);
   }
 
-  public RelationshipState addEvidenceReference(EvidenceReference reference) {
-    return addEvidenceReferences(reference);
+  public RelationshipState addEvidenceReference(EvidenceReference reference, StateTransitionOption... options) {
+    return addEvidenceReferences(new EvidenceReference[]{reference}, options);
   }
 
-  public RelationshipState addEvidenceReferences(EvidenceReference... refs) {
+  public RelationshipState addEvidenceReferences(EvidenceReference[] refs, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setEvidence(Arrays.asList(refs));
-    return updateEvidenceReferences(relationship);
+    return updateEvidenceReferences(relationship, options);
   }
 
-  public RelationshipState updateEvidenceReference(EvidenceReference reference) {
-    return updateEvidenceReferences(reference);
+  public RelationshipState updateEvidenceReference(EvidenceReference reference, StateTransitionOption... options) {
+    return updateEvidenceReferences(new EvidenceReference[]{reference}, options);
   }
 
-  public RelationshipState updateEvidenceReferences(EvidenceReference... refs) {
+  public RelationshipState updateEvidenceReferences(EvidenceReference[] refs, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setEvidence(Arrays.asList(refs));
-    return updateEvidenceReferences(relationship);
+    return updateEvidenceReferences(relationship, options);
   }
 
-  protected RelationshipState updateEvidenceReferences(Relationship relationship) {
+  protected RelationshipState updateEvidenceReferences(Relationship relationship, StateTransitionOption... options) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.EVIDENCE_REFERENCES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -355,10 +355,10 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState deleteEvidenceReference(EvidenceReference reference) {
+  public RelationshipState deleteEvidenceReference(EvidenceReference reference, StateTransitionOption... options) {
     Link link = reference.getLink(Rel.EVIDENCE_REFERENCE);
     link = link == null ? reference.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -366,10 +366,10 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState readNote(Note note) {
+  public RelationshipState readNote(Note note, StateTransitionOption... options) {
     Link link = note.getLink(Rel.NOTE);
     link = link == null ? note.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -377,30 +377,30 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState addNote(Note note) {
-    return addNotes(note);
+  public RelationshipState addNote(Note note, StateTransitionOption... options) {
+    return addNotes(new Note[]{note}, options);
   }
 
-  public RelationshipState addNotes(Note... notes) {
+  public RelationshipState addNotes(Note[] notes, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setNotes(Arrays.asList(notes));
-    return updateNotes(relationship);
+    return updateNotes(relationship, options);
   }
 
-  public RelationshipState updateNote(Note note) {
-    return updateNotes(note);
+  public RelationshipState updateNote(Note note, StateTransitionOption... options) {
+    return updateNotes(new Note[]{note}, options);
   }
 
-  public RelationshipState updateNotes(Note... notes) {
+  public RelationshipState updateNotes(Note[] notes, StateTransitionOption... options) {
     Relationship relationship = createEmptySelf();
     relationship.setNotes(Arrays.asList(notes));
-    return updateNotes(relationship);
+    return updateNotes(relationship, options);
   }
 
-  protected RelationshipState updateNotes(Relationship relationship) {
+  protected RelationshipState updateNotes(Relationship relationship, StateTransitionOption... options) {
     URI target = getSelfUri();
     Link conclusionsLink = getLink(Rel.NOTES);
     if (conclusionsLink != null && conclusionsLink.getHref() != null) {
@@ -410,10 +410,10 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     Gedcomx gx = new Gedcomx();
     gx.setRelationships(Arrays.asList(relationship));
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState deleteNote(Note note) {
+  public RelationshipState deleteNote(Note note, StateTransitionOption... options) {
     Link link = note.getLink(Rel.NOTE);
     link = link == null ? note.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -421,6 +421,6 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 }

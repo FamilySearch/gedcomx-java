@@ -57,80 +57,80 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public CollectionState head() {
-    return (CollectionState) super.head();
+  public CollectionState head(StateTransitionOption... options) {
+    return (CollectionState) super.head(options);
   }
 
   @Override
-  public CollectionsState options() {
-    return (CollectionsState) super.options();
+  public CollectionsState options(StateTransitionOption... options) {
+    return (CollectionsState) super.options(options);
   }
 
   @Override
-  public CollectionState get() {
-    return (CollectionState) super.get();
+  public CollectionState get(StateTransitionOption... options) {
+    return (CollectionState) super.get(options);
   }
 
   @Override
-  public CollectionState delete() {
-    return (CollectionState) super.delete();
+  public CollectionState delete(StateTransitionOption... options) {
+    return (CollectionState) super.delete(options);
   }
 
   @Override
-  public CollectionState put(Gedcomx e) {
-    return (CollectionState) super.put(e);
+  public CollectionState put(Gedcomx e, StateTransitionOption... options) {
+    return (CollectionState) super.put(e, options);
   }
 
   public List<Collection> getCollections() {
     return this.entity == null ? null : this.entity.getCollections();
   }
 
-  public CollectionState readCollection(Collection collection) {
+  public CollectionState readCollection(Collection collection, StateTransitionOption... options) {
     Link link = collection.getLink("self");
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
-  public CollectionState readCollection() {
+  public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
-  public CollectionState addCollection(Collection collection) {
+  public CollectionState addCollection(Collection collection, StateTransitionOption... options) {
     Link link = getLink("self");
     URI href = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
     href = href == null ? getUri() : href;
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST);
-    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken).ifSuccessful();
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken).ifSuccessful();
   }
 
   @Override
-  public CollectionState readNextPage() {
-    return (CollectionState) super.readNextPage();
+  public CollectionState readNextPage(StateTransitionOption... options) {
+    return (CollectionState) super.readNextPage(options);
   }
 
   @Override
-  public CollectionState readPreviousPage() {
-    return (CollectionState) super.readPreviousPage();
+  public CollectionState readPreviousPage(StateTransitionOption... options) {
+    return (CollectionState) super.readPreviousPage(options);
   }
 
   @Override
-  public CollectionState readFirstPage() {
-    return (CollectionState) super.readFirstPage();
+  public CollectionState readFirstPage(StateTransitionOption... options) {
+    return (CollectionState) super.readFirstPage(options);
   }
 
   @Override
-  public CollectionState readLastPage() {
-    return (CollectionState) super.readLastPage();
+  public CollectionState readLastPage(StateTransitionOption... options) {
+    return (CollectionState) super.readLastPage(options);
   }
 }

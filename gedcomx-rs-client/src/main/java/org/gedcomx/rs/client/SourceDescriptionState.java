@@ -48,28 +48,28 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public SourceDescriptionState head() {
-    return (SourceDescriptionState) super.head();
+  public SourceDescriptionState head(StateTransitionOption... options) {
+    return (SourceDescriptionState) super.head(options);
   }
 
   @Override
-  public SourceDescriptionState options() {
-    return (SourceDescriptionState) super.options();
+  public SourceDescriptionState options(StateTransitionOption... options) {
+    return (SourceDescriptionState) super.options(options);
   }
 
   @Override
-  public SourceDescriptionState get() {
-    return (SourceDescriptionState) super.get();
+  public SourceDescriptionState get(StateTransitionOption... options) {
+    return (SourceDescriptionState) super.get(options);
   }
 
   @Override
-  public SourceDescriptionState delete() {
-    return (SourceDescriptionState) super.delete();
+  public SourceDescriptionState delete(StateTransitionOption... options) {
+    return (SourceDescriptionState) super.delete(options);
   }
 
   @Override
-  public SourceDescriptionState put(Gedcomx e) {
-    return (SourceDescriptionState) super.put(e);
+  public SourceDescriptionState put(Gedcomx e, StateTransitionOption... options) {
+    return (SourceDescriptionState) super.put(e, options);
   }
 
   @Override
@@ -86,31 +86,31 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
     return getEntity() == null ? null : getEntity().getSourceDescriptions() == null ? null : getEntity().getSourceDescriptions().isEmpty() ? null : getEntity().getSourceDescriptions().get(0);
   }
 
-  public SourceDescriptionState update(SourceDescription description) {
+  public SourceDescriptionState update(SourceDescription description, StateTransitionOption... options) {
     Gedcomx entity = new Gedcomx();
     entity.setSourceDescriptions(Arrays.asList(description));
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST);
-    return this.stateFactory.newSourceDescriptionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonsState readPersonas() {
+  public PersonsState readPersonas(StateTransitionOption... options) {
     Link link = getLink(Rel.PERSONS);
     if (link == null || link.getHref() == null) {
       return this.stateFactory.newPersonsState(this.request, this.response, this.accessToken);
     }
     else {
       ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-      return this.stateFactory.newPersonsState(request, invoke(request), this.accessToken);
+      return this.stateFactory.newPersonsState(request, invoke(request, options), this.accessToken);
     }
   }
 
-  public PersonState addPersona(Person person) {
+  public PersonState addPersona(Person person, StateTransitionOption... options) {
     Gedcomx entity = new Gedcomx();
     entity.addPerson(person);
-    return addPersona(entity);
+    return addPersona(entity, options);
   }
 
-  public PersonState addPersona(Gedcomx entity) {
+  public PersonState addPersona(Gedcomx entity, StateTransitionOption... options) {
     URI target = getSelfUri();
     Link link = getLink(Rel.PERSONS);
     if (link != null && link.getHref() != null) {
@@ -118,6 +118,6 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(target, HttpMethod.POST);
-    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 }

@@ -40,28 +40,28 @@ public class RecordState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public RecordState head() {
-    return (RecordState) super.head();
+  public RecordState head(StateTransitionOption... options) {
+    return (RecordState) super.head(options);
   }
 
   @Override
-  public RecordState options() {
-    return (RecordState) super.options();
+  public RecordState options(StateTransitionOption... options) {
+    return (RecordState) super.options(options);
   }
 
   @Override
-  public RecordState get() {
-    return (RecordState) super.get();
+  public RecordState get(StateTransitionOption... options) {
+    return (RecordState) super.get(options);
   }
 
   @Override
-  public RecordState delete() {
-    return (RecordState) super.delete();
+  public RecordState delete(StateTransitionOption... options) {
+    return (RecordState) super.delete(options);
   }
 
   @Override
-  public RecordState put(Gedcomx e) {
-    return (RecordState) super.put(e);
+  public RecordState put(Gedcomx e, StateTransitionOption... options) {
+    return (RecordState) super.put(e, options);
   }
 
   @Override

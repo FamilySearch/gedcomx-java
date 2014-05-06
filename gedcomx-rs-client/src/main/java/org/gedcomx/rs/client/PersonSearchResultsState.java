@@ -51,28 +51,28 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  public PersonSearchResultsState head() {
-    return (PersonSearchResultsState) super.head();
+  public PersonSearchResultsState head(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.head(options);
   }
 
   @Override
-  public PersonSearchResultsState options() {
-    return (PersonSearchResultsState) super.options();
+  public PersonSearchResultsState options(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.options(options);
   }
 
   @Override
-  public PersonSearchResultsState get() {
-    return (PersonSearchResultsState) super.get();
+  public PersonSearchResultsState get(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.get(options);
   }
 
   @Override
-  public PersonSearchResultsState delete() {
-    return (PersonSearchResultsState) super.delete();
+  public PersonSearchResultsState delete(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.delete(options);
   }
 
   @Override
-  public PersonSearchResultsState put(Feed e) {
-    return (PersonSearchResultsState) super.put(e);
+  public PersonSearchResultsState put(Feed e, StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.put(e, options);
   }
 
   @Override
@@ -84,7 +84,7 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
     return getEntity();
   }
 
-  public PersonState readPerson(Entry person) {
+  public PersonState readPerson(Entry person, StateTransitionOption... options) {
     Link link = person.getLink(Rel.PERSON);
     link = link == null ? person.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -92,10 +92,10 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonState readPerson(Person person) {
+  public PersonState readPerson(Person person, StateTransitionOption... options) {
     Link link = person.getLink(Rel.PERSON);
     link = link == null ? person.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -103,26 +103,26 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
   @Override
-  public PersonSearchResultsState readNextPage() {
-    return (PersonSearchResultsState) super.readNextPage();
+  public PersonSearchResultsState readNextPage(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.readNextPage(options);
   }
 
   @Override
-  public PersonSearchResultsState readPreviousPage() {
-    return (PersonSearchResultsState) super.readPreviousPage();
+  public PersonSearchResultsState readPreviousPage(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.readPreviousPage(options);
   }
 
   @Override
-  public PersonSearchResultsState readFirstPage() {
-    return (PersonSearchResultsState) super.readFirstPage();
+  public PersonSearchResultsState readFirstPage(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.readFirstPage(options);
   }
 
   @Override
-  public PersonSearchResultsState readLastPage() {
-    return (PersonSearchResultsState) super.readLastPage();
+  public PersonSearchResultsState readLastPage(StateTransitionOption... options) {
+    return (PersonSearchResultsState) super.readLastPage(options);
   }
 }

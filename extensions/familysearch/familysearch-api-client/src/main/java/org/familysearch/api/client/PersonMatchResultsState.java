@@ -19,6 +19,7 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.rs.client.PersonSearchResultsState;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 /**
  * @author Ryan Heaton
@@ -40,42 +41,42 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
   }
 
   @Override
-  public PersonMatchResultsState head() {
-    return (PersonMatchResultsState) super.head();
+  public PersonMatchResultsState head(StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.head(options);
   }
 
   @Override
-  public PersonMatchResultsState get() {
-    return (PersonMatchResultsState) super.get();
+  public PersonMatchResultsState get(StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.get(options);
   }
 
   @Override
-  public PersonMatchResultsState delete() {
-    return (PersonMatchResultsState) super.delete();
+  public PersonMatchResultsState delete(StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.delete(options);
   }
 
   @Override
-  public PersonMatchResultsState put(Feed e) {
-    return (PersonMatchResultsState) super.put(e);
+  public PersonMatchResultsState put(Feed e, StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.put(e, options);
   }
 
   @Override
-  public PersonMatchResultsState readNextPage() {
-    return (PersonMatchResultsState) super.readNextPage();
+  public PersonMatchResultsState readNextPage(StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.readNextPage(options);
   }
 
   @Override
-  public PersonMatchResultsState readPreviousPage() {
-    return (PersonMatchResultsState) super.readPreviousPage();
+  public PersonMatchResultsState readPreviousPage(StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.readPreviousPage(options);
   }
 
   @Override
-  public PersonMatchResultsState readFirstPage() {
-    return (PersonMatchResultsState) super.readFirstPage();
+  public PersonMatchResultsState readFirstPage(StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.readFirstPage(options);
   }
 
   @Override
-  public PersonMatchResultsState readLastPage() {
-    return (PersonMatchResultsState) super.readLastPage();
+  public PersonMatchResultsState readLastPage(StateTransitionOption... options) {
+    return (PersonMatchResultsState) super.readLastPage(options);
   }
 }

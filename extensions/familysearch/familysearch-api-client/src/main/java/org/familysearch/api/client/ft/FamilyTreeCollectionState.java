@@ -25,10 +25,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.GedcomxApplicationException;
-import org.gedcomx.rs.client.PersonState;
-import org.gedcomx.rs.client.RelationshipState;
-import org.gedcomx.rs.client.RelationshipsState;
+import org.gedcomx.rs.client.*;
 import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
@@ -56,23 +53,23 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
   }
 
   @Override
-  public FamilyTreeCollectionState head() {
-    return (FamilyTreeCollectionState) super.head();
+  public FamilyTreeCollectionState head(StateTransitionOption... options) {
+    return (FamilyTreeCollectionState) super.head(options);
   }
 
   @Override
-  public FamilyTreeCollectionState get() {
-    return (FamilyTreeCollectionState) super.get();
+  public FamilyTreeCollectionState get(StateTransitionOption... options) {
+    return (FamilyTreeCollectionState) super.get(options);
   }
 
   @Override
-  public FamilyTreeCollectionState delete() {
-    return (FamilyTreeCollectionState) super.delete();
+  public FamilyTreeCollectionState delete(StateTransitionOption... options) {
+    return (FamilyTreeCollectionState) super.delete(options);
   }
 
   @Override
-  public FamilyTreeCollectionState put(Gedcomx e) {
-    return (FamilyTreeCollectionState) super.put(e);
+  public FamilyTreeCollectionState put(Gedcomx e, StateTransitionOption... options) {
+    return (FamilyTreeCollectionState) super.put(e, options);
   }
 
   @Override
@@ -101,17 +98,17 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
   }
 
   @Override
-  public FamilyTreeCollectionState authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
+  public FamilyTreeCollectionState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
     return (FamilyTreeCollectionState) super.authenticateViaOAuth2(formData);
   }
 
   @Override
-  public FamilySearchCollectionState readCollection() {
+  public FamilySearchCollectionState readCollection(StateTransitionOption... options) {
     return (FamilySearchCollectionState) super.readCollection();
   }
 
   @Override
-  public RelationshipState addRelationship(Relationship relationship) {
+  public RelationshipState addRelationship(Relationship relationship, StateTransitionOption... options) {
     if (relationship.getKnownType() == RelationshipType.ParentChild) {
       throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding parent-child relationships. You must instead add a child-and-parents relationship.");
     }
@@ -119,7 +116,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
   }
 
   @Override
-  public RelationshipsState addRelationships(List<Relationship> relationships) {
+  public RelationshipsState addRelationships(List<Relationship> relationships, StateTransitionOption... options) {
     for (Relationship relationship : relationships) {
       if (relationship.getKnownType() == RelationshipType.ParentChild) {
         throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding parent-child relationships. You must instead add a child-and-parents relationship.");
@@ -128,7 +125,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     return super.addRelationships(relationships);
   }
 
-  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother) {
+  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother, StateTransitionOption... options) {
     ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
     chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
     if (father != null) {
@@ -137,10 +134,10 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     if (mother != null) {
       chap.setMother(new ResourceReference(new org.gedcomx.common.URI(mother.getSelfUri().toString())));
     }
-    return addChildAndParentsRelationship(chap);
+    return addChildAndParentsRelationship(chap, options);
   }
 
-  public ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap) {
+  public ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap, StateTransitionOption... options) {
     Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
@@ -150,10 +147,10 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     entity.setChildAndParentsRelationships(Arrays.asList(chap));
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
     request.setEntity(entity);
-    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipsState addChildAndParentsRelationships(List<ChildAndParentsRelationship> chaps) {
+  public RelationshipsState addChildAndParentsRelationships(List<ChildAndParentsRelationship> chaps, StateTransitionOption... options) {
     Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
@@ -163,7 +160,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     entity.setChildAndParentsRelationships(chaps);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
     request.setEntity(entity);
-    return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipsState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipsState(request, invoke(request, options), this.accessToken);
   }
 
 }

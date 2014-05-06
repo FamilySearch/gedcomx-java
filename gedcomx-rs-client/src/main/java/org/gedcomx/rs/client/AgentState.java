@@ -46,28 +46,28 @@ public class AgentState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public AgentState head() {
-    return (AgentState) super.head();
+  public AgentState head(StateTransitionOption... options) {
+    return (AgentState) super.head(options);
   }
 
   @Override
-  public AgentState options() {
-    return (AgentState) super.options();
+  public AgentState options(StateTransitionOption... options) {
+    return (AgentState) super.options(options);
   }
 
   @Override
-  public AgentState get() {
-    return (AgentState) super.get();
+  public AgentState get(StateTransitionOption... options) {
+    return (AgentState) super.get(options);
   }
 
   @Override
-  public AgentState delete() {
-    return (AgentState) super.delete();
+  public AgentState delete(StateTransitionOption... options) {
+    return (AgentState) super.delete(options);
   }
 
   @Override
-  public AgentState put(Gedcomx e) {
-    return (AgentState) super.put(e);
+  public AgentState put(Gedcomx e, StateTransitionOption... options) {
+    return (AgentState) super.put(e, options);
   }
 
   @Override

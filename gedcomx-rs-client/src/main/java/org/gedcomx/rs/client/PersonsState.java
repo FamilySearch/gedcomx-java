@@ -47,28 +47,28 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public PersonsState head() {
-    return (PersonsState) super.head();
+  public PersonsState head(StateTransitionOption... options) {
+    return (PersonsState) super.head(options);
   }
 
   @Override
-  public PersonsState options() {
-    return (PersonsState) super.options();
+  public PersonsState options(StateTransitionOption... options) {
+    return (PersonsState) super.options(options);
   }
 
   @Override
-  public PersonsState get() {
-    return (PersonsState) super.get();
+  public PersonsState get(StateTransitionOption... options) {
+    return (PersonsState) super.get(options);
   }
 
   @Override
-  public PersonsState delete() {
-    return (PersonsState) super.delete();
+  public PersonsState delete(StateTransitionOption... options) {
+    return (PersonsState) super.delete(options);
   }
 
   @Override
-  public PersonsState put(Gedcomx e) {
-    return (PersonsState) super.put(e);
+  public PersonsState put(Gedcomx e, StateTransitionOption... options) {
+    return (PersonsState) super.put(e, options);
   }
 
   @Override
@@ -81,14 +81,14 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
     return getEntity();
   }
 
-  public CollectionState readCollection() {
+  public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
   public List<Person> getPersons() {
@@ -96,32 +96,32 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
     return entity == null ? null : entity.getPersons();
   }
 
-  public PersonState addPerson(Person person) {
+  public PersonState addPerson(Person person, StateTransitionOption... options) {
     Link link = getLink("self");
     URI href = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
     href = href == null ? getUri() : href;
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(href, HttpMethod.POST);
-    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken).ifSuccessful();
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken).ifSuccessful();
   }
 
   @Override
-  public PersonsState readNextPage() {
-    return (PersonsState) super.readNextPage();
+  public PersonsState readNextPage(StateTransitionOption... options) {
+    return (PersonsState) super.readNextPage(options);
   }
 
   @Override
-  public PersonsState readPreviousPage() {
-    return (PersonsState) super.readPreviousPage();
+  public PersonsState readPreviousPage(StateTransitionOption... options) {
+    return (PersonsState) super.readPreviousPage(options);
   }
 
   @Override
-  public PersonsState readFirstPage() {
-    return (PersonsState) super.readFirstPage();
+  public PersonsState readFirstPage(StateTransitionOption... options) {
+    return (PersonsState) super.readFirstPage(options);
   }
 
   @Override
-  public PersonsState readLastPage() {
-    return (PersonsState) super.readLastPage();
+  public PersonsState readLastPage(StateTransitionOption... options) {
+    return (PersonsState) super.readLastPage(options);
   }
 }

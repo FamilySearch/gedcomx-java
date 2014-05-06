@@ -48,28 +48,28 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public PersonParentsState head() {
-    return (PersonParentsState) super.head();
+  public PersonParentsState head(StateTransitionOption... options) {
+    return (PersonParentsState) super.head(options);
   }
 
   @Override
-  public PersonParentsState options() {
-    return (PersonParentsState) super.options();
+  public PersonParentsState options(StateTransitionOption... options) {
+    return (PersonParentsState) super.options(options);
   }
 
   @Override
-  public PersonParentsState get() {
-    return (PersonParentsState) super.get();
+  public PersonParentsState get(StateTransitionOption... options) {
+    return (PersonParentsState) super.get(options);
   }
 
   @Override
-  public PersonParentsState delete() {
-    return (PersonParentsState) super.delete();
+  public PersonParentsState delete(StateTransitionOption... options) {
+    return (PersonParentsState) super.delete(options);
   }
 
   @Override
-  public PersonParentsState put(Gedcomx e) {
-    return (PersonParentsState) super.put(e);
+  public PersonParentsState put(Gedcomx e, StateTransitionOption... options) {
+    return (PersonParentsState) super.put(e, options);
   }
 
   @Override
@@ -106,17 +106,17 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
     return null;
   }
 
-  public PersonState readPerson() {
+  public PersonState readPerson(StateTransitionOption... options) {
     Link link = getLink(Rel.PERSON);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonState readParent(Person person) {
+  public PersonState readParent(Person person, StateTransitionOption... options) {
     Link link = person.getLink(Rel.PERSON);
     link = link == null ? person.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -124,10 +124,10 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState readRelationship(Relationship relationship) {
+  public RelationshipState readRelationship(Relationship relationship, StateTransitionOption... options) {
     Link link = relationship.getLink(Rel.RELATIONSHIP);
     link = link == null ? relationship.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -135,10 +135,10 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState removeRelationship(Relationship relationship) {
+  public RelationshipState removeRelationship(Relationship relationship, StateTransitionOption... options) {
     Link link = relationship.getLink(Rel.RELATIONSHIP);
     link = link == null ? relationship.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
@@ -146,10 +146,10 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public RelationshipState removeRelationshipTo(Person parent) {
+  public RelationshipState removeRelationshipTo(Person parent, StateTransitionOption... options) {
     Relationship relationship = findRelationshipTo(parent);
     if (relationship == null) {
       throw new GedcomxApplicationException("Unable to remove relationship: not found.");
@@ -162,7 +162,7 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return this.stateFactory.newRelationshipState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
 }

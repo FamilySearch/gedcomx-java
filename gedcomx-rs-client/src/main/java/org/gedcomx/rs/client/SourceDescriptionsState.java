@@ -55,28 +55,28 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
-  public SourceDescriptionsState head() {
-    return (SourceDescriptionsState) super.head();
+  public SourceDescriptionsState head(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.head(options);
   }
 
   @Override
-  public SourceDescriptionsState options() {
-    return (SourceDescriptionsState) super.options();
+  public SourceDescriptionsState options(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.options(options);
   }
 
   @Override
-  public SourceDescriptionsState get() {
-    return (SourceDescriptionsState) super.get();
+  public SourceDescriptionsState get(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.get(options);
   }
 
   @Override
-  public SourceDescriptionsState delete() {
-    return (SourceDescriptionsState) super.delete();
+  public SourceDescriptionsState delete(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.delete(options);
   }
 
   @Override
-  public SourceDescriptionsState put(Gedcomx e) {
-    return (SourceDescriptionsState) super.put(e);
+  public SourceDescriptionsState put(Gedcomx e, StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.put(e, options);
   }
 
   @Override
@@ -85,40 +85,40 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
-  public SourceDescriptionsState readNextPage() {
-    return (SourceDescriptionsState) super.readNextPage();
+  public SourceDescriptionsState readNextPage(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.readNextPage(options);
   }
 
   @Override
-  public SourceDescriptionsState readPreviousPage() {
-    return (SourceDescriptionsState) super.readPreviousPage();
+  public SourceDescriptionsState readPreviousPage(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.readPreviousPage(options);
   }
 
   @Override
-  public SourceDescriptionsState readFirstPage() {
-    return (SourceDescriptionsState) super.readFirstPage();
+  public SourceDescriptionsState readFirstPage(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.readFirstPage(options);
   }
 
   @Override
-  public SourceDescriptionsState readLastPage() {
-    return (SourceDescriptionsState) super.readLastPage();
+  public SourceDescriptionsState readLastPage(StateTransitionOption... options) {
+    return (SourceDescriptionsState) super.readLastPage(options);
   }
 
-  public SourceDescriptionState addSourceDescription(SourceDescription source) {
+  public SourceDescriptionState addSourceDescription(SourceDescription source, StateTransitionOption... options) {
     Gedcomx entity = new Gedcomx();
     entity.addSourceDescription(source);
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(getSelfUri(), HttpMethod.POST);
-    return this.stateFactory.newSourceDescriptionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
   }
 
-  public CollectionState readCollection() {
+  public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newCollectionState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
 }

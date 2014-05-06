@@ -27,6 +27,7 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.SourceDescriptionState;
+import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
@@ -110,23 +111,23 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  public FamilyTreePersonState head() {
-    return (FamilyTreePersonState) super.head();
+  public FamilyTreePersonState head(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.head(options);
   }
 
   @Override
-  public FamilyTreePersonState get() {
-    return (FamilyTreePersonState) super.get();
+  public FamilyTreePersonState get(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.get(options);
   }
 
   @Override
-  public FamilyTreePersonState delete() {
-    return (FamilyTreePersonState) super.delete();
+  public FamilyTreePersonState delete(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.delete(options);
   }
 
   @Override
-  public FamilyTreePersonState put(Gedcomx e) {
-    return (FamilyTreePersonState) super.put(e);
+  public FamilyTreePersonState put(Gedcomx e, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.put(e, options);
   }
 
   @Override
@@ -155,343 +156,343 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  public FamilyTreePersonState authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
-    return (FamilyTreePersonState) super.authenticateViaOAuth2(formData);
+  public FamilyTreePersonState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.authenticateViaOAuth2(formData, options);
   }
 
   @Override
-  public FamilyTreeCollectionState readCollection() {
-    return (FamilyTreeCollectionState) super.readCollection();
+  public FamilyTreeCollectionState readCollection(StateTransitionOption... options) {
+    return (FamilyTreeCollectionState) super.readCollection(options);
   }
 
   @Override
-  public FamilyTreePersonState loadEmbeddedResources() {
-    return (FamilyTreePersonState) super.loadEmbeddedResources();
+  public FamilyTreePersonState loadEmbeddedResources(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadEmbeddedResources(options);
   }
 
   @Override
-  public FamilyTreePersonState loadEmbeddedResources(String... rels) {
-    return (FamilyTreePersonState) super.loadEmbeddedResources(rels);
+  public FamilyTreePersonState loadEmbeddedResources(String[] rels, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadEmbeddedResources(rels, options);
   }
 
   @Override
-  public FamilyTreePersonState loadConclusions() {
-    return (FamilyTreePersonState) super.loadConclusions();
+  public FamilyTreePersonState loadConclusions(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadConclusions(options);
   }
 
   @Override
-  public FamilyTreePersonState loadSourceReferences() {
-    return (FamilyTreePersonState) super.loadSourceReferences();
+  public FamilyTreePersonState loadSourceReferences(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadSourceReferences(options);
   }
 
   @Override
-  public FamilyTreePersonState loadEvidenceReferences() {
-    return (FamilyTreePersonState) super.loadEvidenceReferences();
+  public FamilyTreePersonState loadEvidenceReferences(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadEvidenceReferences(options);
   }
 
   @Override
-  public FamilyTreePersonState loadMediaReferences() {
-    return (FamilyTreePersonState) super.loadMediaReferences();
+  public FamilyTreePersonState loadMediaReferences(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadMediaReferences(options);
   }
 
   @Override
-  public FamilyTreePersonState loadNotes() {
-    return (FamilyTreePersonState) super.loadNotes();
+  public FamilyTreePersonState loadNotes(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadNotes(options);
   }
 
   @Override
-  public FamilyTreePersonState loadParentRelationships() {
-    return (FamilyTreePersonState) super.loadParentRelationships();
+  public FamilyTreePersonState loadParentRelationships(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadParentRelationships(options);
   }
 
   @Override
-  public FamilyTreePersonState loadSpouseRelationships() {
-    return (FamilyTreePersonState) super.loadSpouseRelationships();
+  public FamilyTreePersonState loadSpouseRelationships(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadSpouseRelationships(options);
   }
 
   @Override
-  public FamilyTreePersonState loadChildRelationships() {
-    return (FamilyTreePersonState) super.loadChildRelationships();
+  public FamilyTreePersonState loadChildRelationships(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadChildRelationships(options);
   }
 
   @Override
-  public FamilyTreePersonState addGender(Gender gender) {
-    return (FamilyTreePersonState) super.addGender(gender);
+  public FamilyTreePersonState addGender(Gender gender, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addGender(gender, options);
   }
 
   @Override
-  public FamilyTreePersonState addName(Name name) {
-    return (FamilyTreePersonState) super.addName(name);
+  public FamilyTreePersonState addName(Name name, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addName(name, options);
   }
 
   @Override
-  public FamilyTreePersonState addNames(Name... names) {
-    return (FamilyTreePersonState) super.addNames(names);
+  public FamilyTreePersonState addNames(Name[] names, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addNames(names, options);
   }
 
   @Override
-  public FamilyTreePersonState addFact(Fact fact) {
-    return (FamilyTreePersonState) super.addFact(fact);
+  public FamilyTreePersonState addFact(Fact fact, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addFact(fact, options);
   }
 
   @Override
-  public FamilyTreePersonState addFacts(Fact... facts) {
-    return (FamilyTreePersonState) super.addFacts(facts);
+  public FamilyTreePersonState addFacts(Fact[] facts, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addFacts(facts, options);
   }
 
   @Override
-  public FamilyTreePersonState updateGender(Gender gender) {
-    return (FamilyTreePersonState) super.updateGender(gender);
+  public FamilyTreePersonState updateGender(Gender gender, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateGender(gender, options);
   }
 
   @Override
-  public FamilyTreePersonState updateName(Name name) {
-    return (FamilyTreePersonState) super.updateName(name);
+  public FamilyTreePersonState updateName(Name name, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateName(name, options);
   }
 
   @Override
-  public FamilyTreePersonState updateNames(Name... names) {
-    return (FamilyTreePersonState) super.updateNames(names);
+  public FamilyTreePersonState updateNames(Name[] names, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateNames(names, options);
   }
 
   @Override
-  public FamilyTreePersonState updateFact(Fact fact) {
-    return (FamilyTreePersonState) super.updateFact(fact);
+  public FamilyTreePersonState updateFact(Fact fact, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateFact(fact, options);
   }
 
   @Override
-  public FamilyTreePersonState updateFacts(Fact... facts) {
-    return (FamilyTreePersonState) super.updateFacts(facts);
+  public FamilyTreePersonState updateFacts(Fact[] facts, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateFacts(facts, options);
   }
 
   @Override
-  public FamilyTreePersonState updateConclusions(Person person) {
-    return (FamilyTreePersonState) super.updateConclusions(person);
+  public FamilyTreePersonState updateConclusions(Person person, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateConclusions(person, options);
   }
 
   @Override
-  public FamilyTreePersonState updateConclusions(Gedcomx entity) {
-    return (FamilyTreePersonState) super.updateConclusions(entity);
+  public FamilyTreePersonState updateConclusions(Gedcomx entity, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateConclusions(entity, options);
   }
 
   @Override
-  public FamilyTreePersonState deleteName(Name name) {
-    return (FamilyTreePersonState) super.deleteName(name);
+  public FamilyTreePersonState deleteName(Name name, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.deleteName(name, options);
   }
 
   @Override
-  public FamilyTreePersonState deleteGender(Gender gender) {
-    return (FamilyTreePersonState) super.deleteGender(gender);
+  public FamilyTreePersonState deleteGender(Gender gender, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.deleteGender(gender, options);
   }
 
   @Override
-  public FamilyTreePersonState deleteFact(Fact fact) {
-    return (FamilyTreePersonState) super.deleteFact(fact);
+  public FamilyTreePersonState deleteFact(Fact fact, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.deleteFact(fact, options);
   }
 
   @Override
-  protected FamilyTreePersonState doDeleteConclusion(Conclusion conclusion) {
-    return (FamilyTreePersonState) super.doDeleteConclusion(conclusion);
+  protected FamilyTreePersonState doDeleteConclusion(Conclusion conclusion, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.doDeleteConclusion(conclusion, options);
   }
 
   @Override
-  public FamilyTreePersonState addSourceReference(SourceDescriptionState source) {
-    return (FamilyTreePersonState) super.addSourceReference(source);
+  public FamilyTreePersonState addSourceReference(SourceDescriptionState source, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addSourceReference(source, options);
   }
 
   @Override
-  public FamilyTreePersonState addSourceReference(SourceReference reference) {
-    return (FamilyTreePersonState) super.addSourceReference(reference);
+  public FamilyTreePersonState addSourceReference(SourceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addSourceReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState addSourceReferences(SourceReference... refs) {
-    return (FamilyTreePersonState) super.addSourceReferences(refs);
+  public FamilyTreePersonState addSourceReferences(SourceReference[] refs, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addSourceReferences(refs, options);
   }
 
   @Override
-  public FamilyTreePersonState updateSourceReference(SourceReference reference) {
-    return (FamilyTreePersonState) super.updateSourceReference(reference);
+  public FamilyTreePersonState updateSourceReference(SourceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateSourceReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState updateSourceReferences(SourceReference... refs) {
-    return (FamilyTreePersonState) super.updateSourceReferences(refs);
+  public FamilyTreePersonState updateSourceReferences(SourceReference[] refs, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateSourceReferences(refs, options);
   }
 
   @Override
-  public FamilyTreePersonState updateSourceReferences(Person person) {
-    return (FamilyTreePersonState) super.updateSourceReferences(person);
+  public FamilyTreePersonState updateSourceReferences(Person person, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateSourceReferences(person, options);
   }
 
   @Override
-  public FamilyTreePersonState deleteSourceReference(SourceReference reference) {
-    return (FamilyTreePersonState) super.deleteSourceReference(reference);
+  public FamilyTreePersonState deleteSourceReference(SourceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.deleteSourceReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState addMediaReference(SourceDescriptionState description) {
-    return (FamilyTreePersonState) super.addMediaReference(description);
+  public FamilyTreePersonState addMediaReference(SourceDescriptionState description, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addMediaReference(description, options);
   }
 
   @Override
-  public FamilyTreePersonState addMediaReference(SourceReference reference) {
-    return (FamilyTreePersonState) super.addMediaReference(reference);
+  public FamilyTreePersonState addMediaReference(SourceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addMediaReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState addMediaReferences(SourceReference... refs) {
-    return (FamilyTreePersonState) super.addMediaReferences(refs);
+  public FamilyTreePersonState addMediaReferences(SourceReference[] refs, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addMediaReferences(refs, options);
   }
 
   @Override
-  public FamilyTreePersonState updateMediaReference(SourceReference reference) {
-    return (FamilyTreePersonState) super.updateMediaReference(reference);
+  public FamilyTreePersonState updateMediaReference(SourceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateMediaReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState updateMediaReferences(SourceReference... refs) {
-    return (FamilyTreePersonState) super.updateMediaReferences(refs);
+  public FamilyTreePersonState updateMediaReferences(SourceReference[] refs, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateMediaReferences(refs, options);
   }
 
   @Override
-  public FamilyTreePersonState updateMediaReferences(Person person) {
-    return (FamilyTreePersonState) super.updateMediaReferences(person);
+  public FamilyTreePersonState updateMediaReferences(Person person, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateMediaReferences(person, options);
   }
 
   @Override
-  public FamilyTreePersonState deleteMediaReference(SourceReference reference) {
-    return (FamilyTreePersonState) super.deleteMediaReference(reference);
+  public FamilyTreePersonState deleteMediaReference(SourceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.deleteMediaReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState addEvidenceReference(PersonState evidence) {
-    return (FamilyTreePersonState) super.addEvidenceReference(evidence);
+  public FamilyTreePersonState addEvidenceReference(PersonState evidence, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addEvidenceReference(evidence, options);
   }
 
   @Override
-  public FamilyTreePersonState addEvidenceReference(EvidenceReference reference) {
-    return (FamilyTreePersonState) super.addEvidenceReference(reference);
+  public FamilyTreePersonState addEvidenceReference(EvidenceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addEvidenceReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState addEvidenceReferences(EvidenceReference... refs) {
-    return (FamilyTreePersonState) super.addEvidenceReferences(refs);
+  public FamilyTreePersonState addEvidenceReferences(EvidenceReference[] refs, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addEvidenceReferences(refs, options);
   }
 
   @Override
-  public FamilyTreePersonState updateEvidenceReference(EvidenceReference reference) {
-    return (FamilyTreePersonState) super.updateEvidenceReference(reference);
+  public FamilyTreePersonState updateEvidenceReference(EvidenceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateEvidenceReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState updateEvidenceReferences(EvidenceReference... refs) {
-    return (FamilyTreePersonState) super.updateEvidenceReferences(refs);
+  public FamilyTreePersonState updateEvidenceReferences(EvidenceReference[] refs, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateEvidenceReferences(refs, options);
   }
 
   @Override
-  public FamilyTreePersonState updateEvidenceReferences(Person person) {
-    return (FamilyTreePersonState) super.updateEvidenceReferences(person);
+  public FamilyTreePersonState updateEvidenceReferences(Person person, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateEvidenceReferences(person, options);
   }
 
   @Override
-  public FamilyTreePersonState deleteEvidenceReference(EvidenceReference reference) {
-    return (FamilyTreePersonState) super.deleteEvidenceReference(reference);
+  public FamilyTreePersonState deleteEvidenceReference(EvidenceReference reference, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.deleteEvidenceReference(reference, options);
   }
 
   @Override
-  public FamilyTreePersonState readNote(Note note) {
-    return (FamilyTreePersonState) super.readNote(note);
+  public FamilyTreePersonState readNote(Note note, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readNote(note, options);
   }
 
   @Override
-  public FamilyTreePersonState addNote(Note note) {
-    return (FamilyTreePersonState) super.addNote(note);
+  public FamilyTreePersonState addNote(Note note, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addNote(note, options);
   }
 
   @Override
-  public FamilyTreePersonState addNotes(Note... notes) {
-    return (FamilyTreePersonState) super.addNotes(notes);
+  public FamilyTreePersonState addNotes(Note[] notes, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addNotes(notes, options);
   }
 
   @Override
-  public FamilyTreePersonState updateNote(Note note) {
-    return (FamilyTreePersonState) super.updateNote(note);
+  public FamilyTreePersonState updateNote(Note note, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateNote(note, options);
   }
 
   @Override
-  public FamilyTreePersonState updateNotes(Person person) {
-    return (FamilyTreePersonState) super.updateNotes(person);
+  public FamilyTreePersonState updateNotes(Person person, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateNotes(person, options);
   }
 
   @Override
-  public FamilyTreePersonState updateNotes(Note... notes) {
-    return (FamilyTreePersonState) super.updateNotes(notes);
+  public FamilyTreePersonState updateNotes(Note[] notes, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.updateNotes(notes, options);
   }
 
   @Override
-  public FamilyTreePersonState deleteNote(Note note) {
-    return (FamilyTreePersonState) super.deleteNote(note);
+  public FamilyTreePersonState deleteNote(Note note, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.deleteNote(note, options);
   }
 
   @Override
-  public FamilyTreePersonState readRelative(Relationship relationship) {
-    return (FamilyTreePersonState) super.readRelative(relationship);
+  public FamilyTreePersonState readRelative(Relationship relationship, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readRelative(relationship, options);
   }
 
   @Override
-  public FamilyTreePersonState readFirstSpouse() {
-    return (FamilyTreePersonState) super.readFirstSpouse();
+  public FamilyTreePersonState readFirstSpouse(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readFirstSpouse(options);
   }
 
   @Override
-  public FamilyTreePersonState readSpouse(int index) {
-    return (FamilyTreePersonState) super.readSpouse(index);
+  public FamilyTreePersonState readSpouse(int index, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readSpouse(index, options);
   }
 
   @Override
-  public FamilyTreePersonState readSpouse(Relationship relationship) {
-    return (FamilyTreePersonState) super.readSpouse(relationship);
+  public FamilyTreePersonState readSpouse(Relationship relationship, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readSpouse(relationship, options);
   }
 
   @Override
-  public FamilyTreePersonState readFirstChild() {
-    return (FamilyTreePersonState) super.readFirstChild();
+  public FamilyTreePersonState readFirstChild(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readFirstChild(options);
   }
 
   @Override
-  public FamilyTreePersonState readChild(int index) {
-    return (FamilyTreePersonState) super.readChild(index);
+  public FamilyTreePersonState readChild(int index, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readChild(index, options);
   }
 
   @Override
-  public FamilyTreePersonState readChild(Relationship relationship) {
-    return (FamilyTreePersonState) super.readChild(relationship);
+  public FamilyTreePersonState readChild(Relationship relationship, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readChild(relationship, options);
   }
 
   @Override
-  public FamilyTreePersonState readFirstParent() {
-    return (FamilyTreePersonState) super.readFirstParent();
+  public FamilyTreePersonState readFirstParent(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readFirstParent(options);
   }
 
   @Override
-  public FamilyTreePersonState readParent(int index) {
-    return (FamilyTreePersonState) super.readParent(index);
+  public FamilyTreePersonState readParent(int index, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readParent(index, options);
   }
 
   @Override
-  public FamilyTreePersonState readParent(Relationship relationship) {
-    return (FamilyTreePersonState) super.readParent(relationship);
+  public FamilyTreePersonState readParent(Relationship relationship, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readParent(relationship, options);
   }
 
-  public ChangeHistoryState readChangeHistory() {
+  public ChangeHistoryState readChangeHistory(StateTransitionOption... options) {
     Link link = getLink(Rel.CHANGE_HISTORY);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request, options), this.accessToken);
   }
 
 }

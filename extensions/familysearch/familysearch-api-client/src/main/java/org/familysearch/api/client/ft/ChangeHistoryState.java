@@ -25,6 +25,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
 
@@ -58,43 +59,43 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  public ChangeHistoryState head() {
-    return (ChangeHistoryState) super.head();
+  public ChangeHistoryState head(StateTransitionOption... options) {
+    return (ChangeHistoryState) super.head(options);
   }
 
   @Override
-  public ChangeHistoryState get() {
-    return (ChangeHistoryState) super.get();
+  public ChangeHistoryState get(StateTransitionOption... options) {
+    return (ChangeHistoryState) super.get(options);
   }
 
   @Override
-  public ChangeHistoryState delete() {
-    return (ChangeHistoryState) super.delete();
+  public ChangeHistoryState delete(StateTransitionOption... options) {
+    return (ChangeHistoryState) super.delete(options);
   }
 
   @Override
-  public ChangeHistoryState put(Feed e) {
-    return (ChangeHistoryState) super.put(e);
+  public ChangeHistoryState put(Feed e, StateTransitionOption... options) {
+    return (ChangeHistoryState) super.put(e, options);
   }
 
   @Override
-  public ChangeHistoryState readNextPage() {
-    return (ChangeHistoryState) super.readNextPage();
+  public ChangeHistoryState readNextPage(StateTransitionOption... options) {
+    return (ChangeHistoryState) super.readNextPage(options);
   }
 
   @Override
-  public ChangeHistoryState readPreviousPage() {
-    return (ChangeHistoryState) super.readPreviousPage();
+  public ChangeHistoryState readPreviousPage(StateTransitionOption... options) {
+    return (ChangeHistoryState) super.readPreviousPage(options);
   }
 
   @Override
-  public ChangeHistoryState readFirstPage() {
-    return (ChangeHistoryState) super.readFirstPage();
+  public ChangeHistoryState readFirstPage(StateTransitionOption... options) {
+    return (ChangeHistoryState) super.readFirstPage(options);
   }
 
   @Override
-  public ChangeHistoryState readLastPage() {
-    return (ChangeHistoryState) super.readLastPage();
+  public ChangeHistoryState readLastPage(StateTransitionOption... options) {
+    return (ChangeHistoryState) super.readLastPage(options);
   }
 
   public ChangeHistoryPage getPage() {
@@ -102,13 +103,13 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
     return feed == null ? null : new ChangeHistoryPage(feed);
   }
 
-  public ChangeHistoryState restoreChange(Entry change) {
+  public ChangeHistoryState restoreChange(Entry change, StateTransitionOption... options) {
     Link link = change.getLink(org.familysearch.api.client.Rel.RESTORE);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException("Unrestorable change: " + change.getId());
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request, options), this.accessToken);
   }
 }

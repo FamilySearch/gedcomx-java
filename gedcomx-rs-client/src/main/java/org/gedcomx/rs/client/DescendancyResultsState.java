@@ -46,28 +46,28 @@ public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
-  public DescendancyResultsState head() {
-    return (DescendancyResultsState) super.head();
+  public DescendancyResultsState head(StateTransitionOption... options) {
+    return (DescendancyResultsState) super.head(options);
   }
 
   @Override
-  public DescendancyResultsState options() {
-    return (DescendancyResultsState) super.options();
+  public DescendancyResultsState options(StateTransitionOption... options) {
+    return (DescendancyResultsState) super.options(options);
   }
 
   @Override
-  public DescendancyResultsState get() {
-    return (DescendancyResultsState) super.get();
+  public DescendancyResultsState get(StateTransitionOption... options) {
+    return (DescendancyResultsState) super.get(options);
   }
 
   @Override
-  public DescendancyResultsState delete() {
-    return (DescendancyResultsState) super.delete();
+  public DescendancyResultsState delete(StateTransitionOption... options) {
+    return (DescendancyResultsState) super.delete(options);
   }
 
   @Override
-  public DescendancyResultsState put(Gedcomx e) {
-    return (DescendancyResultsState) super.put(e);
+  public DescendancyResultsState put(Gedcomx e, StateTransitionOption... options) {
+    return (DescendancyResultsState) super.put(e, options);
   }
 
   @Override

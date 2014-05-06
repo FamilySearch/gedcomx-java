@@ -25,6 +25,7 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
 import java.util.List;
@@ -49,23 +50,23 @@ public class DiscussionsState extends GedcomxApplicationState<FamilySearchPlatfo
   }
 
   @Override
-  public DiscussionsState head() {
-    return (DiscussionsState) super.head();
+  public DiscussionsState head(StateTransitionOption... options) {
+    return (DiscussionsState) super.head(options);
   }
 
   @Override
-  public DiscussionsState get() {
-    return (DiscussionsState) super.get();
+  public DiscussionsState get(StateTransitionOption... options) {
+    return (DiscussionsState) super.get(options);
   }
 
   @Override
-  public DiscussionsState delete() {
-    return (DiscussionsState) super.delete();
+  public DiscussionsState delete(StateTransitionOption... options) {
+    return (DiscussionsState) super.delete(options);
   }
 
   @Override
-  public DiscussionsState put(FamilySearchPlatform e) {
-    return (DiscussionsState) super.put(e);
+  public DiscussionsState put(FamilySearchPlatform e, StateTransitionOption... options) {
+    return (DiscussionsState) super.put(e, options);
   }
 
   @Override
@@ -83,40 +84,40 @@ public class DiscussionsState extends GedcomxApplicationState<FamilySearchPlatfo
   }
 
   @Override
-  public DiscussionsState readNextPage() {
-    return (DiscussionsState) super.readNextPage();
+  public DiscussionsState readNextPage(StateTransitionOption... options) {
+    return (DiscussionsState) super.readNextPage(options);
   }
 
   @Override
-  public DiscussionsState readPreviousPage() {
-    return (DiscussionsState) super.readPreviousPage();
+  public DiscussionsState readPreviousPage(StateTransitionOption... options) {
+    return (DiscussionsState) super.readPreviousPage(options);
   }
 
   @Override
-  public DiscussionsState readFirstPage() {
-    return (DiscussionsState) super.readFirstPage();
+  public DiscussionsState readFirstPage(StateTransitionOption... options) {
+    return (DiscussionsState) super.readFirstPage(options);
   }
 
   @Override
-  public DiscussionsState readLastPage() {
-    return (DiscussionsState) super.readLastPage();
+  public DiscussionsState readLastPage(StateTransitionOption... options) {
+    return (DiscussionsState) super.readLastPage(options);
   }
 
-  public CollectionState readCollection() {
+  public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newCollectionState(request, invoke(request), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
-  public DiscussionState addDiscussion(Discussion discussion) {
+  public DiscussionState addDiscussion(Discussion discussion, StateTransitionOption... options) {
     FamilySearchPlatform entity = new FamilySearchPlatform();
     entity.addDiscussion(discussion);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).entity(entity).build(getSelfUri(), HttpMethod.POST);
-    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
 }

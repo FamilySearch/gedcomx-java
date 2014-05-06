@@ -27,6 +27,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
+import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rs.client.util.GedcomxSearchQueryBuilder;
 
 import javax.ws.rs.HttpMethod;
@@ -53,23 +54,23 @@ public class FamilySearchCollectionState extends CollectionState {
   }
 
   @Override
-  public FamilySearchCollectionState head() {
-    return (FamilySearchCollectionState) super.head();
+  public FamilySearchCollectionState head(StateTransitionOption... options) {
+    return (FamilySearchCollectionState) super.head(options);
   }
 
   @Override
-  public FamilySearchCollectionState get() {
-    return (FamilySearchCollectionState) super.get();
+  public FamilySearchCollectionState get(StateTransitionOption... options) {
+    return (FamilySearchCollectionState) super.get(options);
   }
 
   @Override
-  public FamilySearchCollectionState delete() {
-    return (FamilySearchCollectionState) super.delete();
+  public FamilySearchCollectionState delete(StateTransitionOption... options) {
+    return (FamilySearchCollectionState) super.delete(options);
   }
 
   @Override
-  public FamilySearchCollectionState put(Gedcomx e) {
-    return (FamilySearchCollectionState) super.put(e);
+  public FamilySearchCollectionState put(Gedcomx e, StateTransitionOption... options) {
+    return (FamilySearchCollectionState) super.put(e, options);
   }
 
   @Override
@@ -98,25 +99,25 @@ public class FamilySearchCollectionState extends CollectionState {
   }
 
   @Override
-  public FamilySearchCollectionState authenticateViaOAuth2(MultivaluedMap<String, String> formData) {
-    return (FamilySearchCollectionState) super.authenticateViaOAuth2(formData);
+  public FamilySearchCollectionState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
+    return (FamilySearchCollectionState) super.authenticateViaOAuth2(formData, options);
   }
 
-  public UserState readCurrentUser() {
+  public UserState readCurrentUser(StateTransitionOption... options) {
     Link link = getLink(Rel.CURRENT_USER);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newUserState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newUserState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonMatchResultsState searchForPersonMatches(GedcomxSearchQueryBuilder query) {
-    return searchForPersonMatches(query.build());
+  public PersonMatchResultsState searchForPersonMatches(GedcomxSearchQueryBuilder query, StateTransitionOption... options) {
+    return searchForPersonMatches(query.build(), options);
   }
 
-  public PersonMatchResultsState searchForPersonMatches(String query) {
+  public PersonMatchResultsState searchForPersonMatches(String query, StateTransitionOption... options) {
     Link searchLink = getLink(Rel.PERSON_MATCHES_QUERY);
     if (searchLink == null || searchLink.getTemplate() == null) {
       return null;
@@ -135,27 +136,27 @@ public class FamilySearchCollectionState extends CollectionState {
     }
 
     ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
   }
 
-  public DiscussionsState readDiscussions() {
+  public DiscussionsState readDiscussions(StateTransitionOption... options) {
     Link link = getLink(Rel.DISCUSSIONS);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newDiscussionsState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newDiscussionsState(request, invoke(request, options), this.accessToken);
   }
 
-  public DiscussionState addDiscussion(Discussion discussion) {
+  public DiscussionState addDiscussion(Discussion discussion, StateTransitionOption... options) {
     Link link = getLink(Rel.DISCUSSIONS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException("Unable to add discussion: missing link.");
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newDiscussionState(request, invoke(request), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
 }

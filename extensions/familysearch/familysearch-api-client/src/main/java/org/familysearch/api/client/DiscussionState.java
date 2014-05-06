@@ -23,6 +23,7 @@ import org.familysearch.platform.discussions.Discussion;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
 
@@ -46,23 +47,23 @@ public class DiscussionState extends GedcomxApplicationState<FamilySearchPlatfor
   }
 
   @Override
-  public DiscussionState head() {
-    return (DiscussionState) super.head();
+  public DiscussionState head(StateTransitionOption... options) {
+    return (DiscussionState) super.head(options);
   }
 
   @Override
-  public DiscussionState get() {
-    return (DiscussionState) super.get();
+  public DiscussionState get(StateTransitionOption... options) {
+    return (DiscussionState) super.get(options);
   }
 
   @Override
-  public DiscussionState delete() {
-    return (DiscussionState) super.delete();
+  public DiscussionState delete(StateTransitionOption... options) {
+    return (DiscussionState) super.delete(options);
   }
 
   @Override
-  public DiscussionState put(FamilySearchPlatform e) {
-    return (DiscussionState) super.put(e);
+  public DiscussionState put(FamilySearchPlatform e, StateTransitionOption... options) {
+    return (DiscussionState) super.put(e, options);
   }
 
   @Override
@@ -79,18 +80,18 @@ public class DiscussionState extends GedcomxApplicationState<FamilySearchPlatfor
     return getEntity() == null ? null : getEntity().getDiscussions() == null ? null : getEntity().getDiscussions().isEmpty() ? null : getEntity().getDiscussions().get(0);
   }
 
-  public CommentsState readComments() {
+  public CommentsState readComments(StateTransitionOption... options) {
     Link link = getLink(Rel.COMMENTS);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request, options), this.accessToken);
   }
 
-  public DiscussionState update(Discussion discussion) {
+  public DiscussionState update(Discussion discussion, StateTransitionOption... options) {
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(getSelfUri(), HttpMethod.POST);
-    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 }

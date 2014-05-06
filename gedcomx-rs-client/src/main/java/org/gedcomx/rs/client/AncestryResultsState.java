@@ -51,28 +51,28 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public AncestryResultsState head() {
-    return (AncestryResultsState) super.head();
+  public AncestryResultsState head(StateTransitionOption... options) {
+    return (AncestryResultsState) super.head(options);
   }
 
   @Override
-  public AncestryResultsState options() {
-    return (AncestryResultsState) super.options();
+  public AncestryResultsState options(StateTransitionOption... options) {
+    return (AncestryResultsState) super.options(options);
   }
 
   @Override
-  public AncestryResultsState get() {
-    return (AncestryResultsState) super.get();
+  public AncestryResultsState get(StateTransitionOption... options) {
+    return (AncestryResultsState) super.get(options);
   }
 
   @Override
-  public AncestryResultsState delete() {
-    return (AncestryResultsState) super.delete();
+  public AncestryResultsState delete(StateTransitionOption... options) {
+    return (AncestryResultsState) super.delete(options);
   }
 
   @Override
-  public AncestryResultsState put(Gedcomx e) {
-    return (AncestryResultsState) super.put(e);
+  public AncestryResultsState put(Gedcomx e, StateTransitionOption... options) {
+    return (AncestryResultsState) super.put(e, options);
   }
 
   @Override
@@ -84,7 +84,7 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
     return getEntity() != null ? new AncestryTree(getEntity()) : null;
   }
 
-  public PersonState readPerson(int ancestorNumber) {
+  public PersonState readPerson(int ancestorNumber, StateTransitionOption... options) {
     AncestryTree.AncestryNode ancestor = getTree().getAncestor(ancestorNumber);
     if (ancestor == null) {
       return null;
@@ -101,6 +101,6 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(personUri, HttpMethod.GET);
-    return this.stateFactory.newPersonState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 }

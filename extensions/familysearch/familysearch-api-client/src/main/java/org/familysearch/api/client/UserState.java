@@ -21,6 +21,7 @@ import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.users.User;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 /**
  * @author Ryan Heaton
@@ -51,22 +52,22 @@ public class UserState extends GedcomxApplicationState<FamilySearchPlatform> {
   }
 
   @Override
-  public UserState head() {
-    return (UserState) super.head();
+  public UserState head(StateTransitionOption... options) {
+    return (UserState) super.head(options);
   }
 
   @Override
-  public UserState get() {
-    return (UserState) super.get();
+  public UserState get(StateTransitionOption... options) {
+    return (UserState) super.get(options);
   }
 
   @Override
-  public UserState delete() {
-    return (UserState) super.delete();
+  public UserState delete(StateTransitionOption... options) {
+    return (UserState) super.delete(options);
   }
 
   @Override
-  public UserState put(FamilySearchPlatform entity) {
+  public UserState put(FamilySearchPlatform entity, StateTransitionOption... options) {
     return (UserState) super.put(entity);
   }
 }

@@ -48,28 +48,28 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  public RecordsState head() {
-    return (RecordsState) super.head();
+  public RecordsState head(StateTransitionOption... options) {
+    return (RecordsState) super.head(options);
   }
 
   @Override
-  public RecordsState options() {
-    return (RecordsState) super.options();
+  public RecordsState options(StateTransitionOption... options) {
+    return (RecordsState) super.options(options);
   }
 
   @Override
-  public RecordsState get() {
-    return (RecordsState) super.get();
+  public RecordsState get(StateTransitionOption... options) {
+    return (RecordsState) super.get(options);
   }
 
   @Override
-  public RecordsState delete() {
-    return (RecordsState) super.delete();
+  public RecordsState delete(StateTransitionOption... options) {
+    return (RecordsState) super.delete(options);
   }
 
   @Override
-  public RecordsState put(Feed e) {
-    return (RecordsState) super.put(e);
+  public RecordsState put(Feed e, StateTransitionOption... options) {
+    return (RecordsState) super.put(e, options);
   }
 
   @Override
@@ -83,23 +83,23 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  public RecordsState readNextPage() {
-    return (RecordsState) super.readNextPage();
+  public RecordsState readNextPage(StateTransitionOption... options) {
+    return (RecordsState) super.readNextPage(options);
   }
 
   @Override
-  public RecordsState readPreviousPage() {
-    return (RecordsState) super.readPreviousPage();
+  public RecordsState readPreviousPage(StateTransitionOption... options) {
+    return (RecordsState) super.readPreviousPage(options);
   }
 
   @Override
-  public RecordsState readFirstPage() {
-    return (RecordsState) super.readFirstPage();
+  public RecordsState readFirstPage(StateTransitionOption... options) {
+    return (RecordsState) super.readFirstPage(options);
   }
 
   @Override
-  public RecordsState readLastPage() {
-    return (RecordsState) super.readLastPage();
+  public RecordsState readLastPage(StateTransitionOption... options) {
+    return (RecordsState) super.readLastPage(options);
   }
 
   public List<Gedcomx> getRecords() {
@@ -118,23 +118,23 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
     return records;
   }
 
-  public RecordState readRecord(Entry entry) {
+  public RecordState readRecord(Entry entry, StateTransitionOption... options) {
     Link link = entry.getLink(Rel.RECORD);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newRecordState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRecordState(request, invoke(request, options), this.accessToken);
   }
 
-  public RecordState readRecord(Gedcomx record) {
+  public RecordState readRecord(Gedcomx record, StateTransitionOption... options) {
     Link link = record.getLink(Rel.RECORD);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newRecordState(request, invoke(request), this.accessToken);
+    return this.stateFactory.newRecordState(request, invoke(request, options), this.accessToken);
   }
 }
