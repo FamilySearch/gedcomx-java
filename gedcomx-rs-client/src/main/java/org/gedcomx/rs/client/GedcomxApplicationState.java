@@ -176,7 +176,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public Date getLastModified() {
-    return new Date(this.response.getLastModified().getTime());
+    return this.response.getLastModified();
   }
 
   public MultivaluedMap<String, String> getHeaders() {
@@ -195,6 +195,17 @@ public abstract class GedcomxApplicationState<E> {
     if (accept != null) {
       builder = builder.accept(String.valueOf(accept));
     }
+
+    EntityTag etag = getETag();
+    if (etag != null) {
+      builder = builder.header("If-None-Match", etag.toString());
+    }
+
+    Date lastModified = getLastModified();
+    if (lastModified != null) {
+      builder = builder.header("If-Modified-Since", lastModified);
+    }
+
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.HEAD);
     return clone(request, invoke(request, options));
   }
@@ -205,8 +216,25 @@ public abstract class GedcomxApplicationState<E> {
     if (accept != null) {
       builder = builder.accept(String.valueOf(accept));
     }
+
+    EntityTag etag = getETag();
+    if (etag != null) {
+      builder = builder.header("If-None-Match", etag.toString());
+    }
+
+    Date lastModified = getLastModified();
+    if (lastModified != null) {
+      builder = builder.header("If-Modified-Since", lastModified);
+    }
+
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.GET);
-    return clone(request, invoke(request, options));
+    ClientResponse response = invoke(request, options);
+    if (ClientResponse.Status.NOT_MODIFIED.equals(response.getClientResponseStatus())) {
+      return this;
+    }
+    else {
+      return clone(request, response);
+    }
   }
 
   public GedcomxApplicationState delete(StateTransitionOption... options) {
