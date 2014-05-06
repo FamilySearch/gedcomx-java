@@ -80,8 +80,19 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   @Override
+  protected FamilySearchPlatform loadEntityConditionally(ClientResponse response) {
+    if (HttpMethod.GET.equals(request.getMethod()) && (response.getClientResponseStatus() == ClientResponse.Status.OK
+                                                      || response.getClientResponseStatus() == ClientResponse.Status.GONE)) {
+      return loadEntity(response);
+    }
+    else {
+      return null;
+    }
+  }
+
+  @Override
   protected FamilySearchPlatform loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
+    return response.getEntity(FamilySearchPlatform.class);
   }
 
   @Override
@@ -544,4 +555,13 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
+  public ChildAndParentsRelationshipState restore(StateTransitionOption... options) {
+    Link link = getLink(org.familysearch.api.client.Rel.RESTORE);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
+  }
 }
