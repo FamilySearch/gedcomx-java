@@ -18,8 +18,6 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
-import org.gedcomx.rs.client.PersonChildrenState;
-import org.gedcomx.rs.client.PersonParentsState;
 
 import java.net.URI;
 
@@ -76,5 +74,9 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
 
   protected ChangeHistoryState newChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken) {
     return new ChangeHistoryState(request, response, accessToken, this);
+  }
+
+  protected DiscoveryState newDiscoveryState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new DiscoveryState(request, response, accessToken, this);
   }
 }

@@ -168,4 +168,9 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipsState(request, invoke(request, options), this.accessToken);
   }
 
+  public DiscoveryState readDiscoveryDocument(StateTransitionOption... options) {
+    ClientRequest request = createAuthenticatedFeedRequest().build(getSelfUri().resolve("/.well-known/app-meta"), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newDiscoveryState(request, invoke(request, options), this.accessToken);
+  }
+
 }
