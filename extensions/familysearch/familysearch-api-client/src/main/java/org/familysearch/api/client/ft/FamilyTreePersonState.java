@@ -25,10 +25,7 @@ import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.GedcomxApplicationState;
-import org.gedcomx.rs.client.PersonState;
-import org.gedcomx.rs.client.SourceDescriptionState;
-import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rs.client.*;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
@@ -489,6 +486,16 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   public FamilyTreePersonState readParent(Relationship relationship, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.readParent(relationship, options);
+  }
+
+  @Override
+  public FamilyTreePersonParentsState readParents(StateTransitionOption... options) {
+    return (FamilyTreePersonParentsState) super.readParents(options);
+  }
+
+  @Override
+  public FamilyTreePersonChildrenState readChildren(StateTransitionOption... options) {
+    return (FamilyTreePersonChildrenState) super.readChildren(options);
   }
 
   public ChangeHistoryState readChangeHistory(StateTransitionOption... options) {
