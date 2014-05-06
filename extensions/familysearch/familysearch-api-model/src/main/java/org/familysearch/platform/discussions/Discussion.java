@@ -263,4 +263,30 @@ public class Discussion extends HypermediaEnabledData {
   public void accept(FamilySearchPlatformModelVisitor visitor) {
     visitor.visitDiscussion(this);
   }
+
+  public void embed(Discussion discussion) {
+    List<Comment> comments = discussion.getComments();
+    if (comments != null) {
+      for (Comment comment : comments) {
+        boolean found = false;
+        if (comment.getId() != null) {
+          if (getComments() != null) {
+            for (Comment target : getComments()) {
+              if (comment.getId().equals(target.getId())) {
+                target.embed(comment);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addComment(comment);
+        }
+      }
+    }
+
+    super.embed(discussion);
+  }
 }

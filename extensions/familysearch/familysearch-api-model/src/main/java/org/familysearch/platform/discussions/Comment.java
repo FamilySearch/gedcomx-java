@@ -20,6 +20,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -127,5 +128,9 @@ public class Comment extends HypermediaEnabledData {
    */
   public void accept(FamilySearchPlatformModelVisitor visitor) {
     visitor.visitComment(this);
+  }
+
+  public void embed(Comment comment) {
+    super.embed(comment);
   }
 }

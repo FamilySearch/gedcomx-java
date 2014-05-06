@@ -275,4 +275,16 @@ public class ChildAndParentsRelationship extends Subject {
   public void accept(FamilySearchPlatformModelVisitor visitor) {
     visitor.visitChildAndParentsRelationship(this);
   }
+
+  public void embed(ChildAndParentsRelationship relationship) {
+    if (relationship.motherFacts != null) {
+      this.motherFacts = this.motherFacts == null ? new ArrayList<Fact>() : this.motherFacts;
+      this.motherFacts.addAll(relationship.motherFacts);
+    }
+    if (relationship.fatherFacts != null) {
+      this.fatherFacts = this.fatherFacts == null ? new ArrayList<Fact>() : this.fatherFacts;
+      this.fatherFacts.addAll(relationship.fatherFacts);
+    }
+    super.embed(relationship);
+  }
 }

@@ -283,4 +283,56 @@ public class FamilySearchPlatform extends Gedcomx {
   public void accept(FamilySearchPlatformModelVisitor visitor) {
     visitor.visitFamilySearchPlatform(this);
   }
+
+  @Override
+  public void embed(Gedcomx gedcomx) {
+    super.embed(gedcomx);
+
+    if (gedcomx instanceof FamilySearchPlatform) {
+      List<ChildAndParentsRelationship> relationships = ((FamilySearchPlatform)gedcomx).getChildAndParentsRelationships();
+      if (relationships != null) {
+        for (ChildAndParentsRelationship relationship : relationships) {
+          boolean found = false;
+          if (relationship.getId() != null) {
+            if (getChildAndParentsRelationships() != null) {
+              for (ChildAndParentsRelationship target : getChildAndParentsRelationships()) {
+                if (relationship.getId().equals(target.getId())) {
+                  target.embed(relationship);
+                  found = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          if (!found) {
+            addChildandparentsrelationship(relationship);
+          }
+        }
+      }
+
+      List<Discussion> discussions = ((FamilySearchPlatform)gedcomx).getDiscussions();
+      if (discussions != null) {
+        for (Discussion discussion : discussions) {
+          boolean found = false;
+          if (discussion.getId() != null) {
+            if (getDiscussions() != null) {
+              for (Discussion target : getDiscussions()) {
+                if (discussion.getId().equals(target.getId())) {
+                  target.embed(discussion);
+                  found = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          if (!found) {
+            addDiscussion(discussion);
+          }
+        }
+      }
+    }
+
+  }
 }
