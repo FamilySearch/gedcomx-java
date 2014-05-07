@@ -18,6 +18,7 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.Rel;
+import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
@@ -321,7 +322,7 @@ public class FamilyTreeRelationshipState extends RelationshipState {
       return null;
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 }
