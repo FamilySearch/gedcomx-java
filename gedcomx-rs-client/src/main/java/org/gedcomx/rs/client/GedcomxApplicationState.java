@@ -56,6 +56,8 @@ public abstract class GedcomxApplicationState<E> {
   protected final ClientResponse response;
   protected final E entity;
   protected String accessToken;
+  private ClientRequest lastEmbeddedRequest;
+  private ClientResponse lastEmbeddedResponse;
 
   protected GedcomxApplicationState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     this.request = request;
@@ -146,8 +148,16 @@ public abstract class GedcomxApplicationState<E> {
     return request.clone();
   }
 
+  public ClientRequest getLastEmbeddedRequest() {
+    return lastEmbeddedRequest;
+  }
+
   public ClientResponse getResponse() {
     return response;
+  }
+
+  public ClientResponse getLastEmbeddedResponse() {
+    return lastEmbeddedResponse;
   }
 
   public E getEntity() {
@@ -464,13 +474,13 @@ public abstract class GedcomxApplicationState<E> {
 
   protected void embed(Link link, Gedcomx entity, StateTransitionOption... options) {
     if (link.getHref() != null) {
-      ClientRequest request = createRequestForEmbeddedResource().build(link.getHref().toURI(), HttpMethod.GET);
-      ClientResponse response = invoke(request, options);
-      if (response.getClientResponseStatus() == ClientResponse.Status.OK) {
-        entity.embed(response.getEntity(Gedcomx.class));
+      lastEmbeddedRequest = createRequestForEmbeddedResource().build(link.getHref().toURI(), HttpMethod.GET);
+      lastEmbeddedResponse = invoke(lastEmbeddedRequest, options);
+      if (lastEmbeddedResponse.getClientResponseStatus() == ClientResponse.Status.OK) {
+        entity.embed(lastEmbeddedResponse.getEntity(Gedcomx.class));
       }
-      else if (response.getClientResponseStatus().getFamily() == Response.Status.Family.SERVER_ERROR) {
-        throw new GedcomxApplicationException(String.format("Unable to load embedded resources: server says \"%s\" at %s.", response.getClientResponseStatus().getReasonPhrase(), request.getURI()), response);
+      else if (lastEmbeddedResponse.getClientResponseStatus().getFamily() == Response.Status.Family.SERVER_ERROR) {
+        throw new GedcomxApplicationException(String.format("Unable to load embedded resources: server says \"%s\" at %s.", lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), lastEmbeddedRequest.getURI()), lastEmbeddedResponse);
       }
       else {
         //todo: log a warning? throw an error?

@@ -24,10 +24,7 @@ import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.rt.DefaultNamespace;
-import org.gedcomx.rt.GedcomxConstants;
-import org.gedcomx.rt.MediaTypeDefinition;
-import org.gedcomx.rt.Model;
+import org.gedcomx.rt.*;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -282,6 +279,16 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   public void accept(FamilySearchPlatformModelVisitor visitor) {
     visitor.visitFamilySearchPlatform(this);
+  }
+
+  @Override
+  public void accept(GedcomxModelVisitor visitor) {
+    if (visitor instanceof FamilySearchPlatformModelVisitor) {
+      ((FamilySearchPlatformModelVisitor)visitor).visitFamilySearchPlatform(this);
+    }
+    else {
+      super.accept(visitor);
+    }
   }
 
   @Override
