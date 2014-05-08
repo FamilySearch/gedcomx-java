@@ -23,6 +23,7 @@ import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.types.NamePartType;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -148,6 +149,18 @@ public class NameForm extends ExtensibleData implements HasFields {
    */
   public NameForm part(NamePart part) {
     addPart(part);
+    return this;
+  }
+
+  /**
+   * Build up this name form with a part.
+   *
+   * @param partType The part type.
+   * @param value The value.
+   * @return this.
+   */
+  public NameForm part(NamePartType partType, String value) {
+    addPart(new NamePart(partType, value));
     return this;
   }
 

@@ -3,7 +3,6 @@ package org.gedcomx.examples;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Name;
 import org.gedcomx.conclusion.NameForm;
-import org.gedcomx.conclusion.NamePart;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.NamePartType;
@@ -16,12 +15,11 @@ import org.testng.annotations.Test;
 public class NamesExampleTest {
 
   public void testBasicWesternName() throws Exception {
-    NameForm nameForm = new NameForm()
+    NameForm nameForm = new NameForm("John Fitzgerald Kennedy")
       .lang("en")
-      .fullText("John Fitzgerald Kennedy")
-      .part(new NamePart().type(NamePartType.Given).value("John"))
-      .part(new NamePart().type(NamePartType.Given).value("Fitzgerald"))
-      .part(new NamePart().type(NamePartType.Surname).value("Kennedy"));
+      .part(NamePartType.Given, "John")
+      .part(NamePartType.Given, "Fitzgerald")
+      .part(NamePartType.Surname, "Kennedy");
     Name name = new Name().nameForm(nameForm);
 
     Gedcomx gx = new Gedcomx().person(new Person().name(name));
