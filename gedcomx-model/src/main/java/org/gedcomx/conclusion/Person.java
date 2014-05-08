@@ -307,7 +307,6 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @param type The type.
    * @return the first name in the name list of the specified type, or null if none.
    */
-  @XmlTransient
   @JsonIgnore
   public Name getFirstNameOfType(NameType type) {
     if (this.names == null) {
