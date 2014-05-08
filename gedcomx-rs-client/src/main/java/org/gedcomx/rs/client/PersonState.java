@@ -292,7 +292,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public PersonState loadNotes(StateTransitionOption... options) {
-    return loadEmbeddedResources(new String[]{Rel.EVIDENCE_REFERENCES}, options);
+    return loadEmbeddedResources(new String[]{Rel.NOTES}, options);
   }
 
   public PersonState loadParentRelationships(StateTransitionOption... options) {
