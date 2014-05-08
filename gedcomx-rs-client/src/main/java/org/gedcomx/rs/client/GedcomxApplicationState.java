@@ -209,16 +209,6 @@ public abstract class GedcomxApplicationState<E> {
       builder = builder.accept(String.valueOf(accept));
     }
 
-    EntityTag etag = getETag();
-    if (etag != null) {
-      builder = builder.header("If-None-Match", etag.toString());
-    }
-
-    Date lastModified = getLastModified();
-    if (lastModified != null) {
-      builder = builder.header("If-Modified-Since", lastModified);
-    }
-
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.HEAD);
     return clone(request, invoke(request, options));
   }
@@ -230,24 +220,9 @@ public abstract class GedcomxApplicationState<E> {
       builder = builder.accept(String.valueOf(accept));
     }
 
-    EntityTag etag = getETag();
-    if (etag != null) {
-      builder = builder.header("If-None-Match", etag.toString());
-    }
-
-    Date lastModified = getLastModified();
-    if (lastModified != null) {
-      builder = builder.header("If-Modified-Since", lastModified);
-    }
-
     ClientRequest request = builder.build(getSelfUri(), HttpMethod.GET);
     ClientResponse response = invoke(request, options);
-    if (ClientResponse.Status.NOT_MODIFIED.equals(response.getClientResponseStatus())) {
-      return this;
-    }
-    else {
-      return clone(request, response);
-    }
+    return clone(request, response);
   }
 
   public GedcomxApplicationState delete(StateTransitionOption... options) {
