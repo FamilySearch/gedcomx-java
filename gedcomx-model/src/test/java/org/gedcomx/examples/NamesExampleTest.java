@@ -27,4 +27,24 @@ public class NamesExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  public void testMultipleJapaneseForms() throws Exception {
+    NameForm kanji = new NameForm("山田太郎")
+      .lang("ja-Hani")
+      .part(NamePartType.Surname, "山田")
+      .part(NamePartType.Given, "太郎");
+    NameForm katakana = new NameForm("ヤマダタロー")
+      .lang("ja-Kana")
+      .part(NamePartType.Surname, "ヤマダ")
+      .part(NamePartType.Given, "タロー");
+    NameForm romanized = new NameForm("Yamada Tarō")
+      .lang("ja-Latn")
+      .part(NamePartType.Surname, "Tarō")
+      .part(NamePartType.Given, "Yamada");
+    Name name = new Name().nameForm(kanji).nameForm(katakana).nameForm(romanized);
+
+    Gedcomx gx = new Gedcomx().person(new Person().name(name));
+    SerializationUtil.processThroughXml(gx);
+    SerializationUtil.processThroughJson(gx);
+  }
+
 }
