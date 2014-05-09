@@ -185,7 +185,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public ChildAndParentsRelationshipState loadNotes(StateTransitionOption... options) {
-    return loadEmbeddedResources(new String[]{Rel.EVIDENCE_REFERENCES}, options);
+    return loadEmbeddedResources(new String[]{Rel.NOTES}, options);
   }
 
   protected ChildAndParentsRelationship createEmptySelf() {
