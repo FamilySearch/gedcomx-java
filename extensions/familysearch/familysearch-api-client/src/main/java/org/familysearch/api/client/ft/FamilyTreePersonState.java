@@ -17,10 +17,12 @@ package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.DiscussionState;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
+import org.familysearch.platform.ct.DiscussionReference;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
@@ -31,7 +33,9 @@ import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -333,6 +337,59 @@ public class FamilyTreePersonState extends PersonState {
   public FamilyTreePersonState deleteSourceReference(SourceReference reference, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.deleteSourceReference(reference, options);
   }
+
+  public FamilyTreePersonState addDiscussionReference(DiscussionState discussion, StateTransitionOption... options) {
+    DiscussionReference reference = new DiscussionReference();
+    reference.setResource(new org.gedcomx.common.URI(discussion.getSelfUri().toString()));
+    return addDiscussionReference(reference, options);
+  }
+
+  public FamilyTreePersonState addDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
+    return addDiscussionReference(new DiscussionReference[]{reference}, options);
+  }
+
+  public FamilyTreePersonState addDiscussionReference(DiscussionReference[] refs, StateTransitionOption... options) {
+    Person person = createEmptySelf();
+    for (DiscussionReference ref : refs) {
+      person.addExtensionElement(ref);
+    }
+    return updateDiscussionReference(person, options);
+  }
+
+  public FamilyTreePersonState updateDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
+    return updateDiscussionReference(new DiscussionReference[]{reference}, options);
+  }
+
+  public FamilyTreePersonState updateDiscussionReference(DiscussionReference[] refs, StateTransitionOption... options) {
+    Person person = createEmptySelf();
+    for (DiscussionReference ref : refs) {
+      person.addExtensionElement(ref);
+    }
+    return updateDiscussionReference(person, options);
+  }
+
+  public FamilyTreePersonState updateDiscussionReference(Person person, StateTransitionOption... options) {
+    URI target = getSelfUri();
+    Link discussionsLink = getLink(org.gedcomx.rs.Rel.DISCUSSION_REFERENCES);
+    if (discussionsLink != null && discussionsLink.getHref() != null) {
+      target = discussionsLink.getHref().toURI();
+    }
+
+    Gedcomx gx = new Gedcomx();
+    gx.setPersons(Arrays.asList(person));
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public FamilyTreePersonState deleteDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
+    Link link = reference.getLink(Rel.DISCUSSION_REFERENCE);
+    link = link == null ? reference.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);  }
 
   @Override
   public FamilyTreePersonState addMediaReference(SourceDescriptionState description, StateTransitionOption... options) {

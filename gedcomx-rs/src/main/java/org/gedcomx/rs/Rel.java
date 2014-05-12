@@ -72,5 +72,7 @@ public class Rel {
   public static final String SOURCE_REFERENCES = "source-references";
   public static final String SPOUSES = "spouses";
   public static final String SPOUSE_RELATIONSHIPS = "spouse-relationships";
+  public static final String DISCUSSION_REFERENCE = "discussion-reference";
+  public static final String DISCUSSION_REFERENCES = "discussion-references";
 
 }
