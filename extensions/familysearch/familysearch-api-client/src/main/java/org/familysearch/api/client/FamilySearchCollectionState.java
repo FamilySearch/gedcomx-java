@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.discussions.Discussion;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
@@ -160,7 +161,9 @@ public class FamilySearchCollectionState extends CollectionState {
       throw new GedcomxApplicationException("Unable to add discussion: missing link.");
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
+    FamilySearchPlatform entity = new FamilySearchPlatform();
+    entity.addDiscussion(discussion);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
