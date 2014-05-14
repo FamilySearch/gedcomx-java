@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
+import org.familysearch.api.client.util.ExperimentsFilter;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.HealthConfig;
 import org.familysearch.platform.Tag;
@@ -78,6 +79,8 @@ public class FamilySearchStateFactory extends StateFactory {
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
-    return new Client(new URLConnectionClientHandler(), config);
+    Client client = new Client(new URLConnectionClientHandler(), config);
+    client.addFilter(new ExperimentsFilter("discussion-reference-json-fix", "parent-child-relationship-resources-consolidation", "current-user-person-401"));
+    return client;
   }
 }

@@ -112,6 +112,16 @@ public class FamilyTreeRelationshipState extends RelationshipState {
   }
 
   @Override
+  protected ClientRequest.Builder createRequestForEmbeddedResource(String rel) {
+    if (org.gedcomx.rs.Rel.DISCUSSION_REFERENCES.equals(rel)) {
+      return RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest());
+    }
+    else {
+      return super.createRequestForEmbeddedResource(rel);
+    }
+  }
+
+  @Override
   public FamilyTreeRelationshipState loadEmbeddedResources(StateTransitionOption... options) {
     return (FamilyTreeRelationshipState) super.loadEmbeddedResources(options);
   }
@@ -129,6 +139,10 @@ public class FamilyTreeRelationshipState extends RelationshipState {
   @Override
   public FamilyTreeRelationshipState loadSourceReferences(StateTransitionOption... options) {
     return (FamilyTreeRelationshipState) super.loadSourceReferences(options);
+  }
+
+  public FamilyTreeRelationshipState loadDiscussionReferences(StateTransitionOption... options) {
+    return (FamilyTreeRelationshipState) super.loadEmbeddedResources(new String[]{org.gedcomx.rs.Rel.DISCUSSION_REFERENCES}, options);
   }
 
   @Override

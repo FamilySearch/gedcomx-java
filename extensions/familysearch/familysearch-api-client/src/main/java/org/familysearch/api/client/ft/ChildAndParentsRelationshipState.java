@@ -149,7 +149,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   @Override
-  protected ClientRequest.Builder createRequestForEmbeddedResource() {
+  protected ClientRequest.Builder createRequestForEmbeddedResource(String rel) {
     return RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest());
   }
 

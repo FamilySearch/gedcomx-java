@@ -174,6 +174,16 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
+  protected ClientRequest.Builder createRequestForEmbeddedResource(String rel) {
+    if (org.gedcomx.rs.Rel.DISCUSSION_REFERENCES.equals(rel)) {
+      return RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest());
+    }
+    else {
+      return super.createRequestForEmbeddedResource(rel);
+    }
+  }
+
+  @Override
   public FamilyTreePersonState loadEmbeddedResources(StateTransitionOption... options) {
     return (FamilyTreePersonState) super.loadEmbeddedResources(options);
   }
@@ -191,6 +201,10 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   public FamilyTreePersonState loadSourceReferences(StateTransitionOption... options) {
     return (FamilyTreePersonState) super.loadSourceReferences(options);
+  }
+
+  public FamilyTreePersonState loadDiscussionReferences(StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.loadEmbeddedResources(new String[]{org.gedcomx.rs.Rel.DISCUSSION_REFERENCES}, options);
   }
 
   @Override
@@ -377,7 +391,7 @@ public class FamilyTreePersonState extends PersonState {
 
     Gedcomx gx = new Gedcomx();
     gx.setPersons(Arrays.asList(person));
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(gx).build(target, HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).entity(gx).build(target, HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
