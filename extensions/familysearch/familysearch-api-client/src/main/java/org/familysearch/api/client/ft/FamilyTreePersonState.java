@@ -399,11 +399,12 @@ public class FamilyTreePersonState extends PersonState {
     Link link = reference.getLink(Rel.DISCUSSION_REFERENCE);
     link = link == null ? reference.getLink(org.gedcomx.rs.Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
-      throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
+      throw new GedcomxApplicationException("Discussion reference cannot be deleted: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);  }
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
 
   @Override
   public FamilyTreePersonState addMediaReference(SourceDescriptionState description, StateTransitionOption... options) {
