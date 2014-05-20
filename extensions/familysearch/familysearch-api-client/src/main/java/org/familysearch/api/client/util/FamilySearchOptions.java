@@ -27,6 +27,7 @@ import org.gedcomx.types.ConfidenceLevel;
  */
 public class FamilySearchOptions {
 
+  public static final String CANDIDATE_ID = "candidateId";
   public static final String COLLECTION = "collection";
   public static final String CONFIDENCE = "confidence";
   public static final String DEFAULT = "default";
@@ -42,6 +43,10 @@ public class FamilySearchOptions {
   public static final String TYPE = "type";
 
   private FamilySearchOptions(){}
+
+  public static QueryParameter candidateId(String... id) {
+    return new QueryParameter(true, CANDIDATE_ID, id);
+  }
 
   public static QueryParameter collection(URI value) {
     return new QueryParameter(true, COLLECTION, value.toString());
