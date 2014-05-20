@@ -224,7 +224,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     String uri;
     try {
-      uri = UriTemplate.fromTemplate(template).set("q", query).expand();
+      uri = UriTemplate.fromTemplate(template).set("q", query).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
     }
     catch (VariableExpansionException e) {
       throw new GedcomxApplicationException(e);
