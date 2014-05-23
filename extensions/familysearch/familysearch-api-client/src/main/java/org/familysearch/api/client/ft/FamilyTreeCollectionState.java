@@ -15,10 +15,14 @@
  */
 package org.familysearch.api.client.ft;
 
+import com.damnhandy.uri.template.MalformedUriTemplateException;
+import com.damnhandy.uri.template.UriTemplate;
+import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.familysearch.api.client.FamilySearchCollectionState;
+import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
@@ -31,6 +35,7 @@ import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
@@ -182,6 +187,28 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
   public DiscoveryState readDiscoveryDocument(StateTransitionOption... options) {
     ClientRequest request = createAuthenticatedFeedRequest().build(getSelfUri().resolve("/.well-known/app-meta"), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newDiscoveryState(request, invoke(request, options), this.accessToken);
+  }
+
+  public FamilyTreePersonState readPersonWithRelationships(String id, StateTransitionOption... options) {
+    Link link = getLink(Rel.PERSON_WITH_RELATIONSHIPS);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    String template = link.getTemplate();
+    String uri;
+    try{
+      uri = UriTemplate.fromTemplate(template).set("person", id).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
 }

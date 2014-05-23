@@ -74,11 +74,15 @@ public class FamilyTreePersonState extends PersonState {
     return (FamilySearchPlatform) super.getEntity();
   }
 
+  public List<Person> getPersons() {
+    return getEntity() == null ? null : getEntity().getPersons();
+  }
+
   public List<ChildAndParentsRelationship> getChildAndParentsRelationships() {
     return getEntity() == null ? null : getEntity().getChildAndParentsRelationships();
   }
 
-  public List<ChildAndParentsRelationship> getChildAndParentsRelationshipsToParents() {
+  public List<ChildAndParentsRelationship> getChildAndParentsRelationshipsToChildren() {
     List<ChildAndParentsRelationship> relationships = getChildAndParentsRelationships();
     relationships = relationships == null ? null : new ArrayList<ChildAndParentsRelationship>(relationships);
     if (relationships != null) {
@@ -93,7 +97,7 @@ public class FamilyTreePersonState extends PersonState {
     return relationships;
   }
 
-  public List<ChildAndParentsRelationship> getChildAndParentsRelationshipsToChildren() {
+  public List<ChildAndParentsRelationship> getChildAndParentsRelationshipsToParents() {
     List<ChildAndParentsRelationship> relationships = getChildAndParentsRelationships();
     relationships = relationships == null ? null : new ArrayList<ChildAndParentsRelationship>(relationships);
     if (relationships != null) {
