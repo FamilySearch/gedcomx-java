@@ -100,6 +100,17 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  public RecordState readRecord(Entry person, StateTransitionOption... options) {
+    Link link = person.getLink(Rel.RECORD);
+    link = link == null ? person.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newRecordState(request, invoke(request, options), this.accessToken);
+  }
+
   public PersonState readPerson(Person person, StateTransitionOption... options) {
     Link link = person.getLink(Rel.PERSON);
     link = link == null ? person.getLink(Rel.SELF) : link;
