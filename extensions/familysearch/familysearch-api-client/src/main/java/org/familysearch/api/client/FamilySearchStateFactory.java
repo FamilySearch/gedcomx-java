@@ -21,6 +21,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.familysearch.api.client.PersonNonMatchesState;
 import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
 import org.familysearch.api.client.util.ExperimentsFilter;
 import org.familysearch.platform.FamilySearchPlatform;
@@ -77,6 +78,10 @@ public class FamilySearchStateFactory extends StateFactory {
   @Override
   protected PersonState newPersonState(ClientRequest request, ClientResponse response, String accessToken) {
     return super.newPersonState(request, response, accessToken);
+  }
+
+  protected PersonNonMatchesState newPersonNonMatchesState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new PersonNonMatchesState(request, response, accessToken, this);
   }
 
   @Override

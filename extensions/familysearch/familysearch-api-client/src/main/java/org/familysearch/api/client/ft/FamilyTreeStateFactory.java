@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
 import org.familysearch.api.client.PersonMatchResultsState;
 import org.familysearch.api.client.PersonMergeState;
+import org.familysearch.api.client.PersonNonMatchesState;
 
 import java.net.URI;
 
@@ -72,6 +73,11 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   @Override
   protected FamilyTreePersonChildrenState newPersonChildrenState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilyTreePersonChildrenState(request, response, accessToken, this);
+  }
+
+  @Override
+  protected PersonNonMatchesState newPersonNonMatchesState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newPersonNonMatchesState(request, response, accessToken);
   }
 
   protected ChangeHistoryState newChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken) {

@@ -18,8 +18,10 @@ package org.familysearch.api.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
+import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.*;
 import org.gedcomx.rs.client.PersonSearchResultsState;
@@ -121,4 +123,17 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
+
+  public PersonNonMatchesState addNonMatch(Entry entry, StateTransitionOption... options) {
+    Link link = getLink(Rel.NOT_A_MATCHES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    Gedcomx entity = new Gedcomx();
+    entity.addPerson(new Person().id(entry.getId().toString()));
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
+  }
+
 }

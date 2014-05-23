@@ -650,4 +650,20 @@ public class FamilyTreePersonState extends PersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
 
+  public PersonNonMatchesState addNonMatch(FamilyTreePersonState person, StateTransitionOption... options) {
+    return addNonMatch(person.getPerson(), options);
+  }
+
+  public PersonNonMatchesState addNonMatch(Person person, StateTransitionOption... options) {
+    Link link = getLink(Rel.NOT_A_MATCHES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    Gedcomx entity = new Gedcomx();
+    entity.addPerson(person);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
+  }
+
 }
