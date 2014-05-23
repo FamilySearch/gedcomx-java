@@ -18,6 +18,8 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
+import org.familysearch.api.client.PersonMatchResultsState;
+import org.familysearch.api.client.PersonMergeState;
 
 import java.net.URI;
 
@@ -78,5 +80,15 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
 
   protected DiscoveryState newDiscoveryState(ClientRequest request, ClientResponse response, String accessToken) {
     return new DiscoveryState(request, response, accessToken, this);
+  }
+
+  @Override
+  protected PersonMatchResultsState newPersonMatchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newPersonMatchResultsState(request, response, accessToken);
+  }
+
+  @Override
+  protected PersonMergeState newPersonMergeState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newPersonMergeState(request, response, accessToken);
   }
 }

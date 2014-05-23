@@ -33,8 +33,8 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "mergeAnalysis" )
 @XmlType ( name = "MergeAnalysis", propOrder = {"survivorResources", "duplicateResources", "conflictingResources", "survivor", "duplicate"} )
-public class MergeAnalysis
-{
+public class MergeAnalysis {
+
   private List<ResourceReference> survivorResources;
   private List<ResourceReference> duplicateResources;
   private List<MergeConflict> conflictingResources;

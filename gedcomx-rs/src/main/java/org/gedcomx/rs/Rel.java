@@ -49,6 +49,7 @@ public class Rel {
   public static final String DESCRIPTION = "description";
   public static final String EVIDENCE_REFERENCE = "evidence-reference";
   public static final String EVIDENCE_REFERENCES = "evidence-references";
+  public static final String MATCHES = "matches";
   public static final String MEDIA_REFERENCE = "media-reference";
   public static final String MEDIA_REFERENCES = "media-references";
   public static final String NOTE = "note";

@@ -41,6 +41,11 @@ public class AncestryResultsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public String getSelfRel() {
+    return Rel.ANCESTRY;
+  }
+
+  @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
   }

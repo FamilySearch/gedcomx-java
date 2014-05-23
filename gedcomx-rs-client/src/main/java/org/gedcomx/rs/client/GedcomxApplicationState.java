@@ -74,7 +74,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected E loadEntityConditionally(ClientResponse response) {
-    if (!HttpMethod.HEAD.equals(request.getMethod()) && response.getClientResponseStatus() == ClientResponse.Status.OK) {
+    if (!HttpMethod.HEAD.equals(request.getMethod()) && !HttpMethod.OPTIONS.equals(request.getMethod()) && response.getClientResponseStatus() == ClientResponse.Status.OK) {
       return loadEntity(response);
     }
     else {
@@ -197,9 +197,18 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public URI getSelfUri() {
-    Link link = getLink(Rel.SELF);
+    String selfRel = getSelfRel();
+    Link link = null;
+    if (selfRel != null) {
+      link = getLink(selfRel);
+    }
+    link = link == null ? getLink(Rel.SELF) : link;
     URI self = link == null ? null : link.getHref() == null ? null : link.getHref().toURI();
     return self == null ? getUri() : self;
+  }
+
+  public String getSelfRel() {
+    return null;
   }
 
   public GedcomxApplicationState head(StateTransitionOption... options) {

@@ -142,7 +142,7 @@ public class FamilySearchCollectionState extends CollectionState {
     }
 
     ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
   }
 
   public DiscussionsState readDiscussions(StateTransitionOption... options) {

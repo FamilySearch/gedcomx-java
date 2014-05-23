@@ -17,6 +17,7 @@ package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
@@ -27,7 +28,6 @@ import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.source.SourceReference;
 
@@ -42,6 +42,11 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
 
   protected ChildAndParentsRelationshipState(ClientRequest request, ClientResponse respons, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, respons, accessToken, stateFactory);
+  }
+
+  @Override
+  public String getSelfRel() {
+    return Rel.RELATIONSHIP;
   }
 
   @Override

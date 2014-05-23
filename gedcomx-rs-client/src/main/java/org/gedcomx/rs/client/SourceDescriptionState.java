@@ -38,6 +38,11 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public String getSelfRel() {
+    return Rel.DESCRIPTION;
+  }
+
+  @Override
   protected SourceDescriptionState clone(ClientRequest request, ClientResponse response) {
     return new SourceDescriptionState(request, response, this.accessToken, this.stateFactory);
   }

@@ -30,6 +30,7 @@ import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
+import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
@@ -55,6 +56,10 @@ public class FamilySearchStateFactory extends StateFactory {
     return new UserState(request, response, accessToken, this);
   }
 
+  protected PersonMergeState newPersonMergeState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new PersonMergeState(request, response, accessToken, this);
+  }
+
   protected PersonMatchResultsState newPersonMatchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PersonMatchResultsState(request, response, accessToken, this);
   }
@@ -67,6 +72,11 @@ public class FamilySearchStateFactory extends StateFactory {
   @Override
   protected SourceDescriptionState newSourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilySearchSourceDescriptionState(request, response, accessToken, this);
+  }
+
+  @Override
+  protected PersonState newPersonState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newPersonState(request, response, accessToken);
   }
 
   @Override

@@ -46,6 +46,11 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public String getSelfRel() {
+    return Rel.PERSON;
+  }
+
+  @Override
   protected PersonState clone(ClientRequest request, ClientResponse response) {
     return new PersonState(request, response, this.accessToken, this.stateFactory);
   }

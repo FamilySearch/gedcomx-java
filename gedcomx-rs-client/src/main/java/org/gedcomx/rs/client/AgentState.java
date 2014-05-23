@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
 
 /**
  * @author Ryan Heaton
@@ -43,6 +44,11 @@ public class AgentState extends GedcomxApplicationState<Gedcomx> {
   @Override
   public AgentState ifSuccessful() {
     return (AgentState) super.ifSuccessful();
+  }
+
+  @Override
+  public String getSelfRel() {
+    return Rel.AGENT;
   }
 
   @Override

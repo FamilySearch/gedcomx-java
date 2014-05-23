@@ -17,10 +17,16 @@ package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.util.RequestUtil;
+import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
-import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.links.Link;
+import org.gedcomx.rs.*;
 import org.gedcomx.rs.client.PersonSearchResultsState;
+import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.StateTransitionOption;
+
+import javax.ws.rs.HttpMethod;
 
 /**
  * @author Ryan Heaton
@@ -84,5 +90,35 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
   @Override
   public PersonMatchResultsState readLastPage(StateTransitionOption... options) {
     return (PersonMatchResultsState) super.readLastPage(options);
+  }
+
+  public PersonState readPerson(StateTransitionOption... options) {
+    Link link = getLink(org.gedcomx.rs.Rel.PERSON);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonMergeState readMergeOptions(Entry entry, StateTransitionOption... options) {
+    Link link = entry.getLink(Rel.MERGE);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.OPTIONS);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonMergeState readMergeAnalysis(Entry entry, StateTransitionOption... options) {
+    Link link = entry.getLink(Rel.MERGE);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
 }

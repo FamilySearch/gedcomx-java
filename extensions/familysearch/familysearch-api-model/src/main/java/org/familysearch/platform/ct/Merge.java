@@ -33,8 +33,8 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "merge" )
 @XmlType ( name = "Merge", propOrder = {"resourcesToDelete", "resourcesToCopy"} )
-public class Merge
-{
+public class Merge {
+
   private List<ResourceReference> resourcesToDelete;
   private List<ResourceReference> resourcesToCopy;
 

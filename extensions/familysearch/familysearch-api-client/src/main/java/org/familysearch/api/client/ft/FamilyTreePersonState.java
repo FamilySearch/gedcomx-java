@@ -15,10 +15,12 @@
  */
 package org.familysearch.api.client.ft;
 
+import com.damnhandy.uri.template.MalformedUriTemplateException;
+import com.damnhandy.uri.template.UriTemplate;
+import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.DiscussionState;
-import org.familysearch.api.client.Rel;
+import org.familysearch.api.client.*;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
@@ -585,6 +587,16 @@ public class FamilyTreePersonState extends PersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request, options), this.accessToken);
   }
 
+  public PersonMatchResultsState readMatches(StateTransitionOption... options) {
+    Link link = getLink(Rel.MATCHES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
+  }
+
   public FamilyTreePersonState restore(StateTransitionOption... options) {
     Link link = getLink(Rel.RESTORE);
     if (link == null || link.getHref() == null) {
@@ -593,6 +605,49 @@ public class FamilyTreePersonState extends PersonState {
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonMergeState readMergeOptions(FamilyTreePersonState candidate, StateTransitionOption... options) {
+    return transitionToPersonMerge(HttpMethod.OPTIONS, candidate, options);
+  }
+
+  public PersonMergeState readMergeAnalysis(FamilyTreePersonState candidate, StateTransitionOption... options) {
+    return transitionToPersonMerge(HttpMethod.GET, candidate, options);
+  }
+
+  protected PersonMergeState transitionToPersonMerge(String method, FamilyTreePersonState candidate, StateTransitionOption... options) {
+    Link link = getLink(Rel.MERGE);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    Person person = getPerson();
+    if (person == null || person.getId() == null) {
+      throw new IllegalArgumentException("Cannot read merge options: no person id available.");
+    }
+    String personId = person.getId();
+
+    person = candidate.getPerson();
+    if (person == null || person.getId() == null) {
+      throw new IllegalArgumentException("Cannot read merge options: no person id provided on the candidate.");
+    }
+    String candidateId = person.getId();
+
+    String template = link.getTemplate();
+
+    String uri;
+    try {
+      uri = UriTemplate.fromTemplate(template).set("pid", personId).set("dpid", candidateId).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), method);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
 
 }

@@ -19,6 +19,7 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
 
 /**
  * @author Ryan Heaton
@@ -27,6 +28,11 @@ public class RecordState extends GedcomxApplicationState<Gedcomx> {
 
   public RecordState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
+  }
+
+  @Override
+  public String getSelfRel() {
+    return Rel.RECORD;
   }
 
   @Override

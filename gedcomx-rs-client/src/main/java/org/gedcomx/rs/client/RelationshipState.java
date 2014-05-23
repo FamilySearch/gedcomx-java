@@ -43,6 +43,11 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  public String getSelfRel() {
+    return Rel.RELATIONSHIP;
+  }
+
+  @Override
   protected RelationshipState clone(ClientRequest request, ClientResponse response) {
     return new RelationshipState(request, response, this.accessToken, this.stateFactory);
   }
