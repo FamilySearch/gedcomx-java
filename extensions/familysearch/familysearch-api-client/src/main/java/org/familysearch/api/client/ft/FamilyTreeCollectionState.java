@@ -17,6 +17,7 @@ package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.familysearch.api.client.FamilySearchCollectionState;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
@@ -105,6 +106,16 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
   @Override
   public FamilyTreeCollectionState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
     return (FamilyTreeCollectionState) super.authenticateViaOAuth2(formData);
+  }
+
+  public FamilyTreeCollectionState authenticateViaUnauthenticatedAccess(String clientId, String ipAddress) {
+
+    MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
+    formData.add("grant_type", "unauthenticated_session");
+    formData.add("client_id", clientId);
+    formData.add("ip_address", ipAddress);
+
+    return this.authenticateViaOAuth2(formData);
   }
 
   @Override
