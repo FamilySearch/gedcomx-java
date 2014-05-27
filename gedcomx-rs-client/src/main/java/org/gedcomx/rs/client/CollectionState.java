@@ -416,4 +416,10 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
   }
 
+  public List<SourceDescription> getSourceDescriptions() {
+    return this.entity == null ? null : this.entity.getSourceDescriptions();
+  }
+
+
+
 }

@@ -22,6 +22,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
@@ -90,6 +91,10 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
     return this.entity == null ? null : this.entity.getCollections();
   }
 
+  public List<SourceDescription> getSourceDescriptions() {
+    return this.entity == null ? null : this.entity.getSourceDescriptions();
+  }
+
   public CollectionState readCollection(Collection collection, StateTransitionOption... options) {
     Link link = collection.getLink("self");
     if (link == null || link.getHref() == null) {
@@ -98,6 +103,12 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
+  }
+
+  public CollectionState readCollection(SourceDescription sourceDescription, StateTransitionOption... options) {
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(sourceDescription.getAbout().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
+
   }
 
   public CollectionState readCollection(StateTransitionOption... options) {
