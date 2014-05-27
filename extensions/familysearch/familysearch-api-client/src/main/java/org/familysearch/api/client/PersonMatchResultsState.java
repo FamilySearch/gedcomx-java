@@ -23,7 +23,6 @@ import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.*;
 import org.gedcomx.rs.client.PersonSearchResultsState;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.StateTransitionOption;

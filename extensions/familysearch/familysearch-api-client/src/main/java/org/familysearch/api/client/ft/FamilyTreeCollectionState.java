@@ -189,7 +189,29 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     return ((FamilyTreeStateFactory)this.stateFactory).newDiscoveryState(request, invoke(request, options), this.accessToken);
   }
 
-  public FamilyTreePersonState readPersonWithRelationships(String id, StateTransitionOption... options) {
+  public FamilyTreePersonState readPersonById(String id, StateTransitionOption... options) {
+    Link link = getLink(Rel.PERSON);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    String template = link.getTemplate();
+    String uri;
+    try{
+      uri = UriTemplate.fromTemplate(template).set("pid", id).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public FamilyTreePersonState readPersonWithRelationshipsById(String id, StateTransitionOption... options) {
     Link link = getLink(Rel.PERSON_WITH_RELATIONSHIPS);
     if (link == null || link.getTemplate() == null) {
       return null;
@@ -198,7 +220,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     String template = link.getTemplate();
     String uri;
     try{
-      uri = UriTemplate.fromTemplate(template).set("person", id).expand();
+      uri = UriTemplate.fromTemplate(template).set("pid", id).expand();
     }
     catch (VariableExpansionException e) {
       throw new GedcomxApplicationException(e);
