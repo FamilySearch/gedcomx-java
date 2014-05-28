@@ -16,6 +16,7 @@
 package org.familysearch.api.client.util;
 
 import org.familysearch.platform.artifacts.ArtifactType;
+import org.familysearch.platform.ct.MatchCollection;
 import org.familysearch.platform.ct.MatchStatus;
 import org.gedcomx.common.URI;
 import org.gedcomx.rs.client.options.HeaderParameter;
@@ -50,6 +51,10 @@ public class FamilySearchOptions {
 
   public static QueryParameter collection(URI value) {
     return new QueryParameter(true, COLLECTION, value.toString());
+  }
+
+  public static QueryParameter collection(MatchCollection value) {
+    return collection(value.toQNameURI());
   }
 
   public static QueryParameter confidence(ConfidenceLevel confidence) {

@@ -17,17 +17,24 @@ package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.util.FamilySearchOptions;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.platform.ct.MatchStatus;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
+import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.PersonSearchResultsState;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.types.IdentifierType;
 
 import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
 
 /**
  * @author Ryan Heaton
@@ -133,6 +140,14 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
     entity.addPerson(new Person().id(entry.getId().toString()));
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilySearchStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonMatchResultsState updateMatchStatus(Entry entry, MatchStatus status, StateTransitionOption... options) {
+    URI updateStatusUri = UriBuilder.fromUri(getSelfUri()).replaceQueryParam(FamilySearchOptions.STATUS, status.name().toLowerCase()).build();
+    ClientRequest request = createAuthenticatedRequest().type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE)
+      .entity(new Gedcomx().person(new Person().identifier(new Identifier(entry.getId(), IdentifierType.Persistent))))
+      .build(updateStatusUri, HttpMethod.POST);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
   }
 
 }
