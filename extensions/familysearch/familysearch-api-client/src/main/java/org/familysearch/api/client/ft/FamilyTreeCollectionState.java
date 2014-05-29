@@ -220,7 +220,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     String template = link.getTemplate();
     String uri;
     try{
-      uri = UriTemplate.fromTemplate(template).set("pid", id).expand();
+      uri = UriTemplate.fromTemplate(template).set("person", id).expand();
     }
     catch (VariableExpansionException e) {
       throw new GedcomxApplicationException(e);

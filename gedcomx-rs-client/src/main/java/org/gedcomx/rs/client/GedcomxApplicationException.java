@@ -15,7 +15,9 @@
  */
 package org.gedcomx.rs.client;
 
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import org.gedcomx.rs.client.util.HttpWarning;
 
 import java.util.ArrayList;
@@ -83,12 +85,17 @@ public class GedcomxApplicationException extends RuntimeException {
           builder.append("\nWarning: ").append(warning.getMessage());
         }
       }
-      message = builder.toString();
     }
 
     String body = null;
     if (this.response != null) {
-      body = this.response.getEntity(String.class);
+      try {
+        body = this.response.getEntity(String.class);
+      }
+      catch (Exception e) {
+        //unable to get the response body...
+        body = "(error response body unavailable)";
+      }
     }
     if (body != null) {
       builder.append('\n').append(body);
