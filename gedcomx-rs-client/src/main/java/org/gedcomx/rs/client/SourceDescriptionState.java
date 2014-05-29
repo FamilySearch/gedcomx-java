@@ -130,4 +130,15 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
     ClientRequest request = createAuthenticatedGedcomxRequest().entity(entity).build(target, HttpMethod.POST);
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
+
+  public SourceDescriptionState queryAttachedReferences(StateTransitionOption... options) {
+    Link link = getLink(Rel.SOURCE_REFERENCES_QUERY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+    else {
+      ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+      return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+    }
+  }
 }

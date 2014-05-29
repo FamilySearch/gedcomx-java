@@ -71,6 +71,7 @@ public class Rel {
   public static final String SOURCE_DESCRIPTIONS = "source-descriptions";
   public static final String SOURCE_REFERENCE = "source-reference";
   public static final String SOURCE_REFERENCES = "source-references";
+  public static final String SOURCE_REFERENCES_QUERY = "source-references-query";
   public static final String SPOUSES = "spouses";
   public static final String SPOUSE_RELATIONSHIPS = "spouse-relationships";
   public static final String DISCUSSION_REFERENCE = "discussion-reference";
