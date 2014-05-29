@@ -145,6 +145,10 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return (CollectionState) super.authenticateViaOAuth2(formData, options);
   }
 
+  public CollectionState update(Collection collection, StateTransitionOption... options) {
+    return post(new Gedcomx().collection(collection), options);
+  }
+
   public RecordsState readRecords(StateTransitionOption... options) {
     Link link = getLink(Rel.RECORDS);
     if (link == null || link.getHref() == null) {

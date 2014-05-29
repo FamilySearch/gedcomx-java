@@ -58,8 +58,8 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public CollectionState head(StateTransitionOption... options) {
-    return (CollectionState) super.head(options);
+  public CollectionsState head(StateTransitionOption... options) {
+    return (CollectionsState) super.head(options);
   }
 
   @Override
@@ -68,23 +68,23 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public CollectionState get(StateTransitionOption... options) {
-    return (CollectionState) super.get(options);
+  public CollectionsState get(StateTransitionOption... options) {
+    return (CollectionsState) super.get(options);
   }
 
   @Override
-  public CollectionState delete(StateTransitionOption... options) {
-    return (CollectionState) super.delete(options);
+  public CollectionsState delete(StateTransitionOption... options) {
+    return (CollectionsState) super.delete(options);
   }
 
   @Override
-  public CollectionState put(Gedcomx e, StateTransitionOption... options) {
-    return (CollectionState) super.put(e, options);
+  public CollectionsState put(Gedcomx e, StateTransitionOption... options) {
+    return (CollectionsState) super.put(e, options);
   }
 
   @Override
-  public CollectionState post(Gedcomx entity, StateTransitionOption... options) {
-    return (CollectionState) super.post(entity, options);
+  public CollectionsState post(Gedcomx entity, StateTransitionOption... options) {
+    return (CollectionsState) super.post(entity, options);
   }
 
   public List<Collection> getCollections() {
@@ -102,6 +102,16 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
+  }
+
+  public CollectionState updateCollection(Collection collection, StateTransitionOption... options) {
+    Link link = collection.getLink("self");
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.POST);
     return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
