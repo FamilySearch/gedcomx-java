@@ -71,7 +71,7 @@ public class FamilySearchStateFactory extends StateFactory {
   }
 
   @Override
-  protected SourceDescriptionState newSourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
+  protected FamilySearchSourceDescriptionState newSourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilySearchSourceDescriptionState(request, response, accessToken, this);
   }
 

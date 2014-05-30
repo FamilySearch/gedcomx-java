@@ -406,8 +406,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding subcollections.", getUri()));
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.POST);
-    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken).ifSuccessful();
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(new Gedcomx().collection(collection)).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
   public SourceDescriptionsState readResourcesOfCurrentUser(StateTransitionOption... options) {

@@ -141,4 +141,14 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
       return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
     }
   }
+
+  public CollectionState readCollection(StateTransitionOption... options) {
+    Link link = getLink(Rel.COLLECTION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
+  }
 }
