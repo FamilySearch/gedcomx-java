@@ -41,10 +41,6 @@ import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
  */
 public class FamilySearchStateFactory extends StateFactory {
 
-  protected CommentsState newCommentsState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new CommentsState(request, response, accessToken, this);
-  }
-
   protected DiscussionsState newDiscussionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new DiscussionsState(request, response, accessToken, this);
   }

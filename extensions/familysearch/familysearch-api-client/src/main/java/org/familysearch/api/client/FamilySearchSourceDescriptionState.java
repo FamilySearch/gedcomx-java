@@ -81,14 +81,14 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
     return (FamilySearchSourceDescriptionState) super.update(description);
   }
 
-  public CommentsState readComments(StateTransitionOption... options) {
+  public DiscussionState readComments(StateTransitionOption... options) {
     Link link = getLink(Rel.COMMENTS);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
   //TODO: Create FamilysearchSourceReferencesQueryState class, add it to FamilySearchStateFactory when link is created
