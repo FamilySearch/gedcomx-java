@@ -36,5 +36,7 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String FATHER_ROLE = "father-role";
   public static final String MOTHER_ROLE = "mother-role";
   public static final String PERSON_WITH_RELATIONSHIPS = "person-with-relationships";
+  public static final String PREFERRED_SPOUSE_RELATIONSHIP = "preferred-spouse-relationship";
+  public static final String PREFERRED_PARENT_RELATIONSHIP = "preferred-parent-relationship";
 
 }

@@ -34,7 +34,7 @@ import javax.ws.rs.HttpMethod;
 /**
  * @author Ryan Heaton
  */
-public class FamilyTreeRelationshipState extends RelationshipState {
+public class FamilyTreeRelationshipState extends RelationshipState implements PreferredRelationshipState {
 
   protected FamilyTreeRelationshipState(ClientRequest request, ClientResponse response, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
