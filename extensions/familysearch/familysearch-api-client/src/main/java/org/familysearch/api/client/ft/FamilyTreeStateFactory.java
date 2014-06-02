@@ -21,6 +21,7 @@ import org.familysearch.api.client.FamilySearchStateFactory;
 import org.familysearch.api.client.PersonMatchResultsState;
 import org.familysearch.api.client.PersonMergeState;
 import org.familysearch.api.client.PersonNonMatchesState;
+import org.gedcomx.rs.client.SourceDescriptionsState;
 
 import java.net.URI;
 
@@ -96,5 +97,10 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   @Override
   protected PersonMergeState newPersonMergeState(ClientRequest request, ClientResponse response, String accessToken) {
     return super.newPersonMergeState(request, response, accessToken);
+  }
+
+  @Override
+  protected SourceDescriptionsState newSourceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newSourceDescriptionsState(request, response, accessToken);
   }
 }

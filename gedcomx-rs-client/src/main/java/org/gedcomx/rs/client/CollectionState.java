@@ -306,9 +306,13 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public SourceDescriptionState addArtifact(SourceDescription description, DataSource artifact, StateTransitionOption... options) {
-    Link link = getLink(Rel.ARTIFACTS);
+    return addArtifact(this, description, artifact, options);
+  }
+
+  static SourceDescriptionState addArtifact(GedcomxApplicationState state, SourceDescription description, DataSource artifact, StateTransitionOption... options) {
+    Link link = state.getLink(Rel.ARTIFACTS);
     if (link == null || link.getHref() == null) {
-      throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding artifacts.", getUri()));
+      throw new GedcomxApplicationException(String.format("Resource at %s doesn't support adding artifacts.", state.getUri()));
     }
 
     FormDataMultiPart multiPart = new FormDataMultiPart();
@@ -354,8 +358,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     FormDataBodyPart artifactPart = new FormDataBodyPart(cd.build(), inputStream, MediaType.valueOf(mediaType));
     multiPart.getBodyParts().add(artifactPart);
-    ClientRequest request = createAuthenticatedGedcomxRequest().type(MediaType.MULTIPART_FORM_DATA_TYPE).entity(multiPart).build(link.getHref().toURI(), HttpMethod.POST);
-    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+    ClientRequest request = state.createAuthenticatedGedcomxRequest().type(MediaType.MULTIPART_FORM_DATA_TYPE).entity(multiPart).build(link.getHref().toURI(), HttpMethod.POST);
+    return state.stateFactory.newSourceDescriptionState(request, state.invoke(request, options), state.accessToken);
   }
 
   public SourceDescriptionsState readSourceDescriptions(StateTransitionOption... options) {

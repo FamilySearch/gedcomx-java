@@ -30,6 +30,8 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String NOT_A_MATCHES = "non-matches";
   public static final String NOT_A_MATCH = "non-match";
   public static final String PERSON_MATCHES_QUERY = "person-matches-query";
+  public static final String PORTRAIT = "portrait";
+  public static final String PORTRAITS = "portraits";
   public static final String RESTORE = "restore";
   public static final String FATHER_ROLE = "father-role";
   public static final String MOTHER_ROLE = "mother-role";
