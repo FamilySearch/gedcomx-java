@@ -63,6 +63,8 @@ public class Rel {
   public static final String PERSON = "person";
   public static final String PERSONS = "persons";
   public static final String PERSON_SEARCH = "person-search";
+  public static final String PLACE = "place";
+  public static final String PLACE_SEARCH = "place-search";
   public static final String PROFILE = "profile";
   public static final String RECORD = "record";
   public static final String RECORDS = "records";

@@ -29,7 +29,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;
-import org.gedcomx.rs.client.util.GedcomxSearchQueryBuilder;
+import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
@@ -119,7 +119,7 @@ public class FamilySearchCollectionState extends CollectionState {
     return ((FamilyTreeStateFactory)this.stateFactory).newUserState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonMatchResultsState searchForPersonMatches(GedcomxSearchQueryBuilder query, StateTransitionOption... options) {
+  public PersonMatchResultsState searchForPersonMatches(GedcomxPersonSearchQueryBuilder query, StateTransitionOption... options) {
     return searchForPersonMatches(query.build(), options);
   }
 
