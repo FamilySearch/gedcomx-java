@@ -91,7 +91,7 @@ public class FamilySearchStateFactory extends StateFactory {
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
     Client client = new Client(new URLConnectionClientHandler(), config);
-    client.addFilter(new ExperimentsFilter("discussion-reference-json-fix", "parent-child-relationship-resources-consolidation", "current-user-person-401"));
+    client.addFilter(new ExperimentsFilter("current-user-person-401"));
     return client;
   }
 }
