@@ -23,6 +23,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.familysearch.api.client.FamilySearchCollectionState;
 import org.familysearch.api.client.Rel;
+import org.familysearch.api.client.UserState;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
@@ -35,6 +36,7 @@ import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
+import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -230,6 +232,163 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PreferredRelationshipState readPreferredSpouseRelationship(UserState user, FamilyTreePersonState person, StateTransitionOption... options) {
+    return readPreferredRelationship(Rel.PREFERRED_SPOUSE_RELATIONSHIP, user.getUser().getTreeUserId(), person.getPerson().getId(), options);
+  }
+
+  public PreferredRelationshipState readPreferredParentRelationship(UserState user, FamilyTreePersonState person, StateTransitionOption... options) {
+    return readPreferredRelationship(Rel.PREFERRED_PARENT_RELATIONSHIP, user.getUser().getTreeUserId(), person.getPerson().getId(), options);
+  }
+
+  public PreferredRelationshipState readPreferredSpouseRelationship(String treeUserId, FamilyTreePersonState person, StateTransitionOption... options) {
+    return readPreferredRelationship(Rel.PREFERRED_SPOUSE_RELATIONSHIP, treeUserId, person.getPerson().getId(), options);
+  }
+
+  public PreferredRelationshipState readPreferredParentRelationship(String treeUserId, FamilyTreePersonState person, StateTransitionOption... options) {
+    return readPreferredRelationship(Rel.PREFERRED_PARENT_RELATIONSHIP, treeUserId, person.getPerson().getId(), options);
+  }
+
+  public PreferredRelationshipState readPreferredSpouseRelationship(String treeUserId, String personId, StateTransitionOption... options) {
+    return readPreferredRelationship(Rel.PREFERRED_SPOUSE_RELATIONSHIP, treeUserId, personId, options);
+  }
+
+  public PreferredRelationshipState readPreferredParentRelationship(String treeUserId, String personId, StateTransitionOption... options) {
+    return readPreferredRelationship(Rel.PREFERRED_PARENT_RELATIONSHIP, treeUserId, personId, options);
+  }
+
+  protected PreferredRelationshipState readPreferredRelationship(String rel, String treeUserId, String personId, StateTransitionOption[] options) {
+    Link link = getLink(rel);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    String template = link.getTemplate();
+    String uri;
+    try{
+      uri = UriTemplate.fromTemplate(template).set("pid", personId).set("uid", treeUserId).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    ClientResponse response = invoke(request, options);
+    if (response.getClientResponseStatus() == ClientResponse.Status.NO_CONTENT) {
+      return null;
+    }
+    
+    response.bufferEntity();
+    FamilySearchPlatform fsp = response.getEntity(FamilySearchPlatform.class);
+    try {
+      response.getEntityInputStream().reset();
+    }
+    catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    if (fsp.getChildAndParentsRelationships() != null && fsp.getChildAndParentsRelationships().size() > 0) {
+      return ((FamilyTreeStateFactory) this.stateFactory).newChildAndParentsRelationshipState(request, response, this.accessToken);
+    }
+    else {
+      return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipState(request, response, this.accessToken);
+    }
+  }
+
+  public FamilyTreePersonState updatePreferredSpouseRelationship(UserState user, FamilyTreePersonState person, PreferredRelationshipState relationshipState, StateTransitionOption... options) {
+    return updatePreferredRelationship(Rel.PREFERRED_SPOUSE_RELATIONSHIP, user.getUser().getTreeUserId(), person.getPerson().getId(), relationshipState, options);
+  }
+
+  public FamilyTreePersonState updatePreferredParentRelationship(UserState user, FamilyTreePersonState person, PreferredRelationshipState relationshipState, StateTransitionOption... options) {
+    return updatePreferredRelationship(Rel.PREFERRED_PARENT_RELATIONSHIP, user.getUser().getTreeUserId(), person.getPerson().getId(), relationshipState, options);
+  }
+
+  public FamilyTreePersonState updatePreferredSpouseRelationship(String treeUserId, FamilyTreePersonState person, PreferredRelationshipState relationshipState, StateTransitionOption... options) {
+    return updatePreferredRelationship(Rel.PREFERRED_SPOUSE_RELATIONSHIP, treeUserId, person.getPerson().getId(), relationshipState, options);
+  }
+
+  public FamilyTreePersonState updatePreferredParentRelationship(String treeUserId, FamilyTreePersonState person, PreferredRelationshipState relationshipState, StateTransitionOption... options) {
+    return updatePreferredRelationship(Rel.PREFERRED_PARENT_RELATIONSHIP, treeUserId, person.getPerson().getId(), relationshipState, options);
+  }
+
+  public FamilyTreePersonState updatePreferredSpouseRelationship(String treeUserId, String personId, PreferredRelationshipState relationshipState, StateTransitionOption... options) {
+    return updatePreferredRelationship(Rel.PREFERRED_SPOUSE_RELATIONSHIP, treeUserId, personId, relationshipState, options);
+  }
+
+  public FamilyTreePersonState updatePreferredParentRelationship(String treeUserId, String personId, PreferredRelationshipState relationshipState, StateTransitionOption... options) {
+    return updatePreferredRelationship(Rel.PREFERRED_PARENT_RELATIONSHIP, treeUserId, personId, relationshipState, options);
+  }
+
+  protected FamilyTreePersonState updatePreferredRelationship(String rel, String treeUserId, String personId, PreferredRelationshipState relationshipState, StateTransitionOption[] options) {
+    Link link = getLink(rel);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    String template = link.getTemplate();
+    String uri;
+    try{
+      uri = UriTemplate.fromTemplate(template).set("pid", personId).set("uid", treeUserId).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).header("Location", relationshipState.getSelfUri()).build(URI.create(uri), HttpMethod.PUT);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public FamilyTreePersonState deletePreferredSpouseRelationship(UserState user, FamilyTreePersonState person, StateTransitionOption... options) {
+    return deletePreferredRelationship(user.getUser().getTreeUserId(), person.getPerson().getId(), Rel.PREFERRED_SPOUSE_RELATIONSHIP, options);
+  }
+
+  public FamilyTreePersonState deletePreferredParentRelationship(UserState user, FamilyTreePersonState person, StateTransitionOption... options) {
+    return deletePreferredRelationship(user.getUser().getTreeUserId(), person.getPerson().getId(), Rel.PREFERRED_PARENT_RELATIONSHIP, options);
+  }
+
+  public FamilyTreePersonState deletePreferredSpouseRelationship(String treeUserId, FamilyTreePersonState person, StateTransitionOption... options) {
+    return deletePreferredRelationship(treeUserId, person.getPerson().getId(), Rel.PREFERRED_SPOUSE_RELATIONSHIP, options);
+  }
+
+  public FamilyTreePersonState deletePreferredParentRelationship(String treeUserId, FamilyTreePersonState person, StateTransitionOption... options) {
+    return deletePreferredRelationship(treeUserId, person.getPerson().getId(), Rel.PREFERRED_PARENT_RELATIONSHIP, options);
+  }
+
+  public FamilyTreePersonState deletePreferredSpouseRelationship(String treeUserId, String personId, StateTransitionOption... options) {
+    return deletePreferredRelationship(treeUserId, personId, Rel.PREFERRED_SPOUSE_RELATIONSHIP, options);
+  }
+
+  public FamilyTreePersonState deletePreferredParentRelationship(String treeUserId, String personId, StateTransitionOption... options) {
+    return deletePreferredRelationship(treeUserId, personId, Rel.PREFERRED_PARENT_RELATIONSHIP, options);
+  }
+
+  protected FamilyTreePersonState deletePreferredRelationship(String treeUserId, String personId, String rel, StateTransitionOption[] options) {
+    Link link = getLink(rel);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    String template = link.getTemplate();
+    String uri;
+    try{
+      uri = UriTemplate.fromTemplate(template).set("pid", personId).set("uid", treeUserId).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 

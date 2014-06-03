@@ -38,7 +38,7 @@ import java.util.Arrays;
 /**
  * @author Ryan Heaton
  */
-public class ChildAndParentsRelationshipState extends GedcomxApplicationState<FamilySearchPlatform> {
+public class ChildAndParentsRelationshipState extends GedcomxApplicationState<FamilySearchPlatform> implements PreferredRelationshipState {
 
   protected ChildAndParentsRelationshipState(ClientRequest request, ClientResponse respons, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, respons, accessToken, stateFactory);

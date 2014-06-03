@@ -25,9 +25,11 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.RelationshipType;
 
+import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
@@ -491,6 +493,24 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public SourceDescriptionsState readArtifacts(StateTransitionOption... options) {
+    Link link = getLink(Rel.ARTIFACTS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public SourceDescriptionState addArtifact(DataSource artifact, StateTransitionOption... options) {
+    return addArtifact(null, artifact, options);
+  }
+
+  public SourceDescriptionState addArtifact(SourceDescription description, DataSource artifact, StateTransitionOption... options) {
+    return CollectionState.addArtifact(this, description, artifact, options);
   }
 
   public PersonState addMediaReference(SourceDescriptionState description, StateTransitionOption... options) {

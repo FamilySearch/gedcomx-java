@@ -19,13 +19,17 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
+import java.net.URI;
+import java.util.Arrays;
 
 /**
  * @author Ryan Heaton
@@ -85,18 +89,84 @@ public class DiscussionState extends GedcomxApplicationState<FamilySearchPlatfor
     return getEntity() == null ? null : getEntity().getDiscussions() == null ? null : getEntity().getDiscussions().isEmpty() ? null : getEntity().getDiscussions().get(0);
   }
 
-  public CommentsState readComments(StateTransitionOption... options) {
+  protected Discussion createEmptySelf() {
+    Discussion discussion = new Discussion();
+    discussion.setId(getLocalSelfId());
+    return discussion;
+  }
+
+  protected String getLocalSelfId() {
+    Discussion me = getDiscussion();
+    return me == null ? null : me.getId();
+  }
+
+  public DiscussionState loadComments(StateTransitionOption... options) {
     Link link = getLink(Rel.COMMENTS);
-    if (link == null || link.getHref() == null) {
-      return null;
+    if (this.entity != null && link != null && link.getHref() != null) {
+      embed(link, this.entity, options);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request, options), this.accessToken);
+    return this;
+  }
+
+  @Override
+  protected ClientRequest.Builder createRequestForEmbeddedResource(String rel) {
+    return RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest());
   }
 
   public DiscussionState update(Discussion discussion, StateTransitionOption... options) {
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(getSelfUri(), HttpMethod.POST);
+    FamilySearchPlatform fsp = new FamilySearchPlatform();
+    fsp.addDiscussion(discussion);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(getSelfUri(), HttpMethod.POST);
     return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
+
+  public DiscussionState addComment(String comment, StateTransitionOption... options) {
+    return addComments(new Comment[]{new Comment(comment)}, options);
+  }
+
+  public DiscussionState addComment(Comment comment, StateTransitionOption... options) {
+    return addComments(new Comment[]{comment}, options);
+  }
+
+  public DiscussionState addComments(Comment[] comments, StateTransitionOption... options) {
+    Discussion discussion = createEmptySelf();
+    discussion.setComments(Arrays.asList(comments));
+    return updateComments(discussion, options);
+  }
+
+  public DiscussionState updateComment(Comment comment, StateTransitionOption... options) {
+    return updateComments(new Comment[]{comment}, options);
+  }
+
+  public DiscussionState updateComments(Comment[] comments, StateTransitionOption... options) {
+    Discussion discussion = createEmptySelf();
+    discussion.setComments(Arrays.asList(comments));
+    return updateComments(discussion, options);
+  }
+
+  protected DiscussionState updateComments(Discussion discussion, StateTransitionOption... options) {
+    URI target = getSelfUri();
+    Link link = getLink(Rel.COMMENTS);
+    if (link != null && link.getHref() != null) {
+      target = link.getHref().toURI();
+    }
+
+    FamilySearchPlatform gx = new FamilySearchPlatform();
+    gx.setDiscussions(Arrays.asList(discussion));
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(target, HttpMethod.POST);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
+  }
+
+  public DiscussionState deleteComment(Comment comment, StateTransitionOption... options) {
+    Link link = comment.getLink(Rel.COMMENT);
+    link = link == null ? comment.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Comment cannot be deleted: missing link.");
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
+  }
+
 }

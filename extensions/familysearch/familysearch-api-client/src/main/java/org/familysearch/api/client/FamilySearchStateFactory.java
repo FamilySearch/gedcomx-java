@@ -41,10 +41,6 @@ import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
  */
 public class FamilySearchStateFactory extends StateFactory {
 
-  protected CommentsState newCommentsState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new CommentsState(request, response, accessToken, this);
-  }
-
   protected DiscussionsState newDiscussionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new DiscussionsState(request, response, accessToken, this);
   }
@@ -71,7 +67,7 @@ public class FamilySearchStateFactory extends StateFactory {
   }
 
   @Override
-  protected SourceDescriptionState newSourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
+  protected FamilySearchSourceDescriptionState newSourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilySearchSourceDescriptionState(request, response, accessToken, this);
   }
 
@@ -95,7 +91,7 @@ public class FamilySearchStateFactory extends StateFactory {
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
     Client client = new Client(new URLConnectionClientHandler(), config);
-    client.addFilter(new ExperimentsFilter("discussion-reference-json-fix", "parent-child-relationship-resources-consolidation", "current-user-person-401"));
+    client.addFilter(new ExperimentsFilter("current-user-person-401"));
     return client;
   }
 }

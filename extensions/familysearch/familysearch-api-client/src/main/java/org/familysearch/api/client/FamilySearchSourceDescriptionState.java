@@ -20,7 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.source.SourceDescription;
@@ -81,14 +81,14 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
     return (FamilySearchSourceDescriptionState) super.update(description);
   }
 
-  public CommentsState readComments(StateTransitionOption... options) {
+  public DiscussionState readComments(StateTransitionOption... options) {
     Link link = getLink(Rel.COMMENTS);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newCommentsState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
   //TODO: Create FamilysearchSourceReferencesQueryState class, add it to FamilySearchStateFactory when link is created
@@ -101,4 +101,20 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newFamilySearchSourceReferencesQueryState(request, invoke(request), this.accessToken);
   }  */
+
+  public FamilySearchSourceDescriptionState moveToCollection(CollectionState collection, StateTransitionOption... options) {
+    Link link = collection.getLink(Rel.SOURCE_DESCRIPTIONS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    SourceDescription me = getSourceDescription();
+    if (me == null || me.getId() == null) {
+      return null;
+    }
+
+    Gedcomx gx = new Gedcomx().sourceDescription(new SourceDescription().id(me.getId()));
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilySearchStateFactory)this.stateFactory).newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
 }

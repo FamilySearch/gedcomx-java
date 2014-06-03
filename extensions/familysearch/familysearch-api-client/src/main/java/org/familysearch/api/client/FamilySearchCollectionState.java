@@ -20,7 +20,6 @@ import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.discussions.Discussion;
@@ -116,7 +115,7 @@ public class FamilySearchCollectionState extends CollectionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newUserState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newUserState(request, invoke(request, options), this.accessToken);
   }
 
   public PersonMatchResultsState searchForPersonMatches(GedcomxPersonSearchQueryBuilder query, StateTransitionOption... options) {
@@ -152,7 +151,7 @@ public class FamilySearchCollectionState extends CollectionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newDiscussionsState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionsState(request, invoke(request, options), this.accessToken);
   }
 
   public DiscussionState addDiscussion(Discussion discussion, StateTransitionOption... options) {
@@ -164,7 +163,7 @@ public class FamilySearchCollectionState extends CollectionState {
     FamilySearchPlatform entity = new FamilySearchPlatform();
     entity.addDiscussion(discussion);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
 }

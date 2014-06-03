@@ -75,4 +75,9 @@ public class UserState extends GedcomxApplicationState<FamilySearchPlatform> {
   public UserState post(FamilySearchPlatform entity, StateTransitionOption... options) {
     return (UserState) super.post(entity, options);
   }
+
+  @Override
+  public UserState ifSuccessful() {
+    return (UserState) super.ifSuccessful();
+  }
 }

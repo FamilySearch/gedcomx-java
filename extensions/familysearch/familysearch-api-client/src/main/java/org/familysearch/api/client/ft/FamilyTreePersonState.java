@@ -358,6 +358,26 @@ public class FamilyTreePersonState extends PersonState {
     return (FamilyTreePersonState) super.deleteSourceReference(reference, options);
   }
 
+  public SourceDescriptionsState readPortraits(StateTransitionOption... options) {
+    Link link = getLink(Rel.PORTRAITS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public ClientResponse readPortrait(StateTransitionOption... options) {
+    Link link = getLink(Rel.PORTRAIT);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return invoke(request, options);
+  }
+
   public FamilyTreePersonState addDiscussionReference(DiscussionState discussion, StateTransitionOption... options) {
     DiscussionReference reference = new DiscussionReference();
     reference.setResource(new org.gedcomx.common.URI(discussion.getSelfUri().toString()));
