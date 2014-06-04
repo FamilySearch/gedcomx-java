@@ -121,6 +121,10 @@ public class StateFactory {
     return new PlaceDescriptionsState(request, response, accessToken, this);
   }
 
+  protected PlaceState newPlaceState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new PlaceState(request, response, accessToken, this);
+  }
+
   protected PersonSpousesState newPersonSpousesState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PersonSpousesState(request, response, accessToken, this);
   }

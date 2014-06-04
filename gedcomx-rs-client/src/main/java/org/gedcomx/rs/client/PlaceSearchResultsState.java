@@ -86,7 +86,7 @@ public class PlaceSearchResultsState extends GedcomxApplicationState<Feed> {
   }
 
   public PlaceDescriptionState readPlaceDescription(Entry place, StateTransitionOption... options) {
-    Link link = place.getLink(Rel.PLACE);
+    Link link = place.getLink(Rel.DESCRIPTION);
     link = link == null ? place.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
       return null;
