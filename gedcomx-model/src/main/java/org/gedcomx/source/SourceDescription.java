@@ -46,6 +46,7 @@ import java.util.*;
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
+  private String lang;
   private List<SourceCitation> citations;
   private String mediaType;
   private URI about;
@@ -68,6 +69,38 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<Field> fields;
   private ResourceReference repository;
   private ResourceReference descriptorRef;
+
+  /**
+   * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
+   * Note that some language-enabled elements MAY override the language.
+   *
+   * @return The language of the genealogical data.
+   */
+  @XmlAttribute ( namespace = XMLConstants.XML_NS_URI )
+  public String getLang() {
+    return lang;
+  }
+
+  /**
+   * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
+   * Note that some language-enabled elements MAY override the language.
+   *
+   * @param lang The language of this genealogical data.
+   */
+  public void setLang(String lang) {
+    this.lang = lang;
+  }
+
+  /**
+   * Build out this envelope with a lang.
+   *
+   * @param lang The lang.
+   * @return this.
+   */
+  public SourceDescription lang(String lang) {
+    setLang(lang);
+    return this;
+  }
 
   @Override
   public SourceDescription id(String id) {

@@ -21,7 +21,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import org.familysearch.api.client.PersonNonMatchesState;
 import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
 import org.familysearch.api.client.util.ExperimentsFilter;
 import org.familysearch.platform.FamilySearchPlatform;
@@ -32,7 +31,6 @@ import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
 import org.gedcomx.rs.client.PersonState;
-import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
 
