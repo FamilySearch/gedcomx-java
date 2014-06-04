@@ -56,6 +56,9 @@ public class Link implements HasJsonKey {
   private String allow;
   private String hreflang;
   private String title;
+  private Integer count;
+  private Integer offset;
+  private Integer results;
 
   public Link(String rel, URI href) {
     this.rel = rel;
@@ -366,6 +369,96 @@ public class Link implements HasJsonKey {
   }
 
   /**
+   * The number of elements in the page, if this link refers to a page of resources.
+   *
+   * @return The number of elements in the page, if this link refers to a page of resources.
+   */
+  @XmlAttribute
+  public Integer getCount() {
+    return count;
+  }
+
+  /**
+   * The number of elements in the page, if this link refers to a page of resources.
+   *
+   * @param count The number of elements in the page, if this link refers to a page of resources.
+   */
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+  /**
+   * Build out this link with a count.
+   *
+   * @param count The count.
+   * @return this.
+   */
+  public Link count(Integer count) {
+    setCount(count);
+    return this;
+  }
+
+  /**
+   * The index of the offset of the page, if this link refers to a page of resources.
+   *
+   * @return The index of the offset of the page, if this link refers to a page of resources.
+   */
+  @XmlAttribute
+  public Integer getOffset() {
+    return offset;
+  }
+
+  /**
+   * The index of the offset of the page, if this link refers to a page of resources.
+   *
+   * @param offset The index of the offset of the page, if this link refers to a page of resources.
+   */
+  public void setOffset(Integer offset) {
+    this.offset = offset;
+  }
+
+  /**
+   * Build out this link with an offset.
+   *
+   * @param offset The offset.
+   * @return this.
+   */
+  public Link offset(Integer offset) {
+    setOffset(offset);
+    return this;
+  }
+
+  /**
+   * The total number of results in the page to which this links, if this link refers to a page of resources.
+   *
+   * @return The total number of results in the page to which this links, if this link refers to a page of resources.
+   */
+  @XmlAttribute
+  public Integer getResults() {
+    return results;
+  }
+
+  /**
+   * The total number of results in the page to which this links, if this link refers to a page of resources.
+   *
+   * @param results The total number of results in the page to which this links, if this link refers to a page of resources.
+   */
+  public void setResults(Integer results) {
+    this.results = results;
+  }
+
+  /**
+   * Build out this link with total results.
+   *
+   * @param results The total results count.
+   * @return this.
+   */
+  public Link results(Integer results) {
+    setResults(results);
+    return this;
+  }
+
+  /**
    * Format this link as a Link header per RFC 5988.
    *
    * @return The value of this link formatted per RFC 5988.
@@ -408,6 +501,18 @@ public class Link implements HasJsonKey {
 
     if (this.title != null) {
       builder.append("; title=\"").append(this.title).append("\"");
+    }
+
+    if (this.count != null) {
+      builder.append("; count=\"").append(this.title).append("\"");
+    }
+
+    if (this.offset != null) {
+      builder.append("; offset=\"").append(this.title).append("\"");
+    }
+
+    if (this.results != null) {
+      builder.append("; results=\"").append(this.title).append("\"");
     }
 
     return builder.toString();
