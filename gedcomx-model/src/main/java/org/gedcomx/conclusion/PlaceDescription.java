@@ -47,6 +47,7 @@ public class PlaceDescription extends Subject {
   private Date temporalDescription;
   private Double latitude;
   private Double longitude;
+  private ResourceReference place;
   private ResourceReference spatialDescription;
   private ResourceReference jurisdiction;
   private PlaceDisplayProperties display;
@@ -388,6 +389,35 @@ public class PlaceDescription extends Subject {
    */
   public PlaceDescription jurisdiction(ResourceReference jurisdiction) {
     setJurisdiction(jurisdiction);
+    return this;
+  }
+
+  /**
+   * A reference to the place being described.
+   *
+   * @return A reference to the place being described.
+   */
+  public ResourceReference getPlace() {
+    return place;
+  }
+
+  /**
+   *  A reference to the place being described.
+   *
+   * @param place A reference to the place being described.
+   */
+  public void setPlace(ResourceReference place) {
+    this.place = place;
+  }
+
+  /**
+   * Build out this place description with a place.
+   *
+   * @param place The reference to the place.
+   * @return this
+   */
+  public PlaceDescription place(ResourceReference place) {
+    setPlace(place);
     return this;
   }
 
