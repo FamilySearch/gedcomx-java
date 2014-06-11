@@ -39,7 +39,7 @@ import java.util.List;
  * and possibly its type, time period, and/or a geospatial description -- a description
  * of a place as a snapshot in time.
  */
-@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "jurisdiction", "displayExtension" } )
+@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "place", "jurisdiction", "displayExtension" } )
 public class PlaceDescription extends Subject {
 
   private List<TextValue> names;
