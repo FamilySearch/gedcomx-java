@@ -351,8 +351,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
           multiPart.field("title", value.getValue());
         }
       }
-      if (description.getDescription() != null) {
-        for (TextValue value : description.getDescription()) {
+      if (description.getDescriptions() != null) {
+        for (TextValue value : description.getDescriptions()) {
           multiPart.field("description", value.getValue());
         }
       }

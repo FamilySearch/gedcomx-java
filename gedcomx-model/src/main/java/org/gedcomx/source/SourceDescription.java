@@ -42,7 +42,7 @@ import java.util.*;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "sortKey", "description", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "sortKey", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -59,9 +59,9 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<Note> notes;
   private Attribution attribution;
   private URI resourceType;
-  private List<URI> rights;
+  private List<ResourceReference> rights;
   private String sortKey;
-  private List<TextValue> description;
+  private List<TextValue> descriptions;
   private List<Identifier> identifiers;
   private Date created;
   private Date modified;
@@ -186,7 +186,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @XmlElement (name="rights")
   @JsonProperty ("rights")
   @JsonName ("rights")
-  public List<URI> getRights() {
+  public List<ResourceReference> getRights() {
     return rights;
   }
 
@@ -196,7 +196,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @param rights The rights for this source.
    */
   @JsonProperty ("rights")
-  public void setRights(List<URI> rights) {
+  public void setRights(List<ResourceReference> rights) {
     this.rights = rights;
   }
 
@@ -205,7 +205,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @param rights The rights.
    * @return this.
    */
-  public SourceDescription rights(URI rights) {
+  public SourceDescription rights(ResourceReference rights) {
     addRights(rights);
     return this;
   }
@@ -215,10 +215,10 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param rights The rights to be added.
    */
-  public void addRights(URI rights) {
+  public void addRights(ResourceReference rights) {
     if (rights != null) {
       if (this.rights == null) {
-        this.rights = new LinkedList<URI>();
+        this.rights = new LinkedList<ResourceReference>();
       }
       this.rights.add(rights);
     }
@@ -752,18 +752,21 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * 
    * @return Human-readable descriptions of the source.
    */
+  @XmlElement (name="description")
+  @JsonProperty ("descriptions")
+  @JsonName ("descriptions")
   @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
-  public List<TextValue> getDescription() {
-    return description;
+  public List<TextValue> getDescriptions() {
+    return descriptions;
   }
 
   /**
    * Human-readable descriptions of the source.
    * 
-   * @param description Human-readable descriptions of the source.
+   * @param descriptions Human-readable descriptions of the source.
    */
-  public void setDescription(List<TextValue> description) {
-    this.description = description;
+  public void setDescriptions(List<TextValue> descriptions) {
+    this.descriptions = descriptions;
   }
 
   /**
@@ -772,11 +775,11 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return this.
    */
   public SourceDescription description(TextValue description) {
-    if (this.description == null) {
-      this.description = new ArrayList<TextValue>();
+    if (this.descriptions == null) {
+      this.descriptions = new ArrayList<TextValue>();
     }
 
-    this.description.add(description);
+    this.descriptions.add(description);
     return this;
   }
 
@@ -1033,12 +1036,12 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
     this.attribution = this.attribution == null ? description.attribution : this.attribution;
     this.resourceType = this.resourceType == null ? description.resourceType : this.resourceType;
     this.sortKey = this.sortKey == null ? description.sortKey : this.sortKey;
-    if (description.description != null) {
-      this.description = this.description == null ? new ArrayList<TextValue>() : this.description;
-      this.description.addAll(description.description);
+    if (description.descriptions != null) {
+      this.descriptions = this.descriptions == null ? new ArrayList<TextValue>() : this.descriptions;
+      this.descriptions.addAll(description.descriptions);
     }
     if (description.rights != null) {
-      this.rights = this.rights == null ? new ArrayList<URI>() : this.rights;
+      this.rights = this.rights == null ? new ArrayList<ResourceReference>() : this.rights;
       this.rights.addAll(description.rights);
     }
     if (description.identifiers != null) {
