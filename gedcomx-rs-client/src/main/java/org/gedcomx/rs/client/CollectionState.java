@@ -422,7 +422,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public CollectionsState readSubcollections(StateTransitionOption... options) {
-    Link link = getLink(Rel.COLLECTIONS);
+    Link link = getLink(Rel.SUBCOLLECTIONS);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -432,7 +432,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public CollectionState addCollection(Collection collection, StateTransitionOption... options) {
-    Link link = getLink(Rel.COLLECTIONS);
+    Link link = getLink(Rel.SUBCOLLECTIONS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding subcollections.", getUri()));
     }
