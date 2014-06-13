@@ -47,7 +47,7 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "relationships" )
-@XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fields"} )
+@XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fields", "display"} )
 public class Relationship extends Subject implements HasFacts, HasFields {
 
   private URI type;
@@ -55,6 +55,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   private ResourceReference person2;
   private List<Fact> facts;
   private List<Field> fields;
+  private RelationshipDisplayProperties display;
 
   @Override
   public Relationship id(String id) {
@@ -412,6 +413,14 @@ public class Relationship extends Subject implements HasFacts, HasFields {
       }
       fields.add(field);
     }
+  }
+
+  public RelationshipDisplayProperties getDisplay() {
+    return display;
+  }
+
+  public void setDisplay(RelationshipDisplayProperties display) {
+    this.display = display;
   }
 
   /**

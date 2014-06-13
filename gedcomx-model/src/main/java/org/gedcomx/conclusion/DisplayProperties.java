@@ -42,6 +42,7 @@ public class DisplayProperties extends ExtensibleData {
   private String marriagePlace;
   private String ascendancyNumber;
   private String descendancyNumber;
+  private String sortKey;
 
   @Override
   public DisplayProperties id(String id) {
@@ -354,6 +355,14 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setDescendancyNumber(String descendancyNumber) {
     this.descendancyNumber = descendancyNumber;
+  }
+
+  public String getSortKey() {
+    return sortKey;
+  }
+
+  public void setSortKey(String sortKey) {
+    this.sortKey = sortKey;
   }
 
   /**
