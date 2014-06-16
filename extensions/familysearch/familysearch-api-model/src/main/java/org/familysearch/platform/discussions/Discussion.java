@@ -15,13 +15,16 @@
  */
 package org.familysearch.platform.discussions;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -38,6 +41,7 @@ import java.util.List;
 @XmlType ( name = "Discussion", propOrder = { "title", "details", "created", "contributor", "modified", "numberOfComments", "comments" } )
 public class Discussion extends HypermediaEnabledData {
 
+  private Boolean anchor;
   private String title;
   private String details;
   private ResourceReference contributor;
@@ -72,6 +76,37 @@ public class Discussion extends HypermediaEnabledData {
    */
   public Discussion title(String title) {
     setTitle(title);
+    return this;
+  }
+
+  /**
+   * Whether this subject has been identified as the "anchor".
+   *
+   * @return Whether this subject has been identified as "anchor".
+   */
+  @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  public Boolean getAnchor() {
+    return anchor;
+  }
+
+  /**
+   * Whether this subject has been identified as the "anchor".
+   *
+   * @param anchor Whether this subject has been identified as "anchor".
+   */
+  public void setAnchor(Boolean anchor) {
+    this.anchor = anchor;
+  }
+
+  /**
+   * Build up this subject with an anchor flag.
+   *
+   * @param anchor The anchor flag.
+   * @return this.
+   */
+  public Discussion anchor(Boolean anchor) {
+    setAnchor(anchor);
     return this;
   }
 

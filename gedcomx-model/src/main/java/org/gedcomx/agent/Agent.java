@@ -15,6 +15,7 @@
  */
 package org.gedcomx.agent;
 
+import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -25,6 +26,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -45,6 +47,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "agents" )
 public class Agent extends HypermediaEnabledData {
 
+  private Boolean anchor;
   private List<TextValue> names;
   private List<Identifier> identifiers;
   private ResourceReference homepage;
@@ -67,6 +70,37 @@ public class Agent extends HypermediaEnabledData {
   @Override
   public Agent link(Link link) {
     return (Agent) super.link(link);
+  }
+
+  /**
+   * Whether this subject has been identified as the "anchor".
+   *
+   * @return Whether this subject has been identified as "anchor".
+   */
+  @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  public Boolean getAnchor() {
+    return anchor;
+  }
+
+  /**
+   * Whether this subject has been identified as the "anchor".
+   *
+   * @param anchor Whether this subject has been identified as "anchor".
+   */
+  public void setAnchor(Boolean anchor) {
+    this.anchor = anchor;
+  }
+
+  /**
+   * Build up this subject with an anchor flag.
+   *
+   * @param anchor The anchor flag.
+   * @return this.
+   */
+  public Agent anchor(Boolean anchor) {
+    setAnchor(anchor);
+    return this;
   }
 
   /**
