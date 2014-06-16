@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * A conclusion about a fact applicable to a person or relationship.
  */
-@XmlType ( name = "Fact", propOrder = { "date", "place", "value", "qualifiers", "fields"})
+@XmlType ( name = "Fact", propOrder = {"date", "place", "value", "qualifiers", "fields"} )
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
 public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
@@ -63,7 +63,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * Create a fact with the passed in type and values.
    *
    * @param factType the fact type.
-   * @param value The value as supplied by the user.
+   * @param value    The value as supplied by the user.
    */
   public Fact(FactType factType, String value) {
     setKnownType(factType);
@@ -74,8 +74,8 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * Create a date/place fact with the passed in type and values.
    *
    * @param factType the fact type.
-   * @param date The date of applicability of this fact.
-   * @param place The place of applicability of this fact.
+   * @param date     The date of applicability of this fact.
+   * @param place    The place of applicability of this fact.
    */
   public Fact(FactType factType, String date, String place) {
     this(factType, new Date().original(date), new PlaceReference().original(place), null);
@@ -85,8 +85,8 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * Create a date/place fact with the passed in type and values.
    *
    * @param factType the fact type.
-   * @param date The date of applicability of this fact.
-   * @param place The place of applicability of this fact.
+   * @param date     The date of applicability of this fact.
+   * @param place    The place of applicability of this fact.
    */
   public Fact(FactType factType, Date date, PlaceReference place) {
     this(factType, date, place, null);
@@ -96,9 +96,9 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * Create a date/place fact with the passed in type and values.
    *
    * @param factType the fact type.
-   * @param date The date of applicability of this fact.
-   * @param place The place of applicability of this fact.
-   * @param value The value as supplied by the user.
+   * @param date     The date of applicability of this fact.
+   * @param place    The place of applicability of this fact.
+   * @param value    The value as supplied by the user.
    */
   public Fact(FactType factType, Date date, PlaceReference place, String value) {
     setKnownType(factType);
@@ -172,13 +172,18 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
     return (Fact) super.analysis(analysis);
   }
 
+  @Override
+  public Fact sortKey(String sortKey) {
+    return (Fact) super.sortKey(sortKey);
+  }
+
   /**
    * The type of the fact.
    *
    * @return The type of the fact.
    */
   @XmlAttribute
-  @XmlQNameEnumRef (FactType.class)
+  @XmlQNameEnumRef ( FactType.class )
   public URI getType() {
     return type;
   }
@@ -242,7 +247,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @return Whether this fact is the primary fact of the record from which the subject was extracted.
    */
   @XmlAttribute
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public Boolean getPrimary() {
     return primary;
   }
@@ -259,6 +264,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
 
   /**
    * Build up this fact with a 'primary' flag.
+   *
    * @param primary The primary flag.
    * @return this.
    */
@@ -287,6 +293,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
 
   /**
    * Build up this fact with a date.
+   *
    * @param date the date.
    * @return this.
    */
@@ -344,6 +351,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
 
   /**
    * Build up this fact with a value.
+   *
    * @param value The value.
    * @return this.
    */
@@ -357,9 +365,9 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    *
    * @return The qualifiers associated with this fact.
    */
-  @XmlElement (name = "qualifier")
-  @JsonName ("qualifiers")
-  @JsonProperty ("qualifiers")
+  @XmlElement ( name = "qualifier" )
+  @JsonName ( "qualifiers" )
+  @JsonProperty ( "qualifiers" )
   @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
@@ -370,7 +378,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    *
    * @param qualifiers qualifiers to associate with this fact.
    */
-  @JsonProperty ("qualifiers")
+  @JsonProperty ( "qualifiers" )
   public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
   }
@@ -403,9 +411,9 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    *
    * @return The references to the record fields being used as evidence.
    */
-  @XmlElement( name = "field" )
-  @JsonProperty( "fields" )
-  @JsonName( "fields" )
+  @XmlElement ( name = "field" )
+  @JsonProperty ( "fields" )
+  @JsonName ( "fields" )
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -416,7 +424,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" )
+  @JsonProperty ( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

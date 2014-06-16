@@ -155,6 +155,11 @@ public class Person extends Subject implements HasFacts, HasFields {
     return (Person) super.media(media);
   }
 
+  @Override
+  public Person sortKey(String sortKey) {
+    return (Person) super.sortKey(sortKey);
+  }
+
   /**
    * Whether this person has been designated for limited distribution or display.
    *

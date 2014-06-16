@@ -27,8 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  * a Web-based application. All display properties are provided in the default locale for the current
  * application context and are NOT considered canonical for the purposes of data exchange.
  */
-@XmlType ( name = "DisplayProperties" )
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@XmlType (name = "DisplayProperties")
+@Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
 public class DisplayProperties extends ExtensibleData {
 
   private String name;
@@ -42,7 +42,6 @@ public class DisplayProperties extends ExtensibleData {
   private String marriagePlace;
   private String ascendancyNumber;
   private String descendancyNumber;
-  private String sortKey;
 
   @Override
   public DisplayProperties id(String id) {
@@ -69,7 +68,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * Build up these properties with a name.
-   * 
+   *
    * @param name The name.
    * @return this.
    */
@@ -138,7 +137,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the birth date of the person.
-   * 
+   *
    * @return The displayable label for the birth date of the person.
    */
   public String getBirthDate() {
@@ -147,7 +146,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the birth date of the person.
-   * 
+   *
    * @param birthDate The displayable label for the birth date of the person.
    */
   public void setBirthDate(String birthDate) {
@@ -167,7 +166,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the birth place of the person.
-   * 
+   *
    * @return The displayable label for the birth place of the person.
    */
   public String getBirthPlace() {
@@ -176,7 +175,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the birth place of the person.
-   * 
+   *
    * @param birthPlace The displayable label for the birth place of the person.
    */
   public void setBirthPlace(String birthPlace) {
@@ -196,7 +195,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the death date of the person.
-   * 
+   *
    * @return The displayable label for the death date of the person.
    */
   public String getDeathDate() {
@@ -205,7 +204,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the death date of the person.
-   * 
+   *
    * @param deathDate The displayable label for the death date of the person.
    */
   public void setDeathDate(String deathDate) {
@@ -225,7 +224,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the death place of the person.
-   * 
+   *
    * @return The displayable label for the death place of the person.
    */
   public String getDeathPlace() {
@@ -234,7 +233,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the death place of the person.
-   * 
+   *
    * @param deathPlace The displayable label for the death place of the person.
    */
   public void setDeathPlace(String deathPlace) {
@@ -254,7 +253,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the marriage date of the person.
-   * 
+   *
    * @return The displayable label for the marriage date of the person.
    */
   public String getMarriageDate() {
@@ -263,7 +262,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the marriage date of the person.
-   * 
+   *
    * @param marriageDate The displayable label for the marriage date of the person.
    */
   public void setMarriageDate(String marriageDate) {
@@ -283,7 +282,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the marriage place of the person.
-   * 
+   *
    * @return The displayable label for the marriage place of the person.
    */
   public String getMarriagePlace() {
@@ -292,7 +291,7 @@ public class DisplayProperties extends ExtensibleData {
 
   /**
    * The displayable label for the marriage place of the person.
-   * 
+   *
    * @param marriagePlace The displayable label for the marriage place of the person.
    */
   public void setMarriagePlace(String marriagePlace) {
@@ -355,14 +354,6 @@ public class DisplayProperties extends ExtensibleData {
    */
   public void setDescendancyNumber(String descendancyNumber) {
     this.descendancyNumber = descendancyNumber;
-  }
-
-  public String getSortKey() {
-    return sortKey;
-  }
-
-  public void setSortKey(String sortKey) {
-    this.sortKey = sortKey;
   }
 
   /**

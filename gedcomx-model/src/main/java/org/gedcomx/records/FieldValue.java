@@ -124,6 +124,11 @@ public final class FieldValue extends Conclusion {
     return (FieldValue) super.analysis(analysis);
   }
 
+  @Override
+  public FieldValue sortKey(String sortKey) {
+    return (FieldValue) super.sortKey(sortKey);
+  }
+
   /**
    * The type of the field value.
    *

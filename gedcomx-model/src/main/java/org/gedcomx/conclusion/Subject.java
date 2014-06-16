@@ -118,6 +118,11 @@ public abstract class Subject extends Conclusion implements Attributable {
     return (Subject) super.analysis(analysis);
   }
 
+  @Override
+  public Subject sortKey(String sortKey) {
+    return (Subject) super.sortKey(sortKey);
+  }
+
   /**
    * Whether this subject has been identified as "extracted", meaning it captures information extracted from a single source.
    *

@@ -149,6 +149,11 @@ public class PlaceDescription extends Subject {
     return (PlaceDescription) super.media(media);
   }
 
+  @Override
+  public PlaceDescription sortKey(String sortKey) {
+    return (PlaceDescription) super.sortKey(sortKey);
+  }
+
   /**
    * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
    *

@@ -125,6 +125,11 @@ public class Name extends Conclusion {
     return (Name) super.analysis(analysis);
   }
 
+  @Override
+  public Name sortKey(String sortKey) {
+    return (Name) super.sortKey(sortKey);
+  }
+
   /**
    * The type of the name.
    *

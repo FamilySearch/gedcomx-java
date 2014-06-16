@@ -52,6 +52,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   private List<Note> notes;
   private Attribution attribution;
   private ResourceReference analysis;
+  private String sortKey;
 
   @Override
   public Conclusion id(String id) {
@@ -349,6 +350,37 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
     }
 
     return analysis(URI.create("#" + analysis.getId()));
+  }
+
+  /**
+   * A sort key in relation to other facts for display purposes.
+   *
+   * @return A sort key in relation to other facts for display purposes.
+   */
+  @XmlAttribute
+  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  public String getSortKey() {
+    return sortKey;
+  }
+
+  /**
+   * A sort key in relation to other facts for display purposes.
+   *
+   * @param sortKey A sort key in relation to other facts for display purposes.
+   */
+  public void setSortKey(String sortKey) {
+    this.sortKey = sortKey;
+  }
+
+  /**
+   * Build up this fact with a sort key.
+   *
+   * @param sortKey The sort key.
+   * @return this.
+   */
+  public Conclusion sortKey(String sortKey) {
+    setSortKey(sortKey);
+    return this;
   }
 
   /**

@@ -160,6 +160,11 @@ public class Event extends Subject implements HasDateAndPlace {
     return (Event) super.evidence(evidence);
   }
 
+  @Override
+  public Event sortKey(String sortKey) {
+    return (Event) super.sortKey(sortKey);
+  }
+
   public Event evidence(Event evidence) {
     if (evidence.getId() == null) {
       throw new IllegalArgumentException("Unable to add event as evidence: no id.");

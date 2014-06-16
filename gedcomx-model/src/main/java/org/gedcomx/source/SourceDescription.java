@@ -42,7 +42,7 @@ import java.util.*;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "sortKey", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -755,7 +755,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * 
    * @return A sort key to be used in determining the position of this source relative to other sources in the same collection.
    */
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @XmlAttribute
   public String getSortKey() {
     return sortKey;
   }
