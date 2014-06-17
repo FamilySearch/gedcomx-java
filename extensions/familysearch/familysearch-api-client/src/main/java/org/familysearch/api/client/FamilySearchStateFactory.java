@@ -31,6 +31,7 @@ import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
 import org.gedcomx.rs.client.PersonState;
+import org.gedcomx.rs.client.PlaceDescriptionState;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
 
@@ -76,6 +77,15 @@ public class FamilySearchStateFactory extends StateFactory {
 
   protected PersonNonMatchesState newPersonNonMatchesState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PersonNonMatchesState(request, response, accessToken, this);
+  }
+
+  protected FamilySearchPlaceState newPlaceState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchPlaceState(request, response, accessToken, this);
+  }
+
+  @Override
+  protected PlaceDescriptionState newPlaceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchPlaceDescriptionState(request, response, accessToken, this);
   }
 
   @Override
