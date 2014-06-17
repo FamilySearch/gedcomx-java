@@ -18,8 +18,10 @@ package org.familysearch.api.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.platform.rt.FamilySearchPlatformAnchorFinder;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Person;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.PersonsState;
@@ -84,8 +86,12 @@ public class PersonNonMatchesState extends PersonsState {
   }
 
   @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
+  protected AnchorElementSupport findAnchor() {
+    AnchorElementSupport anchor = null;
+    if (this.entity != null) {
+      anchor = FamilySearchPlatformAnchorFinder.findAnchor(this.entity);
+    }
+    return anchor;
   }
 
   public List<Person> getPersons() {

@@ -18,7 +18,6 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 
 /**
@@ -78,11 +77,6 @@ public class RecordState extends GedcomxApplicationState<Gedcomx> {
   @Override
   protected Gedcomx loadEntity(ClientResponse response) {
     return response.getEntity(Gedcomx.class);
-  }
-
-  @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
   }
 
 }

@@ -73,11 +73,6 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
-    return getCollection();
-  }
-
-  @Override
   public CollectionState head(StateTransitionOption... options) {
     return (CollectionState) super.head(options);
   }
@@ -108,7 +103,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public Collection getCollection() {
-    return getEntity() == null ? null : getEntity().getCollections() == null ? null : getEntity().getCollections().isEmpty() ? null : getEntity().getCollections().get(0);
+    return (Collection) this.anchorElement;
   }
 
   @Override

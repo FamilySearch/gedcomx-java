@@ -20,6 +20,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -39,7 +40,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper (name = "discussions")
 @XmlType ( name = "Discussion", propOrder = { "title", "details", "created", "contributor", "modified", "numberOfComments", "comments" } )
-public class Discussion extends HypermediaEnabledData {
+public class Discussion extends HypermediaEnabledData implements AnchorElementSupport {
 
   private Boolean anchor;
   private String title;
@@ -84,6 +85,7 @@ public class Discussion extends HypermediaEnabledData {
    *
    * @return Whether this subject has been identified as "anchor".
    */
+  @Override
   @XmlAttribute
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public Boolean getAnchor() {

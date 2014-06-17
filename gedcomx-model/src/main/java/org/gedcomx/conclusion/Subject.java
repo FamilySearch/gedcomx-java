@@ -20,6 +20,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.*;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
@@ -45,7 +46,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Subject", propOrder = { "evidence", "media", "identifiers" })
-public abstract class Subject extends Conclusion implements Attributable {
+public abstract class Subject extends Conclusion implements Attributable, AnchorElementSupport {
 
   private Boolean anchor;
   private Boolean extracted;
@@ -159,6 +160,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    *
    * @return Whether this subject has been identified as "anchor".
    */
+  @Override
   @XmlAttribute
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public Boolean getAnchor() {

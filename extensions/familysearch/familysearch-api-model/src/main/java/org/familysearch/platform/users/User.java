@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.users;
 
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -28,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType ( name = "User" )
 @JsonElementWrapper ( name = "users" )
-public class User extends HypermediaEnabledData {
+public class User extends HypermediaEnabledData implements AnchorElementSupport {
 
   private Boolean anchor;
   private String contactName;
@@ -49,6 +50,7 @@ public class User extends HypermediaEnabledData {
   private String treeUserId;
   private Boolean ldsMemberAccount;
 
+  @Override
   public Boolean getAnchor() {
     return anchor;
   }

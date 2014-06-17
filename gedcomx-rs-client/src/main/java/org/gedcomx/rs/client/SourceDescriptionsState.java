@@ -85,11 +85,6 @@ public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
-  }
-
-  @Override
   public SourceDescriptionsState readNextPage(StateTransitionOption... options) {
     return (SourceDescriptionsState) super.readNextPage(options);
   }

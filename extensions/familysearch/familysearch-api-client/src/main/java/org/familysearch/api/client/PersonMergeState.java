@@ -21,6 +21,8 @@ import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
+import org.familysearch.platform.rt.FamilySearchPlatformAnchorFinder;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationState;
@@ -84,8 +86,12 @@ public class PersonMergeState extends GedcomxApplicationState<FamilySearchPlatfo
   }
 
   @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
+  protected AnchorElementSupport findAnchor() {
+    AnchorElementSupport anchor = null;
+    if (this.entity != null) {
+      anchor = FamilySearchPlatformAnchorFinder.findAnchor(this.entity);
+    }
+    return anchor;
   }
 
   public MergeAnalysis getAnalysis() {

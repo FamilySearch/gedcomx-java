@@ -24,6 +24,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
@@ -44,7 +45,7 @@ import java.util.*;
 @XmlRootElement
 @XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
-public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
+public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources, AnchorElementSupport {
 
   private String lang;
   private Boolean anchor;
@@ -123,6 +124,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Whether this subject has been identified as "anchor".
    */
+  @Override
   @XmlAttribute
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public Boolean getAnchor() {

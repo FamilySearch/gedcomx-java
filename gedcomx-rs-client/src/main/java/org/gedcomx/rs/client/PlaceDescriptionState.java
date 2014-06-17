@@ -81,13 +81,8 @@ public class PlaceDescriptionState extends GedcomxApplicationState<Gedcomx> {
     return response.getEntity(Gedcomx.class);
   }
 
-  @Override
-  protected SupportsLinks getScope() {
-    return getPlaceDescription();
-  }
-
   public PlaceDescription getPlaceDescription() {
-    return getEntity() == null ? null : getEntity().getPlaces() == null ? null : getEntity().getPlaces().isEmpty() ? null : getEntity().getPlaces().get(0);
+    return (PlaceDescription) this.anchorElement;
   }
 
   public PlaceDescriptionsState readChildren(StateTransitionOption... options) {

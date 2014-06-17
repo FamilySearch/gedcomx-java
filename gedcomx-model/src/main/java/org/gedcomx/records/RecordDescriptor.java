@@ -18,6 +18,7 @@ package org.gedcomx.records;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -38,7 +39,7 @@ import java.util.List;
 @XmlType( name = "RecordDescriptor" )
 @JsonElementWrapper ( name = "recordDescriptors" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
-public class RecordDescriptor extends HypermediaEnabledData {
+public class RecordDescriptor extends HypermediaEnabledData implements AnchorElementSupport {
 
   private Boolean anchor;
   private String lang;
@@ -68,6 +69,7 @@ public class RecordDescriptor extends HypermediaEnabledData {
    *
    * @return Whether this subject has been identified as "anchor".
    */
+  @Override
   @XmlAttribute
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public Boolean getAnchor() {

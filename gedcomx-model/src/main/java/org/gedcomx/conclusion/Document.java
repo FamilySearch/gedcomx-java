@@ -19,6 +19,7 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.gedcomx.common.*;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -41,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 @JsonElementWrapper (name = "documents")
 @XmlType(name = "Document", propOrder = { "text" })
 @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-public class Document extends Conclusion implements HasText, Attributable {
+public class Document extends Conclusion implements HasText, Attributable, AnchorElementSupport {
   
   public static final String TEXT_TYPE_PLAIN = "plain";
   public static final String TEXT_TYPE_XHTML = "xhtml";
@@ -156,6 +157,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    *
    * @return Whether this subject has been identified as "anchor".
    */
+  @Override
   @XmlAttribute
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public Boolean getAnchor() {

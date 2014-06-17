@@ -19,6 +19,7 @@ import org.codehaus.enunciate.Facet;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.URI;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -42,7 +43,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "collections" )
 @XmlType ( name = "Collection", propOrder = { "title", "size", "content", "attribution" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
-public class Collection extends HypermediaEnabledData implements Attributable {
+public class Collection extends HypermediaEnabledData implements Attributable, AnchorElementSupport {
 
   private Boolean anchor;
   private String lang;
@@ -100,6 +101,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    *
    * @return Whether this subject has been identified as "anchor".
    */
+  @Override
   @XmlAttribute
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public Boolean getAnchor() {

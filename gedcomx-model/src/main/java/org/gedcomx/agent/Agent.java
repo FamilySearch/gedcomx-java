@@ -24,6 +24,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -45,7 +46,7 @@ import java.util.List;
 @XmlRootElement
 @XmlType ( name = "Agent" )
 @JsonElementWrapper ( name = "agents" )
-public class Agent extends HypermediaEnabledData {
+public class Agent extends HypermediaEnabledData implements AnchorElementSupport {
 
   private Boolean anchor;
   private List<TextValue> names;
@@ -77,6 +78,7 @@ public class Agent extends HypermediaEnabledData {
    *
    * @return Whether this subject has been identified as "anchor".
    */
+  @Override
   @XmlAttribute
   @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
   public Boolean getAnchor() {

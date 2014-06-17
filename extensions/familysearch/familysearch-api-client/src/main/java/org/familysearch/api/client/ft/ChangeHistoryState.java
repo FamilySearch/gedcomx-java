@@ -49,11 +49,6 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
-  }
-
-  @Override
   public ChangeHistoryState ifSuccessful() {
     return (ChangeHistoryState) super.ifSuccessful();
   }

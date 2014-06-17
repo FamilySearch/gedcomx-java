@@ -81,13 +81,8 @@ public class AgentState extends GedcomxApplicationState<Gedcomx> {
     return (AgentState) super.post(entity, options);
   }
 
-  @Override
-  protected SupportsLinks getScope() {
-    return getAgent();
-  }
-
   public Agent getAgent() {
-    return getEntity() == null ? null : getEntity().getAgents() == null ? null : getEntity().getAgents().isEmpty() ? null : getEntity().getAgents().get(0);
+    return (Agent) this.anchorElement;
   }
 
 }

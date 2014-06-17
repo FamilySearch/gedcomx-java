@@ -76,11 +76,6 @@ public class PlaceSearchResultsState extends GedcomxApplicationState<Feed> {
     return (PlaceSearchResultsState) super.post(entity, options);
   }
 
-  @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
-  }
-
   public Feed getResults() {
     return getEntity();
   }

@@ -20,7 +20,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
-import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.source.SourceDescription;
 
@@ -87,13 +86,8 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
     return response.getEntity(Gedcomx.class);
   }
 
-  @Override
-  protected SupportsLinks getScope() {
-    return getSourceDescription();
-  }
-
   public SourceDescription getSourceDescription() {
-    return getEntity() == null ? null : getEntity().getSourceDescriptions() == null ? null : getEntity().getSourceDescriptions().isEmpty() ? null : getEntity().getSourceDescriptions().get(0);
+    return (SourceDescription) this.anchorElement;
   }
 
   public SourceDescriptionState update(SourceDescription description, StateTransitionOption... options) {

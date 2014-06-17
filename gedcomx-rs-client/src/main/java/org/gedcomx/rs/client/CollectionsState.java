@@ -53,11 +53,6 @@ public class CollectionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
-  }
-
-  @Override
   public CollectionsState head(StateTransitionOption... options) {
     return (CollectionsState) super.head(options);
   }

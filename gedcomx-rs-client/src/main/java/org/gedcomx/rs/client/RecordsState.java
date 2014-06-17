@@ -21,7 +21,6 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.Link;
-import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 
 import javax.ws.rs.HttpMethod;
@@ -80,11 +79,6 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
   @Override
   protected Feed loadEntity(ClientResponse response) {
     return response.getEntity(Feed.class);
-  }
-
-  @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
   }
 
   @Override

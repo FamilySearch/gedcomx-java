@@ -24,14 +24,16 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
+import org.gedcomx.atom.Feed;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
-import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.EmbeddedLinkLoader;
 import org.gedcomx.rs.client.util.HttpWarning;
+import org.gedcomx.rt.GedcomxAnchorFinder;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
@@ -55,6 +57,7 @@ public abstract class GedcomxApplicationState<E> {
   protected final ClientRequest request;
   protected final ClientResponse response;
   protected final E entity;
+  protected final AnchorElementSupport anchorElement;
   protected String accessToken;
   private ClientRequest lastEmbeddedRequest;
   private ClientResponse lastEmbeddedResponse;
@@ -66,7 +69,8 @@ public abstract class GedcomxApplicationState<E> {
     this.accessToken = accessToken;
     this.stateFactory = stateFactory;
     this.entity = loadEntityConditionally(this.response);
-    List<Link> links = loadLinks(this.response, this.entity);
+    this.anchorElement = findAnchor();
+    List<Link> links = loadLinks(this.response, this.entity, this.anchorElement);
     this.links = new TreeMap<String, Link>();
     for (Link link : links) {
       this.links.put(link.getRel(), link);
@@ -90,9 +94,15 @@ public abstract class GedcomxApplicationState<E> {
 
   protected abstract E loadEntity(ClientResponse response);
 
-  protected abstract SupportsLinks getScope();
+  protected AnchorElementSupport findAnchor() {
+    AnchorElementSupport anchor = null;
+    if (this.entity instanceof Gedcomx) {
+      anchor = GedcomxAnchorFinder.findAnchor((Gedcomx)this.entity);
+    }
+    return anchor;
+  }
 
-  protected List<Link> loadLinks(ClientResponse response, E entity) {
+  protected List<Link> loadLinks(ClientResponse response, E entity, AnchorElementSupport anchor) {
     ArrayList<Link> links = new ArrayList<Link>();
 
     //if there's a location, we'll consider it a "self" link.
@@ -119,14 +129,16 @@ public abstract class GedcomxApplicationState<E> {
     }
 
     //load additional links from entity
-    if(entity instanceof Gedcomx && ((Gedcomx) entity).getLinks() != null) {
+    if (entity instanceof Gedcomx && ((Gedcomx) entity).getLinks() != null) {
       links.addAll(((Gedcomx)entity).getLinks());
     }
+    else if (entity instanceof Feed && ((Feed) entity).getLinks() != null) {
+      links.addAll(((Feed) entity).getLinks());
+    }
 
-    //load the links from the hypermedia scope
-    SupportsLinks scope = getScope();
-    if (scope != null && scope.getLinks() != null) {
-      links.addAll(scope.getLinks());
+    //load the links from the anchor element
+    if (anchor != null && anchor.getLinks() != null) {
+      links.addAll(anchor.getLinks());
     }
 
     return links;
@@ -486,9 +498,9 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public AgentState readContributor(StateTransitionOption... options) {
-    SupportsLinks scope = getScope();
-    if (scope instanceof Attributable) {
-      return readContributor((Attributable) scope, options);
+    AnchorElementSupport anchor = findAnchor();
+    if (anchor instanceof Attributable) {
+      return readContributor((Attributable) anchor, options);
     }
     else {
       return null;

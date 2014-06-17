@@ -19,7 +19,6 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.PlaceDescription;
-import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 
 public class PlaceState extends GedcomxApplicationState<Gedcomx> {
@@ -78,13 +77,8 @@ public class PlaceState extends GedcomxApplicationState<Gedcomx> {
     return response.getEntity(Gedcomx.class);
   }
 
-  @Override
-  protected SupportsLinks getScope() {
-    return getPlace();
-  }
-
   public PlaceDescription getPlace() {
-    return getEntity() == null ? null : getEntity().getPlaces() == null ? null : getEntity().getPlaces().isEmpty() ? null : getEntity().getPlaces().get(0);
+    return (PlaceDescription) this.anchorElement;
   }
 
 }

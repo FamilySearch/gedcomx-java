@@ -85,11 +85,6 @@ public class PlaceDescriptionsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
-    return getEntity();
-  }
-
-  @Override
   public PlaceDescriptionsState readNextPage(StateTransitionOption... options) {
     return (PlaceDescriptionsState) super.readNextPage(options);
   }
