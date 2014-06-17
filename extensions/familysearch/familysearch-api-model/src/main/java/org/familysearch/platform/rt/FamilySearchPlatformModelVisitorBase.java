@@ -21,6 +21,7 @@ import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
@@ -64,6 +65,13 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     if (childAndParentsRelationships != null) {
       for (ChildAndParentsRelationship pcr : childAndParentsRelationships) {
         pcr.accept(this);
+      }
+    }
+
+    List<User> users = fsp.getUsers();
+    if (users != null) {
+      for (User user : users) {
+        user.accept(this);
       }
     }
 
@@ -156,4 +164,8 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     //no-op.
   }
 
+  @Override
+  public void visitUser(User user) {
+    //no-op.
+  }
 }

@@ -17,6 +17,7 @@ package org.familysearch.platform.rt;
 
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.conclusion.*;
@@ -121,5 +122,11 @@ public class FamilySearchPlatformAnchorFinder extends FamilySearchPlatformModelV
   public void visitPerson(Person person) {
     bindIfNeeded(person);
     super.visitPerson(person);
+  }
+
+  @Override
+  public void visitUser(User user) {
+    bindIfNeeded(user);
+    super.visitUser(user);
   }
 }
