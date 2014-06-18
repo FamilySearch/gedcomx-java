@@ -73,7 +73,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getCollection();
   }
 

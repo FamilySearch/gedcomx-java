@@ -84,7 +84,7 @@ public class PersonNonMatchesState extends PersonsState {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getEntity();
   }
 

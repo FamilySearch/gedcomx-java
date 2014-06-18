@@ -81,7 +81,7 @@ public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx>
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getEntity();
   }
 

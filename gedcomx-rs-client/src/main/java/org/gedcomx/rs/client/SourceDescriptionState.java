@@ -88,7 +88,7 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getSourceDescription();
   }
 

@@ -81,7 +81,7 @@ public class DiscussionState extends GedcomxApplicationState<FamilySearchPlatfor
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getDiscussion();
   }
 

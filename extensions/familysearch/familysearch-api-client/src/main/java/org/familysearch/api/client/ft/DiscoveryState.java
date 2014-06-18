@@ -53,7 +53,7 @@ public class DiscoveryState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getEntity();
   }
 

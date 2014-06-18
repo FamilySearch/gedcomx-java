@@ -90,7 +90,7 @@ public abstract class GedcomxApplicationState<E> {
 
   protected abstract E loadEntity(ClientResponse response);
 
-  protected abstract SupportsLinks getScope();
+  protected abstract SupportsLinks getMainDataElement();
 
   protected List<Link> loadLinks(ClientResponse response, E entity) {
     ArrayList<Link> links = new ArrayList<Link>();
@@ -100,7 +100,7 @@ public abstract class GedcomxApplicationState<E> {
       links.add(new Link(Rel.SELF, new org.gedcomx.common.URI(response.getLocation().toString())));
     }
 
-    //load link headers.
+    //initialize links with link headers
     List<String> linkHeaders = response.getHeaders().get("Link");
     if (linkHeaders != null) {
       for (String header : linkHeaders) {
@@ -118,16 +118,17 @@ public abstract class GedcomxApplicationState<E> {
       }
     }
 
-    //load additional links from entity
-    if(entity instanceof Gedcomx && ((Gedcomx) entity).getLinks() != null) {
-      links.addAll(((Gedcomx)entity).getLinks());
+    //load the links from the main data element
+    SupportsLinks mainElement = getMainDataElement();
+    if (mainElement != null && mainElement.getLinks() != null) {
+      links.addAll(mainElement.getLinks());
     }
 
-    //load the links from the hypermedia scope
-    SupportsLinks scope = getScope();
-    if (scope != null && scope.getLinks() != null) {
-      links.addAll(scope.getLinks());
+    //load links at the document level
+    if(entity != mainElement && entity instanceof SupportsLinks && ((SupportsLinks) entity).getLinks() != null) {
+      links.addAll(((SupportsLinks)entity).getLinks());
     }
+
 
     return links;
   }
@@ -486,7 +487,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public AgentState readContributor(StateTransitionOption... options) {
-    SupportsLinks scope = getScope();
+    SupportsLinks scope = getMainDataElement();
     if (scope instanceof Attributable) {
       return readContributor((Attributable) scope, options);
     }

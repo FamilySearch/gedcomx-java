@@ -101,7 +101,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getRelationship();
   }
 

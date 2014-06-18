@@ -43,7 +43,7 @@ public class UserState extends GedcomxApplicationState<FamilySearchPlatform> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getUser();
   }
 
