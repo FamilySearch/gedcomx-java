@@ -47,7 +47,6 @@ import java.util.*;
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
   private String lang;
-  private Boolean anchor;
   private List<SourceCitation> citations;
   private String mediaType;
   private URI about;
@@ -116,37 +115,6 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @Override
   public SourceDescription link(Link link) {
     return (SourceDescription) super.link(link);
-  }
-
-  /**
-   * Whether this subject has been identified as the "anchor".
-   *
-   * @return Whether this subject has been identified as "anchor".
-   */
-  @XmlAttribute
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
-  public Boolean getAnchor() {
-    return anchor;
-  }
-
-  /**
-   * Whether this subject has been identified as the "anchor".
-   *
-   * @param anchor Whether this subject has been identified as "anchor".
-   */
-  public void setAnchor(Boolean anchor) {
-    this.anchor = anchor;
-  }
-
-  /**
-   * Build up this subject with an anchor flag.
-   *
-   * @param anchor The anchor flag.
-   * @return this.
-   */
-  public SourceDescription anchor(Boolean anchor) {
-    setAnchor(anchor);
-    return this;
   }
 
   /**

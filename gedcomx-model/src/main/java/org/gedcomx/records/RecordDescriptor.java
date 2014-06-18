@@ -15,7 +15,6 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -40,7 +39,6 @@ import java.util.List;
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class RecordDescriptor extends HypermediaEnabledData {
 
-  private Boolean anchor;
   private String lang;
   private List<FieldDescriptor> fields;
 
@@ -61,37 +59,6 @@ public class RecordDescriptor extends HypermediaEnabledData {
    */
   public void setLang(String lang) {
     this.lang = lang;
-  }
-
-  /**
-   * Whether this subject has been identified as the "anchor".
-   *
-   * @return Whether this subject has been identified as "anchor".
-   */
-  @XmlAttribute
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
-  public Boolean getAnchor() {
-    return anchor;
-  }
-
-  /**
-   * Whether this subject has been identified as the "anchor".
-   *
-   * @param anchor Whether this subject has been identified as "anchor".
-   */
-  public void setAnchor(Boolean anchor) {
-    this.anchor = anchor;
-  }
-
-  /**
-   * Build up this subject with an anchor flag.
-   *
-   * @param anchor The anchor flag.
-   * @return this.
-   */
-  public RecordDescriptor anchor(Boolean anchor) {
-    setAnchor(anchor);
-    return this;
   }
 
   /**

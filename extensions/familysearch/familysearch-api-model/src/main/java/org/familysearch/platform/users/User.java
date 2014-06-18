@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType ( name = "User" )
 @JsonElementWrapper ( name = "users" )
-public class User extends HypermediaEnabledData {
-
-  private Boolean anchor;
+public class User extends HypermediaEnabledData
+{
+  private String id;
   private String contactName;
   private String helperAccessPin;
   private String fullName;
@@ -49,14 +49,6 @@ public class User extends HypermediaEnabledData {
   private String personId;
   private String treeUserId;
   private Boolean ldsMemberAccount;
-
-  public Boolean getAnchor() {
-    return anchor;
-  }
-
-  public void setAnchor(Boolean anchor) {
-    this.anchor = anchor;
-  }
 
   public String getContactName() {
     return contactName;

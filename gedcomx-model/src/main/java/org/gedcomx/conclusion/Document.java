@@ -46,7 +46,6 @@ public class Document extends Conclusion implements HasText, Attributable {
   public static final String TEXT_TYPE_PLAIN = "plain";
   public static final String TEXT_TYPE_XHTML = "xhtml";
 
-  private Boolean anchor;
   private Boolean extracted;
   private URI type;
   private String textType;
@@ -148,37 +147,6 @@ public class Document extends Conclusion implements HasText, Attributable {
    */
   public Document extracted(Boolean extracted) {
     setExtracted(extracted);
-    return this;
-  }
-
-  /**
-   * Whether this subject has been identified as the "anchor".
-   *
-   * @return Whether this subject has been identified as "anchor".
-   */
-  @XmlAttribute
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
-  public Boolean getAnchor() {
-    return anchor;
-  }
-
-  /**
-   * Whether this subject has been identified as the "anchor".
-   *
-   * @param anchor Whether this subject has been identified as "anchor".
-   */
-  public void setAnchor(Boolean anchor) {
-    this.anchor = anchor;
-  }
-
-  /**
-   * Build up this subject with an anchor flag.
-   *
-   * @param anchor The anchor flag.
-   * @return this.
-   */
-  public Document anchor(Boolean anchor) {
-    setAnchor(anchor);
     return this;
   }
 
