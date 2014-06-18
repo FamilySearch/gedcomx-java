@@ -21,14 +21,13 @@ import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
-import org.familysearch.platform.rt.FamilySearchPlatformAnchorFinder;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.conclusion.Fact;
-import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
+import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.source.SourceReference;
 
@@ -102,16 +101,12 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   @Override
-  protected AnchorElementSupport findAnchor() {
-    AnchorElementSupport anchor = null;
-    if (this.entity != null) {
-      anchor = FamilySearchPlatformAnchorFinder.findAnchor(this.entity);
-    }
-    return anchor;
+  protected SupportsLinks getScope() {
+    return getRelationship();
   }
 
   public ChildAndParentsRelationship getRelationship() {
-    return (ChildAndParentsRelationship) this.anchorElement;
+    return getEntity() == null ? null : getEntity().getChildAndParentsRelationships() == null ? null : getEntity().getChildAndParentsRelationships().isEmpty() ? null : getEntity().getChildAndParentsRelationships().get(0);
   }
 
   public Conclusion getConclusion() {

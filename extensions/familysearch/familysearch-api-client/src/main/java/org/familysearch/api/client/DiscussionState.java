@@ -21,8 +21,6 @@ import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
-import org.familysearch.platform.rt.FamilySearchPlatformAnchorFinder;
-import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationException;
@@ -83,16 +81,12 @@ public class DiscussionState extends GedcomxApplicationState<FamilySearchPlatfor
   }
 
   @Override
-  protected AnchorElementSupport findAnchor() {
-    AnchorElementSupport anchor = null;
-    if (this.entity != null) {
-      anchor = FamilySearchPlatformAnchorFinder.findAnchor(this.entity);
-    }
-    return anchor;
+  protected SupportsLinks getScope() {
+    return getDiscussion();
   }
 
   public Discussion getDiscussion() {
-    return (Discussion) this.anchorElement;
+    return getEntity() == null ? null : getEntity().getDiscussions() == null ? null : getEntity().getDiscussions().isEmpty() ? null : getEntity().getDiscussions().get(0);
   }
 
   protected Discussion createEmptySelf() {

@@ -53,6 +53,11 @@ public class DiscoveryState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
+  protected SupportsLinks getScope() {
+    return getEntity();
+  }
+
+  @Override
   public DiscoveryState ifSuccessful() {
     return (DiscoveryState) super.ifSuccessful();
   }

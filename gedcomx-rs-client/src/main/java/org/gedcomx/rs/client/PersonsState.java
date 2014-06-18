@@ -81,6 +81,11 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
     return response.getEntity(Gedcomx.class);
   }
 
+  @Override
+  protected SupportsLinks getScope() {
+    return getEntity();
+  }
+
   public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {

@@ -19,6 +19,7 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.PlaceDescription;
+import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateFactory;
@@ -80,8 +81,13 @@ public class FamilySearchPlaceState extends GedcomxApplicationState<Gedcomx> {
     return response.getEntity(Gedcomx.class);
   }
 
+  @Override
+  protected SupportsLinks getScope() {
+    return getPlace();
+  }
+
   public PlaceDescription getPlace() {
-    return (PlaceDescription) this.anchorElement;
+    return getEntity() == null ? null : getEntity().getPlaces() == null ? null : getEntity().getPlaces().isEmpty() ? null : getEntity().getPlaces().get(0);
   }
 
 }

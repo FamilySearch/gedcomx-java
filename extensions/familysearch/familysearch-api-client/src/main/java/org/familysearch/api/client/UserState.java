@@ -18,9 +18,7 @@ package org.familysearch.api.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.rt.FamilySearchPlatformAnchorFinder;
 import org.familysearch.platform.users.User;
-import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateTransitionOption;
@@ -45,16 +43,12 @@ public class UserState extends GedcomxApplicationState<FamilySearchPlatform> {
   }
 
   @Override
-  protected AnchorElementSupport findAnchor() {
-    AnchorElementSupport anchor = null;
-    if (this.entity != null) {
-      anchor = FamilySearchPlatformAnchorFinder.findAnchor(this.entity);
-    }
-    return anchor;
+  protected SupportsLinks getScope() {
+    return getUser();
   }
 
   public User getUser() {
-    return (User) this.anchorElement;
+    return getEntity() == null ? null : getEntity().getUsers().isEmpty() ? null : getEntity().getUsers().get(0);
   }
 
   @Override

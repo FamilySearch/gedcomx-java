@@ -80,6 +80,11 @@ public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx>
     return (DescendancyResultsState) super.ifSuccessful();
   }
 
+  @Override
+  protected SupportsLinks getScope() {
+    return getEntity();
+  }
+
   public DescendancyTree getTree() {
     return getEntity() != null ? new DescendancyTree(getEntity()) : null;
   }

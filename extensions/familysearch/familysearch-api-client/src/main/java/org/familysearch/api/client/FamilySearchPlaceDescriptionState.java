@@ -17,9 +17,7 @@ package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.platform.rt.FamilySearchPlatformAnchorFinder;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.links.AnchorElementSupport;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.PlaceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
@@ -86,12 +84,4 @@ public class FamilySearchPlaceDescriptionState extends PlaceDescriptionState {
     return ((FamilySearchStateFactory)this.stateFactory).newPlaceState(request, invoke(request, options), this.accessToken);
   }
 
-  @Override
-  protected AnchorElementSupport findAnchor() {
-    AnchorElementSupport anchor = null;
-    if (this.entity != null) {
-      anchor = FamilySearchPlatformAnchorFinder.findAnchor(this.entity);
-    }
-    return anchor;
-  }
 }

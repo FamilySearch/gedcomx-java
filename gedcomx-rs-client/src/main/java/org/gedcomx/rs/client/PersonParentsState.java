@@ -82,6 +82,11 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
     return response.getEntity(Gedcomx.class);
   }
 
+  @Override
+  protected SupportsLinks getScope() {
+    return getEntity();
+  }
+
   public List<Person> getPersons() {
     return this.entity == null ? null : this.entity.getPersons();
   }

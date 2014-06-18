@@ -87,6 +87,11 @@ public class RelationshipsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
+  protected SupportsLinks getScope() {
+    return getEntity();
+  }
+
+  @Override
   public RelationshipsState readNextPage(StateTransitionOption... options) {
     return (RelationshipsState) super.readNextPage(options);
   }

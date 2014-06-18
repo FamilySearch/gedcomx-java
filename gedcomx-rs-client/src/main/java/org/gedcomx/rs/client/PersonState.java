@@ -97,8 +97,13 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return response.getEntity(Gedcomx.class);
   }
 
+  @Override
+  protected SupportsLinks getScope() {
+    return getPerson();
+  }
+
   public Person getPerson() {
-    return (Person) this.anchorElement;
+    return getEntity() == null ? null : getEntity().getPersons() == null ? null : getEntity().getPersons().isEmpty() ? null : getEntity().getPersons().get(0);
   }
   
   public List<Relationship> getRelationships() {

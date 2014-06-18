@@ -80,6 +80,11 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
     return (PersonSearchResultsState) super.post(entity, options);
   }
 
+  @Override
+  protected SupportsLinks getScope() {
+    return getEntity();
+  }
+
   public Feed getResults() {
     return getEntity();
   }
