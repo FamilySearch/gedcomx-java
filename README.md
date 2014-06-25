@@ -1,7 +1,8 @@
 # Welcome
 
-This project hosts the Java implementation of the [GEDCOM X](http://www.gedcomx.org) project. The project includes
-subprojects that address specific aspects of the [GEDCOM X Specification Set](http://www.gedcomx.org/Specifications.html),
+This project hosts the Java implementation of the [GEDCOM X](http://www.gedcomx.org) project and serves as the
+reference implementation of GEDCOM X. The modules of this project each
+address specific aspects of the [GEDCOM X Specification Set](http://www.gedcomx.org/Specifications.html),
 including:
 
 * Readers and writers for the [GEDCOM X XML Serialization Format](https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md).
@@ -9,7 +10,7 @@ including:
 * Readers and writers for the [GEDCOM X File Format](https://github.com/FamilySearch/gedcomx/blob/master/specifications/file-format-specification.md).
 * Client-side libraries for reading and writing a GEDCOM X Web service API that conforms to the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs).
 
-## GEDCOM X Model
+## Reading and Writing XML and JSON
 
 The [`gedcomx-model`](./gedcomx-model/) subproject provides Java classes that correspond to the data types defined by
 the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md).
@@ -17,15 +18,25 @@ These classes are instrumented such that they can be used to read and write both
 [XML](https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md) and
 [JSON](https://github.com/FamilySearch/gedcomx/blob/master/specifications/json-format-specification.md).
 
+For more information about reading and writing GEDCOM X XML and JSON, see the [`gedcomx-model`](./gedcomx-model/) module.
+
+## GEDCOM X Web Services
+
+The [`gedcomx-rs-client`](./gedcomx-rs-client/) module provides support for reading from and writing to a GEDCOM X 
+Web service API that conforms to the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs).
+
 ## GEDCOM X File Format
 
 The [`gedcomx-fileformat`](./gedcomx-fileformat/) subproject provides support for reading and writing the
 [GEDCOM X File Format](https://github.com/FamilySearch/gedcomx/blob/master/specifications/file-format-specification.md).
 
-## GEDCOM X Web Service Client
+## GEDCOM X Extensions
 
-The [`gedcomx-rs-client`](./gedcomx-rs-client/) subproject provides support for consuming a GEDCOM X Web service API that
-conforms to the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs).
+The [`extensions`](./extensions) module provides a place for extensions to GEDCOM X. [FamilySearch](https://familysearch.org) has defined
+a set of extensions to the GEDCOM X Conceptual Model and to the GEDCOM X RS specification that comprise the definition of 
+[the FamilySearch API](https://developer.familysearch.org/).
+ 
+The [FamilySearch API Client](./extensions/familysearch/familysearch-api-client/) comprises the developer SDK for the FamilySearch API.
 
 # Use
 
