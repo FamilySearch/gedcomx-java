@@ -78,7 +78,7 @@ Once you have a collection, you can search it for records or persons.
 
 ```java
 //the collection to search. 
-CollectionState collection = null;
+CollectionState collection = ...;
 
 //put together a search query
 GedcomxPersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
@@ -111,7 +111,7 @@ add a person to a collection.
 
 ```java
 //the collection to which the person is to be added
-CollectionState collection = null;
+CollectionState collection = ...;
 
 //add a person
 PersonState person = collection.addPerson(new Person()
@@ -131,7 +131,7 @@ Some collections allow you to add descriptions of sources.
 
 ```java
 //the collection to which the source is to be added
-CollectionState collection = null;
+CollectionState collection = ...;
 
 //add a source description
 SourceDescriptionState source = collection.addSourceDescription(new SourceDescription()
@@ -150,7 +150,7 @@ Some collections allow you to upload artifacts such as digital images.
 
 ```java
 //the collection to which the artifact is to be added
-CollectionState collection = null;
+CollectionState collection = ...;
 DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
 
 //add an artifact
@@ -171,11 +171,11 @@ How you might update a person to cite a record or artifact or other source.
 
 ```java
 //the person that will be citing the record, source, or artifact.
-PersonState person = null;
+PersonState person = ...;
 
-RecordState record = null;
-SourceDescriptionState source = null;
-SourceDescriptionState artifact = null;
+RecordState record = ...;
+SourceDescriptionState source = ...;
+SourceDescriptionState artifact = ...;
 
 person.addSourceReference(record); //cite the record.
 person.addSourceReference(source); //cite the source.
@@ -191,7 +191,7 @@ from an artifact or other source.
 
 ```java
 //the artifact from which a persona will be extracted.
-SourceDescriptionState artifact = null;
+SourceDescriptionState artifact = ...;
 
 //add the persona
 PersonState persona = artifact.addPersona(new Person()
@@ -211,10 +211,10 @@ How you might add a reference from a person to a persona.
 
 ```java
 //the person that will be referencing the persona.
-PersonState person = null;
+PersonState person = ...;
 
 //the persona that was extracted from a record or artifact.
-PersonState persona = null;
+PersonState persona = ...;
 
 //add the persona reference.
 person.addPersonaReference(persona);
@@ -228,7 +228,7 @@ Some collections might allow you to add a photo to a person.
 
 ```java
 //the person to which the photo will be attached.
-PersonState person = null;
+PersonState person = ...;
 DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
 
 //add an artifact
@@ -247,12 +247,12 @@ Here's how you would attach a single photo to multiple persons.
 
 ```java
 //the collection to which the artifact is to be added
-CollectionState collection = null;
+CollectionState collection = ...;
 
 //the persons to which the photo will be attached.
-PersonState person1 = null;
-PersonState person2 = null;
-PersonState person3 = null;
+PersonState person1 = ...;
+PersonState person2 = ...;
+PersonState person3 = ...;
 DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
 
 //add an artifact
@@ -275,7 +275,7 @@ The current authentication user may have a person record in a collection.
 
 ```java
 //the collection containing the person for the current user.
-CollectionState collection = null;
+CollectionState collection = ...;
 
 PersonState person = collection.readPersonForCurrentUser();
 ```
@@ -286,7 +286,7 @@ PersonState person = collection.readPersonForCurrentUser();
 
 ```java
 //the person for which to read the parents, spouses, children
-PersonState person = null;
+PersonState person = ...;
 
 PersonChildrenState children = person.readChildren(); //read the children
 PersonParentsState parents = person.readParents(); //read the parents
@@ -302,7 +302,7 @@ ancestry or descendancy of a person.
 
 ```java
 //the person for which to read the ancestry or descendancy
-PersonState person = null;
+PersonState person = ...;
 
 person.readAncestry(); //read the ancestry
 person.readAncestry(generations(8)); //read 8 generations of the ancestry
@@ -318,7 +318,7 @@ How to add a name, gender, or facts to a person.
 
 ```java
 //the person to which to add the name, gender, or fact.
-PersonState person = null;
+PersonState person = ...;
 
 person.addName(new Name("Johnny Smith")); //add name
 person.addGender(new Gender(GenderType.Male)); //add gender
@@ -333,7 +333,8 @@ How to update and existing name, gender, or facts of a person.
 
 ```java
 //the person to which to update the name, gender, or fact.
-PersonState person = null;
+//the person to which to update the name, gender, or fact.
+PersonState person = ...;
 
 Name name = person.getName();
 name.getNameForm().setFullText("Joanna Smith");
