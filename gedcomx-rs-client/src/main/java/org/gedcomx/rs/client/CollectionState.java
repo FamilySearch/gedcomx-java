@@ -18,6 +18,7 @@ package org.gedcomx.rs.client;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -35,6 +36,7 @@ import org.gedcomx.records.Collection;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
 import org.gedcomx.rs.client.util.GedcomxPlaceSearchQueryBuilder;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.types.RelationshipType;
@@ -52,6 +54,22 @@ import java.util.List;
  * @author Ryan Heaton
  */
 public class CollectionState extends GedcomxApplicationState<Gedcomx> {
+
+  public CollectionState(URI uri) {
+    this(uri, new StateFactory());
+  }
+
+  private CollectionState(URI uri, StateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private CollectionState(URI uri, Client client, StateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private CollectionState(ClientRequest request, Client client, StateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected CollectionState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);

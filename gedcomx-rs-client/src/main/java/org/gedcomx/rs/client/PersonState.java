@@ -15,6 +15,7 @@
  */
 package org.gedcomx.rs.client;
 
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -25,6 +26,7 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.RelationshipType;
@@ -42,6 +44,22 @@ import java.util.List;
  * @author Ryan Heaton
  */
 public class PersonState extends GedcomxApplicationState<Gedcomx> {
+
+  public PersonState(URI uri) {
+    this(uri, new StateFactory());
+  }
+
+  private PersonState(URI uri, StateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private PersonState(URI uri, Client client, StateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private PersonState(ClientRequest request, Client client, StateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected PersonState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);

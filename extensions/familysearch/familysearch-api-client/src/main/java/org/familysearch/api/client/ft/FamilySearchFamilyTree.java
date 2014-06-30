@@ -18,6 +18,7 @@ package org.familysearch.api.client.ft;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
@@ -32,6 +33,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.*;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
@@ -45,6 +47,33 @@ import java.util.List;
  * @author Ryan Heaton
  */
 public class FamilySearchFamilyTree extends FamilySearchCollectionState {
+
+  public static final String URI = "https://familysearch.org/platform/collections/tree";
+  public static final String SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
+
+  public FamilySearchFamilyTree() {
+    this(false);
+  }
+
+  public FamilySearchFamilyTree(boolean sandbox) {
+    this(java.net.URI.create(sandbox ? SANDBOX_URI : URI));
+  }
+
+  public FamilySearchFamilyTree(URI uri) {
+    this(uri, new FamilyTreeStateFactory());
+  }
+
+  private FamilySearchFamilyTree(URI uri, FamilyTreeStateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private FamilySearchFamilyTree(URI uri, Client client, FamilyTreeStateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private FamilySearchFamilyTree(ClientRequest request, Client client, FamilyTreeStateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected FamilySearchFamilyTree(ClientRequest request, ClientResponse client, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, client, accessToken, stateFactory);
@@ -209,7 +238,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
@@ -231,7 +260,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
@@ -277,7 +306,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     ClientResponse response = invoke(request, options);
     if (response.getClientResponseStatus() == ClientResponse.Status.NO_CONTENT) {
       return null;
@@ -342,7 +371,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).header("Location", relationshipState.getSelfUri()).build(URI.create(uri), HttpMethod.PUT);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).header("Location", relationshipState.getSelfUri()).build(java.net.URI.create(uri), HttpMethod.PUT);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
@@ -388,7 +417,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 

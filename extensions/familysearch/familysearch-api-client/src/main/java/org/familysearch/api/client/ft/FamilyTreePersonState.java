@@ -18,6 +18,7 @@ package org.familysearch.api.client.ft;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.*;
@@ -31,6 +32,7 @@ import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.*;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
@@ -45,6 +47,22 @@ import java.util.List;
  * @author Ryan Heaton
  */
 public class FamilyTreePersonState extends PersonState {
+
+  public FamilyTreePersonState(URI uri) {
+    this(uri, new FamilyTreeStateFactory());
+  }
+
+  private FamilyTreePersonState(URI uri, FamilyTreeStateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private FamilyTreePersonState(URI uri, Client client, FamilyTreeStateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private FamilyTreePersonState(ClientRequest request, Client client, FamilyTreeStateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected FamilyTreePersonState(ClientRequest request, ClientResponse response, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);

@@ -15,6 +15,7 @@
  */
 package org.familysearch.api.client.ft;
 
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
@@ -35,7 +36,7 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   }
 
   public FamilySearchFamilyTree newFamilyTreeState(boolean production) {
-    return (FamilySearchFamilyTree) newCollectionState(URI.create(production ? "https://familysearch.org/platform/collections/tree" : "https://sandbox.familysearch.org/platform/collections/tree"));
+    return (FamilySearchFamilyTree) newCollectionState(URI.create(production ? FamilySearchFamilyTree.URI : FamilySearchFamilyTree.SANDBOX_URI));
   }
 
   public FamilySearchFamilyTree newFamilyTreeState(URI discoveryUri) {
@@ -102,5 +103,10 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   @Override
   protected SourceDescriptionsState newSourceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return super.newSourceDescriptionsState(request, response, accessToken);
+  }
+
+  @Override
+  protected Client loadDefaultClient() {
+    return super.loadDefaultClient();
   }
 }

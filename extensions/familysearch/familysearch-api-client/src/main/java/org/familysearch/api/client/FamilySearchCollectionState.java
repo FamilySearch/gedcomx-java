@@ -18,6 +18,7 @@ package org.familysearch.api.client;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
@@ -29,6 +30,7 @@ import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
@@ -38,6 +40,22 @@ import java.net.URI;
  * @author Ryan Heaton
  */
 public class FamilySearchCollectionState extends CollectionState {
+
+  public FamilySearchCollectionState(URI uri) {
+    this(uri, new FamilySearchStateFactory());
+  }
+
+  private FamilySearchCollectionState(URI uri, FamilySearchStateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private FamilySearchCollectionState(URI uri, Client client, FamilySearchStateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private FamilySearchCollectionState(ClientRequest request, Client client, FamilySearchStateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected FamilySearchCollectionState(ClientRequest request, ClientResponse client, String accessToken, FamilySearchStateFactory stateFactory) {
     super(request, client, accessToken, stateFactory);
