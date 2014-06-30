@@ -13,6 +13,9 @@ groupId | artifactId
 
 See [the section on using these libraries](../README.md#Use).
 
+To determine the latest version, [read the Maven Metadata](https://repository-gedcom.forge.cloudbees.com/release/org/gedcomx/gedcomx-model/maven-metadata.xml)
+and use the "release" version.
+
 # Use
 
 ## Building the Model

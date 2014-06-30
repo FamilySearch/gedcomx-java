@@ -175,8 +175,8 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  public FamilyTreeCollectionState readCollection(StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.readCollection(options);
+  public FamilySearchFamilyTree readCollection(StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.readCollection(options);
   }
 
   @Override

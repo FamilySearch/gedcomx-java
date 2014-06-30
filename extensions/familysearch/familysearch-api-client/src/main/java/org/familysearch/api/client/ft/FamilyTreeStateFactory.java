@@ -30,16 +30,16 @@ import java.net.URI;
  */
 public class FamilyTreeStateFactory extends FamilySearchStateFactory {
 
-  public FamilyTreeCollectionState newFamilyTreeState() {
+  public FamilySearchFamilyTree newFamilyTreeState() {
     return newFamilyTreeState(true);
   }
 
-  public FamilyTreeCollectionState newFamilyTreeState(boolean production) {
-    return (FamilyTreeCollectionState) newCollectionState(URI.create(production ? "https://familysearch.org/platform/collections/tree" : "https://sandbox.familysearch.org/platform/collections/tree"));
+  public FamilySearchFamilyTree newFamilyTreeState(boolean production) {
+    return (FamilySearchFamilyTree) newCollectionState(URI.create(production ? "https://familysearch.org/platform/collections/tree" : "https://sandbox.familysearch.org/platform/collections/tree"));
   }
 
-  public FamilyTreeCollectionState newFamilyTreeState(URI discoveryUri) {
-    return (FamilyTreeCollectionState) super.newCollectionState(discoveryUri);
+  public FamilySearchFamilyTree newFamilyTreeState(URI discoveryUri) {
+    return (FamilySearchFamilyTree) super.newCollectionState(discoveryUri);
   }
 
   protected ChildAndParentsRelationshipState newChildAndParentsRelationshipState(ClientRequest request, ClientResponse response, String accessToken) {
@@ -52,8 +52,8 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   }
 
   @Override
-  protected FamilyTreeCollectionState newCollectionState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new FamilyTreeCollectionState(request, response, accessToken, this);
+  protected FamilySearchFamilyTree newCollectionState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchFamilyTree(request, response, accessToken, this);
   }
 
   @Override

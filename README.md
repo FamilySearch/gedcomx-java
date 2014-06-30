@@ -38,6 +38,8 @@ a set of extensions to the GEDCOM X Conceptual Model and to the GEDCOM X RS spec
  
 The [FamilySearch API Client](./extensions/familysearch/familysearch-api-client/) comprises the developer SDK for the FamilySearch API.
 
+<a name="Use"/>
+
 # Use
 
 Here's how you might use this project.
@@ -51,6 +53,11 @@ The official Maven repositories are generously hosted by [CloudBees](http://clou
 Here's some snippets of what the dependency declarations might look like in some of the most common build systems. Note that
 these snippets declare a dependency on the [`gedcomx-model`](./gedcomx-model) artifact, but you may want to declare dependencies on
 `gedcomx-fileformat` or `gedcomx-rs-client` or whatever.
+
+##### Finding the Latest Version
+
+To find the latest version of the libraries, [read the Maven Metadata](https://repository-gedcom.forge.cloudbees.com/release/org/gedcomx/gedcomx-parent/maven-metadata.xml)
+and use the "release" version.
 
 #### Maven
 
