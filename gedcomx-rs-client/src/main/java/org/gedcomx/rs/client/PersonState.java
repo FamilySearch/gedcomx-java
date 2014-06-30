@@ -477,6 +477,12 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return addSourceReference(reference, options);
   }
 
+  public PersonState addSourceReference(RecordState source, StateTransitionOption... options) {
+    SourceReference reference = new SourceReference();
+    reference.setDescriptionRef(new org.gedcomx.common.URI(source.getSelfUri().toString()));
+    return addSourceReference(reference, options);
+  }
+
   public PersonState addSourceReference(SourceReference reference, StateTransitionOption... options) {
     return addSourceReferences(new SourceReference[]{reference}, options);
   }

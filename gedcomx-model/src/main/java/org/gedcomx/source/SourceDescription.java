@@ -268,6 +268,16 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   /**
+   * Build out this source description with a citation.
+   * @param citation The citation.
+   * @return this.
+   */
+  public SourceDescription citation(String citation) {
+    addCitation(new SourceCitation().value(citation));
+    return this;
+  }
+
+  /**
    * Add a citation.
    *
    * @param citation The citation to be added.

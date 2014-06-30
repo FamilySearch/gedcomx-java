@@ -347,6 +347,11 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
+  public FamilyTreePersonState addSourceReference(RecordState source, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addSourceReference(source, options);
+  }
+
+  @Override
   public FamilyTreePersonState addSourceReference(SourceReference reference, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.addSourceReference(reference, options);
   }
