@@ -250,7 +250,6 @@ public abstract class Subject extends Conclusion implements Attributable {
    *
    * @return References to the evidence being referenced.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<EvidenceReference> getEvidence() {
     return evidence;
   }

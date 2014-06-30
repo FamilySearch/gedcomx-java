@@ -197,6 +197,10 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return person == null ? null : person.getEvidence() == null ? null : person.getEvidence().isEmpty() ? null : person.getEvidence().get(0);
   }
 
+  public EvidenceReference getPersonaReference() {
+    return getEvidenceReference();
+  }
+
   public SourceReference getMediaReference() {
     Person person = getPerson();
     return person == null ? null : person.getMedia() == null ? null : person.getMedia().isEmpty() ? null : person.getMedia().get(0);
@@ -296,6 +300,10 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
   public PersonState loadEvidenceReferences(StateTransitionOption... options) {
     return loadEmbeddedResources(new String[]{Rel.EVIDENCE_REFERENCES}, options);
+  }
+
+  public PersonState loadPersonaReferences(StateTransitionOption... options) {
+    return loadEvidenceReferences(options);
   }
 
   public PersonState loadNotes(StateTransitionOption... options) {
@@ -611,6 +619,34 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState addPersonaReference(PersonState persona, StateTransitionOption... options) {
+    return addEvidenceReference(persona, options);
+  }
+
+  public PersonState addPersonaReference(EvidenceReference reference, StateTransitionOption... options) {
+    return addEvidenceReference(reference, options);
+  }
+
+  public PersonState addPersonaReferences(EvidenceReference[] refs, StateTransitionOption... options) {
+    return addEvidenceReferences(refs, options);
+  }
+
+  public PersonState updatePersonaReference(EvidenceReference reference, StateTransitionOption... options) {
+    return updateEvidenceReference(reference, options);
+  }
+
+  public PersonState updatePersonaReferences(EvidenceReference[] refs, StateTransitionOption... options) {
+    return updateEvidenceReferences(refs, options);
+  }
+
+  public PersonState updatePersonaReferences(Person person, StateTransitionOption... options) {
+    return updateEvidenceReferences(person, options);
+  }
+
+  public PersonState deletePersonaReference(EvidenceReference reference, StateTransitionOption... options) {
+    return deleteEvidenceReference(reference, options);
   }
 
   public PersonState readNote(Note note, StateTransitionOption... options) {
