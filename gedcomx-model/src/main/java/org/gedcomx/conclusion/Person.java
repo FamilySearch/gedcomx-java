@@ -161,7 +161,6 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param refs References to the persona being referenced.
    */
-  @XmlTransient
   @JsonIgnore
   public void setPersonaReferences(List<EvidenceReference> refs) {
     setEvidence(refs);
