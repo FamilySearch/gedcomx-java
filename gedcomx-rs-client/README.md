@@ -36,6 +36,7 @@ Need something to sink your teeth into?
 * [Read a Collection (Start Here)](#read-collection)
 * [Search for Records or Persons](#record-search)
 * [Create a Person](#create-person)
+* [Create Relationships](#create-relationships)
 * [Add a Source](#add-source)
 * [Add an Artifact](#add-artifact)
 * [Cite a Record, Artifact or Other Source](#cite-something)
@@ -44,6 +45,9 @@ Need something to sink your teeth into?
 * [Attach a Photo to a Person](#attach-photo)
 * [Attach a Photo to Multiple Persons](#attaches-photo)
 * [Read the Person for the Current User](#current-user-person)
+* [Read Source References](#read-sourcerefs)
+* [Read Evidence References](#read-evidence)
+* [Read Notes](#read-notes)
 * [Read Parents, Spouses, or Children](#read-relatives)
 * [Read Ancestry or Descendancy](#read-pedigree)
 * [Add a Name, Gender, or Fact](#add-conclusion)
@@ -121,6 +125,26 @@ PersonState person = collection.addPerson(new Person()
   .gender(GenderType.Male)
   //residing in chicago in 1940
   .fact(new Fact(FactType.Residence, "4 April 1940", "Chicago, Illinois")));
+```
+
+<a name="create-relationships"/>
+
+### Create Relationships
+
+Here's how you would create relationships between persons in collections
+where such an operation is supported.
+
+```java
+//the collection to which the relationships are to be added.
+CollectionState collection = null;
+
+PersonState spouse1 = null;
+PersonState spouse2 = null;
+PersonState child = null;
+
+RelationshipState coupleRelationship = collection.addSpouseRelationship(spouse1, spouse2);
+RelationshipState childRelationship1 = collection.addParentChildRelationship(spouse1, child);
+RelationshipState childRelationship2 = collection.addParentChildRelationship(spouse2, child);
 ```
 
 <a name="add-source"/>
@@ -278,6 +302,51 @@ The current authentication user may have a person record in a collection.
 CollectionState collection = ...;
 
 PersonState person = collection.readPersonForCurrentUser();
+```
+
+<a name="read-sourcerefs"/>
+
+### Read Source References
+
+```java
+//the person on which to read the source references.
+PersonState person = null;
+
+//load the source references for the person.
+person.loadSourceReferences();
+
+//read the source references.
+List<SourceReference> sourceRefs = person.getPerson().getSources();
+```
+
+<a name="read-evidence"/>
+
+### Read Evidence References
+
+```java
+//the person on which to read the persona references.
+PersonState person = null;
+
+//load the persona references for the person.
+person.loadPersonaReferences();
+
+//read the persona references.
+List<EvidenceReference> personaRefs = person.getPerson().getEvidence();
+```
+
+<a name="read-notes"/>
+
+### Read Notes
+
+```java
+//the person on which to read the notes.
+PersonState person = null;
+
+//load the notes for the person.
+person.loadNotes();
+
+//read the discussion references.
+List<Note> notes = person.getPerson().getNotes();
 ```
 
 <a name="read-relatives"/>

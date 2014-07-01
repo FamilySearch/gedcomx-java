@@ -89,7 +89,7 @@ public class FamilySearchStateFactory extends StateFactory {
   }
 
   @Override
-  protected Client loadDefaultClient() {
+  public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
       ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,

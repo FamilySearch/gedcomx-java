@@ -105,8 +105,4 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
     return super.newSourceDescriptionsState(request, response, accessToken);
   }
 
-  @Override
-  protected Client loadDefaultClient() {
-    return super.loadDefaultClient();
-  }
 }

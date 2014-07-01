@@ -1,9 +1,12 @@
 package org.gedcomx.rs.client;
 
 import org.gedcomx.atom.Entry;
+import org.gedcomx.common.EvidenceReference;
+import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
 import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 
@@ -71,6 +74,19 @@ public class Examples {
       .gender(GenderType.Male)
       //residing in chicago in 1940
       .fact(new Fact(FactType.Residence, "4 April 1940", "Chicago, Illinois")));
+  }
+
+  public void createRelationships() {
+    //the collection to which the relationship is to be added.
+    CollectionState collection = null;
+
+    PersonState spouse1 = null;
+    PersonState spouse2 = null;
+    PersonState child = null;
+
+    RelationshipState coupleRelationship = collection.addSpouseRelationship(spouse1, spouse2);
+    RelationshipState childRelationship1 = collection.addParentChildRelationship(spouse1, child);
+    RelationshipState childRelationship2 = collection.addParentChildRelationship(spouse2, child);
   }
   
   public void createASourceDescription() {
@@ -189,7 +205,40 @@ public class Examples {
     PersonParentsState parents = person.readParents(); //read the parents
     PersonSpousesState spouses = person.readSpouses(); //read the spouses
   }
-  
+
+  public void readSourceReferences() {
+    //the person on which to read the source references.
+    PersonState person = null;
+
+    //load the source references for the person.
+    person.loadSourceReferences();
+
+    //read the source references.
+    List<SourceReference> sourceRefs = person.getPerson().getSources();
+  }
+
+  public void readEvidenceReferences() {
+    //the person on which to read the persona references.
+    PersonState person = null;
+
+    //load the persona references for the person.
+    person.loadPersonaReferences();
+
+    //read the persona references.
+    List<EvidenceReference> personaRefs = person.getPerson().getEvidence();
+  }
+
+  public void readNotes() {
+    //the person on which to read the notes.
+    PersonState person = null;
+
+    //load the notes for the person.
+    person.loadNotes();
+
+    //read the discussion references.
+    List<Note> notes = person.getPerson().getNotes();
+  }
+
   public void readAncestryOrDescendancy() {
     //the person for which to read the ancestry or descendancy
     PersonState person = null;
