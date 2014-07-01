@@ -38,6 +38,8 @@ You get stuff done on a web site by following links to where you want to go. Dit
 
 Follow more links to get more stuff done.
 
+<a name="exampmles"/>
+
 ## Examples
 
 Need something to sink your teeth into?
