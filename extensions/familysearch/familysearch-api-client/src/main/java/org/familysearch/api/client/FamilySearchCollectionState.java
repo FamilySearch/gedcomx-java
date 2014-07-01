@@ -25,6 +25,8 @@ import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.discussions.Discussion;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.TextValue;
+import org.gedcomx.conclusion.Date;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
@@ -33,6 +35,7 @@ import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
 
@@ -124,6 +127,34 @@ public class FamilySearchCollectionState extends CollectionState {
   @Override
   public FamilySearchCollectionState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
     return (FamilySearchCollectionState) super.authenticateViaOAuth2(formData, options);
+  }
+
+  public Date normalizeDate(String date, StateTransitionOption... options) {
+    Link normalizedDateLink = getLink(Rel.NORMALIZED_DATE);
+    if (normalizedDateLink == null || normalizedDateLink.getTemplate() == null) {
+      return null;
+    }
+    String template = normalizedDateLink.getTemplate();
+    String uri;
+    try {
+      uri = UriTemplate.fromTemplate(template).set("date", date).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = createRequest().accept(MediaType.TEXT_PLAIN).build(URI.create(uri), HttpMethod.GET);
+    ClientResponse response = invoke(request, options);
+    Date dateValue = new Date();
+    dateValue.setOriginal(date);
+    dateValue.addNormalizedExtension(new TextValue(response.getEntity(String.class)));
+    if (response.getHeaders()!= null) {
+      dateValue.setFormal(response.getHeaders().getFirst("Location"));
+    }
+    return dateValue;
   }
 
   public UserState readCurrentUser(StateTransitionOption... options) {

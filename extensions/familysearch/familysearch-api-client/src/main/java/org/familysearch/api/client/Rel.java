@@ -27,6 +27,7 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String DISCUSSIONS = "discussions";
   public static final String MERGE = "merge";
   public static final String MERGE_MIRROR = "merge-mirror";
+  public static final String NORMALIZED_DATE = "normalized-date";
   public static final String NOT_A_MATCHES = "non-matches";
   public static final String NOT_A_MATCH = "non-match";
   public static final String PERSON_MATCHES_QUERY = "person-matches-query";
