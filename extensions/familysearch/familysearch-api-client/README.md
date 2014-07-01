@@ -1,29 +1,38 @@
-# GEDCOM X Java RS Client
+# FamilySearch API SDK
 
-This is a Java library that provides support for consuming a genealogical Web service API that
-conforms to the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs).
+This is a Java library that provides support for consuming the [FamilySearch API](https://developer.familysearch.org/).
+
+The FamilySearch API is an implementation of the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs),
+plus some custom FamilySearch extensions. As such, the FamilySearch API SDK extends the
+[GEDCOM X RS Client](../../../gedcomx-rs-client/README.md).
 
 # Coordinates
 
 groupId | artifactId
 --------|-----------
-`org.gedcomx` | `gedcomx-rs-client`
+`org.gedcomx.extensions.familysearch` | `familysearch-api-client`
 
-See [the section on using these libraries](../README.md#Use).
+See [the section on using these libraries](../../../README.md#Use).
 
 # Use
 
-Consuming a Web service API that uses [hypermedia as the engine of application state](http://en.wikipedia.org/wiki/HATEOAS)
-feels like browsing the web. As such, the RS client feels like using a screen scraper. The process can generally
+The FamilySearch API SDK extends the [GEDCOM X RS Client](../../../gedcomx-rs-client/README.md). In addition to the
+base functionality of the [GEDCOM X RS Client](../../../gedcomx-rs-client/README.md), the
+FamilySearch API SDK provides additional model classes, convenience classes, and methods to support FamilySearch-specific
+functionality.
+
+The FamilySearch API uses [hypermedia as the engine of application state](http://en.wikipedia.org/wiki/HATEOAS)
+and so using a client feels like browsing the web. As such, the SDK feels like using a screen scraper. The process can generally
 be summarized as follows:
 
 #### Step 1: Read the "Home" Collection
  
-Web sites have a "home page". GEDCOM X APIs have a "home collection".
+Web sites have a "home page". The FamilySearch API has "home collections". Examples of collections include the FamilySearch Family Tree,
+FamilySearch Memories, and FamilySearch Records.
 
 #### Step 2: Follow the Right Link
 
-You get stuff done on a web site by following links to where you want to go. Ditto for a GEDCOM X API.
+You get stuff done on a web site by following links to where you want to go. Ditto for the FamilySearch API.
 
 #### Step 3: Repeat
 
@@ -33,52 +42,62 @@ Follow more links to get more stuff done.
 
 Need something to sink your teeth into?
 
-* [Read a Collection (Start Here)](#read-collection)
-* [Search for Records or Persons](#record-search)
-* [Create a Person](#create-person)
-* [Add a Source](#add-source)
-* [Add an Artifact](#add-artifact)
-* [Cite a Record, Artifact or Other Source](#cite-something)
-* [Extract Information From a Source](#extract-persona)
-* [Add a Persona Reference](#add-persona-reference)
-* [Attach a Photo to a Person](#attach-photo)
-* [Attach a Photo to Multiple Persons](#attaches-photo)
-* [Read the Person for the Current User](#current-user-person)
-* [Read Parents, Spouses, or Children](#read-relatives)
+* [Read the FamilySearch Family Tree (Start Here)](#read-ft)
+* [Search for Persons or Person Matches in the Family Tree](#search-ft)
+* [Create a Person in the Family Tree](#create-ft-person)
+* [Create a Couple Relationship in the Family Tree](#create-ft-couple)
+* [Create a Child-and-Parents Relationship in the Family Tree](#create-ft-chap)
+* [Create a Source](#create-source)
+* [Create a Source Reference](#create-source-reference)
+* [Read Everything Attached to a Source](#read-references-to-source)
+* [Read Person for the Current User](#read-current-user-person)
+* [Read Source References](#read-source-references)
+* [Read Persona References](#read-evidence-references)
+* [Read Discussion References](#read-discussion-references)
+* [Read Notes](#read-notes)
+* [Read Parents, Children, or Spouses](#read-relatives)
 * [Read Ancestry or Descendancy](#read-pedigree)
-* [Add a Name, Gender, or Fact](#add-conclusion)
+* [Read Person Matches (i.e., Possible Duplicates)](#read-matches)
+* [Declare Not a Match](#declare-not-a-match)
+* [Add a Name or Fact](#add-conclusion)
 * [Update a Name, Gender, or Fact](#update-conclusion)
+* [Create a Discussion](#create-discussion)
+* [Attach a Discussion](#create-discussion-reference)
+* [Attach a Photo to a Person](#attach-photo)
+* [Read FamilySearch Memories](#read-fs-memories)
+* [Upload Photo or Story or Document](#add-an-artifact)
+* [Create a Memory Persona](#create-memory-persona)
+* [Create a Persona Reference](#create-persona-reference)
+* [Attach a Photo to Multiple Persons](#multi-person-photo-attach)
 
-<a name="read-collection"/>
 
-### Read a Collection (Start Here)
+<a name="read-ft"/>
+
+### Read the FamilySearch Family Tree (Start Here)
 
 Before you do anything, you need to start by reading the collection that you want
-to read or update. Here's how you might read and authenticate to a collection.
+to read or update.
+
+May we suggest you start with the FamilySearch Family Tree?
 
 ```java
-//start with the URI to the collection.
-URI collectionUri = URI.create("...");
-
-//read the collection.
-CollectionState collection = new CollectionState(collectionUri);
-
-//authenticate if you need to.
+boolean useSandbox = true; //whether to use the sandbox reference.
 String username = "...";
 String password = "...";
-String clientId = "...";
-collection.authenticateViaOAuth2Password(username, password, clientId);
+String developerKey = "...";
+
+//read the Family Tree
+FamilySearchFamilyTree ft = new FamilySearchFamilyTree(useSandbox)
+  //and authenticate.
+  .authenticateViaOAuth2Password(username, password, developerKey);
 ```
 
-<a name="record-search"/>
+<a name="search-ft"/>
 
-### Search for Records or Persons
-
-Once you have a collection, you can search it for records or persons.
+### Search for Persons or Person Matches in the Family Tree
 
 ```java
-//the collection to search. 
-CollectionState collection = ...;
+FamilySearchFamilyTree ft = null;
 
 //put together a search query
 GedcomxPersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
@@ -86,207 +105,199 @@ GedcomxPersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
   .name("John Smith")
   //born 1/1/1900
   .birthDate("1 January 1900")
-    //son of Peter.
+  //son of Peter.
   .fatherName("Peter Smith");
 
 //search the collection
-PersonSearchResultsState results = collection.searchForPersons(query);
-
+PersonSearchResultsState results = ft.searchForPersons(query);
 //iterate through the results...
 List<Entry> entries = results.getResults().getEntries();
-
-//read the record of one of the results.
-RecordState record = results.readRecord(entries.get(0));
-
-//or, read the person that was considered a "hit"
+//read the person that was hit
 PersonState person = results.readPerson(entries.get(0));
+
+//search the collection for matches
+PersonMatchResultsState matches = ft.searchForPersonMatches(query);
+//iterate through the results...
+entries = results.getResults().getEntries();
+//read the person that was matched
+person = results.readPerson(entries.get(0));
 ```
 
-<a name="create-person"/>
+<a name="create-ft-person"/>
 
-### Create a Person
-
-Some collections are designed to hold genealogical data to be updated. Here's how you might
-add a person to a collection.
+### Create a Person in the Family Tree
 
 ```java
-//the collection to which the person is to be added
-CollectionState collection = ...;
+FamilySearchFamilyTree ft = null;
 
 //add a person
-PersonState person = collection.addPerson(new Person()
+PersonState person = ft.addPerson(new Person()
   //named John Smith
-  .name("John Smith")
+  .name(new Name("John Smith", new NamePart(NamePartType.Given, "John"), new NamePart(NamePartType.Surname, "Smith")))
   //male
   .gender(GenderType.Male)
-  //residing in chicago in 1940
-  .fact(new Fact(FactType.Residence, "4 April 1940", "Chicago, Illinois")));
+  //born in chicago in 1920
+  .fact(new Fact(FactType.Birth, "1 January 1920", "Chicago, Illinois"))
+  //died in new york 1980
+  .fact(new Fact(FactType.Death, "1 January 1980", "New York, New York")),
+  //with a change message.
+  reason("Because I said so.")
+);
 ```
 
-<a name="add-source"/>
+<a name="create-ft-couple"/>
 
-### Add a Source
-
-Some collections allow you to add descriptions of sources.
+### Create a Couple Relationship in the Family Tree
 
 ```java
-//the collection to which the source is to be added
-CollectionState collection = ...;
+FamilySearchFamilyTree ft = null;
+
+PersonState husband = null;
+PersonState wife = null;
+
+RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, reason("Because I said so."));
+```
+
+<a name="create-ft-chap"/>
+
+### Create a Child-and-Parents Relationship in the Family Tree
+
+```java
+FamilySearchFamilyTree ft = null;
+
+PersonState father = null;
+PersonState mother = null;
+PersonState child = null;
+
+ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, father, mother, reason("Because I said so."));
+```
+
+<a name="create-source"/>
+
+### Create a Source
+
+```java
+FamilySearchFamilyTree ft = null;
 
 //add a source description
-SourceDescriptionState source = collection.addSourceDescription(new SourceDescription()
+SourceDescriptionState source = ft.addSourceDescription(new SourceDescription()
+  //about some resource.
+  .about(org.gedcomx.common.URI.create("http://familysearch.org/ark:/..."))
   //with a title.
   .title("Birth Certificate for John Smith")
   //and a citation
   .citation("Citation for the birth certificate")
+  //and a note
+  .note(new Note().text("Some note for the source.")),
+  //with a change message.
+  reason("Because I said so.")
 );
 ```
 
-<a name="add-artifact"/>
+<a name="create-source-reference"/>
 
-### Add an Artifact
-
-Some collections allow you to upload artifacts such as digital images.
-
-```java
-//the collection to which the artifact is to be added
-CollectionState collection = ...;
-DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
-
-//add an artifact
-SourceDescriptionState artifact = collection.addArtifact(new SourceDescription()
-  //with a title
-  .title("Death Certificate for John Smith")
-  //and a citation
-  .citation("Citation for the death certificate"), 
-  digitalImage
-);
-```
-
-<a name="cite-something"/>
-
-### Cite a Record or Artifact or Other Source
-
-How you might update a person to cite a record or artifact or other source.
+### Create a Source Reference
 
 ```java
 //the person that will be citing the record, source, or artifact.
-PersonState person = ...;
+PersonState person = null;
 
-RecordState record = ...;
-SourceDescriptionState source = ...;
-SourceDescriptionState artifact = ...;
+SourceDescriptionState source = null;
 
-person.addSourceReference(record); //cite the record.
-person.addSourceReference(source); //cite the source.
-person.addSourceReference(artifact); //cite the artifact.
+person.addSourceReference(source, reason("Because I said so.")); //cite the source.
 ```
 
-<a name="extract-persona"/>
+<a name="read-references-to-source"/>
 
-### Extract Information From a Source
-
-Some collections might allow you to extract information about a person (i.e. "persona")
-from an artifact or other source.
+### Read Everything Attached to a Source
 
 ```java
-//the artifact from which a persona will be extracted.
-SourceDescriptionState artifact = ...;
+//the source.
+SourceDescriptionState source = null;
 
-//add the persona
-PersonState persona = artifact.addPersona(new Person()
-  //named John Smith
-  .name("John Smith")
-  //male
-  .gender(GenderType.Male)
-  //residing in chicago in 1940
-  .fact(new Fact(FactType.Residence, "4 April 1940", "Chicago, Illinois")));
+SourceDescriptionState attachedReferences = ((FamilySearchSourceDescriptionState) source).queryAttachedReferences();
+
+//iterate through the persons attached to the source
+List<Person> persons = attachedReferences.getEntity().getPersons();
 ```
 
-<a name="add-persona-reference"/>
+<a name="read-current-user-person"/>
 
-### Add a Persona Reference
-
-How you might add a reference from a person to a persona.
+### Read Person for the Current User
 
 ```java
-//the person that will be referencing the persona.
-PersonState person = ...;
+FamilySearchFamilyTree ft = null;
 
-//the persona that was extracted from a record or artifact.
-PersonState persona = ...;
-
-//add the persona reference.
-person.addPersonaReference(persona);
+PersonState person = ft.readPersonForCurrentUser();
 ```
 
-<a name="attach-photo"/>
+<a name="read-source-references"/>
 
-### Attach a Photo to a Person
-
-Some collections might allow you to add a photo to a person.
+### Read Source References
 
 ```java
-//the person to which the photo will be attached.
-PersonState person = ...;
-DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
+//the person on which to read the source references.
+PersonState person = null;
 
-//add an artifact
-SourceDescriptionState artifact = person.addArtifact(new SourceDescription()
-  //with a title
-  .title("Portrait of John Smith"), 
-  digitalImage
-);
+//load the source references for the person.
+person.loadSourceReferences();
+
+//read the source references.
+List<SourceReference> sourceRefs = person.getPerson().getSources();
 ```
 
-<a name="attaches-photo"/>
+<a name="read-evidence-references"/>
 
-### Attach a Photo to Multiple Persons
-
-Here's how you would attach a single photo to multiple persons.
+### Read Persona References
 
 ```java
-//the collection to which the artifact is to be added
-CollectionState collection = ...;
+//the person on which to read the persona references.
+PersonState person = null;
 
-//the persons to which the photo will be attached.
-PersonState person1 = ...;
-PersonState person2 = ...;
-PersonState person3 = ...;
-DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
+//load the persona references for the person.
+person.loadPersonaReferences();
 
-//add an artifact
-SourceDescriptionState artifact = collection.addArtifact(new SourceDescription()
-  //with a title
-  .title("Family of John Smith"), 
-  digitalImage
-);
-
-person1.addMediaReference(artifact); //attach to person1
-person2.addMediaReference(artifact); //attach to person2
-person3.addMediaReference(artifact); //attach to person3
+//read the persona references.
+List<EvidenceReference> personaRefs = person.getPerson().getEvidence();
 ```
 
-<a name="current-user-person"/>
+<a name="read-discussion-references"/>
 
-### Read the Person for the Current User
-
-The current authentication user may have a person record in a collection.
+### Read Discussion References
 
 ```java
-//the collection containing the person for the current user.
-CollectionState collection = ...;
+//the person on which to read the discussion references.
+PersonState person = null;
 
-PersonState person = collection.readPersonForCurrentUser();
+//load the discussion references for the person.
+((FamilyTreePersonState) person).loadDiscussionReferences();
+
+//read the discussion references.
+List<DiscussionReference> discussionRefs = person.getPerson().findExtensionsOfType(DiscussionReference.class);
+```
+
+<a name="read-notes"/>
+
+### Read Notes
+
+```java
+//the person on which to read the notes.
+PersonState person = null;
+
+//load the notes for the person.
+person.loadNotes();
+
+//read the discussion references.
+List<Note> notes = person.getPerson().getNotes();
 ```
 
 <a name="read-relatives"/>
 
-### Read Parents, Spouses, or Children
+### Read Parents, Children, or Spouses
 
 ```java
 //the person for which to read the parents, spouses, children
-PersonState person = ...;
+PersonState person = null;
 
 PersonChildrenState children = person.readChildren(); //read the children
 PersonParentsState parents = person.readParents(); //read the parents
@@ -297,12 +308,9 @@ PersonSpousesState spouses = person.readSpouses(); //read the spouses
 
 ### Read Ancestry or Descendancy
 
-Some collections support queries that allows you to read the
-ancestry or descendancy of a person.
-
 ```java
 //the person for which to read the ancestry or descendancy
-PersonState person = ...;
+PersonState person = null;
 
 person.readAncestry(); //read the ancestry
 person.readAncestry(generations(8)); //read 8 generations of the ancestry
@@ -310,41 +318,199 @@ person.readDescendancy(); //read the descendancy
 person.readDescendancy(generations(3)); //read 3 generations of the descendancy
 ```
 
+<a name="read-matches"/>
+
+### Read Person Matches (i.e., Possible Duplicates)
+
+```java
+//the person for which to read the matches
+PersonState person = null;
+
+PersonMatchResultsState matches = ((FamilyTreePersonState) person).readMatches();
+
+//iterate through the matches.
+List<Entry> entries = matches.getResults().getEntries();
+```
+
+<a name="declare-not-a-match"/>
+
+### Declare Not a Match
+
+```java
+//the match results
+PersonMatchResultsState matches = null;
+
+//iterate through the matches.
+List<Entry> entries = matches.getResults().getEntries();
+
+matches.addNonMatch(entries.get(2), reason("Because I said so."));
+```
+
 <a name="add-conclusion"/>
 
-### Add a Name, Gender, or Fact
-
-How to add a name, gender, or facts to a person.
+### Add a Name or Fact
 
 ```java
 //the person to which to add the name, gender, or fact.
-PersonState person = ...;
+PersonState person = null;
 
-person.addName(new Name("Johnny Smith")); //add name
-person.addGender(new Gender(GenderType.Male)); //add gender
-person.addFact(new Fact(FactType.Death, "date", "place")); //add death fact
+Name name = null;
+person.addName(name.type(NameType.AlsoKnownAs), reason("Because I said so.")); //add name
+person.addFact(new Fact(FactType.Death, "date", "place"), reason("Because I said so.")); //add death fact
 ```
 
 <a name="update-conclusion"/>
 
 ### Update a Name, Gender, or Fact
 
-How to update and existing name, gender, or facts of a person.
-
 ```java
 //the person to which to update the name, gender, or fact.
-//the person to which to update the name, gender, or fact.
-PersonState person = ...;
+PersonState person = null;
 
 Name name = person.getName();
 name.getNameForm().setFullText("Joanna Smith");
-person.updateName(name); //update name
+person.updateName(name, reason("Because I said so.")); //update name
 
 Gender gender = person.getGender();
 gender.setKnownType(GenderType.Female);
-person.updateGender(gender); //update gender
+person.updateGender(gender, reason("Because I said so.")); //update gender
 
 Fact death = person.getPerson().getFirstFactOfType(FactType.Death);
 death.setDate(new Date().original("new date"));
-person.updateFact(death);
+person.updateFact(death, reason("Because I said so."));
+```
+
+<a name="create-discussion"/>
+
+### Create a Discussion
+
+```java
+FamilySearchFamilyTree ft = null;
+
+//add a discussion description
+DiscussionState discussion = ft.addDiscussion(new Discussion()
+  //with a title.
+  .title("What about this"),
+  //with a change message.
+  reason("Because I said so.")
+);
+```
+
+<a name="create-discussion-reference"/>
+
+### Attach a Discussion
+
+```java
+//the person that will be referencing the discussion.
+PersonState person = null;
+
+DiscussionState discussion = null;
+
+((FamilyTreePersonState) person).addDiscussionReference(discussion, reason("Because I said so.")); //reference the discussion.
+```
+
+<a name="attach-photo"/>
+
+### Attach a Photo to a Person
+
+```java
+//the person to which the photo will be attached.
+PersonState person = null;
+DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
+
+//add an artifact
+SourceDescriptionState artifact = person.addArtifact(new SourceDescription()
+  //with a title
+  .title("Portrait of John Smith"),
+  digitalImage
+);
+```
+
+<a name="read-fs-memories"/>
+
+### Read FamilySearch Memories
+
+```java
+boolean useSandbox = true; //whether to use the sandbox reference.
+String username = "...";
+String password = "...";
+String developerKey = "...";
+
+//read the Family Tree
+FamilySearchMemories fsMemories = new FamilySearchMemories(useSandbox)
+  //and authenticate.
+  .authenticateViaOAuth2Password(username, password, developerKey);
+```
+
+<a name="add-an-artifact"/>
+
+### Upload Photo or Story or Document
+
+```java
+FamilySearchMemories fsMemories = null;
+DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
+
+//add an artifact
+SourceDescriptionState artifact = fsMemories.addArtifact(new SourceDescription()
+  //with a title
+  .title("Death Certificate for John Smith")
+  //and a citation
+  .citation("Citation for the death certificate"), 
+  digitalImage
+);
+```
+
+<a name="create-memory-persona"/>
+
+### Create a Memory Persona
+
+```java
+//the artifact from which a persona will be extracted.
+SourceDescriptionState artifact = null;
+
+//add the persona
+PersonState persona = artifact.addPersona(new Person()
+  //named John Smith
+  .name("John Smith"));
+```
+
+<a name="create-persona-reference"/>
+
+### Create a Persona Reference
+
+```java
+//the person that will be citing the record, source, or artifact.
+PersonState person = null;
+
+//the persona that was extracted from a record or artifact.
+PersonState persona = null;
+
+//add the persona reference.
+person.addPersonaReference(persona);
+```
+
+<a name="multi-person-photo-attach"/>
+
+### Attach a Photo to Multiple Persons
+
+```java
+//the collection to which the artifact is to be added
+CollectionState fsMemories = null;
+
+//the persons to which the photo will be attached.
+PersonState person1 = null;
+PersonState person2 = null;
+PersonState person3 = null;
+DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
+
+//add an artifact
+SourceDescriptionState artifact = fsMemories.addArtifact(new SourceDescription()
+  //with a title
+  .title("Family of John Smith"),
+  digitalImage
+);
+
+person1.addMediaReference(artifact); //attach to person1
+person2.addMediaReference(artifact); //attach to person2
+person3.addMediaReference(artifact); //attach to person3
 ```

@@ -247,7 +247,7 @@ public class Examples {
 
   public void updateNameOrGenderOrFact() {
     //the person to which to update the name, gender, or fact.
-    FamilyTreePersonState person = null;
+    PersonState person = null;
 
     Name name = person.getName();
     name.getNameForm().setFullText("Joanna Smith");
@@ -280,10 +280,10 @@ public class Examples {
     
     //add a discussion description
     DiscussionState discussion = ft.addDiscussion(new Discussion()
-                                                    //with a title.
-                                                    .title("What about this"),
-                                                  //with a change message.
-                                                  reason("Because I said so.")
+      //with a title.
+      .title("What about this"),
+      //with a change message.
+      reason("Because I said so.")
     );
   }
 
@@ -343,11 +343,7 @@ public class Examples {
     //add the persona
     PersonState persona = artifact.addPersona(new Person()
       //named John Smith
-      .name("John Smith")
-      //male
-      .gender(GenderType.Male)
-      //residing in chicago in 1940
-      .fact(new Fact(FactType.Residence, "4 April 1940", "Chicago, Illinois")));
+      .name("John Smith"));
   }
   
   public void addAPersonaReferenceToAPerson() {
