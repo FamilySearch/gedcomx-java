@@ -97,7 +97,7 @@ FamilySearchFamilyTree ft = new FamilySearchFamilyTree(useSandbox)
 ### Search for Persons or Person Matches in the Family Tree
 
 ```java
-FamilySearchFamilyTree ft = null;
+FamilySearchFamilyTree ft = ...;
 
 //put together a search query
 GedcomxPersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
@@ -128,7 +128,7 @@ person = results.readPerson(entries.get(0));
 ### Create a Person in the Family Tree
 
 ```java
-FamilySearchFamilyTree ft = null;
+FamilySearchFamilyTree ft = ...;
 
 //add a person
 PersonState person = ft.addPerson(new Person()
@@ -150,10 +150,10 @@ PersonState person = ft.addPerson(new Person()
 ### Create a Couple Relationship in the Family Tree
 
 ```java
-FamilySearchFamilyTree ft = null;
+FamilySearchFamilyTree ft = ...;
 
-PersonState husband = null;
-PersonState wife = null;
+PersonState husband = ...;
+PersonState wife = ...;
 
 RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, reason("Because I said so."));
 ```
@@ -163,11 +163,11 @@ RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, r
 ### Create a Child-and-Parents Relationship in the Family Tree
 
 ```java
-FamilySearchFamilyTree ft = null;
+FamilySearchFamilyTree ft = ...;
 
-PersonState father = null;
-PersonState mother = null;
-PersonState child = null;
+PersonState father = ...;
+PersonState mother = ...;
+PersonState child = ...;
 
 ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, father, mother, reason("Because I said so."));
 ```
@@ -177,7 +177,7 @@ ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child,
 ### Create a Source
 
 ```java
-FamilySearchFamilyTree ft = null;
+FamilySearchFamilyTree ft = ...;
 
 //add a source description
 SourceDescriptionState source = ft.addSourceDescription(new SourceDescription()
@@ -200,9 +200,9 @@ SourceDescriptionState source = ft.addSourceDescription(new SourceDescription()
 
 ```java
 //the person that will be citing the record, source, or artifact.
-PersonState person = null;
+PersonState person = ...;
 
-SourceDescriptionState source = null;
+SourceDescriptionState source = ...;
 
 person.addSourceReference(source, reason("Because I said so.")); //cite the source.
 ```
@@ -213,7 +213,7 @@ person.addSourceReference(source, reason("Because I said so.")); //cite the sour
 
 ```java
 //the source.
-SourceDescriptionState source = null;
+SourceDescriptionState source = ...;
 
 SourceDescriptionState attachedReferences = ((FamilySearchSourceDescriptionState) source).queryAttachedReferences();
 
@@ -226,7 +226,7 @@ List<Person> persons = attachedReferences.getEntity().getPersons();
 ### Read Person for the Current User
 
 ```java
-FamilySearchFamilyTree ft = null;
+FamilySearchFamilyTree ft = ...;
 
 PersonState person = ft.readPersonForCurrentUser();
 ```
@@ -237,7 +237,7 @@ PersonState person = ft.readPersonForCurrentUser();
 
 ```java
 //the person on which to read the source references.
-PersonState person = null;
+PersonState person = ...;
 
 //load the source references for the person.
 person.loadSourceReferences();
@@ -252,7 +252,7 @@ List<SourceReference> sourceRefs = person.getPerson().getSources();
 
 ```java
 //the person on which to read the persona references.
-PersonState person = null;
+PersonState person = ...;
 
 //load the persona references for the person.
 person.loadPersonaReferences();
@@ -267,7 +267,7 @@ List<EvidenceReference> personaRefs = person.getPerson().getEvidence();
 
 ```java
 //the person on which to read the discussion references.
-PersonState person = null;
+PersonState person = ...;
 
 //load the discussion references for the person.
 ((FamilyTreePersonState) person).loadDiscussionReferences();
@@ -282,7 +282,7 @@ List<DiscussionReference> discussionRefs = person.getPerson().findExtensionsOfTy
 
 ```java
 //the person on which to read the notes.
-PersonState person = null;
+PersonState person = ...;
 
 //load the notes for the person.
 person.loadNotes();
@@ -297,7 +297,7 @@ List<Note> notes = person.getPerson().getNotes();
 
 ```java
 //the person for which to read the parents, spouses, children
-PersonState person = null;
+PersonState person = ...;
 
 PersonChildrenState children = person.readChildren(); //read the children
 PersonParentsState parents = person.readParents(); //read the parents
@@ -310,7 +310,7 @@ PersonSpousesState spouses = person.readSpouses(); //read the spouses
 
 ```java
 //the person for which to read the ancestry or descendancy
-PersonState person = null;
+PersonState person = ...;
 
 person.readAncestry(); //read the ancestry
 person.readAncestry(generations(8)); //read 8 generations of the ancestry
@@ -324,7 +324,7 @@ person.readDescendancy(generations(3)); //read 3 generations of the descendancy
 
 ```java
 //the person for which to read the matches
-PersonState person = null;
+PersonState person = ...;
 
 PersonMatchResultsState matches = ((FamilyTreePersonState) person).readMatches();
 
@@ -338,7 +338,7 @@ List<Entry> entries = matches.getResults().getEntries();
 
 ```java
 //the match results
-PersonMatchResultsState matches = null;
+PersonMatchResultsState matches = ...;
 
 //iterate through the matches.
 List<Entry> entries = matches.getResults().getEntries();
@@ -352,9 +352,9 @@ matches.addNonMatch(entries.get(2), reason("Because I said so."));
 
 ```java
 //the person to which to add the name, gender, or fact.
-PersonState person = null;
+PersonState person = ...;
 
-Name name = null;
+Name name = ...;
 person.addName(name.type(NameType.AlsoKnownAs), reason("Because I said so.")); //add name
 person.addFact(new Fact(FactType.Death, "date", "place"), reason("Because I said so.")); //add death fact
 ```
@@ -365,7 +365,7 @@ person.addFact(new Fact(FactType.Death, "date", "place"), reason("Because I said
 
 ```java
 //the person to which to update the name, gender, or fact.
-PersonState person = null;
+PersonState person = ...;
 
 Name name = person.getName();
 name.getNameForm().setFullText("Joanna Smith");
@@ -385,7 +385,7 @@ person.updateFact(death, reason("Because I said so."));
 ### Create a Discussion
 
 ```java
-FamilySearchFamilyTree ft = null;
+FamilySearchFamilyTree ft = ...;
 
 //add a discussion description
 DiscussionState discussion = ft.addDiscussion(new Discussion()
@@ -402,9 +402,9 @@ DiscussionState discussion = ft.addDiscussion(new Discussion()
 
 ```java
 //the person that will be referencing the discussion.
-PersonState person = null;
+PersonState person = ...;
 
-DiscussionState discussion = null;
+DiscussionState discussion = ...;
 
 ((FamilyTreePersonState) person).addDiscussionReference(discussion, reason("Because I said so.")); //reference the discussion.
 ```
@@ -415,7 +415,7 @@ DiscussionState discussion = null;
 
 ```java
 //the person to which the photo will be attached.
-PersonState person = null;
+PersonState person = ...;
 DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
 
 //add an artifact
@@ -447,7 +447,7 @@ FamilySearchMemories fsMemories = new FamilySearchMemories(useSandbox)
 ### Upload Photo or Story or Document
 
 ```java
-FamilySearchMemories fsMemories = null;
+FamilySearchMemories fsMemories = ...;
 DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
 
 //add an artifact
@@ -466,7 +466,7 @@ SourceDescriptionState artifact = fsMemories.addArtifact(new SourceDescription()
 
 ```java
 //the artifact from which a persona will be extracted.
-SourceDescriptionState artifact = null;
+SourceDescriptionState artifact = ...;
 
 //add the persona
 PersonState persona = artifact.addPersona(new Person()
@@ -480,10 +480,10 @@ PersonState persona = artifact.addPersona(new Person()
 
 ```java
 //the person that will be citing the record, source, or artifact.
-PersonState person = null;
+PersonState person = ...;
 
 //the persona that was extracted from a record or artifact.
-PersonState persona = null;
+PersonState persona = ...;
 
 //add the persona reference.
 person.addPersonaReference(persona);
@@ -495,12 +495,12 @@ person.addPersonaReference(persona);
 
 ```java
 //the collection to which the artifact is to be added
-CollectionState fsMemories = null;
+CollectionState fsMemories = ...;
 
 //the persons to which the photo will be attached.
-PersonState person1 = null;
-PersonState person2 = null;
-PersonState person3 = null;
+PersonState person1 = ...;
+PersonState person2 = ...;
+PersonState person3 = ...;
 DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
 
 //add an artifact
