@@ -13,16 +13,27 @@ See [the section on using these libraries](../README.md#Use).
 
 # Use
 
-Here's how you might write out a GEDCOM X file:
+Here's how you might write out a GEDCOM X file. See the [`gedcomx-model` documentation](../gedcomx-model/README.md)
+for more information about how to build out the model.
 
 ```java
-todo:
+Gedcomx gx = ...;
+File file = new File("/path/to/file.gedx");
 
+GedcomxOutputStream out = new GedcomxOutputStream(new FileOutputStream(file));
+out.addResource(gx);
+out.close();
 ```
 
 Here's how you might read a GEDCOM X file:
 
 ```java
-todo:
+File file = new File("/path/to/file.gedx");
+GedcomxFile gxFile = new GedcomxFile(new JarFile(file));
+Iterable<GedcomxFileEntry> entries = gxFile.getEntries();
+for (GedcomxFileEntry entry : entries) {
+  //for each entry, read the model.
+  Gedcomx gx = (Gedcomx) gxFile.readResource(entry);
+}
 
 ```

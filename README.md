@@ -12,7 +12,7 @@ including:
 
 ## Reading and Writing XML and JSON
 
-The [`gedcomx-model`](./gedcomx-model/) subproject provides Java classes that correspond to the data types defined by
+The [`gedcomx-model`](./gedcomx-model/README.md) subproject provides Java classes that correspond to the data types defined by
 the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md).
 These classes are instrumented such that they can be used to read and write both
 [XML](https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md) and
@@ -22,21 +22,21 @@ For more information about reading and writing GEDCOM X XML and JSON, see the [`
 
 ## GEDCOM X Web Services
 
-The [`gedcomx-rs-client`](./gedcomx-rs-client/) module provides support for reading from and writing to a GEDCOM X 
+The [`gedcomx-rs-client`](./gedcomx-rs-client/README.md) module provides support for reading from and writing to a GEDCOM X 
 Web service API that conforms to the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs).
 
 ## GEDCOM X File Format
 
-The [`gedcomx-fileformat`](./gedcomx-fileformat/) subproject provides support for reading and writing the
+The [`gedcomx-fileformat`](./gedcomx-fileformat/README.md) subproject provides support for reading and writing the
 [GEDCOM X File Format](https://github.com/FamilySearch/gedcomx/blob/master/specifications/file-format-specification.md).
 
 ## GEDCOM X Extensions
 
-The [`extensions`](./extensions) module provides a place for extensions to GEDCOM X. [FamilySearch](https://familysearch.org) has defined
+The [`extensions`](./extensions/README.md) module provides a place for extensions to GEDCOM X. [FamilySearch](https://familysearch.org) has defined
 a set of extensions to the GEDCOM X Conceptual Model and to the GEDCOM X RS specification that comprise the definition of 
 [the FamilySearch API](https://developer.familysearch.org/).
  
-The [FamilySearch API Client](./extensions/familysearch/familysearch-api-client/) comprises the developer SDK for the FamilySearch API.
+The [FamilySearch API Client](./extensions/familysearch/familysearch-api-client/README.md) comprises the developer SDK for the FamilySearch API.
 
 <a name="Use"/>
 
@@ -51,7 +51,7 @@ Most Java-based build systems (Ant, Maven, Gradle, etc.) have support for Maven 
 The official Maven repositories are generously hosted by [CloudBees](http://cloudbees.com/).
 
 Here's some snippets of what the dependency declarations might look like in some of the most common build systems. Note that
-these snippets declare a dependency on the [`gedcomx-model`](./gedcomx-model) artifact, but you may want to declare dependencies on
+these snippets declare a dependency on the [`gedcomx-model`](./gedcomx-model/README.md) artifact, but you may want to declare dependencies on
 `gedcomx-fileformat` or `gedcomx-rs-client` or whatever.
 
 ##### Finding the Latest Version
