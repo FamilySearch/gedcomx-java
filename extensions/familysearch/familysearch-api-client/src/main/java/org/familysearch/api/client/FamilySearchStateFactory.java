@@ -100,6 +100,7 @@ public class FamilySearchStateFactory extends StateFactory {
     config.getSingletons().add( new JacksonJsonProvider() );
     Client client = new Client(new URLConnectionClientHandler(), config);
     client.addFilter(new ExperimentsFilter("current-user-person-401"));
+    client.addFilter(new ExperimentsFilter("support-relationship-updates-on-person"));
     if (Boolean.valueOf(System.getProperty(ENABLE_JERSEY_LOGGING_ENV_NAME))) {     // handles null
       client.addFilter(new com.sun.jersey.api.client.filter.LoggingFilter());
     }
