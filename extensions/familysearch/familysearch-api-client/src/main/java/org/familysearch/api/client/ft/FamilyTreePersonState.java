@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.*;
+import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
@@ -31,6 +32,7 @@ import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
+import org.gedcomx.rs.*;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
@@ -558,6 +560,22 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   public FamilyTreePersonState deleteNote(Note note, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.deleteNote(note, options);
+  }
+
+  @Override
+  public FamilyTreeRelationshipState readRelationship(Relationship relationship, StateTransitionOption... options) {
+    return (FamilyTreeRelationshipState) super.readRelationship(relationship, options);
+  }
+
+  public ChildAndParentsRelationshipState readChildAndParentsRelationship(ChildAndParentsRelationship relationship, StateTransitionOption... options) {
+    Link link = relationship.getLink(org.gedcomx.rs.Rel.RELATIONSHIP);
+    link = link == null ? relationship.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
   @Override
