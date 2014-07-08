@@ -47,6 +47,7 @@ public class DocMap {
     personMap = getPersonMap(doc);
     recordDescriptorMap = getRecordDescriptorMap(doc);
     agentMap = getAgentMap(doc);
+    mainSourceDescription = getSourceDescription(doc.getDescriptionRef());
   }
 
   /**
@@ -122,12 +123,18 @@ public class DocMap {
   }
 
   /**
-   * Find the RecordDescriptor referenced by the given id (with or without a "#").
-   * @param recordDescriptorId - local id of a RecordDescriptor (with or without a "#").
-   * @return RecordDescriptor referenced by the given id.
+   * Find the RecordDescriptor referenced by the given id (with or without a "#"), or URL (with "#" and a local id).
+   * @param recordDescriptorIdOrUrl - local id of a RecordDescriptor (with or without a "#"), or URL of recordDescriptor (with "#" + local id at end).
+   * @return RecordDescriptor referenced by the given id or URL.
    */
-  public RecordDescriptor getRecordDescriptor(String recordDescriptorId) {
-    return recordDescriptorMap.get(recordDescriptorId);
+  public RecordDescriptor getRecordDescriptor(String recordDescriptorIdOrUrl) {
+    if (recordDescriptorIdOrUrl == null) {
+      return null;
+    }
+    if (recordDescriptorIdOrUrl.contains("#")) {
+      recordDescriptorIdOrUrl = recordDescriptorIdOrUrl.substring(recordDescriptorIdOrUrl.indexOf("#") + 1);
+    }
+    return recordDescriptorMap.get(recordDescriptorIdOrUrl);
   }
 
   /**

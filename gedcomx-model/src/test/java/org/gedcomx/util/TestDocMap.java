@@ -82,6 +82,7 @@ public class TestDocMap extends TestCase {
     assertEquals("agent1", docMap.getAgent("#agent1").getId());
     assertEquals("rd1", docMap.getRecordDescriptor("rd1").getId());
     assertEquals("rd1", docMap.getRecordDescriptor("#rd1").getId());
+    assertEquals("rd1", docMap.getRecordDescriptor("https://whatever.com/collections/12345#rd1").getId());
     assertEquals("sd1", docMap.getMainSourceDescription().getId());
     assertEquals("p1", docMap.getMainPerson().getId());
   }
