@@ -6,11 +6,11 @@ import junit.framework.TestSuite;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.URI;
-import org.gedcomx.conclusion.Identifier;
-import org.gedcomx.conclusion.Person;
+import org.gedcomx.conclusion.*;
 import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.FactType;
 import org.gedcomx.types.IdentifierType;
 
 import java.util.Arrays;
@@ -30,6 +30,19 @@ public class TestDocMap extends TestCase {
     p1.addIdentifier(new Identifier(new URI("http://test.com/person1"), IdentifierType.Primary));
     // Alternate id for the same person resource.
     p1.addIdentifier(new Identifier(new URI("http://alternate.com/oldPerson1"), null));
+
+    PlaceDescription place = new PlaceDescription();
+    place.setId("place1");
+    place.addIdentifier(new Identifier(new URI("http://placedepot.com/places/1"), IdentifierType.Primary));
+    doc.addPlace(place);
+
+    PlaceReference placeReference = new PlaceReference();
+    placeReference.setDescriptionRef(new URI("#place1"));
+    Date date = new Date();
+    date.setOriginal("12 June 1874");
+    Fact fact = new Fact(FactType.Birth, date, placeReference);
+    p1.addFact(fact);
+
     doc.addPerson(p1);
 
     SourceDescription sd1 = new SourceDescription();
@@ -85,6 +98,9 @@ public class TestDocMap extends TestCase {
     assertEquals("rd1", docMap.getRecordDescriptor("https://whatever.com/collections/12345#rd1").getId());
     assertEquals("sd1", docMap.getMainSourceDescription().getId());
     assertEquals("p1", docMap.getMainPerson().getId());
+    assertEquals("place1", docMap.getPlaceDescription(docMap.getPerson("p1").getFacts().get(0).getPlace()).getId());
+    assertEquals("place1", docMap.getPlaceDescription(docMap.getPerson("p1").getFacts().get(0).getPlace().getDescriptionRef()).getId());
+    assertEquals("place1", docMap.getPlaceDescription(docMap.getPerson("p1").getFacts().get(0).getPlace().getDescriptionRef().toString()).getId());
   }
 
 }

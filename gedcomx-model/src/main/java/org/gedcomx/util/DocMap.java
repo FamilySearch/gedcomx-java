@@ -5,6 +5,8 @@ import org.gedcomx.agent.Agent;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.conclusion.Person;
+import org.gedcomx.conclusion.PlaceDescription;
+import org.gedcomx.conclusion.PlaceReference;
 import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
@@ -28,6 +30,7 @@ public class DocMap {
   private Map<String, Person> personMap;
   private Map<String, RecordDescriptor> recordDescriptorMap;
   private Map<String, Agent> agentMap;
+  private Map<String, PlaceDescription> placeMap;
 
   /**
    * Constructor. Create an object that allows convenient lookup of things in a GedcomX document.
@@ -47,6 +50,7 @@ public class DocMap {
     personMap = getPersonMap(doc);
     recordDescriptorMap = getRecordDescriptorMap(doc);
     agentMap = getAgentMap(doc);
+    placeMap = getPlaceMap(doc);
     mainSourceDescription = getSourceDescription(doc.getDescriptionRef());
   }
 
@@ -164,6 +168,32 @@ public class DocMap {
     return agentId == null ? null : getAgent(agentId.toString());
   }
 
+  /**
+   * Find the PlaceDescription with the given local id (or "#" + local id) or the given URI.
+   * @param idOrUri - local id (with or without "#") or full identifier URI of a PlaceDescription.
+   * @return PlaceDescription object with the given local id or URI.
+   */
+  public PlaceDescription getPlaceDescription(String idOrUri) {
+    return idOrUri == null ? null : placeMap.get(idOrUri);
+  }
+
+  /**
+   * Find the PlaceDescription with the given local id (or "#" + local id) or the given URI.
+   * @param placeDescriptionUri - local id (with or without "#") or full identifier URI of a PlaceDescription.
+   * @return PlaceDescription object with the given local id or URI.
+   */
+  public PlaceDescription getPlaceDescription(URI placeDescriptionUri) {
+    return placeDescriptionUri == null ? null : getPlaceDescription(placeDescriptionUri.toString());
+  }
+
+  /**
+   * Find the PlaceDescription with the given PlaceReference.
+   * @param placeReference - PlaceReference that contains the (probably local) id of a PlaceDescription.
+   * @return PlaceDescription object with the given local id or URI.
+   */
+  public PlaceDescription getPlaceDescription(PlaceReference placeReference) {
+    return placeReference == null ? null : getPlaceDescription(placeReference.getDescriptionRef());
+  }
 
   /**
    * Create a map of id (and "#" + id) and all identifier URI strings to SourceDescription with that ID,
@@ -244,6 +274,30 @@ public class DocMap {
       for (RecordDescriptor recordDescriptor : doc.getRecordDescriptors()) {
         map.put(recordDescriptor.getId(), recordDescriptor);
         map.put("#" + recordDescriptor.getId(), recordDescriptor);
+      }
+    }
+    return map;
+  }
+
+  /**
+   * Create a map of local id (and "#" + id) and identifier URIs to the PlaceDescription that has that id or URL.
+   * If there are no place descriptions, an empty (but non-null) map is returned.
+   * @param doc - document to find place descriptions for
+   * @return Map of local id (and "#" + id) and URI string to each PlaceDescription in the doc.
+   */
+  public static Map<String, PlaceDescription> getPlaceMap(Gedcomx doc) {
+    Map<String, PlaceDescription> map = new HashMap<String, PlaceDescription>();
+    if (doc.getPlaces() != null) {
+      for (PlaceDescription placeDescription : doc.getPlaces()) {
+        map.put(placeDescription.getId(), placeDescription);
+        map.put("#" + placeDescription.getId(), placeDescription);
+        if (placeDescription.getIdentifiers() != null) {
+          for (Identifier identifier : placeDescription.getIdentifiers()) {
+            if (identifier.getValue() != null) {
+              map.put(identifier.getValue().toString(), placeDescription);
+            }
+          }
+        }
       }
     }
     return map;
