@@ -94,6 +94,12 @@ public enum ChangeObjectType {
   Affiliation,
 
   /**
+   * An annulment fact was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  Annulment,
+
+  /**
    * A bar mitzvah was changed.
    */
   @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
@@ -130,10 +136,28 @@ public enum ChangeObjectType {
   Cremation,
 
   /**
+   * A common law marriage fact was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  CommonLawMarriage,
+
+  /**
    * A death fact was changed.
    */
   @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
   Death,
+
+  /**
+   * A divorce fact was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  Divorce,
+
+  /**
+   * A marriage fact was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  Marriage,
 
   /**
    * A military service fact was changed.
