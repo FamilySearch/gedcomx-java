@@ -113,6 +113,11 @@ public class EventRole extends Conclusion {
     return (EventRole) super.analysis(analysis);
   }
 
+  @Override
+  public EventRole sortKey(String sortKey) {
+    return (EventRole) super.sortKey(sortKey);
+  }
+
   /**
    * Reference to the person playing the role in the event.
    *

@@ -101,7 +101,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getRelationship();
   }
 
@@ -143,7 +143,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     return relationship == null ? null : relationship.getMedia() == null ? null : relationship.getMedia().isEmpty() ? null : relationship.getMedia().get(0);
   }
 
-  public FamilyTreeCollectionState readCollection(StateTransitionOption... options) {
+  public FamilySearchFamilyTree readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
       return null;
@@ -508,7 +508,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   public ChildAndParentsRelationshipState updateFather(URI fatherId, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf().father(new ResourceReference(fatherId));
     FamilySearchPlatform fsp = new FamilySearchPlatform();
-    fsp.addChildandparentsrelationship(relationship);
+    fsp.addChildAndParentsRelationship(relationship);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(getSelfUri(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
@@ -545,7 +545,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   public ChildAndParentsRelationshipState updateMother(URI motherId, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf().mother(new ResourceReference(motherId));
     FamilySearchPlatform fsp = new FamilySearchPlatform();
-    fsp.addChildandparentsrelationship(relationship);
+    fsp.addChildAndParentsRelationship(relationship);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(getSelfUri(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }

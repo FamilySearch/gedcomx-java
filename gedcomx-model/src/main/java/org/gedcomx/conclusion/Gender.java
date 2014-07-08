@@ -132,6 +132,11 @@ public class Gender extends Conclusion implements HasFields {
     return (Gender) super.analysis(analysis);
   }
 
+  @Override
+  public Gender sortKey(String sortKey) {
+    return (Gender) super.sortKey(sortKey);
+  }
+
   /**
    * The type of the gender.
    *

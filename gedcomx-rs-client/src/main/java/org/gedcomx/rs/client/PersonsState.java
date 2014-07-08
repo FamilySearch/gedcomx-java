@@ -82,7 +82,7 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getEntity();
   }
 

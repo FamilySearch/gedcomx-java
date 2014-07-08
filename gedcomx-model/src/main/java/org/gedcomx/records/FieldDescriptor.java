@@ -17,15 +17,12 @@ package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.ExtensibleData;
-import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
@@ -36,14 +33,13 @@ import java.util.List;
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "FieldDescriptor", propOrder = { "originalLabel", "description", "values"})
+@XmlType ( name = "FieldDescriptor", propOrder = { "originalLabel", "descriptions", "values"})
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class FieldDescriptor extends HypermediaEnabledData {
 
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
-  private List<TextValue> description; // localized description of this field ("Relationship of the person to the head of household").
+  private List<TextValue> descriptions; // localized description of this field ("Relationship of the person to the head of household").
   private List<FieldValueDescriptor> values; // localized display labels for the field values
-  private ResourceReference parent;
 
   @Override
   public FieldDescriptor id(String id) {
@@ -94,17 +90,20 @@ public class FieldDescriptor extends HypermediaEnabledData {
    *
    * @return The description of the field.
    */
-  public List<TextValue> getDescription() {
-    return description;
+  @XmlElement (name="description")
+  @JsonProperty ("descriptions")
+  @JsonName ("descriptions")
+  public List<TextValue> getDescriptions() {
+    return descriptions;
   }
 
   /**
    * The description of the field.
    *
-   * @param description The description of the field.
+   * @param descriptions The description of the field.
    */
-  public void setDescription(List<TextValue> description) {
-    this.description = description;
+  public void setDescriptions(List<TextValue> descriptions) {
+    this.descriptions = descriptions;
   }
 
   /**
@@ -134,10 +133,10 @@ public class FieldDescriptor extends HypermediaEnabledData {
    */
   public void addDescription(TextValue description) {
     if (description != null) {
-      if (this.description == null) {
-        this.description = new LinkedList<TextValue>();
+      if (this.descriptions == null) {
+        this.descriptions = new LinkedList<TextValue>();
       }
-      this.description.add(description);
+      this.descriptions.add(description);
     }
   }
 

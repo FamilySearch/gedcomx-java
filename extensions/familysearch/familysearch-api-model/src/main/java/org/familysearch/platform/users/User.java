@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.users;
 
+import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -183,5 +184,14 @@ public class User extends HypermediaEnabledData
 
   public void setLdsMemberAccount(Boolean ldsMemberAccount) {
     this.ldsMemberAccount = ldsMemberAccount;
+  }
+
+  /**
+   * Accept a visitor.
+   *
+   * @param visitor The visitor to accept.
+   */
+  public void accept(FamilySearchPlatformModelVisitor visitor) {
+    visitor.visitUser(this);
   }
 }

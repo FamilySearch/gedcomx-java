@@ -145,6 +145,47 @@ public class Person extends Subject implements HasFacts, HasFields {
     return (Person) super.evidence(new EvidenceReference(URI.create("#" + evidence.getId())));
   }
 
+  /**
+   * References to the persona being referenced for this subject.
+   *
+   * @return References to the persona being referenced.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public List<EvidenceReference> getPersonaReferences() {
+    return getEvidence();
+  }
+
+  /**
+   * References to the persona being referenced for this subject.
+   *
+   * @param refs References to the persona being referenced.
+   */
+  @JsonIgnore
+  public void setPersonaReferences(List<EvidenceReference> refs) {
+    setEvidence(refs);
+  }
+
+  /**
+   * Build up this subject with an persona reference.
+   *
+   * @param persona The persona reference.
+   * @return this.
+   */
+  public Subject personaReference(EvidenceReference persona) {
+    addEvidence(persona);
+    return this;
+  }
+
+  /**
+   * Add an persona reference for this subject.
+   *
+   * @param personaRef The persona to be added.
+   */
+  public void addPersona(EvidenceReference personaRef) {
+    addEvidence(personaRef);
+  }
+
   @Override
   public Person media(SourceReference media) {
     return (Person) super.media(media);
@@ -153,6 +194,11 @@ public class Person extends Subject implements HasFacts, HasFields {
   @Override
   public Person media(SourceDescription media) {
     return (Person) super.media(media);
+  }
+
+  @Override
+  public Person sortKey(String sortKey) {
+    return (Person) super.sortKey(sortKey);
   }
 
   /**

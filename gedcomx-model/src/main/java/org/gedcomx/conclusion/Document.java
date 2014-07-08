@@ -116,6 +116,11 @@ public class Document extends Conclusion implements HasText, Attributable {
     return (Document) super.analysis(analysis);
   }
 
+  @Override
+  public Document sortKey(String sortKey) {
+    return (Document) super.sortKey(sortKey);
+  }
+
   /**
    * Whether this document has been identified as "extracted", meaning it captures information extracted from a single source.
    *

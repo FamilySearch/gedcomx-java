@@ -18,16 +18,15 @@ package org.familysearch.api.client.ft;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rs.client.GedcomxApplicationException;
-import org.gedcomx.rs.client.GedcomxApplicationState;
-import org.gedcomx.rs.client.PersonSearchResultsState;
-import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rs.client.*;
+import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
@@ -35,8 +34,25 @@ import java.net.URI;
 
 /**
  * @author Ryan Heaton
+ * @deprecated Use of a collection state is recommended.
  */
 public class DiscoveryState extends GedcomxApplicationState<Feed> {
+
+  public DiscoveryState(URI uri) {
+    this(uri, new FamilyTreeStateFactory());
+  }
+
+  private DiscoveryState(URI uri, FamilyTreeStateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private DiscoveryState(URI uri, Client client, FamilyTreeStateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private DiscoveryState(ClientRequest request, Client client, FamilyTreeStateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected DiscoveryState(ClientRequest request, ClientResponse response, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
@@ -53,7 +69,7 @@ public class DiscoveryState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getEntity();
   }
 

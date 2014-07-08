@@ -18,6 +18,7 @@ package org.familysearch.api.client.ft;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
@@ -32,6 +33,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.*;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;
@@ -44,78 +46,105 @@ import java.util.List;
 /**
  * @author Ryan Heaton
  */
-public class FamilyTreeCollectionState extends FamilySearchCollectionState {
+public class FamilySearchFamilyTree extends FamilySearchCollectionState {
 
-  protected FamilyTreeCollectionState(ClientRequest request, ClientResponse client, String accessToken, FamilyTreeStateFactory stateFactory) {
+  public static final String URI = "https://familysearch.org/platform/collections/tree";
+  public static final String SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
+
+  public FamilySearchFamilyTree() {
+    this(false);
+  }
+
+  public FamilySearchFamilyTree(boolean sandbox) {
+    this(java.net.URI.create(sandbox ? SANDBOX_URI : URI));
+  }
+
+  public FamilySearchFamilyTree(URI uri) {
+    this(uri, new FamilyTreeStateFactory());
+  }
+
+  private FamilySearchFamilyTree(URI uri, FamilyTreeStateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private FamilySearchFamilyTree(URI uri, Client client, FamilyTreeStateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private FamilySearchFamilyTree(ClientRequest request, Client client, FamilyTreeStateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
+
+  protected FamilySearchFamilyTree(ClientRequest request, ClientResponse client, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, client, accessToken, stateFactory);
   }
 
   @Override
-  protected FamilyTreeCollectionState clone(ClientRequest request, ClientResponse response) {
-    return new FamilyTreeCollectionState(request, response, this.accessToken, (FamilyTreeStateFactory) this.stateFactory);
+  protected FamilySearchFamilyTree clone(ClientRequest request, ClientResponse response) {
+    return new FamilySearchFamilyTree(request, response, this.accessToken, (FamilyTreeStateFactory) this.stateFactory);
   }
 
   @Override
-  public FamilyTreeCollectionState ifSuccessful() {
-    return (FamilyTreeCollectionState) super.ifSuccessful();
+  public FamilySearchFamilyTree ifSuccessful() {
+    return (FamilySearchFamilyTree) super.ifSuccessful();
   }
 
   @Override
-  public FamilyTreeCollectionState head(StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.head(options);
+  public FamilySearchFamilyTree head(StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.head(options);
   }
 
   @Override
-  public FamilyTreeCollectionState get(StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.get(options);
+  public FamilySearchFamilyTree get(StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.get(options);
   }
 
   @Override
-  public FamilyTreeCollectionState delete(StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.delete(options);
+  public FamilySearchFamilyTree delete(StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.delete(options);
   }
 
   @Override
-  public FamilyTreeCollectionState put(Gedcomx e, StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.put(e, options);
+  public FamilySearchFamilyTree put(Gedcomx e, StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.put(e, options);
   }
 
   @Override
-  public FamilyTreeCollectionState post(Gedcomx entity, StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.post(entity, options);
+  public FamilySearchFamilyTree post(Gedcomx entity, StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.post(entity, options);
   }
 
   @Override
-  public FamilyTreeCollectionState authenticateViaOAuth2Password(String username, String password, String clientId) {
-    return (FamilyTreeCollectionState) super.authenticateViaOAuth2Password(username, password, clientId);
+  public FamilySearchFamilyTree authenticateViaOAuth2Password(String username, String password, String clientId) {
+    return (FamilySearchFamilyTree) super.authenticateViaOAuth2Password(username, password, clientId);
   }
 
   @Override
-  public FamilyTreeCollectionState authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
-    return (FamilyTreeCollectionState) super.authenticateViaOAuth2Password(username, password, clientId, clientSecret);
+  public FamilySearchFamilyTree authenticateViaOAuth2Password(String username, String password, String clientId, String clientSecret) {
+    return (FamilySearchFamilyTree) super.authenticateViaOAuth2Password(username, password, clientId, clientSecret);
   }
 
   @Override
-  public FamilyTreeCollectionState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
-    return (FamilyTreeCollectionState) super.authenticateViaOAuth2AuthCode(authCode, redirect, clientId, clientSecret);
+  public FamilySearchFamilyTree authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
+    return (FamilySearchFamilyTree) super.authenticateViaOAuth2AuthCode(authCode, redirect, clientId, clientSecret);
   }
 
   @Override
-  public FamilyTreeCollectionState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
-    return (FamilyTreeCollectionState) super.authenticateViaOAuth2AuthCode(authCode, redirect, clientId);
+  public FamilySearchFamilyTree authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
+    return (FamilySearchFamilyTree) super.authenticateViaOAuth2AuthCode(authCode, redirect, clientId);
   }
 
   @Override
-  public FamilyTreeCollectionState authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
-    return (FamilyTreeCollectionState) super.authenticateViaOAuth2ClientCredentials(clientId, clientSecret);
+  public FamilySearchFamilyTree authenticateViaOAuth2ClientCredentials(String clientId, String clientSecret) {
+    return (FamilySearchFamilyTree) super.authenticateViaOAuth2ClientCredentials(clientId, clientSecret);
   }
 
   @Override
-  public FamilyTreeCollectionState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.authenticateViaOAuth2(formData);
+  public FamilySearchFamilyTree authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.authenticateViaOAuth2(formData);
   }
 
-  public FamilyTreeCollectionState authenticateViaUnauthenticatedAccess(String clientId, String ipAddress) {
+  public FamilySearchFamilyTree authenticateViaUnauthenticatedAccess(String clientId, String ipAddress) {
 
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
     formData.add("grant_type", "unauthenticated_session");
@@ -209,7 +238,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
@@ -231,7 +260,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
@@ -277,7 +306,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     ClientResponse response = invoke(request, options);
     if (response.getClientResponseStatus() == ClientResponse.Status.NO_CONTENT) {
       return null;
@@ -342,7 +371,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).header("Location", relationshipState.getSelfUri()).build(URI.create(uri), HttpMethod.PUT);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).header("Location", relationshipState.getSelfUri()).build(java.net.URI.create(uri), HttpMethod.PUT);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
@@ -388,7 +417,7 @@ public class FamilyTreeCollectionState extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 

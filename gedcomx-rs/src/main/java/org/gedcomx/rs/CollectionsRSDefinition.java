@@ -43,7 +43,7 @@ import javax.ws.rs.core.Response;
 )
 public interface CollectionsRSDefinition {
 
-  public static final String REL = Rel.COLLECTIONS;
+  public static final String REL = Rel.SUBCOLLECTIONS;
 
   /**
    * Read the collections.

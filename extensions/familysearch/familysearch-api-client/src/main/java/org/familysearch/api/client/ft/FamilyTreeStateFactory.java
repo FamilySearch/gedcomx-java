@@ -15,6 +15,7 @@
  */
 package org.familysearch.api.client.ft;
 
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
@@ -30,16 +31,16 @@ import java.net.URI;
  */
 public class FamilyTreeStateFactory extends FamilySearchStateFactory {
 
-  public FamilyTreeCollectionState newFamilyTreeState() {
+  public FamilySearchFamilyTree newFamilyTreeState() {
     return newFamilyTreeState(true);
   }
 
-  public FamilyTreeCollectionState newFamilyTreeState(boolean production) {
-    return (FamilyTreeCollectionState) newCollectionState(URI.create(production ? "https://familysearch.org/platform/collections/tree" : "https://sandbox.familysearch.org/platform/collections/tree"));
+  public FamilySearchFamilyTree newFamilyTreeState(boolean production) {
+    return (FamilySearchFamilyTree) newCollectionState(URI.create(production ? FamilySearchFamilyTree.URI : FamilySearchFamilyTree.SANDBOX_URI));
   }
 
-  public FamilyTreeCollectionState newFamilyTreeState(URI discoveryUri) {
-    return (FamilyTreeCollectionState) super.newCollectionState(discoveryUri);
+  public FamilySearchFamilyTree newFamilyTreeState(URI discoveryUri) {
+    return (FamilySearchFamilyTree) super.newCollectionState(discoveryUri);
   }
 
   protected ChildAndParentsRelationshipState newChildAndParentsRelationshipState(ClientRequest request, ClientResponse response, String accessToken) {
@@ -52,8 +53,8 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   }
 
   @Override
-  protected FamilyTreeCollectionState newCollectionState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new FamilyTreeCollectionState(request, response, accessToken, this);
+  protected FamilySearchFamilyTree newCollectionState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchFamilyTree(request, response, accessToken, this);
   }
 
   @Override
@@ -103,4 +104,5 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   protected SourceDescriptionsState newSourceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return super.newSourceDescriptionsState(request, response, accessToken);
   }
+
 }

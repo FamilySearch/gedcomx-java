@@ -105,8 +105,8 @@ public class FamilyTreeRelationshipsState extends RelationshipsState {
   }
 
   @Override
-  public FamilyTreeCollectionState readCollection(StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.readCollection(options);
+  public FamilySearchFamilyTree readCollection(StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.readCollection(options);
   }
 
   @Override

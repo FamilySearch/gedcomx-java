@@ -82,7 +82,7 @@ public class PlaceDescriptionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getPlaceDescription();
   }
 
@@ -98,17 +98,6 @@ public class PlaceDescriptionState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return this.stateFactory.newPlaceDescriptionsState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PlaceState readPlace(StateTransitionOption... options) {
-    Link link = this.getLink(Rel.PLACE);
-    link = link == null ? this.getLink(Rel.SELF) : link;
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newPlaceState(request, invoke(request, options), this.accessToken);
   }
 
 }

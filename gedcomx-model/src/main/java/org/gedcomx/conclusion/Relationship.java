@@ -47,7 +47,7 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "relationships" )
-@XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fields"} )
+@XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fields" } )
 public class Relationship extends Subject implements HasFacts, HasFields {
 
   private URI type;
@@ -151,6 +151,11 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   @Override
   public Relationship media(SourceDescription media) {
     return (Relationship) super.media(media);
+  }
+
+  @Override
+  public Relationship sortKey(String sortKey) {
+    return (Relationship) super.sortKey(sortKey);
   }
 
   /**

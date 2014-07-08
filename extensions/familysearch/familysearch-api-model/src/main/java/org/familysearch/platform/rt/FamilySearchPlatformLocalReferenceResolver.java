@@ -18,6 +18,7 @@ package org.familysearch.platform.rt;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.*;
@@ -250,5 +251,11 @@ public class FamilySearchPlatformLocalReferenceResolver extends FamilySearchPlat
   public void visitEvidenceReference(EvidenceReference evidenceReference) {
     bindIfNeeded(evidenceReference);
     super.visitEvidenceReference(evidenceReference);
+  }
+
+  @Override
+  public void visitUser(User user) {
+    bindIfNeeded(user);
+    super.visitUser(user);
   }
 }

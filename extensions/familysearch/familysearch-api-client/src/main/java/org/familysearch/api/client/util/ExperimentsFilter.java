@@ -38,7 +38,7 @@ public class ExperimentsFilter extends ClientFilter {
 
   @Override
   public ClientResponse handle(ClientRequest clientRequest) throws ClientHandlerException {
-    clientRequest.getHeaders().putSingle("X-FS-Feature-Tag", this.experiments);
+    clientRequest.getHeaders().add("X-FS-Feature-Tag", this.experiments);
     return getNext().handle(clientRequest);
   }
 }

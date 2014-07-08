@@ -172,12 +172,22 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param childAndParentsRelationship The childAndParentsRelationship to be added.
    */
-  public void addChildandparentsrelationship( ChildAndParentsRelationship childAndParentsRelationship ) {
+  public void addChildAndParentsRelationship(ChildAndParentsRelationship childAndParentsRelationship) {
     if (childAndParentsRelationship != null) {
       if (childAndParentsRelationships == null)
         childAndParentsRelationships = new LinkedList<ChildAndParentsRelationship>();
       childAndParentsRelationships.add( childAndParentsRelationship );
     }
+  }
+
+  /**
+   * Build out this document with a child-and-parents relationship.
+   *
+   * @param chap The child-and-parents relationship
+   */
+  public FamilySearchPlatform childAndParentsRelationship(ChildAndParentsRelationship chap) {
+    addChildAndParentsRelationship(chap);
+    return this;
   }
 
   /**
@@ -216,6 +226,17 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   /**
+   * Build out this document with a discussion.
+   *
+   * @param discussion The discussion to be added.
+   * @return this.
+   */
+  public FamilySearchPlatform discussion( Discussion discussion ) {
+    addDiscussion(discussion);
+    return this;
+  }
+
+  /**
    * The users included in this data set.
    *
    * @return The users included in this genealogical data set.
@@ -235,6 +256,16 @@ public class FamilySearchPlatform extends Gedcomx {
   @JsonProperty ("users")
   public void setUsers(List<User> users) {
     this.users = users;
+  }
+
+  /**
+   * Build out this document with a user.
+   * @param user The user to be added.
+   * @return this.
+   */
+  public FamilySearchPlatform user(User user) {
+    addUser(user);
+    return this;
   }
 
   /**
@@ -313,7 +344,7 @@ public class FamilySearchPlatform extends Gedcomx {
           }
 
           if (!found) {
-            addChildandparentsrelationship(relationship);
+            addChildAndParentsRelationship(relationship);
           }
         }
       }

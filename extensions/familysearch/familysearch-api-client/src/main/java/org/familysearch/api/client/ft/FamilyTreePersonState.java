@@ -18,9 +18,11 @@ package org.familysearch.api.client.ft;
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.*;
+import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
@@ -30,7 +32,9 @@ import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
+import org.gedcomx.rs.*;
 import org.gedcomx.rs.client.*;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
@@ -45,6 +49,22 @@ import java.util.List;
  * @author Ryan Heaton
  */
 public class FamilyTreePersonState extends PersonState {
+
+  public FamilyTreePersonState(URI uri) {
+    this(uri, new FamilyTreeStateFactory());
+  }
+
+  private FamilyTreePersonState(URI uri, FamilyTreeStateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private FamilyTreePersonState(URI uri, Client client, FamilyTreeStateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private FamilyTreePersonState(ClientRequest request, Client client, FamilyTreeStateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected FamilyTreePersonState(ClientRequest request, ClientResponse response, String accessToken, FamilyTreeStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
@@ -175,8 +195,8 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  public FamilyTreeCollectionState readCollection(StateTransitionOption... options) {
-    return (FamilyTreeCollectionState) super.readCollection(options);
+  public FamilySearchFamilyTree readCollection(StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.readCollection(options);
   }
 
   @Override
@@ -325,6 +345,11 @@ public class FamilyTreePersonState extends PersonState {
 
   @Override
   public FamilyTreePersonState addSourceReference(SourceDescriptionState source, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.addSourceReference(source, options);
+  }
+
+  @Override
+  public FamilyTreePersonState addSourceReference(RecordState source, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.addSourceReference(source, options);
   }
 
@@ -535,6 +560,22 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   public FamilyTreePersonState deleteNote(Note note, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.deleteNote(note, options);
+  }
+
+  @Override
+  public FamilyTreeRelationshipState readRelationship(Relationship relationship, StateTransitionOption... options) {
+    return (FamilyTreeRelationshipState) super.readRelationship(relationship, options);
+  }
+
+  public ChildAndParentsRelationshipState readChildAndParentsRelationship(ChildAndParentsRelationship relationship, StateTransitionOption... options) {
+    Link link = relationship.getLink(org.gedcomx.rs.Rel.RELATIONSHIP);
+    link = link == null ? relationship.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
   @Override

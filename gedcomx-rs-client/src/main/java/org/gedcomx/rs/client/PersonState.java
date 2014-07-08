@@ -15,6 +15,7 @@
  */
 package org.gedcomx.rs.client;
 
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
@@ -25,6 +26,7 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.RelationshipType;
@@ -42,6 +44,22 @@ import java.util.List;
  * @author Ryan Heaton
  */
 public class PersonState extends GedcomxApplicationState<Gedcomx> {
+
+  public PersonState(URI uri) {
+    this(uri, new StateFactory());
+  }
+
+  private PersonState(URI uri, StateFactory stateFactory) {
+    this(uri, stateFactory.loadDefaultClient(), stateFactory);
+  }
+
+  private PersonState(URI uri, Client client, StateFactory stateFactory) {
+    this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
+  }
+
+  private PersonState(ClientRequest request, Client client, StateFactory stateFactory) {
+    this(request, client.handle(request), null, stateFactory);
+  }
 
   protected PersonState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
@@ -98,7 +116,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getPerson();
   }
 
@@ -195,6 +213,10 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   public EvidenceReference getEvidenceReference() {
     Person person = getPerson();
     return person == null ? null : person.getEvidence() == null ? null : person.getEvidence().isEmpty() ? null : person.getEvidence().get(0);
+  }
+
+  public EvidenceReference getPersonaReference() {
+    return getEvidenceReference();
   }
 
   public SourceReference getMediaReference() {
@@ -296,6 +318,10 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
   public PersonState loadEvidenceReferences(StateTransitionOption... options) {
     return loadEmbeddedResources(new String[]{Rel.EVIDENCE_REFERENCES}, options);
+  }
+
+  public PersonState loadPersonaReferences(StateTransitionOption... options) {
+    return loadEvidenceReferences(options);
   }
 
   public PersonState loadNotes(StateTransitionOption... options) {
@@ -446,6 +472,12 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public PersonState addSourceReference(SourceDescriptionState source, StateTransitionOption... options) {
+    SourceReference reference = new SourceReference();
+    reference.setDescriptionRef(new org.gedcomx.common.URI(source.getSelfUri().toString()));
+    return addSourceReference(reference, options);
+  }
+
+  public PersonState addSourceReference(RecordState source, StateTransitionOption... options) {
     SourceReference reference = new SourceReference();
     reference.setDescriptionRef(new org.gedcomx.common.URI(source.getSelfUri().toString()));
     return addSourceReference(reference, options);
@@ -611,6 +643,34 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState addPersonaReference(PersonState persona, StateTransitionOption... options) {
+    return addEvidenceReference(persona, options);
+  }
+
+  public PersonState addPersonaReference(EvidenceReference reference, StateTransitionOption... options) {
+    return addEvidenceReference(reference, options);
+  }
+
+  public PersonState addPersonaReferences(EvidenceReference[] refs, StateTransitionOption... options) {
+    return addEvidenceReferences(refs, options);
+  }
+
+  public PersonState updatePersonaReference(EvidenceReference reference, StateTransitionOption... options) {
+    return updateEvidenceReference(reference, options);
+  }
+
+  public PersonState updatePersonaReferences(EvidenceReference[] refs, StateTransitionOption... options) {
+    return updateEvidenceReferences(refs, options);
+  }
+
+  public PersonState updatePersonaReferences(Person person, StateTransitionOption... options) {
+    return updateEvidenceReferences(person, options);
+  }
+
+  public PersonState deletePersonaReference(EvidenceReference reference, StateTransitionOption... options) {
+    return deleteEvidenceReference(reference, options);
   }
 
   public PersonState readNote(Note note, StateTransitionOption... options) {

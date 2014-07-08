@@ -31,6 +31,7 @@ import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
 import org.gedcomx.rs.client.PersonState;
+import org.gedcomx.rs.client.PlaceDescriptionState;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
 
@@ -78,8 +79,17 @@ public class FamilySearchStateFactory extends StateFactory {
     return new PersonNonMatchesState(request, response, accessToken, this);
   }
 
+  protected FamilySearchPlaceState newPlaceState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchPlaceState(request, response, accessToken, this);
+  }
+
   @Override
-  protected Client loadDefaultClient() {
+  protected PlaceDescriptionState newPlaceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchPlaceDescriptionState(request, response, accessToken, this);
+  }
+
+  @Override
+  public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
       ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
@@ -90,6 +100,9 @@ public class FamilySearchStateFactory extends StateFactory {
     config.getSingletons().add( new JacksonJsonProvider() );
     Client client = new Client(new URLConnectionClientHandler(), config);
     client.addFilter(new ExperimentsFilter("current-user-person-401"));
+    if (Boolean.valueOf(System.getProperty(ENABLE_JERSEY_LOGGING_ENV_NAME))) {     // handles null
+      client.addFilter(new com.sun.jersey.api.client.filter.LoggingFilter());
+    }
     return client;
   }
 }

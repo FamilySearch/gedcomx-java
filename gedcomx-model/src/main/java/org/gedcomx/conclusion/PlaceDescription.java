@@ -39,7 +39,7 @@ import java.util.List;
  * and possibly its type, time period, and/or a geospatial description -- a description
  * of a place as a snapshot in time.
  */
-@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "jurisdiction", "displayExtension" } )
+@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "place", "jurisdiction", "displayExtension" } )
 public class PlaceDescription extends Subject {
 
   private List<TextValue> names;
@@ -47,6 +47,7 @@ public class PlaceDescription extends Subject {
   private Date temporalDescription;
   private Double latitude;
   private Double longitude;
+  private ResourceReference place;
   private ResourceReference spatialDescription;
   private ResourceReference jurisdiction;
   private PlaceDisplayProperties display;
@@ -146,6 +147,11 @@ public class PlaceDescription extends Subject {
   @Override
   public PlaceDescription media(SourceDescription media) {
     return (PlaceDescription) super.media(media);
+  }
+
+  @Override
+  public PlaceDescription sortKey(String sortKey) {
+    return (PlaceDescription) super.sortKey(sortKey);
   }
 
   /**
@@ -388,6 +394,35 @@ public class PlaceDescription extends Subject {
    */
   public PlaceDescription jurisdiction(ResourceReference jurisdiction) {
     setJurisdiction(jurisdiction);
+    return this;
+  }
+
+  /**
+   * A reference to the place being described.
+   *
+   * @return A reference to the place being described.
+   */
+  public ResourceReference getPlace() {
+    return place;
+  }
+
+  /**
+   *  A reference to the place being described.
+   *
+   * @param place A reference to the place being described.
+   */
+  public void setPlace(ResourceReference place) {
+    this.place = place;
+  }
+
+  /**
+   * Build out this place description with a place.
+   *
+   * @param place The reference to the place.
+   * @return this
+   */
+  public PlaceDescription place(ResourceReference place) {
+    setPlace(place);
     return this;
   }
 

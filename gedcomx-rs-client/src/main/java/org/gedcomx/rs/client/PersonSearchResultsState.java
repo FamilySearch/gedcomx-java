@@ -81,7 +81,7 @@ public class PersonSearchResultsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  protected SupportsLinks getScope() {
+  protected SupportsLinks getMainDataElement() {
     return getEntity();
   }
 

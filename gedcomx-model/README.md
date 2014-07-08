@@ -13,21 +13,86 @@ groupId | artifactId
 
 See [the section on using these libraries](../README.md#Use).
 
+To determine the latest version, [read the Maven Metadata](https://repository-gedcom.forge.cloudbees.com/release/org/gedcomx/gedcomx-model/maven-metadata.xml)
+and use the "release" version.
+
 # Use
+
+## Building the Model
+
+You can use the GEDCOM X model classes to build out a GEDCOM X document.
+
+```java
+SourceDescription sourceDescription = new SourceDescription() //describe a source
+  .title("Birth Certificate") //with a title
+  .citation(new SourceCitation().value("Citation for Birth Certificate")) //and a citation
+  .resourceType(ResourceType.PhysicalArtifact) //of a physical artifact
+  .created(parse("1888-08-08")); //created on August 8, 1888
+
+Person person = new Person() //create a person
+  .source(sourceDescription) //citing the source
+  .name("Jane Smith") //named Jane Smith
+  .gender(GenderType.Female) //female
+  .fact(new Fact(FactType.Birth, "August 8, 1888", "England")); //born 8/8/1888 in England
+
+Person father = new Person() //create a father
+  .source(sourceDescription) //citing the source
+  .name("William Smith") //named William Smith
+  .fact(new Fact(FactType.Occupation, "Toll Collector")); //toll collector
+
+Person mother = new Person() //create a mother
+  .source(sourceDescription) //citing the source
+  .name("Sarah Smith"); //named Sarah Smith
+
+Relationship fatherRelationship = new Relationship() //create a relationship
+  .type(RelationshipType.ParentChild) //of type parent-child
+  .person1(father) //between the father
+  .person2(person); //and the person
+
+Relationship motherRelationship = new Relationship() //create a relationship
+  .type(RelationshipType.ParentChild) //of type parent-child
+  .person1(mother) //between the mother
+  .person2(person); //and the person
+  
+Gedcomx gx = new Gedcomx() //create a GEDCOM X document
+  .person(person) //with the person
+  .person(father) //and the father
+  .person(mother) //and the mother
+  .relationship(fatherRelationship) //and the father relationship
+  .relationship(motherRelationship); //and the mother relationship
+
+```
 
 ## XML
 
 Here's how you might write out some GEDCOM X XML:
 
 ```java
-todo:
+Gedcomx gx = ...; //construct the document
+OutputStream out = ...; //figure out where you want to write the XML
+
+//construct an XML context and a marshaller.
+//(presumably, you'll want to reuse these.)
+JAXBContext context = JAXBContext.newInstance(Gedcomx.class);
+Marshaller marshaller = context.createMarshaller();
+
+//write the document to the stream:
+marshaller.marshal(gx, out);
 
 ```
 
 Here's how you might read some GEDCOM X XML:
 
 ```java
-todo:
+InputStream in = ...; //find the XML
+
+//construct an XML context and an unmarshaller.
+//(presumably, you'll want to reuse these.)
+JAXBContext context = JAXBContext.newInstance(Gedcomx.class);
+Unmarshaller unmarshaller = context.createUnmarshaller();
+
+//read the document
+Gedcomx gx = (Gedcomx) unmarshaller.unmarshal(in);
 
 ```
 
@@ -36,7 +101,15 @@ todo:
 Here's how you might write out some GEDCOM X JSON:
 
 ```java
-todo:
+Gedcomx gx = ...; //construct the document
+OutputStream out = ...; //figure out where you want to write the JSON
+
+//construct an object mapper.
+//(presumably, you'll want to reuse this.)
+ObjectMapper mapper = GedcomJacksonModule.createObjectMapper(Gedcomx.class);
+
+//write the document to the stream:
+mapper.writeValue(gx, out);
 
 ```
 
@@ -45,6 +118,16 @@ todo:
 Here's how you might read some GEDCOM X JSON:
 
 ```java
-todo:
+InputStream in = ...; //find the JSON
 
+//construct an object mapper.
+//(presumably, you'll want to reuse this.)
+ObjectMapper mapper = GedcomJacksonModule.createObjectMapper(Gedcomx.class);
+Gedcomx gx = mapper.readValue(in, Gedcomx.class);
 ```
+
+## The Example Test Suite
+
+For a suite of examples on how to use the model classes, see 
+[the `org.gedcomx.examples` test suite](./src/test/java/org/gedcomx/examples/). Many of the tests have
+an associated document in [the GEDCOM X recipe book](http://www.gedcomx.org/Recipe-Book.html).

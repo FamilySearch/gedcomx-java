@@ -33,6 +33,7 @@ import java.net.URI;
  * @author Ryan Heaton
  */
 public class StateFactory {
+  protected static final String ENABLE_JERSEY_LOGGING_ENV_NAME = "enableJerseyLogging";        // env variable/property to set
 
   public CollectionState newCollectionState(URI discoveryUri) {
     return newCollectionState(discoveryUri, loadDefaultClient());
@@ -74,7 +75,13 @@ public class StateFactory {
   }
 
   protected Client loadDefaultClient() {
-    return new Client(new URLConnectionClientHandler(), new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class, GedcomxAtomJsonProvider.class, JacksonJsonProvider.class));
+    Client client = new Client(new URLConnectionClientHandler(),
+                               new DefaultClientConfig(GedcomJsonProvider.class, GedcomxXmlProvider.class,
+                                                       GedcomxAtomJsonProvider.class, JacksonJsonProvider.class));
+    if (Boolean.valueOf(System.getProperty(ENABLE_JERSEY_LOGGING_ENV_NAME))) {     // handles null
+      client.addFilter(new com.sun.jersey.api.client.filter.LoggingFilter());
+    }
+    return client;
   }
 
   protected AgentState newAgentState(ClientRequest request, ClientResponse response, String accessToken) {
@@ -119,10 +126,6 @@ public class StateFactory {
 
   protected PlaceDescriptionsState newPlaceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PlaceDescriptionsState(request, response, accessToken, this);
-  }
-
-  protected PlaceState newPlaceState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new PlaceState(request, response, accessToken, this);
   }
 
   protected PersonSpousesState newPersonSpousesState(ClientRequest request, ClientResponse response, String accessToken) {
