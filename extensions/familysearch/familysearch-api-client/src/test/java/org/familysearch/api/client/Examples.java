@@ -23,7 +23,6 @@ import org.gedcomx.types.NameType;
 
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import java.net.URI;
 import java.util.List;
 
 import static org.familysearch.api.client.util.FamilySearchOptions.reason;
@@ -112,7 +111,7 @@ public class Examples {
 
   public void createASource() {
     FamilySearchFamilyTree ft = null;
-    
+
     //add a source description
     SourceDescriptionState source = ft.addSourceDescription(new SourceDescription()
       //about some resource.
@@ -152,14 +151,14 @@ public class Examples {
 
     PersonState person = ft.readPersonForCurrentUser();
   }
-  
+
   public void readSourceReferences() {
     //the person on which to read the source references.
     PersonState person = null;
 
     //load the source references for the person.
     person.loadSourceReferences();
-    
+
     //read the source references.
     List<SourceReference> sourceRefs = person.getPerson().getSources();
   }
@@ -170,7 +169,7 @@ public class Examples {
 
     //load the persona references for the person.
     person.loadPersonaReferences();
-    
+
     //read the persona references.
     List<EvidenceReference> personaRefs = person.getPerson().getEvidence();
   }
@@ -181,7 +180,7 @@ public class Examples {
 
     //load the discussion references for the person.
     ((FamilyTreePersonState) person).loadDiscussionReferences();
-    
+
     //read the discussion references.
     List<DiscussionReference> discussionRefs = person.getPerson().findExtensionsOfType(DiscussionReference.class);
   }
@@ -261,7 +260,7 @@ public class Examples {
     death.setDate(new Date().original("new date"));
     person.updateFact(death, reason("Because I said so."));
   }
-  
+
   public void readChangeHistoryAndRestoreAChange() {
     //the person to which to read the change history.
     PersonState person = null;
@@ -274,10 +273,10 @@ public class Examples {
     //restore a change
     changeHistory.restoreChange(entries.get(0), reason("Because I said so."));
   }
-  
+
   public void createADiscussion() {
     FamilySearchFamilyTree ft = null;
-    
+
     //add a discussion description
     DiscussionState discussion = ft.addDiscussion(new Discussion()
       //with a title.
@@ -325,13 +324,13 @@ public class Examples {
   public void addAnArtifact() {
     FamilySearchMemories fsMemories = null;
     DataSource digitalImage = new FileDataSource("/path/to/img.jpg");
-    
+
     //add an artifact
     SourceDescriptionState artifact = fsMemories.addArtifact(new SourceDescription()
       //with a title
       .title("Death Certificate for John Smith")
       //and a citation
-      .citation("Citation for the death certificate"), 
+      .citation("Citation for the death certificate"),
       digitalImage
     );
   }
@@ -339,24 +338,24 @@ public class Examples {
   public void extractAPersonaFromAnArtifact() {
     //the artifact from which a persona will be extracted.
     SourceDescriptionState artifact = null;
-    
+
     //add the persona
     PersonState persona = artifact.addPersona(new Person()
       //named John Smith
       .name("John Smith"));
   }
-  
+
   public void addAPersonaReferenceToAPerson() {
     //the person that will be citing the record, source, or artifact.
     PersonState person = null;
 
     //the persona that was extracted from a record or artifact.
     PersonState persona = null;
-    
+
     //add the persona reference.
     person.addPersonaReference(persona);
   }
-  
+
   public void attachAPhotoToMultiplePersons() {
     //the collection to which the artifact is to be added
     CollectionState fsMemories = null;
@@ -378,6 +377,17 @@ public class Examples {
     person2.addMediaReference(artifact); //attach to person2
     person3.addMediaReference(artifact); //attach to person3
   }
-  
+
+  public void readFamilySearchPlaces() {
+    boolean useSandbox = true; //whether to use the sandbox reference.
+    String username = "...";
+    String password = "...";
+    String developerKey = "...";
+
+    //read the Family Tree
+    FamilySearchPlaces fsPlaces = new FamilySearchPlaces(useSandbox)
+            //and authenticate.
+            .authenticateViaOAuth2Password(username, password, developerKey);
+  }
 
 }

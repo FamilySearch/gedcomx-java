@@ -33,7 +33,11 @@ import org.familysearch.platform.users.User;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.PlaceDescriptionState;
 import org.gedcomx.rs.client.StateFactory;
+import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
+
+import javax.ws.rs.HttpMethod;
+import java.net.URI;
 
 /**
  * @author Ryan Heaton
@@ -58,6 +62,44 @@ public class FamilySearchStateFactory extends StateFactory {
 
   protected PersonMatchResultsState newPersonMatchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PersonMatchResultsState(request, response, accessToken, this);
+  }
+
+  /**
+   * Create a new places state with the given URI
+   *
+   * @param discoveryUri the discovery URI for places
+   * @return a new places state created with with the given URI
+   */
+  public FamilySearchPlaces newPlacesState(URI discoveryUri) {
+    return newPlacesState(discoveryUri, loadDefaultClient());
+  }
+
+  /**
+   * Create a new places state with the given URI
+   *
+   * @param discoveryUri the discovery URI for places
+   * @param client the client that will use the new places state
+   * @return a new places state created with with the given URI
+   */
+  public FamilySearchPlaces newPlacesState(URI discoveryUri, Client client) {
+    return newPlacesState(discoveryUri, client, HttpMethod.GET);
+  }
+
+  /**
+   * Create a new places state with the given URI
+   *
+   * @param discoveryUri the discovery URI for places
+   * @param client the client that will use the new places state
+   * @param method the HTTP method to call
+   * @return a new places state created with with the given URI
+   */
+  public FamilySearchPlaces newPlacesState(URI discoveryUri, Client client, String method) {
+    ClientRequest request = ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, method);
+    return newPlacesState(request, client.handle(request), null);
+  }
+
+  protected FamilySearchPlaces newPlacesState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchPlaces(request, response, accessToken, this);
   }
 
   @Override

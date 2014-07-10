@@ -17,7 +17,7 @@ package org.gedcomx.rs;
 
 /**
  * Constants for link rels.
- * 
+ *
  * @author Ryan Heaton
  */
 public class Rel {
@@ -65,6 +65,8 @@ public class Rel {
   public static final String PERSON_SEARCH = "person-search";
   public static final String PLACE = "place";
   public static final String PLACE_SEARCH = "place-search";
+  public static final String PLACE_TYPE_GROUPS = "place-type-groups";
+  public static final String PLACE_TYPES = "place-types";
   public static final String PROFILE = "profile";
   public static final String RECORD = "record";
   public static final String RECORDS = "records";
