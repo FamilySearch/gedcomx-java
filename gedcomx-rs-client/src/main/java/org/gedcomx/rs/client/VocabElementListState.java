@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class VocabElementListState extends GedcomxApplicationState<Object> {
 
@@ -87,9 +89,19 @@ public class VocabElementListState extends GedcomxApplicationState<Object> {
     return map.get("description");
   }
 
-  public ArrayList getTerms() {
+  public String getId() {
+    LinkedHashMap<String, String> map = (LinkedHashMap<String, String>)entity;
+    return map.get("@id");
+  }
+
+  public List<Map> getElements() {
     LinkedHashMap<String, ArrayList> map = (LinkedHashMap<String, ArrayList>)entity;
-    return map.get("terms");
+    return map.get("elements");
+  }
+
+  public Map<String, Map> getContext() {
+    LinkedHashMap<String, Map> map = (LinkedHashMap<String, Map>)entity;
+    return map.get("@context");
   }
 
   @Override

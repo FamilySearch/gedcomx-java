@@ -23,6 +23,8 @@ import org.gedcomx.rs.Rel;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 public class VocabElementState extends GedcomxApplicationState<Object> {
 
@@ -85,6 +87,26 @@ public class VocabElementState extends GedcomxApplicationState<Object> {
       throw new GedcomxApplicationException(ioe);
     }
     return entity;
+  }
+
+  public List<Map<Map.Entry, Map.Entry>> getLabels() {
+    Map<String, List> map = (Map<String, List>)entity;
+    return map.get("labels");
+  }
+
+  public List<Map<Map.Entry, Map.Entry>> getDescriptions() {
+    Map<String, List> map = (Map<String, List>)entity;
+    return map.get("descriptions");
+  }
+
+  public String getId() {
+    Map<String, String> map = (Map<String, String>)entity;
+    return map.get("@id");
+  }
+
+  public Map<String, Map> getContext() {
+    Map<String, Map> map = (Map<String, Map>)entity;
+    return map.get("@context");
   }
 
   @Override

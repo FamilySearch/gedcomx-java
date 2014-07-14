@@ -28,6 +28,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rs.client.VocabElementListState;
+import org.gedcomx.rs.client.VocabElementState;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
@@ -167,7 +168,7 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
   }
 
   /**
-   * Read a VocabElementList from the given path
+   * Read the VocabElementList from the given path
    *
    * @param options state transition options to be included
    * @return a VocabElementListState from the given path
@@ -194,50 +195,62 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
     return this.stateFactory.newVocabElementListState(request, invoke(request, options), this.accessToken);
   }
 
-  public FamilySearchPlaces readPlaceTypeGroupById(String id, StateTransitionOption... options) {
-    return null;
-//    Link link = getLink(Rel.PERSON_WITH_RELATIONSHIPS);
-//    if (link == null || link.getTemplate() == null) {
-//      return null;
-//    }
-//
-//    String template = link.getTemplate();
-//    String uri;
-//    try{
-//      uri = UriTemplate.fromTemplate(template).set("person", id).expand();
-//    }
-//    catch (VariableExpansionException e) {
-//      throw new GedcomxApplicationException(e);
-//    }
-//    catch (MalformedUriTemplateException e) {
-//      throw new GedcomxApplicationException(e);
-//    }
-//
-//    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-//    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  /**
+   * Read the place type group with the given id
+   *
+   * @param id the id of the place type group to be read
+   * @param options state transition options to be included
+   * @return the place type group with the given id
+   */
+  public VocabElementListState readPlaceTypeGroupById(String id, StateTransitionOption... options) {
+    Link link = getLink(Rel.PLACE_TYPE_GROUP);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    String template = link.getTemplate();
+    String uri;
+    try{
+      uri = UriTemplate.fromTemplate(template).set("ptgid", id).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchJson(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
+    return this.stateFactory.newVocabElementListState(request, invoke(request, options), this.accessToken);
   }
 
-  public FamilySearchPlaces readPlaceTypeById(String id, StateTransitionOption... options) {
-    return null;
-//    Link link = getLink(Rel.PERSON_WITH_RELATIONSHIPS);
-//    if (link == null || link.getTemplate() == null) {
-//      return null;
-//    }
-//
-//    String template = link.getTemplate();
-//    String uri;
-//    try{
-//      uri = UriTemplate.fromTemplate(template).set("person", id).expand();
-//    }
-//    catch (VariableExpansionException e) {
-//      throw new GedcomxApplicationException(e);
-//    }
-//    catch (MalformedUriTemplateException e) {
-//      throw new GedcomxApplicationException(e);
-//    }
-//
-//    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-//    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  /**
+   * Read the place type with the given id
+   *
+   * @param id the id of the place type to be read
+   * @param options state transition options to be included
+   * @return the place type with the given id
+   */
+  public VocabElementState readPlaceTypeById(String id, StateTransitionOption... options) {
+    Link link = getLink(Rel.PLACE_TYPE);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    String template = link.getTemplate();
+    String uri;
+    try{
+      uri = UriTemplate.fromTemplate(template).set("ptid", id).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchJson(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
+    return this.stateFactory.newVocabElementState(request, invoke(request, options), this.accessToken);
   }
 
 }
