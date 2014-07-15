@@ -36,17 +36,24 @@ public class GedcomxBaseSearchQueryBuilder {
   }
 
   public static class SearchParameter {
+
+    private final String prefix;
     private final String name;
     private final String value;
     private final boolean exact;
 
-    public SearchParameter(String name, String value, boolean exact) {
+    public SearchParameter(String prefix, String name, String value, boolean exact) {
       if (name == null) {
         throw new NullPointerException("parameter name must not be null");
       }
+      this.prefix = prefix;
       this.exact = exact;
       this.value = value;
       this.name = name;
+    }
+
+    public String getPrefix() {
+      return prefix;
     }
 
     public String getName() {
@@ -64,6 +71,9 @@ public class GedcomxBaseSearchQueryBuilder {
     @Override
     public String toString() {
       StringBuilder builder = new StringBuilder();
+      if (this.prefix != null) {
+        builder.append(this.prefix);
+      }
       builder.append(this.name);
       if (this.value != null) {
         builder.append(':');
