@@ -15,18 +15,27 @@
  */
 package org.gedcomx.rs.client;
 
-import com.github.jsonldjava.utils.JsonUtils;
+import com.github.jsonldjava.jena.JenaJSONLD;
+import com.hp.hpl.jena.rdf.model.*;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.apache.jena.riot.RDFDataMgr;
+import org.gedcomx.common.TextValue;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.rs.client.util.VocabConstants;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class VocabElementState extends GedcomxApplicationState<Object> {
+public class VocabElementState extends GedcomxApplicationState<Model> {
+
+  private Resource resourceDescribingList;
+  private Model model;
+
+  static {
+    JenaJSONLD.init();
+  }
 
   protected VocabElementState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
@@ -68,45 +77,72 @@ public class VocabElementState extends GedcomxApplicationState<Object> {
   }
 
   @Override
-  public VocabElementState put(Object e, StateTransitionOption... options) {
+  public VocabElementState put(Model e, StateTransitionOption... options) {
     return (VocabElementState) super.put(e, options);
   }
 
   @Override
-  public VocabElementState post(Object entity, StateTransitionOption... options) {
+  public VocabElementState post(Model entity, StateTransitionOption... options) {
     return (VocabElementState) super.post(entity, options);
   }
 
   @Override
-  protected Object loadEntity(ClientResponse response) {
-    Object entity;
-    try {
-      entity = JsonUtils.fromInputStream(response.getEntity(InputStream.class));
+  protected Model loadEntity(ClientResponse response) {
+//    Object entity;
+//    try {
+//      entity = JsonUtils.fromInputStream(response.getEntity(InputStream.class));
+//    }
+//    catch (IOException ioe) {
+//      throw new GedcomxApplicationException(ioe);
+//    }
+//    return entity;
+    model = ModelFactory.createDefaultModel();
+    RDFDataMgr.read(model, response.getEntityInputStream(), null, JenaJSONLD.JSONLD);
+    this.resourceDescribingList = model.getResource(this.request.getURI().toString());
+    StmtIterator it = resourceDescribingList.listProperties();
+//    while (it.hasNext()) {
+//      Statement statement = it.nextStatement();
+//    }
+
+    return model;
+  }
+
+  public String getSubclass() {
+    return getResourceDescribingList().getRequiredProperty(model.createProperty(VocabConstants.RDFS_NAMESPACE, "subClassOf")).getResource().getURI();
+  }
+
+  public String getType() {
+    return getResourceDescribingList().getRequiredProperty(model.createProperty(VocabConstants.DC_NAMESPACE, "type")).getResource().getURI();
+  }
+
+  public List<TextValue> getLabels() {
+    List<TextValue> labels = new ArrayList<TextValue>();
+    StmtIterator rdfLabels = getResourceDescribingList().listProperties(model.createProperty(VocabConstants.RDFS_NAMESPACE, "label"));
+    while (rdfLabels.hasNext()) {
+      Statement rdfLabel = rdfLabels.nextStatement();
+      TextValue label = new TextValue();
+      label.setLang(rdfLabel.getLanguage().toLowerCase());
+      label.setValue(rdfLabel.toString());
+      labels.add(label);
     }
-    catch (IOException ioe) {
-      throw new GedcomxApplicationException(ioe);
+    return labels;
+//    Map<String, List> map = (Map<String, List>)entity;
+//    return map.get("labels");
+  }
+
+  public List<TextValue> getDescriptions() {
+    List<TextValue> descriptions = new ArrayList<TextValue>();
+    StmtIterator rdfDescriptions = getResourceDescribingList().listProperties(this.model.createProperty(VocabConstants.RDFS_NAMESPACE, "description"));
+    while (rdfDescriptions.hasNext()) {
+      Statement rdfDescription = rdfDescriptions.nextStatement();
+      TextValue label = new TextValue();
+      label.setLang(rdfDescription.getLanguage().toLowerCase());
+      label.setValue(rdfDescription.toString());
+      descriptions.add(label);
     }
-    return entity;
-  }
-
-  public List<Map<Map.Entry, Map.Entry>> getLabels() {
-    Map<String, List> map = (Map<String, List>)entity;
-    return map.get("labels");
-  }
-
-  public List<Map<Map.Entry, Map.Entry>> getDescriptions() {
-    Map<String, List> map = (Map<String, List>)entity;
-    return map.get("descriptions");
-  }
-
-  public String getId() {
-    Map<String, String> map = (Map<String, String>)entity;
-    return map.get("@id");
-  }
-
-  public Map<String, Map> getContext() {
-    Map<String, Map> map = (Map<String, Map>)entity;
-    return map.get("@context");
+    return descriptions;
+//    Map<String, List> map = (Map<String, List>)entity;
+//    return map.get("descriptions");
   }
 
   @Override
@@ -114,19 +150,16 @@ public class VocabElementState extends GedcomxApplicationState<Object> {
 //    return getPlaceDescription();
     return null;
   }
-
+//
 //  public PlaceDescription getPlaceDescription() {
 //    return getEntity() == null ? null : getEntity().getPlaces() == null ? null : getEntity().getPlaces().isEmpty() ? null : getEntity().getPlaces().get(0);
 //  }
 //
-//  public PlaceDescriptionsState readChildren(StateTransitionOption... options) {
-//    Link link = getLink(Rel.CHILDREN);
-//    if (link == null || link.getHref() == null) {
-//      return null;
-//    }
-//
-//    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-//    return this.stateFactory.newPlaceDescriptionsState(request, invoke(request, options), this.accessToken);
-//  }
-//
+
+  private Resource getResourceDescribingList() {
+    if (null == this.resourceDescribingList) {
+      this.resourceDescribingList = this.model.getResource(this.request.getURI().toString());
+    }
+    return this.resourceDescribingList;
+  }
 }

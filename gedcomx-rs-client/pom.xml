@@ -16,6 +16,8 @@
     <!--we have to duplicate the config files to all modules. Currently-->
     <!--opting for the former.-->
     <root.basedir>${basedir}/..</root.basedir>
+    <jena.version>2.11.0</jena.version>
+    <jsonld-java-jena.version>0.4.1</jsonld-java-jena.version>
   </properties>
 
   <dependencies>
@@ -44,9 +46,15 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-core</artifactId>
+      <version>${jena.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.github.jsonld-java</groupId>
-      <artifactId>jsonld-java</artifactId>
-      <version>0.4.2</version>
+      <artifactId>jsonld-java-jena</artifactId>
+      <version>${jsonld-java-jena.version}</version>
     </dependency>
   </dependencies>
 
