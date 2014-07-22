@@ -20,17 +20,15 @@ import com.hp.hpl.jena.rdf.model.*;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.apache.jena.riot.RDFDataMgr;
-import org.gedcomx.common.TextValue;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.VocabConstants;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.gedcomx.vocab.VocabElement;
 
 public class VocabElementState extends GedcomxApplicationState<Model> {
 
-  private Resource resourceDescribingList;
+  private Resource resourceDescribingElement;
   private Model model;
 
   static {
@@ -88,18 +86,10 @@ public class VocabElementState extends GedcomxApplicationState<Model> {
 
   @Override
   protected Model loadEntity(ClientResponse response) {
-//    Object entity;
-//    try {
-//      entity = JsonUtils.fromInputStream(response.getEntity(InputStream.class));
-//    }
-//    catch (IOException ioe) {
-//      throw new GedcomxApplicationException(ioe);
-//    }
-//    return entity;
     model = ModelFactory.createDefaultModel();
     RDFDataMgr.read(model, response.getEntityInputStream(), null, JenaJSONLD.JSONLD);
-    this.resourceDescribingList = model.getResource(this.request.getURI().toString());
-    StmtIterator it = resourceDescribingList.listProperties();
+    this.resourceDescribingElement = model.getResource(this.request.getURI().toString());
+    StmtIterator it = resourceDescribingElement.listProperties();
 //    while (it.hasNext()) {
 //      Statement statement = it.nextStatement();
 //    }
@@ -107,42 +97,38 @@ public class VocabElementState extends GedcomxApplicationState<Model> {
     return model;
   }
 
-  public String getSubclass() {
-    return getResourceDescribingList().getRequiredProperty(model.createProperty(VocabConstants.RDFS_NAMESPACE, "subClassOf")).getResource().getURI();
-  }
+  public VocabElement getVocabElement() {
+    VocabElement vocabElement = new VocabElement();
+    Model model = resourceDescribingElement.getModel();
 
-  public String getType() {
-    return getResourceDescribingList().getRequiredProperty(model.createProperty(VocabConstants.DC_NAMESPACE, "type")).getResource().getURI();
-  }
+    // Map required attributes into the VocabElement
+    vocabElement.setId(resourceDescribingElement.getRequiredProperty(model.createProperty(VocabConstants.DC_NAMESPACE, "identifier")).getString());
+    vocabElement.setUri(URI.create(resourceDescribingElement.getURI()));
 
-  public List<TextValue> getLabels() {
-    List<TextValue> labels = new ArrayList<TextValue>();
-    StmtIterator rdfLabels = getResourceDescribingList().listProperties(model.createProperty(VocabConstants.RDFS_NAMESPACE, "label"));
-    while (rdfLabels.hasNext()) {
-      Statement rdfLabel = rdfLabels.nextStatement();
-      TextValue label = new TextValue();
-      label.setLang(rdfLabel.getLanguage().toLowerCase());
-      label.setValue(rdfLabel.toString());
-      labels.add(label);
+    // Get optional attributes into the VocabElement
+    Property property = model.createProperty(VocabConstants.RDFS_NAMESPACE, "subClassOf");
+    if (resourceDescribingElement.hasProperty(property)) {
+      vocabElement.setSubclass(URI.create(resourceDescribingElement.getRequiredProperty(model.createProperty(VocabConstants.RDFS_NAMESPACE, "subClassOf")).getResource().getURI()));
     }
-    return labels;
-//    Map<String, List> map = (Map<String, List>)entity;
-//    return map.get("labels");
-  }
-
-  public List<TextValue> getDescriptions() {
-    List<TextValue> descriptions = new ArrayList<TextValue>();
-    StmtIterator rdfDescriptions = getResourceDescribingList().listProperties(this.model.createProperty(VocabConstants.RDFS_NAMESPACE, "description"));
-    while (rdfDescriptions.hasNext()) {
-      Statement rdfDescription = rdfDescriptions.nextStatement();
-      TextValue label = new TextValue();
-      label.setLang(rdfDescription.getLanguage().toLowerCase());
-      label.setValue(rdfDescription.toString());
-      descriptions.add(label);
+    property = model.createProperty(VocabConstants.DC_NAMESPACE, "type");
+    if (resourceDescribingElement.hasProperty(property)) {
+      vocabElement.setType(URI.create(resourceDescribingElement.getRequiredProperty(model.createProperty(VocabConstants.DC_NAMESPACE, "type")).getResource().getURI()));
     }
-    return descriptions;
-//    Map<String, List> map = (Map<String, List>)entity;
-//    return map.get("descriptions");
+
+    // Map the labels into the VocabElement
+    StmtIterator labels = resourceDescribingElement.listProperties(model.createProperty(VocabConstants.RDFS_NAMESPACE, "label"));
+    while (labels.hasNext()) {
+      Statement next = labels.next();
+      vocabElement.addLabel(next.getString(), next.getLanguage().toLowerCase());
+    }
+
+    // Map the descriptions into the VocabElement
+    StmtIterator descriptions = resourceDescribingElement.listProperties(model.createProperty(VocabConstants.RDFS_NAMESPACE, "comment"));
+    while (descriptions.hasNext()) {
+      Statement next = descriptions.next();
+      vocabElement.addDescription(next.getString(), next.getLanguage().toLowerCase());
+    }
+    return vocabElement;
   }
 
   @Override
@@ -150,16 +136,11 @@ public class VocabElementState extends GedcomxApplicationState<Model> {
 //    return getPlaceDescription();
     return null;
   }
-//
-//  public PlaceDescription getPlaceDescription() {
-//    return getEntity() == null ? null : getEntity().getPlaces() == null ? null : getEntity().getPlaces().isEmpty() ? null : getEntity().getPlaces().get(0);
-//  }
-//
 
-  private Resource getResourceDescribingList() {
-    if (null == this.resourceDescribingList) {
-      this.resourceDescribingList = this.model.getResource(this.request.getURI().toString());
+  private Resource getResourceDescribingElement() {
+    if (null == this.resourceDescribingElement) {
+      this.resourceDescribingElement = this.model.getResource(this.request.getURI().toString());
     }
-    return this.resourceDescribingList;
+    return this.resourceDescribingElement;
   }
 }

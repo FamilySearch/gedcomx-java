@@ -108,15 +108,6 @@ public class VocabElementListState extends GedcomxApplicationState<Model> {
 
   @Override
   protected Model loadEntity(ClientResponse response) {
-//    Object entity;
-//    try {
-//      entity = JsonUtils.fromInputStream(response.getEntity(InputStream.class));
-//    }
-//    catch (IOException ioe) {
-//      throw new GedcomxApplicationException(ioe);
-//    }
-//    return entity;
-
     Model model = ModelFactory.createDefaultModel();
     RDFDataMgr.read(model, response.getEntityInputStream(), null, JenaJSONLD.JSONLD);
     this.resourceDescribingList = model.getResource(this.request.getURI().toString());
