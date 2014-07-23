@@ -59,7 +59,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<Note> notes;
   private Attribution attribution;
   private URI resourceType;
-  private List<ResourceReference> rights;
+  private List<URI> rights;
   private String sortKey;
   private List<TextValue> descriptions;
   private List<Identifier> identifiers;
@@ -186,7 +186,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @XmlElement (name="rights")
   @JsonProperty ("rights")
   @JsonName ("rights")
-  public List<ResourceReference> getRights() {
+  public List<URI> getRights() {
     return rights;
   }
 
@@ -196,7 +196,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @param rights The rights for this source.
    */
   @JsonProperty ("rights")
-  public void setRights(List<ResourceReference> rights) {
+  public void setRights(List<URI> rights) {
     this.rights = rights;
   }
 
@@ -205,7 +205,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @param rights The rights.
    * @return this.
    */
-  public SourceDescription rights(ResourceReference rights) {
+  public SourceDescription rights(URI rights) {
     addRights(rights);
     return this;
   }
@@ -215,10 +215,10 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param rights The rights to be added.
    */
-  public void addRights(ResourceReference rights) {
+  public void addRights(URI rights) {
     if (rights != null) {
       if (this.rights == null) {
-        this.rights = new LinkedList<ResourceReference>();
+        this.rights = new LinkedList<URI>();
       }
       this.rights.add(rights);
     }
@@ -1052,7 +1052,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
       this.descriptions.addAll(description.descriptions);
     }
     if (description.rights != null) {
-      this.rights = this.rights == null ? new ArrayList<ResourceReference>() : this.rights;
+      this.rights = this.rights == null ? new ArrayList<URI>() : this.rights;
       this.rights.addAll(description.rights);
     }
     if (description.identifiers != null) {
