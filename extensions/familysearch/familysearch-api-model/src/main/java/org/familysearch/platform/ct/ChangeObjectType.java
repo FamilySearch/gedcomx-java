@@ -300,6 +300,11 @@ public enum ChangeObjectType {
   LifeSketch,
 
   /**
+   * A living status was changed.
+   */
+  LivingStatus,
+
+  /**
    * A title of nobility fact was changed.
    */
   TitleOfNobility,
