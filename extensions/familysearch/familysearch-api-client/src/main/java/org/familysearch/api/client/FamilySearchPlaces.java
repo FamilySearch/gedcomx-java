@@ -25,10 +25,7 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.GedcomxApplicationException;
-import org.gedcomx.rs.client.StateTransitionOption;
-import org.gedcomx.rs.client.VocabElementListState;
-import org.gedcomx.rs.client.VocabElementState;
+import org.gedcomx.rs.client.*;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
@@ -251,6 +248,30 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
 
     ClientRequest request = RequestUtil.applyFamilySearchJson(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return this.stateFactory.newVocabElementState(request, invoke(request, options), this.accessToken);
+  }
+
+  /**
+   *
+   */
+  public PlaceGroupState readPlaceGroupById(String id, StateTransitionOption... options) {
+    Link link = getLink(Rel.PLACE_GROUP);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+    String template = link.getTemplate();
+    String uri;
+    try {
+      uri = UriTemplate.fromTemplate(template).set("pgid", id).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchJson(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
+    return this.stateFactory.newPlaceGroupState(request, invoke(request, options), this.accessToken);
   }
 
 }

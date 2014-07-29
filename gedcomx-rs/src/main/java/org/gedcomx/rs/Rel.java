@@ -69,6 +69,7 @@ public class Rel {
   public static final String PLACE_TYPE_GROUP = "place-type-group";
   public static final String PLACE_TYPES = "place-types";
   public static final String PLACE_TYPE = "place-type";
+  public static final String PLACE_GROUP = "place-group";
   public static final String PROFILE = "profile";
   public static final String RECORD = "record";
   public static final String RECORDS = "records";

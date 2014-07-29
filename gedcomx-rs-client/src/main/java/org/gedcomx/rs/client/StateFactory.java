@@ -128,6 +128,10 @@ public class StateFactory {
     return new PlaceDescriptionsState(request, response, accessToken, this);
   }
 
+  public PlaceGroupState newPlaceGroupState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new PlaceGroupState(request, response, accessToken, this);
+  }
+
   public VocabElementState newVocabElementState(ClientRequest request, ClientResponse response, String accessToken) {
     return new VocabElementState(request, response, accessToken, this);
   }
