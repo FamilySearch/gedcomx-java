@@ -19,11 +19,10 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.PlaceDescription;
-import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
 
-import javax.ws.rs.HttpMethod;
+import java.util.List;
 
 public class PlaceGroupState extends GedcomxApplicationState<Gedcomx> {
 
@@ -68,6 +67,17 @@ public class PlaceGroupState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected SupportsLinks getMainDataElement() {
-    return null; //TODO: Implement
+    List<PlaceDescription> placeGroup = getPlaceGroup();
+    return placeGroup.isEmpty() ? null : getPlaceGroup().get(0);
   }
+
+  /**
+   * Get the place group
+   *
+   * @return the place group associated with this place group application state
+   */
+  public List<PlaceDescription> getPlaceGroup() {
+    return getEntity() == null ? null : getEntity().getPlaces() == null ? null : getEntity().getPlaces().isEmpty() ? null : getEntity().getPlaces();
+  }
+
 }
