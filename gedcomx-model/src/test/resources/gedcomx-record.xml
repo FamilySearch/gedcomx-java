@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gedcomx xmlns="http://gedcomx.org/v1/" description="#src_r_1453055601" id="r_1453055601">
+  <person principal="true" extracted="true" id="p_11156434701">
+    <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/1:1:FC38-HNL</identifier>
+    <name type="http://gedcomx.org/BirthName">
+      <nameForm>
+        <fullText>Maria Johanna Potgieter Van Wyk</fullText>
+        <part type="http://gedcomx.org/Given" value="Maria Johanna">
+          <field type="http://gedcomx.org/Given">
+            <value labelId="PR_NAME_GN" type="http://gedcomx.org/Interpreted">
+              <text>Maria Johanna</text>
+            </value>
+          </field>
+        </part>
+        <part type="http://gedcomx.org/Surname" value="Potgieter Van Wyk">
+          <field type="http://gedcomx.org/Surname">
+            <value labelId="PR_NAME_SURN" type="http://gedcomx.org/Interpreted">
+              <text>Potgieter Van Wyk</text>
+            </value>
+          </field>
+        </part>
+        <field type="http://gedcomx.org/Name">
+          <value labelId="PR_NAME" type="http://gedcomx.org/Interpreted">
+            <text>Maria Johanna Potgieter Van Wyk</text>
+          </value>
+        </field>
+      </nameForm>
+    </name>
+    <fact primary="true" type="http://gedcomx.org/Death">
+      <date>
+        <original>17 Feb 1960</original>
+        <field type="http://gedcomx.org/Date">
+          <value labelId="EVENT_DATE" type="http://gedcomx.org/Interpreted">
+            <text>17 Feb 1960</text>
+          </value>
+        </field>
+      </date>
+      <place>
+        <original>Harrismith</original>
+        <field type="http://gedcomx.org/Place">
+          <value labelId="EVENT_PLACE" type="http://gedcomx.org/Interpreted">
+            <text>Harrismith</text>
+          </value>
+        </field>
+      </place>
+    </fact>
+    <fact type="http://gedcomx.org/Birth">
+      <date>
+        <original>1878</original>
+        <field type="http://gedcomx.org/Year">
+          <value labelId="PR_BIRTH_YEAR_ESTIMATED" type="http://gedcomx.org/Interpreted">
+            <text>1878</text>
+          </value>
+        </field>
+      </date>
+      <place>
+        <original>Humansdorp</original>
+        <field type="http://gedcomx.org/Place">
+          <value labelId="PR_BIRTH_PLACE" type="http://gedcomx.org/Interpreted">
+            <text>Humansdorp</text>
+          </value>
+        </field>
+      </place>
+    </fact>
+    <field type="http://gedcomx.org/Age">
+      <value labelId="PR_AGE" type="http://gedcomx.org/Interpreted">
+        <text>82</text>
+      </value>
+    </field>
+  </person>
+  <person extracted="true" id="p_11156434702">
+    <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/1:1:FC38-HNG</identifier>
+    <gender type="http://gedcomx.org/Male">
+      <field type="http://gedcomx.org/Gender">
+        <value resource="http://gedcomx.org/Male" type="http://gedcomx.org/Original">
+          <text>Male</text>
+        </value>
+      </field>
+    </gender>
+    <name type="http://gedcomx.org/BirthName">
+      <nameForm>
+        <fullText>Matthys Josephus Potgieter</fullText>
+        <part type="http://gedcomx.org/Given" value="Matthys Josephus">
+          <field type="http://gedcomx.org/Given">
+            <value labelId="PR_FTHR_NAME_GN" type="http://gedcomx.org/Interpreted">
+              <text>Matthys Josephus</text>
+            </value>
+          </field>
+        </part>
+        <part type="http://gedcomx.org/Surname" value="Potgieter">
+          <field type="http://gedcomx.org/Surname">
+            <value labelId="PR_FTHR_NAME_SURN" type="http://gedcomx.org/Interpreted">
+              <text>Potgieter</text>
+            </value>
+          </field>
+        </part>
+        <field type="http://gedcomx.org/Name">
+          <value labelId="PR_FTHR_NAME" type="http://gedcomx.org/Interpreted">
+            <text>Matthys Josephus Potgieter</text>
+          </value>
+        </field>
+      </nameForm>
+    </name>
+  </person>
+  <person extracted="true" id="p_11156434703">
+    <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/1:1:FC38-HNP</identifier>
+    <gender type="http://gedcomx.org/Female">
+      <field type="http://gedcomx.org/Gender">
+        <value resource="http://gedcomx.org/Female" type="http://gedcomx.org/Original">
+          <text>Female</text>
+        </value>
+      </field>
+    </gender>
+    <name type="http://gedcomx.org/BirthName">
+      <nameForm>
+        <fullText>Gertruida Woutrina Potgieter</fullText>
+        <part type="http://gedcomx.org/Given" value="Gertruida Woutrina">
+          <field type="http://gedcomx.org/Given">
+            <value labelId="PR_MTHR_NAME_GN" type="http://gedcomx.org/Interpreted">
+              <text>Gertruida Woutrina</text>
+            </value>
+          </field>
+        </part>
+        <part type="http://gedcomx.org/Surname" value="Potgieter">
+          <field type="http://gedcomx.org/Surname">
+            <value labelId="PR_MTHR_NAME_SURN" type="http://gedcomx.org/Interpreted">
+              <text>Potgieter</text>
+            </value>
+          </field>
+        </part>
+        <field type="http://gedcomx.org/Name">
+          <value labelId="PR_MTHR_NAME" type="http://gedcomx.org/Interpreted">
+            <text>Gertruida Woutrina Potgieter</text>
+          </value>
+        </field>
+      </nameForm>
+    </name>
+  </person>
+  <person extracted="true" id="p_11156434704">
+    <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/1:1:FC38-HN5</identifier>
+    <name type="http://gedcomx.org/BirthName">
+      <nameForm>
+        <fullText>Pieter Abraham Albertus Van Wyk</fullText>
+        <part type="http://gedcomx.org/Given" value="Pieter Abraham Albertus">
+          <field type="http://gedcomx.org/Given">
+            <value labelId="SPOUSE_NAME_GN" type="http://gedcomx.org/Interpreted">
+              <text>Pieter Abraham Albertus</text>
+            </value>
+          </field>
+        </part>
+        <part type="http://gedcomx.org/Surname" value="Van Wyk">
+          <field type="http://gedcomx.org/Surname">
+            <value labelId="SPOUSE_NAME_SURN" type="http://gedcomx.org/Interpreted">
+              <text>Van Wyk</text>
+            </value>
+          </field>
+        </part>
+        <field type="http://gedcomx.org/Name">
+          <value labelId="SPOUSE_NAME" type="http://gedcomx.org/Interpreted">
+            <text>Pieter Abraham Albertus Van Wyk</text>
+          </value>
+        </field>
+      </nameForm>
+    </name>
+  </person>
+  <relationship type="http://gedcomx.org/Couple" id="MM9.1.6/78TF-8JF">
+    <person1 resource="#p_11156434701"/>
+    <person2 resource="#p_11156434704"/>
+  </relationship>
+  <relationship type="http://gedcomx.org/ParentChild" id="MM9.1.6/78TF-8JN">
+    <person1 resource="#p_11156434702"/>
+    <person2 resource="#p_11156434701"/>
+  </relationship>
+  <relationship type="http://gedcomx.org/ParentChild" id="MM9.1.6/78TF-8JJ">
+    <person1 resource="#p_11156434703"/>
+    <person2 resource="#p_11156434701"/>
+  </relationship>
+  <relationship type="http://gedcomx.org/Couple" id="MM9.1.6/78TF-8JV">
+    <person1 resource="#p_11156434702"/>
+    <person2 resource="#p_11156434703"/>
+  </relationship>
+  <sourceDescription about="https://familysearch.org/ark:/61903/1:2:91PT-TWL" resourceType="http://gedcomx.org/Record" id="src_r_1453055601">
+    <citation>
+      <value>"South Africa, Orange Free State, Estate Files, 1951-2006," index and images, &lt;i>FamilySearch&lt;/i> (https://familysearch.org/ark:/61903/1:1:FC38-HNL : accessed 22 Jul 2014), Maria Johanna Potgieter Van Wyk, 17 Feb 1960, Death; citing Harrismith, Master of the Free State High Court, Bloemfontein; FHL microfilm 004229835.</value>
+    </citation>
+    <source description="#src_s1"/>
+    <componentOf description="#src_2"/>
+    <title xml:lang="en-US">Entry for Maria Johanna Potgieter Van Wyk, "South Africa, Orange Free State, Estate Files, 1951-2006"</title>
+    <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/1:2:91PT-TWL</identifier>
+    <identifier>https://familysearch.org/platform/externalId/easy/1000605267248</identifier>
+    <created>2014-02-19T20:16:40.712Z</created>
+    <modified>2014-05-24T12:50:54.647Z</modified>
+    <coverage>
+      <recordType>http://gedcomx.org/Probate</recordType>
+      <spatial>
+        <original>South Africa</original>
+      </spatial>
+      <temporal>
+        <original>17 Feb 1960</original>
+      </temporal>
+    </coverage>
+    <descriptor resource="https://familysearch.org/platform/records/collections/1407787#rd_MM9.1.9/MMMM-MLG"/>
+  </sourceDescription>
+  <sourceDescription about="https://familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="src_1">
+    <title xml:lang="en-US">South Africa, Orange Free State, Estate Files, 1951-2006</title>
+    <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections/1407787</identifier>
+    <coverage>
+      <recordType>http://gedcomx.org/Probate</recordType>
+      <spatial description="#place_1927115">
+        <original>South Africa</original>
+      </spatial>
+    </coverage>
+  </sourceDescription>
+  <sourceDescription about="https://familysearch.org/platform/records/collections/1407787/records" resourceType="http://familysearch.org/types/resources/Container" id="src_2">
+    <componentOf description="#src_1"/>
+    <title xml:lang="en-US">South Africa, Orange Free State, Estate Files, 1951-2006</title>
+    <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections/1407787/records</identifier>
+  </sourceDescription>
+  <sourceDescription about="https://familysearch.org/ark:/61903/3:1:S3HY-DKTS-PZ1?cc=1133" resourceType="http://gedcomx.org/DigitalArtifact" id="src_s1">
+    <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/3:1:S3HY-DKTS-PZ1?cc=1133</identifier>
+  </sourceDescription>
+  <place id="place_1927115">
+    <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/authorities/v1/place/1927115</identifier>
+  </place>
+  <field type="http://familysearch.org/types/fields/UniqueIdentifier">
+    <value labelId="UNIQUE_IDENTIFIER" type="http://gedcomx.org/Original">
+      <text>1000605267248</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/ImageId">
+    <value labelId="IMAGE_ID" type="http://gedcomx.org/Original">
+      <text>/004229835/004229835_00280.jpg</text>
+    </value>
+    <value labelId="IMAGE_ID_NORM" type="http://gedcomx.org/Interpreted">
+      <text>dgs:004229835.004229835_00280</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/FolderImageSeq">
+    <value labelId="FOLDER_IMAGE_SEQ" type="http://gedcomx.org/Original">
+      <text>280</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/Folder">
+    <value labelId="FOLDER" type="http://gedcomx.org/Original">
+      <text>004229835</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/BatchLocality">
+    <value labelId="BATCH_LOCALITY" type="http://gedcomx.org/Original">
+      <text>South Africa</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/DigitalGsNumber">
+    <value labelId="DIGITAL_GS_NUMBER" type="http://gedcomx.org/Original">
+      <text>004229835</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/EventType">
+    <value labelId="EVENT_TYPE" type="http://gedcomx.org/Original">
+      <text>Death</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/FsCollectionId">
+    <value labelId="FS_COLLECTION_ID" type="http://gedcomx.org/Original">
+      <text>1407787</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/ImageApid">
+    <value labelId="IMAGE_APID" type="http://gedcomx.org/Original">
+      <text>TH-267-11396-75029-65</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/ImageNbr">
+    <value labelId="IMAGE_NBR" type="http://gedcomx.org/Original">
+      <text>00280</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/ImageArk">
+    <value labelId="IMAGE_ARK" type="http://gedcomx.org/Original">
+      <text>https://familysearch.org/ark:/61903/3:1:S3HY-DKTS-PZ1</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/Language">
+    <value labelId="LANGUAGE" type="http://gedcomx.org/Original">
+      <text>Afrikaans</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/OtherNames">
+    <value labelId="OTHER_NAMES" type="http://gedcomx.org/Original">
+      <text>CHILD_1:Matthys Josephus Van Wyk; CHILD_2:Petronella Maria Van Wyk Kriel</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/PpqId">
+    <value labelId="PPQ_ID" type="http://gedcomx.org/Original">
+      <text>10-0203</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/RecordGroup">
+    <value labelId="RECORD_GROUP" type="http://gedcomx.org/Original">
+      <text>10-0203; 27-OCT-2011 15:50:13.179365; Default</text>
+    </value>
+  </field>
+  <field type="http://familysearch.org/types/fields/Sortkey">
+    <value labelId="SORT_KEY" type="http://gedcomx.org/Original">
+      <text>collection:00000000000000001133,easyId:1000605267248</text>
+    </value>
+  </field>
+</gedcomx>

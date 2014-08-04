@@ -40,6 +40,7 @@ import java.util.Map;
  * Time: 3:53 PM
  */
 public class DocMap {
+  private Gedcomx doc;
   private SourceDescription mainSourceDescription;
   private Map<String, SourceDescription> sourceDescriptionMap;
   private Map<String, Person> personMap;
@@ -61,12 +62,21 @@ public class DocMap {
    * @param doc - GedcomX document to rebuild maps for.
    */
   public void update(Gedcomx doc) {
+    this.doc = doc;
     sourceDescriptionMap = getSourceDescriptionMap(doc);
     personMap = getPersonMap(doc);
     recordDescriptorMap = getRecordDescriptorMap(doc);
     agentMap = getAgentMap(doc);
     placeMap = getPlaceMap(doc);
     mainSourceDescription = getSourceDescription(doc.getDescriptionRef());
+  }
+
+  /**
+   * Get the Gedcomx document that was used to create this DocMap.
+   * @return GedcomX document that was used to create this DocMap.
+   */
+  public Gedcomx getDocument() {
+    return doc;
   }
 
   /**
