@@ -181,7 +181,9 @@ public class ResourceServiceProcessor {
           SchemaInfo schemaInfo = model.getNamespacesToSchemas().get(resourceElement.getNamespace());
           MediaTypeDeclaration declaration = (MediaTypeDeclaration) schemaInfo.getProperties().get("mediaType");
           if (declaration != null) {
-            if (declaration.getXmlMediaType() != null) {
+            SuppressWarnings suppressWarnings = binding.getAnnotation(SuppressWarnings.class);
+            boolean suppressProducesConsumesInconsistencyWarnings = suppressWarnings != null && suppressWarnings.value() != null && Arrays.asList(suppressWarnings.value()).contains("produces-consumes-media-type-inconsistency");
+            if (!suppressProducesConsumesInconsistencyWarnings && declaration.getXmlMediaType() != null) {
               if (!binding.getConsumes().isEmpty() && !binding.getConsumes().contains("*/*") && !binding.getConsumes().contains(declaration.getXmlMediaType())) {
                 result.addWarning(binding, String.format("Binding doesn't consume %s, even though resource element %s is of that media type.", declaration.getXmlMediaType(), resourceElement.getQname()));
               }
@@ -191,7 +193,7 @@ public class ResourceServiceProcessor {
               }
             }
 
-            if (declaration.getJsonMediaType() != null) {
+            if (!suppressProducesConsumesInconsistencyWarnings && declaration.getJsonMediaType() != null) {
               if (!binding.getConsumes().isEmpty() && !binding.getConsumes().contains("*/*") && !binding.getConsumes().contains(declaration.getJsonMediaType())) {
                 result.addWarning(binding, String.format("Binding doesn't consume %s, even though resource element %s is of that media type.", declaration.getJsonMediaType(), resourceElement.getQname()));
               }
