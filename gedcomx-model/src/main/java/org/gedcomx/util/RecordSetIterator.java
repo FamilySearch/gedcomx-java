@@ -18,7 +18,6 @@ package org.gedcomx.util;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.rt.GedcomxConstants;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -143,7 +142,7 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
   }
 
   public void remove() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
 }

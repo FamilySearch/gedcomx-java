@@ -21,10 +21,10 @@ public class TestLocaleUtil extends TestCase {
             value("UK English", "en-GB"),
             value("US English", "en-US"),
             value("Korean", "ko"));
-    assertEquals("Spanish", LocaleUtil.findClosestLocale(list, Locale.forLanguageTag("es")).getValue());
-    assertEquals("UK English", LocaleUtil.findClosestLocale(list, Locale.forLanguageTag("en-GB")).getValue());
-    assertEquals("UK English", LocaleUtil.findClosestLocale(list, Locale.forLanguageTag("en")).getValue()); // first English in list
-    assertEquals("US English", LocaleUtil.findClosestLocale(list, Locale.forLanguageTag("en-US")).getValue()); // first English in list
+    assertEquals("Spanish", LocaleUtil.findClosestLocale(list, new Locale("es")).getValue());
+    assertEquals("UK English", LocaleUtil.findClosestLocale(list, new Locale("en-GB")).getValue());
+    assertEquals("UK English", LocaleUtil.findClosestLocale(list, new Locale("en")).getValue()); // first English in list
+    assertEquals("US English", LocaleUtil.findClosestLocale(list, new Locale("en-US")).getValue()); // first English in list
     assertEquals("Korean", LocaleUtil.findClosestLocale(list, Locale.KOREAN).getValue()); //ko
     assertEquals("Korean", LocaleUtil.findClosestLocale(list, Locale.KOREA).getValue()); //ko-KR
     // Test a case where there is no good match to the preferred language, but there is to the default language.
@@ -40,18 +40,18 @@ public class TestLocaleUtil extends TestCase {
 
   public void testLocales() {
     Set<Locale> list = new LinkedHashSet<Locale>(Arrays.asList(
-            Locale.forLanguageTag("es"),
-            Locale.forLanguageTag("en-GB"),
-            Locale.forLanguageTag("en-US"),
-            Locale.forLanguageTag("ko")));
-    assertEquals("es", LocaleUtil.findClosestLocale(list, Locale.forLanguageTag("es")).toLanguageTag());
-    assertEquals("en-GB", LocaleUtil.findClosestLocale(list, Locale.forLanguageTag("en-GB")).toLanguageTag());
-    assertEquals("en-GB", LocaleUtil.findClosestLocale(list, Locale.forLanguageTag("en")).toLanguageTag()); // first English in list
-    assertEquals("ko", LocaleUtil.findClosestLocale(list, Locale.KOREAN).toLanguageTag()); //ko
-    assertEquals("ko", LocaleUtil.findClosestLocale(list, Locale.KOREA).toLanguageTag()); //ko-KR
+            new Locale("es"),
+            new Locale("en-GB"),
+            new Locale("en-US"),
+            new Locale("ko")));
+    assertEquals("es", LocaleUtil.findClosestLocale(list, new Locale("es")).getLanguage());
+    assertEquals("en-GB", LocaleUtil.findClosestLocale(list, new Locale("en-GB")).getLanguage());
+    assertEquals("en-GB", LocaleUtil.findClosestLocale(list, new Locale("en")).getLanguage()); // first English in list
+    assertEquals("ko", LocaleUtil.findClosestLocale(list, Locale.KOREAN).getLanguage()); //ko
+    assertEquals("ko", LocaleUtil.findClosestLocale(list, Locale.KOREA).getLanguage()); //ko-KR
     // Test a case where there is no good match to the preferred language, but there is to the default language.
-    assertEquals("en-GB", LocaleUtil.findClosestLocale(list, Locale.JAPANESE, Locale.CANADA).toLanguageTag());
-    assertEquals("en-US", LocaleUtil.findClosestLocale(list, Locale.JAPANESE, Locale.US).toLanguageTag());
+    assertEquals("en-GB", LocaleUtil.findClosestLocale(list, Locale.JAPANESE, Locale.CANADA).getLanguage());
+    assertEquals("en-US", LocaleUtil.findClosestLocale(list, Locale.JAPANESE, Locale.US).getLanguage());
   }
 
 }

@@ -51,7 +51,7 @@ public class LocaleUtil {
       TextValue bestTextValue = null;
       Locale bestLocale = null;
       for (TextValue textValue : textValues) {
-        Locale locale = Locale.forLanguageTag(textValue.getLang());
+        Locale locale = new Locale(textValue.getLang());
         if (bestTextValue == null || LocaleUtil.isBetterLocaleMatch(localeToMatch, locale, bestLocale, defaultLocale)) {
           bestTextValue = textValue;
           bestLocale = locale;

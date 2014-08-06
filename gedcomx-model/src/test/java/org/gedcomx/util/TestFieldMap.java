@@ -38,7 +38,7 @@ public class TestFieldMap extends TestCase {
     FieldMap fieldMap = new FieldMap(imageItem, collection);
     assertEquals("1962", fieldMap.getValues("YEAR").get(0));
     assertEquals("1116", fieldMap.getValues("FILE_NUMBER").get(0));
-    assertEquals("Year", fieldMap.getDisplayLabel("YEAR", Locale.ENGLISH.toLanguageTag()));
+    assertEquals("Year", fieldMap.getDisplayLabel("YEAR", Locale.ENGLISH.getLanguage()));
     assertEquals("Año", fieldMap.getDisplayLabel("YEAR", "es"));
     assertEquals("년도", fieldMap.getDisplayLabel("YEAR", "ko"));
   }
