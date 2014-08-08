@@ -270,7 +270,7 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchJson(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return this.stateFactory.newPlaceGroupState(request, invoke(request, options), this.accessToken);
   }
 
