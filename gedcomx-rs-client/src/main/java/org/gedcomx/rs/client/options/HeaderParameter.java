@@ -29,6 +29,8 @@ public class HeaderParameter implements StateTransitionOption {
   public static final String LOCALE = LANG;
   public static final String IF_NONE_MATCH = "If-None-Match";
   public static final String IF_MODIFIED_SINCE = "If-Modified-Since";
+  public static final String IF_MATCH = "If-Match";
+  public static final String IF_UNMODIFIED_SINCE = "If-Unmodified-Since";
 
   private final boolean replace;
   private final String name;
