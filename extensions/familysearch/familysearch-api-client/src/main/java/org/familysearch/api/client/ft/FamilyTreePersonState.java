@@ -78,7 +78,8 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   protected FamilySearchPlatform loadEntityConditionally(ClientResponse response) {
     if (HttpMethod.GET.equals(request.getMethod()) && (response.getClientResponseStatus() == ClientResponse.Status.OK
-          || response.getClientResponseStatus() == ClientResponse.Status.GONE)) {
+          || response.getClientResponseStatus() == ClientResponse.Status.GONE)
+          || response.getClientResponseStatus() == ClientResponse.Status.PRECONDITION_FAILED) {
       return loadEntity(response);
     }
     else {
@@ -161,7 +162,7 @@ public class FamilyTreePersonState extends PersonState {
 
   @Override
   public FamilyTreePersonState post(Gedcomx entity, StateTransitionOption... options) {
-    return (FamilyTreePersonState) super.post(entity, options);
+    return (FamilyTreePersonState)super.post(entity, options);
   }
 
   @Override
