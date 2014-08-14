@@ -48,7 +48,8 @@ public class FamilyTreeRelationshipState extends RelationshipState implements Pr
   @Override
   protected FamilySearchPlatform loadEntityConditionally(ClientResponse response) {
     if (HttpMethod.GET.equals(request.getMethod()) && (response.getClientResponseStatus() == ClientResponse.Status.OK
-          || response.getClientResponseStatus() == ClientResponse.Status.GONE)) {
+          || response.getClientResponseStatus() == ClientResponse.Status.GONE)
+            || response.getClientResponseStatus() == ClientResponse.Status.PRECONDITION_FAILED) {
       return loadEntity(response);
     }
     else {

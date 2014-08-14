@@ -87,7 +87,8 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   @Override
   protected FamilySearchPlatform loadEntityConditionally(ClientResponse response) {
     if (HttpMethod.GET.equals(request.getMethod()) && (response.getClientResponseStatus() == ClientResponse.Status.OK
-                                                      || response.getClientResponseStatus() == ClientResponse.Status.GONE)) {
+                                                      || response.getClientResponseStatus() == ClientResponse.Status.GONE)
+            || response.getClientResponseStatus() == ClientResponse.Status.PRECONDITION_FAILED) {
       return loadEntity(response);
     }
     else {
