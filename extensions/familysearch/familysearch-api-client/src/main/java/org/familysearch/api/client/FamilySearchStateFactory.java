@@ -141,7 +141,8 @@ public class FamilySearchStateFactory extends StateFactory {
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
     Client client = new Client(new URLConnectionClientHandler(), config);
-    client.addFilter(new ExperimentsFilter("current-user-person-401"));
+    //how to add an experiment:
+    //client.addFilter(new ExperimentsFilter("current-user-person-401"));
     if (Boolean.valueOf(System.getProperty(ENABLE_JERSEY_LOGGING_ENV_NAME))) {     // handles null
       client.addFilter(new com.sun.jersey.api.client.filter.LoggingFilter());
     }
