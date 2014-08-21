@@ -18,5 +18,33 @@ package org.gedcomx.date;
 /**
  * @author John Clark.
  */
-public class SimpleGedcomxDate {
+public class GedcomxDateApproximate extends GedcomxDate {
+
+  private GedcomxDateSimple simpleDate;
+
+  public GedcomxDateApproximate(String str) {
+
+    if(str.length() < 1 || str.charAt(0) != 'A') {
+      throw new GedcomxDateException("Invalid Approximate Date: Must start with A");
+    }
+
+    // TODO consider wrapping this to rethrow with additional information
+    simpleDate = new GedcomxDateSimple(str.substring(1));
+
+  }
+
+  @Override
+  public GedcomxDateType getType() {
+    return GedcomxDateType.APPROXIMATE;
+  }
+
+  @Override
+  public boolean isApproximate() {
+    return true;
+  }
+
+  @Override
+  public String toFormalString() {
+    return null;
+  }
 }

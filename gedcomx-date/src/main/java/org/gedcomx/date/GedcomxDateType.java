@@ -19,5 +19,5 @@ package org.gedcomx.date;
  * @author John Clark.
  */
 public enum GedcomxDateType {
-  SIMPLE, APPROXIMATE, RANGE, DURATION
+  SIMPLE, APPROXIMATE, RANGE, DURATION, RECURRING
 }
