@@ -29,6 +29,7 @@
     <module>enunciate-gedcomx-support</module>
     <module>gedcomx-model</module>
     <module>gedcomx-fileformat</module>
+    <module>gedcomx-date</module>
 
     <!--gedcomx-rs modules-->
     <module>gedcomx-atom</module>
@@ -37,6 +38,7 @@
 
     <!--extension modules-->
     <module>extensions/familysearch</module>
+
   </modules>
 
   <dependencies>
