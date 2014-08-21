@@ -18,5 +18,24 @@ package org.gedcomx.date;
 /**
  * @author John Clark.
  */
-public class RangeGedcomxDate {
+public class GedcomxDateSimple extends GedcomxDate {
+
+  public GedcomxDateSimple(String str) {
+
+  }
+
+  @Override
+  public GedcomxDateType getType() {
+    return GedcomxDateType.SIMPLE;
+  }
+
+  @Override
+  public boolean isApproximate() {
+    return false;
+  }
+
+  @Override
+  public String toFormalString() {
+    return null;
+  }
 }
