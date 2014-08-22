@@ -15,6 +15,10 @@
  */
 package org.gedcomx.date;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 /**
  * @author John Clark.
  */
@@ -26,6 +30,8 @@ public class GedcomxDateSimple extends GedcomxDate {
   private Integer hours = null;
   private Integer minutes = null;
   private Integer seconds = null;
+  private Integer tzHours = null;
+  private Integer tzMinutes = null;
 
   public GedcomxDateSimple(String str) {
     parseDate(str);
@@ -41,7 +47,7 @@ public class GedcomxDateSimple extends GedcomxDate {
       throw new GedcomxDateException("Invalid Date: Must have at least [+-]YYYY");
     }
 
-    // Yar
+    // Must start with a + or -
     if(str.charAt(offset) != '+' && str.charAt(offset) != '-') {
       throw new GedcomxDateException("Invalid Date: Must begin with + or -");
     }
@@ -95,6 +101,11 @@ public class GedcomxDateSimple extends GedcomxDate {
       return;
     }
 
+    // If there is time
+    if(str.charAt(offset) == 'T') {
+      parseTime(str.substring(offset+1));
+      return;
+    }
 
     // Day
     if(str.charAt(offset) != '-') {
@@ -137,7 +148,63 @@ public class GedcomxDateSimple extends GedcomxDate {
 
   }
 
-  // TODO more to UTIL and full test
+  private void parseTime(String str) {
+
+    int offset = 0;
+    int end = str.length();
+    String num;
+    boolean flag24 = false;
+
+    // Always initialize the Timezone to the local offset.
+    // It may be overridden if set
+    TimeZone tz = TimeZone.getDefault();
+    Calendar cal = GregorianCalendar.getInstance(tz);
+    int offsetInMillis = tz.getOffset(cal.getTimeInMillis());
+    tzHours = offsetInMillis / 3600000;
+    tzMinutes = (offsetInMillis / 60000) % 60;
+
+    // You must at least have hours
+    if(end < 2) {
+      throw new GedcomxDateException("Invalid Date: Hours must be 2 digits");
+    }
+
+    num = "";
+    for(int i=0;i<2;i++) {
+      if(!Character.isDigit(str.charAt(offset))) {
+        throw new GedcomxDateException("Invalid Date: Malformed Hour");
+      }
+      num += str.charAt(offset++);
+    }
+
+    hours = Integer.valueOf(num);
+
+    if(hours < 1 || hours > 24) {
+      throw new GedcomxDateException("Invalid Date: Hours must be between 1 and 24");
+    }
+
+    if(hours == 24) {
+      flag24 = true;
+    }
+
+    if(offset == end) {
+      return;
+    }
+
+    // If there is a timezone offset
+    if(str.charAt(offset) == '+' || str.charAt(offset) == '-' || str.charAt(offset) == 'Z') {
+      parseTimezone(str.substring(offset)); // Don't remove the character when calling
+      return;
+    }
+
+    // 167
+
+  }
+
+  private void parseTimezone(String str) {
+
+  }
+
+  // TODO move to UTIL and fully test
   private int daysInMonth(Integer year, Integer month) {
     switch(month) {
       case 1:
@@ -174,10 +241,6 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
   }
 
-  private void parseTime(String str) {
-    System.out.println("STR: "+str);
-  }
-
   @Override
   public GedcomxDateType getType() {
     return GedcomxDateType.SIMPLE;
@@ -207,5 +270,13 @@ public class GedcomxDateSimple extends GedcomxDate {
 
   public Integer getHours() {
     return hours;
+  }
+
+  public Integer getMinutes() {
+    return minutes;
+  }
+
+  public Integer getSeconds() {
+    return seconds;
   }
 }

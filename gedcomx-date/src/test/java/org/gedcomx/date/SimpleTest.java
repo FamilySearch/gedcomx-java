@@ -62,7 +62,7 @@ public class SimpleTest {
   public void successOnYearHour() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000T10");
     assertThat(date.getYear()).isEqualTo(1000);
-    assertThat(date.getHours()).isEqualTo(null);
+    assertThat(date.getHours()).isEqualTo(10);
   }
 
   @Test
