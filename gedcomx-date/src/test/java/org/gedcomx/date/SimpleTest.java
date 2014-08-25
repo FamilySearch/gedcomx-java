@@ -2,6 +2,9 @@ package org.gedcomx.date;
 
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
 
@@ -535,6 +538,32 @@ public class SimpleTest {
     assertThat(date.getSeconds()).isEqualTo(null);
     assertThat(date.getTzHours()).isEqualTo(0);
     assertThat(date.getTzMinutes()).isEqualTo(30);
+  }
+
+
+  /**
+   * Other Methods
+   */
+
+  @Test
+  public void getType() {
+    GedcomxDateSimple simple = new GedcomxDateSimple("+1000");
+    assertThat(simple.getType()).isEqualTo(GedcomxDateType.SIMPLE);
+  }
+
+  @Test
+  public void isApproximate() {
+    GedcomxDateSimple simple = new GedcomxDateSimple("+1000");
+    assertThat(simple.isApproximate()).isEqualTo(false);
+  }
+
+  @Test
+  public void toFormalString() {
+    List<String> tests = Arrays.asList("+1000-01-01T24:00:00Z","-1000-01-01T23:15:15-06:30","+0001-12","-0090");
+    for(String test: tests) {
+      GedcomxDateSimple simple = new GedcomxDateSimple(test);
+      assertThat(simple.toFormalString()).isEqualTo(test);
+    }
   }
 
 /*
