@@ -28,9 +28,12 @@ public class GedcomxDateApproximate extends GedcomxDate {
       throw new GedcomxDateException("Invalid Approximate Date: Must start with A");
     }
 
-    // TODO consider wrapping this to rethrow with additional information
     simpleDate = new GedcomxDateSimple(str.substring(1));
 
+  }
+
+  public GedcomxDateSimple getSimpleDate() {
+    return simpleDate;
   }
 
   @Override
@@ -45,6 +48,38 @@ public class GedcomxDateApproximate extends GedcomxDate {
 
   @Override
   public String toFormalString() {
-    return null;
+    return "A"+simpleDate.toFormalString();
+  }
+
+  public Integer getYear() {
+    return simpleDate.getYear();
+  }
+
+  public Integer getMonth() {
+    return simpleDate.getMonth();
+  }
+
+  public Integer getDay() {
+    return simpleDate.getDay();
+  }
+
+  public Integer getHours() {
+    return simpleDate.getHours();
+  }
+
+  public Integer getMinutes() {
+    return simpleDate.getMinutes();
+  }
+
+  public Integer getSeconds() {
+    return simpleDate.getSeconds();
+  }
+
+  public Integer getTzHours() {
+    return simpleDate.getTzHours();
+  }
+
+  public Integer getTzMinutes() {
+    return simpleDate.getTzMinutes();
   }
 }
