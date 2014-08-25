@@ -61,6 +61,14 @@ public class ApproximateTest {
    */
 
   @Test
+  public void getSimpleDate() {
+    GedcomxDateApproximate date = new GedcomxDateApproximate("A+1000");
+    GedcomxDateSimple simple = date.getSimpleDate();
+    assertThat(simple.getYear()).isEqualTo(1000);
+    assertThat(simple.getMonth()).isEqualTo(null);
+  }
+
+  @Test
   public void getType() {
     GedcomxDateApproximate date = new GedcomxDateApproximate("A+1000");
     assertThat(date.getType()).isEqualTo(GedcomxDateType.APPROXIMATE);

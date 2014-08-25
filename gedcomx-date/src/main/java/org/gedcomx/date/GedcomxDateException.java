@@ -25,7 +25,4 @@ public class GedcomxDateException extends RuntimeException {
     super(msg);
   }
 
-  public GedcomxDateException(String msg, Exception e) {
-    super(msg, e);
-  }
 }

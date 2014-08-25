@@ -135,6 +135,15 @@ public class SimpleTest {
   }
 
   @Test
+  public void successOnYearMonthHour() {
+    GedcomxDateSimple date = new GedcomxDateSimple("+1000-10T10");
+    assertThat(date.getYear()).isEqualTo(1000);
+    assertThat(date.getMonth()).isEqualTo(10);
+    assertThat(date.getDay()).isEqualTo(null);
+    assertThat(date.getHours()).isEqualTo(10);
+  }
+
+  @Test
   public void errorOnInvalidMonthDaySeparator() {
     try {
       new GedcomxDateSimple("+1000-10=01");
@@ -310,6 +319,17 @@ public class SimpleTest {
 
   @Test
   public void successOnHour23_59() {
+    GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59");
+    assertThat(date.getYear()).isEqualTo(987);
+    assertThat(date.getMonth()).isEqualTo(1);
+    assertThat(date.getDay()).isEqualTo(25);
+    assertThat(date.getHours()).isEqualTo(23);
+    assertThat(date.getMinutes()).isEqualTo(59);
+    assertThat(date.getSeconds()).isEqualTo(null);
+  }
+
+  @Test
+  public void successOnHour23_59Z() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59Z");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -377,6 +397,17 @@ public class SimpleTest {
 
   @Test
   public void successOnHour23_59_59() {
+    GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59:59");
+    assertThat(date.getYear()).isEqualTo(987);
+    assertThat(date.getMonth()).isEqualTo(1);
+    assertThat(date.getDay()).isEqualTo(25);
+    assertThat(date.getHours()).isEqualTo(23);
+    assertThat(date.getMinutes()).isEqualTo(59);
+    assertThat(date.getSeconds()).isEqualTo(59);
+  }
+
+  @Test
+  public void successOnHour23_59_59Z() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59:59Z");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(1);
