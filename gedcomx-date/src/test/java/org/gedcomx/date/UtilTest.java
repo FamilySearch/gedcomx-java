@@ -14,6 +14,58 @@ public class UtilTest {
    * Parse
    */
 
+  @Test
+  public void errorOnParseNullDate() {
+    try {
+      GedcomxDateUtil.parse(null);
+      fail("GedcomxDateException expected because date is null");
+    } catch(GedcomxDateException e) {
+      assertThat(e.getMessage()).isEqualTo("Invalid Date");
+    }
+  }
+
+  @Test
+  public void errorOnParseInvalidDate() {
+    try {
+      GedcomxDateUtil.parse("");
+      fail("GedcomxDateException expected because date is null");
+    } catch(GedcomxDateException e) {
+      assertThat(e.getMessage()).isEqualTo("Invalid Date");
+    }
+  }
+
+  @Test
+  public void shouldParseRecurring() {
+    GedcomxDate date = GedcomxDateUtil.parse("R3/+1000/P1Y");
+
+    assertThat(date).isInstanceOf(GedcomxDateRecurring.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RECURRING);
+  }
+
+  @Test
+  public void shouldParseRange() {
+    GedcomxDate date = GedcomxDateUtil.parse("A+1000/P1Y");
+
+    assertThat(date).isInstanceOf(GedcomxDateRange.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+  }
+
+  @Test
+  public void shouldParseApproximate() {
+    GedcomxDate date = GedcomxDateUtil.parse("A+1000");
+
+    assertThat(date).isInstanceOf(GedcomxDateApproximate.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.APPROXIMATE);
+  }
+
+  @Test
+  public void shouldParseSimple() {
+    GedcomxDate date = GedcomxDateUtil.parse("+1000");
+
+    assertThat(date).isInstanceOf(GedcomxDateSimple.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.SIMPLE);
+  }
+
   /**
    * getDuration
    */
