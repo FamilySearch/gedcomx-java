@@ -386,7 +386,41 @@ public class GedcomxDateSimple extends GedcomxDate {
 
   @Override
   public String toFormalString() {
-    return null;
+    StringBuilder simple = new StringBuilder();
+
+    simple.append(year >= 0 ? "+" : "-").append(String.format("%04d", Math.abs(year)));
+
+    if(month != null) {
+      simple.append("-").append(String.format("%02d", month));
+    }
+
+    if(day != null) {
+      simple.append("-").append(String.format("%02d", day));
+    }
+
+    if(hours != null) {
+      simple.append("T").append(String.format("%02d", hours));
+
+      if(minutes != null) {
+        simple.append(":").append(String.format("%02d", minutes));
+      }
+
+      if(seconds != null) {
+        simple.append(":").append(String.format("%02d", seconds));
+      }
+
+      // If we have time we always have tz
+      if(tzHours == 0 && tzMinutes == 0) {
+        simple.append("Z");
+      } else {
+        simple.append(tzHours >= 0 ? "+" : "-").append(String.format("%02d", Math.abs(tzHours)));
+        simple.append(":").append(String.format("%02d", tzMinutes));
+      }
+    }
+
+
+
+    return simple.toString();
   }
 
   public Integer getYear() {
