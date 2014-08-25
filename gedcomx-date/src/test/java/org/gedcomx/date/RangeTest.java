@@ -2,6 +2,9 @@ package org.gedcomx.date;
 
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
 
@@ -17,6 +20,16 @@ public class RangeTest {
       fail("GedcomxDateException expected because date must not be empty");
     } catch(GedcomxDateException e) {
       assertThat(e.getMessage()).isEqualTo("Invalid Range");
+    }
+  }
+
+  @Test
+  public void errorOnJustA() {
+    try {
+      new GedcomxDateRange("A");
+      fail("GedcomxDateException expected because range must have a /");
+    } catch(GedcomxDateException e) {
+      assertThat(e.getMessage()).isEqualTo("Invalid Range: / is required");
     }
   }
 
@@ -90,8 +103,84 @@ public class RangeTest {
     }
   }
 
-  // TODO test calculating duration and end date
+  @Test
+  public void successOnDuration() {
+    GedcomxDateRange range = new GedcomxDateRange("+1000/P1Y2M3DT4H5M6S");
+    GedcomxDateSimple start = range.getStart();
+    GedcomxDateSimple end = range.getEnd();
+    GedcomxDateDuration duration = range.getDuration();
 
-  // TODO test other methods
+    assertThat(start.getYear()).isEqualTo(1000);
+    assertThat(start.getMonth()).isEqualTo(null);
+
+    assertThat(end.getYear()).isEqualTo(1001);
+    assertThat(end.getMonth()).isEqualTo(3);
+    assertThat(end.getDay()).isEqualTo(4);
+    assertThat(end.getHours()).isEqualTo(4);
+    assertThat(end.getMinutes()).isEqualTo(5);
+    assertThat(end.getSeconds()).isEqualTo(6);
+
+    assertThat(duration.getYears()).isEqualTo(1);
+    assertThat(duration.getMonths()).isEqualTo(2);
+    assertThat(duration.getDays()).isEqualTo(3);
+    assertThat(duration.getHours()).isEqualTo(4);
+    assertThat(duration.getMinutes()).isEqualTo(5);
+    assertThat(duration.getSeconds()).isEqualTo(6);
+  }
+
+  @Test
+  public void successOnEndDate() {
+    GedcomxDateRange range = new GedcomxDateRange("+1000/+2000-10-01");
+    GedcomxDateSimple start = range.getStart();
+    GedcomxDateSimple end = range.getEnd();
+    GedcomxDateDuration duration = range.getDuration();
+
+    assertThat(start.getYear()).isEqualTo(1000);
+    assertThat(start.getMonth()).isEqualTo(null);
+
+    assertThat(end.getYear()).isEqualTo(2000);
+    assertThat(end.getMonth()).isEqualTo(10);
+    assertThat(end.getDay()).isEqualTo(1);
+    assertThat(end.getHours()).isEqualTo(null);
+    assertThat(end.getMinutes()).isEqualTo(null);
+    assertThat(end.getSeconds()).isEqualTo(null);
+
+    assertThat(duration.getYears()).isEqualTo(1000);
+    assertThat(duration.getMonths()).isEqualTo(9);
+    assertThat(duration.getDays()).isEqualTo(null);
+    assertThat(duration.getHours()).isEqualTo(null);
+    assertThat(duration.getMinutes()).isEqualTo(null);
+    assertThat(duration.getSeconds()).isEqualTo(null);
+  }
+
+  /**
+   * Other Methods
+   */
+
+  @Test
+  public void getType() {
+    GedcomxDateRange range = new GedcomxDateRange("+1000/+2000-10-01");
+    assertThat(range.getType()).isEqualTo(GedcomxDateType.RANGE);
+  }
+
+  @Test
+  public void isApproximate() {
+    GedcomxDateRange range;
+
+    range = new GedcomxDateRange("A+1000/+2000-10-01");
+    assertThat(range.isApproximate()).isEqualTo(true);
+
+    range = new GedcomxDateRange("+1000/+2000-10-01");
+    assertThat(range.isApproximate()).isEqualTo(false);
+  }
+
+  @Test
+  public void toFormalString() {
+    List<String> tests = Arrays.asList("+1000/P1000Y9M", "A+1000/P1000Y9M", "/+1000");
+    for(String test: tests) {
+      GedcomxDateRange range = new GedcomxDateRange(test);
+      assertThat(range.toFormalString()).isEqualTo(test);
+    }
+  }
 
 }

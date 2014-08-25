@@ -36,7 +36,7 @@ public class GedcomxDateRange extends GedcomxDate {
     // If range starts with A it is recurring
     if(str.charAt(0) == 'A') {
       approximate = true;
-      range = str.substring(0);
+      range = str.substring(1);
     }
 
     // / is required

@@ -20,9 +20,21 @@ package org.gedcomx.date;
  */
 public class GedcomxDateUtil {
 
-  public static GedcomxDate parse(String date) {
+  public static GedcomxDate parse(String str) {
 
-    return null;
+    if(str == null || str.equals("")) {
+      throw new GedcomxDateException("Invalid Date");
+    }
+
+    if(str.charAt(0) == 'R') {
+      return new GedcomxDateRecurring(str);
+    } else if(str.contains("/")) {
+      return new GedcomxDateRange(str);
+    } else if(str.charAt(0) == 'A') {
+      return new GedcomxDateApproximate(str);
+    } else {
+      return new GedcomxDateSimple(str);
+    }
   }
 
   /**
