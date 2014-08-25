@@ -132,7 +132,7 @@ public class GedcomxDateSimple extends GedcomxDate {
       throw new GedcomxDateException("Invalid Date: Day 0 does not exist");
     }
 
-    int daysInMonth = daysInMonth(year, month);
+    int daysInMonth = GedcomxDateUtil.daysInMonth(month, year);
     if(day > daysInMonth) {
       throw new GedcomxDateException("Invalid Date: There are only "+daysInMonth+" days in Month "+month+" year "+year);
     }
@@ -336,43 +336,6 @@ public class GedcomxDateSimple extends GedcomxDate {
       throw new GedcomxDateException("Invalid Date: Malformed Timezone - No characters allowed after tzSeconds");
     }
 
-  }
-
-  // TODO move to UTIL and fully test
-  private int daysInMonth(Integer year, Integer month) {
-    switch(month) {
-      case 1:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 10:
-      case 12:
-        return 31;
-      case 4:
-      case 6:
-      case 9:
-      case 11:
-        return 30;
-      case 2:
-        boolean leapYear;
-        if(year % 4 != 0) {
-          leapYear = false;
-        } else if(year % 100 != 0) {
-          leapYear = true;
-        } else if(year % 400 != 0) {
-          leapYear = false;
-        } else {
-          leapYear = true;
-        }
-        if(leapYear) {
-          return 29;
-        } else {
-          return 28;
-        }
-      default:
-        throw new GedcomxDateException("UnknownMonth");
-    }
   }
 
   @Override
