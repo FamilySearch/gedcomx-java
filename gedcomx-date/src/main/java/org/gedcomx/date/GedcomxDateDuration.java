@@ -35,7 +35,7 @@ public class GedcomxDateDuration extends GedcomxDate {
   public GedcomxDateDuration(String str) {
 
     // Durations must start with P
-    if(str.length() < 1 || str.charAt(0) != 'P') {
+    if(str == null || str.length() < 1 || str.charAt(0) != 'P') {
       throw new GedcomxDateException("Invalid Duration: Must start with P");
     }
 
