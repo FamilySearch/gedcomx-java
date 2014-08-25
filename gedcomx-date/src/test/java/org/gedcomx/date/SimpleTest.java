@@ -566,22 +566,4 @@ public class SimpleTest {
     }
   }
 
-/*
-  @Test
-  public void errorOn() {
-    try {
-      new GedcomxDateSimple("");
-      fail("GedcomxDateException expected because ");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("");
-    }
-  }
-
-  @Test
-  public void successOn() {
-    GedcomxDateSimple date = new GedcomxDateSimple("");
-    assertThat(date.getYear()).isEqualTo(null);
-  }
-*/
-
 }

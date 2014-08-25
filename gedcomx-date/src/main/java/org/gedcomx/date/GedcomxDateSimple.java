@@ -38,14 +38,15 @@ public class GedcomxDateSimple extends GedcomxDate {
   }
 
   private void parseDate(String str) {
+
+    // There is a minimum length of 5 characters
+    if(str.length() < 5) {
+      throw new GedcomxDateException("Invalid Date: Must have at least [+-]YYYY");
+    }
+
     int end = str.length();
     int offset = 0;
     String num;
-
-    // There is a minimum length of 5 characters
-    if(end < 5) {
-      throw new GedcomxDateException("Invalid Date: Must have at least [+-]YYYY");
-    }
 
     // Must start with a + or -
     if(str.charAt(offset) != '+' && str.charAt(offset) != '-') {

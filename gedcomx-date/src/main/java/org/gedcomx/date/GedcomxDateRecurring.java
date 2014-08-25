@@ -19,4 +19,13 @@ package org.gedcomx.date;
  * @author John Clark.
  */
 public class GedcomxDateRecurring {
+
+  public GedcomxDateRecurring(String str) {
+
+    String[] parts = str.split("/");
+
+    if(str.charAt(0) != 'R' || parts.length != 3) {
+
+    }
+  }
 }
