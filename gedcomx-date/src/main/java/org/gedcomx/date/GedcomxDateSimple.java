@@ -171,15 +171,15 @@ public class GedcomxDateSimple extends GedcomxDate {
     num = "";
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(str.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed Hour");
+        throw new GedcomxDateException("Invalid Date: Malformed Hours");
       }
       num += str.charAt(offset++);
     }
 
     hours = Integer.valueOf(num);
 
-    if(hours < 1 || hours > 24) {
-      throw new GedcomxDateException("Invalid Date: Hours must be between 1 and 24");
+    if(hours > 24) {
+      throw new GedcomxDateException("Invalid Date: Hours must be between 0 and 24");
     }
 
     if(hours == 24) {
@@ -196,11 +196,144 @@ public class GedcomxDateSimple extends GedcomxDate {
       return;
     }
 
-    // 167
+    if(str.charAt(offset) != ':') {
+      throw new GedcomxDateException("Invalid Date: Invalid Hour-Minute Separator");
+    }
+
+    if(end-offset < 3) {
+      throw new GedcomxDateException("Invalid Date: Minutes must be 2 digits");
+    }
+
+    offset++;
+    num = "";
+    for(int i=0;i<2;i++) {
+      if(!Character.isDigit(str.charAt(offset))) {
+        throw new GedcomxDateException("Invalid Date: Malformed Minutes");
+      }
+      num += str.charAt(offset++);
+    }
+
+    minutes = Integer.valueOf(num);
+
+    if(minutes > 59) {
+      throw new GedcomxDateException("Invalid Date: Minutes must be between 0 and 59");
+    }
+
+    if(flag24 && minutes != 0) {
+      throw new GedcomxDateException("Invalid Date: Hours of 24 requires 00 Minutes");
+    }
+
+    if(offset == end) {
+      return;
+    }
+
+    // If there is a timezone offset
+    if(str.charAt(offset) == '+' || str.charAt(offset) == '-' || str.charAt(offset) == 'Z') {
+      parseTimezone(str.substring(offset)); // Don't remove the character when calling
+      return;
+    }
+
+    if(str.charAt(offset) != ':') {
+      throw new GedcomxDateException("Invalid Date: Invalid Minute-Second Separator");
+    }
+
+    if(end-offset < 3) {
+      throw new GedcomxDateException("Invalid Date: Seconds must be 2 digits");
+    }
+
+    offset++;
+    num = "";
+    for(int i=0;i<2;i++) {
+      if(!Character.isDigit(str.charAt(offset))) {
+        throw new GedcomxDateException("Invalid Date: Malformed Seconds");
+      }
+      num += str.charAt(offset++);
+    }
+
+    seconds = Integer.valueOf(num);
+
+    if(seconds > 59) {
+      throw new GedcomxDateException("Invalid Date: Seconds must be between 0 and 59");
+    }
+
+    if(flag24 && seconds != 0) {
+      throw new GedcomxDateException("Invalid Date: Hours of 24 requires 00 Seconds");
+    }
+
+    if(offset == end) {
+      return;
+    } else {
+      parseTimezone(str.substring(offset)); // Don't remove the character when calling
+    }
 
   }
 
   private void parseTimezone(String str) {
+    int offset = 0;
+    int end = str.length();
+    String num;
+
+    // If Z we're done
+    if(str.charAt(offset) == 'Z') {
+      if(end == 1) {
+        tzHours = 0;
+        tzMinutes = 0;
+        return;
+      } else {
+        throw new GedcomxDateException("Invalid Date: Malformed Timezone - No Characters allowed after Z");
+      }
+    }
+
+    if(end-offset < 3) {
+      throw new GedcomxDateException("Invalid Date: Malformed Timezone - tzHours must be [+-] followed by 2 digits");
+    }
+
+    // Must start with a + or -
+    if(str.charAt(offset) != '+' && str.charAt(offset) != '-') {
+      throw new GedcomxDateException("Invalid Date: TimeZone Hours must begin with + or -");
+    }
+
+    offset++;
+    num = str.substring(0,1);
+    for(int i=0;i<2;i++) {
+      if(!Character.isDigit(str.charAt(offset))) {
+        throw new GedcomxDateException("Invalid Date: Malformed tzHours");
+      }
+      num += str.charAt(offset++);
+    }
+
+    tzHours = Integer.valueOf(num);
+    // Set tzMinutes to clear out default local tz offset
+    tzMinutes = 0;
+
+    if(offset == end) {
+      return;
+    }
+
+    if(str.charAt(offset) != ':') {
+      throw new GedcomxDateException("Invalid Date: Invalid tzHour-tzMinute Separator");
+    }
+
+    if(end-offset < 3) {
+      throw new GedcomxDateException("Invalid Date: tzSecond must be 2 digits");
+    }
+
+    offset++;
+    num = "";
+    for(int i=0;i<2;i++) {
+      if(!Character.isDigit(str.charAt(offset))) {
+        throw new GedcomxDateException("Invalid Date: Malformed tzMinutes");
+      }
+      num += str.charAt(offset++);
+    }
+
+    tzMinutes = Integer.valueOf(num);
+
+    if(offset == end) {
+      return;
+    } else {
+      throw new GedcomxDateException("Invalid Date: Malformed Timezone - No characters allowed after tzSeconds");
+    }
 
   }
 
@@ -278,5 +411,13 @@ public class GedcomxDateSimple extends GedcomxDate {
 
   public Integer getSeconds() {
     return seconds;
+  }
+
+  public Integer getTzHours() {
+    return tzHours;
+  }
+
+  public Integer getTzMinutes() {
+    return tzMinutes;
   }
 }
