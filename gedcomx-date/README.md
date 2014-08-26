@@ -14,7 +14,7 @@ To determine the latest version, [read the Maven Metadata](https://repository-ge
 and use the "release" version.
 
 # Exceptions
-Every error thrown is an instance of `GedcomxRuntimeException`, which is a *runtime* exception.
+Every error thrown is an instance of `GedcomxDateException`, which is a *runtime* exception.
 Gedcomx Date was designed to give you and/or the end user as much information as possible.
 For instance, when parsing fails, the message in the exception will tell you exactly what failed and where.
 
@@ -201,7 +201,7 @@ GedcomxDateduration duration = GedcomxDateUtil.multiplyDuration(new GedcomxDateD
 ````
 
 **daysInMonth(month, year)**
-Returns the number of days in the given month accounting for the year (leapyear or not).
+Returns the number of days in the given month accounting for the year (leap year or not).
 
 ````java
 int days;
