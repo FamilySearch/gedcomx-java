@@ -21,6 +21,7 @@
   </properties>
 
   <dependencies>
+    <!-- An Assertion library for Testing -->
     <dependency>
       <groupId>org.easytesting</groupId>
       <artifactId>fest-assert-core</artifactId>
