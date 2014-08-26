@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
  *   (+|-)YYYY-MM-DDThh:mm:ss((+\-)hh:mm|Z)
  * or, using square brackets around optional parts:
  *   (+|-)YYYY[-MM[-DD[Thh[:mm[:ss[(+\-)hh[:mm]|Z]]]]]]
+ * @deprecated See org.gedcomx.date.GedcomxDateUtil and org.gedcomx.date.GedcomxDateSimple.
  */
 @XmlTransient
 public class SimpleDate {
