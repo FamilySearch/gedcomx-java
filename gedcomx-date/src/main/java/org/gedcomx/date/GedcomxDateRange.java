@@ -16,6 +16,7 @@
 package org.gedcomx.date;
 
 /**
+ * A Date Range
  * @author John Clark.
  */
 public class GedcomxDateRange extends GedcomxDate {
@@ -25,22 +26,26 @@ public class GedcomxDateRange extends GedcomxDate {
   private GedcomxDateDuration duration = null;
   private GedcomxDateSimple end = null;
 
-  public GedcomxDateRange(String str) {
+  /**
+   * Instantiate a new Range date from the formal string
+   * @param date The formal date string
+   */
+  public GedcomxDateRange(String date) {
 
-    if(str == null || str.length() < 1) {
+    if(date == null || date.length() < 1) {
       throw new GedcomxDateException("Invalid Range");
     }
 
-    String range = str;
+    String range = date;
 
     // If range starts with A it is recurring
-    if(str.charAt(0) == 'A') {
+    if(date.charAt(0) == 'A') {
       approximate = true;
-      range = str.substring(1);
+      range = date.substring(1);
     }
 
     // / is required
-    if(!str.contains("/")) {
+    if(!date.contains("/")) {
       throw new GedcomxDateException("Invalid Range: / is required");
     }
 
@@ -90,28 +95,52 @@ public class GedcomxDateRange extends GedcomxDate {
     }
   }
 
+  /**
+   * Get the start of the range
+   * @return The Start Date
+   */
   public GedcomxDateSimple getStart() {
     return start;
   }
 
+  /**
+   * Get the duration between the start and end dates
+   * @return The Duration
+   */
   public GedcomxDateDuration getDuration() {
     return duration;
   }
 
+  /**
+   * Get the end of the range
+   * @return The End Date
+   */
   public GedcomxDateSimple getEnd() {
     return end;
   }
 
+  /**
+   * Get the type of this date
+   * @return The Date Type
+   */
   @Override
   public GedcomxDateType getType() {
     return GedcomxDateType.RANGE;
   }
 
+  /**
+   * Whether or not this date is considered approximate
+   * @return True if it this date is approximate
+   */
   @Override
   public boolean isApproximate() {
     return approximate;
   }
 
+  /**
+   * Return the formal string for this date
+   * @return The formal string
+   */
   @Override
   public String toFormalString() {
     StringBuilder range = new StringBuilder();

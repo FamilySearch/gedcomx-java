@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
+ * The duration between two simple dates
  * @author John Clark.
  */
 public class GedcomxDateDuration extends GedcomxDate {
@@ -32,6 +33,10 @@ public class GedcomxDateDuration extends GedcomxDate {
   private Integer minutes = null;
   private Integer seconds = null;
 
+  /**
+   * Create a new duration from the formal string
+   * @param str The formal duration string
+   */
   public GedcomxDateDuration(String str) {
 
     // Durations must start with P
@@ -56,6 +61,10 @@ public class GedcomxDateDuration extends GedcomxDate {
 
   }
 
+  /**
+   * Parse the normalized duration
+   * @param duration the formal duration string
+   */
   private void parseNormalizedDuration(String duration) {
 
     String currentNum = "";
@@ -186,7 +195,10 @@ public class GedcomxDateDuration extends GedcomxDate {
 
   }
 
-
+  /**
+   * The type of this date
+   * @return The date type
+   */
   @Override
   public GedcomxDateType getType() {
     return GedcomxDateType.DURATION;
@@ -194,12 +206,17 @@ public class GedcomxDateDuration extends GedcomxDate {
 
   /**
    * A Duration is NEVER Approximate
+   * @return True if the duration is approximate (It never is)
    */
   @Override
   public boolean isApproximate() {
     return false;
   }
 
+  /**
+   * The formal string representation of the duration
+   * @return The formal string
+   */
   @Override
   public String toFormalString() {
     StringBuilder duration = new StringBuilder("P");
@@ -236,26 +253,50 @@ public class GedcomxDateDuration extends GedcomxDate {
     return duration.toString();
   }
 
+  /**
+   * Get the years
+   * @return The Years
+   */
   public Integer getYears() {
     return years;
   }
 
+  /**
+   * Get the months
+   * @return The Months
+   */
   public Integer getMonths() {
     return months;
   }
 
+  /**
+   * Get the days
+   * @return The Days
+   */
   public Integer getDays() {
     return days;
   }
 
+  /**
+   * Get the hours
+   * @return The Hours
+   */
   public Integer getHours() {
     return hours;
   }
 
+  /**
+   * Get the minutes
+   * @return The Minutes
+   */
   public Integer getMinutes() {
     return minutes;
   }
 
+  /**
+   * Get the seconds
+   * @return The Seconds
+   */
   public Integer getSeconds() {
     return seconds;
   }

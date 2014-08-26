@@ -21,6 +21,10 @@ package org.gedcomx.date;
  */
 public class GedcomxDateException extends RuntimeException {
 
+  /**
+   * Creates a new runtime exception
+   * @param msg The message to send
+   */
   public GedcomxDateException(String msg) {
     super(msg);
   }

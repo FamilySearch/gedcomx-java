@@ -16,6 +16,7 @@
 package org.gedcomx.date;
 
 /**
+ * A Recurring Date
  * @author John Clark.
  */
 public class GedcomxDateRecurring extends GedcomxDate {
@@ -24,17 +25,21 @@ public class GedcomxDateRecurring extends GedcomxDate {
   private GedcomxDateRange range;
   private GedcomxDateSimple end = null;
 
-  public GedcomxDateRecurring(String str) {
+  /**
+   * Instantiate a new Recurring date from the formal date string
+   * @param date The formal date string
+   */
+  public GedcomxDateRecurring(String date) {
 
-    if(str == null || str.length() < 3) {
+    if(date == null || date.length() < 3) {
       throw new GedcomxDateException("Invalid Recurring Date");
     }
 
-    if(str.charAt(0) != 'R') {
+    if(date.charAt(0) != 'R') {
       throw new GedcomxDateException("Invalid Recurring Date: Must start with R");
     }
 
-    String[] parts = str.split("/");
+    String[] parts = date.split("/");
 
     if(parts.length != 3) {
       throw new GedcomxDateException("Invalid Recurring Date: Must contain 3 parts");
@@ -68,26 +73,51 @@ public class GedcomxDateRecurring extends GedcomxDate {
     }
   }
 
+  /**
+   * Get the count
+   * @return The Count
+   */
   public Integer getCount() {
     return count;
   }
 
+  /**
+   * Get the range
+   * @return The Range
+   */
   public GedcomxDateRange getRange() {
     return range;
   }
 
+  /**
+   * Get the start date
+   * @return The Start Date
+   */
   public GedcomxDateSimple getStart() {
     return range.getStart();
   }
 
+  /**
+   * Get the duration
+   * @return The Duration
+   */
   public GedcomxDateDuration getDuration() {
     return range.getDuration();
   }
 
+  /**
+   * Get the end date
+   * @return The End Date
+   */
   public GedcomxDateSimple getEnd() {
     return end;
   }
 
+  /**
+   * Get the nth instance of this recurring date
+   * @param count The nth instance
+   * @return The date of the nth instance
+   */
   public GedcomxDateSimple getNth(Integer count) {
 
     GedcomxDateDuration duration = GedcomxDateUtil.multiplyDuration(range.getDuration(), count);
@@ -95,16 +125,28 @@ public class GedcomxDateRecurring extends GedcomxDate {
     return GedcomxDateUtil.addDuration(range.getStart(), duration);
   }
 
+  /**
+   * Get the date type
+   * @return The Date Type
+   */
   @Override
   public GedcomxDateType getType() {
     return GedcomxDateType.RECURRING;
   }
 
+  /**
+   * Whether or not this date is considered approximate
+   * @return True if this date is approximate
+   */
   @Override
   public boolean isApproximate() {
     return false;
   }
 
+  /**
+   * Return the formal string for this date
+   * @return The formal date string
+   */
   @Override
   public String toFormalString() {
     if(count != null) {
