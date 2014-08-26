@@ -16,6 +16,8 @@
 package org.gedcomx.date;
 
 /**
+ * Various types of dates.
+ * Very useful for case statements.
  * @author John Clark.
  */
 public enum GedcomxDateType {

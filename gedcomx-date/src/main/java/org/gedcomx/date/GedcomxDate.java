@@ -16,14 +16,27 @@
 package org.gedcomx.date;
 
 /**
+ * A Formal Gedcomx Date
  * @author John Clark.
  */
 public abstract class GedcomxDate {
 
+  /**
+   * Return the type of date
+   * @return The Type
+   */
   public abstract GedcomxDateType getType();
 
+  /**
+   * Whether or not this date is approximate
+   * @return True if this date is approximate
+   */
   public abstract boolean isApproximate();
 
+  /**
+   * The formal representation of this date
+   * @return The formal string
+   */
   public abstract String toFormalString();
 
 }

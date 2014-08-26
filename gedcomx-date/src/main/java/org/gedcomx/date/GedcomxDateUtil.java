@@ -16,24 +16,30 @@
 package org.gedcomx.date;
 
 /**
+ * Static utility functions for handling GedcomX Dates
  * @author John Clark.
  */
 public class GedcomxDateUtil {
 
-  public static GedcomxDate parse(String str) {
+  /**
+   * Parse a String representation of a Formal GedcomX Date
+   * @param date The GedcomX Date
+   * @return A GedcomxDate
+   */
+  public static GedcomxDate parse(String date) {
 
-    if(str == null || str.equals("")) {
+    if(date == null || date.equals("")) {
       throw new GedcomxDateException("Invalid Date");
     }
 
-    if(str.charAt(0) == 'R') {
-      return new GedcomxDateRecurring(str);
-    } else if(str.contains("/")) {
-      return new GedcomxDateRange(str);
-    } else if(str.charAt(0) == 'A') {
-      return new GedcomxDateApproximate(str);
+    if(date.charAt(0) == 'R') {
+      return new GedcomxDateRecurring(date);
+    } else if(date.contains("/")) {
+      return new GedcomxDateRange(date);
+    } else if(date.charAt(0) == 'A') {
+      return new GedcomxDateApproximate(date);
     } else {
-      return new GedcomxDateSimple(str);
+      return new GedcomxDateSimple(date);
     }
   }
 
@@ -132,7 +138,12 @@ public class GedcomxDateUtil {
     return new GedcomxDateDuration("P"+finalDuration);
   }
 
-
+  /**
+   * Add a duration to a simple date
+   * @param startDate The date to start from
+   * @param duration The duration to add
+   * @return a new simple date
+   */
   public static GedcomxDateSimple addDuration(GedcomxDateSimple startDate, GedcomxDateDuration duration) {
 
     if(startDate == null) {
@@ -229,11 +240,15 @@ public class GedcomxDateUtil {
       endString.insert(0, String.format("%04d", Math.abs(end.year))).insert(0,end.year >= 0 ? "+" : "-");
     }
 
-System.out.println(endString.toString());
-
     return new GedcomxDateSimple(endString.toString());
   }
 
+  /**
+   * Multiple a duration by a fixed number
+   * @param duration The duration to multiply
+   * @param multiplier The amount to multiply by
+   * @return The new, multiplied duration
+   */
   public static GedcomxDateDuration multiplyDuration(GedcomxDateDuration duration, int multiplier) {
 
     if(duration == null) {
@@ -278,6 +293,12 @@ System.out.println(endString.toString());
     return new GedcomxDateDuration(newDuration.toString());
   }
 
+  /**
+   * Find the number of days in a month within a given year
+   * @param month The month
+   * @param year The year
+   * @return The number of days in the month
+   */
   public static int daysInMonth(Integer month, Integer year) {
     switch(month) {
       case 1:
@@ -314,11 +335,12 @@ System.out.println(endString.toString());
     }
   }
 
-
   /**
    * Ensures that both start and end have values where the other has values.
    * For example, if start has minutes but end does not, this function
    * will initialize minutes in end.
+   * @param start The start date
+   * @param end The end date
    */
   protected static void zipDates(Date start, Date end) {
     if(start.month == null && end.month != null) {
@@ -361,6 +383,8 @@ System.out.println(endString.toString());
    * Ensures that date has its properties initialized based on what the duration has.
    * For example, if date does not have minutes and duration does, this will
    * initialize minutes in the date.
+   * @param date The start date
+   * @param duration The duration
    */
   protected static void zipDuration(Date date, GedcomxDateDuration duration) {
     boolean seconds = false;
@@ -414,6 +438,10 @@ System.out.println(endString.toString());
     }
   }
 
+  /**
+   * A simplified representation of a date.
+   * Used as a bag-o-properties when performing caluclations
+   */
   protected static class Date {
     public Integer year = null;
     public Integer month = null;
