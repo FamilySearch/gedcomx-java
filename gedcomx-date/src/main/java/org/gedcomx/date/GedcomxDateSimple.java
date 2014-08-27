@@ -63,7 +63,7 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = date.substring(0,1);
+    num = date.charAt(0) == '-' ? "-" : "";
     for(int i=0;i<4;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed Year");
@@ -312,7 +312,7 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = date.substring(0,1);
+    num = date.charAt(0) == '-' ? "-" : "";
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed tzHours");
