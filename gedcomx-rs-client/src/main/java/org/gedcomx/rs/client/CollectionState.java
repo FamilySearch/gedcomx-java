@@ -234,6 +234,29 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  public ImageRecordsState readImageRecords(String imageid, StateTransitionOption... options) {
+    Link imageRecordsLink = getLink(Rel.IMAGE_RECORDS);
+    if (imageRecordsLink == null || imageRecordsLink.getTemplate() == null) {
+      return null;
+    }
+    String template = imageRecordsLink.getTemplate();
+
+    String imageRecordsUri;
+    try {
+      imageRecordsUri = UriTemplate.fromTemplate(template).set("iid", imageid).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = createUnauthenticatedGedcomxRequest().build(URI.create(imageRecordsUri), HttpMethod.GET);
+    return this.stateFactory.newImageRecordsState(request, invoke(request, options), this.accessToken);
+  }
+
+
   public PersonSearchResultsState searchForPersons(GedcomxPersonSearchQueryBuilder query, StateTransitionOption... options) {
     return searchForPersons(query.build(), options);
   }

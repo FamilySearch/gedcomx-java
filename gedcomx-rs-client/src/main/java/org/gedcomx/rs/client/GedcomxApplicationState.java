@@ -433,6 +433,10 @@ public abstract class GedcomxApplicationState<E> {
     return createAuthenticatedRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
   }
 
+  protected ClientRequest.Builder createUnauthenticatedGedcomxRequest() {
+    return createRequest().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
+  }
+
   protected ClientResponse invoke(ClientRequest request, StateTransitionOption... options) {
     for (StateTransitionOption option : options) {
       option.apply(request);

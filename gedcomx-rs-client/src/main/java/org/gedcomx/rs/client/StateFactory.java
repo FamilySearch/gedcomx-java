@@ -108,6 +108,10 @@ public class StateFactory {
     return new PersonChildrenState(request, response, accessToken, this);
   }
 
+  protected ImageRecordsState newImageRecordsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new ImageRecordsState(request, response, accessToken, this);
+  }
+
   protected PersonParentsState newPersonParentsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PersonParentsState(request, response, accessToken, this);
   }
