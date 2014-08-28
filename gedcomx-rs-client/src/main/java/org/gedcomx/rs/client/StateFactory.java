@@ -21,6 +21,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomJsonProvider;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
@@ -28,6 +29,7 @@ import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -178,6 +180,17 @@ public class StateFactory {
 
   protected SourceDescriptionState newSourceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new SourceDescriptionState(request, response, accessToken, this);
+  }
+
+  protected String buildErrorMessage(GedcomxApplicationState state) {
+    StringBuilder builder = new StringBuilder("Unsuccessful ").append(state.request.getMethod()).append(" to ").append(state.getUri()).append(" (").append(state.response.getStatus()).append(")");
+    List<HttpWarning> warnings = state.getWarnings();
+    if (warnings != null && warnings.size() > 0) {
+      for (HttpWarning warning : warnings) {
+        builder.append("\nWarning: ").append(warning.getMessage());
+      }
+    }
+    return builder.toString();
   }
 
 }

@@ -304,9 +304,21 @@ public abstract class GedcomxApplicationState<E> {
 
   public GedcomxApplicationState ifSuccessful() {
     if (hasError()) {
-      throw new GedcomxApplicationException(String.format("Unsuccessful %s to %s", this.request.getMethod(), getUri()), this.response);
+      throw new GedcomxApplicationException(buildFailureMessage(), this.response);
     }
     return this;
+  }
+
+  protected String buildFailureMessage() {
+    StringBuilder builder = new StringBuilder("Unsuccessful ").append(this.request.getMethod()).append(" to ").append(getUri()).append(" (").append(this.response.getStatus()).append(")");
+    List<HttpWarning> warnings = getWarnings();
+    if (warnings != null && warnings.size() > 0) {
+      for (HttpWarning warning : warnings) {
+        builder.append("\nWarning: ").append(warning.getMessage());
+      }
+    }
+
+    return builder.toString();
   }
 
   protected GedcomxApplicationState authenticateViaOAuth2Password(String username, String password, String clientId) {
