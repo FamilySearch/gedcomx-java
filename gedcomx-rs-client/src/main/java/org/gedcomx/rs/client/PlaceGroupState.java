@@ -21,6 +21,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.PlaceDescription;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.source.SourceDescription;
 
 import java.util.List;
 
@@ -67,8 +68,7 @@ public class PlaceGroupState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected SupportsLinks getMainDataElement() {
-    List<PlaceDescription> placeGroup = getPlaceGroup();
-    return placeGroup.isEmpty() ? null : getPlaceGroup().get(0);
+    return getPlaceGroup();
   }
 
   /**
@@ -76,8 +76,8 @@ public class PlaceGroupState extends GedcomxApplicationState<Gedcomx> {
    *
    * @return the place group associated with this place group application state
    */
-  public List<PlaceDescription> getPlaceGroup() {
-    return getEntity() == null ? null : getEntity().getPlaces() == null ? null : getEntity().getPlaces().isEmpty() ? null : getEntity().getPlaces();
+  public SourceDescription getPlaceGroup() {
+    return getEntity() == null ? null : getEntity().getSourceDescription();
   }
 
 }

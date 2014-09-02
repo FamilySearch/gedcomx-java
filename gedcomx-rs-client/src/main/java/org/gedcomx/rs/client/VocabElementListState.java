@@ -45,46 +45,49 @@ public class VocabElementListState extends GedcomxApplicationState<Model> {
   }
 
   @Override
-  protected VocabElementState clone(ClientRequest request, ClientResponse response) {
-    return new VocabElementState(request, response, this.accessToken, this.stateFactory);
+  protected VocabElementListState clone(ClientRequest request, ClientResponse response) {
+    return new VocabElementListState(request, response, this.accessToken, this.stateFactory);
   }
 
   @Override
-  public VocabElementState ifSuccessful() {
-    return (VocabElementState) super.ifSuccessful();
+  public VocabElementListState ifSuccessful() {
+    return (VocabElementListState) super.ifSuccessful();
   }
 
   @Override
-  public VocabElementState head(StateTransitionOption... options) {
-    return (VocabElementState) super.head(options);
+  public VocabElementListState head(StateTransitionOption... options) {
+    return (VocabElementListState) super.head(options);
   }
 
   @Override
-  public VocabElementState options(StateTransitionOption... options) {
-    return (VocabElementState) super.options(options);
+  public VocabElementListState options(StateTransitionOption... options) {
+    return (VocabElementListState) super.options(options);
   }
 
   @Override
-  public VocabElementState get(StateTransitionOption... options) {
-    return (VocabElementState) super.get(options);
+  public VocabElementListState get(StateTransitionOption... options) {
+    return (VocabElementListState) super.get(options);
   }
 
   @Override
-  public VocabElementState delete(StateTransitionOption... options) {
-    return (VocabElementState) super.delete(options);
+  public VocabElementListState delete(StateTransitionOption... options) {
+    return (VocabElementListState) super.delete(options);
   }
 
   @Override
-  public VocabElementState put(Model e, StateTransitionOption... options) {
-    return (VocabElementState) super.put(e, options);
+  public VocabElementListState put(Model e, StateTransitionOption... options) {
+    return (VocabElementListState) super.put(e, options);
   }
 
   @Override
-  public VocabElementState post(Model entity, StateTransitionOption... options) {
-    return (VocabElementState) super.post(entity, options);
+  public VocabElementListState post(Model entity, StateTransitionOption... options) {
+    return (VocabElementListState) super.post(entity, options);
   }
 
   public VocabElementList getVocabElementList() {
+    if (resourceDescribingList == null) {
+      return null;
+    }
 
     Model model = resourceDescribingList.getModel();
     // Create and populate the vocabulary element list
@@ -111,13 +114,11 @@ public class VocabElementListState extends GedcomxApplicationState<Model> {
     Model model = ModelFactory.createDefaultModel();
     RDFDataMgr.read(model, response.getEntityInputStream(), null, JenaJSONLD.JSONLD);
     this.resourceDescribingList = model.getResource(this.request.getURI().toString());
-
     return model;
   }
 
   @Override
   protected SupportsLinks getMainDataElement() {
-//    return getPlaceDescription();
     return null;
   }
 
