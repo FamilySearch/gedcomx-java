@@ -398,7 +398,29 @@ public abstract class GedcomxApplicationState<E> {
       return authenticateWithAccessToken(access_token.getValueAsText());
     }
     else {
-      throw new GedcomxApplicationException("Unable to obtain an access token.", response);
+      StringBuilder messageDetails = new StringBuilder();
+      try {
+        ObjectNode error = response.getEntity(ObjectNode.class);
+        boolean hasErrorType = error.has("error");
+        boolean hasErrorDescription = error.has("error_description");
+        if (hasErrorType || hasErrorDescription) {
+          messageDetails.append(" (");
+          if (hasErrorType) {
+            messageDetails.append(error.get("error"));
+          }
+          if (hasErrorType && hasErrorDescription) {
+            messageDetails.append(": ");
+          }
+          if (hasErrorDescription) {
+            messageDetails.append(error.get("error_description"));
+          }
+          messageDetails.append(')');
+        }
+      }
+      catch (Exception e) {
+        messageDetails.append(" (no details available)");
+      }
+      throw new GedcomxApplicationException(String.format("Unable to obtain an access token%s.", messageDetails), response);
     }
   }
 
