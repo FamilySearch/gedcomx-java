@@ -60,6 +60,10 @@ public class FamilySearchStateFactory extends StateFactory {
     return new UserState(request, response, accessToken, this);
   }
 
+  protected UserHistoryState newUserHistoryState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new UserHistoryState(request, response, accessToken, this);
+  }
+
   protected PersonMergeState newPersonMergeState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PersonMergeState(request, response, accessToken, this);
   }
