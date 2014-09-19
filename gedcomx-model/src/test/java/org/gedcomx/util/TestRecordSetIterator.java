@@ -36,4 +36,32 @@ public class TestRecordSetIterator extends TestCase {
     assertNull(recordIterator.next());
     assertNull(recordIterator.next());
   }
+
+  public void testParserWithMetadata() throws IOException, XMLStreamException {
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset2.xml");
+    RecordSetIterator recordIterator = new RecordSetIterator(inputStream);
+    assertTrue(recordIterator.hasNext());
+    // Haven't hit it yet.
+    assertNull(recordIterator.getMetadata());
+    Gedcomx record1 = recordIterator.next();
+    // Haven't hit it yet.
+    assertNull(recordIterator.getMetadata());
+    Gedcomx record2 = recordIterator.next();
+    // Haven't hit it yet.
+    assertNull(recordIterator.getMetadata());
+    Gedcomx record3 = recordIterator.next();
+    // By the time we've read the last record, we have seen the metadata and know there are no more records.
+    assertNotNull(recordIterator.getMetadata());
+    assertEquals("r_14946444", record1.getId());
+    assertEquals("r_21837581269", record2.getId());
+    assertEquals("r_731503667", record3.getId());
+    assertNotNull(record1);
+    assertNotNull(record2);
+    assertNotNull(record3);
+    assertEquals(6, record3.getPersons().size());
+    assertFalse(recordIterator.hasNext());
+    assertNull(recordIterator.next());
+    assertNull(recordIterator.next());
+    assertNotNull(recordIterator.getMetadata());
+  }
 }

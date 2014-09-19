@@ -36,10 +36,17 @@ import java.io.OutputStream;
 public class RecordSetWriter {
   Marshaller marshaller;
   private XMLStreamWriter xmlWriter;
+  // Metadata, if any
+  private Gedcomx metadata;
 
   // Stream to write data to
   private OutputStream outputStream;
 
+  /**
+   * Constructor. Prepares to write GedcomX document records to the given output stream (which may well be a
+   *   GZIPOutputStream), so that only one such document needs to be fully instantiated in memory at once.
+   * @param outputStream - OutputStream to write XML to.
+   */
   public RecordSetWriter(OutputStream outputStream) {
     try {
       marshaller = JAXBContext.newInstance(Gedcomx.class, RecordSet.class).createMarshaller();
@@ -62,16 +69,47 @@ public class RecordSetWriter {
     }
   }
 
+  /**
+   * Write the given record to the underlying byte-level (and possibly GZipped) output stream.
+   * @param record - GedcomX document to add as a 'record' to the RecordSet OutputStream.
+   * @throws JAXBException
+   */
   public void writeRecord(Gedcomx record) throws JAXBException {
-    marshaller.marshal(new JAXBElement<Gedcomx>(new QName(GedcomxConstants.GEDCOMX_NAMESPACE, "record"), Gedcomx.class, record), xmlWriter);
+    writeRecord(record, "record");
   }
 
+  /**
+   * Set the 'metadata' document, which will be written after all of the records. Often used for the collection-level
+   *   information such as collection source descriptions, record descriptors, etc. May describe a collection that
+   *   goes beyond the records contained within this same GedcomX RecordSet.
+   * @param metadata - GedcomX document with group-level information.
+   */
+  public void setMetadata(Gedcomx metadata) {
+    if (metadata != null) {
+      throw new IllegalStateException("Cannot have two metadata elements in a RecordSet");
+    }
+    this.metadata = metadata;
+  }
+
+  private void writeRecord(Gedcomx record, String label) throws JAXBException {
+    marshaller.marshal(new JAXBElement<Gedcomx>(new QName(GedcomxConstants.GEDCOMX_NAMESPACE, label), Gedcomx.class, record), xmlWriter);
+  }
+
+  /**
+   * Finish writing the file, including metadata (if set), and the closing tag. Closes the writers and output stream.
+   * @throws IOException
+   */
   public void close() throws IOException {
     try {
+      if (metadata != null) {
+        writeRecord(metadata, "metadata");
+      }
       xmlWriter.writeEndElement();
       xmlWriter.close();
       outputStream.close();
     } catch (XMLStreamException e) {
+      throw new RuntimeException(e);
+    } catch (JAXBException e) {
       throw new RuntimeException(e);
     }
   }

@@ -39,11 +39,13 @@ import java.util.zip.GZIPInputStream;
  */
 public class RecordSetIterator implements Iterator<Gedcomx> {
   private static final QName recordName = new QName(GedcomxConstants.GEDCOMX_NAMESPACE, "record");
+  private static final QName metadataName = new QName(GedcomxConstants.GEDCOMX_NAMESPACE, "metadata");
   private static JAXBContext jaxbContext = null;
   private BufferedReader reader;
   private XMLStreamReader xmlStreamReader;
   private Gedcomx nextRecord;
   private Unmarshaller unmarshaller;
+  private Gedcomx metadata;
 
   static {
     try {
@@ -115,6 +117,13 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
       if (xmlStreamReader.isStartElement() && xmlStreamReader.getName().equals(recordName)) {
         nextRecord = unmarshaller.unmarshal(xmlStreamReader, Gedcomx.class).getValue();
       }
+      else if (xmlStreamReader.isStartElement() && xmlStreamReader.getName().equals(metadataName)) {
+        if (metadata != null) {
+          throw new IllegalStateException("Cannot have two metadata elements in a RecordSet");
+        }
+        metadata = unmarshaller.unmarshal(xmlStreamReader, Gedcomx.class).getValue();
+        // nextRecord will still be null, so we will go around again.
+      }
       else {
         xmlStreamReader.next();
       }
@@ -139,6 +148,10 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
     catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  synchronized public Gedcomx getMetadata() {
+    return metadata;
   }
 
   public void remove() {
