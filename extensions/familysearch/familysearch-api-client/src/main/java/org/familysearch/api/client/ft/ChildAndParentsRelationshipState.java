@@ -265,7 +265,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
       throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
