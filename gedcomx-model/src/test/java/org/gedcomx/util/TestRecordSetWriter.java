@@ -19,7 +19,7 @@ import java.util.zip.GZIPOutputStream;
 public class TestRecordSetWriter extends TestCase {
 
   public void testRecordSetWriter() throws IOException, JAXBException {
-    for (boolean hasMetadata : new boolean[]{false, true}) {
+    for (int metadataPos = -1; metadataPos <= 1; metadataPos++) {
       for (boolean isGzipped : new boolean[]{false, true}) {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset.xml");
         int numRecords = 0;
@@ -27,25 +27,47 @@ public class TestRecordSetWriter extends TestCase {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         OutputStream outputStream = isGzipped ? new GZIPOutputStream(bos) : bos;
         RecordSetWriter writer = new RecordSetWriter(outputStream);
+
+        Gedcomx metadata = null;
+        if (metadataPos != 0) {
+          InputStream metadataInputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml");
+          metadata = (Gedcomx)MarshalUtil.createUnmarshaller().unmarshal(metadataInputStream);
+          metadataInputStream.close();
+          if (metadataPos == -1) {
+            // Write metadata at the beginning of the stream.
+            writer.setMetadata(metadata);
+            // Make sure we can't write it twice
+            try {
+              writer.setMetadata(metadata);
+              fail("Should have thrown an exception when trying to write metadata twice.");
+            }
+            catch (IllegalStateException e) {
+              // ok
+            }
+          }
+        }
+
         Gedcomx record;
         List<String> recordIds = new ArrayList<String>();
         List<Gedcomx> records = new ArrayList<Gedcomx>();
 
         String[] expectedRecordIds = new String[]{"r_14946444", "r_21837581269", "r_731503667"};
+        boolean isFirst = true;
         while ((record = recordIterator.next()) != null) {
           assertEquals(expectedRecordIds[numRecords++], record.getId());
           writer.writeRecord(record);
           records.add(record);
           recordIds.add(record.getId());
+          if (metadataPos == 1 && isFirst) {
+            // try writing metadata in the middle of the records, to make sure it ends up at the end like it should.
+            writer.setMetadata(metadata);
+            isFirst = false;
+          }
         }
         inputStream.close();
 
-        Gedcomx metadata = null;
-        if (hasMetadata) {
-          inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml");
-          metadata = (Gedcomx)MarshalUtil.createUnmarshaller().unmarshal(inputStream);
+        if (metadataPos == 2) {
           writer.setMetadata(metadata);
-          inputStream.close();
         }
 
         writer.close();
@@ -59,7 +81,7 @@ public class TestRecordSetWriter extends TestCase {
           assertEquals(recordIds.get(i), record.getId());
         }
         Gedcomx metadata2 = recordIterator.getMetadata();
-        if (hasMetadata) {
+        if (metadataPos != 0) {
           assertEquals(metadata2.getSourceDescription().getTitle().getValue(), metadata.getSourceDescription().getTitle().getValue());
         }
         else {
