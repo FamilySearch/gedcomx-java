@@ -38,6 +38,10 @@ public class RecordSetWriter {
   private XMLStreamWriter xmlWriter;
   // Metadata, if any
   private Gedcomx metadata;
+  // Flag for whether any records have been written so far
+  private boolean wroteRecords = false;
+  // Flag for whether the metadata was already written before the records.
+  private boolean wroteMetadata = false;
 
   // Stream to write data to
   private OutputStream outputStream;
@@ -76,6 +80,7 @@ public class RecordSetWriter {
    */
   public void writeRecord(Gedcomx record) throws JAXBException {
     writeRecord(record, "record");
+    wroteRecords = true;
   }
 
   /**
@@ -84,11 +89,20 @@ public class RecordSetWriter {
    *   goes beyond the records contained within this same GedcomX RecordSet.
    * @param metadata - GedcomX document with group-level information.
    */
-  public void setMetadata(Gedcomx metadata) {
-    if (metadata != null) {
-      throw new IllegalStateException("Cannot have two metadata elements in a RecordSet");
+  public void setMetadata(Gedcomx metadata) throws JAXBException {
+    if (wroteMetadata) {
+      throw new IllegalStateException("Already wrote metadata to stream. Can't change it now.");
     }
-    this.metadata = metadata;
+    if (wroteRecords) {
+      // Already wrote some records, so hold onto the metadata document until the end.
+      this.metadata = metadata;
+    }
+    else {
+      // Haven't written records yet, so write metadata immediately, at the top of the document, for better readability.
+      // (Don't set this.metadata, because it would waste memory, and we need it to be null during close() so it doesn't get written again.
+      writeRecord(metadata, "metadata");
+      wroteMetadata = true;
+    }
   }
 
   private void writeRecord(Gedcomx record, String label) throws JAXBException {
@@ -101,7 +115,7 @@ public class RecordSetWriter {
    */
   public void close() throws IOException {
     try {
-      if (metadata != null) {
+      if (!wroteMetadata && metadata != null) {
         writeRecord(metadata, "metadata");
       }
       xmlWriter.writeEndElement();
