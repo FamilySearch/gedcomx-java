@@ -444,19 +444,19 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected GedcomxApplicationState readNextPage(StateTransitionOption... options) {
-    return readPage(Rel.NEXT);
+    return readPage(Rel.NEXT, options);
   }
 
   protected GedcomxApplicationState readPreviousPage(StateTransitionOption... options) {
-    return readPage(Rel.PREVIOUS);
+    return readPage(Rel.PREVIOUS, options);
   }
 
   protected GedcomxApplicationState readFirstPage(StateTransitionOption... options) {
-    return readPage(Rel.FIRST);
+    return readPage(Rel.FIRST, options);
   }
 
   protected GedcomxApplicationState readLastPage(StateTransitionOption... options) {
-    return readPage(Rel.LAST);
+    return readPage(Rel.LAST, options);
   }
 
   protected ClientRequest.Builder createAuthenticatedFeedRequest() {
