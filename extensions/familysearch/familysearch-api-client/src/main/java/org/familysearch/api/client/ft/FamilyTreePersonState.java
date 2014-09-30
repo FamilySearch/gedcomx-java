@@ -659,6 +659,16 @@ public class FamilyTreePersonState extends PersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
   }
 
+  public PersonNonMatchesState readNonMatches(StateTransitionOption... options) {
+    Link link = getLink(Rel.NOT_A_MATCHES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedFeedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
+  }
+
   public FamilyTreePersonState restore(StateTransitionOption... options) {
     Link link = getLink(Rel.RESTORE);
     if (link == null || link.getHref() == null) {
