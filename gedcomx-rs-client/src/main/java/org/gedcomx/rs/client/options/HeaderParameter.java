@@ -31,6 +31,8 @@ public class HeaderParameter implements StateTransitionOption {
   public static final String IF_MODIFIED_SINCE = "If-Modified-Since";
   public static final String IF_MATCH = "If-Match";
   public static final String IF_UNMODIFIED_SINCE = "If-Unmodified-Since";
+  public static final String PENDING_MODIFICATION = "X-FS-Feature-Tag";
+
 
   private final boolean replace;
   private final String name;
