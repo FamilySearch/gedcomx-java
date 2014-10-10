@@ -19,6 +19,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomxConstants;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.Map;
@@ -133,6 +134,34 @@ public class GedcomxOutputStream {
    * @throws IOException
    */
   public void addResource(String contentType, String entryName, Object resource, Date lastModified, Map<String, String> attributes) throws IOException {
+    putNextEntry(contentType, entryName, lastModified, attributes);
+    this.serializer.serialize(resource, this.gedxOutputStream);
+    this.entryCount++;
+  }
+
+  /**
+   * Add a resource to the GEDCOM X output stream.
+   *
+   * @param contentType The content type of the resource.
+   * @param entryName The name by which this resource shall be known within the GEDCOM X file.
+   * @param resource The resource.
+   * @param lastModified timestamp when the resource was last modified (can be null)
+   * @param attributes The attributes of the resource.
+   *
+   * @throws IOException
+   */
+  public void addResource(String contentType, String entryName, InputStream resource, Date lastModified, Map<String, String> attributes) throws IOException {
+    putNextEntry(contentType, entryName, lastModified, attributes);
+    byte[] buffer = new byte[1024];
+    int len = resource.read(buffer);
+    while (len >= 0) {
+      this.gedxOutputStream.write(buffer, 0, len);
+      len = resource.read(buffer);
+    }
+    this.entryCount++;
+  }
+
+  protected void putNextEntry(String contentType, String entryName, Date lastModified, Map<String, String> attributes) throws IOException {
     if (contentType.trim().length() == 0) {
       throw new IllegalArgumentException("contentType must not be null or empty.");
     }
@@ -162,11 +191,9 @@ public class GedcomxOutputStream {
     }
 
     this.gedxOutputStream.putNextEntry(gedxEntry);
-    this.serializer.serialize(resource, this.gedxOutputStream);
-    this.entryCount++;
   }
 
-  private boolean isKnownContentType(String contentType) {
+  protected boolean isKnownContentType(String contentType) {
     return this.serializer.isKnownContentType(contentType);
   }
 

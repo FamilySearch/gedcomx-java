@@ -150,7 +150,7 @@ public class FamilySearchStateFactory extends StateFactory {
     config.getSingletons().add( new JacksonJsonProvider() );
     Client client = new Client(new URLConnectionClientHandler(), config);
     //how to add an experiment:
-    client.addFilter(new ExperimentsFilter("birth-date-not-considered-death-declaration"));
+    client.addFilter(new ExperimentsFilter("birth-date-not-considered-death-declaration", "living-declaration-required"));
     if (Boolean.valueOf(System.getProperty(ENABLE_JERSEY_LOGGING_ENV_NAME))) {     // handles null
       client.addFilter(new com.sun.jersey.api.client.filter.LoggingFilter());
     }
