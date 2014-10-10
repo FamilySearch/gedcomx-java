@@ -16,10 +16,13 @@
 package org.gedcomx.util;
 
 import org.gedcomx.common.TextValue;
+import sun.util.locale.BaseLocale;
 
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class for helping to choose the "best" locale that is available, given a preferred locale (e.g., that is being
@@ -51,7 +54,7 @@ public class LocaleUtil {
       TextValue bestTextValue = null;
       Locale bestLocale = null;
       for (TextValue textValue : textValues) {
-        Locale locale = new Locale(textValue.getLang());
+        Locale locale = getSimpleLocale(textValue.getLang());
         if (bestTextValue == null || LocaleUtil.isBetterLocaleMatch(localeToMatch, locale, bestLocale, defaultLocale)) {
           bestTextValue = textValue;
           bestLocale = locale;
@@ -120,7 +123,7 @@ public class LocaleUtil {
    *
    * @param locale1 the first locale
    * @param locale2 the second locale
-   * @return the score (10 for each match on part, 1 for mismatched parts when either one is an empty string, so "en" matches "en_US" better than "en_CA"
+   * @return the score (10 for each match on part, 1 for mismatched parts when either one is an empty string, so "en_US" matches "en" better than "en_CA"
    */
   private static int matchCount(Locale locale1, Locale locale2) {
     int value = 0;
@@ -146,5 +149,67 @@ public class LocaleUtil {
       }
     }
     return value;
+  }
+
+  // Regex for BCP47 language tags (ignoring case, and allowing "_" instead of "-", since Java does that).
+  // Full regex looks like this:
+  // ^
+  // (
+  //  (
+  //   (?<language>
+  //    ([A-Za-z]{2,3}
+  //     (-(?<extlang>[A-Za-z]{3}
+  //       (-[A-Za-z]{3}){0,2}))?
+  //    )
+  //    |[A-Za-z]{4}|[A-Za-z]{5,8}
+  //   )
+  //   (-(?<script>[A-Za-z]{4}))?
+  //   (-(?<region>[A-Za-z]{2}|[0-9]{3}))?
+  //   (-(?<variant>[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*
+  //   (-(?<extension>[0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*
+  //   (-(?<privateUse>x(-[A-Za-z0-9]{1,8})+))?
+  //  )
+  // |(?<privateUse>x(-[A-Za-z0-9]{1,8})+)
+  // |(?<grandfathered>(en-GB-oed|i-ami|i-bnn|i-default|i-enochian
+  //   |i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay
+  //   |i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)
+  //   |(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))
+  // )$
+  // But that's a little beyond the scope here. We'll handle language, script and region:
+  private static final Pattern bcp47 = Pattern.compile(
+          "([A-Za-z]{2,3}(?:-[A-Za-z]{3}(?:-[A-Za-z]{3}){0,2})?|[A-Za-z]{4,8})" + // language
+          "(?:[-_]([A-Za-z]{4}))?" + // script
+          "(?:[-_]([A-Za-z]{2}|[0-9]{3}))?" + //region
+          "(?:[-_]([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*" + // variants
+          "(?:[-_](?:[0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*" + // extensions
+          "(?:[-_](?:x(-[A-Za-z0-9]{1,8})+))?"); // private use
+
+  /**
+   * Parse the given languageString (e.g., "en-us", "en-US", "en_us", "en_US") and create a Locale from it.
+   * Parse but then ignore script, variants, extensions and private use.
+   * Keep only the language and region.
+   * This should not be needed in Java 1.7, which has Locale.forLangaugeTag(languageString), which does the same thing only better.
+   * @param languageString - BCP47 or Java language string ("en", "en-us", "en_US", etc.)
+   * @return Locale for that language.
+   */
+  public static Locale getSimpleLocale(String languageString) {
+    Matcher m = bcp47.matcher(languageString);
+    if (m.matches()) {
+      String language = m.group(1);
+      String script = m.group(2);
+      String region = m.group(3);
+      String variant = m.group(4);
+      // Java 1.6 doesn't have a constructor that supports script...
+      if (region != null) {
+        if (variant != null) {
+          return new Locale(language, region, variant);
+        }
+        else {
+          return new Locale(language, region);
+        }
+      }
+      return new Locale(language);
+    }
+    throw new IllegalArgumentException();
   }
 }
