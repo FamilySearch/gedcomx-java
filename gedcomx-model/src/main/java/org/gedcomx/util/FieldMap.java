@@ -357,10 +357,34 @@ public class FieldMap {
    */
   public static List<Field> getAllFields(Gedcomx record) {
     List<Field> fields = new ArrayList<Field>();
+    // Add fields that appear in persons
     Map<Person, List<Field>> personFieldMap = getPersonFieldMap(record);
     if (record.getPersons() != null) {
       for (Person person : record.getPersons()) {
         addFields(personFieldMap.get(person), fields);
+      }
+    }
+    // Add fields that appear in relationships
+    if (record.getRelationships() != null) {
+      for (Relationship relationship : record.getRelationships()) {
+        addFields(relationship.getFields(), fields);
+        if (relationship.getFacts() != null) {
+          for (Fact fact : relationship.getFacts()) {
+            addFields(fact.getFields(), fields);
+            if (fact.getDate() != null) {
+              addFields(fact.getFields(), fields);
+            }
+            if (fact.getPlace() != null) {
+              addFields(fact.getFields(), fields);
+            }
+          }
+        }
+      }
+    }
+    // Add fields that appear in SourceDescriptions
+    if (record.getSourceDescriptions() != null) {
+      for (SourceDescription sourceDescription : record.getSourceDescriptions()) {
+        addFields(sourceDescription.getFields(), fields);
       }
     }
     // Add record-level fields.

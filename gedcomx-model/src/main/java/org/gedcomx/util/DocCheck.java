@@ -270,35 +270,7 @@ public class DocCheck {
     FieldMap fieldMap = new FieldMap(doc, collection);
     StringBuilder errors = new StringBuilder();
     addIfNeeded(errors, checkDocument(doc));
-    checkFields(errors, "Record fields", doc.getFields(), fieldMap);
-    if (doc.getPersons() != null) {
-      for (Person person : doc.getPersons()) {
-        String personString = getPersonString(person);
-        checkFields(errors, "Person fields for person " + personString, person.getFields(), fieldMap);
-        if (person.getGender() != null) {
-          checkFields(errors, "Gender for person " + personString, person.getGender().getFields(), fieldMap);
-        }
-        if (person.getFacts() != null) {
-          for (Fact fact : person.getFacts()) {
-            checkFields(errors, "Facts for person " + personString, fact.getFields(), fieldMap);
-          }
-        }
-        if (person.getNames() != null) {
-          for (Name name : person.getNames()) {
-            if (name.getNameForms() != null) {
-              for (NameForm nameForm : name.getNameForms()) {
-                checkFields(errors, "Names for person " + personString, nameForm.getFields(), fieldMap);
-                if (nameForm.getParts() != null) {
-                  for (NamePart namePart : nameForm.getParts()) {
-                    checkFields(errors, "Name parts for person " + personString, namePart.getFields(), fieldMap);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    checkFields(errors, "Fields", FieldMap.getAllFields(doc), fieldMap);
     return errors.length() == 0 ? null : errors.toString();
   }
 
@@ -308,7 +280,7 @@ public class DocCheck {
         if (field.getValues() != null) {
           for (FieldValue fieldValue : field.getValues()) {
             if (fieldValue.getLabelId() != null && fieldMap.getFieldValueDescriptor(fieldValue.getLabelId()) == null) {
-              errors.append(context).append(": Field with labelId '").append(fieldValue.getLabelId()).append("' had no FieldValueDescriptor\n");
+              errors.append("Error 13: ").append(context).append(": Field with labelId '").append(fieldValue.getLabelId()).append("' had no FieldValueDescriptor\n");
             }
           }
         }
@@ -331,7 +303,7 @@ public class DocCheck {
     }
     if (records.getRecords() != null) {
       for (Gedcomx record : records.getRecords()) {
-        addIfNeeded(errors, checkDocument(record, metadata));
+        addIfNeeded(errors, metadata == null ? checkDocument(record) : checkDocument(record, metadata));
       }
     }
     return errors.length() == 0 ? null : errors.toString();

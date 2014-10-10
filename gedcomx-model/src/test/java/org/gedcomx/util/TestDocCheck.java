@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Relationship;
+import org.gedcomx.records.FieldValue;
 import org.gedcomx.source.SourceReference;
 
 import javax.xml.bind.JAXBException;
@@ -89,7 +90,19 @@ public class TestDocCheck extends TestCase {
   }
 
 
-  // todo: check with fields.
+  public void testDocCheckWithFields() throws JAXBException {
+    Gedcomx record = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-record.xml"));
+    Gedcomx collection = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml"));
+
+    // Known missing label IDs
+    checkFields(record, collection, "IMAGE_ID_NORM", "IMAGE_ARK");
+
+    // Change a field ID, and make sure it isn't found.
+    FieldValue fieldValue = record.getPersons().get(0).getFacts().get(0).getDate().getFields().get(0).getValues().get(0);
+    String labelId = fieldValue.getLabelId();
+    fieldValue.setLabelId(labelId + "_BROKEN");
+    checkFields(record, collection, "IMAGE_ID_NORM", "IMAGE_ARK", labelId + "_BROKEN");
+  }
 
   private static final Pattern errorMessagePattern = Pattern.compile(".*(?:Error|Warning) ([0-9]+):.*");
   private void checkDoc(Gedcomx doc, Integer... errorCodes) {
@@ -108,6 +121,27 @@ public class TestDocCheck extends TestCase {
       assertEquals(errorCodes.length, actualErrorCodes.size());
       for (Integer errorCode : errorCodes) {
         assertTrue("Did not find error code: " + errorCode, actualErrorCodes.contains(errorCode));
+      }
+    }  }
+
+  private static final Pattern missingLabelIdPattern = Pattern.compile("Error 13:.* labelId '([^']*)' had no .*");
+
+  private void checkFields(Gedcomx record, Gedcomx collection, String... missingLabelIds) {
+    String errors = DocCheck.checkDocument(record, collection);
+    if (errors == null) {
+      assertEquals(missingLabelIds.length, 0);
+    }
+    else {
+      Set<String> actualMissingLabelIds = new HashSet<String>();
+      for (String line : errors.split("\n")) {
+        Matcher m = missingLabelIdPattern.matcher(line);
+        if (m.matches()) {
+          actualMissingLabelIds.add(m.group(1));
+        }
+      }
+      assertEquals(missingLabelIds.length, actualMissingLabelIds.size());
+      for (String labelId : missingLabelIds) {
+        assertTrue("Did not error for labelId '" + labelId + "'", actualMissingLabelIds.contains(labelId));
       }
     }
   }
