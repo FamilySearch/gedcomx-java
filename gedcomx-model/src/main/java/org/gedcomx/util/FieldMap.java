@@ -154,10 +154,12 @@ public class FieldMap {
    * @return Display label to use for the labelId, or null if there is not one.
    */
   public String getDisplayLabel(String labelId, String language) {
-    FieldValueDescriptor fieldValueDescriptor = labelFieldValueDescriptorMap.get(labelId);
-    if (fieldValueDescriptor.getDisplayLabels() != null) {
-      TextValue bestValue = LocaleUtil.findClosestLocale(fieldValueDescriptor.getDisplayLabels(), new Locale(language));
-      return bestValue == null ? null : bestValue.getValue();
+    if (labelFieldValueDescriptorMap != null) {
+      FieldValueDescriptor fieldValueDescriptor = labelFieldValueDescriptorMap.get(labelId);
+      if (fieldValueDescriptor != null && fieldValueDescriptor.getDisplayLabels() != null) {
+        TextValue bestValue = LocaleUtil.findClosestLocale(fieldValueDescriptor.getDisplayLabels(), new Locale(language));
+        return bestValue == null ? null : bestValue.getValue();
+      }
     }
     return null;
   }
@@ -191,6 +193,15 @@ public class FieldMap {
   }
 
   /**
+   * Get the FieldValueDescriptor for the given field value label ID.
+   * @param labelId - Label ID to find the FieldValueDescriptor for.
+   * @return FieldValueDescriptor with the given label ID, or null if not found.
+   */
+  public FieldValueDescriptor getFieldValueDescriptor(String labelId) {
+    return labelFieldValueDescriptorMap == null ? null : labelFieldValueDescriptorMap.get(labelId);
+  }
+
+  /**
    * Get a map of Person to labelId to list of Strings for field values that had that label ID within that person.
    * Includes a null Person in the map if there were any record-level field values.
    * @param record - Record to build map for.
@@ -204,6 +215,39 @@ public class FieldMap {
       personMap.put(person, getLabelValuesMap(personFieldMap.get(person)));
     }
     return personMap;
+  }
+
+  /**
+   * Get a map of labelId to list of values for that labelId for the given person.
+   * Used only with census collections.
+   * @param person - Person to get the map for
+   * @return map of labelId to list of values for that labelId for the given person.
+   */
+  public Map<String, List<String>> getPersonLabelValueMap(Person person) {
+    if (!isCensus) {
+      throw new IllegalArgumentException("Can't call getPersonLabelValueMap(person) on non-census collection");
+    }
+    return personLabelValueMap.get(person);
+  }
+
+  /**
+   * Get a map of labelId to list of values for that labelId.
+   * Used only with non-census collections.
+   * @return map of labelId to list of values for that labelId for the given person.
+   */
+  public Map<String, List<String>> getLabelValueMap() {
+    if (isCensus) {
+      throw new IllegalArgumentException("Can't call getLabelValueMap() on census collection. Use getPersonLabelValueMap(person), and use person=null for record-level values.");
+    }
+    return labelValueMap;
+  }
+
+  /**
+   * Get the map of labelId to FieldValueDescriptor used by this FieldMap.
+   * @return  map of labelId to FieldValueDescriptor used by this FieldMap, or null if there were no FieldDescriptors.
+   */
+  public Map<String, FieldValueDescriptor> getLabelFieldValueDescriptorMap() {
+    return labelFieldValueDescriptorMap;
   }
 
   /**
@@ -238,7 +282,7 @@ public class FieldMap {
   /**
    * Get a map of labelId to FieldValueDescriptor for that label id.
    * @param recordDescriptor - RecordDescriptor to build the map from.
-   * @return Map of labelId to FieldValueDescriptor.
+   * @return Map of labelId to FieldValueDescriptor, or null if the RecordDescriptor had no fields.
    */
   public static Map<String, FieldValueDescriptor> getLabelFieldValueDescriptorMap(RecordDescriptor recordDescriptor) {
     if (recordDescriptor != null && recordDescriptor.getFields() != null) {
@@ -425,5 +469,4 @@ public class FieldMap {
     }
     return false;
   }
-
 }
