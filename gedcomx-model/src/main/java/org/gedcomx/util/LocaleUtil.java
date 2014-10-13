@@ -16,7 +16,6 @@
 package org.gedcomx.util;
 
 import org.gedcomx.common.TextValue;
-import sun.util.locale.BaseLocale;
 
 import java.util.Collection;
 import java.util.Locale;
