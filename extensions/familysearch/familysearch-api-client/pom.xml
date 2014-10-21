@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.gedcomx.extensions.familysearch</groupId>
     <artifactId>fs-extensions-parent</artifactId>
-    <version>1.0.86.M1</version>
+    <version>1.0.87.M1-SNAPSHOT</version>
   </parent>
 
   <properties>
