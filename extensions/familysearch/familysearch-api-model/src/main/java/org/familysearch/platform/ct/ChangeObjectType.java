@@ -310,6 +310,31 @@ public enum ChangeObjectType {
   TitleOfNobility,
 
   /**
+   * LDS baptism ordinance.
+   */
+  Baptism,
+
+  /**
+   * LDS confirmation ordinance.
+   */
+  Confirmation,
+
+  /**
+   * LDS confirmation ordinance.
+   */
+  Initiatory,
+
+  /**
+   * LDS endowment ordinance.
+   */
+  Endowment,
+
+  /**
+   * LDS sealing ordinance.
+   */
+  Sealing,
+
+  /**
    * A not-a-match declaration
    */
   NotAMatch;
