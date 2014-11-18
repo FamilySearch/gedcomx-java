@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client.memories;
+package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import org.familysearch.api.client.FamilySearchCollectionState;
-import org.familysearch.api.client.FamilySearchStateFactory;
 import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rs.client.StateTransitionOption;

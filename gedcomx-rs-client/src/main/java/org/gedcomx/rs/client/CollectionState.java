@@ -188,28 +188,6 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newRecordState(request, invoke(request, options), this.accessToken);
   }
 
-  public RecordsState readImageRecords(String imageid, StateTransitionOption... options) {
-    Link imageRecordsLink = getLink(Rel.IMAGE_RECORDS);
-    if (imageRecordsLink == null || imageRecordsLink.getTemplate() == null) {
-      return null;
-    }
-    String template = imageRecordsLink.getTemplate();
-
-    String imageRecordsUri;
-    try {
-      imageRecordsUri = UriTemplate.fromTemplate(template).set("iid", imageid).expand();
-    }
-    catch (VariableExpansionException e) {
-      throw new GedcomxApplicationException(e);
-    }
-    catch (MalformedUriTemplateException e) {
-      throw new GedcomxApplicationException(e);
-    }
-
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(URI.create(imageRecordsUri), HttpMethod.GET);
-    return this.stateFactory.newRecordsState(request, invoke(request, options), this.accessToken);
-  }
-
   public PersonsState readPersons(StateTransitionOption... options) {
     Link link = getLink(Rel.PERSONS);
     if (link == null || link.getHref() == null) {

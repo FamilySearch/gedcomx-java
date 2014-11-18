@@ -30,10 +30,7 @@ import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
 import org.gedcomx.common.ExtensibleData;
-import org.gedcomx.rs.client.GedcomxApplicationState;
-import org.gedcomx.rs.client.PersonState;
-import org.gedcomx.rs.client.PlaceDescriptionState;
-import org.gedcomx.rs.client.StateFactory;
+import org.gedcomx.rs.client.*;
 import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
@@ -136,6 +133,11 @@ public class FamilySearchStateFactory extends StateFactory {
   @Override
   protected PlaceDescriptionState newPlaceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilySearchPlaceDescriptionState(request, response, accessToken, this);
+  }
+
+  @Override
+  protected RecordsState newRecordsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newRecordsState(request, response, accessToken);
   }
 
   @Override

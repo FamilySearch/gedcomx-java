@@ -26,6 +26,8 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String CURRENT_USER = "current-user";
   public static final String CURRENT_USER_HISTORY = "current-user-history";
   public static final String DISCUSSIONS = "discussions";
+  public static final String IMAGE_METADATA = "image-metadata";
+  public static final String IMAGE_RECORDS = "image-records";
   public static final String MERGE = "merge";
   public static final String MERGE_MIRROR = "merge-mirror";
   public static final String NORMALIZED_DATE = "normalized-date";
