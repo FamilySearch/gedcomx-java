@@ -274,39 +274,11 @@
                 </execution>
               </executions>
             </plugin>
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>findbugs-maven-plugin</artifactId>
-              <version>2.4.0</version>
-              <configuration>
-                <findbugsXmlOutput>true</findbugsXmlOutput>
-              </configuration>
-              <executions>
-                <execution>
-                  <phase>package</phase>
-                  <goals>
-                    <goal>findbugs</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
           </plugins>
         </pluginManagement>
       </build>
       <reporting>
         <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>findbugs-maven-plugin</artifactId>
-            <configuration>
-              <xmlOutput>true</xmlOutput>
-              <findbugsXmlOutput>true</findbugsXmlOutput>
-              <threshold>Normal</threshold>
-              <debug>false</debug>
-              <relaxed>true</relaxed>
-              <!--<excludeFilterFile>./findbugs-exclude-filter.xml</excludeFilterFile>-->
-            </configuration>
-          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>cobertura-maven-plugin</artifactId>
