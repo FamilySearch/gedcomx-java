@@ -21,7 +21,6 @@ import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
@@ -72,7 +71,7 @@ public class FamilySearchHistoricalRecordsArchive extends FamilySearchCollection
 
   @Override
   protected FamilySearchHistoricalRecordsArchive clone(ClientRequest request, ClientResponse response) {
-    return new FamilySearchHistoricalRecordsArchive(request, response, this.accessToken, (FamilyTreeStateFactory) this.stateFactory);
+    return new FamilySearchHistoricalRecordsArchive(request, response, this.accessToken, (FamilySearchStateFactory) this.stateFactory);
   }
 
   @Override
