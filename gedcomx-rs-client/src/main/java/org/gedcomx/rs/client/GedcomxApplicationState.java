@@ -304,9 +304,21 @@ public abstract class GedcomxApplicationState<E> {
 
   public GedcomxApplicationState ifSuccessful() {
     if (hasError()) {
-      throw new GedcomxApplicationException(String.format("Unsuccessful %s to %s", this.request.getMethod(), getUri()), this.response);
+      throw new GedcomxApplicationException(buildFailureMessage(), this.response);
     }
     return this;
+  }
+
+  protected String buildFailureMessage() {
+    StringBuilder builder = new StringBuilder("Unsuccessful ").append(this.request.getMethod()).append(" to ").append(getUri()).append(" (").append(this.response.getStatus()).append(")");
+    List<HttpWarning> warnings = getWarnings();
+    if (warnings != null && warnings.size() > 0) {
+      for (HttpWarning warning : warnings) {
+        builder.append("\nWarning: ").append(warning.getMessage());
+      }
+    }
+
+    return builder.toString();
   }
 
   protected GedcomxApplicationState authenticateViaOAuth2Password(String username, String password, String clientId) {
@@ -386,7 +398,29 @@ public abstract class GedcomxApplicationState<E> {
       return authenticateWithAccessToken(access_token.getValueAsText());
     }
     else {
-      throw new GedcomxApplicationException("Unable to obtain an access token.", response);
+      StringBuilder messageDetails = new StringBuilder();
+      try {
+        ObjectNode error = response.getEntity(ObjectNode.class);
+        boolean hasErrorType = error.has("error");
+        boolean hasErrorDescription = error.has("error_description");
+        if (hasErrorType || hasErrorDescription) {
+          messageDetails.append(" (");
+          if (hasErrorType) {
+            messageDetails.append(error.get("error"));
+          }
+          if (hasErrorType && hasErrorDescription) {
+            messageDetails.append(": ");
+          }
+          if (hasErrorDescription) {
+            messageDetails.append(error.get("error_description"));
+          }
+          messageDetails.append(')');
+        }
+      }
+      catch (Exception e) {
+        messageDetails.append(" (no details available)");
+      }
+      throw new GedcomxApplicationException(String.format("Unable to obtain an access token%s.", messageDetails), response);
     }
   }
 
@@ -410,19 +444,19 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected GedcomxApplicationState readNextPage(StateTransitionOption... options) {
-    return readPage(Rel.NEXT);
+    return readPage(Rel.NEXT, options);
   }
 
   protected GedcomxApplicationState readPreviousPage(StateTransitionOption... options) {
-    return readPage(Rel.PREVIOUS);
+    return readPage(Rel.PREVIOUS, options);
   }
 
   protected GedcomxApplicationState readFirstPage(StateTransitionOption... options) {
-    return readPage(Rel.FIRST);
+    return readPage(Rel.FIRST, options);
   }
 
   protected GedcomxApplicationState readLastPage(StateTransitionOption... options) {
-    return readPage(Rel.LAST);
+    return readPage(Rel.LAST, options);
   }
 
   protected ClientRequest.Builder createAuthenticatedFeedRequest() {

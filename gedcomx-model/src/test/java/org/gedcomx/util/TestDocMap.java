@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.records.RecordDescriptor;
@@ -12,11 +13,12 @@ import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.IdentifierType;
+import org.gedcomx.types.RelationshipType;
 
 import java.util.Arrays;
 
 /**
- * Class for...
+ * Class for testing the DocMap utility class.
  * User: Randy Wilson
  * Date: 6/10/14
  * Time: 12:19 PM
@@ -44,6 +46,17 @@ public class TestDocMap extends TestCase {
     p1.addFact(fact);
 
     doc.addPerson(p1);
+
+    Person p2 = new Person();
+    p2.setId("p2");
+    p2.addIdentifier(new Identifier(new URI("http://test.com/person2"), IdentifierType.Primary));
+    doc.addPerson(p2);
+
+    Relationship relationship = new Relationship();
+    relationship.setKnownType(RelationshipType.ParentChild);
+    relationship.setPerson1(new ResourceReference(new URI("#p1")));
+    relationship.setPerson2(new ResourceReference(new URI("#p2")));
+    doc.addRelationship(relationship);
 
     SourceDescription sd1 = new SourceDescription();
     sd1.setId("sd1");
@@ -101,6 +114,8 @@ public class TestDocMap extends TestCase {
     assertEquals("place1", docMap.getPlaceDescription(docMap.getPerson("p1").getFacts().get(0).getPlace()).getId());
     assertEquals("place1", docMap.getPlaceDescription(docMap.getPerson("p1").getFacts().get(0).getPlace().getDescriptionRef()).getId());
     assertEquals("place1", docMap.getPlaceDescription(docMap.getPerson("p1").getFacts().get(0).getPlace().getDescriptionRef().toString()).getId());
+    assertEquals("p1", docMap.getPerson(doc.getRelationships().get(0).getPerson1()).getId());
+    assertEquals("p2", docMap.getPerson(doc.getRelationships().get(0).getPerson2()).getId());
   }
 
 }

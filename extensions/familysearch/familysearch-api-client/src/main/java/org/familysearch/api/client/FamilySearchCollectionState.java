@@ -167,6 +167,16 @@ public class FamilySearchCollectionState extends CollectionState {
     return ((FamilySearchStateFactory)this.stateFactory).newUserState(request, invoke(request, options), this.accessToken);
   }
 
+  public UserHistoryState readCurrentUserHistory(StateTransitionOption... options) {
+    Link link = getLink(Rel.CURRENT_USER_HISTORY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newUserHistoryState(request, invoke(request, options), this.accessToken);
+  }
+
   public PersonMatchResultsState searchForPersonMatches(GedcomxPersonSearchQueryBuilder query, StateTransitionOption... options) {
     return searchForPersonMatches(query.build(), options);
   }

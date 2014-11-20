@@ -233,6 +233,14 @@ public enum ChangeType {
   EDIT_LINEAGE("Lineage Changed", ChangeOperation.Update, ChangeObjectType.Fact, ChangeObjectModifier.ChildAndParentsRelationship),
   DELETE_LINEAGE("Lineage Removed", ChangeOperation.Delete, ChangeObjectType.Fact, ChangeObjectModifier.ChildAndParentsRelationship),
 
+  // ORDINANCE
+  COMPLETE_BAPTISM("LDS Baptism Completed", ChangeOperation.Create, ChangeObjectType.Baptism, ChangeObjectModifier.Person),
+  COMPLETE_CONFIRMATION("LDS Confirmation Completed", ChangeOperation.Create, ChangeObjectType.Confirmation, ChangeObjectModifier.Person),
+  COMPLETE_INITIATORY("LDS Initiatory Completed", ChangeOperation.Create, ChangeObjectType.Initiatory, ChangeObjectModifier.Person),
+  COMPLETE_ENDOWMENT("LDS Endowment Completed", ChangeOperation.Create, ChangeObjectType.Endowment, ChangeObjectModifier.Person),
+  COMPLETE_COUPLE_SEALING("LDS Couple Sealing Completed", ChangeOperation.Create, ChangeObjectType.Sealing, ChangeObjectModifier.Couple),
+  COMPLETE_SEALING_TO_PARENTS("LDS Sealing to Parents Completed", ChangeOperation.Create, ChangeObjectType.Sealing, ChangeObjectModifier.ChildAndParentsRelationship),
+
   // NOTES
   ADD_PERSON_NOTE("Person Note Added", ChangeOperation.Create, ChangeObjectType.Note, ChangeObjectModifier.Person),
   EDIT_PERSON_NOTE("Person Note Changed", ChangeOperation.Update, ChangeObjectType.Note, ChangeObjectModifier.Person),

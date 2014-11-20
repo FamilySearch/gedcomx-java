@@ -4,7 +4,6 @@ import org.familysearch.api.client.ft.ChangeHistoryState;
 import org.familysearch.api.client.ft.ChildAndParentsRelationshipState;
 import org.familysearch.api.client.ft.FamilySearchFamilyTree;
 import org.familysearch.api.client.ft.FamilyTreePersonState;
-import org.familysearch.api.client.memories.FamilySearchMemories;
 import org.familysearch.api.client.util.ChangeEntry;
 import org.familysearch.platform.ct.DiscussionReference;
 import org.familysearch.platform.discussions.Discussion;

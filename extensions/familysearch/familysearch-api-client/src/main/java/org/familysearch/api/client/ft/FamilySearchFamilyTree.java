@@ -141,7 +141,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
 
   @Override
   public FamilySearchFamilyTree authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
-    return (FamilySearchFamilyTree) super.authenticateViaOAuth2(formData);
+    return (FamilySearchFamilyTree) super.authenticateViaOAuth2(formData, options);
   }
 
   public FamilySearchFamilyTree authenticateViaUnauthenticatedAccess(String clientId, String ipAddress) {
@@ -156,7 +156,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
 
   @Override
   public FamilySearchCollectionState readCollection(StateTransitionOption... options) {
-    return (FamilySearchCollectionState) super.readCollection();
+    return (FamilySearchCollectionState) super.readCollection(options);
   }
 
   @Override
@@ -164,7 +164,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     if (relationship.getKnownType() == RelationshipType.ParentChild) {
       throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding parent-child relationships. You must instead add a child-and-parents relationship.");
     }
-    return super.addRelationship(relationship);
+    return super.addRelationship(relationship, options);
   }
 
   @Override
@@ -174,7 +174,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
         throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding parent-child relationships. You must instead add a child-and-parents relationship.");
       }
     }
-    return super.addRelationships(relationships);
+    return super.addRelationships(relationships, options);
   }
 
   public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother, StateTransitionOption... options) {
@@ -311,7 +311,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     if (response.getClientResponseStatus() == ClientResponse.Status.NO_CONTENT) {
       return null;
     }
-    
+
     response.bufferEntity();
     FamilySearchPlatform fsp = response.getEntity(FamilySearchPlatform.class);
     try {

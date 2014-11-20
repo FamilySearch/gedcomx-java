@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.jar.Attributes;
@@ -73,6 +74,8 @@ public class GedcomxFileWriteReadTest {
       try {
         gedxOutputStream.addAttribute(CREATED_BY, createdByValue);
         gedxOutputStream.addResource( bundle );
+        gedxOutputStream.addResource( "image/png", "person1.png", getClass().getResourceAsStream("/person1.png"), new Date(), null);
+        gedxOutputStream.addResource( "image/png", "person2.png", getClass().getResourceAsStream("/person2.png"), new Date(), null);
       }
       finally {
         gedxOutputStream.close();
@@ -94,7 +97,7 @@ public class GedcomxFileWriteReadTest {
 
           for (GedcomxFileEntry gedxEntry : gedxFile.getEntries()) {
             String name = gedxEntry.getJarEntry().getName();
-            if ((name != null) && (!"META-INF/MANIFEST.MF".equals(name))) {
+            if ((name != null) && (!"META-INF/MANIFEST.MF".equals(name)) && !name.endsWith("png")) {
               assertEquals(gedxEntry.getContentType(), GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE);
               Map<String,String> entryAttributes = gedxEntry.getAttributes();
               for (Map.Entry<String, String> entry : entryAttributes.entrySet()) {
