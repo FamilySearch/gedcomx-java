@@ -41,9 +41,9 @@ public enum ArtifactType
   Document,
 
   /**
-   * The artifact is an image.
+   * The artifact is a photo.
    */
-  Image,
+  Photo,
 
   /**
    * The artifact is a portrait.
