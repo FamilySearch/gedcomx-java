@@ -170,11 +170,11 @@ public abstract class GedcomxApplicationState<E> {
   }
   
   public boolean hasClientError() {
-    return this.response.getClientResponseStatus().getFamily() == Response.Status.Family.CLIENT_ERROR;
+    return this.response.getStatus() >= 400 && this.response.getStatus() < 500;
   }
 
   public boolean hasServerError() {
-    return this.response.getClientResponseStatus().getFamily() == Response.Status.Family.SERVER_ERROR;
+    return this.response.getStatus() >= 500;
   }
 
   public boolean hasError() {
@@ -182,7 +182,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   public boolean hasStatus(ClientResponse.Status status) {
-    return this.response.getClientResponseStatus().equals(status);
+    return status != null && status.equals(this.response.getClientResponseStatus());
   }
 
   public EntityTag getETag() {
@@ -382,7 +382,7 @@ public abstract class GedcomxApplicationState<E> {
       .build(tokenUri, HttpMethod.POST);
     ClientResponse response = invoke(request, options);
 
-    if (response.getClientResponseStatus().getFamily() == Response.Status.Family.SUCCESSFUL) {
+    if (response.getStatus() >= 200 && response.getStatus() < 300) {
       ObjectNode accessToken = response.getEntity(ObjectNode.class);
       JsonNode access_token = accessToken.get("access_token");
 
@@ -507,8 +507,8 @@ public abstract class GedcomxApplicationState<E> {
       if (lastEmbeddedResponse.getClientResponseStatus() == ClientResponse.Status.OK) {
         entity.embed(lastEmbeddedResponse.getEntity(Gedcomx.class));
       }
-      else if (lastEmbeddedResponse.getClientResponseStatus().getFamily() == Response.Status.Family.SERVER_ERROR) {
-        throw new GedcomxApplicationException(String.format("Unable to load embedded resources: server says \"%s\" at %s.", lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), lastEmbeddedRequest.getURI()), lastEmbeddedResponse);
+      else if (lastEmbeddedResponse.getStatus() >= 500) {
+        throw new GedcomxApplicationException(String.format("Unable to load embedded resources: server says \"%s\" at %s.", lastEmbeddedResponse.getStatus(), lastEmbeddedRequest.getURI()), lastEmbeddedResponse);
       }
       else {
         //todo: log a warning? throw an error?
