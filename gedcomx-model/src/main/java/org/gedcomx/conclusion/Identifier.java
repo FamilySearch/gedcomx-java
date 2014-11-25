@@ -38,6 +38,9 @@ public final class Identifier implements HasJsonKey {
 
   private boolean hasUniqueKey = false;
   private URI value;
+  /**
+   * @see org.gedcomx.types.IdentifierType
+   */
   private URI type;
 
   public Identifier() {

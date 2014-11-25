@@ -43,6 +43,9 @@ import java.util.List;
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Field extends HypermediaEnabledData {
 
+  /**
+   * @see org.gedcomx.types.FieldType
+   */
   private URI type;
   private List<FieldValue> values;
 
