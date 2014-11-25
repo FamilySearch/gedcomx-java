@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -103,6 +105,17 @@ public class ArtifactMetadata {
     }
 
     return null;
+  }
+
+  /**
+   * The known type of the artifact.
+   *
+   * @param type The type of the artifact.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public void setKnownType(ArtifactType type) {
+    this.qualifiers = new ArrayList<Qualifier>(Arrays.asList(new Qualifier(type)));
   }
 
   /**

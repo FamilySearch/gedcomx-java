@@ -74,7 +74,6 @@ public class Rel {
   public static final String PROFILE = "profile";
   public static final String RECORD = "record";
   public static final String RECORDS = "records";
-  public static final String WAYPOINTS = "waypoints";
   public static final String RELATIONSHIP = "relationship";
   public static final String RELATIONSHIPS = "relationships";
   public static final String SOURCE_DESCRIPTIONS = "source-descriptions";
