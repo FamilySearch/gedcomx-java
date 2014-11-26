@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.gedcomx</groupId>
     <artifactId>gedcomx-parent</artifactId>
-    <version>1.0.94.M1-SNAPSHOT</version>
+    <version>1.0.94.M1</version>
     <relativePath>../..</relativePath>
   </parent>
 
