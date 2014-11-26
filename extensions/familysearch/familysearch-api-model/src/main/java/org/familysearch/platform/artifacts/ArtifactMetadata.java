@@ -112,7 +112,6 @@ public class ArtifactMetadata {
    *
    * @param type The type of the artifact.
    */
-  @XmlTransient
   @JsonIgnore
   public void setKnownType(ArtifactType type) {
     this.qualifiers = new ArrayList<Qualifier>(Arrays.asList(new Qualifier(type)));
