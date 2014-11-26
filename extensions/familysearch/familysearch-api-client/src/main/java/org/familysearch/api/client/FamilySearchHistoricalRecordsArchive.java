@@ -183,7 +183,7 @@ public class FamilySearchHistoricalRecordsArchive extends FamilySearchCollection
     return ((FamilySearchStateFactory)this.stateFactory).newSourceDescriptionState(request, invoke(request, options), this.accessToken);
   }
 
-  public SourceDescriptionState readWaypoint(String waypointId, StateTransitionOption... options) {
+  public SourceDescriptionState readWaypoint(String waypointId, String collectionContext, StateTransitionOption... options) {
     Link waypointLink = getLink(Rel.IMAGE_WAYPOINT);
     if (waypointLink == null || waypointLink.getTemplate() == null) {
       return null;
@@ -192,7 +192,7 @@ public class FamilySearchHistoricalRecordsArchive extends FamilySearchCollection
 
     String waypointUri;
     try {
-      waypointUri = UriTemplate.fromTemplate(template).set("wid", waypointId).expand();
+      waypointUri = UriTemplate.fromTemplate(template).set("wid", waypointId).set("cc", collectionContext).expand();
     }
     catch (VariableExpansionException e) {
       throw new GedcomxApplicationException(e);
