@@ -19,7 +19,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.artifacts.ArtifactType;
 import org.gedcomx.Gedcomx;
@@ -75,7 +74,7 @@ public class FamilySearchMemories extends FamilySearchCollectionState {
 
   @Override
   protected FamilySearchMemories clone(ClientRequest request, ClientResponse response) {
-    return new FamilySearchMemories(request, response, this.accessToken, (FamilyTreeStateFactory) this.stateFactory);
+    return new FamilySearchMemories(request, response, this.accessToken, (FamilySearchStateFactory) this.stateFactory);
   }
 
   @Override
