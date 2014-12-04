@@ -20,13 +20,22 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.familysearch.api.client.ft.FamilyTreeStateFactory;
+import org.familysearch.platform.artifacts.ArtifactMetadata;
+import org.familysearch.platform.artifacts.ArtifactType;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceDescription;
 
+import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
 
 /**
  * @author Ryan Heaton
@@ -142,5 +151,21 @@ public class FamilySearchMemories extends FamilySearchCollectionState {
   @Override
   public FamilySearchCollectionState readCollection(StateTransitionOption... options) {
     return (FamilySearchCollectionState) super.readCollection();
+  }
+
+  @Override
+  public SourceDescriptionState addArtifact(SourceDescription description, DataSource artifact, StateTransitionOption... options) {
+    if (description != null) {
+      ArtifactMetadata artifactMetadata = description.findExtensionOfType(ArtifactMetadata.class);
+      if (artifactMetadata != null) {
+        ArtifactType type = artifactMetadata.getKnownType();
+        if (type != null) {
+          ArrayList<StateTransitionOption> newOptions = new ArrayList<StateTransitionOption>(Arrays.asList(options));
+          newOptions.add(artifactType(type));
+          options = newOptions.toArray(new StateTransitionOption[newOptions.size()]);
+        }
+      }
+    }
+    return super.addArtifact(description, artifact, options);
   }
 }

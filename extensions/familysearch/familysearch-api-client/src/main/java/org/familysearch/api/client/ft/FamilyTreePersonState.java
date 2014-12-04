@@ -25,6 +25,8 @@ import org.familysearch.api.client.*;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.artifacts.ArtifactMetadata;
+import org.familysearch.platform.artifacts.ArtifactType;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
 import org.gedcomx.Gedcomx;
@@ -35,8 +37,10 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rs.*;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 
+import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
@@ -44,6 +48,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
 
 /**
  * @author Ryan Heaton
@@ -491,6 +497,22 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   public FamilyTreePersonState deleteMediaReference(SourceReference reference, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.deleteMediaReference(reference, options);
+  }
+
+  @Override
+  public SourceDescriptionState addArtifact(SourceDescription description, DataSource artifact, StateTransitionOption... options) {
+    if (description != null) {
+      ArtifactMetadata artifactMetadata = description.findExtensionOfType(ArtifactMetadata.class);
+      if (artifactMetadata != null) {
+        ArtifactType type = artifactMetadata.getKnownType();
+        if (type != null) {
+          ArrayList<StateTransitionOption> newOptions = new ArrayList<StateTransitionOption>(Arrays.asList(options));
+          newOptions.add(artifactType(type));
+          options = newOptions.toArray(new StateTransitionOption[newOptions.size()]);
+        }
+      }
+    }
+    return super.addArtifact(description, artifact, options);
   }
 
   @Override
