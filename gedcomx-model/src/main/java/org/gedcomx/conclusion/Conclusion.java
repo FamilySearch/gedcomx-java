@@ -396,6 +396,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
     this.confidence = this.confidence == null ? conclusion.confidence : this.confidence;
     this.attribution = this.attribution == null ? conclusion.attribution : this.attribution;
     this.analysis = this.analysis == null ? conclusion.analysis : this.analysis;
+    this.sortKey = this.sortKey == null ? conclusion.sortKey : this.sortKey;
     if (conclusion.notes != null) {
       this.notes = this.notes == null ? new ArrayList<Note>() : this.notes;
       this.notes.addAll(conclusion.notes);
