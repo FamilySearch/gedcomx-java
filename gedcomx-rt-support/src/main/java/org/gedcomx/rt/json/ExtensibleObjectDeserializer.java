@@ -15,15 +15,12 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.JsonToken;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.deser.BeanDeserializer;
-import org.codehaus.jackson.node.JsonNodeFactory;
-import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.rt.SupportsExtensionAttributes;
 import org.gedcomx.rt.SupportsExtensionElements;
@@ -48,6 +45,11 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
 
   @Override
   protected void handleUnknownProperty(JsonParser jp, DeserializationContext ctxt, Object beanOrClass, String propName) throws IOException, JsonProcessingException {
+    if (_ignoreAllUnknown) {
+      jp.skipChildren();
+      return;
+    }
+
     if (beanOrClass instanceof SupportsExtensionElements) {
       SupportsExtensionElements target = (SupportsExtensionElements) beanOrClass;
       //first check if it's a known json type

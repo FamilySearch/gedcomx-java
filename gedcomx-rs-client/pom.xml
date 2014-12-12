@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.gedcomx</groupId>
     <artifactId>gedcomx-parent</artifactId>
-    <version>1.0.59.M1-SNAPSHOT</version>
+    <version>1.0.93.M1-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -16,12 +16,20 @@
     <!--we have to duplicate the config files to all modules. Currently-->
     <!--opting for the former.-->
     <root.basedir>${basedir}/..</root.basedir>
+    <jena.version>2.11.0</jena.version>
+    <jsonld-java-jena.version>0.4.1</jsonld-java-jena.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.gedcomx</groupId>
-      <artifactId>gedcomx-rs</artifactId>
+      <artifactId>gedcomx-atom</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.gedcomx</groupId>
+      <artifactId>gedcomx-rs-rt-support</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -42,32 +50,18 @@
       <artifactId>handy-uri-templates</artifactId>
       <version>2.0.1</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-core</artifactId>
+      <version>${jena.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.jsonld-java</groupId>
+      <artifactId>jsonld-java-jena</artifactId>
+      <version>${jsonld-java-jena.version}</version>
+    </dependency>
   </dependencies>
 
-  <profiles>
-    <profile>
-      <id>jenkins</id>
-      <activation>
-        <property>
-          <name>BUILD_NUMBER</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>cobertura-maven-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-pmd-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>findbugs-maven-plugin</artifactId>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>

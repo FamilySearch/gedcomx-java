@@ -29,6 +29,8 @@ public class TypesTest {
     assertEquals(NamePartType.fromQNameURI(NamePartType.Given.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Given");
     assertEquals(NameType.fromQNameURI(NameType.FormalName.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/FormalName");
     assertEquals(RelationshipType.fromQNameURI(RelationshipType.Couple.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Couple");
+    assertEquals(FieldValueStatusType.fromQNameURI(FieldValueStatusType.Unreadable.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Unreadable");
+    assertEquals(ResourceStatusType.fromQNameURI(ResourceStatusType.Deprecated.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Deprecated");
   }
 
   @Test

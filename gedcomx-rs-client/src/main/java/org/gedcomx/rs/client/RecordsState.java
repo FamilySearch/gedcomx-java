@@ -18,23 +18,29 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.atom.Entry;
-import org.gedcomx.atom.Feed;
+import org.gedcomx.common.URI;
+import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.types.IdentifierType;
 
 import javax.ws.rs.HttpMethod;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Ryan Heaton
  */
-public class RecordsState extends GedcomxApplicationState<Feed> {
+public class RecordsState extends GedcomxApplicationState<Gedcomx> {
 
   protected RecordsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
+  }
+
+  @Override
+  public String getSelfRel() {
+    return Rel.RECORDS;
   }
 
   @Override
@@ -68,18 +74,18 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
   }
 
   @Override
-  public RecordsState put(Feed e, StateTransitionOption... options) {
+  public RecordsState put(Gedcomx e, StateTransitionOption... options) {
     return (RecordsState) super.put(e, options);
   }
 
   @Override
-  public RecordsState post(Feed entity, StateTransitionOption... options) {
+  public RecordsState post(Gedcomx entity, StateTransitionOption... options) {
     return (RecordsState) super.post(entity, options);
   }
 
   @Override
-  protected Feed loadEntity(ClientResponse response) {
-    return response.getEntity(Feed.class);
+  protected Gedcomx loadEntity(ClientResponse response) {
+    return response.getEntity(Gedcomx.class);
   }
 
   @Override
@@ -87,58 +93,16 @@ public class RecordsState extends GedcomxApplicationState<Feed> {
     return getEntity();
   }
 
-  @Override
-  public RecordsState readNextPage(StateTransitionOption... options) {
-    return (RecordsState) super.readNextPage(options);
+  public List<SourceDescription> getRecords() {
+    return getEntity().getSourceDescriptions();
   }
 
-  @Override
-  public RecordsState readPreviousPage(StateTransitionOption... options) {
-    return (RecordsState) super.readPreviousPage(options);
-  }
-
-  @Override
-  public RecordsState readFirstPage(StateTransitionOption... options) {
-    return (RecordsState) super.readFirstPage(options);
-  }
-
-  @Override
-  public RecordsState readLastPage(StateTransitionOption... options) {
-    return (RecordsState) super.readLastPage(options);
-  }
-
-  public List<Gedcomx> getRecords() {
-    ArrayList<Gedcomx> records = null;
-
-    Feed feed = getEntity();
-    if (feed != null && feed.getEntries() != null && feed.getEntries().size() > 0) {
-      records = new ArrayList<Gedcomx>();
-      for (Entry entry : feed.getEntries()) {
-        if (entry.getContent() != null && entry.getContent().getGedcomx() != null) {
-          records.add(entry.getContent().getGedcomx());
-        }
-      }
-    }
-
-    return records;
-  }
-
-  public RecordState readRecord(Entry entry, StateTransitionOption... options) {
-    Link link = entry.getLink(Rel.RECORD);
+  public RecordState readRecord(SourceDescription sourceDescription, StateTransitionOption... options) {
+    Link link = sourceDescription.getLink(Rel.RECORD);
     if (link == null || link.getHref() == null) {
       return null;
     }
-
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newRecordState(request, invoke(request, options), this.accessToken);
-  }
-
-  public RecordState readRecord(Gedcomx record, StateTransitionOption... options) {
-    Link link = record.getLink(Rel.RECORD);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
+    
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return this.stateFactory.newRecordState(request, invoke(request, options), this.accessToken);
   }

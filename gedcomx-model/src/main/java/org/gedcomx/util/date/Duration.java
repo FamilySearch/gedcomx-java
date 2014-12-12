@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
  * User: Randy Wilson
  * Date: 8/8/13
  * Time: 6:37 PM
+ * @deprecated See org.gedcomx.date.GedcomxDateUtil and org.gedcomx.date.GedcomxDateDuration.
  */
 @XmlTransient
 public class Duration {

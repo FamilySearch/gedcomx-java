@@ -15,15 +15,19 @@
  */
 package org.familysearch.platform.artifacts;
 
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.gedcomx.common.URI;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * FamilySearch-specific metadata about an artifact.
@@ -33,11 +37,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper (name = "artifactMetadata")
 @XmlType ( name = "ArtifactMetadata" )
-public class ArtifactMetadata
-{
+public class ArtifactMetadata {
 
   private String filename;
-  private URI artifactType;
+  private List<Qualifier> qualifiers;
   private Integer width;
   private Integer height;
 
@@ -60,44 +63,59 @@ public class ArtifactMetadata
   }
 
   /**
-   * The type of the gender.
+   * The qualifiers associated with this artifact.
    *
-   * @return The type of the gender.
+   * @return The qualifiers associated with this artifact.
    */
-  @XmlAttribute
-  @XmlQNameEnumRef (ArtifactType.class)
-  public URI getArtifactType() {
-    return artifactType;
+  @XmlElement ( name = "qualifier" )
+  @JsonName ( "qualifiers" )
+  @JsonProperty ( "qualifiers" )
+  public List<Qualifier> getQualifiers() {
+    return qualifiers;
   }
 
   /**
-   * The type of the gender.
+   * Set the qualifiers associated with this fact.
    *
-   * @param artifactType The type of the gender.
+   * @param qualifiers qualifiers to associate with this fact.
    */
-  public void setArtifactType(URI artifactType) {
-    this.artifactType = artifactType;
+  @JsonProperty ( "qualifiers" )
+  public void setQualifiers(List<Qualifier> qualifiers) {
+    this.qualifiers = qualifiers;
   }
 
   /**
-   * The known type of the gender.
+   * The known type of the artifact.
    *
-   * @return The type of the gender.
+   * @return The type of the artifact.
    */
   @XmlTransient
   @JsonIgnore
   public ArtifactType getKnownType() {
-    return getArtifactType() == null ? null : ArtifactType.fromQNameURI( getArtifactType() );
+    if (this.qualifiers != null) {
+      for (Qualifier qualifier : this.qualifiers) {
+        if (qualifier.getName() != null) {
+          ArtifactType artifactType = ArtifactType.fromQNameURI(qualifier.getName());
+          artifactType = artifactType == ArtifactType.OTHER ? null : artifactType;
+          if (artifactType != null) {
+            return artifactType;
+          }
+        }
+      }
+    }
+
+    return null;
   }
 
   /**
-   * The type of the gender.
+   * The known type of the artifact.
    *
-   * @param type The type of the gender.
+   * @param type The type of the artifact.
    */
+  @XmlTransient
   @JsonIgnore
   public void setKnownType(ArtifactType type) {
-    setArtifactType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    this.qualifiers = new ArrayList<Qualifier>(Arrays.asList(new Qualifier(type)));
   }
 
   /**

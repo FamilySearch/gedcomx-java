@@ -165,7 +165,7 @@ public class DiscussionState extends GedcomxApplicationState<FamilySearchPlatfor
       throw new GedcomxApplicationException("Comment cannot be deleted: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 

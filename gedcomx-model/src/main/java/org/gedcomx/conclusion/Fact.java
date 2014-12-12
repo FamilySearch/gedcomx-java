@@ -45,6 +45,9 @@ import java.util.List;
 @JsonElementWrapper ( name = "facts" )
 public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
 
+  /**
+   * @see org.gedcomx.types.FactType
+   */
   private URI type;
   private Date date;
   private PlaceReference place;

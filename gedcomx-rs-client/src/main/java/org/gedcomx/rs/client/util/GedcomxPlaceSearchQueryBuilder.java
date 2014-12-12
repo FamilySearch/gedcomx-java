@@ -31,7 +31,11 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   }
 
   public GedcomxPlaceSearchQueryBuilder param(String name, String value, boolean exact) {
-    super.parameters.add(new SearchParameter(name, value, exact));
+    return param(null, name, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder param(String prefix, String name, String value, boolean exact) {
+    super.parameters.add(new SearchParameter(null, name, value, exact));
     return this;
   }
 
@@ -40,7 +44,15 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   }
 
   public GedcomxPlaceSearchQueryBuilder name(String value, boolean exact) {
-    return param(NAME, value, exact);
+    return name(value, exact, false);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder name(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, NAME, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder nameNot(String value) {
+    return param("-", NAME, value, false);
   }
 
   public GedcomxPlaceSearchQueryBuilder date(String value) {
@@ -48,7 +60,15 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   }
 
   public GedcomxPlaceSearchQueryBuilder date(String value, boolean exact) {
-    return param(DATE, value, exact);
+    return date(value, exact, false);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder date(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, DATE, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder dateNot(String value) {
+    return param("-", DATE, value, false);
   }
 
   public GedcomxPlaceSearchQueryBuilder parentId(String value) {
@@ -56,7 +76,15 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   }
 
   public GedcomxPlaceSearchQueryBuilder parentId(String value, boolean exact) {
-    return param(PARENT_ID, value, exact);
+    return parentId(value, exact, false);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder parentId(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_ID, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder parentIdNot(String value) {
+    return param("-", PARENT_ID, value, false);
   }
 
   public GedcomxPlaceSearchQueryBuilder typeId(String value) {
@@ -64,7 +92,15 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   }
 
   public GedcomxPlaceSearchQueryBuilder typeId(String value, boolean exact) {
-    return param(TYPE_ID, value, exact);
+    return typeId(value, exact, false);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder typeId(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, TYPE_ID, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder typeIdNot(String value) {
+    return param("-", TYPE_ID, value, false);
   }
 
   public GedcomxPlaceSearchQueryBuilder typeGroupId(String value) {
@@ -72,7 +108,15 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   }
 
   public GedcomxPlaceSearchQueryBuilder typeGroupId(String value, boolean exact) {
-    return param(TYPE_GROUP_ID, value, exact);
+    return typeGroupId(value, exact, false);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder typeGroupId(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, TYPE_GROUP_ID, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder typeGroupIdNot(String value) {
+    return param("-", TYPE_GROUP_ID, value, false);
   }
 
   public GedcomxPlaceSearchQueryBuilder latitude(String value) {
@@ -80,20 +124,46 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   }
 
   public GedcomxPlaceSearchQueryBuilder latitude(String value, boolean exact) {
-    return param(LATITUDE, value, exact);
+    return latitude(value, exact, false);
   }
+
+  public GedcomxPlaceSearchQueryBuilder latitude(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, LATITUDE, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder latitudeNot(String value) {
+    return param("-", LATITUDE, value, false);
+  }
+
   public GedcomxPlaceSearchQueryBuilder longitude(String value) {
     return longitude(value, true);
   }
 
   public GedcomxPlaceSearchQueryBuilder longitude(String value, boolean exact) {
-    return param(LONGITUDE, value, exact);
+    return longitude(value, exact, false);
   }
+
+  public GedcomxPlaceSearchQueryBuilder longitude(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, LONGITUDE, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder longitudeNot(String value) {
+    return param("-", LONGITUDE, value, false);
+  }
+
   public GedcomxPlaceSearchQueryBuilder distance(String value) {
     return distance(value, true);
   }
 
   public GedcomxPlaceSearchQueryBuilder distance(String value, boolean exact) {
-    return param(DISTANCE, value, exact);
+    return distance(value, exact, false);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder distance(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, DISTANCE, value, exact);
+  }
+
+  public GedcomxPlaceSearchQueryBuilder distanceNot(String value) {
+    return param("-", DISTANCE, value, false);
   }
 }

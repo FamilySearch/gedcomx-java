@@ -45,6 +45,9 @@ Follow more links to get more stuff done.
 Need something to sink your teeth into?
 
 * [Read the FamilySearch Family Tree (Start Here)](#read-ft)
+* [Read a Family Tree Person by Persistent ID](#read-person-by-persistent-id)
+* [Read a Family Tree Person by Family Tree ID](#read-person-by-pid)
+* [Read a Family Tree Person by Family Tree ID, Including Relationships](#read-pwr-by-pid)
 * [Search for Persons or Person Matches in the Family Tree](#search-ft)
 * [Create a Person in the Family Tree](#create-ft-person)
 * [Create a Couple Relationship in the Family Tree](#create-ft-couple)
@@ -92,6 +95,42 @@ String developerKey = "...";
 FamilySearchFamilyTree ft = new FamilySearchFamilyTree(useSandbox)
   //and authenticate.
   .authenticateViaOAuth2Password(username, password, developerKey);
+```
+
+<a name="read-person-by-persistent-id"/>
+
+### Read a Family Tree Person by Persistent ID
+
+```java
+String username = "...";
+String password = "...";
+String developerKey = "...";
+
+String ark = ...; //e.g. "https://familysearch.org/ark:/61903/4:1:KW8W-RF8"
+FamilyTreePersonState person = new FamilyTreePersonState(URI.create(ark))
+  .authenticateViaOAuth2Password(username, password, developerKey);
+```
+
+<a name="read-person-by-pid"/>
+
+### Read a Family Tree Person by Family Tree ID
+
+```java
+String pid = ...; //e.g. "KW8W-RF8"
+
+FamilySearchFamilyTree ft = ...;
+FamilyTreePersonState person = ft.readPersonById(pid);
+```
+
+<a name="read-pwr-by-pid"/>
+
+### Read a Family Tree Person by Family Tree ID, Including Relationships
+
+```java
+String pid = ...; //e.g. "KW8W-RF8"
+
+FamilySearchFamilyTree ft = ...;
+FamilyTreePersonState person = ft.readPersonWithRelationshipsById(pid);
 ```
 
 <a name="search-ft"/>

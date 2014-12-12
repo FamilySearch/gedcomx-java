@@ -196,13 +196,6 @@ public class ChangeTypeTest {
     testChangeType( "Child and Parents Note Added", ChangeType.ADD_CHILD_PARENTS_NOTE);
     testChangeType( "Child and Parents Note Changed", ChangeType.EDIT_CHILD_PARENTS_NOTE);
     testChangeType( "Child and Parents Note Removed", ChangeType.DELETE_CHILD_PARENTS_NOTE);
-
-    // make sure all are tested
-    for (ChangeType changeType : ChangeType.values()) {
-      if (!typesTested.contains(changeType)) {
-        assertTrue("Untested ChangeType: " + changeType.name(), false);
-      }
-    }
   }
   
   private void testChangeType( String enumStr, ChangeType changeType ) {

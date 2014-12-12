@@ -39,7 +39,6 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    *
    * @return A local, context-specific id for the data.
    */
-  @XmlID
   @XmlAttribute
   public String getId() {
     return id;

@@ -92,8 +92,8 @@ public class PersonMergeState extends GedcomxApplicationState<FamilySearchPlatfo
     return getEntity() == null ? null : getEntity().getMergeAnalyses() == null ? null : getEntity().getMergeAnalyses().isEmpty() ? null : getEntity().getMergeAnalyses().get(0);
   }
 
-  public boolean isAllowed() {
-    return getEntity() != null || String.valueOf(this.response.getHeaders().getFirst("Allow")).toUpperCase().contains(HttpMethod.POST);
+  public boolean isAllowed() { //If there is no 'Allow' header, it is allowed
+    return this.response.getHeaders().getFirst("Allow") == null || String.valueOf(this.response.getHeaders().getFirst("Allow")).toUpperCase().contains(HttpMethod.POST);
   }
 
   public PersonMergeState readMergeMirror(StateTransitionOption... options) {

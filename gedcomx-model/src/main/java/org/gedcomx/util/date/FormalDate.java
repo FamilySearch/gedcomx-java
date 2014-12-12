@@ -50,6 +50,7 @@ import java.util.regex.Pattern;
  * User: Randy Wilson
  * Date: 8/7/13
  * Time: 12:53 PM
+ * @deprecated See org.gedcomx.date.GedcomxDateUtil and org.gedcomx.date.GedcomxDate.
  */
 @XmlTransient
 public class FormalDate {

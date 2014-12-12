@@ -78,7 +78,8 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   protected FamilySearchPlatform loadEntityConditionally(ClientResponse response) {
     if (HttpMethod.GET.equals(request.getMethod()) && (response.getClientResponseStatus() == ClientResponse.Status.OK
-          || response.getClientResponseStatus() == ClientResponse.Status.GONE)) {
+          || response.getClientResponseStatus() == ClientResponse.Status.GONE)
+          || response.getClientResponseStatus() == ClientResponse.Status.PRECONDITION_FAILED) {
       return loadEntity(response);
     }
     else {
@@ -161,7 +162,7 @@ public class FamilyTreePersonState extends PersonState {
 
   @Override
   public FamilyTreePersonState post(Gedcomx entity, StateTransitionOption... options) {
-    return (FamilyTreePersonState) super.post(entity, options);
+    return (FamilyTreePersonState)super.post(entity, options);
   }
 
   @Override
@@ -574,7 +575,7 @@ public class FamilyTreePersonState extends PersonState {
       return null;
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
@@ -656,6 +657,16 @@ public class FamilyTreePersonState extends PersonState {
 
     ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonNonMatchesState readNonMatches(StateTransitionOption... options) {
+    Link link = getLink(Rel.NOT_A_MATCHES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedFeedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
   }
 
   public FamilyTreePersonState restore(StateTransitionOption... options) {

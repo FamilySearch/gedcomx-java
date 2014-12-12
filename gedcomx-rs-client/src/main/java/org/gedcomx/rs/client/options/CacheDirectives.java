@@ -19,7 +19,6 @@ import com.sun.jersey.api.client.ClientRequest;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateTransitionOption;
 
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -31,7 +30,7 @@ public class CacheDirectives implements StateTransitionOption {
   private final Date lastModified;
 
   public CacheDirectives(GedcomxApplicationState state) {
-    this(state.getETag().toString(), state.getLastModified());
+    this(state.getETag() == null ? null : state.getETag().toString(), state.getLastModified());
   }
 
   public CacheDirectives(Date lastModified) {

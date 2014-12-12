@@ -1,7 +1,23 @@
+/**
+ * Copyright Intellectual Reserve, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.gedcomx.util;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.conclusion.Person;
@@ -25,6 +41,7 @@ import java.util.Map;
  * Time: 3:53 PM
  */
 public class DocMap {
+  private Gedcomx doc;
   private SourceDescription mainSourceDescription;
   private Map<String, SourceDescription> sourceDescriptionMap;
   private Map<String, Person> personMap;
@@ -46,12 +63,21 @@ public class DocMap {
    * @param doc - GedcomX document to rebuild maps for.
    */
   public void update(Gedcomx doc) {
+    this.doc = doc;
     sourceDescriptionMap = getSourceDescriptionMap(doc);
     personMap = getPersonMap(doc);
     recordDescriptorMap = getRecordDescriptorMap(doc);
     agentMap = getAgentMap(doc);
     placeMap = getPlaceMap(doc);
     mainSourceDescription = getSourceDescription(doc.getDescriptionRef());
+  }
+
+  /**
+   * Get the Gedcomx document that was used to create this DocMap.
+   * @return GedcomX document that was used to create this DocMap.
+   */
+  public Gedcomx getDocument() {
+    return doc;
   }
 
   /**
@@ -90,6 +116,16 @@ public class DocMap {
    */
   public Person getPerson(URI uri) {
     return uri == null ? null : getPerson(uri.toString());
+  }
+
+  /**
+   * Get the person from the GedcomX document that has the id given in the URI of the given ResourceReference.
+   * Can look a person up by "p1", "#p1" or "http://whatever.com/persons/12345".
+   * @param resourceReference - local person id (with or without "#") or any person identifier
+   * @return Person with the given id or identifier.
+   */
+  public Person getPerson(ResourceReference resourceReference) {
+    return resourceReference == null ? null : getPerson(resourceReference.getResource());
   }
 
   /**

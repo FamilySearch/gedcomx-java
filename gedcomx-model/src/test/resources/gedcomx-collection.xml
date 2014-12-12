@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gedcomx xmlns="http://gedcomx.org/v1/" xmlns:fs="http://familysearch.org/v1/" xmlns:atom="http://www.w3.org/2005/Atom" description="#src_1">
+    <sourceDescription about="https://familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="src_1">
+        <citation>
+            <value>"South Africa, Orange Free State, Estate Files, 1951-2006." Index and images. &lt;i&gt;FamilySearch&lt;/i&gt;. http://FamilySearch.org : accessed 2014. Citing The Master of Supreme Court. Master of the Free State High Court, Bloemfontein.</value>
+        </citation>
+        <componentOf description="#src_2"/>
+        <title>South Africa, Orange Free State, Estate Files, 1951-2006</title>
+        <description xml:lang="en_US">Images of estate files from The Master of Supreme Court in Bloemfontein. This collection (including text, images, databases and other information) is owned or licensed by GSU. You may view, download, and print material from this collection only for your personal, noncommercial use unless we specifically indicate that other uses are permitted. You may not use this site or information found at this site (including the names and addresses of those who submit information) for selling or promoting products or services, soliciting clients, or any other commercial purpose. Notwithstanding the foregoing, we reserve the right, at our sole discretion, to deny, revoke, or limit use of this site to any person. GSU is not responsible for any use that you make of materials from this site, and you agree to fully indemnify GSU for any claims against GSU based on your actions. In many instances, we do not provide source citations, and in no case do we guarantee that materials on this site may be used for anything beyond personal, noncommercial genealogical research.</description>
+        <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections/1407787</identifier>
+        <coverage>
+            <recordType>http://gedcomx.org/Probate</recordType>
+            <spatial description="#place_1927115">
+                <original>South Africa</original>
+            </spatial>
+            <temporal>
+                <original>1951/2006</original>
+                <formal>+1951/+2006</formal>
+            </temporal>
+        </coverage>
+        <rights/>
+    </sourceDescription>
+    <sourceDescription about="https://familysearch.org/platform/records/collections" resourceType="http://familysearch.org/types/resources/Container" id="src_2">
+        <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections</identifier>
+    </sourceDescription>
+    <place>
+        <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/authorities/v1/place/1927115</identifier>
+        <name>South Africa</name>
+    </place>
+    <collection xml:lang="en_US">
+        <title>South Africa, Orange Free State, Estate Files, 1951-2006</title>
+        <size>3911204</size>
+        <content>
+            <completeness>1.0</completeness>
+            <count>19126</count>
+            <resourceType>http://gedcomx.org/Record</resourceType>
+        </content>
+        <content>
+            <completeness>1.0</completeness>
+            <count>66716</count>
+            <resourceType>http://gedcomx.org/Person</resourceType>
+        </content>
+        <content>
+            <completeness>1.0</completeness>
+            <count>3892078</count>
+            <resourceType>http://gedcomx.org/DigitalArtifact</resourceType>
+        </content>
+    </collection>
+    <recordDescriptor id="rd_MM9.1.9/MMMM-MLG">
+        <field>
+            <value labelId="PR_NAME">
+                <label xml:lang="de">Name</label>
+                <label xml:lang="it">Nome</label>
+                <label xml:lang="ru">Имя</label>
+                <label xml:lang="es">Nombre</label>
+                <label xml:lang="fr">Nom</label>
+                <label xml:lang="ja">名前</label>
+                <label xml:lang="zh">姓名</label>
+                <label xml:lang="pt">Nome</label>
+                <label xml:lang="en_us">Name</label>
+                <label xml:lang="default">Name</label>
+                <label xml:lang="ko">성과 이름</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="EVENT_TYPE">
+                <label xml:lang="en_us">Event Type</label>
+                <label xml:lang="it">Tipologia di evento</label>
+                <label xml:lang="ja">イベントの種類</label>
+                <label xml:lang="ru">Тип события</label>
+                <label xml:lang="ko">사건 발생 유형</label>
+                <label xml:lang="zh">事項類型</label>
+                <label xml:lang="pt">Tipo de evento</label>
+                <label xml:lang="fr">Type d'événement</label>
+                <label xml:lang="es">Tipo de evento</label>
+                <label xml:lang="default">Event Type</label>
+                <label xml:lang="de">Ereignistyp</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="EVENT_DATE">
+                <label xml:lang="en_us">Event Date</label>
+                <label xml:lang="ja">イベント日付</label>
+                <label xml:lang="fr">Date de l'événement</label>
+                <label xml:lang="ko">사건 발생 날짜</label>
+                <label xml:lang="ru">Дата события</label>
+                <label xml:lang="default">Event Date</label>
+                <label xml:lang="es">Fecha del evento</label>
+                <label xml:lang="de">Ereignisdatum</label>
+                <label xml:lang="pt">Data do evento</label>
+                <label xml:lang="zh">事項日期</label>
+                <label xml:lang="it">Data dell'evento</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="EVENT_PLACE">
+                <label xml:lang="en_us">Event Place</label>
+                <label xml:lang="pt">Local do evento</label>
+                <label xml:lang="ko">사건 발생 장소</label>
+                <label xml:lang="default">Event Place</label>
+                <label xml:lang="it">Luogo dell'evento</label>
+                <label xml:lang="de">Ereignisort</label>
+                <label xml:lang="es">Lugar del evento</label>
+                <label xml:lang="ru">Место мероприятия</label>
+                <label xml:lang="fr">Lieu de l'événement</label>
+                <label xml:lang="ja">イベント場所</label>
+                <label xml:lang="zh">事項地點</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="PR_AGE">
+                <label xml:lang="en_us">Age</label>
+                <label xml:lang="zh">年齡</label>
+                <label xml:lang="es">Edad</label>
+                <label xml:lang="pt">Idade</label>
+                <label xml:lang="de">Alter</label>
+                <label xml:lang="ja">年令</label>
+                <label xml:lang="default">Age</label>
+                <label xml:lang="fr">Âge</label>
+                <label xml:lang="ru">Возраст</label>
+                <label xml:lang="it">Età</label>
+                <label xml:lang="ko">나이</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="PR_BIRTH_YEAR_ESTIMATED">
+                <label xml:lang="en_us">Birth Year (Estimated)</label>
+                <label xml:lang="es">Año de nacimiento (aproximado)</label>
+                <label xml:lang="it">Anno di nascita (approssimativo)</label>
+                <label xml:lang="de">Geburtsjahr (geschätzt)</label>
+                <label xml:lang="ru">Год рождения (примерный)</label>
+                <label xml:lang="ko">출생 년도 (예상)</label>
+                <label xml:lang="default">Birth Year (Estimated)</label>
+                <label xml:lang="ja">出生年（推定）</label>
+                <label xml:lang="zh">出生年份（估計）</label>
+                <label xml:lang="fr">Année de naissance (estimée)</label>
+                <label xml:lang="pt">Ano de nascimento (estimado)</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="PR_BIRTH_PLACE">
+                <label xml:lang="en_us">Birthplace</label>
+                <label xml:lang="zh">出生地</label>
+                <label xml:lang="pt">Local de nascimento</label>
+                <label xml:lang="it">Luogo di nascita</label>
+                <label xml:lang="es">Lugar de nacimiento</label>
+                <label xml:lang="default">Birthplace</label>
+                <label xml:lang="ru">Место рождения</label>
+                <label xml:lang="fr">Lieu de naissance</label>
+                <label xml:lang="ko">출생지</label>
+                <label xml:lang="de">Geburtsort</label>
+                <label xml:lang="ja">出生地</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="PR_FTHR_NAME">
+                <label xml:lang="en_us">Father's Name</label>
+                <label xml:lang="it">Nome del padre</label>
+                <label xml:lang="default">Father's Name</label>
+                <label xml:lang="ko">아버지의 이름</label>
+                <label xml:lang="pt">Nome do pai</label>
+                <label xml:lang="zh">父親名字</label>
+                <label xml:lang="ja">父親の名前</label>
+                <label xml:lang="fr">Nom du père</label>
+                <label xml:lang="ru">Имя отца</label>
+                <label xml:lang="es">Nombre del padre</label>
+                <label xml:lang="de">Name des Vaters</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="PR_MTHR_NAME">
+                <label xml:lang="en_us">Mother's Name</label>
+                <label xml:lang="zh">母親名字</label>
+                <label xml:lang="pt">Nome da mãe</label>
+                <label xml:lang="default">Mother's Name</label>
+                <label xml:lang="it">Nome della madre</label>
+                <label xml:lang="ko">어머니의 성과 이름</label>
+                <label xml:lang="de">Name der Mutter</label>
+                <label xml:lang="ru">Имя матери</label>
+                <label xml:lang="es">Nombre de la madre</label>
+                <label xml:lang="fr">Nom de la mère</label>
+                <label xml:lang="ja">母親の名前</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="SPOUSE_NAME">
+                <label xml:lang="en_us">Spouse's Name</label>
+                <label xml:lang="es">Nombre del cónyuge</label>
+                <label xml:lang="ja">配偶者の名前</label>
+                <label xml:lang="pt">Nome do cônjuge</label>
+                <label xml:lang="ru">Имя супруга</label>
+                <label xml:lang="fr">Nom du conjoint</label>
+                <label xml:lang="zh">配偶名字</label>
+                <label xml:lang="default">Spouse's Name</label>
+                <label xml:lang="it">Nome del coniuge</label>
+                <label xml:lang="ko">배우자의 이름</label>
+                <label xml:lang="de">Name des Ehepartners</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="SPOUSE_2_NAME">
+                <label xml:lang="en_us">Additional Spouse's Name</label>
+                <label xml:lang="it">Nome del secondo coniuge</label>
+                <label xml:lang="ja">配偶者の名前の追加</label>
+                <label xml:lang="default">Additional Spouse's Name</label>
+                <label xml:lang="es">Nombre del cónyuge adicional</label>
+                <label xml:lang="de">Name des anderen Ehepartners</label>
+                <label xml:lang="pt">Nome do cônjuge (suplemento)</label>
+                <label xml:lang="ru">Имена других супругов</label>
+                <label xml:lang="zh">其他配偶姓名</label>
+                <label xml:lang="fr">Nom de l'autre conjoint</label>
+                <label xml:lang="ko">재혼 배우자의 이름</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="OTHER_NAMES">
+                <label xml:lang="en_us">Other Name(s)</label>
+                <label xml:lang="ko">다른 이름 (들)</label>
+                <label xml:lang="default">Other Name(s)</label>
+                <label xml:lang="pt">Outro(s) Nome(s)</label>
+                <label xml:lang="zh">其他名字</label>
+                <label xml:lang="de">Weitere Namen</label>
+                <label xml:lang="it">Ulteriore Nome (o nomi)</label>
+                <label xml:lang="ru">Другие имена</label>
+                <label xml:lang="es">Otros nombres</label>
+                <label xml:lang="fr">Autre nom (s)</label>
+                <label xml:lang="ja">他の名前（複数可）</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="DIGITAL_GS_NUMBER">
+                <label xml:lang="en_us">Digital Folder Number</label>
+                <label xml:lang="it">Numero della cartella digitale</label>
+                <label xml:lang="de">Digitale Ordnernummer</label>
+                <label xml:lang="es">Número de carpeta digital</label>
+                <label xml:lang="ru">Цифровой номер папки</label>
+                <label xml:lang="fr">Numéro de dossier numérique</label>
+                <label xml:lang="ja">デジタルフォルダー番号</label>
+                <label xml:lang="default">Digital Folder Number</label>
+                <label xml:lang="ko">디지털 서류철 번호</label>
+                <label xml:lang="pt">Número da pasta digital</label>
+                <label xml:lang="zh">數位檔案夾編號</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="IMAGE_NBR">
+                <label xml:lang="en_us">Image Number</label>
+                <label xml:lang="pt">Número da imagem</label>
+                <label xml:lang="ja">画像番号</label>
+                <label xml:lang="es">Número de imagen</label>
+                <label xml:lang="fr">Numéro de l'image</label>
+                <label xml:lang="ko">이미지 번호</label>
+                <label xml:lang="default">Image Number</label>
+                <label xml:lang="ru">Номер изображения</label>
+                <label xml:lang="de">Aufnahmenummer</label>
+                <label xml:lang="it">Numero immagine</label>
+                <label xml:lang="zh">影像編號</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="BATCH_LOCALITY"/>
+        </field>
+        <field>
+            <value labelId="EXCLUDE_FROM_EXPORT"/>
+        </field>
+        <field>
+            <value labelId="FOLDER_IMAGE_SEQ"/>
+        </field>
+        <field>
+            <value labelId="FOLDER"/>
+        </field>
+        <field>
+            <value labelId="FS_COLLECTION_ID"/>
+        </field>
+        <field>
+            <value labelId="IMAGE_ID"/>
+        </field>
+        <field>
+            <value labelId="IMAGE_APID"/>
+        </field>
+        <field>
+            <value labelId="IMAGE_PAL"/>
+        </field>
+        <field>
+            <value labelId="IMAGE_TYPE"/>
+        </field>
+        <field>
+            <value labelId="LANGUAGE"/>
+        </field>
+        <field>
+            <value labelId="PPQ_ID"/>
+        </field>
+        <field>
+            <value labelId="PR_FTHR_NAME_GN"/>
+        </field>
+        <field>
+            <value labelId="PR_FTHR_NAME_SURN"/>
+        </field>
+        <field>
+            <value labelId="PR_MTHR_NAME_GN"/>
+        </field>
+        <field>
+            <value labelId="PR_MTHR_NAME_SURN"/>
+        </field>
+        <field>
+            <value labelId="PR_NAME_GN"/>
+        </field>
+        <field>
+            <value labelId="PR_NAME_SURN"/>
+        </field>
+        <field>
+            <value labelId="RECORD_GROUP"/>
+        </field>
+        <field>
+            <value labelId="SORT_KEY"/>
+        </field>
+        <field>
+            <value labelId="SPOUSE_2_NAME_GN"/>
+        </field>
+        <field>
+            <value labelId="SPOUSE_2_NAME_SURN"/>
+        </field>
+        <field>
+            <value labelId="SPOUSE_3_NAME"/>
+        </field>
+        <field>
+            <value labelId="SPOUSE_3_NAME_GN"/>
+        </field>
+        <field>
+            <value labelId="SPOUSE_3_NAME_SURN"/>
+        </field>
+        <field>
+            <value labelId="SPOUSE_NAME_GN"/>
+        </field>
+        <field>
+            <value labelId="SPOUSE_NAME_SURN"/>
+        </field>
+        <field>
+            <value labelId="TRAVELER_NAME"/>
+        </field>
+        <field>
+            <value labelId="UNIQUE_IDENTIFIER"/>
+        </field>
+    </recordDescriptor>
+    <recordDescriptor id="wd_1407787">
+        <field>
+            <value labelId="YEAR" type="http://gedcomx.org/Original">
+                <label xml:lang="en">Year</label>
+                <label xml:lang="es">Año</label>
+                <label xml:lang="ko">년도</label>
+            </value>
+        </field>
+        <field>
+            <value labelId="FILE_NUMBER" type="http://gedcomx.org/Original">
+                <label xml:lang="en">File Number</label>
+            </value>
+        </field>
+    </recordDescriptor>
+</gedcomx>

@@ -76,7 +76,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder param(String name, String value, boolean exact) {
-    super.parameters.add(new SearchParameter(name, value, exact));
+    return param(null, name, value, exact);
+  }
+
+  public GedcomxPersonSearchQueryBuilder param(String prefix, String name, String value, boolean exact) {
+    super.parameters.add(new SearchParameter(prefix, name, value, exact));
     return this;
   }
 
@@ -85,7 +89,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder name(String value, boolean exact) {
-    return param(NAME, value, exact);
+    return name(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder name(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder givenName(String value) {
@@ -93,7 +101,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder givenName(String value, boolean exact) {
-    return param(GIVEN_NAME, value, exact);
+    return givenName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder givenName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, GIVEN_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder surname(String value) {
@@ -101,7 +113,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder surname(String value, boolean exact) {
-    return param(SURNAME, value, exact);
+    return surname(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder surname(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SURNAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder gender(String value) {
@@ -109,7 +125,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder gender(String value, boolean exact) {
-    return param(GENDER, value, exact);
+    return gender(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder gender(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, GENDER, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder birthDate(String value) {
@@ -117,7 +137,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder birthDate(String value, boolean exact) {
-    return param(BIRTH_DATE, value, exact);
+    return birthDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder birthDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, BIRTH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder birthPlace(String value) {
@@ -125,7 +149,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder birthPlace(String value, boolean exact) {
-    return param(BIRTH_PLACE, value, exact);
+    return birthPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder birthPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, BIRTH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder deathDate(String value) {
@@ -133,7 +161,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder deathDate(String value, boolean exact) {
-    return param(DEATH_DATE, value, exact);
+    return deathDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder deathDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, DEATH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder deathPlace(String value) {
@@ -141,7 +173,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder deathPlace(String value, boolean exact) {
-    return param(DEATH_PLACE, value, exact);
+    return deathPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder deathPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, DEATH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder marriageDate(String value) {
@@ -149,7 +185,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder marriageDate(String value, boolean exact) {
-    return param(MARRIAGE_DATE, value, exact);
+    return marriageDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder marriageDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MARRIAGE_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder marriagePlace(String value) {
@@ -157,7 +197,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder marriagePlace(String value, boolean exact) {
-    return param(MARRIAGE_PLACE, value, exact);
+    return marriagePlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder marriagePlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MARRIAGE_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherName(String value) {
@@ -165,7 +209,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherName(String value, boolean exact) {
-    return param(FATHER_NAME, value, exact);
+    return fatherName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherGivenName(String value) {
@@ -173,7 +221,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherGivenName(String value, boolean exact) {
-    return param(FATHER_GIVEN_NAME, value, exact);
+    return fatherGivenName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherGivenName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_GIVEN_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherSurname(String value) {
@@ -181,7 +233,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherSurname(String value, boolean exact) {
-    return param(FATHER_SURNAME, value, exact);
+    return fatherSurname(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherSurname(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_SURNAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherGender(String value) {
@@ -189,7 +245,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherGender(String value, boolean exact) {
-    return param(FATHER_GENDER, value, exact);
+    return fatherGender(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherGender(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_GENDER, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherBirthDate(String value) {
@@ -197,7 +257,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherBirthDate(String value, boolean exact) {
-    return param(FATHER_BIRTH_DATE, value, exact);
+    return fatherBirthDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherBirthDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_BIRTH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherBirthPlace(String value) {
@@ -205,7 +269,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherBirthPlace(String value, boolean exact) {
-    return param(FATHER_BIRTH_PLACE, value, exact);
+    return fatherBirthPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherBirthPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_BIRTH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherDeathDate(String value) {
@@ -213,7 +281,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherDeathDate(String value, boolean exact) {
-    return param(FATHER_DEATH_DATE, value, exact);
+    return fatherDeathDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherDeathDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_DEATH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherDeathPlace(String value) {
@@ -221,7 +293,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherDeathPlace(String value, boolean exact) {
-    return param(FATHER_DEATH_PLACE, value, exact);
+    return fatherDeathPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherDeathPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_DEATH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherMarriageDate(String value) {
@@ -229,7 +305,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherMarriageDate(String value, boolean exact) {
-    return param(FATHER_MARRIAGE_DATE, value, exact);
+    return fatherMarriageDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder fatherMarriageDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_MARRIAGE_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder fatherMarriagePlace(String value) {
@@ -237,15 +317,23 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder fatherMarriagePlace(String value, boolean exact) {
-    return param(FATHER_MARRIAGE_PLACE, value, exact);
+    return fatherMarriagePlace(value, exact, false);
   }
 
+  public GedcomxPersonSearchQueryBuilder fatherMarriagePlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, FATHER_MARRIAGE_PLACE, value, exact);
+  }
+  
   public GedcomxPersonSearchQueryBuilder motherName(String value) {
     return motherName(value, false);
   }
 
   public GedcomxPersonSearchQueryBuilder motherName(String value, boolean exact) {
-    return param(MOTHER_NAME, value, exact);
+    return motherName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherGivenName(String value) {
@@ -253,7 +341,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherGivenName(String value, boolean exact) {
-    return param(MOTHER_GIVEN_NAME, value, exact);
+    return motherGivenName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherGivenName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_GIVEN_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherSurname(String value) {
@@ -261,7 +353,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherSurname(String value, boolean exact) {
-    return param(MOTHER_SURNAME, value, exact);
+    return motherSurname(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherSurname(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_SURNAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherGender(String value) {
@@ -269,7 +365,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherGender(String value, boolean exact) {
-    return param(MOTHER_GENDER, value, exact);
+    return motherGender(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherGender(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_GENDER, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherBirthDate(String value) {
@@ -277,7 +377,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherBirthDate(String value, boolean exact) {
-    return param(MOTHER_BIRTH_DATE, value, exact);
+    return motherBirthDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherBirthDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_BIRTH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherBirthPlace(String value) {
@@ -285,7 +389,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherBirthPlace(String value, boolean exact) {
-    return param(MOTHER_BIRTH_PLACE, value, exact);
+    return motherBirthPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherBirthPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_BIRTH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherDeathDate(String value) {
@@ -293,7 +401,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherDeathDate(String value, boolean exact) {
-    return param(MOTHER_DEATH_DATE, value, exact);
+    return motherDeathDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherDeathDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_DEATH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherDeathPlace(String value) {
@@ -301,7 +413,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherDeathPlace(String value, boolean exact) {
-    return param(MOTHER_DEATH_PLACE, value, exact);
+    return motherDeathPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherDeathPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_DEATH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherMarriageDate(String value) {
@@ -309,7 +425,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherMarriageDate(String value, boolean exact) {
-    return param(MOTHER_MARRIAGE_DATE, value, exact);
+    return motherMarriageDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherMarriageDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_MARRIAGE_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder motherMarriagePlace(String value) {
@@ -317,7 +437,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder motherMarriagePlace(String value, boolean exact) {
-    return param(MOTHER_MARRIAGE_PLACE, value, exact);
+    return motherMarriagePlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder motherMarriagePlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, MOTHER_MARRIAGE_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseName(String value) {
@@ -325,7 +449,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseName(String value, boolean exact) {
-    return param(SPOUSE_NAME, value, exact);
+    return spouseName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseGivenName(String value) {
@@ -333,7 +461,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseGivenName(String value, boolean exact) {
-    return param(SPOUSE_GIVEN_NAME, value, exact);
+    return spouseGivenName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseGivenName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_GIVEN_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseSurname(String value) {
@@ -341,7 +473,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseSurname(String value, boolean exact) {
-    return param(SPOUSE_SURNAME, value, exact);
+    return spouseSurname(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseSurname(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_SURNAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseGender(String value) {
@@ -349,7 +485,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseGender(String value, boolean exact) {
-    return param(SPOUSE_GENDER, value, exact);
+    return spouseGender(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseGender(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_GENDER, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseBirthDate(String value) {
@@ -357,7 +497,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseBirthDate(String value, boolean exact) {
-    return param(SPOUSE_BIRTH_DATE, value, exact);
+    return spouseBirthDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseBirthDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_BIRTH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseBirthPlace(String value) {
@@ -365,7 +509,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseBirthPlace(String value, boolean exact) {
-    return param(SPOUSE_BIRTH_PLACE, value, exact);
+    return spouseBirthPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseBirthPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_BIRTH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseDeathDate(String value) {
@@ -373,7 +521,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseDeathDate(String value, boolean exact) {
-    return param(SPOUSE_DEATH_DATE, value, exact);
+    return spouseDeathDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseDeathDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_DEATH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseDeathPlace(String value) {
@@ -381,7 +533,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseDeathPlace(String value, boolean exact) {
-    return param(SPOUSE_DEATH_PLACE, value, exact);
+    return spouseDeathPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseDeathPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_DEATH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseMarriageDate(String value) {
@@ -389,7 +545,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseMarriageDate(String value, boolean exact) {
-    return param(SPOUSE_MARRIAGE_DATE, value, exact);
+    return spouseMarriageDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseMarriageDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_MARRIAGE_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder spouseMarriagePlace(String value) {
@@ -397,7 +557,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder spouseMarriagePlace(String value, boolean exact) {
-    return param(SPOUSE_MARRIAGE_PLACE, value, exact);
+    return spouseMarriagePlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder spouseMarriagePlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, SPOUSE_MARRIAGE_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentName(String value) {
@@ -405,7 +569,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentName(String value, boolean exact) {
-    return param(PARENT_NAME, value, exact);
+    return parentName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentGivenName(String value) {
@@ -413,7 +581,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentGivenName(String value, boolean exact) {
-    return param(PARENT_GIVEN_NAME, value, exact);
+    return parentGivenName(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentGivenName(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_GIVEN_NAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentSurname(String value) {
@@ -421,7 +593,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentSurname(String value, boolean exact) {
-    return param(PARENT_SURNAME, value, exact);
+    return parentSurname(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentSurname(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_SURNAME, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentGender(String value) {
@@ -429,7 +605,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentGender(String value, boolean exact) {
-    return param(PARENT_GENDER, value, exact);
+    return parentGender(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentGender(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_GENDER, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentBirthDate(String value) {
@@ -437,7 +617,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentBirthDate(String value, boolean exact) {
-    return param(PARENT_BIRTH_DATE, value, exact);
+    return parentBirthDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentBirthDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_BIRTH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentBirthPlace(String value) {
@@ -445,7 +629,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentBirthPlace(String value, boolean exact) {
-    return param(PARENT_BIRTH_PLACE, value, exact);
+    return parentBirthPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentBirthPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_BIRTH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentDeathDate(String value) {
@@ -453,7 +641,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentDeathDate(String value, boolean exact) {
-    return param(PARENT_DEATH_DATE, value, exact);
+    return parentDeathDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentDeathDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_DEATH_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentDeathPlace(String value) {
@@ -461,7 +653,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentDeathPlace(String value, boolean exact) {
-    return param(PARENT_DEATH_PLACE, value, exact);
+    return parentDeathPlace(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentDeathPlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_DEATH_PLACE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentMarriageDate(String value) {
@@ -469,7 +665,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentMarriageDate(String value, boolean exact) {
-    return param(PARENT_MARRIAGE_DATE, value, exact);
+    return parentMarriageDate(value, exact, false);
+  }
+
+  public GedcomxPersonSearchQueryBuilder parentMarriageDate(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_MARRIAGE_DATE, value, exact);
   }
 
   public GedcomxPersonSearchQueryBuilder parentMarriagePlace(String value) {
@@ -477,6 +677,11 @@ public class GedcomxPersonSearchQueryBuilder extends GedcomxBaseSearchQueryBuild
   }
 
   public GedcomxPersonSearchQueryBuilder parentMarriagePlace(String value, boolean exact) {
-    return param(PARENT_MARRIAGE_PLACE, value, exact);
+    return parentMarriagePlace(value, exact, false);
   }
+
+  public GedcomxPersonSearchQueryBuilder parentMarriagePlace(String value, boolean exact, boolean required) {
+    return param(required ? "+" : null, PARENT_MARRIAGE_PLACE, value, exact);
+  }
+
 }
