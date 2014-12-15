@@ -31,6 +31,7 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.IdentifierType;
+import org.gedcomx.types.ResourceStatusType;
 import org.gedcomx.types.ResourceType;
 
 import javax.xml.XMLConstants;
@@ -42,7 +43,7 @@ import java.util.*;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef" } )
+@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
@@ -69,6 +70,12 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private List<Field> fields;
   private ResourceReference repository;
   private ResourceReference descriptorRef;
+  private URI replacedBy;
+  private List<URI> replaces;
+  /**
+   * @see ResourceStatusType
+   */
+  private List<URI> statuses;
 
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
@@ -691,6 +698,91 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
     identifier.setKnownType(IdentifierType.Persistent);
     identifier.setValue(persistentId);
     this.identifiers.add(identifier);
+  }
+
+
+  /**
+   * The URI that this resource has been replaced by.
+   */
+  public URI getReplacedBy() {
+    return replacedBy;
+  }
+
+  /**
+   * The URI that this resource has been replaced by. This resource is some kind of duplicate of that other one.
+   *   This happens when a newer or better version is found, and this one is thus deprecated;
+   *   or when this resource is merged into another one and this one is thus tombstoned or deleted.
+   * @param replacedBy - URI of a resource that replaces this one.
+   */
+  public void setReplacedBy(URI replacedBy) {
+    this.replacedBy = replacedBy;
+  }
+
+  /**
+   * The list of resources that this resource replaces.
+   *
+   * @return The list of identifiers for the source.
+   */
+  @XmlElement (name="replaces")
+  @JsonProperty ("replaces")
+  @JsonName ("replaces")
+  public List<URI> getReplaces() {
+    return replaces;
+  }
+
+  /**
+   * The list of resources that this resource replaces.
+   *
+   * @param replaces The list of identifiers of the source.
+   */
+  @JsonProperty ("replaces")
+  public void setReplaces(List<URI> replaces) {
+    this.replaces = replaces;
+  }
+
+  /**
+   * The list of status types for the source.
+   *
+   * @return The list of status types for the source.
+   */
+  @XmlElement (name="status")
+  @JsonProperty ("statuses")
+  @JsonName ("statuses")
+  public List<URI> getStatuses() {
+    return statuses;
+  }
+
+  /**
+   * The list of status types for the source.
+   *
+   * @param statuses The list of identifiers of the source.
+   */
+  @JsonProperty ("status")
+  public void setStatuses(List<URI> statuses) {
+    this.statuses = statuses;
+  }
+
+  /**
+   * Add the given ResourceStatusType's URI to the list of statuses.
+   * @param status - ResourceStatusType to add to the statuses list.
+   */
+  public void addKnownStatus(ResourceStatusType status) {
+    if (status != null) {
+      addStatus(URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(status)));
+    }
+  }
+
+  /**
+   * Add the given resource status type URI to the list of statuses.
+   * @param status - URI to add to the list of statuses.
+   */
+  public void addStatus(URI status) {
+    if (status != null) {
+      if (statuses == null) {
+        statuses = new ArrayList<URI>();
+      }
+      statuses.add(status);
+    }
   }
 
   /**

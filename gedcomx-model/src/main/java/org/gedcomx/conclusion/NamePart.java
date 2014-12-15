@@ -45,6 +45,9 @@ import java.util.List;
 @XmlType ( name = "NamePart" )
 public final class NamePart extends ExtensibleData implements HasFields {
 
+  /**
+   * @see org.gedcomx.types.NamePartType
+   */
   private URI type;
   private String value;
   private List<Qualifier> qualifiers;

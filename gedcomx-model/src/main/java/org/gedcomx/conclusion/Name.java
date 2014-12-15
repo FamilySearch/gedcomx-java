@@ -48,6 +48,9 @@ import java.util.List;
 @JsonElementWrapper ( name = "names" )
 public class Name extends Conclusion {
 
+  /**
+   * @see org.gedcomx.types.NameType
+   */
   private URI type;
   private Date date;
   private List<NameForm> nameForms;

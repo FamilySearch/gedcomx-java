@@ -29,6 +29,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
+import org.gedcomx.types.FieldValueStatusType;
 import org.gedcomx.types.FieldValueType;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -51,6 +52,10 @@ public final class FieldValue extends Conclusion {
   private String text;
   private URI datatype;
   private URI resource;
+  /**
+   * @see FieldValueStatusType
+   */
+  private URI status;
 
   public FieldValue() {
   }
@@ -306,6 +311,46 @@ public final class FieldValue extends Conclusion {
   public FieldValue resource(URI resource) {
     setResource(resource);
     return this;
+  }
+
+  /**
+   * The status of this FieldValue.
+   *
+   * @see org.gedcomx.types.FieldValueStatusType
+   * @return URI of the field value status type of this field value.
+   */
+  public URI getStatus() {
+    return status;
+  }
+
+  /**
+   * The status of this FieldValue.
+   *
+   * @see org.gedcomx.types.FieldValueStatusType
+   */
+  public void setStatus(URI status) {
+    this.status = status;
+  }
+
+  /**
+   * The known type of the field.
+   *
+   * @return The type of the field.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public FieldValueStatusType getKnownStatus() {
+    return getType() == null ? null : FieldValueStatusType.fromQNameURI(getType());
+  }
+
+  /**
+   * The type of the field.
+   *
+   * @param status The field value status type of the field.
+   */
+  @JsonIgnore
+  public void setKnownStatus(FieldValueStatusType status) {
+    setType(status == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(status)));
   }
 
   /**

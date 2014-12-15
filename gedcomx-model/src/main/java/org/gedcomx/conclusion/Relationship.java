@@ -50,6 +50,9 @@ import java.util.List;
 @XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fields" } )
 public class Relationship extends Subject implements HasFacts, HasFields {
 
+  /**
+   * @see org.gedcomx.types.RelationshipType
+   */
   private URI type;
   private ResourceReference person1;
   private ResourceReference person2;

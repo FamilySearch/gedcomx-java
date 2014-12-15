@@ -42,6 +42,9 @@ public class Coverage extends HypermediaEnabledData {
 
   private PlaceReference spatial;
   private Date temporal;
+  /**
+   * @see org.gedcomx.types.RecordType
+   */
   private URI recordType;
 
   /**
