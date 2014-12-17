@@ -781,7 +781,9 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
       if (statuses == null) {
         statuses = new ArrayList<URI>();
       }
-      statuses.add(status);
+      if (!statuses.contains(status)) {
+        statuses.add(status);
+      }
     }
   }
 
