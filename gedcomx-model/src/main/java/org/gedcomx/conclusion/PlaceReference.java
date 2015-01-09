@@ -147,13 +147,27 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   }
 
   /**
+   * Add a normalized value.
+   *
+   * @param normalized The normalized value.
+   */
+  public void addNormalizedExtension(TextValue normalized) {
+    if (normalized != null) {
+      if (this.normalized == null) {
+        this.normalized = new LinkedList<TextValue>();
+      }
+      this.normalized.add(normalized);
+    }
+  }
+
+  /**
    * Build out this place reference with an normalized string.
    *
    * @param normalized The normalized string.
    * @return this.
    */
   public PlaceReference normalized(String normalized) {
-    setOriginal(normalized);
+    addNormalizedExtension(new TextValue(normalized));
     return this;
   }
 
