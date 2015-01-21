@@ -38,6 +38,7 @@ public class FamilySearchOptions {
   public static final String INCLUDE_MARRIAGE_DETAILS = "marriageDetails";
   public static final String INCLUDE_PERSON_DETAILS = "personDetails";
   public static final String INCLUDE_PERSONS = "persons";
+  public static final String PERSON_NAME = "personName";
   public static final String SPOUSE_ID = "spouse";
   public static final String STATUS = "status";
   public static final String TITLE = "title";
@@ -75,6 +76,10 @@ public class FamilySearchOptions {
 
   public static QueryParameter title(String title) {
     return new QueryParameter(true, TITLE, title);
+  }
+
+  public static QueryParameter personName(String personName) {
+    return new QueryParameter(true, PERSON_NAME, personName);
   }
 
   public static QueryParameter artifactType(ArtifactType type) {
