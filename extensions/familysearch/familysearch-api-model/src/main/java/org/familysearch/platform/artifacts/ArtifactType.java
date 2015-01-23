@@ -31,14 +31,14 @@ import org.gedcomx.common.URI;
 public enum ArtifactType
 {
   /**
-   * The artifact is an audio.
-   */
-  Audio,
-
-  /**
-   * The artifact is an image of a document.
+   * The artifact is a document.
    */
   Document,
+
+  /**
+   * The artifact is an obituary.
+   */
+  Obituary,
 
   /**
    * The artifact is a photo.
@@ -46,19 +46,9 @@ public enum ArtifactType
   Photo,
 
   /**
-   * The artifact is a portrait.
-   */
-  Portrait,
-
-  /**
    * The artifact is a story.
    */
   Story,
-
-  /**
-   * The artifact is a video.
-   */
-  Video,
 
   /**
    * Custom
@@ -84,5 +74,4 @@ public enum ArtifactType
   public static ArtifactType fromQNameURI(URI qname) {
     return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), ArtifactType.class);
   }
-
 }
