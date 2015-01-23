@@ -37,6 +37,11 @@ public enum FamilySearchIdentifierType {
    */
   MemoryPerson,
 
+  /**
+   * FamilyTreePerson
+   */
+  FamilyTreePerson,
+
   @XmlUnknownQNameEnumValue
   OTHER;
 
