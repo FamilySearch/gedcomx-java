@@ -52,12 +52,5 @@
       <artifactId>gedcomx-atom</artifactId>
       <version>${project.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>5.14</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 </project>
