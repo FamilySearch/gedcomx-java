@@ -165,6 +165,17 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.5</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>false</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -214,6 +225,40 @@
     </pluginManagement>
   </build>
 
+  <licenses>
+    <license>
+      <name>Th Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Ryan Heaton</name>
+      <url>https://github.com/stoicflame</url>
+    </developer>
+    <developer>
+      <name>John Clark</name>
+      <url>https://github.com/jonnymbgood</url>
+    </developer>
+    <developer>
+      <name>Todd Chapman</name>
+      <url>https://github.com/wahkara</url>
+    </developer>
+    <developer>
+      <name>Robert Lee</name>
+      <url>https://github.com/leerobertw</url>
+    </developer>
+    <developer>
+      <name>David Nash</name>
+      <url>https://github.com/dnash21e</url>
+    </developer>
+    <developer>
+      <name>Randy Wilson</name>
+      <url>https://github.com/ranbo</url>
+    </developer>
+  </developers>
+
   <repositories>
     <repository>
       <id>codehaus-release-repo</id>
@@ -231,15 +276,13 @@
   </pluginRepositories>
 
   <distributionManagement>
-    <repository>
-      <id>gedcomx-release-repo</id>
-      <name>GEDCOM X Release Repository</name>
-      <url>https://repository-gedcom.forge.cloudbees.com/release/</url>
-    </repository>
     <snapshotRepository>
-      <id>gedcomx-snapshot-repo</id>
-      <name>GEDCOM X Snapshot Repository</name>
-      <url>https://repository-gedcom.forge.cloudbees.com/snapshot/</url>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 </project>
