@@ -182,6 +182,7 @@
           <autoVersionSubmodules>true</autoVersionSubmodules>
           <useReleaseProfile>false</useReleaseProfile>
           <releaseProfiles>release</releaseProfiles>
+          <goals>deploy nexus-staging:release</goals>
         </configuration>
       </plugin>
     </plugins>
