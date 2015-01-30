@@ -10,6 +10,8 @@ including:
 * Readers and writers for the [GEDCOM X File Format](https://github.com/FamilySearch/gedcomx/blob/master/specifications/file-format-specification.md).
 * Client-side libraries for reading and writing a GEDCOM X Web service API that conforms to the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs).
 
+[![Build Status](https://travis-ci.org/FamilySearch/gedcomx-java.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-java)
+
 ## Reading and Writing XML and JSON
 
 The [`gedcomx-model`](./gedcomx-model/README.md) subproject provides Java classes that correspond to the data types defined by
@@ -48,7 +50,6 @@ Here's how you might use this project.
 
 The GEDCOM X Java artifacts are provided via a [Maven repository structure](http://maven.apache.org/guides/introduction/introduction-to-repositories.html).
 Most Java-based build systems (Ant, Maven, Gradle, etc.) have support for Maven repositories.
-The official Maven repositories are generously hosted by [CloudBees](http://cloudbees.com/).
 
 Here's some snippets of what the dependency declarations might look like in some of the most common build systems. Note that
 these snippets declare a dependency on the [`gedcomx-model`](./gedcomx-model/README.md) artifact, but you may want to declare dependencies on
@@ -74,32 +75,10 @@ and use the "release" version.
     ...
   </dependencies>
   ...
-  <repositories>
-    <repository>
-      <id>gedcomx-release-repo</id>
-      <name>GEDCOM X Release Repository</name>
-      <url>https://repository-gedcom.forge.cloudbees.com/release/</url>
-    </repository>
-  </repositories>
-  ...
 </project>
 ```
 
 #### Apache Ivy
-
-```xml
-<ivysettings>
-...
-  <settings defaultResolver="chain"/>
-  <resolvers>
-    <chain name="chain">
-      <ibiblio name="central" m2compatible="true"/>
-      <ibiblio name="gedcomx" m2compatible="true" root="https://repository-gedcom.forge.cloudbees.com/release/"/>
-    </chain>
-  </resolvers>
-...
-</ivysettings>
-```
 
 ```xml
 <ivy-module>
@@ -117,12 +96,6 @@ and use the "release" version.
 
 ```groovy
 ...
-repositories {
-  maven {
-    url "https://repository-gedcom.forge.cloudbees.com/release/"
-  }
-}
-...
 dependencies {
   runtime group: 'org.gedcomx', name: 'gedcomx-model', version: gedcomxVersion
 }
@@ -132,8 +105,6 @@ dependencies {
 #### Apache Buildr
 
 ```ruby
-...
-repositories.remote << 'https://repository-gedcom.forge.cloudbees.com/release/'
 ...
 compile.with transitive('org.gedcomx:gedcomx-model:#{gedcomx-version}')
 ...
@@ -149,3 +120,6 @@ cd gedcomx-java
 mvn install
 ```
 
+The build for this project is automated via [Travis CI](https://travis-ci.org/FamilySearch/gedcomx-java), which automatically
+validates any updates to the code. When a release is needed, a [Jenkins build server](https://gedcom.ci.cloudbees.com/)
+generously hosted by [CloudBees](https://www.cloudbees.com/) is used to perform the release.
