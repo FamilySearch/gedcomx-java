@@ -38,28 +38,36 @@ public class AtomModelVisitorBase extends GedcomxModelVisitorBase implements Ato
     List<Entry> entries = feed.getEntries();
     if (entries != null) {
       for (Entry entry : entries) {
-        entry.accept(this);
+        if (entry != null) {
+          entry.accept(this);
+        }
       }
     }
 
     List<Person> authors = feed.getAuthors();
     if (authors != null) {
       for (Person author : authors) {
-        author.accept(this);
+        if (author != null) {
+          author.accept(this);
+        }
       }
     }
 
     List<Person> contributors = feed.getContributors();
     if (contributors != null) {
       for (Person contributor : contributors) {
-        contributor.accept(this);
+        if (contributor != null) {
+          contributor.accept(this);
+        }
       }
     }
 
     List<Field> facets = feed.getFacets();
     if (facets != null) {
       for (Field facet : facets) {
-        facet.accept(this);
+        if (facet != null) {
+          facet.accept(this);
+        }
       }
     }
 
@@ -82,14 +90,18 @@ public class AtomModelVisitorBase extends GedcomxModelVisitorBase implements Ato
     List<Person> authors = entry.getAuthors();
     if (authors != null) {
       for (Person author : authors) {
-        author.accept(this);
+        if (author != null) {
+          author.accept(this);
+        }
       }
     }
 
     List<Person> contributors = entry.getContributors();
     if (contributors != null) {
       for (Person contributor : contributors) {
-        contributor.accept(this);
+        if (contributor != null) {
+          contributor.accept(this);
+        }
       }
     }
     this.contextStack.pop();

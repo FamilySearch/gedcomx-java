@@ -167,7 +167,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<EventRole> roles = event.getRoles();
     if (roles != null) {
       for (EventRole role : roles) {
-        role.accept(this);
+        if (role != null) {
+          role.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -191,21 +193,27 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<SourceReference> sources = sourceDescription.getSources();
     if (sources != null) {
       for (SourceReference source : sources) {
-        source.accept(this);
+        if (source != null) {
+          source.accept(this);
+        }
       }
     }
 
     List<Note> notes = sourceDescription.getNotes();
     if (notes != null) {
       for (Note note : notes) {
-        note.accept(this);
+        if (note != null) {
+          note.accept(this);
+        }
       }
     }
 
     List<SourceCitation> citations = sourceDescription.getCitations();
     if (citations != null) {
       for (SourceCitation citation : citations) {
-        citation.accept(this);
+        if (citation != null) {
+          citation.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -232,7 +240,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<FieldValue> values = field.getValues();
     if (values != null) {
       for (FieldValue value : values) {
-        value.accept(this);
+        if (value != null) {
+          value.accept(this);
+        }
       }
     }
 
@@ -254,14 +264,18 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<Fact> facts = relationship.getFacts();
     if (facts != null) {
       for (Fact fact : facts) {
-        fact.accept(this);
+        if (fact != null) {
+          fact.accept(this);
+        }
       }
     }
 
     List<Field> fields = relationship.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
 
@@ -272,14 +286,18 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<SourceReference> sourceReferences = conclusion.getSources();
     if (sourceReferences != null) {
       for (SourceReference sourceReference : sourceReferences) {
-        sourceReference.accept(this);
+        if (sourceReference != null) {
+          sourceReference.accept(this);
+        }
       }
     }
 
     List<Note> notes = conclusion.getNotes();
     if (notes != null) {
       for (Note note : notes) {
-        note.accept(this);
+        if (note != null) {
+          note.accept(this);
+        }
       }
     }
   }
@@ -290,14 +308,18 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<SourceReference> media = subject.getMedia();
     if (media != null) {
       for (SourceReference reference : media) {
-        reference.accept(this);
+        if (reference != null) {
+          reference.accept(this);
+        }
       }
     }
 
     List<EvidenceReference> evidence = subject.getEvidence();
     if (evidence != null) {
       for (EvidenceReference evidenceReference : evidence) {
-        evidenceReference.accept(this);
+        if (evidenceReference != null) {
+          evidenceReference.accept(this);
+        }
       }
     }
   }
@@ -314,21 +336,27 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<Name> names = person.getNames();
     if (names != null) {
       for (Name name : names) {
-        name.accept(this);
+        if (name != null) {
+          name.accept(this);
+        }
       }
     }
 
     List<Fact> facts = person.getFacts();
     if (facts != null) {
       for (Fact fact : facts) {
-        fact.accept(this);
+        if (fact != null) {
+          fact.accept(this);
+        }
       }
     }
 
     List<Field> fields = person.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -351,7 +379,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<Field> fields = fact.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
 
@@ -364,7 +394,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<Field> fields = place.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -376,7 +408,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<Field> fields = date.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -390,7 +424,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<NameForm> forms = name.getNameForms();
     if (forms != null) {
       for (NameForm form : forms) {
-        form.accept(this);
+        if (form != null) {
+          form.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -402,14 +438,18 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<NamePart> parts = form.getParts();
     if (parts != null) {
       for (NamePart part : parts) {
-        part.accept(this);
+        if (part != null) {
+          part.accept(this);
+        }
       }
     }
 
     List<Field> fields = form.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -421,7 +461,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<Field> fields = part.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
     this.contextStack.pop();
@@ -435,7 +477,9 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     List<Field> fields = gender.getFields();
     if (fields != null) {
       for (Field field : fields) {
-        field.accept(this);
+        if (field != null) {
+          field.accept(this);
+        }
       }
     }
 

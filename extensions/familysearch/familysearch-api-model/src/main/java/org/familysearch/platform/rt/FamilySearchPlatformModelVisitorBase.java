@@ -43,35 +43,45 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     List<Discussion> discussions = fsp.getDiscussions();
     if (discussions != null) {
       for (Discussion discussion : discussions) {
-        discussion.accept(this);
+        if (discussion != null) {
+          discussion.accept(this);
+        }
       }
     }
 
     List<Merge> merges = fsp.getMerges();
     if (merges != null) {
       for (Merge merge : merges) {
-        merge.accept(this);
+        if (merge != null) {
+          merge.accept(this);
+        }
       }
     }
 
     List<MergeAnalysis> mergeAnalyses = fsp.getMergeAnalyses();
     if (mergeAnalyses != null) {
       for (MergeAnalysis merge : mergeAnalyses) {
-        merge.accept(this);
+        if (merge != null) {
+          merge.accept(this);
+        }
       }
     }
 
     List<ChildAndParentsRelationship> childAndParentsRelationships = fsp.getChildAndParentsRelationships();
     if (childAndParentsRelationships != null) {
       for (ChildAndParentsRelationship pcr : childAndParentsRelationships) {
-        pcr.accept(this);
+        if (pcr != null) {
+          pcr.accept(this);
+        }
       }
     }
 
     List<User> users = fsp.getUsers();
     if (users != null) {
       for (User user : users) {
-        user.accept(this);
+        if (user != null) {
+          user.accept(this);
+        }
       }
     }
 
@@ -85,28 +95,36 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     List<Discussion> discussions = gx.findExtensionsOfType(Discussion.class);
     if (discussions != null) {
       for (Discussion discussion : discussions) {
-        discussion.accept(this);
+        if (discussion != null) {
+          discussion.accept(this);
+        }
       }
     }
 
     List<Merge> merges = gx.findExtensionsOfType(Merge.class);
     if (merges != null) {
       for (Merge merge : merges) {
-        merge.accept(this);
+        if (merge != null) {
+          merge.accept(this);
+        }
       }
     }
 
     List<MergeAnalysis> mergeAnalyses = gx.findExtensionsOfType(MergeAnalysis.class);
     if (mergeAnalyses != null) {
       for (MergeAnalysis merge : mergeAnalyses) {
-        merge.accept(this);
+        if (merge != null) {
+          merge.accept(this);
+        }
       }
     }
 
     List<ChildAndParentsRelationship> childAndParentsRelationships = gx.findExtensionsOfType(ChildAndParentsRelationship.class);
     if (childAndParentsRelationships != null) {
       for (ChildAndParentsRelationship pcr : childAndParentsRelationships) {
-        pcr.accept(this);
+        if (pcr != null) {
+          pcr.accept(this);
+        }
       }
     }
 
@@ -123,14 +141,18 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     facts = pcr.getFatherFacts();
     if (facts != null) {
       for (Fact fact : facts) {
-        fact.accept(this);
+        if (fact != null) {
+          fact.accept(this);
+        }
       }
     }
 
     facts = pcr.getMotherFacts();
     if (facts != null) {
       for (Fact fact : facts) {
-        fact.accept(this);
+        if (fact != null) {
+          fact.accept(this);
+        }
       }
     }
 
@@ -153,7 +175,9 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     List<Comment> comments = discussion.getComments();
     if (comments != null) {
       for (Comment comment : comments) {
-        comment.accept(this);
+        if (comment != null) {
+          comment.accept(this);
+        }
       }
     }
     this.contextStack.pop();
