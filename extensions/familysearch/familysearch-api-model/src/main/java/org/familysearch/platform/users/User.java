@@ -43,6 +43,7 @@ public class User extends HypermediaEnabledData
   private String gender;
   private String birthDate;
   private String phoneNumber;
+  private String mobilePhoneNumber;
   private String mailingAddress;
   private String preferredLanguage;
   private String displayName;
@@ -137,6 +138,10 @@ public class User extends HypermediaEnabledData
   public void setPhoneNumber( String phoneNumber ) {
     this.phoneNumber = phoneNumber;
   }
+
+  public String getMobilePhoneNumber() { return mobilePhoneNumber; }
+
+  public void setMobilePhoneNumber(String mobilePhoneNumber) { this.mobilePhoneNumber = mobilePhoneNumber; }
 
   public String getMailingAddress() {
     return mailingAddress;

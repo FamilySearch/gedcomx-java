@@ -24,6 +24,7 @@ public class UserTest {
     assertNull(user.getGender());
     assertNull(user.getBirthDate());
     assertNull(user.getPhoneNumber());
+    assertNull(user.getMobilePhoneNumber());
     assertNull(user.getMailingAddress());
     assertNull(user.getPreferredLanguage());
     assertNull(user.getDisplayName());
@@ -43,6 +44,7 @@ public class UserTest {
     user.setGender("Male");
     user.setBirthDate("5 May 1862");
     user.setPhoneNumber("385-555-1212");
+    user.setMobilePhoneNumber("385-555-1213");
     user.setMailingAddress("1 Main St");
     user.setPreferredLanguage("en");
     user.setDisplayName("given surname");
@@ -62,6 +64,7 @@ public class UserTest {
     assertEquals("Male", user.getGender());
     assertEquals("5 May 1862", user.getBirthDate());
     assertEquals("385-555-1212", user.getPhoneNumber());
+    assertEquals("385-555-1213", user.getMobilePhoneNumber());
     assertEquals("1 Main St", user.getMailingAddress());
     assertEquals("en", user.getPreferredLanguage());
     assertEquals("given surname", user.getDisplayName());
