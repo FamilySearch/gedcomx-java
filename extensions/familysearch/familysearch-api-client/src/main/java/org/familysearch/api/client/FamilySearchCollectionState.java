@@ -153,6 +153,7 @@ public class FamilySearchCollectionState extends CollectionState {
     dateValue.addNormalizedExtension(new TextValue(response.getEntity(String.class)));
     if (response.getHeaders()!= null) {
       dateValue.setFormal(response.getHeaders().getFirst("Location"));
+      dateValue.getNormalizedExtensions().get(0).setLang(response.getHeaders().getFirst("Content-Language"));
     }
     return dateValue;
   }
