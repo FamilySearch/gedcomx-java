@@ -673,6 +673,16 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return deleteEvidenceReference(reference, options);
   }
 
+  public SourceDescriptionState readSourceDescription(SourceReference sourceReference, StateTransitionOption... options) {
+     org.gedcomx.common.URI uri = sourceReference.getDescriptionRef();
+    if (uri == null) {
+      throw new GedcomxApplicationException("SourceDescription cannot be read: missing URI");
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(uri.toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
+
   public PersonState readNote(Note note, StateTransitionOption... options) {
     Link link = note.getLink(Rel.NOTE);
     link = link == null ? note.getLink(Rel.SELF) : link;
