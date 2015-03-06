@@ -315,6 +315,17 @@ public class RelationshipState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
+  public SourceDescriptionState readSourceDescription(SourceReference sourceReference, StateTransitionOption... options) {
+    Link link = sourceReference.getLink(Rel.DESCRIPTION);
+    link = link == null ? sourceReference.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Source description cannot be read: missing link.");
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
+
   public RelationshipState addMediaReference(SourceDescriptionState description, StateTransitionOption... options) {
     SourceReference reference = new SourceReference();
     reference.setDescriptionRef(new org.gedcomx.common.URI(description.getSelfUri().toString()));

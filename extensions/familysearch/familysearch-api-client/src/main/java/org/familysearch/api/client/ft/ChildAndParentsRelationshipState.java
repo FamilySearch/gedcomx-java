@@ -319,6 +319,17 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
+  public SourceDescriptionState readSourceDescription(SourceReference sourceReference, StateTransitionOption... options) {
+    Link link = sourceReference.getLink(org.gedcomx.rs.Rel.DESCRIPTION);
+    link = link == null ? sourceReference.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Source description cannot be read: missing link.");
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
+
   public ChildAndParentsRelationshipState addMediaReference(SourceReference reference, StateTransitionOption... options) {
     return addMediaReferences(new SourceReference[]{reference}, options);
   }
