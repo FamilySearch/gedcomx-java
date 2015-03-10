@@ -369,7 +369,10 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected GedcomxApplicationState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
-    ifSuccessful();// first do a check to see if we're working on a successful state.
+    if (hasServerError()) {
+      // first do a check to see if the server is in a bad state.
+      throw new GedcomxApplicationException(buildFailureMessage(), this.response);
+    }
 
     Link tokenLink = this.links.get(Rel.OAUTH2_TOKEN);
     if (tokenLink == null || tokenLink.getHref() == null) {
