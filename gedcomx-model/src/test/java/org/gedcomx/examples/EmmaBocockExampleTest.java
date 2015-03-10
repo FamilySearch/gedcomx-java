@@ -25,7 +25,7 @@ public class EmmaBocockExampleTest {
   public void testExample() throws Exception {
     Agent contributor = new Agent().id("A-1").name("Jane Doe").email("example@example.org");
     Agent repository = new Agent().id("A-2").name("General Registry Office, Southport");
-    Attribution attribution = new Attribution().contributor(contributor).modified(parse("2014-03-07"));
+    Attribution attribution = new Attribution().contributor(contributor).modified(parse("2014-03-07")).changeMessage("change message example");
     SourceDescription sourceDescription = new SourceDescription().id("S-1")
       .title("Birth Certificate of Emma Bocock, 23 July 1843, General Registry Office")
       .citation(new SourceCitation().value("England, birth certificate for Emma Bocock, born 23 July 1843; citing 1843 Birth in District and Sub-district of Ecclesall-Bierlow in the County of York, 303; General Registry Office, Southport."))
