@@ -23,6 +23,7 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.familysearch.api.client.FamilySearchCollectionState;
+import org.familysearch.api.client.FamilySearchReferenceEnvironment;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.UserState;
 import org.familysearch.api.client.util.RequestUtil;
@@ -56,7 +57,11 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   }
 
   public FamilySearchFamilyTree(boolean sandbox) {
-    this(java.net.URI.create(sandbox ? SANDBOX_URI : URI));
+    this(sandbox ? FamilySearchReferenceEnvironment.SANDBOX : FamilySearchReferenceEnvironment.PRODUCTION );
+  }
+
+  public FamilySearchFamilyTree(FamilySearchReferenceEnvironment env) {
+    this(env.getFamilyTreeUri());
   }
 
   public FamilySearchFamilyTree(URI uri) {

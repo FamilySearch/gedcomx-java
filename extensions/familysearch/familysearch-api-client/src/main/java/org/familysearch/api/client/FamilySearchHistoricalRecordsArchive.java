@@ -46,7 +46,11 @@ public class FamilySearchHistoricalRecordsArchive extends FamilySearchCollection
   }
 
   public FamilySearchHistoricalRecordsArchive(boolean sandbox) {
-    this(java.net.URI.create(sandbox ? SANDBOX_URI : URI));
+    this(sandbox ? FamilySearchReferenceEnvironment.SANDBOX : FamilySearchReferenceEnvironment.PRODUCTION);
+  }
+
+  public FamilySearchHistoricalRecordsArchive(FamilySearchReferenceEnvironment env) {
+    this(env.getHistoricalRecordsArchiveUri());
   }
 
   public FamilySearchHistoricalRecordsArchive(URI uri) {

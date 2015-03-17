@@ -46,7 +46,11 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
   }
 
   public FamilySearchPlaces(boolean sandbox) {
-    this(java.net.URI.create(sandbox ? SANDBOX_URI : URI));
+    this(sandbox ? FamilySearchReferenceEnvironment.SANDBOX : FamilySearchReferenceEnvironment.PRODUCTION);
+  }
+
+  public FamilySearchPlaces(FamilySearchReferenceEnvironment env) {
+    this(env.getPlacesUri());
   }
 
   public FamilySearchPlaces(URI uri) {

@@ -44,6 +44,14 @@ import java.net.URI;
  */
 public class FamilySearchCollectionState extends CollectionState {
 
+  public FamilySearchCollectionState() {
+    this(FamilySearchReferenceEnvironment.PRODUCTION);
+  }
+
+  public FamilySearchCollectionState(FamilySearchReferenceEnvironment env) {
+    this(env.getRootUri());
+  }
+
   public FamilySearchCollectionState(URI uri) {
     this(uri, new FamilySearchStateFactory());
   }

@@ -49,7 +49,11 @@ public class FamilySearchMemories extends FamilySearchCollectionState {
   }
 
   public FamilySearchMemories(boolean sandbox) {
-    this(java.net.URI.create(sandbox ? SANDBOX_URI : URI));
+    this(sandbox ? FamilySearchReferenceEnvironment.SANDBOX : FamilySearchReferenceEnvironment.PRODUCTION);
+  }
+
+  public FamilySearchMemories(FamilySearchReferenceEnvironment env) {
+    this(env.getMemoriesUri());
   }
 
   public FamilySearchMemories(URI uri) {
