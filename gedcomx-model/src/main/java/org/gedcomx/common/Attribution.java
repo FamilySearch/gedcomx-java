@@ -156,9 +156,11 @@ public final class Attribution extends ExtensibleData {
    * Build up this attribution with a change message.
    *
    * @param changeMessage The change message.
+   * @return this.
    */
-  public void changeMessage(String changeMessage) {
+  public Attribution changeMessage(String changeMessage) {
     this.changeMessage = changeMessage;
+    return this;
   }
 
   /**

@@ -369,6 +369,11 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected GedcomxApplicationState authenticateViaOAuth2(MultivaluedMap<String, String> formData, StateTransitionOption... options) {
+    if (hasServerError()) {
+      // first do a check to see if the server is in a bad state.
+      throw new GedcomxApplicationException(buildFailureMessage(), this.response);
+    }
+
     Link tokenLink = this.links.get(Rel.OAUTH2_TOKEN);
     if (tokenLink == null || tokenLink.getHref() == null) {
       throw new GedcomxApplicationException(String.format("No OAuth2 token URI supplied for resource at %s.", getUri()));

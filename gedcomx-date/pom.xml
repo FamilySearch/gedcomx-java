@@ -7,7 +7,7 @@
   <parent>
     <artifactId>gedcomx-parent</artifactId>
     <groupId>org.gedcomx</groupId>
-    <version>1.0.116.M1-SNAPSHOT</version>
+    <version>1.0.118.M1-SNAPSHOT</version>
   </parent>
 
   <properties>

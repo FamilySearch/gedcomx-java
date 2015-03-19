@@ -123,11 +123,11 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   public Person getPerson() {
     return getEntity() == null ? null : getEntity().getPersons() == null ? null : getEntity().getPersons().isEmpty() ? null : getEntity().getPersons().get(0);
   }
-  
+
   public List<Relationship> getRelationships() {
     return getEntity() == null ? null : getEntity().getRelationships();
   }
-  
+
   public List<Relationship> getSpouseRelationships() {
     List<Relationship> relationships = getRelationships();
     relationships = relationships == null ? null : new ArrayList<Relationship>(relationships);
@@ -141,7 +141,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     }
     return relationships;
   }
-  
+
   public List<Relationship> getChildRelationships() {
     List<Relationship> relationships = getRelationships();
     relationships = relationships == null ? null : new ArrayList<Relationship>(relationships);
@@ -156,7 +156,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     }
     return relationships;
   }
-  
+
   public List<Relationship> getParentRelationships() {
     List<Relationship> relationships = getRelationships();
     relationships = relationships == null ? null : new ArrayList<Relationship>(relationships);
@@ -184,7 +184,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   public Conclusion getConclusion() {
     return getName() != null ? getName() : getGender() != null ? getGender() : getFact() != null ? getFact() : null;
   }
-  
+
   public Name getName() {
     Person person = getPerson();
     return person == null ? null : person.getNames() == null ? null : person.getNames().isEmpty() ? null : person.getNames().get(0);
@@ -527,6 +527,17 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  public SourceDescriptionState readSourceDescription(SourceReference sourceReference, StateTransitionOption... options) {
+    Link link = sourceReference.getLink(Rel.DESCRIPTION);
+    link = link == null ? sourceReference.getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Source description cannot be read: missing link.");
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
+
   public SourceDescriptionsState readArtifacts(StateTransitionOption... options) {
     Link link = getLink(Rel.ARTIFACTS);
     if (link == null || link.getHref() == null) {
@@ -727,7 +738,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
-  
+
   public RelationshipState readRelationship(Relationship relationship, StateTransitionOption... options) {
     Link link = relationship.getLink(Rel.RELATIONSHIP);
     link = link == null ? relationship.getLink(Rel.SELF) : link;
@@ -754,11 +765,11 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     ClientRequest request = createAuthenticatedGedcomxRequest().build(reference.getResource().toURI(), HttpMethod.GET);
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
-  
+
   public PersonState readFirstSpouse(StateTransitionOption... options) {
     return readSpouse(0, options);
   }
-  
+
   public PersonState readSpouse(int index, StateTransitionOption... options) {
     List<Relationship> spouseRelationships = getSpouseRelationships();
     if (spouseRelationships.size() <= index) {
@@ -766,7 +777,7 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     }
     return readSpouse(spouseRelationships.get(index), options);
   }
-  
+
   public PersonState readSpouse(Relationship relationship, StateTransitionOption... options) {
     return readRelative(relationship, options);
   }
