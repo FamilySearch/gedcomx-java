@@ -421,4 +421,26 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  public SourceDescriptionsState queryAttachedReferences(java.net.URI source, StateTransitionOption... options) {
+    Link link = getLink(org.gedcomx.rs.Rel.SOURCE_REFERENCES_QUERY);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+    else {
+      String template = link.getTemplate();
+
+      String uri;
+      try {
+        uri = UriTemplate.fromTemplate(template).set("source", source).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
+      }
+      catch (VariableExpansionException e) {
+        throw new GedcomxApplicationException(e);
+      }
+      catch (MalformedUriTemplateException e) {
+        throw new GedcomxApplicationException(e);
+      }
+      ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+      return ((FamilyTreeStateFactory) this.stateFactory).newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
+    }
+  }
 }
