@@ -40,6 +40,8 @@ public class HealthConfig {
   private String username;
   private String osVersion;
   private String javaVersion;
+  private String javaRuntimeVersion;
+  private String javaSpecificationVendor;
 
 
   public String getPlatformVersion() {
@@ -136,5 +138,21 @@ public class HealthConfig {
 
   public void setJavaVersion(String javaVersion) {
     this.javaVersion = javaVersion;
+  }
+
+  public String getJavaRuntimeVersion() {
+    return javaRuntimeVersion;
+  }
+
+  public void setJavaRuntimeVersion(String javaRuntimeVersion) {
+    this.javaRuntimeVersion = javaRuntimeVersion;
+  }
+
+  public String getJavaSpecificationVendor() {
+    return javaSpecificationVendor;
+  }
+
+  public void setJavaSpecificationVendor(String javaSpecificationVendor) {
+    this.javaSpecificationVendor = javaSpecificationVendor;
   }
 }
