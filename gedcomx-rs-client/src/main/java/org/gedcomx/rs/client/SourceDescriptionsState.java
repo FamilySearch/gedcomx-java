@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * @author Ryan Heaton
  */
-public class SourceDescriptionsState<E> extends GedcomxApplicationState<Gedcomx> {
+public class SourceDescriptionsState extends GedcomxApplicationState<Gedcomx> {
 
   protected SourceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);

@@ -436,7 +436,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
 
       String uri;
       try {
-        uri = UriTemplate.fromTemplate(template).set("source", source).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
+        uri = UriTemplate.fromTemplate(template).set("source", source.toString()).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
       }
       catch (VariableExpansionException e) {
         throw new GedcomxApplicationException(e);
@@ -444,7 +444,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
       catch (MalformedUriTemplateException e) {
         throw new GedcomxApplicationException(e);
       }
-      ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+      ClientRequest request = createAuthenticatedGedcomxRequest().build(java.net.URI.create(uri), HttpMethod.GET);
       return ((FamilyTreeStateFactory) this.stateFactory).newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
     }
   }
