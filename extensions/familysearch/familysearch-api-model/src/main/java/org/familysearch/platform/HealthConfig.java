@@ -32,6 +32,16 @@ public class HealthConfig {
   private String buildDate;
   private String platformVersion;
 
+  private String systemName;
+  private String runningOnAws;
+  private String catalinaBase;
+  private String hostname;
+  private String username;
+  private String osVersion;
+  private String javaVersion;
+
+
+
   public String getPlatformVersion() {
     return platformVersion;
   }
@@ -62,5 +72,61 @@ public class HealthConfig {
 
   public void setBuildDate(String buildDate) {
     this.buildDate = buildDate;
+  }
+
+  public String getSystemName() {
+    return systemName;
+  }
+
+  public void setSystemName(String systemName) {
+    this.systemName = systemName;
+  }
+
+  public String getRunningOnAws() {
+    return runningOnAws;
+  }
+
+  public void setRunningOnAws(String runningOnAws) {
+    this.runningOnAws = runningOnAws;
+  }
+
+  public String getCatalinaBase() {
+    return catalinaBase;
+  }
+
+  public void setCatalinaBase(String catalinaBase) {
+    this.catalinaBase = catalinaBase;
+  }
+
+  public String getHostname() {
+    return hostname;
+  }
+
+  public void setHostname(String hostname) {
+    this.hostname = hostname;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getOsVersion() {
+    return osVersion;
+  }
+
+  public void setOsVersion(String osVersion) {
+    this.osVersion = osVersion;
+  }
+
+  public String getJavaVersion() {
+    return javaVersion;
+  }
+
+  public void setJavaVersion(String javaVersion) {
+    this.javaVersion = javaVersion;
   }
 }
