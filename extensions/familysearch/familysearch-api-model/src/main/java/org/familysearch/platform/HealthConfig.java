@@ -34,12 +34,12 @@ public class HealthConfig {
 
   private String systemName;
   private String runningOnAws;
+  private String serviceConfigurationName;
   private String catalinaBase;
   private String hostname;
   private String username;
   private String osVersion;
   private String javaVersion;
-
 
 
   public String getPlatformVersion() {
@@ -88,6 +88,14 @@ public class HealthConfig {
 
   public void setRunningOnAws(String runningOnAws) {
     this.runningOnAws = runningOnAws;
+  }
+
+  public String getServiceConfigurationName() {
+    return serviceConfigurationName;
+  }
+
+  public void setServiceConfigurationName(String serviceConfigurationName) {
+    this.serviceConfigurationName = serviceConfigurationName;
   }
 
   public String getCatalinaBase() {
