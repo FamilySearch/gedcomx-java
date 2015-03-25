@@ -38,7 +38,9 @@ public class HealthConfig {
   private String catalinaBase;
   private String hostname;
   private String username;
+  private String osName;
   private String osVersion;
+  private String osArch;
   private String javaVersion;
   private String javaRuntimeVersion;
   private String javaSpecificationVendor;
@@ -124,12 +126,28 @@ public class HealthConfig {
     this.username = username;
   }
 
+  public String getOsName() {
+    return osName;
+  }
+
+  public void setOsName(String osName) {
+    this.osName = osName;
+  }
+
   public String getOsVersion() {
     return osVersion;
   }
 
   public void setOsVersion(String osVersion) {
     this.osVersion = osVersion;
+  }
+
+  public String getOsArch() {
+    return osArch;
+  }
+
+  public void setOsArch(String osArch) {
+    this.osArch = osArch;
   }
 
   public String getJavaVersion() {
