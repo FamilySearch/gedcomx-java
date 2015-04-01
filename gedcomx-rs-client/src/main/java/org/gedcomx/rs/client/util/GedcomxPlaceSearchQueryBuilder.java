@@ -18,6 +18,7 @@ package org.gedcomx.rs.client.util;
 public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilder {
 
   public static final String NAME = "name";
+  public static final String PARTIAL_NAME = "partialName";
   public static final String DATE = "date";
   public static final String PARENT_ID = "parentId";
   public static final String TYPE_ID = "typeId";
@@ -50,6 +51,8 @@ public class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilde
   public GedcomxPlaceSearchQueryBuilder name(String value, boolean exact, boolean required) {
     return param(required ? "+" : null, NAME, value, exact);
   }
+
+  public GedcomxPlaceSearchQueryBuilder partialName(String value) {return param(null, PARTIAL_NAME, value, false); }
 
   public GedcomxPlaceSearchQueryBuilder nameNot(String value) {
     return param("-", NAME, value, false);
