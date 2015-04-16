@@ -266,7 +266,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonWithRelationshipsState(request, invoke(request, options), this.accessToken);
   }
 
   public PreferredRelationshipState readPreferredSpouseRelationship(UserState user, FamilyTreePersonState person, StateTransitionOption... options) {

@@ -59,6 +59,10 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
     return new FamilyTreePersonState(request, response, accessToken, this);
   }
 
+  protected FamilyTreePersonState newPersonWithRelationshipsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilyTreePersonState(request, response, accessToken, Rel.PERSON_WITH_RELATIONSHIPS, this);
+  }
+
   @Override
   protected FamilyTreeRelationshipState newRelationshipState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilyTreeRelationshipState(request, response, accessToken, this);

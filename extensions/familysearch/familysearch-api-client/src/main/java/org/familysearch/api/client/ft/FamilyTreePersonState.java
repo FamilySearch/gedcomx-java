@@ -56,6 +56,8 @@ import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
  */
 public class FamilyTreePersonState extends PersonState {
 
+  private final String selfRel;
+
   public FamilyTreePersonState(URI uri) {
     this(uri, new FamilyTreeStateFactory());
   }
@@ -73,12 +75,22 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   protected FamilyTreePersonState(ClientRequest request, ClientResponse response, String accessToken, FamilyTreeStateFactory stateFactory) {
+    this(request, response, accessToken, Rel.PERSON, stateFactory);
+  }
+
+  protected FamilyTreePersonState(ClientRequest request, ClientResponse response, String accessToken, String selfRel, FamilyTreeStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
+    this.selfRel = selfRel;
   }
 
   @Override
   protected FamilyTreePersonState clone(ClientRequest request, ClientResponse response) {
-    return new FamilyTreePersonState(request, response, this.accessToken, (FamilyTreeStateFactory) this.stateFactory);
+    return new FamilyTreePersonState(request, response, this.accessToken, this.selfRel, (FamilyTreeStateFactory) this.stateFactory);
+  }
+
+  @Override
+  public String getSelfRel() {
+    return this.selfRel;
   }
 
   @Override

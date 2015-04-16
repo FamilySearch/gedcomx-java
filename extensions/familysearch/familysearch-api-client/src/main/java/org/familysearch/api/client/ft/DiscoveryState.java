@@ -157,7 +157,7 @@ public class DiscoveryState extends GedcomxApplicationState<Feed> {
     }
 
     ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonWithRelationshipsState(request, invoke(request, options), this.accessToken);
   }
 
   //todo: methods for all the other state transitions?
