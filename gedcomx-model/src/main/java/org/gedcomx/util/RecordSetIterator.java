@@ -62,7 +62,7 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
    * @throws java.io.IOException
    */
   public RecordSetIterator(String filename) throws IOException {
-    this(filename.toLowerCase().endsWith(".gz") ? new GZIPInputStream(new FileInputStream(filename)) : new FileInputStream(filename));
+    this(new FileInputStream(filename), filename.toLowerCase().endsWith(".gz"));
   }
 
   public RecordSetIterator(InputStream inputStream, boolean isGzipped) throws IOException {
@@ -158,4 +158,18 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
     throw new UnsupportedOperationException();
   }
 
+  /**
+   * Close the input stream and accompanying reader if they are still open.
+   */
+  public void close() throws XMLStreamException, IOException {
+    if (xmlStreamReader != null) {
+      xmlStreamReader.close();
+      xmlStreamReader = null;
+    }
+
+    if (reader != null) {
+      reader.close();
+      reader = null;
+    }
+  }
 }
