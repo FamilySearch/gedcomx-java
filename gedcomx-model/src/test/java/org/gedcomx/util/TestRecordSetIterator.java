@@ -8,6 +8,7 @@ import org.gedcomx.Gedcomx;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Iterator;
 
 /**
@@ -35,6 +36,7 @@ public class TestRecordSetIterator extends TestCase {
     assertFalse(recordIterator.hasNext());
     assertNull(recordIterator.next());
     assertNull(recordIterator.next());
+    inputStream.close();
   }
 
   public void testParserWithMetadata() throws IOException, XMLStreamException {
@@ -63,5 +65,21 @@ public class TestRecordSetIterator extends TestCase {
     assertNull(recordIterator.next());
     assertNull(recordIterator.next());
     assertNotNull(recordIterator.getMetadata());
+    recordIterator.close();
+  }
+
+  public void testClose() throws IOException, XMLStreamException {
+    URL url = getClass().getClassLoader().getResource("gedcomx-recordset2.xml");
+    RecordSetIterator recordIterator = new RecordSetIterator(url.getFile());
+    assertTrue(recordIterator.hasNext());
+    // Haven't hit it yet.
+    assertNull(recordIterator.getMetadata());
+    Gedcomx record1 = recordIterator.next();
+    // Haven't hit it yet.
+    assertNull(recordIterator.getMetadata());
+    Gedcomx record2 = recordIterator.next();
+
+    // Close it before it reaches the end of the file to test close.
+    recordIterator.close();
   }
 }
