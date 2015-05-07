@@ -178,4 +178,15 @@ public class Field extends HypermediaEnabledData {
     visitor.visitField(this);
   }
 
+  /**
+   * Provide a simple toString() method.
+   */
+  @Override
+  public String toString() {
+    if ((values != null) && (values.size() > 0)) {
+      return values.get(0).toString();
+    }
+
+    return "";
+  }
 }

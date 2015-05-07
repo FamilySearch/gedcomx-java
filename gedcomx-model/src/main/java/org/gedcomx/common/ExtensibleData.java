@@ -250,4 +250,12 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
       this.extensionElements.addAll(data.extensionElements);
     }
   }
+
+  /**
+   * Provide a simple toString() method.
+   */
+  @Override
+  public String toString() {
+    return "id: " + id;
+  }
 }

@@ -1169,4 +1169,12 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
     super.embed(description);
   }
+
+  /**
+   * Provide a simple toString() method.
+   */
+  @Override
+  public String toString() {
+    return getId() + ": " + resourceType.toString();
+  }
 }

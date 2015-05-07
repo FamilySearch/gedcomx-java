@@ -620,4 +620,16 @@ public class Person extends Subject implements HasFacts, HasFields {
     super.embed(person);
 
   }
+
+  /**
+   * Provide a simple toString() method.
+   */
+  @Override
+  public String toString() {
+    if ((names != null) && (names.size() > 0)) {
+      return getId() + ": " + names.get(0).toString();
+    }
+
+    return super.toString();
+  }
 }
