@@ -361,4 +361,12 @@ public final class FieldValue extends Conclusion {
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitFieldValue(this);
   }
+
+  /**
+   * Provide a simple toString() method.
+   */
+  @Override
+  public String toString() {
+    return labelId + ": " + text;
+  }
 }
