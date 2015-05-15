@@ -34,7 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <p>The FamilySearch data types define serialization formats that are specific the FamilySearch developer platform. These
+ * <p>The FamilySearch data types define serialization formats that are specific to the FamilySearch developer platform. These
  * data formats are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
  * that are specific to FamilySearch and therefore haven't been adopted into a formal, more general specification.</p>
  *
