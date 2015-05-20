@@ -61,6 +61,15 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
 
+    List<Family> families = gx.getFamilies();
+    if (families != null) {
+      for (Family family : families) {
+        if (family != null) {
+          family.accept(this);
+        }
+      }
+    }
+    
     List<SourceDescription> sourceDescriptions = gx.getSourceDescriptions();
     if (sourceDescriptions != null) {
       for (SourceDescription sourceDescription : sourceDescriptions) {
@@ -503,5 +512,10 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
   public LinkedList<Object> getContextStack() {
     return contextStack;
+  }
+
+  @Override
+  public void visitFamily(Family family) {
+    //no-op
   }
 }

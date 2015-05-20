@@ -21,6 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -81,7 +82,7 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
-@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
+@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "families", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
@@ -90,6 +91,7 @@ public class Gedcomx extends HypermediaEnabledData {
   private Attribution attribution;
   private List<Person> persons;
   private List<Relationship> relationships;
+  private List<Family> families;
   private List<SourceDescription> sourceDescriptions;
   private List<Agent> agents;
   private List<Event> events;
@@ -313,6 +315,102 @@ public class Gedcomx extends HypermediaEnabledData {
       }
     }
     return filtered;
+  }
+
+  /**
+   * The family views included in this genealogical data set.
+   *
+   * @return The family views included in this genealogical data set.
+   */
+  @XmlElement (name="family")
+  @JsonProperty ("families")
+  @JsonName ("families")
+  public List<Family> getFamilies() {
+    return families;
+  }
+
+  /**
+   * The families included in this genealogical data set.
+   *
+   * @param families The families included in this genealogical data set.
+   */
+  @JsonProperty ("families")
+  public void setFamilies(List<Family> families) {
+    this.families = families;
+  }
+
+  /**
+   * Add a family to the data set.
+   *
+   * @param family The family to be added.
+   */
+  public void addFamily(Family family) {
+    if (family != null) {
+      if (families == null)
+        families = new LinkedList<Family>();
+      families.add(family);
+    }
+  }
+
+
+  /**
+   * Find the couple relationship (if any) that corresponds to the relationship between the parents in the given family.
+   * @param family - Family to find the couple relationship for.
+   * @return the couple relationship for the parents in the family, if any, or null if there isn't one (or if there are not two parents).
+   */
+  public Relationship findCoupleRelationship(Family family) {
+    return family == null ? null : findCoupleRelationship(family.getParent1(), family.getParent2());
+  }
+
+  /**
+   * Find the couple relationship (if any) that corresponds to the relationship between the people with the given IDs.
+   * @param person1 - person1 to find (i.e., husband)
+   * @param person2 - person2 to find (i.e., wife)
+   * @return the couple relationship for the parents in the family, if any, or null if there isn't one (or if there are not two parents).
+   */
+  public Relationship findCoupleRelationship(ResourceReference person1, ResourceReference person2) {
+    if (getRelationships() != null) {
+      for (Relationship relationship : getRelationships()) {
+        if (relationship.getKnownType() == RelationshipType.Couple &&
+                samePerson(person1, relationship.getPerson1()) &&
+                samePerson(person2, relationship.getPerson2())) {
+          return relationship;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Find the parent-child relationship between the given two persons.
+   * @param parent - Reference to the parent to find.
+   * @param child - Reference to the child to find.
+   * @return parent-child relationship for the given parent and child, or null if not found in the document.
+   */
+  public Relationship findParentChildRelationship(ResourceReference parent, ResourceReference child) {
+    if (parent != null && child != null && getRelationships() != null &&
+            parent.getResource() != null && child.getResource() != null) {
+      for (Relationship relationship : getRelationships()) {
+        if (relationship.getKnownType().equals(RelationshipType.ParentChild) &&
+                samePerson(relationship.getPerson1(), parent) &&
+                samePerson(relationship.getPerson2(), child)) {
+          return relationship;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Tell whether the given resource reference is referencing the current person
+   * @param ref1 - Local reference to a person URI.
+   * @return true if the personReference is referencing this person (or both are null). False otherwise.
+   */
+  protected static boolean samePerson(ResourceReference ref1, ResourceReference ref2) {
+    return ref1 == ref2 ||
+            (ref1 != null && ref1.getResource() != null &&
+             ref2 != null && ref2.getResource() != null &&
+             ref1.getResource().equals(ref2.getResource()));
   }
 
   /**
