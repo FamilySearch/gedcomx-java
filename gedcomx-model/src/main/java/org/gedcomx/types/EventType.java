@@ -231,8 +231,6 @@ public enum EventType {
    */
   MoveTo,
 
-  MunicipalCensus,
-
   /**
    * A naturalization event (i.e. acquisition of citizenship and nationality).
    */
@@ -249,7 +247,6 @@ public enum EventType {
 
   PassportApplication,
   Pension,
-  Photograph,
   Probate,
   Property,
   ReligiousAffiliation,
@@ -261,7 +258,6 @@ public enum EventType {
   Retirement,
 
   ScholasticAchievement,
-  SchoolEnrollment,
   Separation,
   TaxAssessment,
   WorkhouseAdmission,
