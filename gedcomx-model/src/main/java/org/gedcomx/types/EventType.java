@@ -98,8 +98,8 @@ public enum EventType {
    */
   Circumcision,
 
-  Citizenship,
   CommonLawMarriage,
+
   /**
    * A confirmation event (or other rite of initiation) in a church or religion.
    */
@@ -132,8 +132,6 @@ public enum EventType {
    */
   DivorceFiling,
 
-  DraftRegistration,
-
   /**
    * A education or an educational achievement event (e.g. diploma, graduation, scholarship, etc.).
    */
@@ -161,16 +159,13 @@ public enum EventType {
    */
   FirstCommunion,
 
-  Flourish,
-
   /**
    * A funeral event.
    */
   Funeral,
 
   Graduation,
-  Guardianship,
-  Illness,
+  GuardianParent,
 
   /**
    * An immigration event.
@@ -186,13 +181,14 @@ public enum EventType {
    */
   Inquest,
 
-  Interment,
   LandAssessment,
 
   /**
    * A land transaction event.
    */
   LandTransaction,
+
+  Living,
 
   /**
    * A marriage event.
@@ -201,11 +197,8 @@ public enum EventType {
 
   MarriageBanns,
   MarriageContract,
-  MarriageIntent,
   MarriageLicense,
-  MarriageNotice,
   MarriageRegistration,
-  MarriageSettlement,
   Medical,
   Membership,
 
@@ -220,17 +213,13 @@ public enum EventType {
    * A military discharge event.
    */
   MilitaryDischarge,
-
-  MilitaryRank,
-  MilitaryRegiment,
+  MilitaryDraftRegistration,
   MilitaryService,
 
   /**
    * A mission event.
    */
   Mission,
-
-  Move,
 
   /**
    * An event of a move (i.e. change of residence) from a location.
