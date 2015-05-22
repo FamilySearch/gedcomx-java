@@ -18,11 +18,17 @@ package org.gedcomx.conclusion;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
-import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.common.URI;
+import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,65 +37,88 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>A family view precomputed based on the underlying relationships, in order to simplify display and other logic.</p>
- * <p>At least one parent must be specified. (If only one parent is specified, then nothing is being said about the other one,
- *   not even that all of the children had the same 'other parent'.)</p>
- * <p>A family view does not necessarily contain all of the known children. For example, a GedcomX document might contain
- *   relationships to a person's parents but not include references to their siblings, in which case a Family view
- *   would contain just one child even though it is possible that there are more. The display property
- *   'includesKnownChildren' is used to indicate whether the known children have been included. If false, then one
- *   would have to look to see if there are any more children in the family.</p>
- * <p>Facts on children and couples are still found in the corresponding relationships. Convenience methods are provided
- *   to help look up relationships corresponding to a particular child.</p>
+ * A family.
  */
 @XmlRootElement
 @JsonElementWrapper( name = "families" )
 @XmlType( name = "Family", propOrder = { "parent1", "parent2", "children", "displayExtension"} )
-public class Family extends HypermediaEnabledData {
+public class Family extends Conclusion {
+
   private ResourceReference parent1; // First parent, i.e., the father or husband
   private ResourceReference parent2; // Second parent, i.e., the mother or wife
   private List<ResourceReference> children; // List of children
   private FamilyDisplayProperties display;
 
   /**
-   * Get the first parent (i.e., the one with the role of "father" or "husband" in the family).
-   * Note that either parent might be null, indicating that nothing is known about
-   * @return the first parent
+   * A reference to a parent in the family. The name "parent1" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
+   *
+   * @return A reference to a parent in the family. The name "parent1" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
    */
   public ResourceReference getParent1() {
     return parent1;
   }
 
   /**
-   * Set the first parent (i.e., the one with the role of "father" or "husband" in the family)
-   * @param parent1 - First parent
+   * A reference to a parent in the family. The name "parent1" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
+   *
+   * @param parent1 A reference to a parent in the family. The name "parent1" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
    */
   public void setParent1(ResourceReference parent1) {
     this.parent1 = parent1;
   }
 
   /**
-   * Get the second parent (i.e., the one with the role of "mother" or "wife" in the family)
-   * @return the second parent
+   * Build out this family with a reference to parent1.
+   * 
+   * @param parent1 Parent 1.
+   * @return this.
+   */
+  public Family parent1(ResourceReference parent1) {
+    setParent1(parent1);
+    return this;
+  }
+
+  /**
+   * A reference to a parent in the family. The name "parent2" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
+   *
+   * @return A reference to a parent in the family. The name "parent2" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
    */
   public ResourceReference getParent2() {
     return parent2;
   }
 
   /**
-   * Set the second parent (i.e., the one with the role of "mother" or "wife" in the family)
-   * @param parent2 - Second parent
+   * A reference to a parent in the family. The name "parent2" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
+   *
+   * @param parent2 A reference to a parent in the family. The name "parent2" is used only to distinguish it from
+   * the other parent in this family and implies neither order nor role.
    */
   public void setParent2(ResourceReference parent2) {
     this.parent2 = parent2;
   }
 
   /**
-   * Get the list of children for the given set of parents. Note that in some data profiles, not all of the
-   *   children are included. For example, when drawing a pedigree, a family might contain just one child
-   *   but not the siblings. The flag use getDisplayExtension().includesAllKnownChildren() to determine
-   *   if there is a possibility of additional children for this family.
-   * @return List of children for the given set of parents.
+   * Build out this family with a reference to parent2.
+   *
+   * @param parent2 Parent 2.
+   * @return this.
+   */
+  public Family parent2(ResourceReference parent2) {
+    setParent2(parent2);
+    return this;
+  }
+
+  /**
+   * A list of references to the children of this family.
+   *
+   * @return A list of references to the children of this family.
    */
   @XmlElement(name="child")
   @JsonProperty("children")
@@ -98,14 +127,31 @@ public class Family extends HypermediaEnabledData {
     return children;
   }
 
+  /**
+   * A list of references to the children of this family.
+   *
+   * @param children A list of references to the children of this family.
+   */
   @JsonProperty("children")
   public void setChildren(List<ResourceReference> children) {
     this.children = children;
   }
 
   /**
-   * Add a child to the list of children for this set of parents.
-   * @param child - ResourceReference to the child being added.
+   * Build out this family by adding a child.
+   *
+   * @param child The child to add.
+   * @return this.
+   */
+  public Family child(ResourceReference child) {
+    addChild(child);
+    return this;
+  }
+
+  /**
+   * Add a child.
+   *
+   * @param child The child to add.
    */
   public void addChild(ResourceReference child) {
     if (children == null) {
@@ -115,9 +161,9 @@ public class Family extends HypermediaEnabledData {
   }
 
   /**
-   * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   * Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    *
-   * @return Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   * @return Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
   @XmlElement(name = "display")
   @JsonProperty("display")
@@ -127,9 +173,9 @@ public class Family extends HypermediaEnabledData {
   }
 
   /**
-   * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   * Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    *
-   * @param display Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+   * @param display Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
   @JsonProperty("display")
   public void setDisplayExtension(FamilyDisplayProperties display) {
@@ -137,7 +183,7 @@ public class Family extends HypermediaEnabledData {
   }
 
   /**
-   * Build out this family with a display exension.
+   * Build out this family with a display extension.
    *
    * @param display the display.
    * @return this
@@ -145,6 +191,71 @@ public class Family extends HypermediaEnabledData {
   public Family displayExtension(FamilyDisplayProperties display) {
     setDisplayExtension(display);
     return this;
+  }
+
+  @Override
+  public Family id(String id) {
+    return (Family) super.id(id);
+  }
+
+  @Override
+  public Family link(String rel, URI href) {
+    return (Family) super.link(rel, href);
+  }
+
+  @Override
+  public Family link(Link link) {
+    return (Family) super.link(link);
+  }
+
+  @Override
+  public Family lang(String lang) {
+    return (Family) super.lang(lang);
+  }
+
+  @Override
+  public Family confidence(URI confidence) {
+    return (Family) super.confidence(confidence);
+  }
+
+  @Override
+  public Family confidence(ConfidenceLevel confidence) {
+    return (Family) super.confidence(confidence);
+  }
+
+  @Override
+  public Family source(SourceReference sourceReference) {
+    return (Family) super.source(sourceReference);
+  }
+
+  @Override
+  public Family source(SourceDescription source) {
+    return (Family) super.source(source);
+  }
+
+  @Override
+  public Family note(Note note) {
+    return (Family) super.note(note);
+  }
+
+  @Override
+  public Family analysis(ResourceReference analysis) {
+    return (Family) super.analysis(analysis);
+  }
+
+  @Override
+  public Family attribution(Attribution attribution) {
+    return (Family) super.attribution(attribution);
+  }
+
+  @Override
+  public Family analysis(Document analysis) {
+    return (Family) super.analysis(analysis);
+  }
+
+  @Override
+  public Family analysis(URI analysis) {
+    return (Family) super.analysis(analysis);
   }
 
   /**
@@ -157,12 +268,15 @@ public class Family extends HypermediaEnabledData {
   }
 
   public void embed(Family family) {
+    this.parent1 = this.parent1 == null ? family.parent1 : this.parent1;
+    this.parent2 = this.parent2 == null ? family.parent2 : this.parent2;
     if (family.children != null) {
       if (children == null) {
         children = new ArrayList<ResourceReference>();
       }
       children.addAll(family.children);
     }
+    this.display = this.display == null ? family.display : this.display;
     super.embed(family);
   }
 }

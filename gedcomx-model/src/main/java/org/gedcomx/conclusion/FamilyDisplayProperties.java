@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * Display properties for a Family view.
+ * Display properties for a family.
  */
 @XmlRootElement
 @JsonElementWrapper( name = "display" )
