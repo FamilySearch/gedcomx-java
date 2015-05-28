@@ -136,6 +136,11 @@ public enum FactType {
   Cremation,
 
   /**
+   * A fact of the appearance of a person in a court proceeding.
+   */
+  Court,
+
+  /**
    * A fact of the death of a person.
    */
   Death,
