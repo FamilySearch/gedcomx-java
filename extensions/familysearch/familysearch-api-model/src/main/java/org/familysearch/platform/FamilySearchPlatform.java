@@ -24,8 +24,11 @@ import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rt.*;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.types.RelationshipType;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,7 +37,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <p>The FamilySearch data types define serialization formats that are specific the FamilySearch developer platform. These
+ * <p>The FamilySearch data types define serialization formats that are specific to the FamilySearch developer platform. These
  * data formats are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
  * that are specific to FamilySearch and therefore haven't been adopted into a formal, more general specification.</p>
  *
@@ -178,6 +181,19 @@ public class FamilySearchPlatform extends Gedcomx {
         childAndParentsRelationships = new LinkedList<ChildAndParentsRelationship>();
       childAndParentsRelationships.add( childAndParentsRelationship );
     }
+  }
+
+  public ChildAndParentsRelationship findChildAndParentsRelationship(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
+    if (child != null && getRelationships() != null && (parent1 != null || parent2 != null)) {
+      for (ChildAndParentsRelationship relationship : getChildAndParentsRelationships()) {
+        if (samePerson(relationship.getChild(), child) &&
+            samePerson(relationship.getFather(), parent1) &&
+            samePerson(relationship.getMother(), parent2)) {
+          return relationship;
+        }
+      }
+    }
+    return null;
   }
 
   /**

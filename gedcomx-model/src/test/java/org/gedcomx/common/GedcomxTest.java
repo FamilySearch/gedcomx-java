@@ -2,18 +2,16 @@ package org.gedcomx.common;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
-import org.gedcomx.conclusion.Document;
-import org.gedcomx.conclusion.Event;
-import org.gedcomx.conclusion.Person;
-import org.gedcomx.conclusion.Relationship;
+import org.gedcomx.conclusion.*;
+import org.gedcomx.types.FactType;
+import org.gedcomx.types.RelationshipType;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.*;
 
 /**
  * @author Ryan Heaton
@@ -71,4 +69,82 @@ public class GedcomxTest {
     return meta;
   }
 
+  public void testFamily() {
+    Gedcomx g = makeDoc();
+    Family family = g.getFamilies().get(0);
+
+    // dad-mom relationship
+    Relationship couple = g.findCoupleRelationship(family);
+    assertEquals(RelationshipType.Couple, couple.getKnownType());
+    assertEquals("#dad", couple.getPerson1().getResource().toString());
+    assertEquals("#mom", couple.getPerson2().getResource().toString());
+    assertEquals(couple, g.findCoupleRelationship(family.getParent1(), family.getParent2()));
+
+    // dad-kid1 relationship
+    Relationship pcRel = g.findParentChildRelationship(family.getParent1(), family.getChildren().get(0));
+    assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
+    assertEquals("#dad", pcRel.getPerson1().getResource().toString());
+    assertEquals("#kid1", pcRel.getPerson2().getResource().toString());
+    assertEquals(FactType.AdoptiveParent, pcRel.getFacts().get(0).getKnownType());
+    assertNull(pcRel.getFacts().get(0).getValue());
+
+    // mom-kid1 relationship
+    pcRel = g.findParentChildRelationship(family.getParent2(), family.getChildren().get(0));
+    assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
+    assertEquals("#mom", pcRel.getPerson1().getResource().toString());
+    assertEquals("#kid1", pcRel.getPerson2().getResource().toString());
+    assertEquals(FactType.BiologicalParent, pcRel.getFacts().get(0).getKnownType());
+
+    // mom-kid2 relationship
+    pcRel = g.findParentChildRelationship(family.getParent2(), family.getChildren().get(1));
+    assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
+    assertEquals("#mom", pcRel.getPerson1().getResource().toString());
+    assertEquals("#kid2", pcRel.getPerson2().getResource().toString());
+    assertNull(pcRel.getFacts());
+  }
+
+  private Gedcomx makeDoc() {
+    Gedcomx g = new Gedcomx();
+
+    g.addFamily(makeFam("dad", "mom", "kid1", "kid2"));
+    g.addRelationship(makeRel("dad", "mom", RelationshipType.Couple));
+    g.addRelationship(kidRel("dad", "kid1", FactType.AdoptiveParent));
+    g.addRelationship(kidRel("mom", "kid1", FactType.BiologicalParent));
+    g.addRelationship(kidRel("dad", "kid2", null));
+    g.addRelationship(kidRel("mom", "kid2", null));
+
+    return g;
+  }
+
+  private static Family makeFam(String fatherId, String motherId, String... kidIds) {
+    Family family = new Family();
+    family.setParent1(makeRef(fatherId));
+    family.setParent2(makeRef(motherId));
+    if (kidIds != null) {
+      for (String kidId : kidIds) {
+        family.addChild(makeRef(kidId));
+      }
+    }
+    return family;
+  }
+
+  protected static Relationship kidRel(String parentId, String kidId, FactType lineageType) {
+    Relationship relationship = makeRel(parentId, kidId, RelationshipType.ParentChild);
+    if (lineageType != null) {
+      relationship.addFact(new Fact(lineageType, null));
+    }
+    return relationship;
+  }
+
+  protected static Relationship makeRel(String id1, String id2, RelationshipType relationshipType) {
+    Relationship relationship = new Relationship();
+    relationship.setKnownType(relationshipType);
+    relationship.setPerson1(makeRef(id1));
+    relationship.setPerson2(makeRef(id2));
+    return relationship;
+  }
+
+  protected static ResourceReference makeRef(String id) {
+    return id == null ? null : new ResourceReference(new URI("#" + id));
+  }
 }
