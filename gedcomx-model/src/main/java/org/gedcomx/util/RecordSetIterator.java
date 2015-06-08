@@ -33,6 +33,8 @@ import java.util.zip.GZIPInputStream;
 /**
  * Class for iterating through the 'record' elements (GedcomX documents) in a RecordSet one at a time
  *   from a stream (e.g., a gzipped byte array) without having to inflate all the records at once.
+ *   This is for a RecordSet serialized to XML.
+ *
  * User: Randy Wilson
  * Date: 7/31/2014
  * Time: 1:58 PM
@@ -100,6 +102,7 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
    * Tell whether the RecordIterator has another GedcomX record to return.
    * @return true if there is another record to read; false otherwise.
    */
+  @Override
   synchronized public boolean hasNext() {
     return nextRecord != null;
   }
@@ -136,6 +139,7 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
     }
   }
 
+  @Override
   synchronized public Gedcomx next() {
     try {
       if (nextRecord == null) {
@@ -154,6 +158,7 @@ public class RecordSetIterator implements Iterator<Gedcomx> {
     return metadata;
   }
 
+  @Override
   public void remove() {
     throw new UnsupportedOperationException();
   }
