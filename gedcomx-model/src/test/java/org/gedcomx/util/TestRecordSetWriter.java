@@ -3,7 +3,6 @@ package org.gedcomx.util;
 import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 
-import javax.swing.text.MaskFormatter;
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.ArrayList;
@@ -28,24 +27,7 @@ public class TestRecordSetWriter extends TestCase {
         OutputStream outputStream = isGzipped ? new GZIPOutputStream(bos) : bos;
         RecordSetWriter writer = new RecordSetWriter(outputStream);
 
-        Gedcomx metadata = null;
-        if (metadataPos != 0) {
-          InputStream metadataInputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml");
-          metadata = (Gedcomx)MarshalUtil.createUnmarshaller().unmarshal(metadataInputStream);
-          metadataInputStream.close();
-          if (metadataPos == -1) {
-            // Write metadata at the beginning of the stream.
-            writer.setMetadata(metadata);
-            // Make sure we can't write it twice
-            try {
-              writer.setMetadata(metadata);
-              fail("Should have thrown an exception when trying to write metadata twice.");
-            }
-            catch (IllegalStateException e) {
-              // ok
-            }
-          }
-        }
+        Gedcomx metadata = testWriteMetadata(metadataPos, writer);
 
         Gedcomx record;
         List<String> recordIds = new ArrayList<String>();
@@ -53,11 +35,15 @@ public class TestRecordSetWriter extends TestCase {
 
         String[] expectedRecordIds = new String[]{"r_14946444", "r_21837581269", "r_731503667"};
         boolean isFirst = true;
+        // Read a record from the xml input file.
         while ((record = recordIterator.next()) != null) {
           assertEquals(expectedRecordIds[numRecords++], record.getId());
+
           writer.writeRecord(record);
+
           records.add(record);
           recordIds.add(record.getId());
+
           if (metadataPos == 1 && isFirst) {
             // try writing metadata in the middle of the records, to make sure it ends up at the end like it should.
             writer.setMetadata(metadata);
@@ -92,5 +78,32 @@ public class TestRecordSetWriter extends TestCase {
     }
   }
 
+  private Gedcomx testWriteMetadata(int metadataPos, RecordSetWriter recordSetWriter) throws JAXBException, IOException {
+    Gedcomx metadata = null;
+    if (metadataPos != 0) {
+      metadata = getMetadataFromFile();
+      if (metadataPos == -1) {
+        // Write metadata at the beginning of the stream.
+        recordSetWriter.setMetadata(metadata);
+        // Make sure we can't write it twice
+        try {
+          recordSetWriter.setMetadata(metadata);
+          fail("Should have thrown an exception when trying to write metadata twice.");
+        }
+        catch (IllegalStateException e) {
+          // ok
+        }
+      }
+    }
+    return metadata;
+  }
+
+  public static Gedcomx getMetadataFromFile() throws JAXBException, IOException {
+    Gedcomx metadata;
+    InputStream metadataInputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("gedcomx-collection.xml");
+    metadata = (Gedcomx) MarshalUtil.createUnmarshaller().unmarshal(metadataInputStream);
+    metadataInputStream.close();
+    return metadata;
+  }
 
 }

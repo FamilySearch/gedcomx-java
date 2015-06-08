@@ -29,7 +29,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Class for streaming a RecordSet to an OutputStream as records are being added.
+ * Class for streaming a RecordSet to an OutputStream in XML as records are being added.
+ *
  * User: Randy Wilson
  * Date: 12/4/13
  */
