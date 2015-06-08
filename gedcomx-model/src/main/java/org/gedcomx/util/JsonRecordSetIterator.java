@@ -94,10 +94,7 @@ public class JsonRecordSetIterator implements Iterator<Gedcomx> {
 
       // Otherwise look for some other objects.
       if (name.equals("metadata")) {
-        // I have to do it this way since if I pass the inputStream to objectMapper.readValue() it leaves
-        // the inputStream past the end of the actual metadata object.  Then the next getName() is lost.
-        byte[] object = getObjectAsBytes(inputStream);
-        metadata = objectMapper.readValue(object, Gedcomx.class);
+        readMetadata(inputStream);
       }
 
       else if (name.equals("id")) {
@@ -106,17 +103,33 @@ public class JsonRecordSetIterator implements Iterator<Gedcomx> {
     }
   }
 
+  private void readMetadata(InputStream inputStream) throws IOException {
+    // I have to do it this way since if I pass the inputStream to objectMapper.readValue() it leaves
+    // the inputStream past the end of the actual metadata object.  Then the next getName() is lost.
+    byte[] object = getObjectAsBytes(inputStream);
+    metadata = objectMapper.readValue(object, Gedcomx.class);
+  }
+
   /**
    * Read in the current Json object from the stream.  It will read the opening brace til the end brace
-   * and return that in a string.
+   * and return that in a string.  If the first character is a comma then it will ignore it.
    */
   private byte[] getObjectAsBytes(InputStream inputStream) throws IOException {
     int character;
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
     int openingBraces = 0;
     int closingBraces = 0;
+    boolean firstTime = true;
 
     while ((character = inputStream.read()) >= 0) {
+      if (character == ',') {
+        if (firstTime) {
+          firstTime = false;
+          continue;   // Ignore comma if it is the first read character.
+        }
+      }
+      firstTime = false;
+
       bos.write(character);
 
       if (character == '{') {
@@ -224,7 +237,11 @@ public class JsonRecordSetIterator implements Iterator<Gedcomx> {
    *
    * @return The Metadata document.
    */
-  synchronized public Gedcomx getMetadata() {
+  synchronized public Gedcomx getMetadata() throws IOException {
+    if (metadata == null) {
+      readUntil(inputStream, JsonRecordSetWriter.METADATA_STR);
+      readMetadata(inputStream);
+    }
     return metadata;
   }
 
@@ -235,20 +252,20 @@ public class JsonRecordSetIterator implements Iterator<Gedcomx> {
 
   /**
    * Close the input stream and accompanying reader if they are still open.
+   * If you want to get the metadata and id of the RecordSet, then get them before you close().
    */
   public void close() throws IOException {
     if (inputStream != null) {
-      // Have we found the metadata?
-      if (metadata == null) {
-        readUntil(inputStream, "someNonExistentLabel");   // It will find "metadata" if there.
-      }
-
       inputStream.close();
       inputStream = null;
     }
   }
 
-  public String getId() {
+  public String getId() throws IOException {
+    if (id == null) {
+      readUntil(inputStream, JsonRecordSetWriter.ID_STR);
+      id = getName(inputStream, false);
+    }
     return id;
   }
 }
