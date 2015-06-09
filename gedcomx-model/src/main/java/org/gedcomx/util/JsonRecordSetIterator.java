@@ -24,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -35,7 +34,7 @@ import java.util.zip.GZIPInputStream;
  * User: Brent Hale
  * Date: 6/3/2015
  */
-public class JsonRecordSetIterator implements Iterator<Gedcomx> {
+public class JsonRecordSetIterator implements RecordSetIterator {
   private InputStream inputStream;
   private Gedcomx nextRecord;
   private Gedcomx metadata;
@@ -237,10 +236,14 @@ public class JsonRecordSetIterator implements Iterator<Gedcomx> {
    *
    * @return The Metadata document.
    */
-  synchronized public Gedcomx getMetadata() throws IOException {
+  synchronized public Gedcomx getMetadata() {
     if (metadata == null) {
-      readUntil(inputStream, JsonRecordSetWriter.METADATA_STR);
-      readMetadata(inputStream);
+      try {
+        readUntil(inputStream, JsonRecordSetWriter.METADATA_STR);
+        readMetadata(inputStream);
+      } catch (IOException e) {
+        // Do nothing.
+      }
     }
     return metadata;
   }
@@ -254,10 +257,15 @@ public class JsonRecordSetIterator implements Iterator<Gedcomx> {
    * Close the input stream and accompanying reader if they are still open.
    * If you want to get the metadata and id of the RecordSet, then get them before you close().
    */
-  public void close() throws IOException {
+  public void close() {
     if (inputStream != null) {
-      inputStream.close();
-      inputStream = null;
+      try {
+        inputStream.close();
+      } catch (IOException e) {
+        inputStream = null;
+      } finally {
+        inputStream = null;
+      }
     }
   }
 
