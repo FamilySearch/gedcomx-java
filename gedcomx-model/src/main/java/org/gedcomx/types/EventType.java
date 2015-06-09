@@ -40,14 +40,10 @@ public enum EventType {
    */
   AdultChristening,
 
-  Amnesty,
-
   /**
    * An annulment event of a marriage.
    */
   Annulment,
-
-  Apprenticeship,
 
   /**
    * A baptism event.
@@ -64,14 +60,10 @@ public enum EventType {
    */
   BatMitzvah,
 
-  Biography,
-
   /**
    * A birth event.
    */
   Birth,
-
-  BirthRegistration,
 
   /**
    * A an official blessing event, such as at the hands of a clergy member or at another religious rite.
@@ -98,17 +90,10 @@ public enum EventType {
    */
   Circumcision,
 
-  Citizenship,
-  CommonLawMarriage,
   /**
    * A confirmation event (or other rite of initiation) in a church or religion.
    */
   Confirmation,
-
-  /**
-   * A governmental Court action
-   */
-  Court,
 
   /**
    * A cremation event after death.
@@ -120,8 +105,6 @@ public enum EventType {
    */
   Death,
 
-  DeathRegistration,
-
   /**
    * A divorce event.
    */
@@ -132,24 +115,20 @@ public enum EventType {
    */
   DivorceFiling,
 
-  DraftRegistration,
-
   /**
    * A education or an educational achievement event (e.g. diploma, graduation, scholarship, etc.).
    */
   Education,
 
-  EducationEnrollment,
+  /**
+   * An engagement to be married event.
+   */
+  Engagement,
 
   /**
    * An emigration event.
    */
   Emigration,
-
-  /**
-   * An engagement to be married event.
-   */
-  Engagement,
 
   /**
    * An excommunication event from a church.
@@ -161,23 +140,15 @@ public enum EventType {
    */
   FirstCommunion,
 
-  Flourish,
-
   /**
    * A funeral event.
    */
   Funeral,
 
-  Graduation,
-  Guardianship,
-  Illness,
-
   /**
    * An immigration event.
    */
   Immigration,
-
-  Imprisonment,
 
   /**
    * A legal inquest. Inquests usually only occur when there’s something suspicious about the death. Inquests might in
@@ -185,9 +156,6 @@ public enum EventType {
    * the cause of death and often indicates when the decedent was last seen by that physician; these require no inquest.
    */
   Inquest,
-
-  Interment,
-  LandAssessment,
 
   /**
    * A land transaction event.
@@ -199,38 +167,20 @@ public enum EventType {
    */
   Marriage,
 
-  MarriageBanns,
-  MarriageContract,
-  MarriageIntent,
-  MarriageLicense,
-  MarriageNotice,
-  MarriageRegistration,
-  MarriageSettlement,
-  Medical,
-  Membership,
-
   /**
    * A military award event.
    */
   MilitaryAward,
-
-  MilitaryCorrespondence,
 
   /**
    * A military discharge event.
    */
   MilitaryDischarge,
 
-  MilitaryRank,
-  MilitaryRegiment,
-  MilitaryService,
-
   /**
    * A mission event.
    */
   Mission,
-
-  Move,
 
   /**
    * An event of a move (i.e. change of residence) from a location.
@@ -242,41 +192,21 @@ public enum EventType {
    */
   MoveTo,
 
-  MunicipalCensus,
-
   /**
    * A naturalization event (i.e. acquisition of citizenship and nationality).
    */
   Naturalization,
-
-  Obituary,
-  Occupation,
-  Ordinance,
 
   /**
    * An ordination event.
    */
   Ordination,
 
-  PassportApplication,
-  Pension,
-  Photograph,
-  Probate,
-  Property,
-  ReligiousAffiliation,
-  Residence,
-
   /**
    * A retirement event.
    */
   Retirement,
 
-  ScholasticAchievement,
-  SchoolEnrollment,
-  Separation,
-  TaxAssessment,
-  WorkhouseAdmission,
-  Will,
 
   @XmlUnknownQNameEnumValue
   OTHER;
