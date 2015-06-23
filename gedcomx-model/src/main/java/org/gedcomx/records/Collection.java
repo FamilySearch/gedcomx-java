@@ -15,9 +15,12 @@
  */
 package org.gedcomx.records;
 
+import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.URI;
+import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -26,6 +29,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
@@ -39,11 +43,12 @@ import java.util.List;
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
-@XmlType ( name = "Collection", propOrder = { "title", "size", "content", "attribution" })
+@XmlType ( name = "Collection", propOrder = { "identifiers", "title", "size", "content", "attribution" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
+  private List<Identifier> identifiers;
   private List<CollectionContent> content;
   private String title;
   private Integer size;
@@ -118,6 +123,41 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   public Collection title(String title) {
     setTitle(title);
+    return this;
+  }
+
+  /**
+   * The list of identifiers for the source.
+   *
+   * @return The list of identifiers for the source.
+   */
+  @XmlElement(name="identifier")
+  @JsonProperty("identifiers")
+  @JsonName("identifiers")
+  public List<Identifier> getIdentifiers() {
+    return identifiers;
+  }
+
+  /**
+   * The list of identifiers of the source.
+   *
+   * @param identifiers The list of identifiers of the source.
+   */
+  @JsonProperty ("identifiers")
+  public void setIdentifiers(List<Identifier> identifiers) {
+    this.identifiers = identifiers;
+  }
+
+  /**
+   * Build out this collection with an identifier.
+   * @param identifier the identifier.
+   * @return this.
+   */
+  public Collection identifier(Identifier identifier) {
+    if (this.identifiers == null) {
+      this.identifiers = new ArrayList<Identifier>();
+    }
+    this.identifiers.add(identifier);
     return this;
   }
 
