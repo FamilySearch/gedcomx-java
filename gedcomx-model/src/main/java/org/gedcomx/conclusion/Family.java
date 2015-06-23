@@ -37,9 +37,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A family.
+ * A family view, meaning up to two parents and a list of children who have those parents in common.
+ * Relationships carry the canonical information for this view, and the relationships must be used
+ * to get Facts (lineage types, marriages, etc.) about the relationships covered by a Family.
+ * The Family class provides a convenient way to see the typical family views without having to do
+ * the calculations to derive them. There should only be one family for each unique set of parents,
+ * and only one for each single-parent family with a particular parent. While in theory a Family
+ * object could
  */
 @XmlRootElement
+@Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
 @JsonElementWrapper( name = "families" )
 @XmlType( name = "Family", propOrder = { "parent1", "parent2", "children", "displayExtension"} )
 public class Family extends Conclusion {
