@@ -35,7 +35,8 @@ public enum ResourceStatusType {
   Blank,      // Blank (like an image of a blank page in a book, or a black 'filler' image).
   NoData,     // Not blank, but no extractable or relevant data (like an image of a table of contents).
   Unreadable, // Resource appears to contain data, but it is unreadable (like a terribly underexposed page).
-
+  Published,  // Resource has been published
+  Unpublished,// Resource is in an unpublished state (i.e., has never been published, or was later unpublished.)
 
   /**
    * Custom
