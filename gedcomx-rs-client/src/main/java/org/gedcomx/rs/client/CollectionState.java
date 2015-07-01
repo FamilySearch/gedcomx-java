@@ -473,6 +473,13 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.entity == null ? null : this.entity.getSourceDescriptions();
   }
 
+  public SourceDescriptionState readSourceDescription(SourceDescription sourceDescription, StateTransitionOption... options) {
+    Link link = sourceDescription.getLink(Rel.DESCRIPTION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
 
-
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
 }
