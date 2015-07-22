@@ -323,6 +323,12 @@ public enum FactType {
   NumberOfMarriages,
 
   /**
+   * A fact of a person's obituary.
+   */
+  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Obituary,
+
+  /**
    * A fact of a person's occupation or employment.
    */
   Occupation,
@@ -518,7 +524,7 @@ public enum FactType {
   OTHER;
 
   public final static Set<FactType> BIRTHLIKE_FACT_TYPES = Collections.unmodifiableSet(EnumSet.of(Baptism, Birth, Christening, Blessing, Circumcision, Adoption));
-  public final static Set<FactType> DEATHLIKE_FACT_TYPES = Collections.unmodifiableSet(EnumSet.of(Death, Burial, Cremation, Funeral, Probate, Will));
+  public final static Set<FactType> DEATHLIKE_FACT_TYPES = Collections.unmodifiableSet(EnumSet.of(Death, Burial, Cremation, Funeral, Obituary, Probate, Will));
   public final static Set<FactType> MARRIAGELIKE_FACT_TYPES = Collections.unmodifiableSet(EnumSet.of(Marriage, Engagement, MarriageBanns, MarriageContract, MarriageLicense, MarriageNotice));
   public final static Set<FactType> DIVORCELIKE_FACT_TYPES = Collections.unmodifiableSet(EnumSet.of(Divorce, DivorceFiling, Annulment, Separation));
   public final static Set<FactType> MIGRATIONLIKE_FACT_TYPES = Collections.unmodifiableSet(EnumSet.of(Immigration, Emigration, Naturalization, MoveTo, MoveFrom));
@@ -615,6 +621,7 @@ public enum FactType {
     public static final FactType NumberOfMarriages = include(FactType.NumberOfMarriages);
     public static final FactType NationalId = include(FactType.NationalId);
     public static final FactType Nationality = include(FactType.Nationality);
+    public static final FactType Obituary = include(FactType.Obituary);
     public static final FactType Occupation = include(FactType.Occupation);
     public static final FactType Ordination = include(FactType.Ordination);
     public static final FactType PhysicalDescription = include(FactType.PhysicalDescription);
