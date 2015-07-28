@@ -45,6 +45,7 @@ public class GedcomxTest {
     assertEquals(1, meta.getDocuments().size());
     assertEquals(1, meta.getEvents().size());
     assertEquals(1, meta.getPersons().size());
+    assertEquals(1, meta.getPersons().get(0).getDisplayExtension().getFamiliesAsParent().size());
     assertEquals(1, meta.getRelationships().size());
     assertEquals(1, meta.getExtensionElements().size());
   }
@@ -61,7 +62,7 @@ public class GedcomxTest {
     meta.setEvents(new ArrayList<Event>());
     meta.getEvents().add(new Event());
     meta.setPersons(new ArrayList<Person>());
-    meta.getPersons().add(new Person());
+    meta.getPersons().add(makePerson());
     meta.setRelationships(new ArrayList<Relationship>());
     meta.getRelationships().add(new Relationship());
     meta.setExtensionElements(new ArrayList<Object>());
@@ -69,9 +70,16 @@ public class GedcomxTest {
     return meta;
   }
 
+  private Person makePerson() {
+    Person person = new Person();
+    person.setDisplayExtension(new DisplayProperties());
+    person.getDisplayExtension().addFamilyAsParent(makeFam("dad", "mom", "kid1", "kid2"));
+    return person;
+  }
+
   public void testFamily() {
     Gedcomx g = makeDoc();
-    Family family = g.getFamilies().get(0);
+    Family family = g.getPersons().get(0).getDisplayExtension().getFamiliesAsParent().get(0);
 
     // dad-mom relationship
     Relationship couple = g.findCoupleRelationship(family);
@@ -106,7 +114,8 @@ public class GedcomxTest {
   private Gedcomx makeDoc() {
     Gedcomx g = new Gedcomx();
 
-    g.addFamily(makeFam("dad", "mom", "kid1", "kid2"));
+    g.addPerson(makePerson());
+
     g.addRelationship(makeRel("dad", "mom", RelationshipType.Couple));
     g.addRelationship(kidRel("dad", "kid1", FactType.AdoptiveParent));
     g.addRelationship(kidRel("mom", "kid1", FactType.BiologicalParent));

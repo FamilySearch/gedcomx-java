@@ -61,15 +61,6 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
 
-    List<Family> families = gx.getFamilies();
-    if (families != null) {
-      for (Family family : families) {
-        if (family != null) {
-          family.accept(this);
-        }
-      }
-    }
-    
     List<SourceDescription> sourceDescriptions = gx.getSourceDescriptions();
     if (sourceDescriptions != null) {
       for (SourceDescription sourceDescription : sourceDescriptions) {
@@ -368,7 +359,23 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
+
+    if (person.getDisplayExtension() != null) {
+      visitFamilies(person.getDisplayExtension().getFamiliesAsParent());
+      visitFamilies(person.getDisplayExtension().getFamiliesAsChild());
+    }
+
     this.contextStack.pop();
+  }
+
+  protected void visitFamilies(List<Family> families) {
+    if (families != null) {
+      for (Family family : families) {
+        if (family != null) {
+          family.accept(this);
+        }
+      }
+    }
   }
 
   @Override

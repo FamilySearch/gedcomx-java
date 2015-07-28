@@ -16,20 +16,6 @@ public class FamilyTest {
   public void testFamily() {
     Family family = new Family();
 
-    // Test display extension
-    assertNull(family.getDisplayExtension());
-    FamilyDisplayProperties display = new FamilyDisplayProperties();
-    family.setDisplayExtension(display);
-    assertNull(family.getDisplayExtension().getIncludesKnownChildren());
-    assertNull(family.getDisplayExtension().getPreferred());
-    display.setPreferred(true);
-    display.setIncludesKnownChildren(true);
-    assertTrue(family.getDisplayExtension().getIncludesKnownChildren());
-    assertTrue(family.getDisplayExtension().getPreferred());
-    display = new FamilyDisplayProperties(true, null);
-    assertTrue(display.getIncludesKnownChildren());
-    assertNull(display.getPreferred());
-
     // Test parents and children
     family.setParent1(new ResourceReference(new URI("#father"), "father"));
     family.setParent2(new ResourceReference(new URI("#mother"), "mother"));
@@ -41,5 +27,11 @@ public class FamilyTest {
     assertEquals(2, family.getChildren().size());
     assertEquals("#child1", family.getChildren().get(0).getResource().toString());
     assertEquals("#child2", family.getChildren().get(1).getResource().toString());
+    assertNull(family.getIncludesKnownChildren());
+    assertNull(family.getPreferred());
+    family.setIncludesKnownChildren(true);
+    family.setPreferred(true);
+    assertTrue(family.getIncludesKnownChildren());
+    assertTrue(family.getPreferred());
   }
 }

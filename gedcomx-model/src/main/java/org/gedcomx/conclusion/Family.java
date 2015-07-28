@@ -30,6 +30,7 @@ import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -48,13 +49,14 @@ import java.util.List;
 @XmlRootElement
 @Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
 @JsonElementWrapper( name = "families" )
-@XmlType( name = "Family", propOrder = { "parent1", "parent2", "children", "displayExtension"} )
+@XmlType( name = "Family", propOrder = { "parent1", "parent2", "children"} )
 public class Family extends Conclusion {
 
   private ResourceReference parent1; // First parent, i.e., the father or husband
   private ResourceReference parent2; // Second parent, i.e., the mother or wife
   private List<ResourceReference> children; // List of children
-  private FamilyDisplayProperties display;
+  private Boolean includesKnownChildren; // Flag for whether this family includes the known children.
+  private Boolean isPreferred; // Flag for whether this family has the preferred parents or spouse for the main person.
 
   /**
    * A reference to a parent in the family. The name "parent1" is used only to distinguish it from
@@ -167,39 +169,6 @@ public class Family extends Conclusion {
     children.add(child);
   }
 
-  /**
-   * Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
-   *
-   * @return Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
-   */
-  @XmlElement(name = "display")
-  @JsonProperty("display")
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RS )
-  public FamilyDisplayProperties getDisplayExtension() {
-    return display;
-  }
-
-  /**
-   * Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
-   *
-   * @param display Display properties for the family. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
-   */
-  @JsonProperty("display")
-  public void setDisplayExtension(FamilyDisplayProperties display) {
-    this.display = display;
-  }
-
-  /**
-   * Build out this family with a display extension.
-   *
-   * @param display the display.
-   * @return this
-   */
-  public Family displayExtension(FamilyDisplayProperties display) {
-    setDisplayExtension(display);
-    return this;
-  }
-
   @Override
   public Family id(String id) {
     return (Family) super.id(id);
@@ -266,6 +235,37 @@ public class Family extends Conclusion {
   }
 
   /**
+   * Flag indicating whether the list of known children are included in this family view.
+   * If false, then there may be only one child (for the main person), but no siblings included, for example.
+   * Note that even when false, there may not actually be any (additional) known children for the family. This
+   * flag just indicates that even if they are more children, they weren't included.
+   * @return true if this family object contains all of the known children, false or null otherwise.
+   */
+  @XmlAttribute
+  public Boolean getIncludesKnownChildren() {
+    return includesKnownChildren;
+  }
+
+  public void setIncludesKnownChildren(Boolean includesKnownChildren) {
+    this.includesKnownChildren = includesKnownChildren;
+  }
+
+  /**
+   * Flag indicating whether this family is the "preferred" one in the list of families as spouses or
+   *   families as parents for the main person in a GedcomX document. Note that this preference is likely
+   *   a per-user setting.
+   * @return true if this family is the preferred set of parents or spouse, depending on whether the main person
+   *   is a child or a parent in the family, respectively.
+   */
+  @XmlAttribute
+  public Boolean getPreferred() {
+    return isPreferred;
+  }
+
+  public void setPreferred(Boolean isPreferred) {
+    this.isPreferred = isPreferred;
+  }
+  /**
    * Accept a visitor.
    *
    * @param visitor The visitor to accept.
@@ -283,7 +283,8 @@ public class Family extends Conclusion {
       }
       children.addAll(family.children);
     }
-    this.display = this.display == null ? family.display : this.display;
+    this.includesKnownChildren = this.includesKnownChildren == null ? family.includesKnownChildren : this.includesKnownChildren;
+    this.isPreferred = this.isPreferred == null ? family.isPreferred : this.isPreferred;
     super.embed(family);
   }
 }

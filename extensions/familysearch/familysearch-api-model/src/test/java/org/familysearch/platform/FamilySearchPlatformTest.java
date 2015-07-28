@@ -3,9 +3,7 @@ package org.familysearch.platform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.gedcomx.conclusion.Fact;
-import org.gedcomx.conclusion.Family;
-import org.gedcomx.conclusion.Relationship;
+import org.gedcomx.conclusion.*;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
 import org.testng.annotations.Test;
@@ -22,7 +20,7 @@ import static org.testng.AssertJUnit.assertNull;
 public class FamilySearchPlatformTest {
   public void testFamily() {
     FamilySearchPlatform g = makeDoc();
-    Family family = g.getFamilies().get(0);
+    Family family = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(0);
 
     // dad-mom relationship
     Relationship couple = g.findCoupleRelationship(family);
@@ -68,7 +66,7 @@ public class FamilySearchPlatformTest {
     assertNull(rel.getMotherFacts());
 
     // Test single-parent family
-    Family fam2 = g.getFamilies().get(1);
+    Family fam2 = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(1);
     rel = g.findChildAndParentsRelationship(fam2.getChildren().get(0), fam2.getParent1(), fam2.getParent2());
     assertEquals("#dad", rel.getFather().getResource().toString());
     assertNull(rel.getMother());
@@ -79,17 +77,24 @@ public class FamilySearchPlatformTest {
 
   private FamilySearchPlatform makeDoc() {
     FamilySearchPlatform g = new FamilySearchPlatform();
+    g.addPerson(makePerson());
 
-    g.addFamily(makeFam("dad", "mom", "kid1", "kid2"));
     g.addRelationship(makeRel("dad", "mom", RelationshipType.Couple));
     addChild(g, "dad", "mom", "kid1", FactType.AdoptiveParent, FactType.BiologicalParent);
     addChild(g, "dad", "mom", "kid2", null, null);
 
     // Add single-parent family
-    g.addFamily(makeFam("dad", null, "kid3"));
+    g.getPerson().getDisplayExtension().addFamilyAsChild(makeFam("dad", null, "kid3"));
     addChild(g, "dad", null, "kid3", null, null);
 
     return g;
+  }
+
+  private Person makePerson() {
+    Person person = new Person();
+    person.setDisplayExtension(new DisplayProperties());
+    person.getDisplayExtension().addFamilyAsChild(makeFam("dad", "mom", "kid1", "kid2"));
+    return person;
   }
 
   private static void addChild(FamilySearchPlatform doc, String fatherId, String motherId, String childId,

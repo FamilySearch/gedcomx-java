@@ -82,7 +82,7 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
-@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "families", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
+@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
@@ -91,7 +91,6 @@ public class Gedcomx extends HypermediaEnabledData {
   private Attribution attribution;
   private List<Person> persons;
   private List<Relationship> relationships;
-  private List<Family> families;
   private List<SourceDescription> sourceDescriptions;
   private List<Agent> agents;
   private List<Event> events;
@@ -316,42 +315,6 @@ public class Gedcomx extends HypermediaEnabledData {
     }
     return filtered;
   }
-
-  /**
-   * The family views included in this genealogical data set.
-   *
-   * @return The family views included in this genealogical data set.
-   */
-  @XmlElement (name="family")
-  @JsonProperty ("families")
-  @JsonName ("families")
-  public List<Family> getFamilies() {
-    return families;
-  }
-
-  /**
-   * The families included in this genealogical data set.
-   *
-   * @param families The families included in this genealogical data set.
-   */
-  @JsonProperty ("families")
-  public void setFamilies(List<Family> families) {
-    this.families = families;
-  }
-
-  /**
-   * Add a family to the data set.
-   *
-   * @param family The family to be added.
-   */
-  public void addFamily(Family family) {
-    if (family != null) {
-      if (families == null)
-        families = new LinkedList<Family>();
-      families.add(family);
-    }
-  }
-
 
   /**
    * Find the couple relationship (if any) that corresponds to the relationship between the parents in the given family.

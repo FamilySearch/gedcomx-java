@@ -16,10 +16,16 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.Facet;
+import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -42,6 +48,8 @@ public class DisplayProperties extends ExtensibleData {
   private String marriagePlace;
   private String ascendancyNumber;
   private String descendancyNumber;
+  private List<Family> familiesAsParent;
+  private List<Family> familiesAsChild;
 
   @Override
   public DisplayProperties id(String id) {
@@ -368,6 +376,78 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * The family views where this person is a parent
+   *
+   * @return The family views where this person is a parent.
+   */
+  @XmlElement(name="familyAsParent")
+  @JsonProperty("familiesAsParent")
+  @JsonName("familiesAsParent")
+  public List<Family> getFamiliesAsParent() {
+    return familiesAsParent;
+  }
+
+  /**
+   * The family views where this person is a parent
+   *
+   * @param familiesAsParent The families where this person is a parent
+   */
+  @JsonProperty ("familiesAsParent")
+  public void setFamiliesAsParent(List<Family> familiesAsParent) {
+    this.familiesAsParent = familiesAsParent;
+  }
+
+  /**
+   * Add a family where this person is a parent
+   *
+   * @param family The family where this person is a parent
+   */
+  public void addFamilyAsParent(Family family) {
+    if (family != null) {
+      if (familiesAsParent == null) {
+        familiesAsParent = new LinkedList<Family>();
+      }
+      familiesAsParent.add(family);
+    }
+  }
+
+  /**
+   * The family views where this person is a child
+   *
+   * @return The family views where this person is a child
+   */
+  @XmlElement(name="familyAsChild")
+  @JsonProperty("familiesAsChild")
+  @JsonName("familiesAsChild")
+  public List<Family> getFamiliesAsChild() {
+    return familiesAsChild;
+  }
+
+  /**
+   * The family views where this person is a child
+   *
+   * @param familiesAsChild The families where this person is a child 
+   */
+  @JsonProperty ("familiesAsChild")
+  public void setFamiliesAsChild(List<Family> familiesAsChild) {
+    this.familiesAsChild = familiesAsChild;
+  }
+
+  /**
+   * Add a family where this person is a child to the data set.
+   *
+   * @param family The family to be added.
+   */
+  public void addFamilyAsChild(Family family) {
+    if (family != null) {
+      if (familiesAsChild == null) {
+        familiesAsChild = new LinkedList<Family>();
+      }
+      familiesAsChild.add(family);
+    }
+  }
+
+  /**
    * Embed a set of display properties.
    *
    * @param data The data to embed.
@@ -384,6 +464,14 @@ public class DisplayProperties extends ExtensibleData {
     this.marriagePlace = this.marriagePlace == null ? data.marriagePlace : this.marriagePlace;
     this.ascendancyNumber = this.ascendancyNumber == null ? data.ascendancyNumber : this.ascendancyNumber;
     this.descendancyNumber = this.descendancyNumber == null ? data.descendancyNumber : this.descendancyNumber;
+    if (data.familiesAsParent != null) {
+      this.familiesAsParent = this.familiesAsParent == null ? new ArrayList<Family>() : this.familiesAsParent;
+      this.familiesAsParent.addAll(data.familiesAsParent);
+    }
+    if (data.familiesAsChild != null) {
+      this.familiesAsChild = this.familiesAsChild == null ? new ArrayList<Family>() : this.familiesAsChild;
+      this.familiesAsChild.addAll(data.familiesAsChild);
+    }
     super.embed(data);
   }
 }
