@@ -174,7 +174,7 @@ FamilySearchFamilyTree ft = ...;
 //add a person
 PersonState person = ft.addPerson(new Person()
   //named John Smith
-  .name(new Name("John Smith", new NamePart(NamePartType.Given, "John"), new NamePart(NamePartType.Surname, "Smith")))
+  .name(new Name("John Smith", new NamePart(NamePartType.Given, "John"), new NamePart(NamePartType.Surname, "Smith")).preferred(true))
   //male
   .gender(GenderType.Male)
   //born in chicago in 1920
