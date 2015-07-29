@@ -431,7 +431,9 @@ FamilySearchFamilyTree ft = ...;
 //add a discussion description
 DiscussionState discussion = ft.addDiscussion(new Discussion()
   //with a title.
-  .title("What about this"),
+  .title("What about this")
+  //with details.
+  .details("Details"),
   //with a change message.
   reason("Because I said so.")
 );
