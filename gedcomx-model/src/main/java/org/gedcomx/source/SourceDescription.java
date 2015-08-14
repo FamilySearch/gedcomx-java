@@ -72,6 +72,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private ResourceReference descriptorRef;
   private URI replacedBy;
   private List<URI> replaces;
+  private String version;
+
   /**
    * @see ResourceStatusType
    */
@@ -1105,6 +1107,35 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public SourceDescription descriptorRef(ResourceReference descriptorRef) {
     setDescriptorRef(descriptorRef);
+    return this;
+  }
+
+  /**
+   * gets the version of this resource
+   *
+   * @return The version of this resource
+   */
+  @XmlAttribute
+  public String getVersion() {
+    return version;
+  }
+
+  /**
+   * sets the version of this resource
+   *
+   * @param version the version of this resource
+   */
+  public void setVersion(String version) {
+    this.version = version;
+  }
+
+  /**
+   * Build out this source description with a version.
+   * @param version the version of this resource
+   * @return this.
+   */
+  public SourceDescription version(String version) {
+    setVersion(version);
     return this;
   }
 
