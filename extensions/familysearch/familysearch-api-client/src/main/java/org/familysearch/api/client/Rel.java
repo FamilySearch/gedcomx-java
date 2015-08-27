@@ -20,6 +20,8 @@ package org.familysearch.api.client;
  */
 public class Rel extends org.gedcomx.rs.Rel {
 
+  public static final String ARTIFACTS = "artifacts";
+  public static final String ARTIFACTS_DGS_FOLDER = "folder";
   public static final String CHANGE_HISTORY = "change-history";
   public static final String COMMENT = "comment";
   public static final String COMMENTS = "comments";
