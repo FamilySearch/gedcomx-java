@@ -39,7 +39,7 @@ import java.util.List;
  * and possibly its type, time period, and/or a geospatial description -- a description
  * of a place as a snapshot in time.
  */
-@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "place", "jurisdiction", "displayExtension", "descriptions" } )
+@XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "place", "jurisdiction", "displayExtension" } )
 public class PlaceDescription extends Subject {
 
   private List<TextValue> names;
@@ -51,7 +51,6 @@ public class PlaceDescription extends Subject {
   private ResourceReference spatialDescription;
   private ResourceReference jurisdiction;
   private PlaceDisplayProperties display;
-  private List<PlaceDescription> descriptions;
 
   @Override
   public PlaceDescription id(String id) {
@@ -458,24 +457,6 @@ public class PlaceDescription extends Subject {
   public PlaceDescription displayExtension(PlaceDisplayProperties display) {
     setDisplayExtension(display);
     return this;
-  }
-
-  /**
-   * Descriptions for the place
-   *
-   * @return Descriptions for the place
-   */
-  public List<PlaceDescription> getDescriptions() {
-    return descriptions;
-  }
-
-  /**
-   * Set descriptions for this place
-   *
-   * @param descriptions the descriptions
-   */
-  public void setDescriptions(List<PlaceDescription> descriptions) {
-    this.descriptions = descriptions;
   }
 
   /**
