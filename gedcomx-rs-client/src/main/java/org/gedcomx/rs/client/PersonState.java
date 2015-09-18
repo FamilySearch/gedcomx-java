@@ -289,6 +289,16 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newDescendancyResultsState(request, invoke(request, options), this.accessToken);
   }
 
+  public SourceDescriptionsState readSourceDescriptions(StateTransitionOption... options) {
+    Link link = getLink(Rel.SOURCE_DESCRIPTIONS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
+  }
+
   public PersonState loadEmbeddedResources(StateTransitionOption... options) {
     includeEmbeddedResources(this.entity, options);
     return this;
