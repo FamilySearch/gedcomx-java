@@ -53,13 +53,28 @@ public class RecordSetWriter {
    * @param outputStream - OutputStream to write XML to.
    */
   public RecordSetWriter(OutputStream outputStream) {
+    this(outputStream, true);
+  }
+
+  /**
+   * Constructor. Prepares to write GedcomX document records to the given output stream (which may well be a
+   *   GZIPOutputStream), so that only one such document needs to be fully instantiated in memory at once.
+   * @param outputStream - OutputStream to write XML to.
+   * @param shouldFilter - Flag for whether to use a CleanXMLStreamWriter to convert invalid XML characters
+   *                       (such as a vertical tab) into the Unicode REPLACEMENT_CHARACTER (0xFFFD), so that
+   *                     the XML will unmarshal without throwing an exception.
+   */
+  protected RecordSetWriter(OutputStream outputStream, boolean shouldFilter) {
     try {
       marshaller = JAXBContext.newInstance(Gedcomx.class, RecordSet.class).createMarshaller();
       marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
       this.outputStream = outputStream;
       // Use a CleanXMLStreamWriter to avoid illegal XML characters in the marshalled output, such as a vertical tab character.
-      xmlWriter = new CleanXMLStreamWriter(XMLOutputFactory.newFactory().createXMLStreamWriter(outputStream, "UTF-8"));
+      xmlWriter = XMLOutputFactory.newFactory().createXMLStreamWriter(outputStream, "UTF-8");
+      if (shouldFilter) {
+        xmlWriter = new CleanXMLStreamWriter(xmlWriter);
+      }
       xmlWriter.setDefaultNamespace(GedcomxConstants.GEDCOMX_NAMESPACE);
       xmlWriter = new IndentingXMLStreamWriter(xmlWriter);
       xmlWriter.writeStartDocument();
