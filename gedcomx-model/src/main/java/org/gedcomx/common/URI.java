@@ -29,6 +29,10 @@ public final class URI {
 
   private final String value;
 
+  public URI(java.net.URI value) {
+    this(value == null ? null : value.toString());
+  }
+
   public URI(String value) {
     if (value == null) {
       throw new IllegalArgumentException("value cannot be null");
@@ -38,6 +42,10 @@ public final class URI {
   }
 
   public static URI create(String uri) {
+    return new URI(uri);
+  }
+
+  public static URI create(java.net.URI uri) {
     return new URI(uri);
   }
 
