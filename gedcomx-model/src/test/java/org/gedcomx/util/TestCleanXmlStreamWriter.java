@@ -16,9 +16,17 @@ import java.io.IOException;
  * Date: 17 September 2015
  */
 public class TestCleanXmlStreamWriter extends TestCase {
-  public void testCjk() {
+  public void testEscape() {
     String orig = "\uD850\uDDAC成功";
     String escaped = CleanXMLStreamWriter.escapeCharacters(orig);
+    assertEquals(orig, escaped);
+
+    orig = "\uDBC0\uDCDF am 25 April 1868";
+    escaped = CleanXMLStreamWriter.escapeCharacters(orig);
+    assertEquals(orig, escaped);
+
+    orig = "蘇\uD849\uDF67";
+    escaped = CleanXMLStreamWriter.escapeCharacters(orig);
     assertEquals(orig, escaped);
   }
 
