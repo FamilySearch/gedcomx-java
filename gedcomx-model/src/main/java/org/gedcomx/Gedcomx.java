@@ -434,6 +434,25 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Get the first source description in the document with the type that is specified.
+   *
+   * @param resourceType The URI resource type of the SourceDescription you are trying to find.
+   *
+   * @return The first source description in the document with the type that is specified..
+   */
+  public SourceDescription getSourceDescription(URI resourceType) {
+    if (this.sourceDescriptions != null && this.sourceDescriptions.size() > 0) {
+      for (SourceDescription sourceDescription : this.sourceDescriptions) {
+        if (sourceDescription.getResourceType().equals(resourceType)) {
+          return sourceDescription;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
    * The descriptions of sources included in this genealogical data set.
    * 
    * @return The descriptions of sources included in this genealogical data set.
