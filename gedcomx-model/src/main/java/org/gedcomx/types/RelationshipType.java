@@ -29,8 +29,6 @@ public enum RelationshipType {
 
   Couple,
   ParentChild,
-  OtherRelative,
-  NonRelative,
   @XmlUnknownQNameEnumValue
   OTHER;
 
