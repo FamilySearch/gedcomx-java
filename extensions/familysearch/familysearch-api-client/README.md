@@ -108,7 +108,8 @@ String developerKey = "...";
 
 String ark = ...; //e.g. "https://familysearch.org/ark:/61903/4:1:KW8W-RF8"
 FamilyTreePersonState person = new FamilyTreePersonState(URI.create(ark))
-  .authenticateViaOAuth2Password(username, password, developerKey);
+  .authenticateViaOAuth2Password(username, password, developerKey)
+  .get();
 ```
 
 <a name="read-person-by-pid"/>
