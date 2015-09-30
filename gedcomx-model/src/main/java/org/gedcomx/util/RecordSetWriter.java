@@ -70,9 +70,9 @@ public class RecordSetWriter {
       marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
       this.outputStream = outputStream;
-      // Use a CleanXMLStreamWriter to avoid illegal XML characters in the marshalled output, such as a vertical tab character.
       xmlWriter = XMLOutputFactory.newFactory().createXMLStreamWriter(outputStream, "UTF-8");
       if (shouldFilter) {
+        // Use a CleanXMLStreamWriter to avoid illegal XML characters in the marshalled output, such as a vertical tab character.
         xmlWriter = new CleanXMLStreamWriter(xmlWriter);
       }
       xmlWriter.setDefaultNamespace(GedcomxConstants.GEDCOMX_NAMESPACE);
@@ -94,7 +94,7 @@ public class RecordSetWriter {
    * @param record - GedcomX document to add as a 'record' to the RecordSet OutputStream.
    * @throws JAXBException
    */
-  public void writeRecord(Gedcomx record) throws JAXBException {
+  public synchronized void writeRecord(Gedcomx record) throws JAXBException {
     writeRecord(record, "record");
     wroteRecords = true;
   }
@@ -105,7 +105,7 @@ public class RecordSetWriter {
    *   goes beyond the records contained within this same GedcomX RecordSet.
    * @param metadata - GedcomX document with group-level information.
    */
-  public void setMetadata(Gedcomx metadata) throws JAXBException {
+  public synchronized void setMetadata(Gedcomx metadata) throws JAXBException {
     if (wroteMetadata) {
       throw new IllegalStateException("Already wrote metadata to stream. Can't change it now.");
     }
@@ -129,7 +129,7 @@ public class RecordSetWriter {
    * Finish writing the file, including metadata (if set), and the closing tag. Closes the writers and output stream.
    * @throws IOException
    */
-  public void close() throws IOException {
+  public synchronized void close() throws IOException {
     try {
       if (!wroteMetadata && metadata != null) {
         writeRecord(metadata, "metadata");

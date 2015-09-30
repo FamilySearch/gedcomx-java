@@ -3,7 +3,10 @@ package org.gedcomx.util;
 import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Name;
+import org.gedcomx.conclusion.NameForm;
+import org.gedcomx.conclusion.NamePart;
 import org.gedcomx.conclusion.Person;
+import org.gedcomx.types.NamePartType;
 
 import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
@@ -38,7 +41,11 @@ public class TestCleanXmlStreamWriter extends TestCase {
   }
 
   public void testSurrogatePairs() throws JAXBException, IOException {
-    String orig = "\uD850\uDDAC成功";
+    testName("\uD850\uDDAC成功");
+    testName("岩\uD842\uDFB7");
+  }
+
+  private void testName(String orig) throws JAXBException, IOException {
     Gedcomx doc = new Gedcomx();
     Person person = new Person();
     doc.addPerson(person);
@@ -62,5 +69,37 @@ public class TestCleanXmlStreamWriter extends TestCase {
     Gedcomx doc2 = recordSetIterator.next();
     String actual = doc2.getPerson().getName().getNameForm().getFullText();
     assertEquals(orig, actual);
+  }
+
+  /**
+   * XMLStreamWriter in the standard Java package has a bug in which Unicode surrogate pairs that appear in
+   *   attributes remain in a StringBuffer that gets re-used on every subsequent surrogate pair that appears in
+   *   any other attribute, causing those to get longer and longer (!).
+   * To solve the problem, we switched to using Woodstox's XMLStreamWriter instead.
+   * This test validated the problem before the switch, and made sure it worked afterwards.
+   */
+  public void testSurrogateAttributes() throws Exception {
+    String surname = "\uD850\uDDAC";
+    String given = "\uD842\uDFB7";
+    String full = surname + given;
+    Gedcomx doc = new Gedcomx();
+    Name name = new Name(full, new NamePart(NamePartType.Surname, surname),
+                         new NamePart(NamePartType.Given, given));
+    doc.addPerson(new Person().id("p." + full).name(name));
+
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    RecordSetWriter cleanWriter = new RecordSetWriter(bos, false);
+    cleanWriter.writeRecord(doc);
+    cleanWriter.close();
+
+    RecordSetIterator recordSetIterator = new XmlRecordSetIterator(new ByteArrayInputStream(bos.toByteArray()), false);
+    Gedcomx doc1 = recordSetIterator.next();
+    System.out.println("Orig: =====\n" + MarshalUtil.toXml(doc));
+    System.out.println("Then: =====\n" + MarshalUtil.toXml(doc1));
+    NameForm nameForm = doc1.getPerson().getName().getNameForm();
+    assertEquals(full, nameForm.getFullText());
+    assertEquals(surname, nameForm.getParts().get(0).getValue());
+    // This is where the standard XMLStreamReader causes the value to be surname + given instead of just given...
+    assertEquals(given, nameForm.getParts().get(1).getValue());
   }
 }

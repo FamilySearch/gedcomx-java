@@ -17,10 +17,16 @@ package org.gedcomx.util;
 
 import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.*;
+import org.gedcomx.records.RecordSet;
+import org.gedcomx.types.FactType;
+import org.gedcomx.types.NamePartType;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
@@ -122,4 +128,46 @@ public class TestRecordSetWriter extends TestCase {
     return metadata;
   }
 
+  public void testCjk() throws Exception {
+    final String surname = "岩\uD842\uDFB7";//"\uD850\uDDAC成功";
+    final String givenName = "岩\uD842\uDFB7";
+    assertEquals(givenName, CleanXMLStreamWriter.escapeCharacters(givenName));
+    final String fullName = surname + givenName;
+    final Name name = new Name().nameForm(new NameForm(fullName,
+                                                       new NamePart(NamePartType.Surname, surname),
+                                                       new NamePart(NamePartType.Given, givenName)));
+    final Gedcomx doc = new Gedcomx().person(new Person().name(name));
+    for (int i = 0; i < 2; i++) {
+      name.addNameForm(new NameForm(fullName, new NamePart(NamePartType.Surname, surname), new NamePart(NamePartType.Given, givenName)).id(i + "-" + surname));
+    }
+
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    RecordSetWriter writer = new RecordSetWriter(bos, false);
+    writer.writeRecord(doc);
+    writer.close();
+    byte[] bytes = bos.toByteArray();
+
+    XmlRecordSetIterator iterator = new XmlRecordSetIterator(new ByteArrayInputStream(bytes));
+    Gedcomx result = iterator.next();
+    iterator.close();
+    NameForm nameForm = result.getPerson().getName().getNameForm();
+    if (!nameForm.getFullText().equals(fullName) || !nameForm.getParts().get(0).getValue().equals(surname) ||
+            !nameForm.getParts().get(1).getValue().equals(givenName)) {
+      System.out.println("Error! From " + n(name.getNameForm()) + " => " + n(nameForm));
+      System.out.println("Orig:========\n" + MarshalUtil.toXml(doc));
+      String rs = new String(bytes, "UTF-8");
+      System.out.println("RecordSet:===\n" + rs);
+      RecordSet recordSet = new RecordSet();
+      recordSet.setRecords(Collections.singletonList(doc));
+      System.out.println("RS2:=========\n" + MarshalUtil.toXml(recordSet));
+      System.out.println("Then:========\n" + MarshalUtil.toXml(result));
+    }
+    assertEquals(fullName, nameForm.getFullText());
+    assertEquals(surname, nameForm.getParts().get(0).getValue());
+    assertEquals(givenName, nameForm.getParts().get(1).getValue());
+  }
+
+  private String n(NameForm name) {
+    return name.getFullText() + " (/" + name.getParts().get(0).getValue() + "/" + name.getParts().get(1).getValue() + ")";
+  }
 }

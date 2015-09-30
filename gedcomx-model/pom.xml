@@ -98,6 +98,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.fasterxml.woodstox</groupId>
+      <artifactId>woodstox-core</artifactId>
+      <version>5.0.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.gedcomx</groupId>
       <artifactId>gedcomx-rt-support</artifactId>
       <version>${project.version}</version>

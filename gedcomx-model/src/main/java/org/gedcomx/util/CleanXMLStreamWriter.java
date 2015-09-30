@@ -51,7 +51,6 @@ public class CleanXMLStreamWriter implements XMLStreamWriter {
    *         otherwise, string with illegal characters replaced with {@link CleanXMLStreamWriter#REPLACEMENT_CHARACTER}
    */
   protected static String escapeCharacters(String string) {
-
     char[] copy = null;
     boolean copied = false;
     for (int i = 0; i < string.length();) {

@@ -18,9 +18,11 @@ package org.gedcomx.util;
 import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.xml.stream.XMLStreamReader;
+import java.io.*;
 import java.net.URL;
 
 /**
@@ -31,6 +33,18 @@ import java.net.URL;
  * Time: 1:46 PM
  */
 public class TestRecordSetIterator extends TestCase {
+
+  public void testXmlStreamReaderCjk() throws Exception {
+    String a = "\uD842\uDFB7"; // Unicode "surrogate pair" Chinese character.
+    String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                     "<root a1='" + a + "' a2='" + a + "'></root>\n";
+    ByteArrayInputStream bis = new ByteArrayInputStream(xml.getBytes());
+    XMLStreamReader xmlr = XMLInputFactory.newFactory().createXMLStreamReader(bis, "UTF-8");
+
+    assertEquals(XMLStreamConstants.START_ELEMENT, xmlr.next());
+    assertEquals(a, xmlr.getAttributeValue(0));
+    assertEquals(a, xmlr.getAttributeValue(1));
+  }
 
   public void testParser() throws IOException, XMLStreamException {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset.xml");
