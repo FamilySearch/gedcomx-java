@@ -20,7 +20,7 @@ import static org.testng.AssertJUnit.assertNull;
 public class FamilySearchPlatformTest {
   public void testFamily() {
     FamilySearchPlatform g = makeDoc();
-    Family family = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(0);
+    FamilyView family = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(0);
 
     // dad-mom relationship
     Relationship couple = g.findCoupleRelationship(family);
@@ -66,7 +66,7 @@ public class FamilySearchPlatformTest {
     assertNull(rel.getMotherFacts());
 
     // Test single-parent family
-    Family fam2 = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(1);
+    FamilyView fam2 = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(1);
     rel = g.findChildAndParentsRelationship(fam2.getChildren().get(0), fam2.getParent1(), fam2.getParent2());
     assertEquals("#dad", rel.getFather().getResource().toString());
     assertNull(rel.getMother());
@@ -118,8 +118,8 @@ public class FamilySearchPlatformTest {
     doc.addChildAndParentsRelationship(rel);
   }
 
-  private static Family makeFam(String fatherId, String motherId, String... kidIds) {
-    Family family = new Family();
+  private static FamilyView makeFam(String fatherId, String motherId, String... kidIds) {
+    FamilyView family = new FamilyView();
     family.setParent1(makeRef(fatherId));
     family.setParent2(makeRef(motherId));
     if (kidIds != null) {

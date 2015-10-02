@@ -231,9 +231,4 @@ public class GedcomxLocalReferenceResolver extends GedcomxModelVisitorBase {
     super.visitEvidenceReference(evidenceReference);
   }
 
-  @Override
-  public void visitFamily(Family family) {
-    bindIfNeeded(family);
-    super.visitFamily(family);
-  }
 }

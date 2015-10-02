@@ -321,7 +321,7 @@ public class Gedcomx extends HypermediaEnabledData {
    * @param family - Family to find the couple relationship for.
    * @return the couple relationship for the parents in the family, if any, or null if there isn't one (or if there are not two parents).
    */
-  public Relationship findCoupleRelationship(Family family) {
+  public Relationship findCoupleRelationship(FamilyView family) {
     return family == null ? null : findCoupleRelationship(family.getParent1(), family.getParent2());
   }
 

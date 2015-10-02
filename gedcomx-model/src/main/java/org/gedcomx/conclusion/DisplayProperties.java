@@ -48,8 +48,8 @@ public class DisplayProperties extends ExtensibleData {
   private String marriagePlace;
   private String ascendancyNumber;
   private String descendancyNumber;
-  private List<Family> familiesAsParent;
-  private List<Family> familiesAsChild;
+  private List<FamilyView> familiesAsParent;
+  private List<FamilyView> familiesAsChild;
 
   @Override
   public DisplayProperties id(String id) {
@@ -383,7 +383,7 @@ public class DisplayProperties extends ExtensibleData {
   @XmlElement(name="familyAsParent")
   @JsonProperty("familiesAsParent")
   @JsonName("familiesAsParent")
-  public List<Family> getFamiliesAsParent() {
+  public List<FamilyView> getFamiliesAsParent() {
     return familiesAsParent;
   }
 
@@ -393,7 +393,7 @@ public class DisplayProperties extends ExtensibleData {
    * @param familiesAsParent The families where this person is a parent
    */
   @JsonProperty ("familiesAsParent")
-  public void setFamiliesAsParent(List<Family> familiesAsParent) {
+  public void setFamiliesAsParent(List<FamilyView> familiesAsParent) {
     this.familiesAsParent = familiesAsParent;
   }
 
@@ -402,10 +402,10 @@ public class DisplayProperties extends ExtensibleData {
    *
    * @param family The family where this person is a parent
    */
-  public void addFamilyAsParent(Family family) {
+  public void addFamilyAsParent(FamilyView family) {
     if (family != null) {
       if (familiesAsParent == null) {
-        familiesAsParent = new LinkedList<Family>();
+        familiesAsParent = new LinkedList<FamilyView>();
       }
       familiesAsParent.add(family);
     }
@@ -419,7 +419,7 @@ public class DisplayProperties extends ExtensibleData {
   @XmlElement(name="familyAsChild")
   @JsonProperty("familiesAsChild")
   @JsonName("familiesAsChild")
-  public List<Family> getFamiliesAsChild() {
+  public List<FamilyView> getFamiliesAsChild() {
     return familiesAsChild;
   }
 
@@ -429,7 +429,7 @@ public class DisplayProperties extends ExtensibleData {
    * @param familiesAsChild The families where this person is a child 
    */
   @JsonProperty ("familiesAsChild")
-  public void setFamiliesAsChild(List<Family> familiesAsChild) {
+  public void setFamiliesAsChild(List<FamilyView> familiesAsChild) {
     this.familiesAsChild = familiesAsChild;
   }
 
@@ -438,10 +438,10 @@ public class DisplayProperties extends ExtensibleData {
    *
    * @param family The family to be added.
    */
-  public void addFamilyAsChild(Family family) {
+  public void addFamilyAsChild(FamilyView family) {
     if (family != null) {
       if (familiesAsChild == null) {
-        familiesAsChild = new LinkedList<Family>();
+        familiesAsChild = new LinkedList<FamilyView>();
       }
       familiesAsChild.add(family);
     }
@@ -465,11 +465,11 @@ public class DisplayProperties extends ExtensibleData {
     this.ascendancyNumber = this.ascendancyNumber == null ? data.ascendancyNumber : this.ascendancyNumber;
     this.descendancyNumber = this.descendancyNumber == null ? data.descendancyNumber : this.descendancyNumber;
     if (data.familiesAsParent != null) {
-      this.familiesAsParent = this.familiesAsParent == null ? new ArrayList<Family>() : this.familiesAsParent;
+      this.familiesAsParent = this.familiesAsParent == null ? new ArrayList<FamilyView>() : this.familiesAsParent;
       this.familiesAsParent.addAll(data.familiesAsParent);
     }
     if (data.familiesAsChild != null) {
-      this.familiesAsChild = this.familiesAsChild == null ? new ArrayList<Family>() : this.familiesAsChild;
+      this.familiesAsChild = this.familiesAsChild == null ? new ArrayList<FamilyView>() : this.familiesAsChild;
       this.familiesAsChild.addAll(data.familiesAsChild);
     }
     super.embed(data);

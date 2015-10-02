@@ -360,22 +360,7 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
       }
     }
 
-    if (person.getDisplayExtension() != null) {
-      visitFamilies(person.getDisplayExtension().getFamiliesAsParent());
-      visitFamilies(person.getDisplayExtension().getFamiliesAsChild());
-    }
-
     this.contextStack.pop();
-  }
-
-  protected void visitFamilies(List<Family> families) {
-    if (families != null) {
-      for (Family family : families) {
-        if (family != null) {
-          family.accept(this);
-        }
-      }
-    }
   }
 
   @Override
@@ -521,8 +506,4 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
     return contextStack;
   }
 
-  @Override
-  public void visitFamily(Family family) {
-    //no-op
-  }
 }

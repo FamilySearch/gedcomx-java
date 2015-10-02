@@ -79,7 +79,7 @@ public class GedcomxTest {
 
   public void testFamily() {
     Gedcomx g = makeDoc();
-    Family family = g.getPersons().get(0).getDisplayExtension().getFamiliesAsParent().get(0);
+    FamilyView family = g.getPersons().get(0).getDisplayExtension().getFamiliesAsParent().get(0);
 
     // dad-mom relationship
     Relationship couple = g.findCoupleRelationship(family);
@@ -125,8 +125,8 @@ public class GedcomxTest {
     return g;
   }
 
-  private static Family makeFam(String fatherId, String motherId, String... kidIds) {
-    Family family = new Family();
+  private static FamilyView makeFam(String fatherId, String motherId, String... kidIds) {
+    FamilyView family = new FamilyView();
     family.setParent1(makeRef(fatherId));
     family.setParent2(makeRef(motherId));
     if (kidIds != null) {
