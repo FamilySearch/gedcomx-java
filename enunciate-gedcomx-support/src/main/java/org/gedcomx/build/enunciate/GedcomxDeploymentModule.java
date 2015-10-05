@@ -16,14 +16,18 @@
 package org.gedcomx.build.enunciate;
 
 import com.sun.mirror.apt.Messager;
+import freemarker.template.ObjectWrapper;
 import freemarker.template.TemplateException;
 import net.sf.jelly.apt.Context;
+import net.sf.jelly.apt.freemarker.APTJellyObjectWrapper;
 import org.apache.commons.digester.RuleSet;
 import org.codehaus.enunciate.EnunciateException;
 import org.codehaus.enunciate.apt.EnunciateFreemarkerModel;
 import org.codehaus.enunciate.config.SchemaInfo;
 import org.codehaus.enunciate.config.WsdlInfo;
+import org.codehaus.enunciate.contract.jaxb.QNameEnumTypeDefinition;
 import org.codehaus.enunciate.contract.jaxb.RootElementDeclaration;
+import org.codehaus.enunciate.contract.jaxb.TypeDefinition;
 import org.codehaus.enunciate.contract.validation.ValidationException;
 import org.codehaus.enunciate.contract.validation.ValidationMessage;
 import org.codehaus.enunciate.contract.validation.ValidationResult;
@@ -196,6 +200,14 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
     return GedcomxDeploymentModule.class.getResource("rdfschema.fmt");
   }
 
+  protected URL getRDFaTemplateURL() {
+    return GedcomxDeploymentModule.class.getResource("rdfa.fmt");
+  }
+
+  protected URL getRDFaTypesTemplateURL() {
+    return GedcomxDeploymentModule.class.getResource("rdfa-types.fmt");
+  }
+
   @Override
   public void init(Enunciate enunciate) throws EnunciateException {
     super.init(enunciate);
@@ -348,6 +360,8 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
   @Override
   protected void doBuild() throws EnunciateException, IOException {
     if (!getEnunciate().isUpToDateWithSources(getBuildDir())) {
+      new File(getBuildDir(), "v1").mkdirs();
+      new File(getBuildDir(), "types").mkdirs();
       Set<Artifact> downloadableArtifacts = buildBase();
       EnunciateFreemarkerModel model = getModel();
       model.setFileOutputDirectory(getBuildDir());
@@ -363,6 +377,15 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
       model.put("rdfschema", this.rdfProcessor.getRdfSchema());
       model.put("primaryNav", this.primaryNav);
       model.put("projectId", this.projectId);
+      model.put("gxTypeDefinitions", model.getNamespacesToSchemas().get(GedcomxConstants.GEDCOMX_NAMESPACE).getTypeDefinitions());
+      Collection<TypeDefinition> types = model.getNamespacesToSchemas().get(GedcomxConstants.GEDCOMX_TYPES_NAMESPACE).getTypeDefinitions();
+      List<QNameEnumTypeDefinition> enumTypes = new ArrayList<QNameEnumTypeDefinition>();
+      for (TypeDefinition type : types) {
+        if (type instanceof QNameEnumTypeDefinition) {
+          enumTypes.add((QNameEnumTypeDefinition) type);
+        }
+      }
+      model.put("qnameTypeDefinitions", enumTypes);
       if (this.projectLabelModifier != null) {
         model.put("projectLabelModifier", this.projectLabelModifier);
       }
@@ -389,6 +412,8 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
         if (!isDisableProcessing()) {
           processTemplate(getDocsTemplateURL(), model);
           processTemplate(getCodeTemplateURL(), model);
+          processTemplate(getRDFaTemplateURL(), model);
+          processTemplate(getRDFaTypesTemplateURL(), model);
         }
       }
       catch (TemplateException e) {
@@ -455,6 +480,11 @@ public class GedcomxDeploymentModule extends FreemarkerDeploymentModule implemen
     }
 
     return downloads;
+  }
+
+  @Override
+  protected ObjectWrapper getObjectWrapper() {
+    return new APTJellyObjectWrapper();
   }
 
   @Override
