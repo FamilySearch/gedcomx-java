@@ -554,7 +554,16 @@ SourceDescriptionState artifact = fsMemories.addArtifact(new SourceDescription()
   digitalImage
 );
 
-person1.addMediaReference(artifact); //attach to person1
-person2.addMediaReference(artifact); //attach to person2
-person3.addMediaReference(artifact); //attach to person3
+//create personas attached to the artifact
+PersonState persona1 = artifact.addPersona(new Person()
+.name("Person One")  //named Person One
+.preferred(true)  //set name to preferred
+.get();  //reload the persona
+PersonState persona2 = ...;
+PersonState persona3 = ...;
+
+//add personas to persons
+person1.addPersonaReference(persona1);
+person2.addPersonaReference(persona2);
+person3.addPersonaReference(persona3);
 ```
