@@ -42,7 +42,7 @@ Follow more links to get more stuff done.
 
 ## Examples
 
-Need something to sink your teeth into?
+Need something to sink your teeth into? For a detailed implementation of each of the following examples, see the [Java SDK Sample App](https://github.com/FamilySearch/java-sdk-sample-app). The Sample App also demonstrates how to use the PersonState class to carry out additional functions.
 
 * [Read the FamilySearch Family Tree (Start Here)](#read-ft)
 * [Read a Family Tree Person by Persistent ID](#read-person-by-persistent-id)
@@ -554,7 +554,16 @@ SourceDescriptionState artifact = fsMemories.addArtifact(new SourceDescription()
   digitalImage
 );
 
-person1.addMediaReference(artifact); //attach to person1
-person2.addMediaReference(artifact); //attach to person2
-person3.addMediaReference(artifact); //attach to person3
+//create personas attached to the artifact
+PersonState persona1 = artifact.addPersona(new Person()
+.name("Person One")  //named Person One
+.preferred(true)  //set name to preferred
+.get();  //reload the persona
+PersonState persona2 = ...;
+PersonState persona3 = ...;
+
+//add personas to persons
+person1.addPersonaReference(persona1);
+person2.addPersonaReference(persona2);
+person3.addPersonaReference(persona3);
 ```
