@@ -29,12 +29,14 @@ import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.artifacts.ArtifactType;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
+import org.familysearch.platform.ordinances.OrdinanceType;
+import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.*;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
@@ -771,5 +773,35 @@ public class FamilyTreePersonState extends PersonState {
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
   }
+
+  public OrdinanceReservationsState addReservations(List<OrdinanceType> ordinanceTypes, StateTransitionOption... options) {
+    Link link = getLink(Rel.RESERVATIONS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    FamilySearchPlatform entity = new FamilySearchPlatform();
+    List<Reservation> reservations = new ArrayList<Reservation>();
+    for (OrdinanceType ordinanceType : ordinanceTypes) {
+      Reservation reservation = new Reservation();
+      reservation.setPerson(new ResourceReference(getSelfUri()));
+      reservation.setKnownOrdinanceType(ordinanceType);
+      reservations.add(reservation);
+    }
+    entity.setReservations(reservations);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public OrdinanceReservationsState readReservations(StateTransitionOption... options) {
+    Link link = getLink(Rel.RESERVATIONS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
+  }
+
 
 }

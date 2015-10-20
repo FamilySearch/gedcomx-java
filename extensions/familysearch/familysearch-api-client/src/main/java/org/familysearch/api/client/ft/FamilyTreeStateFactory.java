@@ -15,7 +15,6 @@
  */
 package org.familysearch.api.client.ft;
 
-import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.*;
@@ -111,4 +110,7 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
     return super.newSourceDescriptionsState(request, response, accessToken);
   }
 
+  protected OrdinanceReservationsState newOrdinanceReservationsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new OrdinanceReservationsState(request, response, accessToken, this);
+  }
 }

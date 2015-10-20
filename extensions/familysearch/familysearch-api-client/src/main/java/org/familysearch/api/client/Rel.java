@@ -46,5 +46,6 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String PERSON_WITH_RELATIONSHIPS = "person-with-relationships";
   public static final String PREFERRED_SPOUSE_RELATIONSHIP = "preferred-spouse-relationship";
   public static final String PREFERRED_PARENT_RELATIONSHIP = "preferred-parent-relationship";
-
+  public static final String RESERVATION = "ordinance-reservation";
+  public static final String RESERVATIONS = "ordinance-reservations";
 }
