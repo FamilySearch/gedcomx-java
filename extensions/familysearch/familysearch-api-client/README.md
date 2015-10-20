@@ -42,7 +42,7 @@ Follow more links to get more stuff done.
 
 ## Examples
 
-Need something to sink your teeth into?
+Need something to sink your teeth into? For a detailed implementation of the following examples, see the [Java SDK Sample App](https://github.com/FamilySearch/SampleApp). The Sample App also demonstrates how to use the PersonState class to carry out additional functions.
 
 * [Read the FamilySearch Family Tree (Start Here)](#read-ft)
 * [Read a Family Tree Person by Persistent ID](#read-person-by-persistent-id)
