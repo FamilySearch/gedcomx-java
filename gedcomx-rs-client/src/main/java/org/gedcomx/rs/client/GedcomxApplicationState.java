@@ -470,7 +470,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected ClientRequest.Builder createAuthenticatedFeedRequest() {
-    return createAuthenticatedRequest().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE);
+    return createAuthenticatedRequest().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE).type(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE);
   }
 
   protected ClientRequest.Builder createAuthenticatedGedcomxRequest() {
