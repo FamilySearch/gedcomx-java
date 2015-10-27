@@ -18,8 +18,14 @@ package org.gedcomx.rs.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
+import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.DescendancyTree;
+
+import javax.ws.rs.HttpMethod;
+import java.net.URI;
+import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -89,4 +95,58 @@ public class DescendancyResultsState<E> extends GedcomxApplicationState<Gedcomx>
     return getEntity() != null ? new DescendancyTree(getEntity()) : null;
   }
 
+  public PersonState readPerson(String descendantNumber, StateTransitionOption... options) {
+    //descendantNumber must be written in the d'Aboville method (a string of ints separated by periods),
+    // e.g. "1.2.10" to retrieve this person's 2nd child's 10th child
+
+    //parse string
+    int[] indexes;
+    try {
+      String[] indexStrings = descendantNumber.split("\\.");
+      indexes = new int[indexStrings.length];
+      for (int i = 0; i < indexStrings.length; i++) {
+        indexes[i] = Integer.parseInt(indexStrings[i]);
+      }
+    }
+    catch (NumberFormatException e) {
+      return null;
+    }
+
+    DescendancyResultsState descendancyResultsState = this;
+    DescendancyTree.DescendancyNode descendancyNode = descendancyResultsState.getTree().getRoot();
+    List<DescendancyTree.DescendancyNode> descendantChildren;
+
+    //first index in d'Aboville System must be 1 to represent this person
+    if (indexes[0]!=1) {
+      return null;
+    }
+
+    //iterate through children with indexes; skip first index
+    for(int i = 1; i < indexes.length; i++) {
+      int childNumber = indexes[i];
+      descendantChildren = descendancyNode.getChildren();
+      //return null if specified child doesn't exist
+      if (null == descendantChildren) {
+        return null;
+      }
+      if (childNumber > descendantChildren.size() || childNumber < 0) {
+        return null;
+      }
+      //select next child; subtract 1 to index properly
+      descendancyNode = descendantChildren.get(childNumber - 1);
+    }
+
+    Link selfLink = descendancyNode.getPerson().getLink(Rel.PERSON);
+    if (selfLink == null || selfLink.getHref() == null) {
+      selfLink = descendancyNode.getPerson().getLink(Rel.SELF);
+     }
+
+    URI personUri = selfLink == null || selfLink.getHref() == null ? null : selfLink.getHref().toURI();
+    if (personUri == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(personUri, HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
+  }
 }
