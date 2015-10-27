@@ -182,7 +182,7 @@ public class FamilySearchCollectionState extends CollectionState {
       return null;
     }
 
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newUserHistoryState(request, invoke(request, options), this.accessToken);
   }
 

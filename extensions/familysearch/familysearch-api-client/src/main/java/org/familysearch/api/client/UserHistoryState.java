@@ -15,22 +15,17 @@
  */
 package org.familysearch.api.client;
 
-import java.util.List;
-
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.gedcomx.Gedcomx;
+import org.gedcomx.atom.Entry;
+import org.gedcomx.atom.Feed;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateTransitionOption;
-import org.gedcomx.source.SourceDescription;
 
-import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.users.User;
+import java.util.List;
 
-/**
- */
-public class UserHistoryState extends GedcomxApplicationState<Gedcomx> {
+public class UserHistoryState extends GedcomxApplicationState<Feed> {
 
   public UserHistoryState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
@@ -42,8 +37,8 @@ public class UserHistoryState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  protected FamilySearchPlatform loadEntity(ClientResponse response) {
-    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
+  protected Feed loadEntity(ClientResponse response) {
+    return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(Feed.class) : null;
   }
 
   @Override
@@ -51,8 +46,8 @@ public class UserHistoryState extends GedcomxApplicationState<Gedcomx> {
     return getEntity();
   }
 
-  public List<SourceDescription> getUserHistory() {
-    return getEntity() == null ? null : getEntity().getSourceDescriptions();
+  public List<Entry> getUserHistory() {
+    return getEntity() == null ? null : getEntity().getEntries();
   }
 
   @Override
@@ -71,12 +66,12 @@ public class UserHistoryState extends GedcomxApplicationState<Gedcomx> {
   }
 
   @Override
-  public UserHistoryState put(Gedcomx entity, StateTransitionOption... options) {
+  public UserHistoryState put(Feed entity, StateTransitionOption... options) {
     return (UserHistoryState) super.put(entity);
   }
 
   @Override
-  public UserHistoryState post(Gedcomx entity, StateTransitionOption... options) {
+  public UserHistoryState post(Feed entity, StateTransitionOption... options) {
     return (UserHistoryState) super.post(entity, options);
   }
 

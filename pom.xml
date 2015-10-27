@@ -7,7 +7,7 @@
   <name>GEDCOM X - Parent Project</name>
   <description>The Java implementation of the GEDCOM X specification set.</description>
   <url>https://github.com/FamilySearch/gedcomx-java</url>
-  <version>1.0.145.M1-SNAPSHOT</version>
+  <version>1.0.147.M1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
