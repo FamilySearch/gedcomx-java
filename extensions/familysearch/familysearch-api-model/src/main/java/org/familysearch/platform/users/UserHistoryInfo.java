@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlType;
 public class UserHistoryInfo {
 
   private Boolean pinned;
+  private Boolean startingPerson;
+  private Boolean currentPerson;
 
   @XmlAttribute
   public Boolean getPinned() {
@@ -39,5 +41,23 @@ public class UserHistoryInfo {
 
   public void setPinned(Boolean pinned) {
     this.pinned = pinned;
+  }
+
+  @XmlAttribute
+  public Boolean getStartingPerson() {
+    return startingPerson;
+  }
+
+  public void setStartingPerson(Boolean startingPerson) {
+    this.startingPerson = startingPerson;
+  }
+
+  @XmlAttribute
+  public Boolean getCurrentPerson() {
+    return currentPerson;
+  }
+
+  public void setCurrentPerson(Boolean currentPerson) {
+    this.currentPerson = currentPerson;
   }
 }
