@@ -17,14 +17,23 @@ package org.gedcomx.rs.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataBodyPart;
+import com.sun.jersey.multipart.FormDataMultiPart;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.TextValue;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 
+import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.Arrays;
 
@@ -150,5 +159,36 @@ public class SourceDescriptionState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
+  }
+
+  public SourceDescriptionState updateArtifact(DataSource artifact, StateTransitionOption... options) {
+    Link link = getLink(Rel.ARTIFACT);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    FormDataMultiPart multiPart = new FormDataMultiPart();
+    String mediaType =  artifact.getContentType();
+    if (mediaType == null) {
+      mediaType = MediaType.APPLICATION_OCTET_STREAM;//default to octet stream?
+    }
+
+    InputStream inputStream;
+    try {
+      inputStream = artifact.getInputStream();
+    }
+    catch (IOException e) {
+      throw new IllegalArgumentException(e);
+    }
+
+    FormDataContentDisposition.FormDataContentDispositionBuilder cd = FormDataContentDisposition.name("artifact");
+    if (artifact.getName() != null) {
+      cd = cd.fileName(artifact.getName());
+    }
+
+    FormDataBodyPart artifactPart = new FormDataBodyPart(cd.build(), inputStream, MediaType.valueOf(mediaType));
+    multiPart.getBodyParts().add(artifactPart);
+    ClientRequest request = createAuthenticatedGedcomxRequest().type(MediaType.MULTIPART_FORM_DATA_TYPE).entity(multiPart).build(link.getHref().toURI(), HttpMethod.POST);
+    return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
   }
 }
