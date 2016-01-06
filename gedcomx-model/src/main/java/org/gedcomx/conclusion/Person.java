@@ -370,6 +370,29 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * Get the preferred name of the person. If no preferred name is specified, then the first name is returned.
+   *
+   * @return the preferred name of the person or first name if there is no preferred name.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public Name getPreferredName() {
+    if(this.names == null || this.names.size() <= 0) {
+      return null;
+    }
+
+    for(Name name : this.names) {
+      if(name.getPreferred() != null) {
+        if(name.getPreferred()) {
+          return name;
+        }
+      }
+    }
+
+    return this.names.get(0);
+  }
+
+  /**
    * The name conclusions for the person.
    *
    * @param names The name conclusions for the person.
@@ -436,13 +459,13 @@ public class Person extends Subject implements HasFacts, HasFields {
     if (this.facts == null) {
       return null;
     }
-    
+
     for (Fact fact : this.facts) {
       if (type.equals(fact.getKnownType())) {
         return fact;
       }
     }
-    
+
     return null;
   }
 
@@ -610,7 +633,7 @@ public class Person extends Subject implements HasFacts, HasFields {
 
   /**
    * Embed the specified person into this one.
-   * 
+   *
    * @param person The person to embed.
    */
   public void embed(Person person) {
