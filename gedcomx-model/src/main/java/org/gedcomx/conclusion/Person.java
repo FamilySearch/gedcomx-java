@@ -374,6 +374,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @return the preferred name of the person or first name if there is no preferred name.
    */
+  @XmlTransient
   @JsonIgnore
   public Name getPreferredName() {
     if(this.names == null || this.names.size() <= 0) {
