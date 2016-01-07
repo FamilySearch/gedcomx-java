@@ -95,6 +95,14 @@ public class PersonTest {
     assertNull(person.getFirstNameOfType(NameType.FormalName));
   }
 
+  public void testPersonGetPreferredName() throws Exception {
+    Person person = create();
+    assertPersonEquals(person);
+    assertEquals("type=FormalName,nameForms[0]=primary form,pref=true", person.getPreferredName().toString());
+    person.setNames(null);
+    assertNull(person.getPreferredName());
+  }
+
   public void testFactHelpers() throws Exception {
     Fact fact = new Fact();
 

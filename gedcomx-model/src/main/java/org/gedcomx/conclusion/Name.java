@@ -31,6 +31,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
+import org.gedcomx.types.NamePartType;
 import org.gedcomx.types.NameType;
 
 import javax.xml.bind.annotation.*;
@@ -307,6 +308,27 @@ public class Name extends Conclusion {
   public Name preferred(Boolean preferred) {
     setPreferred(preferred);
     return this;
+  }
+
+  /**
+   * Gets a specific part of the name
+   * @param namePartType specific part of the name to retrieve
+   * @return the specific part of the name that matches the given NamePartType
+   */
+  public String getPart(NamePartType namePartType) {
+    if(this.nameForms == null || this.nameForms.isEmpty() ||
+      this.nameForms.get(0) == null ||
+      this.nameForms.get(0).getParts() == null) {
+      return null;
+    }
+
+    for(NamePart namePart : this.nameForms.get(0).getParts()) {
+      if(namePart.getKnownType() == namePartType) {
+        return namePart.getValue();
+      }
+    }
+
+    return null;
   }
 
   @Override
