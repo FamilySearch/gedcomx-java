@@ -20,6 +20,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.ordinances.OrdinanceType;
+import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
@@ -30,6 +32,7 @@ import org.gedcomx.rs.client.*;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;
+import java.util.Collections;
 
 /**
  * @author Ryan Heaton
@@ -340,4 +343,31 @@ public class FamilyTreeRelationshipState extends RelationshipState implements Pr
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipState(request, invoke(request, options), this.accessToken);
   }
+
+  public OrdinanceReservationsState reserveOrdinance(StateTransitionOption... options) {
+    Link link = getLink(Rel.RESERVATION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    FamilySearchPlatform entity = new FamilySearchPlatform();
+    Reservation reservation = new Reservation();
+    reservation.setPerson(getRelationship().getPerson1());
+    reservation.setSpouse(getRelationship().getPerson2());
+    reservation.setKnownOrdinanceType(OrdinanceType.Sealing_To_Spouse);
+    entity.setReservations(Collections.singletonList(reservation));
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public OrdinanceReservationsState readReservation(StateTransitionOption... options) {
+    Link link = getLink(Rel.RESERVATION);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
+  }
+
 }
