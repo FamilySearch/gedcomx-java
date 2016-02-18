@@ -15,8 +15,12 @@
  */
 package org.familysearch.platform.ordinances;
 
+import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.gedcomx.common.URI;
 
+@XmlQNameEnum(
+  base = XmlQNameEnum.BaseType.URI
+)
 public enum OrdinanceStatus {
   Not_Set,
   Ready,
