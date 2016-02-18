@@ -32,7 +32,11 @@ public enum OrdinanceType {
   Initiatory,
   Endowment,
   Sealing_To_Spouse,
-  Sealing_Child_To_Parents;
+  Sealing_Child_To_Parents,
+  Personal_Sealing_To_Parents,
+  Melchizedek_Elder,
+  Melchizedek,
+  OTHER;
 
   /**
    * Return the QName value for this enum.
