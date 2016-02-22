@@ -24,6 +24,7 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.types.GenderType;
 
 import javax.ws.rs.HttpMethod;
 import java.util.List;
@@ -130,6 +131,34 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState readFather() {
+    PersonState father = null;   //if no male parent found, return null;
+    List<Person> listOfParents = getPersons();  //extract List<Person> from this PersonParentsState
+    if (null != listOfParents) {
+      for (Person parent : listOfParents) {
+        if (GenderType.Male.equals(parent.getGender().getKnownType())) {  //father is first male parent
+          father = readParent(parent);
+          break;
+        }
+      }
+    }
+    return father;
+  }
+
+  public PersonState readMother() {
+    PersonState mother = null;   //if no male parent found, return null;
+    List<Person> listOfParents = getPersons();  //extract List<Person> from this PersonParentsState
+    if (null != listOfParents) {
+      for (Person parent : listOfParents) {
+        if (GenderType.Female.equals(parent.getGender().getKnownType())) {  //mother is first female parent
+          mother = readParent(parent);
+          break;
+        }
+      }
+    }
+    return mother;
   }
 
   public RelationshipState readRelationship(Relationship relationship, StateTransitionOption... options) {

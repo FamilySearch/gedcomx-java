@@ -24,14 +24,12 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Family Tree User Service User
- *
  */
 @XmlRootElement
 @XmlType ( name = "User" )
 @JsonElementWrapper ( name = "users" )
-public class User extends HypermediaEnabledData
-{
-  private String id;
+public class User extends HypermediaEnabledData {
+
   private String contactName;
   private String helperAccessPin;
   private String fullName;
@@ -48,6 +46,7 @@ public class User extends HypermediaEnabledData
   private String preferredLanguage;
   private String displayName;
   private String personId;
+  private String startingPersonId;
   private String treeUserId;
   private Boolean ldsMemberAccount;
 
@@ -55,7 +54,7 @@ public class User extends HypermediaEnabledData
     return contactName;
   }
 
-  public void setContactName( String contactName ) {
+  public void setContactName(String contactName) {
     this.contactName = contactName;
   }
 
@@ -63,7 +62,7 @@ public class User extends HypermediaEnabledData
     return helperAccessPin;
   }
 
-  public void setHelperAccessPin( String helperAccessPin ) {
+  public void setHelperAccessPin(String helperAccessPin) {
     this.helperAccessPin = helperAccessPin;
   }
 
@@ -71,7 +70,7 @@ public class User extends HypermediaEnabledData
     return fullName;
   }
 
-  public void setFullName( String fullName ) {
+  public void setFullName(String fullName) {
     this.fullName = fullName;
   }
 
@@ -79,7 +78,7 @@ public class User extends HypermediaEnabledData
     return givenName;
   }
 
-  public void setGivenName( String givenName ) {
+  public void setGivenName(String givenName) {
     this.givenName = givenName;
   }
 
@@ -87,7 +86,7 @@ public class User extends HypermediaEnabledData
     return familyName;
   }
 
-  public void setFamilyName( String familyName ) {
+  public void setFamilyName(String familyName) {
     this.familyName = familyName;
   }
 
@@ -95,7 +94,7 @@ public class User extends HypermediaEnabledData
     return email;
   }
 
-  public void setEmail( String email ) {
+  public void setEmail(String email) {
     this.email = email;
   }
 
@@ -103,7 +102,7 @@ public class User extends HypermediaEnabledData
     return alternateEmail;
   }
 
-  public void setAlternateEmail( String alternateEmail ) {
+  public void setAlternateEmail(String alternateEmail) {
     this.alternateEmail = alternateEmail;
   }
 
@@ -111,7 +110,7 @@ public class User extends HypermediaEnabledData
     return country;
   }
 
-  public void setCountry( String country ) {
+  public void setCountry(String country) {
     this.country = country;
   }
 
@@ -119,7 +118,7 @@ public class User extends HypermediaEnabledData
     return gender;
   }
 
-  public void setGender( String gender ) {
+  public void setGender(String gender) {
     this.gender = gender;
   }
 
@@ -127,7 +126,7 @@ public class User extends HypermediaEnabledData
     return birthDate;
   }
 
-  public void setBirthDate( String birthDate ) {
+  public void setBirthDate(String birthDate) {
     this.birthDate = birthDate;
   }
 
@@ -135,19 +134,23 @@ public class User extends HypermediaEnabledData
     return phoneNumber;
   }
 
-  public void setPhoneNumber( String phoneNumber ) {
+  public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 
-  public String getMobilePhoneNumber() { return mobilePhoneNumber; }
+  public String getMobilePhoneNumber() {
+    return mobilePhoneNumber;
+  }
 
-  public void setMobilePhoneNumber(String mobilePhoneNumber) { this.mobilePhoneNumber = mobilePhoneNumber; }
+  public void setMobilePhoneNumber(String mobilePhoneNumber) {
+    this.mobilePhoneNumber = mobilePhoneNumber;
+  }
 
   public String getMailingAddress() {
     return mailingAddress;
   }
 
-  public void setMailingAddress( String mailingAddress ) {
+  public void setMailingAddress(String mailingAddress) {
     this.mailingAddress = mailingAddress;
   }
 
@@ -155,7 +158,7 @@ public class User extends HypermediaEnabledData
     return preferredLanguage;
   }
 
-  public void setPreferredLanguage( String preferredLanguage ) {
+  public void setPreferredLanguage(String preferredLanguage) {
     this.preferredLanguage = preferredLanguage;
   }
 
@@ -163,7 +166,7 @@ public class User extends HypermediaEnabledData
     return displayName;
   }
 
-  public void setDisplayName( String displayName ) {
+  public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
@@ -171,8 +174,16 @@ public class User extends HypermediaEnabledData
     return personId;
   }
 
-  public void setPersonId( String personId ) {
+  public void setPersonId(String personId) {
     this.personId = personId;
+  }
+
+  public String getStartingPersonId() {
+    return startingPersonId;
+  }
+
+  public void setStartingPersonId(String startingPersonId) {
+    this.startingPersonId = startingPersonId;
   }
 
   public String getTreeUserId() {

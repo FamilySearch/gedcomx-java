@@ -24,6 +24,7 @@ public class SourceDescriptionTest extends TestCase {
     sd.addStatus(new URI("http://company.com/custom/resource/status/Forged"));
     sd.setReplacedBy(new URI("http://company.com/updated/id"));
     sd.setReplaces(Arrays.asList(new URI("http://company.com/old/id"), new URI("http://company.com/old/id2")));
+    sd.setVersion("1");
 
     sd = SerializationUtil.processThroughXml(sd);
 
@@ -33,6 +34,9 @@ public class SourceDescriptionTest extends TestCase {
     assertEquals("http://company.com/updated/id", sd.getReplacedBy().toString());
     assertEquals("http://company.com/old/id", sd.getReplaces().get(0).toString());
     assertEquals("http://company.com/old/id2", sd.getReplaces().get(1).toString());
+    assertEquals("1", sd.getVersion());
+    assertEquals("2", sd.version("2").getVersion());
+
   }
 
 }

@@ -82,7 +82,7 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
-@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "families", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
+@XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 
   private String lang;
@@ -91,7 +91,6 @@ public class Gedcomx extends HypermediaEnabledData {
   private Attribution attribution;
   private List<Person> persons;
   private List<Relationship> relationships;
-  private List<Family> families;
   private List<SourceDescription> sourceDescriptions;
   private List<Agent> agents;
   private List<Event> events;
@@ -318,47 +317,11 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
-   * The family views included in this genealogical data set.
-   *
-   * @return The family views included in this genealogical data set.
-   */
-  @XmlElement (name="family")
-  @JsonProperty ("families")
-  @JsonName ("families")
-  public List<Family> getFamilies() {
-    return families;
-  }
-
-  /**
-   * The families included in this genealogical data set.
-   *
-   * @param families The families included in this genealogical data set.
-   */
-  @JsonProperty ("families")
-  public void setFamilies(List<Family> families) {
-    this.families = families;
-  }
-
-  /**
-   * Add a family to the data set.
-   *
-   * @param family The family to be added.
-   */
-  public void addFamily(Family family) {
-    if (family != null) {
-      if (families == null)
-        families = new LinkedList<Family>();
-      families.add(family);
-    }
-  }
-
-
-  /**
    * Find the couple relationship (if any) that corresponds to the relationship between the parents in the given family.
    * @param family - Family to find the couple relationship for.
    * @return the couple relationship for the parents in the family, if any, or null if there isn't one (or if there are not two parents).
    */
-  public Relationship findCoupleRelationship(Family family) {
+  public Relationship findCoupleRelationship(FamilyView family) {
     return family == null ? null : findCoupleRelationship(family.getParent1(), family.getParent2());
   }
 
@@ -468,6 +431,25 @@ public class Gedcomx extends HypermediaEnabledData {
   @org.codehaus.enunciate.json.JsonIgnore
   public SourceDescription getSourceDescription() {
     return this.sourceDescriptions != null && this.sourceDescriptions.size() > 0 ? this.sourceDescriptions.get(0) : null;
+  }
+
+  /**
+   * Get the first source description in the document with the type that is specified.
+   *
+   * @param resourceType The URI resource type of the SourceDescription you are trying to find.
+   *
+   * @return The first source description in the document with the type that is specified..
+   */
+  public SourceDescription getSourceDescription(URI resourceType) {
+    if (this.sourceDescriptions != null && this.sourceDescriptions.size() > 0) {
+      for (SourceDescription sourceDescription : this.sourceDescriptions) {
+        if (sourceDescription.getResourceType().equals(resourceType)) {
+          return sourceDescription;
+        }
+      }
+    }
+
+    return null;
   }
 
   /**

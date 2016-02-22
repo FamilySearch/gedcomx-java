@@ -50,18 +50,22 @@ public class CleanXMLStreamWriter implements XMLStreamWriter {
    * @return same string, if not illegal characters detected;
    *         otherwise, string with illegal characters replaced with {@link CleanXMLStreamWriter#REPLACEMENT_CHARACTER}
    */
-  private String escapeCharacters(String string) {
-
+  protected static String escapeCharacters(String string) {
     char[] copy = null;
     boolean copied = false;
-    for (int i = 0; i < string.length(); i++) {
-      if (!isLegalXmlCharacter(string.charAt(i))) {
+    for (int i = 0; i < string.length();) {
+      int codePoint = string.codePointAt(i);
+      int size = Character.charCount(codePoint);
+      if (!isLegalXmlCodePoint(codePoint)) {
         if (!copied) {
           copy = string.toCharArray();
           copied = true;
         }
-        copy[i] = REPLACEMENT_CHARACTER;
+        for (int j = 0; j < size; j++) {
+          copy[i + j] = REPLACEMENT_CHARACTER;
+        }
       }
+      i += size;
     }
     return copied ? new String(copy) : string;
   }
@@ -208,7 +212,7 @@ public class CleanXMLStreamWriter implements XMLStreamWriter {
    * @param c - character
    * @return true if valid in XML, false if it would make an XML invalid.
    */
-  protected static boolean isLegalXmlCharacter(int c) {
+  protected static boolean isLegalXmlCodePoint(int c) {
     /* From the XML 1.0 specifications document at http://www.w3.org/TR/REC-xml/#charsets:
          Char :: = #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
       */

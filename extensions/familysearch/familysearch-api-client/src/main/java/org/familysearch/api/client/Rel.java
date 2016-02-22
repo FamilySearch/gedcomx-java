@@ -20,6 +20,8 @@ package org.familysearch.api.client;
  */
 public class Rel extends org.gedcomx.rs.Rel {
 
+  public static final String ARTIFACTS = "artifacts";
+  public static final String ARTIFACTS_DGS_FOLDER = "folder";
   public static final String CHANGE_HISTORY = "change-history";
   public static final String COMMENT = "comment";
   public static final String COMMENTS = "comments";
@@ -29,6 +31,7 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String IMAGE_METADATA = "image-metadata";
   public static final String IMAGE_RECORDS = "image-records";
   public static final String IMAGE_WAYPOINT = "image-waypoint";
+  public static final String LOGOUT = "logout";
   public static final String MERGE = "merge";
   public static final String MERGE_MIRROR = "merge-mirror";
   public static final String NORMALIZED_DATE = "normalized-date";
@@ -43,5 +46,6 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String PERSON_WITH_RELATIONSHIPS = "person-with-relationships";
   public static final String PREFERRED_SPOUSE_RELATIONSHIP = "preferred-spouse-relationship";
   public static final String PREFERRED_PARENT_RELATIONSHIP = "preferred-parent-relationship";
-
+  public static final String RESERVATION = "ordinance-reservation";
+  public static final String RESERVATIONS = "ordinance-reservations";
 }

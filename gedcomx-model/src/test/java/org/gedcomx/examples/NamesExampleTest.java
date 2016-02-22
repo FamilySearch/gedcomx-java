@@ -11,6 +11,9 @@ import org.gedcomx.types.NamePartQualifierType;
 import org.gedcomx.types.NamePartType;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
+
 /**
  * @author Ryan Heaton
  */
@@ -90,4 +93,36 @@ public class NamesExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  public void testGetPart() throws Exception {
+    NameForm nameForm = new NameForm("John Fitzgerald Kennedy")
+      .lang("en")
+      .part(NamePartType.Given, "John")
+      .part(NamePartType.Given, "Fitzgerald")
+      .part(NamePartType.Surname, "Kennedy");
+    Name name = new Name().nameForm(nameForm);
+    assertEquals("John", name.getPart(NamePartType.Given));
+    assertEquals("Kennedy", name.getPart(NamePartType.Surname));
+
+    Name nameNoForms = new Name();
+    assertNull(nameNoForms.getPart(NamePartType.Given));
+    assertNull(nameNoForms.getPart(NamePartType.Surname));
+
+    Name nameNullForm = new Name().nameForm(null);
+    assertNull(nameNullForm.getPart(NamePartType.Given));
+    assertNull(nameNullForm.getPart(NamePartType.Surname));
+
+    NameForm nameFormNoParts = new NameForm("John Fitzgerald Kennedy")
+      .lang("en");
+    Name nameNoParts = new Name().nameForm(nameFormNoParts);
+    assertNull(nameNoParts.getPart(NamePartType.Given));
+    assertNull(nameNoParts.getPart(NamePartType.Surname));
+
+    NameForm nameFormNullParts = new NameForm("John Fitzgerald Kennedy")
+      .lang("en")
+      .part(NamePartType.Given, null)
+      .part(NamePartType.Surname, null);
+    Name nameNullParts = new Name().nameForm(nameFormNullParts);
+    assertNull(nameNullParts.getPart(NamePartType.Given));
+    assertNull(nameNullParts.getPart(NamePartType.Surname));
+  }
 }

@@ -14,21 +14,7 @@ import static org.testng.AssertJUnit.*;
 @Test
 public class FamilyTest {
   public void testFamily() {
-    Family family = new Family();
-
-    // Test display extension
-    assertNull(family.getDisplayExtension());
-    FamilyDisplayProperties display = new FamilyDisplayProperties();
-    family.setDisplayExtension(display);
-    assertNull(family.getDisplayExtension().getIncludesKnownChildren());
-    assertNull(family.getDisplayExtension().getPreferred());
-    display.setPreferred(true);
-    display.setIncludesKnownChildren(true);
-    assertTrue(family.getDisplayExtension().getIncludesKnownChildren());
-    assertTrue(family.getDisplayExtension().getPreferred());
-    display = new FamilyDisplayProperties(true, null);
-    assertTrue(display.getIncludesKnownChildren());
-    assertNull(display.getPreferred());
+    FamilyView family = new FamilyView();
 
     // Test parents and children
     family.setParent1(new ResourceReference(new URI("#father"), "father"));

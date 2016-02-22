@@ -80,5 +80,4 @@ public interface GedcomxModelVisitor {
 
   void visitEvidenceReference(EvidenceReference evidenceReference);
 
-  void visitFamily(Family family);
 }

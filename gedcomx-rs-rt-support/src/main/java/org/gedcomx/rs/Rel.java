@@ -36,6 +36,7 @@ public class Rel {
   //GEDCOM-X specific rels.
   public static final String AGENT = "agent";
   public static final String ANCESTRY = "ancestry";
+  public static final String ARTIFACT = "artifact";
   public static final String ARTIFACTS = "artifacts";
   public static final String CHILDREN = "children";
   public static final String CHILD_RELATIONSHIPS = "child-relationships";
@@ -45,6 +46,8 @@ public class Rel {
   public static final String CONCLUSIONS = "conclusions";
   public static final String CURRENT_USER_PERSON = "current-user-person";
   public static final String CURRENT_USER_RESOURCES = "current-user-resources";
+  public static final String RESERVATIONS = "ordinance-reservations";
+  public static final String CURRENT_USER_RESERVATIONS = "current-user-reservations";
   public static final String DESCENDANCY = "descendancy";
   public static final String DESCRIPTION = "description";
   public static final String EVIDENCE_REFERENCE = "evidence-reference";

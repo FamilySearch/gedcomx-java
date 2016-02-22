@@ -459,7 +459,6 @@ public class PlaceDescription extends Subject {
     return this;
   }
 
-
   /**
    * Accept a visitor.
    *

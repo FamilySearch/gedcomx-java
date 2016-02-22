@@ -370,6 +370,29 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * Get the preferred name of the person. If no preferred name is specified, then the first name is returned.
+   *
+   * @return the preferred name of the person or first name if there is no preferred name.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public Name getPreferredName() {
+    if(this.names == null || this.names.size() <= 0) {
+      return null;
+    }
+
+    for(Name name : this.names) {
+      if(name.getPreferred() != null) {
+        if(name.getPreferred()) {
+          return name;
+        }
+      }
+    }
+
+    return this.names.get(0);
+  }
+
+  /**
    * The name conclusions for the person.
    *
    * @param names The name conclusions for the person.
@@ -436,13 +459,13 @@ public class Person extends Subject implements HasFacts, HasFields {
     if (this.facts == null) {
       return null;
     }
-    
+
     for (Fact fact : this.facts) {
       if (type.equals(fact.getKnownType())) {
         return fact;
       }
     }
-    
+
     return null;
   }
 
@@ -534,48 +557,6 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
-   * Get a list of Family objects from the given GedcomX document where this person is one of the 'spouses' (parents)
-   *   in the family (similar to the FAMS references in GEDCOM).
-   * Note that the person must be in the document, and that the family must use local references ("#" + local ID)
-   *   to persons included in the document.
-   * @param document - GedcomX document to look in. This person must be in this document.
-   * @return list of families in which this person is a parent in the family.
-   */
-  public List<Family> findFamiliesAsSpouse(Gedcomx document) {
-    List<Family> familiesAsSpouse = new ArrayList<Family>();
-    if (document.getFamilies() != null) {
-      for (Family family : document.getFamilies()) {
-        if (isReferencedPerson(family.getParent1()) || isReferencedPerson(family.getParent2())) {
-          familiesAsSpouse.add(family);
-        }
-      }
-    }
-    return familiesAsSpouse;
-  }
-
-  /**
-   * Get a list of Family objects from the given GedcomX document where this person is one of the 'spouses' (parents)
-   *   in the family (similar to the FAMC references in GEDCOM).
-   * @param document - GedcomX document to look in. This person must be in this document.
-   * @return list of families in which this person is a parent in the family.
-   */
-  public List<Family> findFamiliesAsChild(Gedcomx document) {
-    List<Family> familiesAsChild = new ArrayList<Family>();
-    if (document.getFamilies() != null) {
-      for (Family family : document.getFamilies()) {
-        if (family.getChildren() != null) {
-          for (ResourceReference childReference : family.getChildren()) {
-            if (isReferencedPerson(childReference)) {
-              familiesAsChild.add(family);
-            }
-          }
-        }
-      }
-    }
-    return familiesAsChild;
-  }
-
-  /**
    * Tell whether the given resource reference is referencing the current person
    * @param personReference - Local reference to a person URI.
    * @return true if the personReference is referencing this person. False otherwise.
@@ -652,7 +633,7 @@ public class Person extends Subject implements HasFacts, HasFields {
 
   /**
    * Embed the specified person into this one.
-   * 
+   *
    * @param person The person to embed.
    */
   public void embed(Person person) {

@@ -58,6 +58,7 @@ public abstract class GedcomxApplicationState<E> {
   protected String accessToken;
   private ClientRequest lastEmbeddedRequest;
   private ClientResponse lastEmbeddedResponse;
+  private final Set<String> embeddedLinksLoaded = new TreeSet<String>();
 
   protected GedcomxApplicationState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     this.request = request;
@@ -149,16 +150,20 @@ public abstract class GedcomxApplicationState<E> {
     return request.clone();
   }
 
-  public ClientRequest getLastEmbeddedRequest() {
-    return lastEmbeddedRequest;
-  }
-
   public ClientResponse getResponse() {
     return response;
   }
 
+  public ClientRequest getLastEmbeddedRequest() {
+    return lastEmbeddedRequest;
+  }
+
   public ClientResponse getLastEmbeddedResponse() {
     return lastEmbeddedResponse;
+  }
+
+  public boolean isEmbeddedLinkLoaded(String rel) {
+    return this.embeddedLinksLoaded.contains(rel);
   }
 
   public E getEntity() {
@@ -465,7 +470,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected ClientRequest.Builder createAuthenticatedFeedRequest() {
-    return createAuthenticatedRequest().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE);
+    return createAuthenticatedRequest().accept(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE).type(AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE);
   }
 
   protected ClientRequest.Builder createAuthenticatedGedcomxRequest() {
@@ -506,11 +511,19 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected void embed(Link link, Gedcomx entity, StateTransitionOption... options) {
+    String rel = link.getRel();
+    if (rel != null && isEmbeddedLinkLoaded(rel)) {
+      return;
+    }
+
     if (link.getHref() != null) {
-      lastEmbeddedRequest = createRequestForEmbeddedResource(link.getRel()).build(link.getHref().toURI(), HttpMethod.GET);
+      lastEmbeddedRequest = createRequestForEmbeddedResource(rel).build(link.getHref().toURI(), HttpMethod.GET);
       lastEmbeddedResponse = invoke(lastEmbeddedRequest, options);
       if (lastEmbeddedResponse.getClientResponseStatus() == ClientResponse.Status.OK) {
         entity.embed(lastEmbeddedResponse.getEntity(Gedcomx.class));
+        if (rel != null) {
+          this.embeddedLinksLoaded.add(rel);
+        }
       }
       else if (lastEmbeddedResponse.getStatus() >= 500) {
         throw new GedcomxApplicationException(String.format("Unable to load embedded resources: server says \"%s\" at %s.", lastEmbeddedResponse.getStatus(), lastEmbeddedRequest.getURI()), lastEmbeddedResponse);

@@ -87,6 +87,17 @@ public class XmlRecordSetIterator implements RecordSetIterator {
   public XmlRecordSetIterator(BufferedReader reader) throws IOException {
     try {
       this.reader = reader;
+      /* NOTE: Must NOT use Java's default XMLStreamWriter, because it has a BUG in which Unicode surrogate pairs
+         incorrectly get left in a StringBuffer, causing each subsequent attribute with surrogate pairs to get all
+         previous ones as a bigger and bigger prefix(!).
+         To solve this, be sure to have a dependency on woodstox in the project:
+            <dependency>
+              <groupId>com.fasterxml.woodstox</groupId>
+              <artifactId>woodstox-core</artifactId>
+              <version>5.0.1</version>
+            </dependency>
+         This will cause this XMLStreamReader instead of the buggy one to be chosen at runtime.
+      */
       xmlStreamReader = XMLInputFactory.newFactory().createXMLStreamReader(reader);
       unmarshaller = jaxbContext.createUnmarshaller();
       prepareNext();

@@ -391,7 +391,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
     return (getId() == null) ? "" : getId();
   }
 
-  protected void embed(Conclusion conclusion) {
+  public void embed(Conclusion conclusion) {
     this.lang = this.lang == null ? conclusion.lang : this.lang;
     this.confidence = this.confidence == null ? conclusion.confidence : this.confidence;
     this.attribution = this.attribution == null ? conclusion.attribution : this.attribution;
