@@ -98,6 +98,11 @@ public enum RecordType {
   Christening,
 
   /**
+   * A Compiled Genealogy
+   */
+  CompiledGenealogy,
+
+  /**
    * A record of a person's confirmation.
    */
   Confirmation,
@@ -216,6 +221,11 @@ public enum RecordType {
    * A naturalization record.
    */
   Naturalization,
+
+  /**
+   * A   Obituary record
+   */
+  Obituary,
 
   /**
    * A passenger record.
