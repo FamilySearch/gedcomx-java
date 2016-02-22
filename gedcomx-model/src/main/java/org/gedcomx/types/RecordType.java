@@ -98,6 +98,11 @@ public enum RecordType {
   Christening,
 
   /**
+   * A Compiled Genealogy
+   */
+  CompiledGenealogy,
+
+  /**
    * A record of a person's confirmation.
    */
   Confirmation,
@@ -218,6 +223,11 @@ public enum RecordType {
   Naturalization,
 
   /**
+   * A   Obituary record
+   */
+  Obituary,
+
+  /**
    * A passenger record.
    */
   Passenger,
@@ -241,11 +251,6 @@ public enum RecordType {
    * todo: document this type.
    */
   ReligiousCreeds,
-
-  /**
-   * A Residence record
-   */
-  Residence,
 
   /**
    * A roll.
