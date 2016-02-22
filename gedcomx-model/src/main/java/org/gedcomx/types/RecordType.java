@@ -253,6 +253,11 @@ public enum RecordType {
   ReligiousCreeds,
 
   /**
+   +   * A Residence record
+   +   */
+  Residence,
+
+  /**
    * A roll.
    */
   Roll,
