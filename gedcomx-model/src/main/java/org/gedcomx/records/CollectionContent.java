@@ -114,7 +114,7 @@ public class CollectionContent extends HypermediaEnabledData {
    */
   @JsonIgnore
   public void setKnownResourceType(ResourceType type) {
-    setResourceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setResourceType(type == null ? null : type.toQNameURI());
   }
 
   /**

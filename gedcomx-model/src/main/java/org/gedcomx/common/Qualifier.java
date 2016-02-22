@@ -15,9 +15,9 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.enunciate.XmlQNameEnumUtil;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.rt.ControlledVocabulary;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
@@ -47,12 +47,12 @@ public final class Qualifier {
     setName(name);
   }
 
-  public Qualifier(Enum name, String value) {
+  public Qualifier(ControlledVocabulary name, String value) {
     setName(name);
     setValue(value);
   }
 
-  public Qualifier(Enum name) {
+  public Qualifier(ControlledVocabulary name) {
     setName(name);
   }
 
@@ -89,24 +89,14 @@ public final class Qualifier {
   }
 
   /**
-   * Get the name as an element of a constrained vocabulary.
-   *
-   * @param vocabulary The enum containing the constrained vocabulary.
-   * @return The vocabulary element.
-   */
-  public <E extends Enum> E getName(Class<E> vocabulary) {
-    return this.name == null ? null : (E) XmlQNameEnumUtil.fromURI(this.name.toURI(), vocabulary);
-  }
-
-  /**
    * Set the qualifier name as an element of a constrained vocabulary.
    *
    * @param element The element.
    */
   @XmlTransient
   @JsonIgnore
-  public void setName(Enum element) {
-    this.name = element == null ? null : new URI(XmlQNameEnumUtil.toURI(element).toString());
+  public void setName(ControlledVocabulary element) {
+    this.name = element == null ? null : element.toQNameURI();
   }
 
   /**
@@ -115,7 +105,7 @@ public final class Qualifier {
    * @param name the name.
    * @return this.
    */
-  public Qualifier name(Enum name) {
+  public Qualifier name(ControlledVocabulary name) {
     setName(name);
     return this;
   }

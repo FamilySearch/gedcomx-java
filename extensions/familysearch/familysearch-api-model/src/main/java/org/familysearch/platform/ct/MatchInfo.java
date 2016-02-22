@@ -104,7 +104,7 @@ public class MatchInfo {
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownCollection(MatchCollection knownCollection) {
-    setCollection(knownCollection == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownCollection)));
+    setCollection(knownCollection == null ? null : knownCollection.toQNameURI());
   }
 
   /**
@@ -147,6 +147,6 @@ public class MatchInfo {
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownStatus(MatchStatus knownResolution) {
-    setStatus(knownResolution == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownResolution)));
+    setStatus(knownResolution == null ? null : knownResolution.toQNameURI());
   }
 }

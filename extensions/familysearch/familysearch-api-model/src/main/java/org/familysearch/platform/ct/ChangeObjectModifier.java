@@ -17,7 +17,10 @@ package org.familysearch.platform.ct;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlQNameEnumValue;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 /**
@@ -28,7 +31,7 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum ChangeObjectModifier {
+public enum ChangeObjectModifier implements ControlledVocabulary {
 
   /**
    * The person.
@@ -47,13 +50,15 @@ public enum ChangeObjectModifier {
    */
   ChildAndParentsRelationship;
 
+  private static final EnumURIMap<ChangeObjectModifier> URI_MAP = new EnumURIMap<ChangeObjectModifier>(ChangeObjectModifier.class, FamilySearchPlatform.NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -63,7 +68,8 @@ public enum ChangeObjectModifier {
    * @return The enumeration.
    */
   public static ChangeObjectModifier fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), ChangeObjectModifier.class);
+    return URI_MAP.fromURIValue(qname
+    );
   }
 
 

@@ -18,6 +18,9 @@ package org.gedcomx.types;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
+import org.gedcomx.rt.GedcomxConstants;
 
 
 /**
@@ -26,7 +29,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum SourceReferenceQualifierType {
+public enum SourceReferenceQualifierType implements ControlledVocabulary {
 
   /**
    * A region of text in a digital document, in the form of `a,b` where `a` is the start character and `b` is the end character.
@@ -52,13 +55,15 @@ public enum SourceReferenceQualifierType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<SourceReferenceQualifierType> URI_MAP = new EnumURIMap<SourceReferenceQualifierType>(SourceReferenceQualifierType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -68,7 +73,7 @@ public enum SourceReferenceQualifierType {
    * @return The enumeration.
    */
   public static SourceReferenceQualifierType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), SourceReferenceQualifierType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

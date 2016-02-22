@@ -19,6 +19,8 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 /**
@@ -30,7 +32,7 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-public enum DocumentType {
+public enum DocumentType implements ControlledVocabulary {
 
   /**
    * The document is an abstract of a record or document.
@@ -55,13 +57,15 @@ public enum DocumentType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<DocumentType> URI_MAP = new EnumURIMap<DocumentType>(DocumentType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -71,7 +75,7 @@ public enum DocumentType {
    * @return The enumeration.
    */
   public static DocumentType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), DocumentType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

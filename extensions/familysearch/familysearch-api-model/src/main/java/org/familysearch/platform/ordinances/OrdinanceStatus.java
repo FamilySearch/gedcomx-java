@@ -16,12 +16,15 @@
 package org.familysearch.platform.ordinances;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 
 @XmlQNameEnum(
   base = XmlQNameEnum.BaseType.URI
 )
-public enum OrdinanceStatus {
+public enum OrdinanceStatus implements ControlledVocabulary {
   Not_Set,
   Ready,
   Not_Ready,
@@ -38,13 +41,15 @@ public enum OrdinanceStatus {
   Born_In_The_Covenant,
   OTHER;
 
+  private static final EnumURIMap<OrdinanceStatus> URI_MAP = new EnumURIMap<OrdinanceStatus>(OrdinanceStatus.class, FamilySearchPlatform.NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -54,7 +59,7 @@ public enum OrdinanceStatus {
    * @return The enumeration.
    */
   public static OrdinanceStatus fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), OrdinanceStatus.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

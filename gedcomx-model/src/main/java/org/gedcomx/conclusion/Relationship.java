@@ -219,7 +219,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    */
   @JsonIgnore
   public void setKnownType(RelationshipType type) {
-    setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setType(type == null ? null : type.toQNameURI());
   }
 
   /**

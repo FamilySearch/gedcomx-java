@@ -16,7 +16,10 @@
 package org.familysearch.platform.ordinances;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 
 /**
  * Enumeration of known ordinance types
@@ -25,7 +28,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum(
   base = XmlQNameEnum.BaseType.URI
 )
-public enum OrdinanceType {
+public enum OrdinanceType implements ControlledVocabulary {
 
   Baptism,
   Confirmation,
@@ -38,13 +41,15 @@ public enum OrdinanceType {
   Melchizedek,
   OTHER;
 
+  private static final EnumURIMap<OrdinanceType> URI_MAP = new EnumURIMap<OrdinanceType>(OrdinanceType.class, FamilySearchPlatform.NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -54,7 +59,7 @@ public enum OrdinanceType {
    * @return The enumeration.
    */
   public static OrdinanceType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), OrdinanceType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 

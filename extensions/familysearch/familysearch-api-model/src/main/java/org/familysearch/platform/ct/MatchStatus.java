@@ -16,7 +16,10 @@
 package org.familysearch.platform.ct;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 
 /**
  * The way a match was resolved.
@@ -24,7 +27,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum MatchStatus {
+public enum MatchStatus implements ControlledVocabulary {
 
   Pending,
 
@@ -32,6 +35,7 @@ public enum MatchStatus {
 
   Rejected;
 
+  private static final EnumURIMap<MatchStatus> URI_MAP = new EnumURIMap<MatchStatus>(MatchStatus.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -39,7 +43,7 @@ public enum MatchStatus {
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -49,6 +53,6 @@ public enum MatchStatus {
    * @return The enumeration.
    */
   public static MatchStatus fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), MatchStatus.class);
+    return URI_MAP.fromURIValue(qname);
   }
 }

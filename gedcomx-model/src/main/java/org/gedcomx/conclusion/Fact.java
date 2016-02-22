@@ -240,7 +240,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    */
   @JsonIgnore
   public void setKnownType(org.gedcomx.types.FactType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   /**

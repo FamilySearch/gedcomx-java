@@ -76,7 +76,7 @@ public class Ordinance extends HypermediaEnabledData {
    */
   @JsonIgnore
   public void setKnownType(OrdinanceType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   /**
@@ -176,7 +176,7 @@ public class Ordinance extends HypermediaEnabledData {
    */
   @JsonIgnore
   public void setKnownStatus(OrdinanceStatus knownStatus) {
-    setStatus(knownStatus == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownStatus)));
+    setStatus(knownStatus == null ? null : knownStatus.toQNameURI());
   }
 
   /**

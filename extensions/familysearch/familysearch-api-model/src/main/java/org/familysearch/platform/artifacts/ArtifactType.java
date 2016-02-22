@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,10 @@ package org.familysearch.platform.artifacts;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 
 
 /**
@@ -28,8 +31,8 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum ArtifactType
-{
+public enum ArtifactType implements ControlledVocabulary {
+
   /**
    * The artifact is a document.
    */
@@ -56,13 +59,15 @@ public enum ArtifactType
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<ArtifactType> URI_MAP = new EnumURIMap<ArtifactType>(ArtifactType.class, FamilySearchPlatform.NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -72,6 +77,7 @@ public enum ArtifactType
    * @return The enumeration.
    */
   public static ArtifactType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), ArtifactType.class);
+    return URI_MAP.fromURIValue(qname
+    );
   }
 }

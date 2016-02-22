@@ -184,7 +184,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   @JsonIgnore
   public void setKnownType(ResourceType type) {
-    setResourceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setResourceType(type == null ? null : type.toQNameURI());
   }
 
   /**
@@ -770,7 +770,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   public void addKnownStatus(ResourceStatusType status) {
     if (status != null) {
-      addStatus(URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(status)));
+      addStatus(status.toQNameURI());
     }
   }
 

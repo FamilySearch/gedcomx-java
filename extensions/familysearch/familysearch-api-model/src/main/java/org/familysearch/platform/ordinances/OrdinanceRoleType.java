@@ -16,17 +16,22 @@
 package org.familysearch.platform.ordinances;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 
 @XmlQNameEnum(
   base = XmlQNameEnum.BaseType.URI
 )
-public enum OrdinanceRoleType {
+public enum OrdinanceRoleType implements ControlledVocabulary {
   Principal,
   Father,
   Mother,
   Spouse,
   OTHER;
+
+  private static final EnumURIMap<OrdinanceRoleType> URI_MAP = new EnumURIMap<OrdinanceRoleType>(OrdinanceRoleType.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -34,7 +39,7 @@ public enum OrdinanceRoleType {
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -44,7 +49,7 @@ public enum OrdinanceRoleType {
    * @return The enumeration.
    */
   public static OrdinanceRoleType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), OrdinanceRoleType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

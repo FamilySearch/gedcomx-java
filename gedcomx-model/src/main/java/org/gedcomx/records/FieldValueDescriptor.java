@@ -102,7 +102,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    */
   @JsonIgnore
   public void setKnownType(FieldValueType type) {
-    setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setType(type == null ? null : type.toQNameURI());
   }
 
   /**

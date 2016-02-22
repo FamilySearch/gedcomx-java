@@ -18,6 +18,9 @@ package org.gedcomx.types;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
+import org.gedcomx.rt.GedcomxConstants;
 
 /**
  * Enumeration of standard name part types.
@@ -25,7 +28,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum NamePartType {
+public enum NamePartType implements ControlledVocabulary {
 
   Prefix,
   Suffix,
@@ -34,13 +37,15 @@ public enum NamePartType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<NamePartType> URI_MAP = new EnumURIMap<NamePartType>(NamePartType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -50,7 +55,7 @@ public enum NamePartType {
    * @return The enumeration.
    */
   public static NamePartType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), NamePartType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

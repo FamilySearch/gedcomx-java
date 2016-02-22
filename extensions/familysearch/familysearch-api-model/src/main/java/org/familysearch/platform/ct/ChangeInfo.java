@@ -93,7 +93,7 @@ public class ChangeInfo {
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownOperation(ChangeOperation knownOperation) {
-    setOperation(knownOperation == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownOperation)));
+    setOperation(knownOperation == null ? null : knownOperation.toQNameURI());
   }
 
   /**
@@ -136,7 +136,7 @@ public class ChangeInfo {
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownObjectType(ChangeObjectType knownObject) {
-    setObjectType(knownObject == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownObject)));
+    setObjectType(knownObject == null ? null : knownObject.toQNameURI());
   }
 
   /**
@@ -181,7 +181,7 @@ public class ChangeInfo {
   @JsonIgnore
   @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownObjectModifier(ChangeObjectModifier knownObject) {
-    setObjectModifier(knownObject == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownObject)));
+    setObjectModifier(knownObject == null ? null : knownObject.toQNameURI());
   }
 
   /**

@@ -160,7 +160,7 @@ public final class Identifier implements HasJsonKey {
    */
   @JsonIgnore
   public void setKnownType(IdentifierType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   @XmlTransient

@@ -192,7 +192,7 @@ public class Name extends Conclusion {
    */
   @JsonIgnore
   public void setKnownType(NameType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   /**

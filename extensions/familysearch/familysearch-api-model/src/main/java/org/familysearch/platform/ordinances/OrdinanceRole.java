@@ -83,7 +83,7 @@ public class OrdinanceRole {
    */
   @JsonIgnore
   public void setKnownType(OrdinanceRoleType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
 }

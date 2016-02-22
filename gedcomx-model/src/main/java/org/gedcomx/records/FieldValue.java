@@ -194,7 +194,7 @@ public final class FieldValue extends Conclusion {
    */
   @JsonIgnore
   public void setKnownType(FieldValueType type) {
-    setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setType(type == null ? null : type.toQNameURI());
   }
 
   /**
@@ -350,7 +350,7 @@ public final class FieldValue extends Conclusion {
    */
   @JsonIgnore
   public void setKnownStatus(FieldValueStatusType status) {
-    setType(status == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(status)));
+    setType(status == null ? null : status.toQNameURI());
   }
 
   /**

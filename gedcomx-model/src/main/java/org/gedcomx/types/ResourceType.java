@@ -18,6 +18,9 @@ package org.gedcomx.types;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
+import org.gedcomx.rt.GedcomxConstants;
 
 /**
  * Enumeration of high-level genealogical resource types.
@@ -25,7 +28,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum ResourceType {
+public enum ResourceType implements ControlledVocabulary {
 
   /**
    * A historical record.
@@ -55,13 +58,15 @@ public enum ResourceType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<ResourceType> URI_MAP = new EnumURIMap<ResourceType>(ResourceType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -71,7 +76,7 @@ public enum ResourceType {
    * @return The enumeration.
    */
   public static ResourceType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), ResourceType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

@@ -19,6 +19,8 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -32,7 +34,7 @@ import java.util.Set;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum FactType {
+public enum FactType implements ControlledVocabulary {
 
   // facts generally applicable within the scope of a person.
 
@@ -549,13 +551,15 @@ public enum FactType {
     return MIGRATIONLIKE_FACT_TYPES.contains(this);
   }
 
+  private static final EnumURIMap<FactType> URI_MAP = new EnumURIMap<FactType>(FactType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -565,7 +569,7 @@ public enum FactType {
    * @return The enumeration.
    */
   public static FactType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FactType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
   /**

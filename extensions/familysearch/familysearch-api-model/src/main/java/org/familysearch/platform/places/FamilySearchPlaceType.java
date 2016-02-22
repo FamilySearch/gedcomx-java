@@ -17,7 +17,10 @@ package org.familysearch.platform.places;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 
 /**
  * Enumeration of different types of places that can be described in the FamilySearch place authority.
@@ -27,7 +30,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum FamilySearchPlaceType {
+public enum FamilySearchPlaceType implements ControlledVocabulary {
 
   Place,
 
@@ -36,13 +39,15 @@ public enum FamilySearchPlaceType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<FamilySearchPlaceType> URI_MAP = new EnumURIMap<FamilySearchPlaceType>(FamilySearchPlaceType.class, FamilySearchPlatform.NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -52,7 +57,7 @@ public enum FamilySearchPlaceType {
    * @return The enumeration.
    */
   public static FamilySearchPlaceType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), FamilySearchPlaceType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 

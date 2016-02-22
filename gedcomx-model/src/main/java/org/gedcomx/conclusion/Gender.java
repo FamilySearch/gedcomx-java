@@ -197,7 +197,7 @@ public class Gender extends Conclusion implements HasFields {
    */
   @JsonIgnore
   public void setKnownType(GenderType type) {
-    setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setType(type == null ? null : type.toQNameURI());
   }
 
   /**

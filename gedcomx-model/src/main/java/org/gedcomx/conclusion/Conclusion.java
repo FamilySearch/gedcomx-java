@@ -160,7 +160,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    */
   @JsonIgnore
   public void setKnownConfidenceLevel(ConfidenceLevel level) {
-    setConfidence(level == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(level)));
+    setConfidence(level == null ? null : level.toQNameURI());
   }
 
   /**

@@ -124,7 +124,7 @@ public class Field extends HypermediaEnabledData {
    */
   @JsonIgnore
   public void setKnownType(FieldType type) {
-    setType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setType(type == null ? null : type.toQNameURI());
   }
 
 

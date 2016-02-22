@@ -242,7 +242,7 @@ public class Event extends Subject implements HasDateAndPlace {
    */
   @JsonIgnore
   public void setKnownType(org.gedcomx.types.EventType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   /**

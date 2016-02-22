@@ -126,7 +126,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
    */
   @JsonIgnore
   public void setKnownType(NamePartType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   /**

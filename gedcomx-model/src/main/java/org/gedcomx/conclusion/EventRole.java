@@ -220,7 +220,7 @@ public class EventRole extends Conclusion {
    */
   @JsonIgnore
   public void setKnownType(EventRoleType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   /**

@@ -18,6 +18,9 @@ package org.gedcomx.types;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
+import org.gedcomx.rt.GedcomxConstants;
 
 /**
  * Enumeration of known gender types.
@@ -27,7 +30,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum GenderType {
+public enum GenderType implements ControlledVocabulary {
 
   /**
    * Male.
@@ -51,13 +54,15 @@ public enum GenderType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<GenderType> URI_MAP = new EnumURIMap<GenderType>(GenderType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -67,7 +72,7 @@ public enum GenderType {
    * @return The enumeration.
    */
   public static GenderType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), GenderType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

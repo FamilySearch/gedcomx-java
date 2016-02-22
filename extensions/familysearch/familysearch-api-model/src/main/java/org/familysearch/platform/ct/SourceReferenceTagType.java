@@ -18,7 +18,10 @@ package org.familysearch.platform.ct;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlQNameEnumValue;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 
@@ -30,7 +33,7 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum SourceReferenceTagType {
+public enum SourceReferenceTagType implements ControlledVocabulary {
 
   /**
    */
@@ -48,13 +51,15 @@ public enum SourceReferenceTagType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<SourceReferenceTagType> URI_MAP = new EnumURIMap<SourceReferenceTagType>(SourceReferenceTagType.class, FamilySearchPlatform.NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -64,7 +69,7 @@ public enum SourceReferenceTagType {
    * @return The enumeration.
    */
   public static SourceReferenceTagType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), SourceReferenceTagType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

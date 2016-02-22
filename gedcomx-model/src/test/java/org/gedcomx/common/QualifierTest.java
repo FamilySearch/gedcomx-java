@@ -20,7 +20,7 @@ public class QualifierTest {
    */
   public void testQualifierXml() throws Exception {
     SourceReference sourceReference = new SourceReference();
-    sourceReference.qualifier(new Qualifier(SourceReferenceQualifierType.RectangleRegion, "1,2,3,4"));
+    sourceReference.qualifier(new Qualifier(SourceReferenceQualifierType.RectangleRegion.toQNameURI(), "1,2,3,4"));
     Qualifier qualifier = ((SourceReference)processThroughXml(sourceReference)).getQualifiers().get(0);
     assertEquals(SourceReferenceQualifierType.RectangleRegion.toQNameURI(), qualifier.getName());
     assertEquals("1,2,3,4", qualifier.getValue());
@@ -31,7 +31,7 @@ public class QualifierTest {
    */
   public void testQualifierJson() throws Exception {
     SourceReference sourceReference = new SourceReference();
-    sourceReference.qualifier(new Qualifier(SourceReferenceQualifierType.RectangleRegion, "1,2,3,4"));
+    sourceReference.qualifier(new Qualifier(SourceReferenceQualifierType.RectangleRegion.toQNameURI(), "1,2,3,4"));
     Qualifier qualifier = ((SourceReference)processThroughJson(sourceReference)).getQualifiers().get(0);
     assertEquals(SourceReferenceQualifierType.RectangleRegion.toQNameURI(), qualifier.getName());
     assertEquals("1,2,3,4", qualifier.getValue());

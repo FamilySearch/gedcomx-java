@@ -264,7 +264,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    */
   @JsonIgnore
   public void setKnownType(org.gedcomx.types.DocumentType knownType) {
-    setType(knownType == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(knownType)));
+    setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   /**

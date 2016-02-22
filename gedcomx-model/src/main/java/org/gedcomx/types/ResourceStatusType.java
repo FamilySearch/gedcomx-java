@@ -18,6 +18,9 @@ package org.gedcomx.types;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
+import org.gedcomx.rt.GedcomxConstants;
 
 /**
  * Class representing the status of a resource (such as a person, historical record or image).
@@ -28,7 +31,7 @@ import org.gedcomx.common.URI;
 @XmlQNameEnum(
         base = XmlQNameEnum.BaseType.URI
 )
-public enum ResourceStatusType {
+public enum ResourceStatusType implements ControlledVocabulary {
   Deleted,    // (May be 'replacedBy' another resource, as in the case of a merge).
   Deprecated, // Still available, but no longer the latest or best version. Often 'replacedBy' another resource.
   Duplicate,  // Duplicate of another resource (like a film that has a picture of the same page twice), and therefore can be ignored.
@@ -44,13 +47,15 @@ public enum ResourceStatusType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<ResourceStatusType> URI_MAP = new EnumURIMap<ResourceStatusType>(ResourceStatusType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -60,6 +65,6 @@ public enum ResourceStatusType {
    * @return The enumeration.
    */
   public static ResourceStatusType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), ResourceStatusType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 }

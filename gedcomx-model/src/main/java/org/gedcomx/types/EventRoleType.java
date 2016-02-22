@@ -19,6 +19,8 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 /**
@@ -28,7 +30,7 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-public enum EventRoleType {
+public enum EventRoleType implements ControlledVocabulary {
 
   Principal,
   Participant,
@@ -37,13 +39,15 @@ public enum EventRoleType {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<EventRoleType> URI_MAP = new EnumURIMap<EventRoleType>(EventRoleType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -53,7 +57,7 @@ public enum EventRoleType {
    * @return The enumeration.
    */
   public static EventRoleType fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), EventRoleType.class);
+    return URI_MAP.fromURIValue(qname);
   }
 
 }

@@ -164,7 +164,7 @@ public class Coverage extends HypermediaEnabledData {
    */
   @JsonIgnore
   public void setKnownRecordType(RecordType type) {
-    setRecordType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setRecordType(type == null ? null : type.toQNameURI());
   }
 
 }

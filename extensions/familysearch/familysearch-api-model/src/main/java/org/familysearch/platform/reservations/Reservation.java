@@ -103,7 +103,7 @@ public class Reservation extends Conclusion {
    */
   @JsonIgnore
   public void setKnownOrdinanceType(OrdinanceType type) {
-    setOrdinanceType(type == null ? null : URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(type)));
+    setOrdinanceType(type == null ? null : type.toQNameURI());
   }
 
   public ResourceReference getPerson() {

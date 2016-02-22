@@ -16,6 +16,7 @@
 package org.familysearch.platform;
 
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -37,8 +38,8 @@ public class Tag implements Serializable {
   public Tag() {
   }
 
-  public Tag(Enum value) {
-    this.resource = URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(value));
+  public Tag(ControlledVocabulary value) {
+    this.resource = value == null ? null : value.toQNameURI();
   }
 
   /**

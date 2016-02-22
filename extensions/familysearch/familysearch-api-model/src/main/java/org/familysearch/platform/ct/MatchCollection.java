@@ -18,7 +18,10 @@ package org.familysearch.platform.ct;
 import org.codehaus.enunciate.qname.XmlQNameEnum;
 import org.codehaus.enunciate.qname.XmlQNameEnumValue;
 import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
 
 /**
  * Identifiers for a collection that might contain match results.
@@ -27,7 +30,7 @@ import org.gedcomx.common.URI;
   base = XmlQNameEnum.BaseType.URI,
   namespace = "https://familysearch.org/platform/collections/"
 )
-public enum MatchCollection {
+public enum MatchCollection implements ControlledVocabulary {
 
   /**
    * The FamilySearch Family Tree.
@@ -54,13 +57,15 @@ public enum MatchCollection {
   @XmlUnknownQNameEnumValue
   OTHER;
 
+  private static final EnumURIMap<MatchCollection> URI_MAP = new EnumURIMap<MatchCollection>(MatchCollection.class, FamilySearchPlatform.NAMESPACE);
+
   /**
    * Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
   public URI toQNameURI() {
-    return URI.create(org.codehaus.enunciate.XmlQNameEnumUtil.toURIValue(this));
+    return URI_MAP.toURIValue(this);
   }
 
   /**
@@ -70,6 +75,6 @@ public enum MatchCollection {
    * @return The enumeration.
    */
   public static MatchCollection fromQNameURI(URI qname) {
-    return org.codehaus.enunciate.XmlQNameEnumUtil.fromURIValue(qname.toString(), MatchCollection.class);
+    return URI_MAP.fromURIValue(qname);
   }
 }
