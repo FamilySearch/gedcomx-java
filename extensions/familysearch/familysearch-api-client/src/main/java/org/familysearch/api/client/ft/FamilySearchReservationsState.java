@@ -24,6 +24,7 @@ import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.artifacts.ArtifactType;
+import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.SourceDescriptionState;
@@ -37,6 +38,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
 
@@ -181,5 +183,42 @@ public class FamilySearchReservationsState extends FamilySearchCollectionState {
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
+  }
+
+  /**
+   * Utility method to create a single list of Reservation objects from the reservations found in a list of
+   *   OrdinanceReservationState objects. Can handle 0 or more arguments, each of which can be null, or have a null
+   *   or empty or non-empty list of Reservation objects.
+   * @param reservationStates - List of OrdinanceReservationState objects
+   * @return List of Reservation objects, or null if there none.
+   */
+  public static List<Reservation> gatherReservations(OrdinanceReservationsState... reservationStates) {
+    List<Reservation> list = new ArrayList<Reservation>();
+    if (reservationStates != null) {
+      for (OrdinanceReservationsState reservationState : reservationStates) {
+        if (reservationState != null && reservationState.getReservations() != null) {
+          list.addAll(reservationState.getReservations());
+        }
+      }
+    }
+    return list.size() == 0 ? null : list;
+  }
+
+  /**
+   * Given a list of LDS temple ordinance reservations, do a POST to cause a PDF of temple cards to be created for that
+   *   set of ordinances. Return a TempleCardPrintSetState that contains the URL of where to retrieve the PDF file from.
+   *   Do get() on the resulting TempleCardPrintSetState to actually fetch the PDF InputStream.
+   * Note that a FamilySearchReservationState object typically has ordinances for a person's individual ordinances,
+   *   a person's sealing-to-parent ordinances, or a couple's sealing-to-spouse ordinances, but not a combination of these.
+   *   This method takes a list of Reservation objects that can be gathered from one or more of these kinds of reservations
+   *   (via getReservations() on each).
+   * @param reservationList - List of LDS temple ordinance reservations to generate temple cards for
+   * @param options - Optional options
+   * @return TempleCardPrintSetState, which is the result of doing a POST to generate the cards.
+   */
+  public TempleCardPrintSetState createPrintSet(List<Reservation> reservationList, StateTransitionOption... options) {
+    Link link = getLink(Rel.TEMPLE_CARD_PRINT_SETS);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newTempleCardPrintSetState(request, invoke(request, options), this.accessToken);
   }
 }

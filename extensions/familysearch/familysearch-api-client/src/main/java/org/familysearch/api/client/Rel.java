@@ -48,4 +48,5 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String PREFERRED_PARENT_RELATIONSHIP = "preferred-parent-relationship";
   public static final String RESERVATION = "ordinance-reservation";
   public static final String RESERVATIONS = "ordinance-reservations";
+  public static final String TEMPLE_CARD_PRINT_SETS = "temple-card-print-sets";
 }

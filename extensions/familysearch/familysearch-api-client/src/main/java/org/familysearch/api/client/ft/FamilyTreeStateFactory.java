@@ -125,4 +125,8 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   public FamilySearchReservationsState newFamilySearchReservationsState(URI discoveryUri) {
     return new FamilySearchReservationsState(discoveryUri);
   }
+
+  public TempleCardPrintSetState newTempleCardPrintSetState(ClientRequest request, ClientResponse clientResponse, String accessToken) {
+    return new TempleCardPrintSetState(request, clientResponse, accessToken, this);
+  }
 }
