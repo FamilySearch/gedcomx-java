@@ -144,7 +144,9 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
 
   public PersonMatchResultsState updateMatchStatus(Entry entry, MatchStatus status, StateTransitionOption... options) {
     URI updateStatusUri = UriBuilder.fromUri(getSelfUri()).replaceQueryParam(FamilySearchOptions.STATUS, status.name().toLowerCase()).build();
-    ClientRequest request = createAuthenticatedRequest().type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE)
+    ClientRequest request = createAuthenticatedRequest()
+      .type(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE)
+      .accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE)
       .entity(new Gedcomx().person(new Person().identifier(new Identifier(entry.getId(), IdentifierType.Persistent))))
       .build(updateStatusUri, HttpMethod.POST);
     return ((FamilySearchStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
