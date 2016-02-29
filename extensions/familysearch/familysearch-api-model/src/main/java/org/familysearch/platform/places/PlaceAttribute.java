@@ -25,6 +25,8 @@ public class PlaceAttribute {
   private String typeId;
   private String descriptionId;
   private String value;
+  private Integer year;
+  private String locale;
 
   public String getAttributeId() {
     return attributeId;
@@ -64,5 +66,21 @@ public class PlaceAttribute {
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public Integer getYear() {
+    return year;
+  }
+
+  public void setYear(Integer year) {
+    this.year = year;
+  }
+
+  public String getLocale() {
+    return locale;
+  }
+
+  public void setLocale(String locale) {
+    this.locale = locale;
   }
 }
