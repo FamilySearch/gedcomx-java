@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateFactory;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 import java.io.InputStream;
 
@@ -47,5 +48,20 @@ public class TempleCardPrintSetState extends GedcomxApplicationState<InputStream
   @Override
   protected SupportsLinks getMainDataElement() {
     return null;
+  }
+
+  @Override
+  public TempleCardPrintSetState ifSuccessful() {
+    return (TempleCardPrintSetState) super.ifSuccessful();
+  }
+
+  @Override
+  public TempleCardPrintSetState head(StateTransitionOption... options) {
+    return (TempleCardPrintSetState) super.head(options);
+  }
+
+  @Override
+  public TempleCardPrintSetState get(StateTransitionOption... options) {
+    return (TempleCardPrintSetState) super.get(options);
   }
 }

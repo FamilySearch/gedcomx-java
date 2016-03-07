@@ -22,6 +22,7 @@ import org.familysearch.api.client.FamilySearchCollectionState;
 import org.familysearch.api.client.FamilySearchReferenceEnvironment;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.artifacts.ArtifactType;
 import org.familysearch.platform.reservations.Reservation;
@@ -218,7 +219,9 @@ public class FamilySearchReservationsState extends FamilySearchCollectionState {
    */
   public TempleCardPrintSetState createPrintSet(List<Reservation> reservationList, StateTransitionOption... options) {
     Link link = getLink(Rel.TEMPLE_CARD_PRINT_SETS);
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
+    FamilySearchPlatform fsp = new FamilySearchPlatform();
+    fsp.setReservations(reservationList);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newTempleCardPrintSetState(request, invoke(request, options), this.accessToken);
   }
 }
