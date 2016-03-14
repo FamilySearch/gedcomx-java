@@ -34,12 +34,14 @@ import java.util.Date;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "attribution")
-@XmlType ( name = "Attribution", propOrder = { "contributor", "modified", "changeMessage" } )
+@XmlType ( name = "Attribution", propOrder = { "contributor", "modified", "changeMessage", "creator", "created" } )
 @SuppressWarnings("gedcomx:no_id")
 public final class Attribution extends ExtensibleData {
 
   private ResourceReference contributor;
+  private ResourceReference creator;
   private Date modified;
+  private Date created;
   private String changeMessage;
 
   @Override
@@ -103,6 +105,63 @@ public final class Attribution extends ExtensibleData {
   }
 
   /**
+   * Reference to the creator of the attributed data. The creator might be different from the contributor
+   * if the attributed data has been modified since it was created.
+   *
+   * @return Reference to the creator of the attributed data.
+   */
+  @RDFRange({})
+  @RDFSubPropertyOf( "http://purl.org/dc/terms/creator")
+  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  public ResourceReference getCreator() {
+    return creator;
+  }
+
+  /**
+   * Reference to the creator of the attributed data. The creator might be different from the contributor
+   * if the attributed data has been modified since it was created.
+   *
+   * @param creator Reference to the creator of the attributed data.
+   */
+  public void setCreator(ResourceReference creator) {
+    this.creator = creator;
+  }
+
+  /**
+   * Build up this attribution with a creator.
+   *
+   * @param creator The creator.
+   * @return this.
+   */
+  public Attribution creator(ResourceReference creator) {
+    this.creator = creator;
+    return this;
+  }
+
+  /**
+   * Build up this attribution with a creator.
+   *
+   * @param creator The creator.
+   * @return this.
+   */
+  public Attribution creator(URI creator) {
+    return creator(new ResourceReference(creator));
+  }
+
+  /**
+   * Build up this attribution with a creator.
+   *
+   * @param agent The creator.
+   * @return this.
+   */
+  public Attribution creator(Agent agent) {
+    if (agent.getId() == null) {
+      throw new IllegalArgumentException("Can't reference agent as a creator: no id.");
+    }
+    return creator(URI.create("#" + agent.getId()));
+  }
+
+  /**
    * The modified timestamp for the attributed data.
    *
    * @return The modified timestamp for the attributed data.
@@ -130,6 +189,37 @@ public final class Attribution extends ExtensibleData {
    */
   public Attribution modified(Date modified) {
     this.modified = modified;
+    return this;
+  }
+
+  /**
+   * The created timestamp for the attributed data.
+   *
+   * @return The created timestamp for the attributed data.
+   */
+  @RDFSubPropertyOf( "http://purl.org/dc/terms/created")
+  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  public Date getCreated() {
+    return created;
+  }
+
+  /**
+   * The created timestamp for the attributed data.
+   *
+   * @param created The created timestamp for the attributed data.
+   */
+  public void setCreated(Date created) {
+    this.created = created;
+  }
+
+  /**
+   * Build up this attribution with a created date.
+   *
+   * @param created The created date.
+   * @return this.
+   */
+  public Attribution created(Date created) {
+    this.created = created;
     return this;
   }
 
