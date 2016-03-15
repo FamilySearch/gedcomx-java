@@ -803,5 +803,34 @@ public class FamilyTreePersonState extends PersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
   }
 
+  public OrdinancesState readOrdinances(StateTransitionOption... options) {
+    Link link = getLink(Rel.ORDINANCES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinancesState(request, invoke(request, options), this.accessToken);
+  }
+
+  public OrdinanceDetailsState readOrdinanceDetails(StateTransitionOption... options) {
+    Link link = getLink(Rel.ORDINANCE_DETAILS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceDetailsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public OrdinanceStatusState readOrdinanceStatus(StateTransitionOption... options) {
+    Link link = getLink(Rel.ORDINANCE_STATUS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceStatusState(request, invoke(request, options), this.accessToken);
+  }
 
 }

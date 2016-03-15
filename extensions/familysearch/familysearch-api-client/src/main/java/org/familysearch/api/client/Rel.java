@@ -49,4 +49,7 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String RESERVATION = "ordinance-reservation";
   public static final String RESERVATIONS = "ordinance-reservations";
   public static final String TEMPLE_CARD_PRINT_SETS = "temple-card-print-sets";
+  public static final String ORDINANCES = "lds-ordinances";
+  public static final String ORDINANCE_DETAILS = "lds-ordinance-details";
+  public static final String ORDINANCE_STATUS = "lds-ordinance-status";
 }

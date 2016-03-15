@@ -114,6 +114,18 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
     return new OrdinanceReservationsState(request, response, accessToken, this);
   }
 
+  protected OrdinancesState newOrdinancesState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new OrdinancesState(request, response, accessToken, this);
+  }
+
+  protected OrdinanceDetailsState newOrdinanceDetailsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new OrdinanceDetailsState(request, response, accessToken, this);
+  }
+
+  protected OrdinanceStatusState newOrdinanceStatusState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new OrdinanceStatusState(request, response, accessToken, this);
+  }
+
   public FamilySearchReservationsState newFamilySearchReservationsState() {
     return new FamilySearchReservationsState(true);
   }
