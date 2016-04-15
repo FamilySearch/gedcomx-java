@@ -60,6 +60,11 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   }
 
   @Override
+  public Conclusion extensionElement(Object element) {
+    return (Conclusion) super.extensionElement(element);
+  }
+
+  @Override
   public Conclusion link(String rel, URI href) {
     return (Conclusion) super.link(rel, href);
   }

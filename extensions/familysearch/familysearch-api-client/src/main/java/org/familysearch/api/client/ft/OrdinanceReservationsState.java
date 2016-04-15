@@ -18,9 +18,8 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
-import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.reservations.Reservation;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
@@ -80,8 +79,8 @@ public class OrdinanceReservationsState extends GedcomxApplicationState<FamilySe
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
   }
 
-  public List<Reservation> getReservations() {
-    return getEntity() == null ? null : getEntity().getReservations();
+  public List<Person> getReservations() {
+    return getEntity() == null ? null : getEntity().getPersons();
   }
 
   @Override
@@ -99,20 +98,4 @@ public class OrdinanceReservationsState extends GedcomxApplicationState<FamilySe
     return ((FamilyTreeStateFactory)this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
-  public OrdinanceReservationsState addReservation(Reservation reservation, StateTransitionOption... options) {
-    FamilySearchPlatform entity = new FamilySearchPlatform();
-    entity.addReservation(reservation);
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).entity(entity).build(getSelfUri(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
-  }
-
-  public OrdinanceReservationsState deleteReservation(Reservation reservation, StateTransitionOption... options) {
-    Link link = reservation.getLink(org.familysearch.api.client.Rel.RESERVATION);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
-  }
 }

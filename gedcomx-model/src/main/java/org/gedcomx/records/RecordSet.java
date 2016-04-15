@@ -73,6 +73,11 @@ public class RecordSet extends HypermediaEnabledData {
   }
 
   @Override
+  public RecordSet extensionElement(Object element) {
+    return (RecordSet) super.extensionElement(element);
+  }
+
+  @Override
   public RecordSet link(String rel, URI href) {
     return (RecordSet) super.link(rel, href);
   }

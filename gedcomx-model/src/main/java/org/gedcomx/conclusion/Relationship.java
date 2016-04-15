@@ -65,6 +65,11 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   }
 
   @Override
+  public Relationship extensionElement(Object element) {
+    return (Relationship) super.extensionElement(element);
+  }
+
+  @Override
   public Relationship link(String rel, URI href) {
     return (Relationship) super.link(rel, href);
   }

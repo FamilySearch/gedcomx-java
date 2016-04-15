@@ -40,6 +40,11 @@ public class PlaceDisplayProperties extends ExtensibleData {
     return (PlaceDisplayProperties) super.id(id);
   }
 
+  @Override
+  public PlaceDisplayProperties extensionElement(Object element) {
+    return (PlaceDisplayProperties) super.extensionElement(element);
+  }
+
   /**
    * The displayable name of the place.
    *

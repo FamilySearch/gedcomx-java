@@ -54,6 +54,11 @@ public class EventRole extends Conclusion {
   }
 
   @Override
+  public EventRole extensionElement(Object element) {
+    return (EventRole) super.extensionElement(element);
+  }
+
+  @Override
   public EventRole link(String rel, URI href) {
     return (EventRole) super.link(rel, href);
   }

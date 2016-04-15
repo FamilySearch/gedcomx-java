@@ -60,6 +60,11 @@ public class NameForm extends ExtensibleData implements HasFields {
     return (NameForm) super.id(id);
   }
 
+  @Override
+  public NameForm extensionElement(Object element) {
+    return (NameForm) super.extensionElement(element);
+  }
+
   /**
    * The language of the conclusion. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *

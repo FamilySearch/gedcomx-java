@@ -60,6 +60,11 @@ public class Agent extends HypermediaEnabledData {
   }
 
   @Override
+  public Agent extensionElement(Object element) {
+    return (Agent) super.extensionElement(element);
+  }
+
+  @Override
   public Agent link(String rel, URI href) {
     return (Agent) super.link(rel, href);
   }

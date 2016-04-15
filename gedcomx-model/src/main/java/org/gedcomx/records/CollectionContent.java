@@ -49,6 +49,11 @@ public class CollectionContent extends HypermediaEnabledData {
   }
 
   @Override
+  public CollectionContent extensionElement(Object element) {
+    return (CollectionContent) super.extensionElement(element);
+  }
+
+  @Override
   public CollectionContent link(String rel, URI href) {
     return (CollectionContent) super.link(rel, href);
   }

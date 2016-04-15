@@ -23,25 +23,16 @@ import org.familysearch.api.client.FamilySearchReferenceEnvironment;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.artifacts.ArtifactMetadata;
-import org.familysearch.platform.artifacts.ArtifactType;
-import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rt.GedcomxConstants;
-import org.gedcomx.source.SourceDescription;
 
-import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
 
 public class FamilySearchReservationsState extends FamilySearchCollectionState {
 
@@ -160,24 +151,8 @@ public class FamilySearchReservationsState extends FamilySearchCollectionState {
     return (FamilySearchCollectionState) super.readCollection();
   }
 
-  @Override
-  public SourceDescriptionState addArtifact(SourceDescription description, DataSource artifact, StateTransitionOption... options) {
-    if (description != null) {
-      ArtifactMetadata artifactMetadata = description.findExtensionOfType(ArtifactMetadata.class);
-      if (artifactMetadata != null) {
-        ArtifactType type = artifactMetadata.getKnownType();
-        if (type != null) {
-          ArrayList<StateTransitionOption> newOptions = new ArrayList<StateTransitionOption>(Arrays.asList(options));
-          newOptions.add(artifactType(type));
-          options = newOptions.toArray(new StateTransitionOption[newOptions.size()]);
-        }
-      }
-    }
-    return super.addArtifact(description, artifact, options);
-  }
-
   public OrdinanceReservationsState readReservations(StateTransitionOption... options) {
-    Link link = getLink(Rel.RESERVATIONS);
+    Link link = getLink(Rel.CURRENT_USER_RESERVATIONS);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -186,41 +161,29 @@ public class FamilySearchReservationsState extends FamilySearchCollectionState {
     return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
   }
 
-  /**
-   * Utility method to create a single list of Reservation objects from the reservations found in a list of
-   *   OrdinanceReservationState objects. Can handle 0 or more arguments, each of which can be null, or have a null
-   *   or empty or non-empty list of Reservation objects.
-   * @param reservationStates - List of OrdinanceReservationState objects
-   * @return List of Reservation objects, or null if there none.
-   */
-  public static List<Reservation> gatherReservations(OrdinanceReservationsState... reservationStates) {
-    List<Reservation> list = new ArrayList<Reservation>();
-    if (reservationStates != null) {
-      for (OrdinanceReservationsState reservationState : reservationStates) {
-        if (reservationState != null && reservationState.getReservations() != null) {
-          list.addAll(reservationState.getReservations());
-        }
-      }
+  public OrdinanceReservationsState updateOrdinanceReservations(List<Person> reservations, StateTransitionOption... options) {
+    Link link = getLink(Rel.CURRENT_USER_RESERVATIONS);
+    if (link == null || link.getHref() == null) {
+      return null;
     }
-    return list.size() == 0 ? null : list;
+
+    FamilySearchPlatform fsp = new FamilySearchPlatform();
+    fsp.setPersons(reservations);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
   }
 
   /**
-   * Given a list of LDS temple ordinance reservations, do a POST to cause a PDF of temple cards to be created for that
-   *   set of ordinances. Return a TempleCardPrintSetState that contains the URL of where to retrieve the PDF file from.
-   *   Do get() on the resulting TempleCardPrintSetState to actually fetch the PDF InputStream.
-   * Note that a FamilySearchReservationState object typically has ordinances for a person's individual ordinances,
-   *   a person's sealing-to-parent ordinances, or a couple's sealing-to-spouse ordinances, but not a combination of these.
-   *   This method takes a list of Reservation objects that can be gathered from one or more of these kinds of reservations
-   *   (via getReservations() on each).
-   * @param reservationList - List of LDS temple ordinance reservations to generate temple cards for
-   * @param options - Optional options
-   * @return TempleCardPrintSetState, which is the result of doing a POST to generate the cards.
+   * Create a temple card print set for the given persons. Each person must have at least one reservation to be added to the print set.
+   *
+   * @param persons The persons for which to create a print set. Each person should have reservations to be added to the print set.
+   * @param options The options.
+   * @return The result.
    */
-  public TempleCardPrintSetState createPrintSet(List<Reservation> reservationList, StateTransitionOption... options) {
+  public TempleCardPrintSetState createPrintSet(List<Person> persons, StateTransitionOption... options) {
     Link link = getLink(Rel.TEMPLE_CARD_PRINT_SETS);
     FamilySearchPlatform fsp = new FamilySearchPlatform();
-    fsp.setReservations(reservationList);
+    fsp.setPersons(persons);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newTempleCardPrintSetState(request, invoke(request, options), this.accessToken);
   }

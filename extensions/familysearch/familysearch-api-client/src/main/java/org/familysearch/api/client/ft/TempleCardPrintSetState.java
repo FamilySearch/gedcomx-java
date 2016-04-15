@@ -22,6 +22,7 @@ import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rs.client.StateTransitionOption;
 
+import javax.ws.rs.HttpMethod;
 import java.io.InputStream;
 
 /**
@@ -57,11 +58,19 @@ public class TempleCardPrintSetState extends GedcomxApplicationState<InputStream
 
   @Override
   public TempleCardPrintSetState head(StateTransitionOption... options) {
-    return (TempleCardPrintSetState) super.head(options);
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    builder = builder.accept("application/pdf");
+    ClientRequest request = builder.build(getSelfUri(), HttpMethod.HEAD);
+    ClientResponse response = invoke(request, options);
+    return (TempleCardPrintSetState) clone(request, response);
   }
 
   @Override
   public TempleCardPrintSetState get(StateTransitionOption... options) {
-    return (TempleCardPrintSetState) super.get(options);
+    ClientRequest.Builder builder = createAuthenticatedRequest();
+    builder = builder.accept("application/pdf");
+    ClientRequest request = builder.build(getSelfUri(), HttpMethod.GET);
+    ClientResponse response = invoke(request, options);
+    return (TempleCardPrintSetState) clone(request, response);
   }
 }

@@ -774,26 +774,26 @@ public class FamilyTreePersonState extends PersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
   }
 
-  public OrdinanceReservationsState addReservations(List<OrdinanceType> ordinanceTypes, StateTransitionOption... options) {
+  public OrdinanceReservationsState reserveOrdinances(List<OrdinanceType> ordinanceTypes, StateTransitionOption... options) {
     Link link = getLink(Rel.RESERVATIONS);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
-    FamilySearchPlatform entity = new FamilySearchPlatform();
-    List<Reservation> reservations = new ArrayList<Reservation>();
+    Person person = new Person();
     for (OrdinanceType ordinanceType : ordinanceTypes) {
       Reservation reservation = new Reservation();
-      reservation.setPerson(new ResourceReference(getSelfUri()));
       reservation.setKnownOrdinanceType(ordinanceType);
-      reservations.add(reservation);
+      person.addExtensionElement(reservation);
     }
-    entity.setReservations(reservations);
+
+    FamilySearchPlatform entity = new FamilySearchPlatform();
+    entity.addPerson(person);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
   }
 
-  public OrdinanceReservationsState readReservations(StateTransitionOption... options) {
+  public OrdinanceReservationsState readOrdinanceReservations(StateTransitionOption... options) {
     Link link = getLink(Rel.RESERVATIONS);
     if (link == null || link.getHref() == null) {
       return null;
@@ -813,18 +813,8 @@ public class FamilyTreePersonState extends PersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newOrdinancesState(request, invoke(request, options), this.accessToken);
   }
 
-  public OrdinanceDetailsState readOrdinanceDetails(StateTransitionOption... options) {
-    Link link = getLink(Rel.ORDINANCE_DETAILS);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceDetailsState(request, invoke(request, options), this.accessToken);
-  }
-
   public OrdinanceStatusState readOrdinanceStatus(StateTransitionOption... options) {
-    Link link = getLink(Rel.ORDINANCE_STATUS);
+    Link link = getLink(Rel.ORDINANCES_STATUS);
     if (link == null || link.getHref() == null) {
       return null;
     }

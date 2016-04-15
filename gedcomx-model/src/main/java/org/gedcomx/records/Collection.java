@@ -19,6 +19,7 @@ import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -57,6 +58,11 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   @Override
   public Collection id(String id) {
     return (Collection) super.id(id);
+  }
+
+  @Override
+  public Collection extensionElement(Object element) {
+    return (Collection) super.extensionElement(element);
   }
 
   @Override

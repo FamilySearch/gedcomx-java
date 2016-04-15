@@ -344,34 +344,8 @@ public class FamilyTreeRelationshipState extends RelationshipState implements Pr
     return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public OrdinanceReservationsState reserveOrdinance(StateTransitionOption... options) {
-    Link link = getLink(Rel.RESERVATION);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    FamilySearchPlatform entity = new FamilySearchPlatform();
-    Reservation reservation = new Reservation();
-    reservation.setPerson(getRelationship().getPerson1());
-    reservation.setSpouse(getRelationship().getPerson2());
-    reservation.setKnownOrdinanceType(OrdinanceType.Sealing_To_Spouse);
-    entity.setReservations(Collections.singletonList(reservation));
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
-  }
-
-  public OrdinanceReservationsState readReservation(StateTransitionOption... options) {
-    Link link = getLink(Rel.RESERVATION);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
-  }
-
   public OrdinanceStatusState readOrdinanceStatus(StateTransitionOption... options) {
-    Link link = getLink(Rel.ORDINANCE_STATUS);
+    Link link = getLink(Rel.ORDINANCES_STATUS);
     if (link == null || link.getHref() == null) {
       return null;
     }

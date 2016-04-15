@@ -52,6 +52,11 @@ public class Date extends ExtensibleData implements HasFields {
     return (Date) super.id(id);
   }
 
+  @Override
+  public Date extensionElement(Object element) {
+    return (Date) super.extensionElement(element);
+  }
+
   /**
    * The original text as supplied by the user.
    *

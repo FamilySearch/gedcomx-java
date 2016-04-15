@@ -27,6 +27,8 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String COMMENTS = "comments";
   public static final String CURRENT_USER = "current-user";
   public static final String CURRENT_USER_HISTORY = "current-user-history";
+  public static final String CURRENT_USER_RESERVATIONS = "current-user-ordinance-reservations";
+  public static final String TEMPLE_RESERVATIONS = "temple-ordinance-reservations";
   public static final String DISCUSSIONS = "discussions";
   public static final String IMAGE_METADATA = "image-metadata";
   public static final String IMAGE_RECORDS = "image-records";
@@ -49,7 +51,6 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String RESERVATION = "ordinance-reservation";
   public static final String RESERVATIONS = "ordinance-reservations";
   public static final String TEMPLE_CARD_PRINT_SETS = "temple-card-print-sets";
-  public static final String ORDINANCES = "lds-ordinances";
-  public static final String ORDINANCE_DETAILS = "lds-ordinance-details";
-  public static final String ORDINANCE_STATUS = "lds-ordinance-status";
+  public static final String ORDINANCES = "ordinances";
+  public static final String ORDINANCES_STATUS = "ordinances-status";
 }

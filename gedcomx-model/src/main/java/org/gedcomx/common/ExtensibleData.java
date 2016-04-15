@@ -97,6 +97,11 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
     this.extensionElements.add(element);
   }
 
+  public ExtensibleData extensionElement(Object element) {
+    addExtensionElement(element);
+    return this;
+  }
+
   /**
    * Remove extension elements of a given type.
    *

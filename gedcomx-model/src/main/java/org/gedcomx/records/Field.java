@@ -55,6 +55,11 @@ public class Field extends HypermediaEnabledData {
   }
 
   @Override
+  public Field extensionElement(Object element) {
+    return (Field) super.extensionElement(element);
+  }
+
+  @Override
   public Field link(Link link) {
     return (Field) super.link(link);
   }

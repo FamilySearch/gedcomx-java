@@ -116,6 +116,11 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   }
 
   @Override
+  public Fact extensionElement(Object element) {
+    return (Fact) super.extensionElement(element);
+  }
+
+  @Override
   public Fact link(String rel, URI href) {
     return (Fact) super.link(rel, href);
   }

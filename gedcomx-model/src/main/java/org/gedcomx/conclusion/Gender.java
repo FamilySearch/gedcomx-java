@@ -73,6 +73,11 @@ public class Gender extends Conclusion implements HasFields {
   }
 
   @Override
+  public Gender extensionElement(Object element) {
+    return (Gender) super.extensionElement(element);
+  }
+
+  @Override
   public Gender link(String rel, URI href) {
     return (Gender) super.link(rel, href);
   }

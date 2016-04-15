@@ -57,6 +57,11 @@ public class Document extends Conclusion implements HasText, Attributable {
   }
 
   @Override
+  public Document extensionElement(Object element) {
+    return (Document) super.extensionElement(element);
+  }
+
+  @Override
   public Document link(String rel, URI href) {
     return (Document) super.link(rel, href);
   }

@@ -21,15 +21,12 @@ import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.discussions.Discussion;
-import org.familysearch.platform.reservations.Reservation;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
-import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rt.*;
 import org.gedcomx.rt.json.JsonElementWrapper;
-import org.gedcomx.types.RelationshipType;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -63,7 +60,7 @@ import java.util.List;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper (name = "familysearch")
-@XmlType ( name = "FamilySearch" , propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features", "reservations" } )
+@XmlType ( name = "FamilySearch" , propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features" } )
 @DefaultNamespace( GedcomxConstants.GEDCOMX_NAMESPACE )
 public class FamilySearchPlatform extends Gedcomx {
 
@@ -78,7 +75,6 @@ public class FamilySearchPlatform extends Gedcomx {
   private List<Discussion> discussions;
   private List<User> users;
   private List<Feature> features;
-  private List<Reservation> reservations;
 
   /**
    * The merge analysis results for this data set.
@@ -255,52 +251,6 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   /**
-   * The reservations included in this data set.
-   *
-   * @return The reservations included in this data set.
-   */
-  @XmlElement ( name="reservation" )
-  @JsonProperty ("reservations")
-  @JsonName ("reservations")
-  public List<Reservation> getReservations() {
-    return reservations;
-  }
-
-  /**
-   * The reservations included in this data set.
-   *
-   * @param reservations The reservations included in this data set.
-   */
-  @JsonProperty ("reservations")
-  public void setReservations(List<Reservation> reservations) {
-    this.reservations = reservations;
-  }
-
-  /**
-   * Add a reservation to the data set.
-   *
-   * @param reservation The reservation to be added.
-   */
-  public void addReservation( Reservation reservation ) {
-    if (reservation != null) {
-      if (reservations == null)
-        reservations = new LinkedList<Reservation>();
-      reservations.add( reservation );
-    }
-  }
-
-  /**
-   * Build out this document with a reservation.
-   *
-   * @param reservation The reservation to be added.
-   * @return this.
-   */
-  public FamilySearchPlatform reservation( Reservation reservation ) {
-    addReservation(reservation);
-    return this;
-  }
-
-  /**
    * The users included in this data set.
    *
    * @return The users included in this genealogical data set.
@@ -431,27 +381,6 @@ public class FamilySearchPlatform extends Gedcomx {
 
           if (!found) {
             addDiscussion(discussion);
-          }
-        }
-      }
-      List<Reservation> reservations = ((FamilySearchPlatform)gedcomx).getReservations();
-      if (reservations != null) {
-        for (Reservation reservation : reservations) {
-          boolean found = false;
-          if (reservation.getId() != null) {
-            if (getReservations() != null) {
-              for (Reservation target : getReservations()) {
-                if (reservation.getId().equals(target.getId())) {
-                  target.embed(reservation);
-                  found = true;
-                  break;
-                }
-              }
-            }
-          }
-
-          if (!found) {
-            addReservation(reservation);
           }
         }
       }

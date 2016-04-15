@@ -58,6 +58,11 @@ public class PlaceDescription extends Subject {
   }
 
   @Override
+  public PlaceDescription extensionElement(Object element) {
+    return (PlaceDescription) super.extensionElement(element);
+  }
+
+  @Override
   public PlaceDescription link(String rel, URI href) {
     return (PlaceDescription) super.link(rel, href);
   }

@@ -56,6 +56,11 @@ public class DisplayProperties extends ExtensibleData {
     return (DisplayProperties) super.id(id);
   }
 
+  @Override
+  public DisplayProperties extensionElement(Object element) {
+    return (DisplayProperties) super.extensionElement(element);
+  }
+
   /**
    * The displayable name of the person.
    *

@@ -66,6 +66,11 @@ public final class NamePart extends ExtensibleData implements HasFields {
     return (NamePart) super.id(id);
   }
 
+  @Override
+  public NamePart extensionElement(Object element) {
+    return (NamePart) super.extensionElement(element);
+  }
+
   /**
    * The type of the name part.
    *

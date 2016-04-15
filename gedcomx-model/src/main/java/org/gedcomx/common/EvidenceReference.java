@@ -69,6 +69,11 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
     return (EvidenceReference) super.id(id);
   }
 
+  @Override
+  public EvidenceReference extensionElement(Object element) {
+    return (EvidenceReference) super.extensionElement(element);
+  }
+
   /**
    * The resource id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.
    *

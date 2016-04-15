@@ -52,6 +52,11 @@ public class SourceCitation extends HypermediaEnabledData {
   }
 
   @Override
+  public SourceCitation extensionElement(Object element) {
+    return (SourceCitation) super.extensionElement(element);
+  }
+
+  @Override
   public SourceCitation link(Link link) {
     return (SourceCitation) super.link(link);
   }

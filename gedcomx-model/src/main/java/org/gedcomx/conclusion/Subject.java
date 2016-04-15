@@ -58,6 +58,11 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   @Override
+  public Subject extensionElement(Object element) {
+    return (Subject) super.extensionElement(element);
+  }
+
+  @Override
   public Subject link(String rel, URI href) {
     return (Subject) super.link(rel, href);
   }

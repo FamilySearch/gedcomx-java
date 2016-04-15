@@ -49,6 +49,11 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
   }
 
   @Override
+  public Note extensionElement(Object element) {
+    return (Note) super.extensionElement(element);
+  }
+
+  @Override
   public Note link(String rel, URI href) {
     return (Note) super.link(rel, href);
   }

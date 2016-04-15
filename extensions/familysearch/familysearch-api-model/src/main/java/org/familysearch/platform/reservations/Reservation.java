@@ -17,6 +17,7 @@ package org.familysearch.platform.reservations;
 
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.familysearch.platform.ordinances.OrdinanceAssignee;
 import org.familysearch.platform.ordinances.OrdinanceType;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
@@ -34,14 +35,14 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "reservations")
-@XmlType ( name = "Reservation", propOrder = {"ordinanceType", "person", "spouse", "father", "mother" } )
+@XmlType ( name = "Reservation", propOrder = {"ordinanceType", "spouse", "father", "mother", "assignee" } )
 public class Reservation extends Conclusion {
 
   private URI ordinanceType;
-  private ResourceReference person;
   private ResourceReference spouse;
   private ResourceReference father;
   private ResourceReference mother;
+  private ResourceReference assignee;
 
   /**
    * The ordinanceType of the ordinance.
@@ -106,35 +107,131 @@ public class Reservation extends Conclusion {
     setOrdinanceType(type == null ? null : type.toQNameURI());
   }
 
-  public ResourceReference getPerson() {
-    return person;
-  }
-
-  public void setPerson(ResourceReference person) {
-    this.person = person;
-  }
-
+  /**
+   * The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
+   *
+   * @return The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
+   */
   public ResourceReference getSpouse() {
     return spouse;
   }
 
+  /**
+   * The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
+   *
+   * @param spouse The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
+   */
   public void setSpouse(ResourceReference spouse) {
     this.spouse = spouse;
   }
 
+  /**
+   * Build out this reservation with a spouse.
+   * 
+   * @param spouse The spouse.
+   * @return this.
+   */
+  public Reservation spouse(ResourceReference spouse) {
+    setSpouse(spouse);
+    return this;
+  }
+
+  /**
+   * The father associated with the ordinance, if the ordinance type is sealing-to-parents.
+   *
+   * @return The father associated with the ordinance, if the ordinance type is sealing-to-parents.
+   */
   public ResourceReference getFather() {
     return father;
   }
 
+  /**
+   * The father associated with the ordinance, if the ordinance type is sealing-to-parents.
+   * 
+   * @param father The father associated with the ordinance, if the ordinance type is sealing-to-parents.
+   */
   public void setFather(ResourceReference father) {
     this.father = father;
   }
 
+  /**
+   * Build out this reservation with a father.
+   *
+   * @param father The father.
+   * @return this.
+   */
+  public Reservation father(ResourceReference father) {
+    setFather(father);
+    return this;
+  }
+
+  /**
+   * The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
+   * 
+   * @return The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
+   */
   public ResourceReference getMother() {
     return mother;
   }
 
+  /**
+   * The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
+   * 
+   * @param mother The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
+   */
   public void setMother(ResourceReference mother) {
     this.mother = mother;
+  }
+
+  /**
+   * Build out this reservation with a mother.
+   *
+   * @param mother The mother.
+   * @return this.
+   */
+  public Reservation mother(ResourceReference mother) {
+    setMother(mother);
+    return this;
+  }
+
+  /**
+   * The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
+   * is assumed to be the owner of the reservation.
+   * 
+   * @return The user or entity assigned to fulfill the ordinance work for this reservation.
+   */
+  public ResourceReference getAssignee() {
+    return assignee;
+  }
+
+  /**
+   * The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
+   * is assumed to be the owner of the reservation.
+   * 
+   * @param assignee The user or entity assigned to fulfill the ordinance work for this reservation.
+   */
+  public void setAssignee(ResourceReference assignee) {
+    this.assignee = assignee;
+  }
+
+  /**
+   * Build out this reservation with an assignee.
+   *
+   * @param assignee The assignee.
+   * @return this.
+   */
+  public Reservation assignee(ResourceReference assignee) {
+    setAssignee(assignee);
+    return this;
+  }
+
+  /**
+   * Whether this reservation is assigned to a specific known ordinance assignee.
+   *
+   * @param knownAssignee The ordinance assignee.
+   * @return Whether this reservation is assigned to a specific known ordinance assignee.
+   */
+  public boolean isAssignedTo(OrdinanceAssignee knownAssignee) {
+    return this.assignee != null && this.assignee.getResource() != null && this.assignee.getResource().equals(knownAssignee.toQNameURI());
   }
 }

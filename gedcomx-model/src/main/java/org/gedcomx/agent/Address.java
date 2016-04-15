@@ -45,6 +45,11 @@ public class Address extends ExtensibleData {
     return (Address) super.id(id);
   }
 
+  @Override
+  public Address extensionElement(Object element) {
+    return (Address) super.extensionElement(element);
+  }
+
   /**
    * The city.
    *

@@ -36,6 +36,11 @@ public class OnlineAccount extends ExtensibleData {
     return (OnlineAccount) super.id(id);
   }
 
+  @Override
+  public OnlineAccount extensionElement(Object element) {
+    return (OnlineAccount) super.extensionElement(element);
+  }
+
   /**
    * The homepage of the service that provides this account.
    *

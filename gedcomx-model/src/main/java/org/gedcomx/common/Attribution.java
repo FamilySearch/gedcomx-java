@@ -49,6 +49,11 @@ public final class Attribution extends ExtensibleData {
     return (Attribution) super.id(id);
   }
 
+  @Override
+  public Attribution extensionElement(Object element) {
+    return (Attribution) super.extensionElement(element);
+  }
+
   /**
    * Reference to the contributor of the attributed data.
    *

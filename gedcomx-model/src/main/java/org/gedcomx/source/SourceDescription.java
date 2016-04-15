@@ -117,6 +117,11 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   }
 
   @Override
+  public SourceDescription extensionElement(Object element) {
+    return (SourceDescription) super.extensionElement(element);
+  }
+
+  @Override
   public SourceDescription link(String rel, URI href) {
     return (SourceDescription) super.link(rel, href);
   }

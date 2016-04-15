@@ -86,6 +86,11 @@ public class Event extends Subject implements HasDateAndPlace {
   }
 
   @Override
+  public Event extensionElement(Object element) {
+    return (Event) super.extensionElement(element);
+  }
+
+  @Override
   public Event link(String rel, URI href) {
     return (Event) super.link(rel, href);
   }

@@ -70,6 +70,11 @@ public class Name extends Conclusion {
   }
 
   @Override
+  public Name extensionElement(Object element) {
+    return (Name) super.extensionElement(element);
+  }
+
+  @Override
   public Name link(String rel, URI href) {
     return (Name) super.link(rel, href);
   }

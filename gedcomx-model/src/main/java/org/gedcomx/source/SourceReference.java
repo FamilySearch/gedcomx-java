@@ -51,6 +51,11 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
   }
 
   @Override
+  public SourceReference extensionElement(Object element) {
+    return (SourceReference) super.extensionElement(element);
+  }
+
+  @Override
   public SourceReference link(Link link) {
     return (SourceReference) super.link(link);
   }

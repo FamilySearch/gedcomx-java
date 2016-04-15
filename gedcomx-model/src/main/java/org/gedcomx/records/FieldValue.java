@@ -70,6 +70,11 @@ public final class FieldValue extends Conclusion {
   }
 
   @Override
+  public FieldValue extensionElement(Object element) {
+    return (FieldValue) super.extensionElement(element);
+  }
+
+  @Override
   public FieldValue link(String rel, URI href) {
     return (FieldValue) super.link(rel, href);
   }

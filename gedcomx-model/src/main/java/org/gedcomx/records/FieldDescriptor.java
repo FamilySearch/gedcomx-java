@@ -17,6 +17,7 @@ package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -44,6 +45,11 @@ public class FieldDescriptor extends HypermediaEnabledData {
   @Override
   public FieldDescriptor id(String id) {
     return (FieldDescriptor) super.id(id);
+  }
+
+  @Override
+  public FieldDescriptor extensionElement(Object element) {
+    return (FieldDescriptor) super.extensionElement(element);
   }
 
   @Override

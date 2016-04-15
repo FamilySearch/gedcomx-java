@@ -65,6 +65,11 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   @Override
+  public Person extensionElement(Object element) {
+    return (Person) super.extensionElement(element);
+  }
+
+  @Override
   public Person link(String rel, URI href) {
     return (Person) super.link(rel, href);
   }
