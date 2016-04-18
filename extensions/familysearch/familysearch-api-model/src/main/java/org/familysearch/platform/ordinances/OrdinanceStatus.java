@@ -25,20 +25,21 @@ import org.gedcomx.rt.EnumURIMap;
   base = XmlQNameEnum.BaseType.URI
 )
 public enum OrdinanceStatus implements ControlledVocabulary {
-  Not_Set,
+
+  NotSet,
   Ready,
-  Not_Ready,
+  NotReady,
   Reserved,
-  Need_More_Information,
-  Not_Available,
+  NeedMoreInformation,
+  NotAvailable,
   Completed,
-  Not_Needed,
-  In_Progress,
-  Need_Permission,
+  NotNeeded,
+  InProgress,
+  NeedPermission,
   Cancelled,
   Deleted,
   Invalid,
-  Born_In_The_Covenant,
+  BornInTheCovenant,
   OTHER;
 
   private static final EnumURIMap<OrdinanceStatus> URI_MAP = new EnumURIMap<OrdinanceStatus>(OrdinanceStatus.class, FamilySearchPlatform.NAMESPACE);

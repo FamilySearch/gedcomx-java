@@ -34,8 +34,8 @@ public enum OrdinanceType implements ControlledVocabulary {
   Confirmation,
   Initiatory,
   Endowment,
-  Sealing_To_Spouse,
-  Sealing_Child_To_Parents,
+  SealingToSpouse,
+  SealingChildToParents,
   OTHER;
 
   private static final EnumURIMap<OrdinanceType> URI_MAP = new EnumURIMap<OrdinanceType>(OrdinanceType.class, FamilySearchPlatform.NAMESPACE);
