@@ -344,14 +344,4 @@ public class FamilyTreeRelationshipState extends RelationshipState implements Pr
     return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipState(request, invoke(request, options), this.accessToken);
   }
 
-  public OrdinanceStatusState readOrdinanceStatus(StateTransitionOption... options) {
-    Link link = getLink(Rel.ORDINANCES_STATUS);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceStatusState(request, invoke(request, options), this.accessToken);
-  }
-
 }

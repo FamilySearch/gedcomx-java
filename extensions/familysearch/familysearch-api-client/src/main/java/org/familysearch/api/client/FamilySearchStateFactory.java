@@ -22,14 +22,13 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
-import org.familysearch.api.client.util.ExperimentsFilter;
-import org.familysearch.platform.*;
 import org.familysearch.platform.Error;
+import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.Tag;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.ordinances.Ordinance;
-import org.familysearch.platform.ordinances.OrdinanceInfo;
 import org.familysearch.platform.users.User;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rs.client.*;
@@ -38,7 +37,9 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
 
 import javax.ws.rs.HttpMethod;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
 import java.util.List;
 
@@ -142,13 +143,41 @@ public class FamilySearchStateFactory extends StateFactory {
     return super.newRecordsState(request, response, accessToken);
   }
 
+  public FamilySearchReservationsState newFamilySearchReservationsState() {
+    return new FamilySearchReservationsState(true);
+  }
+
+  public FamilySearchReservationsState newFamilySearchReservationsState(boolean production) {
+    return new FamilySearchReservationsState(production);
+  }
+
+  public FamilySearchReservationsState newFamilySearchReservationsState(URI discoveryUri) {
+    return new FamilySearchReservationsState(discoveryUri);
+  }
+
+  protected OrdinanceReservationsState newOrdinanceReservationsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new OrdinanceReservationsState(request, response, accessToken, this);
+  }
+
+  protected PersonOrdinancesState newPersonOrdinancesState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new PersonOrdinancesState(request, response, accessToken, this);
+  }
+
+  protected OrdinanceStatusState newOrdinanceStatusState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new OrdinanceStatusState(request, response, accessToken, this);
+  }
+
+  protected TempleCardPrintSetState newTempleCardPrintSetState(ClientRequest request, ClientResponse clientResponse, String accessToken) {
+    return new TempleCardPrintSetState(request, clientResponse, accessToken, this);
+  }
+
   @Override
   public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
       ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
       Error.class, MatchInfo.class, SearchInfo.class, Merge.class, MergeAnalysis.class, MergeConflict.class,
-      Tag.class, User.class, Ordinance.class, OrdinanceInfo.class };
+      Tag.class, User.class, Ordinance.class };
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );

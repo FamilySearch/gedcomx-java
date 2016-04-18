@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client.ft;
+package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.gedcomx.Gedcomx;
+import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateFactory;
 
-public class OrdinanceDetailsState extends GedcomxApplicationState<Gedcomx> {
+public class OrdinanceStatusState extends GedcomxApplicationState<FamilySearchPlatform> {
 
-  protected OrdinanceDetailsState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
+  protected OrdinanceStatusState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
   }
 
-  protected OrdinanceDetailsState clone(ClientRequest request, ClientResponse response) {
-    return new OrdinanceDetailsState(request, response, this.accessToken, this.stateFactory);
+  protected OrdinanceStatusState clone(ClientRequest request, ClientResponse response) {
+    return new OrdinanceStatusState(request, response, this.accessToken, this.stateFactory);
   }
 
-  protected Gedcomx loadEntity(ClientResponse response) {
-    return response.getEntity(Gedcomx.class);
+  protected FamilySearchPlatform loadEntity(ClientResponse response) {
+    return response.getEntity(FamilySearchPlatform.class);
   }
 
   protected SupportsLinks getMainDataElement() {

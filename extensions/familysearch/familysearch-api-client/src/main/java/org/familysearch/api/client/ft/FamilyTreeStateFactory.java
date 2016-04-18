@@ -110,35 +110,13 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
     return super.newSourceDescriptionsState(request, response, accessToken);
   }
 
+  @Override
   protected OrdinanceReservationsState newOrdinanceReservationsState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new OrdinanceReservationsState(request, response, accessToken, this);
+    return super.newOrdinanceReservationsState(request, response, accessToken);
   }
 
-  protected OrdinancesState newOrdinancesState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new OrdinancesState(request, response, accessToken, this);
-  }
-
-  protected OrdinanceDetailsState newOrdinanceDetailsState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new OrdinanceDetailsState(request, response, accessToken, this);
-  }
-
-  protected OrdinanceStatusState newOrdinanceStatusState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new OrdinanceStatusState(request, response, accessToken, this);
-  }
-
-  public FamilySearchReservationsState newFamilySearchReservationsState() {
-    return new FamilySearchReservationsState(true);
-  }
-
-  public FamilySearchReservationsState newFamilySearchReservationsState(boolean production) {
-    return new FamilySearchReservationsState(production);
-  }
-
-  public FamilySearchReservationsState newFamilySearchReservationsState(URI discoveryUri) {
-    return new FamilySearchReservationsState(discoveryUri);
-  }
-
-  public TempleCardPrintSetState newTempleCardPrintSetState(ClientRequest request, ClientResponse clientResponse, String accessToken) {
-    return new TempleCardPrintSetState(request, clientResponse, accessToken, this);
+  @Override
+  protected PersonOrdinancesState newPersonOrdinancesState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newPersonOrdinancesState(request, response, accessToken);
   }
 }

@@ -34,7 +34,6 @@ import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
-import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.*;
@@ -803,24 +802,14 @@ public class FamilyTreePersonState extends PersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
   }
 
-  public OrdinancesState readOrdinances(StateTransitionOption... options) {
+  public PersonOrdinancesState readOrdinances(StateTransitionOption... options) {
     Link link = getLink(Rel.ORDINANCES);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinancesState(request, invoke(request, options), this.accessToken);
-  }
-
-  public OrdinanceStatusState readOrdinanceStatus(StateTransitionOption... options) {
-    Link link = getLink(Rel.ORDINANCES_STATUS);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceStatusState(request, invoke(request, options), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonOrdinancesState(request, invoke(request, options), this.accessToken);
   }
 
 }

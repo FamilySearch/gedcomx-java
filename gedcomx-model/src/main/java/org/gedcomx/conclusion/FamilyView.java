@@ -19,8 +19,8 @@ import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
-import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -41,7 +41,7 @@ import java.util.List;
 @Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
 @JsonElementWrapper( name = "families" )
 @XmlType( name = "FamilyView", propOrder = { "parent1", "parent2", "children"} )
-public class FamilyView {
+public class FamilyView extends HypermediaEnabledData {
 
   private ResourceReference parent1; // First parent, i.e., the father or husband
   private ResourceReference parent2; // Second parent, i.e., the mother or wife

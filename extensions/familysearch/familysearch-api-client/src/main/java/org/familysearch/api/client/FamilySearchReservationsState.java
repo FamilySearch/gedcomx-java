@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client.ft;
+package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import org.familysearch.api.client.FamilySearchCollectionState;
-import org.familysearch.api.client.FamilySearchReferenceEnvironment;
-import org.familysearch.api.client.Rel;
+import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.Gedcomx;
@@ -158,7 +156,7 @@ public class FamilySearchReservationsState extends FamilySearchCollectionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
   }
 
   public OrdinanceReservationsState updateOrdinanceReservations(List<Person> reservations, StateTransitionOption... options) {
@@ -170,7 +168,7 @@ public class FamilySearchReservationsState extends FamilySearchCollectionState {
     FamilySearchPlatform fsp = new FamilySearchPlatform();
     fsp.setPersons(reservations);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newOrdinanceReservationsState(request, invoke(request, options), this.accessToken);
   }
 
   /**

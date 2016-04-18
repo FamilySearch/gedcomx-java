@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client.ft;
+package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.FamilySearchStateFactory;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
@@ -95,7 +94,7 @@ public class OrdinanceReservationsState extends GedcomxApplicationState<FamilySe
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
 }
