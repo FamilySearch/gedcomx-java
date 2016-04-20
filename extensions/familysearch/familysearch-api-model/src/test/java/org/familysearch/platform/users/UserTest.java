@@ -30,7 +30,6 @@ public class UserTest {
     assertNull(user.getDisplayName());
     assertNull(user.getPersonId());
     assertNull(user.getTreeUserId());
-    assertNull(user.getLdsMemberAccount());
 
     user.setId("123");
     user.setContactName("username");
@@ -50,7 +49,6 @@ public class UserTest {
     user.setDisplayName("given surname");
     user.setPersonId("UUUU-001");
     user.setTreeUserId("PPPP-001");
-    user.setLdsMemberAccount(Boolean.FALSE);
 
     assertEquals("123", user.getId());
     assertEquals("username", user.getContactName());
@@ -70,6 +68,5 @@ public class UserTest {
     assertEquals("given surname", user.getDisplayName());
     assertEquals("UUUU-001", user.getPersonId());
     assertEquals("PPPP-001", user.getTreeUserId());
-    assertEquals(Boolean.FALSE, user.getLdsMemberAccount());
   }
 }

@@ -46,9 +46,7 @@ public class User extends HypermediaEnabledData {
   private String preferredLanguage;
   private String displayName;
   private String personId;
-  private String startingPersonId;
   private String treeUserId;
-  private Boolean ldsMemberAccount;
 
   public String getContactName() {
     return contactName;
@@ -178,28 +176,12 @@ public class User extends HypermediaEnabledData {
     this.personId = personId;
   }
 
-  public String getStartingPersonId() {
-    return startingPersonId;
-  }
-
-  public void setStartingPersonId(String startingPersonId) {
-    this.startingPersonId = startingPersonId;
-  }
-
   public String getTreeUserId() {
     return treeUserId;
   }
 
   public void setTreeUserId(String treeUserId) {
     this.treeUserId = treeUserId;
-  }
-
-  public Boolean getLdsMemberAccount() {
-    return ldsMemberAccount;
-  }
-
-  public void setLdsMemberAccount(Boolean ldsMemberAccount) {
-    this.ldsMemberAccount = ldsMemberAccount;
   }
 
   /**
