@@ -42,6 +42,7 @@ import java.util.List;
 public class SourceReference extends HypermediaEnabledData implements Attributable {
 
   private URI descriptionRef;
+  private String descriptionId;
   private Attribution attribution;
   private List<Qualifier> qualifiers;
 
@@ -128,6 +129,39 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
   }
 
   /**
+   * Id of the source being referenced.
+   *
+   * @return Id of the source being referenced.
+   */
+  @XmlAttribute ( name = "descriptionId" )
+  @JsonName ( "descriptionId" )
+  @JsonProperty ( "descriptionId" )
+  public String getDescriptionId() {
+    return descriptionId;
+  }
+
+  /**
+   * Id of the source being referenced.
+   *
+   * @param descriptionId Id of the source being referenced.
+   */
+  @JsonProperty ( "descriptionId" )
+  public void setDescriptionId(String descriptionId) {
+    this.descriptionId = descriptionId;
+  }
+
+  /**
+   * Build up this source iderence with a description iderence.
+   *
+   * @param descriptionId The description id.
+   * @return this.
+   */
+  public SourceReference descriptionId(String descriptionId) {
+    setDescriptionId(descriptionId);
+    return this;
+  }
+
+  /**
    * Build up this source reference with a description reference.
    *
    * @param description The description.
@@ -137,7 +171,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
     if (description.getId() == null) {
       throw new IllegalArgumentException("Cannot reference description: no id.");
     }
-    return descriptionRef(URI.create("#" + description.getId()));
+    return descriptionRef(URI.create("#" + description.getId())).descriptionId(description.getId());
   }
 
   /**
