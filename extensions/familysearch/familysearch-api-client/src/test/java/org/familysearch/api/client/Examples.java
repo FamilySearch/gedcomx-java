@@ -1,6 +1,5 @@
 package org.familysearch.api.client;
 
-import org.familysearch.api.client.ft.ChangeHistoryState;
 import org.familysearch.api.client.ft.ChildAndParentsRelationshipState;
 import org.familysearch.api.client.ft.FamilySearchFamilyTree;
 import org.familysearch.api.client.ft.FamilyTreePersonState;

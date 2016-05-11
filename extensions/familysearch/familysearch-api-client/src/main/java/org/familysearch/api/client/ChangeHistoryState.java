@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client.ft;
+package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.familysearch.api.client.util.ChangeHistoryPage;
 import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.atom.Entry;
@@ -34,7 +35,7 @@ import javax.ws.rs.HttpMethod;
  */
 public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
 
-  protected ChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken, FamilyTreeStateFactory stateFactory) {
+  protected ChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
   }
 
@@ -115,6 +116,6 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request, options), this.accessToken);
   }
 }

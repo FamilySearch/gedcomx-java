@@ -17,12 +17,11 @@ package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.ChangeHistoryState;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
-import org.familysearch.platform.ordinances.OrdinanceType;
-import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
@@ -36,7 +35,6 @@ import org.gedcomx.source.SourceReference;
 import javax.ws.rs.HttpMethod;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * @author Ryan Heaton

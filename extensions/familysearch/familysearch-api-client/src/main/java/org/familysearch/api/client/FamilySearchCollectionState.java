@@ -234,4 +234,16 @@ public class FamilySearchCollectionState extends CollectionState {
     return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
+  public FamilySearchCollectionState logout(StateTransitionOption... options) {
+     Link link = getLink(Rel.LOGOUT);
+     if (link == null || link.getHref() == null) {
+       return null;
+     }
+     else {
+       org.gedcomx.common.URI href = link.getHref();
+
+       ClientRequest request = createAuthenticatedGedcomxRequest().build(URI.create(href.toString()), HttpMethod.POST);
+       return ((FamilySearchStateFactory) this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
+     }
+   }
 }

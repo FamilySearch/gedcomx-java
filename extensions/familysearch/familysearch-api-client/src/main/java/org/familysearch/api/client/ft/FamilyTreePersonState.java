@@ -55,7 +55,7 @@ import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
 /**
  * @author Ryan Heaton
  */
-public class FamilyTreePersonState extends PersonState {
+public class FamilyTreePersonState extends FamilySearchPersonState {
 
   private final String selfRel;
 
@@ -87,37 +87,6 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   protected FamilyTreePersonState clone(ClientRequest request, ClientResponse response) {
     return new FamilyTreePersonState(request, response, this.accessToken, this.selfRel, (FamilyTreeStateFactory) this.stateFactory);
-  }
-
-  @Override
-  public String getSelfRel() {
-    return this.selfRel;
-  }
-
-  @Override
-  protected FamilySearchPlatform loadEntityConditionally(ClientResponse response) {
-    if (HttpMethod.GET.equals(request.getMethod()) && (response.getClientResponseStatus() == ClientResponse.Status.OK
-          || response.getClientResponseStatus() == ClientResponse.Status.GONE)
-          || response.getClientResponseStatus() == ClientResponse.Status.PRECONDITION_FAILED) {
-      return loadEntity(response);
-    }
-    else {
-      return null;
-    }
-  }
-
-  @Override
-  protected FamilySearchPlatform loadEntity(ClientResponse response) {
-    return response.getEntity(FamilySearchPlatform.class);
-  }
-
-  @Override
-  public FamilySearchPlatform getEntity() {
-    return (FamilySearchPlatform) super.getEntity();
-  }
-
-  public List<Person> getPersons() {
-    return getEntity() == null ? null : getEntity().getPersons();
   }
 
   public List<ChildAndParentsRelationship> getChildAndParentsRelationships() {
@@ -220,16 +189,6 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   @Override
-  protected ClientRequest.Builder createRequestForEmbeddedResource(String rel) {
-    if (org.gedcomx.rs.Rel.DISCUSSION_REFERENCES.equals(rel)) {
-      return RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest());
-    }
-    else {
-      return super.createRequestForEmbeddedResource(rel);
-    }
-  }
-
-  @Override
   public FamilyTreePersonState loadEmbeddedResources(StateTransitionOption... options) {
     return (FamilyTreePersonState) super.loadEmbeddedResources(options);
   }
@@ -250,7 +209,7 @@ public class FamilyTreePersonState extends PersonState {
   }
 
   public FamilyTreePersonState loadDiscussionReferences(StateTransitionOption... options) {
-    return (FamilyTreePersonState) super.loadEmbeddedResources(new String[]{org.gedcomx.rs.Rel.DISCUSSION_REFERENCES}, options);
+    return (FamilyTreePersonState) super.loadEmbeddedResources(options);
   }
 
   @Override
@@ -403,78 +362,39 @@ public class FamilyTreePersonState extends PersonState {
     return (FamilyTreePersonState) super.deleteSourceReference(reference, options);
   }
 
-  public SourceDescriptionsState readPortraits(StateTransitionOption... options) {
-    Link link = getLink(Rel.PORTRAITS);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
-  }
-
-  public ClientResponse readPortrait(StateTransitionOption... options) {
-    Link link = getLink(Rel.PORTRAIT);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return invoke(request, options);
-  }
-
+  @Override
   public FamilyTreePersonState addDiscussionReference(DiscussionState discussion, StateTransitionOption... options) {
-    DiscussionReference reference = new DiscussionReference();
-    reference.setResource(new org.gedcomx.common.URI(discussion.getSelfUri().toString()));
-    return addDiscussionReference(reference, options);
+    return (FamilyTreePersonState) super.addDiscussionReference(discussion, options);
   }
 
+  @Override
   public FamilyTreePersonState addDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
-    return addDiscussionReference(new DiscussionReference[]{reference}, options);
+    return (FamilyTreePersonState) super.addDiscussionReference(reference, options);
   }
 
+  @Override
   public FamilyTreePersonState addDiscussionReference(DiscussionReference[] refs, StateTransitionOption... options) {
-    Person person = createEmptySelf();
-    for (DiscussionReference ref : refs) {
-      person.addExtensionElement(ref);
-    }
-    return updateDiscussionReference(person, options);
+    return (FamilyTreePersonState) super.addDiscussionReference(refs, options);
   }
 
+  @Override
   public FamilyTreePersonState updateDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
-    return updateDiscussionReference(new DiscussionReference[]{reference}, options);
+    return (FamilyTreePersonState) super.updateDiscussionReference(reference, options);
   }
 
+  @Override
   public FamilyTreePersonState updateDiscussionReference(DiscussionReference[] refs, StateTransitionOption... options) {
-    Person person = createEmptySelf();
-    for (DiscussionReference ref : refs) {
-      person.addExtensionElement(ref);
-    }
-    return updateDiscussionReference(person, options);
+    return (FamilyTreePersonState) super.updateDiscussionReference(refs, options);
   }
 
+  @Override
   public FamilyTreePersonState updateDiscussionReference(Person person, StateTransitionOption... options) {
-    URI target = getSelfUri();
-    Link discussionsLink = getLink(org.gedcomx.rs.Rel.DISCUSSION_REFERENCES);
-    if (discussionsLink != null && discussionsLink.getHref() != null) {
-      target = discussionsLink.getHref().toURI();
-    }
-
-    Gedcomx gx = new Gedcomx();
-    gx.setPersons(Arrays.asList(person));
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).entity(gx).build(target, HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+    return (FamilyTreePersonState) super.updateDiscussionReference(person, options);
   }
 
+  @Override
   public FamilyTreePersonState deleteDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
-    Link link = reference.getLink(Rel.DISCUSSION_REFERENCE);
-    link = link == null ? reference.getLink(org.gedcomx.rs.Rel.SELF) : link;
-    if (link == null || link.getHref() == null) {
-      throw new GedcomxApplicationException("Discussion reference cannot be deleted: missing link.");
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+    return (FamilyTreePersonState) super.updateDiscussionReference(reference, options);
   }
 
   @Override
@@ -510,22 +430,6 @@ public class FamilyTreePersonState extends PersonState {
   @Override
   public FamilyTreePersonState deleteMediaReference(SourceReference reference, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.deleteMediaReference(reference, options);
-  }
-
-  @Override
-  public SourceDescriptionState addArtifact(SourceDescription description, DataSource artifact, StateTransitionOption... options) {
-    if (description != null) {
-      ArtifactMetadata artifactMetadata = description.findExtensionOfType(ArtifactMetadata.class);
-      if (artifactMetadata != null) {
-        ArtifactType type = artifactMetadata.getKnownType();
-        if (type != null) {
-          ArrayList<StateTransitionOption> newOptions = new ArrayList<StateTransitionOption>(Arrays.asList(options));
-          newOptions.add(artifactType(type));
-          options = newOptions.toArray(new StateTransitionOption[newOptions.size()]);
-        }
-      }
-    }
-    return super.addArtifact(description, artifact, options);
   }
 
   @Override
@@ -598,11 +502,6 @@ public class FamilyTreePersonState extends PersonState {
     return (FamilyTreePersonState) super.deleteNote(note, options);
   }
 
-  @Override
-  public FamilyTreeRelationshipState readRelationship(Relationship relationship, StateTransitionOption... options) {
-    return (FamilyTreeRelationshipState) super.readRelationship(relationship, options);
-  }
-
   public ChildAndParentsRelationshipState readChildAndParentsRelationship(ChildAndParentsRelationship relationship, StateTransitionOption... options) {
     Link link = relationship.getLink(org.gedcomx.rs.Rel.RELATIONSHIP);
     link = link == null ? relationship.getLink(org.gedcomx.rs.Rel.SELF) : link;
@@ -612,6 +511,11 @@ public class FamilyTreePersonState extends PersonState {
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
+  }
+
+  @Override
+  public FamilyTreeRelationshipState readRelationship(Relationship relationship, StateTransitionOption... options) {
+    return (FamilyTreeRelationshipState) super.readRelationship(relationship, options);
   }
 
   @Override
@@ -674,103 +578,9 @@ public class FamilyTreePersonState extends PersonState {
     return (FamilyTreePersonChildrenState) super.readChildren(options);
   }
 
-  public ChangeHistoryState readChangeHistory(StateTransitionOption... options) {
-    Link link = getLink(Rel.CHANGE_HISTORY);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newChangeHistoryState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PersonMatchResultsState readMatches(StateTransitionOption... options) {
-    Link link = getLink(Rel.MATCHES);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = createAuthenticatedFeedRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PersonNonMatchesState readNonMatches(StateTransitionOption... options) {
-    Link link = getLink(Rel.NOT_A_MATCHES);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedFeedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
-  }
-
+  @Override
   public FamilyTreePersonState restore(StateTransitionOption... options) {
-    Link link = getLink(Rel.RESTORE);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PersonMergeState readMergeOptions(FamilyTreePersonState candidate, StateTransitionOption... options) {
-    return transitionToPersonMerge(HttpMethod.OPTIONS, candidate, options);
-  }
-
-  public PersonMergeState readMergeAnalysis(FamilyTreePersonState candidate, StateTransitionOption... options) {
-    return transitionToPersonMerge(HttpMethod.GET, candidate, options);
-  }
-
-  protected PersonMergeState transitionToPersonMerge(String method, FamilyTreePersonState candidate, StateTransitionOption... options) {
-    Link link = getLink(Rel.MERGE);
-    if (link == null || link.getTemplate() == null) {
-      return null;
-    }
-
-    Person person = getPerson();
-    if (person == null || person.getId() == null) {
-      throw new IllegalArgumentException("Cannot read merge options: no person id available.");
-    }
-    String personId = person.getId();
-
-    person = candidate.getPerson();
-    if (person == null || person.getId() == null) {
-      throw new IllegalArgumentException("Cannot read merge options: no person id provided on the candidate.");
-    }
-    String candidateId = person.getId();
-
-    String template = link.getTemplate();
-
-    String uri;
-    try {
-      uri = UriTemplate.fromTemplate(template).set("pid", personId).set("dpid", candidateId).expand();
-    }
-    catch (VariableExpansionException e) {
-      throw new GedcomxApplicationException(e);
-    }
-    catch (MalformedUriTemplateException e) {
-      throw new GedcomxApplicationException(e);
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), method);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PersonNonMatchesState addNonMatch(FamilyTreePersonState person, StateTransitionOption... options) {
-    return addNonMatch(person.getPerson(), options);
-  }
-
-  public PersonNonMatchesState addNonMatch(Person person, StateTransitionOption... options) {
-    Link link = getLink(Rel.NOT_A_MATCHES);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    Gedcomx entity = new Gedcomx();
-    entity.addPerson(person);
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonNonMatchesState(request, invoke(request, options), this.accessToken);
+    return (FamilyTreePersonState) super.restore(options);
   }
 
   public OrdinanceReservationsState reserveOrdinances(List<OrdinanceType> ordinanceTypes, StateTransitionOption... options) {

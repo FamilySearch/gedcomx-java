@@ -82,8 +82,9 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
     return super.newPersonNonMatchesState(request, response, accessToken);
   }
 
+  @Override
   protected ChangeHistoryState newChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new ChangeHistoryState(request, response, accessToken, this);
+    return super.newChangeHistoryState(request, response, accessToken);
   }
 
   protected DiscoveryState newDiscoveryState(ClientRequest request, ClientResponse response, String accessToken) {

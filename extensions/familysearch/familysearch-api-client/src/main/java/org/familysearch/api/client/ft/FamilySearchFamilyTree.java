@@ -449,16 +449,8 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     }
   }
 
- public FamilySearchFamilyTree logout(StateTransitionOption... options) {
-    Link link = getLink(org.familysearch.api.client.Rel.LOGOUT);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-    else {
-      org.gedcomx.common.URI href = link.getHref();
-
-      ClientRequest request = createAuthenticatedGedcomxRequest().build(java.net.URI.create(href.toString()), HttpMethod.POST);
-      return ((FamilyTreeStateFactory) this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
-    }
+  @Override
+  public FamilySearchFamilyTree logout(StateTransitionOption... options) {
+    return (FamilySearchFamilyTree) super.logout(options);
   }
 }

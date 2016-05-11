@@ -72,6 +72,11 @@ public class FamilySearchStateFactory extends StateFactory {
     return new PersonMatchResultsState(request, response, accessToken, this);
   }
 
+  @Override
+  protected SourceDescriptionsState newSourceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newSourceDescriptionsState(request, response, accessToken);
+  }
+
   /**
    * Create a new places state with the given URI
    *
@@ -121,8 +126,8 @@ public class FamilySearchStateFactory extends StateFactory {
   }
 
   @Override
-  protected PersonState newPersonState(ClientRequest request, ClientResponse response, String accessToken) {
-    return super.newPersonState(request, response, accessToken);
+  protected FamilySearchPersonState newPersonState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilySearchPersonState(request, response, accessToken, this);
   }
 
   protected PersonNonMatchesState newPersonNonMatchesState(ClientRequest request, ClientResponse response, String accessToken) {
@@ -153,6 +158,10 @@ public class FamilySearchStateFactory extends StateFactory {
 
   public FamilySearchReservationsState newFamilySearchReservationsState(URI discoveryUri) {
     return new FamilySearchReservationsState(discoveryUri);
+  }
+
+  protected ChangeHistoryState newChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new ChangeHistoryState(request, response, accessToken, this);
   }
 
   protected OrdinanceReservationsState newOrdinanceReservationsState(ClientRequest request, ClientResponse response, String accessToken) {
