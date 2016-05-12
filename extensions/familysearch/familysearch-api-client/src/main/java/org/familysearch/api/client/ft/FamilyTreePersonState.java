@@ -15,18 +15,12 @@
  */
 package org.familysearch.api.client.ft;
 
-import com.damnhandy.uri.template.MalformedUriTemplateException;
-import com.damnhandy.uri.template.UriTemplate;
-import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.*;
-import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.artifacts.ArtifactMetadata;
-import org.familysearch.platform.artifacts.ArtifactType;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
 import org.familysearch.platform.ordinances.OrdinanceType;
@@ -36,28 +30,24 @@ import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.*;
+import org.gedcomx.rs.client.PersonState;
+import org.gedcomx.rs.client.RecordState;
+import org.gedcomx.rs.client.SourceDescriptionState;
+import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rt.GedcomxConstants;
-import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 
-import javax.activation.DataSource;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
 
 /**
  * @author Ryan Heaton
  */
 public class FamilyTreePersonState extends FamilySearchPersonState {
-
-  private final String selfRel;
 
   public FamilyTreePersonState(URI uri) {
     this(uri, new FamilyTreeStateFactory());
@@ -80,13 +70,12 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
   }
 
   protected FamilyTreePersonState(ClientRequest request, ClientResponse response, String accessToken, String selfRel, FamilyTreeStateFactory stateFactory) {
-    super(request, response, accessToken, stateFactory);
-    this.selfRel = selfRel;
+    super(request, response, accessToken, selfRel, stateFactory);
   }
 
   @Override
   protected FamilyTreePersonState clone(ClientRequest request, ClientResponse response) {
-    return new FamilyTreePersonState(request, response, this.accessToken, this.selfRel, (FamilyTreeStateFactory) this.stateFactory);
+    return new FamilyTreePersonState(request, response, this.accessToken, getSelfRel(), (FamilyTreeStateFactory) this.stateFactory);
   }
 
   public List<ChildAndParentsRelationship> getChildAndParentsRelationships() {
@@ -209,7 +198,7 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
   }
 
   public FamilyTreePersonState loadDiscussionReferences(StateTransitionOption... options) {
-    return (FamilyTreePersonState) super.loadEmbeddedResources(options);
+    return (FamilyTreePersonState) super.loadDiscussionReferences(options);
   }
 
   @Override
@@ -394,7 +383,7 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
 
   @Override
   public FamilyTreePersonState deleteDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
-    return (FamilyTreePersonState) super.updateDiscussionReference(reference, options);
+    return (FamilyTreePersonState) super.deleteDiscussionReference(reference, options);
   }
 
   @Override
