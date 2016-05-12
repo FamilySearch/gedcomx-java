@@ -92,7 +92,8 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
   @Override
   protected SupportsLinks getMainDataElement() {
-    return getCollection();
+    Collection collection = getCollection();
+    return collection == null ? getDescription() : collection;
   }
 
   @Override
@@ -450,12 +451,20 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public CollectionState addCollection(Collection collection, StateTransitionOption... options) {
+    return addCollection(collection, null, options);
+  }
+
+  public CollectionState addCollection(SourceDescription sourceDescription, StateTransitionOption... options) {
+    return addCollection(null, sourceDescription, options);
+  }
+
+  public CollectionState addCollection(Collection collection, SourceDescription sourceDescription, StateTransitionOption... options) {
     Link link = getLink(Rel.SUBCOLLECTIONS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("Collection at %s doesn't support adding subcollections.", getUri()));
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().entity(new Gedcomx().collection(collection)).build(link.getHref().toURI(), HttpMethod.POST);
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(new Gedcomx().collection(collection).sourceDescription(sourceDescription)).build(link.getHref().toURI(), HttpMethod.POST);
     return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 

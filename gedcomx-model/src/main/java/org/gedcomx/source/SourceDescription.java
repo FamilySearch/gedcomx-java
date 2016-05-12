@@ -1211,6 +1211,6 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   @Override
   public String toString() {
-    return getId() + ": " + resourceType.toString();
+    return getId() + ": " + this.resourceType;
   }
 }

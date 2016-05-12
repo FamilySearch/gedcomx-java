@@ -28,11 +28,13 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.links.Link;
+import org.gedcomx.records.Collection;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MediaType;
@@ -246,4 +248,14 @@ public class FamilySearchCollectionState extends CollectionState {
        return ((FamilySearchStateFactory) this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
      }
    }
+
+  @Override
+  public FamilySearchCollectionState addCollection(Collection collection, StateTransitionOption... options) {
+    return (FamilySearchCollectionState) super.addCollection(collection, options);
+  }
+
+  @Override
+  public FamilySearchCollectionState addCollection(Collection collection, SourceDescription sourceDescription, StateTransitionOption... options) {
+    return (FamilySearchCollectionState) super.addCollection(collection, sourceDescription, options);
+  }
 }

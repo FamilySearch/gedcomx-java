@@ -33,6 +33,7 @@ import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.EmbeddedLinkLoader;
 import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.EntityTag;
@@ -168,6 +169,23 @@ public abstract class GedcomxApplicationState<E> {
 
   public E getEntity() {
     return entity;
+  }
+
+  public SourceDescription getDescription() {
+    if (this.entity instanceof Gedcomx) {
+      Gedcomx gx = (Gedcomx) this.entity;
+      org.gedcomx.common.URI descriptionRef = gx.getDescriptionRef();
+      if (descriptionRef != null && descriptionRef.toString().startsWith("#") && gx.getSourceDescriptions() != null) {
+        String descriptionId = descriptionRef.toString().substring(1);
+        for (SourceDescription description : gx.getSourceDescriptions()) {
+          if (descriptionId.equals(description.getId())) {
+            return description;
+          }
+        }
+      }
+    }
+
+    return null;
   }
 
   public URI getUri() {
