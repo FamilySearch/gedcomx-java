@@ -27,10 +27,12 @@ import org.familysearch.platform.discussions.Discussion;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.conclusion.Date;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
+import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
@@ -257,5 +259,10 @@ public class FamilySearchCollectionState extends CollectionState {
   @Override
   public FamilySearchCollectionState addCollection(Collection collection, SourceDescription sourceDescription, StateTransitionOption... options) {
     return (FamilySearchCollectionState) super.addCollection(collection, sourceDescription, options);
+  }
+
+  @Override
+  public FamilySearchPersonState readPerson(Person person, StateTransitionOption... options) {
+    return (FamilySearchPersonState) super.readPerson(person, options);
   }
 }

@@ -129,4 +129,18 @@ public class PersonsState extends GedcomxApplicationState<Gedcomx> {
   public PersonsState readLastPage(StateTransitionOption... options) {
     return (PersonsState) super.readLastPage(options);
   }
+
+  public PersonState readPerson(Person person, StateTransitionOption... options) {
+    Link link = person.getLink(Rel.PERSON);
+    if (link == null) {
+      link = person.getLink(Rel.SELF);
+    }
+
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
+  }
 }

@@ -22,15 +22,13 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import org.familysearch.api.client.FamilySearchCollectionState;
-import org.familysearch.api.client.FamilySearchReferenceEnvironment;
-import org.familysearch.api.client.Rel;
-import org.familysearch.api.client.UserState;
+import org.familysearch.api.client.*;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.*;
@@ -452,5 +450,10 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   @Override
   public FamilySearchFamilyTree logout(StateTransitionOption... options) {
     return (FamilySearchFamilyTree) super.logout(options);
+  }
+
+  @Override
+  public FamilyTreePersonState readPerson(Person person, StateTransitionOption... options) {
+    return (FamilyTreePersonState) super.readPerson(person, options);
   }
 }
