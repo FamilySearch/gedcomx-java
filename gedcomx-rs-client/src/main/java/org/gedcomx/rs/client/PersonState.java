@@ -540,11 +540,18 @@ public class PersonState extends GedcomxApplicationState<Gedcomx> {
   public SourceDescriptionState readSourceDescription(SourceReference sourceReference, StateTransitionOption... options) {
     Link link = sourceReference.getLink(Rel.DESCRIPTION);
     link = link == null ? sourceReference.getLink(Rel.SELF) : link;
-    if (link == null || link.getHref() == null) {
+    org.gedcomx.common.URI href;
+    if (link != null) {
+      href = link.getHref();
+    }
+    else {
+      href = sourceReference.getDescriptionRef();
+    }
+    if (href == null) {
       throw new GedcomxApplicationException("Source description cannot be read: missing link.");
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(href.toURI(), HttpMethod.GET);
     return this.stateFactory.newSourceDescriptionState(request, invoke(request, options), this.accessToken);
   }
 

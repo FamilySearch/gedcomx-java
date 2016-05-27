@@ -53,4 +53,5 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String TEMPLE_CARD_PRINT_SETS = "temple-card-print-sets";
   public static final String ORDINANCES = "ordinances";
   public static final String ORDINANCES_STATUS = "ordinances-status";
+  public static final String PERSON_MATCH_RESOLUTIONS_QUERY = "person-match-resolutions-query";
 }

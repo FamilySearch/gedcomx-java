@@ -27,6 +27,8 @@ import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.atom.Entry;
+import org.gedcomx.atom.Feed;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
@@ -39,6 +41,7 @@ import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -456,4 +459,26 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   public FamilyTreePersonState readPerson(Person person, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.readPerson(person, options);
   }
+
+  public PersonMatchResolutionsState queryMatchResolutions(List<org.gedcomx.common.URI> personaUris, StateTransitionOption... options) {
+    Link link = getLink(Rel.PERSON_MATCH_RESOLUTIONS_QUERY);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+    if (personaUris == null || personaUris.size() == 0) {
+      return null;
+    }
+    Feed feed = new Feed();
+    feed.setEntries(new ArrayList<Entry>());
+    for (org.gedcomx.common.URI personaUri : personaUris) {
+      Entry entry = new Entry();
+      entry.setId(personaUri);
+      feed.getEntries().add(entry);
+    }
+    ClientRequest request = createAuthenticatedFeedRequest()
+      .entity(feed)
+      .build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMatchResolutionsState(request, invoke(request, options), this.accessToken);
+  }
+
 }
