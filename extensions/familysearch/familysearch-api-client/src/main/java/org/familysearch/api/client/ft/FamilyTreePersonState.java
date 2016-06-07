@@ -15,6 +15,9 @@
  */
 package org.familysearch.api.client.ft;
 
+import com.damnhandy.uri.template.MalformedUriTemplateException;
+import com.damnhandy.uri.template.UriTemplate;
+import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
@@ -30,10 +33,7 @@ import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.PersonState;
-import org.gedcomx.rs.client.RecordState;
-import org.gedcomx.rs.client.SourceDescriptionState;
-import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rs.client.*;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceReference;
 
@@ -609,6 +609,49 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonOrdinancesState(request, invoke(request, options), this.accessToken);
+  }
+
+  public FamilyTreePersonMergeState readMergeOptions(FamilySearchPersonState candidate, StateTransitionOption... options) {
+    return transitionToPersonMerge(HttpMethod.OPTIONS, candidate, options);
+  }
+
+  public FamilyTreePersonMergeState readMergeAnalysis(FamilySearchPersonState candidate, StateTransitionOption... options) {
+    return transitionToPersonMerge(HttpMethod.GET, candidate, options);
+  }
+
+  protected FamilyTreePersonMergeState transitionToPersonMerge(String method, FamilySearchPersonState candidate, StateTransitionOption... options) {
+    Link link = getLink(Rel.MERGE);
+    if (link == null || link.getTemplate() == null) {
+      return null;
+    }
+
+    Person person = getPerson();
+    if (person == null || person.getId() == null) {
+      throw new IllegalArgumentException("Cannot read merge options: no person id available.");
+    }
+    String personId = person.getId();
+
+    person = candidate.getPerson();
+    if (person == null || person.getId() == null) {
+      throw new IllegalArgumentException("Cannot read merge options: no person id provided on the candidate.");
+    }
+    String candidateId = person.getId();
+
+    String template = link.getTemplate();
+
+    String uri;
+    try {
+      uri = UriTemplate.fromTemplate(template).set("pid", personId).set("dpid", candidateId).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(URI.create(uri), method);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
 
 }

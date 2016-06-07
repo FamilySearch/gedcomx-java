@@ -93,12 +93,11 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
 
   @Override
   protected PersonMatchResultsState newPersonMatchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
-    return super.newPersonMatchResultsState(request, response, accessToken);
+    return new FamilyTreePersonMatchResultsState(request, response, accessToken, this);
   }
 
-  @Override
-  protected PersonMergeState newPersonMergeState(ClientRequest request, ClientResponse response, String accessToken) {
-    return super.newPersonMergeState(request, response, accessToken);
+  protected FamilyTreePersonMergeState newPersonMergeState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilyTreePersonMergeState(request, response, accessToken, this);
   }
 
   @Override

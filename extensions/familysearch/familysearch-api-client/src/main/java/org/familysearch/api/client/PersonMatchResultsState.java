@@ -17,6 +17,7 @@ package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.ft.FamilyTreePersonMergeState;
 import org.familysearch.api.client.util.FamilySearchOptions;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.ct.MatchStatus;
@@ -109,26 +110,6 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PersonMergeState readMergeOptions(Entry entry, StateTransitionOption... options) {
-    Link link = entry.getLink(Rel.MERGE);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.OPTIONS);
-    return ((FamilySearchStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PersonMergeState readMergeAnalysis(Entry entry, StateTransitionOption... options) {
-    Link link = entry.getLink(Rel.MERGE);
-    if (link == null || link.getHref() == null) {
-      return null;
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
 
   public PersonNonMatchesState addNonMatch(Entry entry, StateTransitionOption... options) {

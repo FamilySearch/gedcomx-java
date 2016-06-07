@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client;
+package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.FamilySearchStateFactory;
+import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.Merge;
@@ -32,50 +34,50 @@ import javax.ws.rs.HttpMethod;
 /**
  * @author Ryan Heaton
  */
-public class PersonMergeState extends GedcomxApplicationState<FamilySearchPlatform> {
+public class FamilyTreePersonMergeState extends GedcomxApplicationState<FamilySearchPlatform> {
 
-  protected PersonMergeState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
+  protected FamilyTreePersonMergeState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
   }
 
   @Override
-  protected PersonMergeState clone(ClientRequest request, ClientResponse response) {
-    return new PersonMergeState(request, response, this.accessToken, (FamilySearchStateFactory) this.stateFactory);
+  protected FamilyTreePersonMergeState clone(ClientRequest request, ClientResponse response) {
+    return new FamilyTreePersonMergeState(request, response, this.accessToken, (FamilySearchStateFactory) this.stateFactory);
   }
 
   @Override
-  public PersonMergeState ifSuccessful() {
-    return (PersonMergeState) super.ifSuccessful();
+  public FamilyTreePersonMergeState ifSuccessful() {
+    return (FamilyTreePersonMergeState) super.ifSuccessful();
   }
 
   @Override
-  public PersonMergeState options(StateTransitionOption... options) {
-    return (PersonMergeState) super.options(options);
+  public FamilyTreePersonMergeState options(StateTransitionOption... options) {
+    return (FamilyTreePersonMergeState) super.options(options);
   }
 
   @Override
-  public PersonMergeState head(StateTransitionOption... options) {
-    return (PersonMergeState) super.head(options);
+  public FamilyTreePersonMergeState head(StateTransitionOption... options) {
+    return (FamilyTreePersonMergeState) super.head(options);
   }
 
   @Override
-  public PersonMergeState get(StateTransitionOption... options) {
-    return (PersonMergeState) super.get(options);
+  public FamilyTreePersonMergeState get(StateTransitionOption... options) {
+    return (FamilyTreePersonMergeState) super.get(options);
   }
 
   @Override
-  public PersonMergeState delete(StateTransitionOption... options) {
-    return (PersonMergeState) super.delete(options);
+  public FamilyTreePersonMergeState delete(StateTransitionOption... options) {
+    return (FamilyTreePersonMergeState) super.delete(options);
   }
 
   @Override
-  public PersonMergeState put(FamilySearchPlatform e, StateTransitionOption... options) {
-    return (PersonMergeState) super.put(e, options);
+  public FamilyTreePersonMergeState put(FamilySearchPlatform e, StateTransitionOption... options) {
+    return (FamilyTreePersonMergeState) super.put(e, options);
   }
 
   @Override
-  public PersonMergeState post(FamilySearchPlatform entity, StateTransitionOption... options) {
-    return (PersonMergeState) super.post(entity, options);
+  public FamilyTreePersonMergeState post(FamilySearchPlatform entity, StateTransitionOption... options) {
+    return (FamilyTreePersonMergeState) super.post(entity, options);
   }
 
   @Override
@@ -96,14 +98,14 @@ public class PersonMergeState extends GedcomxApplicationState<FamilySearchPlatfo
     return this.response.getHeaders().getFirst("Allow") == null || String.valueOf(this.response.getHeaders().getFirst("Allow")).toUpperCase().contains(HttpMethod.POST);
   }
 
-  public PersonMergeState readMergeMirror(StateTransitionOption... options) {
+  public FamilyTreePersonMergeState readMergeMirror(StateTransitionOption... options) {
     Link link = getLink(Rel.MERGE_MIRROR);
     if (link == null || link.getHref() == null) {
       return null;
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
 
   public PersonState readSurvivor(StateTransitionOption... options) {
@@ -113,16 +115,16 @@ public class PersonMergeState extends GedcomxApplicationState<FamilySearchPlatfo
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonMergeState doMerge(Merge merge, StateTransitionOption... options) {
+  public FamilyTreePersonMergeState doMerge(Merge merge, StateTransitionOption... options) {
     FamilySearchPlatform entity = new FamilySearchPlatform();
     entity.addMerge(merge);
     return doMerge(entity, options);
   }
 
-  public PersonMergeState doMerge(FamilySearchPlatform entity, StateTransitionOption... options) {
+  public FamilyTreePersonMergeState doMerge(FamilySearchPlatform entity, StateTransitionOption... options) {
     return post(entity, options);
   }
 

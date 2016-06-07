@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client;
+package org.familysearch.api.client.gens;
 
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
@@ -22,12 +22,19 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
+import org.familysearch.api.client.FamilySearchCollectionState;
+import org.familysearch.api.client.FamilySearchPersonState;
+import org.familysearch.api.client.FamilySearchReferenceEnvironment;
+import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
+import org.gedcomx.records.Collection;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
@@ -54,28 +61,28 @@ public class FamilySearchGenealogies extends FamilySearchCollectionState {
   }
 
   public FamilySearchGenealogies(URI uri) {
-    this(uri, new FamilySearchStateFactory());
+    this(uri, new GenealogiesStateFactory());
   }
 
-  private FamilySearchGenealogies(URI uri, FamilySearchStateFactory stateFactory) {
+  private FamilySearchGenealogies(URI uri, GenealogiesStateFactory stateFactory) {
     this(uri, stateFactory.loadDefaultClient(), stateFactory);
   }
 
-  private FamilySearchGenealogies(URI uri, Client client, FamilySearchStateFactory stateFactory) {
+  private FamilySearchGenealogies(URI uri, Client client, GenealogiesStateFactory stateFactory) {
     this(ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(uri, HttpMethod.GET), client, stateFactory);
   }
 
-  private FamilySearchGenealogies(ClientRequest request, Client client, FamilySearchStateFactory stateFactory) {
+  private FamilySearchGenealogies(ClientRequest request, Client client, GenealogiesStateFactory stateFactory) {
     this(request, client.handle(request), null, stateFactory);
   }
 
-  protected FamilySearchGenealogies(ClientRequest request, ClientResponse client, String accessToken, FamilySearchStateFactory stateFactory) {
+  protected FamilySearchGenealogies(ClientRequest request, ClientResponse client, String accessToken, GenealogiesStateFactory stateFactory) {
     super(request, client, accessToken, stateFactory);
   }
 
   @Override
   protected FamilySearchGenealogies clone(ClientRequest request, ClientResponse response) {
-    return new FamilySearchGenealogies(request, response, this.accessToken, (FamilySearchStateFactory) this.stateFactory);
+    return new FamilySearchGenealogies(request, response, this.accessToken, (GenealogiesStateFactory) this.stateFactory);
   }
 
   @Override
@@ -172,7 +179,26 @@ public class FamilySearchGenealogies extends FamilySearchCollectionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+    return ((GenealogiesStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  @Override
+  public GenealogiesTreeState addCollection(Collection collection, StateTransitionOption... options) {
+    return (GenealogiesTreeState) super.addCollection(collection, options);
+  }
+
+  @Override
+  public GenealogiesTreeState addCollection(SourceDescription sourceDescription, StateTransitionOption... options) {
+    return addCollection(null, sourceDescription, options);
+  }
+
+  @Override
+  public GenealogiesTreeState addCollection(Collection collection, SourceDescription sourceDescription, StateTransitionOption... options) {
+    return (GenealogiesTreeState) super.addCollection(collection, sourceDescription, options);
+  }
+
+  @Override
+  public GenealogiesPersonState readPerson(Person person, StateTransitionOption... options) {
+    return (GenealogiesPersonState) super.readPerson(person, options);
+  }
 }
