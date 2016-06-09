@@ -24,6 +24,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.PlaceDescription;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.rt.GedcomxConstants;
@@ -254,9 +255,6 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
     return this.stateFactory.newVocabElementState(request, invoke(request, options), this.accessToken);
   }
 
-  /**
-   *
-   */
   public PlaceGroupState readPlaceGroupById(String id, StateTransitionOption... options) {
     Link link = getLink(Rel.PLACE_GROUP);
     if (link == null || link.getTemplate() == null) {
@@ -276,6 +274,35 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return this.stateFactory.newPlaceGroupState(request, invoke(request, options), this.accessToken);
+  }
+
+  /**
+   * Submit feedback to the FamilySearch place authority.
+   *
+   * @param place A description of the place for which feedback is being submitted.
+   * @param options The options.
+   * @return The feedback.
+   */
+  public FamilySearchPlaceState submitFeedback(PlaceDescription place, StateTransitionOption... options) {
+    return submitFeedback(new Gedcomx().place(place), options);
+  }
+
+  /**
+   * Submit feedback to the FamilySearch place authority.
+   *
+   * @param feedback A description of the place for which feedback is being submitted.
+   * @param options The options.
+   * @return The feedback.
+   */
+  public FamilySearchPlaceState submitFeedback(Gedcomx feedback, StateTransitionOption... options) {
+    Link link = getLink(Rel.PLACE_FEEDBACK);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.POST);
+    request.setEntity(feedback);
+    return ((FamilySearchStateFactory)this.stateFactory).newPlaceState(request, invoke(request, options), this.accessToken);
   }
 
 }
