@@ -33,6 +33,7 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String IMAGE_METADATA = "image-metadata";
   public static final String IMAGE_RECORDS = "image-records";
   public static final String IMAGE_WAYPOINT = "image-waypoint";
+  public static final String COLLECTION_WAYPOINTS = "waypoints";
   public static final String LOGOUT = "logout";
   public static final String MERGE = "merge";
   public static final String MERGE_MIRROR = "merge-mirror";
