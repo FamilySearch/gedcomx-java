@@ -33,9 +33,8 @@ import java.util.List;
 public class Ordinance extends HypermediaEnabledData {
 
   private URI type;
-  private Boolean livingOrdinance;
-  private Date createDate;
-  private Date performedDate;
+  private Boolean living;
+  private Date date;
   private String templeCode;
   private URI status;
   private List<OrdinanceRole> roles;
@@ -84,44 +83,28 @@ public class Ordinance extends HypermediaEnabledData {
    * @return true if this ordinance was done in life for this person
    */
   @XmlAttribute
-  public Boolean getLivingOrdinance() {
-    return livingOrdinance;
+  public Boolean getLiving() {
+    return living;
   }
 
-  public void setLivingOrdinance(Boolean livingOrdinance) {
-    this.livingOrdinance = livingOrdinance;
+  public void setLiving(Boolean living) {
+    this.living = living;
   }
 
   /**
    * gets the date this ordinance was created
    * @return the date this ordinance was created
    */
-  public Date getCreateDate() {
-    return createDate;
+  public Date getDate() {
+    return date;
   }
 
   /**
    * sets the date this ordinance was created
-   * @param createDate the date this ordinance was created
+   * @param date the date this ordinance was created
    */
-  public void setCreateDate(Date createDate) {
-    this.createDate = createDate;
-  }
-
-  /**
-   * gets the date this ordinance was performed
-   * @return the date this ordinance was performed
-   */
-  public Date getPerformedDate() {
-    return performedDate;
-  }
-
-  /**
-   * sets the date this ordinance was performed
-   * @param performedDate the date this ordinance was performed
-   */
-  public void setPerformedDate(Date performedDate) {
-    this.performedDate = performedDate;
+  public void setDate(Date date) {
+    this.date = date;
   }
 
   /**
