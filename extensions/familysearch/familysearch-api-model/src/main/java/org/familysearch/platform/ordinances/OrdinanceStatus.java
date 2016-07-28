@@ -16,6 +16,7 @@
 package org.familysearch.platform.ordinances;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
+import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
@@ -26,20 +27,67 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum OrdinanceStatus implements ControlledVocabulary {
 
-  NotSet,
+  /**
+   * Ordinance is ready to be performed.
+   */
   Ready,
+
+  /**
+   * Ordinance is not ready to be performed.
+   */
   NotReady,
+
+  /**
+   * Ordinance is reserved for temple work.
+   */
   Reserved,
+
+  /**
+   * Ordinance needs more information before it can be reserved.
+   */
   NeedMoreInformation,
+
+  /**
+   * Ordinance is not available to be performed.
+   */
   NotAvailable,
+
+  /**
+   * Ordinance is completed.
+   */
   Completed,
+
+  /**
+   * Ordinance not needed.
+   */
   NotNeeded,
+
+  /**
+   * Ordinance is in progress.
+   */
   InProgress,
+
+  /**
+   * Ordinance needs special permission to be performed.
+   */
   NeedPermission,
+
+  /**
+   * Ordinance is cancelled.
+   */
   Cancelled,
+
+  /**
+   * Ordinance is deleted.
+   */
   Deleted,
+
+  /**
+   * Ordinance is invalid.
+   */
   Invalid,
-  BornInTheCovenant,
+
+  @XmlUnknownQNameEnumValue
   OTHER;
 
   private static final EnumURIMap<OrdinanceStatus> URI_MAP = new EnumURIMap<OrdinanceStatus>(OrdinanceStatus.class, FamilySearchPlatform.NAMESPACE);

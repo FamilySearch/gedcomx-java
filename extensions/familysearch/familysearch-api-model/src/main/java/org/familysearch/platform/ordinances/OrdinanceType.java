@@ -16,7 +16,7 @@
 package org.familysearch.platform.ordinances;
 
 import org.codehaus.enunciate.qname.XmlQNameEnum;
-import org.familysearch.platform.FamilySearchPlatform;
+import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -26,19 +26,45 @@ import org.gedcomx.rt.EnumURIMap;
  *
  */
 @XmlQNameEnum(
+  namespace = "http://lds.org/",
   base = XmlQNameEnum.BaseType.URI
 )
 public enum OrdinanceType implements ControlledVocabulary {
 
+  /**
+   * Baptism.
+   */
   Baptism,
+
+  /**
+   * Confirmation.
+   */
   Confirmation,
+
+  /**
+   * Initiatory.
+   */
   Initiatory,
+
+  /**
+   * Endowment.
+   */
   Endowment,
+
+  /**
+   * Sealing-to-Spouse.
+   */
   SealingToSpouse,
+
+  /**
+   * Sealing-to-Parents.
+   */
   SealingChildToParents,
+
+  @XmlUnknownQNameEnumValue
   OTHER;
 
-  private static final EnumURIMap<OrdinanceType> URI_MAP = new EnumURIMap<OrdinanceType>(OrdinanceType.class, FamilySearchPlatform.NAMESPACE);
+  private static final EnumURIMap<OrdinanceType> URI_MAP = new EnumURIMap<OrdinanceType>(OrdinanceType.class, "http://lds.org/");
 
   /**
    * Return the QName value for this enum.
