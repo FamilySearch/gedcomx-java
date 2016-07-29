@@ -28,7 +28,7 @@ import org.gedcomx.rt.EnumURIMap;
 public enum OrdinanceStatus implements ControlledVocabulary {
 
   /**
-   * Ordinance is ready to be performed.
+   * Ordinance is not reserved and ready to be performed.
    */
   Ready,
 
@@ -61,6 +61,11 @@ public enum OrdinanceStatus implements ControlledVocabulary {
    * Ordinance not needed.
    */
   NotNeeded,
+
+  /**
+   * Ordinance not needed; person was born in covenant.
+   */
+  NotNeededBornInCovenant,
 
   /**
    * Ordinance is in progress.
