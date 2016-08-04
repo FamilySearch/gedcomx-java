@@ -361,7 +361,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected GedcomxApplicationState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId) {
-    return authenticateViaOAuth2Password(authCode, authCode, clientId, null);
+    return authenticateViaOAuth2AuthCode(authCode, redirect, clientId, null);
   }
 
   protected GedcomxApplicationState authenticateViaOAuth2AuthCode(String authCode, String redirect, String clientId, String clientSecret) {
