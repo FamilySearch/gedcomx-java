@@ -15,172 +15,117 @@
  */
 package org.familysearch.platform.ordinances;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import org.familysearch.platform.reservations.Reservation;
+import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
-import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.bind.annotation.*;
-import java.util.List;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
 @XmlType( name = "Ordinance" )
-public class Ordinance extends HypermediaEnabledData {
+public class Ordinance extends Reservation {
 
-  private URI type;
   private Boolean living;
   private Date date;
   private String templeCode;
-  private URI status;
-  private List<OrdinanceRole> roles;
 
   /**
-   * gets the type of ordinance
-   * @return the type of ordinance
-   */
-  @XmlAttribute
-  @XmlQNameEnumRef(OrdinanceType.class)
-  public URI getType() {
-    return type;
-  }
-
-  /**
-   * sets the type of ordinance
-   * @param type the type of ordinance
-   */
-  public void setType(URI type) {
-    this.type = type;
-  }
-
-  /**
-   * The enum referencing the known ordinance type, or {@link org.familysearch.platform.ordinances.OrdinanceType#OTHER} if not known.
+   * Whether this ordinance was performed during the life of the person.
    *
-   * @return The enum referencing the known ordinance type, or {@link org.familysearch.platform.ordinances.OrdinanceType#OTHER} if not known.
-   */
-  @XmlTransient
-  @JsonIgnore
-  public OrdinanceType getKnownType() {
-    return getType() == null ? null : OrdinanceType.fromQNameURI(getType());
-  }
-
-  /**
-   * Set the ordinance type from an enumeration of known ordinance types.
-   *
-   * @param knownType The ordinance type.
-   */
-  @JsonIgnore
-  public void setKnownType(OrdinanceType knownType) {
-    setType(knownType == null ? null : knownType.toQNameURI());
-  }
-
-  /**
-   * indicator if this ordinance was done in life for this person
-   * @return true if this ordinance was done in life for this person
+   * @return Whether this ordinance was performed during the life of the person.
    */
   @XmlAttribute
   public Boolean getLiving() {
     return living;
   }
 
+  /**
+   * Whether this ordinance was performed during the life of the person.
+   *
+   * @param living Whether this ordinance was performed during the life of the person.
+   */
   public void setLiving(Boolean living) {
     this.living = living;
   }
 
   /**
-   * gets the date this ordinance was created
-   * @return the date this ordinance was created
+   * The date of this ordinance.
+   *
+   * @return The date of this ordinance.
    */
   public Date getDate() {
     return date;
   }
 
   /**
-   * sets the date this ordinance was created
-   * @param date the date this ordinance was created
+   * The date of this ordinance.
+   *
+   * @param date The date of this ordinance.
    */
   public void setDate(Date date) {
     this.date = date;
   }
 
   /**
-   * gets the Temple Code for where this ordinance was performed
-   * @return the Temple Code for where this ordinance was performed
+   * The code for the temple at which the ordinance was performed.
+   *
+   * @return The code for the temple at which the ordinance was performed.
    */
   public String getTempleCode() {
     return templeCode;
   }
 
   /**
-   * sets the Temple Code for where this ordinance was performed
-   * @param templeCode the Temple Code for where this ordinance was performed
+   * The code for the temple at which the ordinance was performed.
+   *
+   * @param templeCode The code for the temple at which the ordinance was performed.
    */
   public void setTempleCode(String templeCode) {
     this.templeCode = templeCode;
   }
 
-  /**
-   * gets the status of this ordinance
-   * @return the status of this ordinance
-   */
-  @XmlAttribute
-  @XmlQNameEnumRef(OrdinanceStatus.class)
-  public URI getStatus() {
-    return status;
+  @Override
+  public Ordinance type(URI type) {
+    return (Ordinance) super.type(type);
   }
 
-  /**
-   * sets the status of this ordinance
-   * @param status the status of this ordinance
-   */
-  public void setStatus(URI status) {
-    this.status = status;
+  @Override
+  public Ordinance type(OrdinanceType type) {
+    return (Ordinance) super.type(type);
   }
 
-  /**
-   * The enum referencing the known ordinance status, or {@link org.familysearch.platform.ordinances.OrdinanceStatus#OTHER} if not known.
-   *
-   * @return The enum referencing the known ordinance status, or {@link org.familysearch.platform.ordinances.OrdinanceStatus#OTHER} if not known.
-   */
-  @XmlTransient
-  @JsonIgnore
-  public OrdinanceStatus getKnownStatus() {
-    return getStatus() == null ? null : OrdinanceStatus.fromQNameURI(getStatus());
+  @Override
+  public Ordinance status(URI status) {
+    return (Ordinance) super.status(status);
   }
 
-  /**
-   * Set the ordinance status from an enumeration of known ordinance statuses.
-   *
-   * @param knownStatus The ordinance status.
-   */
-  @JsonIgnore
-  public void setKnownStatus(OrdinanceStatus knownStatus) {
-    setStatus(knownStatus == null ? null : knownStatus.toQNameURI());
+  @Override
+  public Ordinance status(OrdinanceStatus status) {
+    return (Ordinance) super.status(status);
   }
 
-  /**
-   * The roles played by participants in this ordinance.
-   *
-   * @return The roles played by participants in this ordinance.
-   */
-  @XmlElement(name="role")
-  @JsonProperty("roles")
-  @JsonName("roles")
-  public List<OrdinanceRole> getRoles() {
-    return roles;
+  @Override
+  public Ordinance spouse(ResourceReference spouse) {
+    return (Ordinance) super.spouse(spouse);
   }
 
-  /**
-   * The roles played by participants in this ordinance.
-   *
-   * @param roles The roles played by the participants in this ordinance.
-   */
-  public void setRoles(List<OrdinanceRole> roles) {
-    this.roles = roles;
+  @Override
+  public Ordinance father(ResourceReference father) {
+    return (Ordinance) super.father(father);
   }
 
+  @Override
+  public Ordinance mother(ResourceReference mother) {
+    return (Ordinance) super.mother(mother);
+  }
+
+  @Override
+  public Ordinance assignee(ResourceReference assignee) {
+    return (Ordinance) super.assignee(assignee);
+  }
 }

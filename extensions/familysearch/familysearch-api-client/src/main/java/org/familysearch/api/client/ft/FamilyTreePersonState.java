@@ -581,7 +581,7 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
     Person person = new Person();
     for (OrdinanceType ordinanceType : ordinanceTypes) {
       Reservation reservation = new Reservation();
-      reservation.setKnownOrdinanceType(ordinanceType);
+      reservation.setKnownType(ordinanceType);
       person.addExtensionElement(reservation);
     }
 

@@ -18,6 +18,7 @@ package org.familysearch.platform.reservations;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.familysearch.platform.ordinances.OrdinanceAssignee;
+import org.familysearch.platform.ordinances.OrdinanceStatus;
 import org.familysearch.platform.ordinances.OrdinanceType;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
@@ -30,81 +31,154 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * A reservation.
+ * An ordinance reservation.
  *
  */
 @XmlRootElement
 @JsonElementWrapper (name = "reservations")
-@XmlType ( name = "Reservation", propOrder = {"ordinanceType", "spouse", "father", "mother", "assignee" } )
+@XmlType ( name = "Reservation", propOrder = {"ordinanceType", "type", "status", "spouse", "father", "mother", "assignee" } )
 public class Reservation extends Conclusion {
 
-  private URI ordinanceType;
+  private URI type;
+  private URI status;
   private ResourceReference spouse;
   private ResourceReference father;
   private ResourceReference mother;
   private ResourceReference assignee;
 
   /**
-   * The ordinanceType of the ordinance.
-   *
-   * @return The ordinanceType of the ordinance.
+   * gets the type of ordinance
+   * @return the type of ordinance
    */
   @XmlAttribute
   @XmlQNameEnumRef(OrdinanceType.class)
-  public URI getOrdinanceType() {
-    return ordinanceType;
+  public URI getType() {
+    return type;
   }
 
   /**
-   * The ordinanceType of the ordinance.
-   *
-   * @param ordinanceType The ordinanceType of the ordinance.
+   * sets the type of ordinance
+   * @param type the type of ordinance
    */
-  public void setOrdinanceType(URI ordinanceType) {
-    this.ordinanceType = ordinanceType;
+  public void setType(URI type) {
+    this.type = type;
   }
 
   /**
-   * Build up this ordinance with a ordinanceType.
+   * The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
    *
-   * @param type The ordinanceType.
-   * @return this.
-   */
-  public Reservation type(URI type) {
-    setOrdinanceType(type);
-    return this;
-  }
-
-  /**
-   * Build up this ordinance with a ordinanceType.
-   *
-   * @param type The ordinanceType.
-   * @return this.
-   */
-  public Reservation type(OrdinanceType type) {
-    setKnownOrdinanceType(type);
-    return this;
-  }
-
-  /**
-   * The known ordinanceType of the ordinance.
-   *
-   * @return The ordinanceType of the ordinance.
+   * @return The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
    */
   @XmlTransient
   @JsonIgnore
-  public OrdinanceType getKnownOrdinanceType() {
-    return getOrdinanceType() == null ? null : OrdinanceType.fromQNameURI(getOrdinanceType());
+  public OrdinanceType getKnownType() {
+    return getType() == null ? null : OrdinanceType.fromQNameURI(getType());
   }
 
   /**
-   * The ordinanceType of the ordinance.
+   * Set the ordinance type from an enumeration of known ordinance types.
    *
-   * @param type The ordinanceType of the ordinance.
+   * @param knownType The ordinance type.
    */
   @JsonIgnore
-  public void setKnownOrdinanceType(OrdinanceType type) {
-    setOrdinanceType(type == null ? null : type.toQNameURI());
+  public void setKnownType(OrdinanceType knownType) {
+    setType(knownType == null ? null : knownType.toQNameURI());
+  }
+
+  /**
+   * Build up this ordinance with a ordinance type.
+   *
+   * @param type The ordinance type.
+   * @return this.
+   */
+  public Reservation type(URI type) {
+    setType(type);
+    return this;
+  }
+
+  /**
+   * Build up this ordinance with a ordinance type.
+   *
+   * @param type The ordinance type.
+   * @return this.
+   */
+  public Reservation type(OrdinanceType type) {
+    setKnownType(type);
+    return this;
+  }
+
+  @Deprecated
+  @XmlAttribute
+  @XmlQNameEnumRef(OrdinanceType.class)
+  @org.codehaus.enunciate.json.JsonIgnore
+  public URI getOrdinanceType() {
+    return null;
+  }
+
+  @Deprecated
+  public void setOrdinanceType(URI ordinanceType) {
+    setType(ordinanceType);
+  }
+
+  /**
+   * gets the status of this ordinance
+   * @return the status of this ordinance
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(OrdinanceStatus.class)
+  public URI getStatus() {
+    return status;
+  }
+
+  /**
+   * sets the status of this ordinance
+   * @param status the status of this ordinance
+   */
+  public void setStatus(URI status) {
+    this.status = status;
+  }
+
+  /**
+   * The enum referencing the known ordinance status, or {@link OrdinanceStatus#OTHER} if not known.
+   *
+   * @return The enum referencing the known ordinance status, or {@link OrdinanceStatus#OTHER} if not known.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public OrdinanceStatus getKnownStatus() {
+    return getStatus() == null ? null : OrdinanceStatus.fromQNameURI(getStatus());
+  }
+
+  /**
+   * Set the ordinance status from an enumeration of known ordinance statuses.
+   *
+   * @param knownStatus The ordinance status.
+   */
+  @JsonIgnore
+  public void setKnownStatus(OrdinanceStatus knownStatus) {
+    setStatus(knownStatus == null ? null : knownStatus.toQNameURI());
+  }
+
+  /**
+   * Build up this ordinance with a ordinance status.
+   *
+   * @param status The ordinance status.
+   * @return this.
+   */
+  public Reservation status(URI status) {
+    setStatus(status);
+    return this;
+  }
+
+  /**
+   * Build up this ordinance with a ordinance status.
+   *
+   * @param status The ordinance status.
+   * @return this.
+   */
+  public Reservation status(OrdinanceStatus status) {
+    setKnownStatus(status);
+    return this;
   }
 
   /**
