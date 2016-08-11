@@ -43,6 +43,11 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   Reserved,
 
   /**
+   * Ordinance is submittable by the user for temple work.
+   */
+  Submittable,
+
+  /**
    * Ordinance needs more information before it can be reserved.
    */
   NeedMoreInformation,
