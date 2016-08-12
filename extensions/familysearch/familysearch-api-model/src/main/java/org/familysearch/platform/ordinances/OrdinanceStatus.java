@@ -34,6 +34,7 @@ public enum OrdinanceStatus implements ControlledVocabulary {
 
   /**
    * The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time.
+   */
   NotReady,
 
   /**
