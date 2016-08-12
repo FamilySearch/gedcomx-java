@@ -28,72 +28,76 @@ import org.gedcomx.rt.EnumURIMap;
 public enum OrdinanceStatus implements ControlledVocabulary {
 
   /**
-   * Ordinance is not reserved and ready to be performed.
+   * The ordinance can be reserved by the current user.
    */
   Ready,
 
   /**
-   * Ordinance is not ready to be performed.
-   */
+   * The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time.
   NotReady,
 
   /**
-   * Ordinance is reserved for temple work.
+   * The ordinance has been reserved, but can not be submitted by the current user, most likely because it is reserved by a different user.
    */
   Reserved,
 
   /**
-   * Ordinance is submittable by the user for temple work.
+   * The ordinance has been reserved and can be submitted by the current user through the completion process.
    */
   Submittable,
 
   /**
-   * Ordinance needs more information before it can be reserved.
+   * The ordinance can not be reserved by the current user because more information is needed about the person.
    */
   NeedMoreInformation,
 
   /**
-   * Ordinance is not available to be performed.
+   * The ordinance is not available to be reserved by the current user.
    */
   NotAvailable,
 
   /**
-   * Ordinance is completed.
+   * The ordinance has been completed.
    */
   Completed,
 
   /**
-   * Ordinance not needed.
+   * The ordinance can not be reserved because it is not needed according to the policies of the Church.
    */
   NotNeeded,
 
   /**
-   * Ordinance not needed; person was born in covenant.
+   * The ordinance can not be reserved because it is not needed because the person was born in the covenant.
    */
   NotNeededBornInCovenant,
 
   /**
-   * Ordinance is in progress.
+   * The ordinance is currently in progress of the completion process, but can not be resubmitted by the current user.
    */
   InProgress,
 
   /**
-   * Ordinance needs special permission to be performed.
+   * The ordinance is currently in progress of the completion process and can be resubmitted by the current user for the process to be restarted.
+   */
+  Resubmittable,
+
+  /**
+   * The ordinance can not be reserved by the current user without special permission.
    */
   NeedPermission,
 
   /**
-   * Ordinance is cancelled.
+   * The ordinance has been cancelled and is uncompleted.
    */
   Cancelled,
 
   /**
-   * Ordinance is deleted.
+   * The ordinance has been deleted and is uncompleted.
    */
   Deleted,
 
   /**
-   * Ordinance is invalid.
+   * The ordinance is invalid.
    */
   Invalid,
 
