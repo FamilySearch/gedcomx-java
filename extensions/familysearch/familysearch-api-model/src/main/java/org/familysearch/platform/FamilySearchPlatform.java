@@ -25,6 +25,7 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.conclusion.NameForm;
 import org.gedcomx.rt.*;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -60,7 +61,7 @@ import java.util.List;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper (name = "familysearch")
-@XmlType ( name = "FamilySearch" , propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features" } )
+@XmlType ( name = "FamilySearch" , propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features", "names" } )
 @DefaultNamespace( GedcomxConstants.GEDCOMX_NAMESPACE )
 public class FamilySearchPlatform extends Gedcomx {
 
@@ -75,6 +76,7 @@ public class FamilySearchPlatform extends Gedcomx {
   private List<Discussion> discussions;
   private List<User> users;
   private List<Feature> features;
+  private List<NameForm> names;
 
   /**
    * The merge analysis results for this data set.
@@ -283,6 +285,19 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   /**
+   * Add a user to the data set.
+   *
+   * @param user The user to be added.
+   */
+  public void addUser( User user ) {
+    if (user != null) {
+      if (users == null)
+        users = new LinkedList<User>();
+      users.add( user );
+    }
+  }
+
+  /**
    * The set of features defined in the platform API.
    *
    * @return The set of features defined in the platform API.
@@ -305,15 +320,47 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   /**
-   * Add a user to the data set.
+   * The names included in this data set.
    *
-   * @param user The user to be added.
+   * @return The names included in this genealogical data set.
    */
-  public void addUser( User user ) {
-    if (user != null) {
-      if (users == null)
-        users = new LinkedList<User>();
-      users.add( user );
+  @XmlElement (name="name")
+  @JsonProperty ("names")
+  @JsonName ("names")
+  public List<NameForm> getNames() {
+    return names;
+  }
+
+  /**
+   * The names included in this data set.
+   *
+   * @param names The names included in this data set.
+   */
+  @JsonProperty ("names")
+  public void setNames(List<NameForm> names) {
+    this.names = names;
+  }
+
+  /**
+   * Build out this document with a name.
+   * @param name The name to be added.
+   * @return this.
+   */
+  public FamilySearchPlatform name(NameForm name) {
+    addName(name);
+    return this;
+  }
+
+  /**
+   * Add a name to the data set.
+   *
+   * @param name The name to be added.
+   */
+  public void addName( NameForm name ) {
+    if (name != null) {
+      if (names == null)
+        names = new LinkedList<NameForm>();
+      names.add( name );
     }
   }
 
@@ -381,6 +428,27 @@ public class FamilySearchPlatform extends Gedcomx {
 
           if (!found) {
             addDiscussion(discussion);
+          }
+        }
+      }
+
+      List<NameForm> names = ((FamilySearchPlatform)gedcomx).getNames();
+      if (names != null) {
+        for (NameForm name : names) {
+          boolean found = false;
+          if (name.getId() != null) {
+            if (getNames() != null) {
+              for (NameForm target : getNames()) {
+                if (name.getId().equals(target.getId())) {
+                  found = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          if (!found) {
+            addName(name);
           }
         }
       }
