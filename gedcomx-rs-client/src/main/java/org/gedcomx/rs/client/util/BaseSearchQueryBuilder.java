@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GedcomxBaseSearchQueryBuilder {
+public class BaseSearchQueryBuilder {
 
   protected final List<SearchParameter> parameters = new ArrayList<SearchParameter>();
 

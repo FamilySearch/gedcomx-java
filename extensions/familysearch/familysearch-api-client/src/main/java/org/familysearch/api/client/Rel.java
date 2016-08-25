@@ -37,6 +37,7 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String LOGOUT = "logout";
   public static final String MERGE = "merge";
   public static final String MERGE_MIRROR = "merge-mirror";
+  public static final String NAME_SEARCH = "name-search";
   public static final String NORMALIZED_DATE = "normalized-date";
   public static final String NOT_A_MATCHES = "non-matches";
   public static final String NOT_A_MATCH = "non-match";
@@ -47,6 +48,14 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String FATHER_ROLE = "father-role";
   public static final String MOTHER_ROLE = "mother-role";
   public static final String PERSON_WITH_RELATIONSHIPS = "person-with-relationships";
+  public static final String PLACE = "place";
+  public static final String PLACE_TYPE_GROUPS = "place-type-groups";
+  public static final String PLACE_TYPE_GROUP = "place-type-group";
+  public static final String PLACE_TYPES = "place-types";
+  public static final String PLACE_TYPE = "place-type";
+  public static final String PLACE_FEEDBACK = "place-feedback";
+  public static final String PLACE_GROUP = "place-group";
+  public static final String PLACE_SEARCH = "place-search";
   public static final String PREFERRED_SPOUSE_RELATIONSHIP = "preferred-spouse-relationship";
   public static final String PREFERRED_PARENT_RELATIONSHIP = "preferred-parent-relationship";
   public static final String RESERVATION = "ordinance-reservation";

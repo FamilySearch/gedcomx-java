@@ -32,9 +32,8 @@ import org.gedcomx.links.Link;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
-import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.StateTransitionOption;
-import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
+import org.gedcomx.rs.client.util.PersonSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
 
@@ -190,7 +189,7 @@ public class FamilySearchCollectionState extends CollectionState {
     return ((FamilySearchStateFactory)this.stateFactory).newUserHistoryState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonMatchResultsState searchForPersonMatches(GedcomxPersonSearchQueryBuilder query, StateTransitionOption... options) {
+  public PersonMatchResultsState searchForPersonMatches(PersonSearchQueryBuilder query, StateTransitionOption... options) {
     return searchForPersonMatches(query.build(), options);
   }
 

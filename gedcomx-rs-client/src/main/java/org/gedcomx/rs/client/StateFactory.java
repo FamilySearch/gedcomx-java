@@ -118,20 +118,12 @@ public class StateFactory {
     return new PersonSearchResultsState(request, response, accessToken, this);
   }
 
-  protected PlaceSearchResultsState newPlaceSearchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new PlaceSearchResultsState(request, response, accessToken, this);
-  }
-
   protected PlaceDescriptionState newPlaceDescriptionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PlaceDescriptionState(request, response, accessToken, this);
   }
 
   protected PlaceDescriptionsState newPlaceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PlaceDescriptionsState(request, response, accessToken, this);
-  }
-
-  public PlaceGroupState newPlaceGroupState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new PlaceGroupState(request, response, accessToken, this);
   }
 
   public VocabElementState newVocabElementState(ClientRequest request, ClientResponse response, String accessToken) {

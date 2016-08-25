@@ -34,8 +34,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.Rel;
-import org.gedcomx.rs.client.util.GedcomxPersonSearchQueryBuilder;
-import org.gedcomx.rs.client.util.GedcomxPlaceSearchQueryBuilder;
+import org.gedcomx.rs.client.util.PersonSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
@@ -235,7 +234,7 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
-  public PersonSearchResultsState searchForPersons(GedcomxPersonSearchQueryBuilder query, StateTransitionOption... options) {
+  public PersonSearchResultsState searchForPersons(PersonSearchQueryBuilder query, StateTransitionOption... options) {
     return searchForPersons(query.build(), options);
   }
 
@@ -259,32 +258,6 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
 
     ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
     return this.stateFactory.newPersonSearchResultsState(request, invoke(request, options), this.accessToken);
-  }
-
-  public PlaceSearchResultsState searchForPlaces(GedcomxPlaceSearchQueryBuilder query, StateTransitionOption... options) {
-    return searchForPlaces(query.build(), options);
-  }
-
-  public PlaceSearchResultsState searchForPlaces(String query, StateTransitionOption... options) {
-    Link searchLink = getLink(Rel.PLACE_SEARCH);
-    if (searchLink == null || searchLink.getTemplate() == null) {
-      return null;
-    }
-    String template = searchLink.getTemplate();
-
-    String uri;
-    try {
-      uri = UriTemplate.fromTemplate(template).set("q", query).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
-    }
-    catch (VariableExpansionException e) {
-      throw new GedcomxApplicationException(e);
-    }
-    catch (MalformedUriTemplateException e) {
-      throw new GedcomxApplicationException(e);
-    }
-
-    ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
-    return this.stateFactory.newPlaceSearchResultsState(request, invoke(request, options), this.accessToken);
   }
 
   public RelationshipsState readRelationships(StateTransitionOption... options) {

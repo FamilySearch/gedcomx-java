@@ -50,6 +50,10 @@ public enum FamilySearchReferenceEnvironment {
     return URI.create(this.base + "/collections/places");
   }
 
+  public URI getNamesUri() {
+    return URI.create(this.base + "/collections/names");
+  }
+
   public URI getFamilyTreeUri() {
     return URI.create(this.base + "/collections/tree");
   }

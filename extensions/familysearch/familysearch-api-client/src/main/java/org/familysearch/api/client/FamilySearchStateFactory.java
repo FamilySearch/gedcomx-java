@@ -177,6 +177,18 @@ public class FamilySearchStateFactory extends StateFactory {
     return new TempleCardPrintSetState(request, clientResponse, accessToken, this);
   }
 
+  protected PlaceSearchResultsState newPlaceSearchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new PlaceSearchResultsState(request, response, accessToken, this);
+  }
+
+  protected PlaceGroupState newPlaceGroupState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new PlaceGroupState(request, response, accessToken, this);
+  }
+
+  protected NameSearchResultsState newNameSearchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new NameSearchResultsState(request, response, accessToken, this);
+  }
+
   @Override
   public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();

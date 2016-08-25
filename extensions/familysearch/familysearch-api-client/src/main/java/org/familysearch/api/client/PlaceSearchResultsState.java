@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.gedcomx.rs.client;
+package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
@@ -22,6 +22,10 @@ import org.gedcomx.atom.Feed;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
+import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.PlaceDescriptionState;
+import org.gedcomx.rs.client.StateFactory;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
 
@@ -93,7 +97,7 @@ public class PlaceSearchResultsState extends GedcomxApplicationState<Feed> {
     }
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
-    return this.stateFactory.newPlaceDescriptionState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newPlaceDescriptionState(request, invoke(request, options), this.accessToken);
   }
 
   @Override

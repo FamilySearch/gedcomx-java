@@ -20,7 +20,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.PlaceDescription;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rs.client.StateTransitionOption;

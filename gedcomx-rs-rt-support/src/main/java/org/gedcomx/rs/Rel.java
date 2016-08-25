@@ -64,16 +64,7 @@ public class Rel {
   public static final String PERSON = "person";
   public static final String PERSONS = "persons";
   public static final String PERSON_SEARCH = "person-search";
-  public static final String PLACE = "place";
-  public static final String PLACE_SEARCH = "place-search";
-  public static final String PLACE_TYPE_GROUPS = "place-type-groups";
-  public static final String PLACE_TYPE_GROUP = "place-type-group";
-  public static final String PLACE_TYPES = "place-types";
-  public static final String PLACE_TYPE = "place-type";
-  public static final String PLACE_FEEDBACK = "place-feedback";
-  public static final String PLACE_GROUP = "place-group";
   public static final String PLACE_DESCRIPTION = "place-description";
-  public static final String PROFILE = "profile";
   public static final String RECORD = "record";
   public static final String RECORDS = "records";
   public static final String RELATIONSHIP = "relationship";

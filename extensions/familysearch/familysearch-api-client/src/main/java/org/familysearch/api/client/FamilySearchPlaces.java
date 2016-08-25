@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
+import org.familysearch.api.client.util.PlaceSearchQueryBuilder;
 import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.PlaceDescription;
@@ -149,6 +150,32 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
     return this.authenticateViaOAuth2(formData);
   }
 
+  public PlaceSearchResultsState searchForPlaces(PlaceSearchQueryBuilder query, StateTransitionOption... options) {
+    return searchForPlaces(query.build(), options);
+  }
+
+  public PlaceSearchResultsState searchForPlaces(String query, StateTransitionOption... options) {
+    Link searchLink = getLink(Rel.PLACE_SEARCH);
+    if (searchLink == null || searchLink.getTemplate() == null) {
+      return null;
+    }
+    String template = searchLink.getTemplate();
+
+    String uri;
+    try {
+      uri = UriTemplate.fromTemplate(template).set("q", query).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch (MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = createAuthenticatedFeedRequest().build(java.net.URI.create(uri), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newPlaceSearchResultsState(request, invoke(request, options), this.accessToken);
+  }
+
   /**
    * Read the list of place type groups
    *
@@ -273,7 +300,7 @@ public class FamilySearchPlaces extends FamilySearchCollectionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-    return this.stateFactory.newPlaceGroupState(request, invoke(request, options), this.accessToken);
+    return ((FamilySearchStateFactory)this.stateFactory).newPlaceGroupState(request, invoke(request, options), this.accessToken);
   }
 
   /**
