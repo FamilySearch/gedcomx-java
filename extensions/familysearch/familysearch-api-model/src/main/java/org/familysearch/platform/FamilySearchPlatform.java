@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,12 +17,15 @@ package org.familysearch.platform;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.familysearch.platform.ct.ChildAndParentsRelationship;
-import org.familysearch.platform.ct.Merge;
-import org.familysearch.platform.ct.MergeAnalysis;
+import org.familysearch.platform.artifacts.ArtifactMetadata;
+import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.ordinances.Ordinance;
+import org.familysearch.platform.places.FeedbackInfo;
+import org.familysearch.platform.reservations.Reservation;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
+import org.familysearch.platform.users.UserHistoryInfo;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.rt.*;
@@ -30,6 +33,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,9 +63,10 @@ import java.util.List;
   }
 )
 @XmlRootElement ( name = "familysearch" )
-@JsonElementWrapper (name = "familysearch")
-@XmlType ( name = "FamilySearch" , propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features" } )
-@DefaultNamespace( GedcomxConstants.GEDCOMX_NAMESPACE )
+@JsonElementWrapper ( name = "familysearch" )
+@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features"} )
+@DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
+@XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, SearchInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, UserHistoryInfo.class, Reservation.class, Ordinance.class} )
 public class FamilySearchPlatform extends Gedcomx {
 
   public static final String PROJECT_ID = "fs-platform";
@@ -81,9 +86,9 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @return The merge analysis results for this data set.
    */
-  @XmlElement ( name="mergeAnalysis" )
-  @JsonProperty ("mergeAnalyses")
-  @JsonName ("mergeAnalyses")
+  @XmlElement ( name = "mergeAnalysis" )
+  @JsonProperty ( "mergeAnalyses" )
+  @JsonName ( "mergeAnalyses" )
   public List<MergeAnalysis> getMergeAnalyses() {
     return mergeAnalyses;
   }
@@ -93,8 +98,8 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param mergeAnalyses The merge analysis results for this data set.
    */
-  @JsonProperty ("mergeAnalyses")
-  public void setMergeAnalyses( List<MergeAnalysis> mergeAnalyses ) {
+  @JsonProperty ( "mergeAnalyses" )
+  public void setMergeAnalyses(List<MergeAnalysis> mergeAnalyses) {
     this.mergeAnalyses = mergeAnalyses;
   }
 
@@ -103,11 +108,12 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param mergeAnalysis The MergeAnalysis to be added.
    */
-  public void addMergeAnalysis( MergeAnalysis mergeAnalysis ) {
+  public void addMergeAnalysis(MergeAnalysis mergeAnalysis) {
     if (mergeAnalysis != null) {
-      if (mergeAnalyses == null)
+      if (mergeAnalyses == null) {
         mergeAnalyses = new LinkedList<MergeAnalysis>();
-      mergeAnalyses.add( mergeAnalysis );
+      }
+      mergeAnalyses.add(mergeAnalysis);
     }
   }
 
@@ -116,9 +122,9 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @return The merges for this data set.
    */
-  @XmlElement ( name="merge" )
-  @JsonProperty ("merges")
-  @JsonName ("merges")
+  @XmlElement ( name = "merge" )
+  @JsonProperty ( "merges" )
+  @JsonName ( "merges" )
   public List<Merge> getMerges() {
     return merges;
   }
@@ -128,7 +134,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param merges The merges for this data set.
    */
-  @JsonProperty ("merges")
+  @JsonProperty ( "merges" )
   public void setMerges(List<Merge> merges) {
     this.merges = merges;
   }
@@ -138,11 +144,12 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param merge The merge to be added.
    */
-  public void addMerge( Merge merge ) {
+  public void addMerge(Merge merge) {
     if (merge != null) {
-      if (merges == null)
+      if (merges == null) {
         merges = new LinkedList<Merge>();
-      merges.add( merge );
+      }
+      merges.add(merge);
     }
   }
 
@@ -151,9 +158,9 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @return The child-and-parents relationships for this data set.
    */
-  @XmlElement ( name="childAndParentsRelationship" )
-  @JsonProperty ("childAndParentsRelationships")
-  @JsonName ("childAndParentsRelationships")
+  @XmlElement ( name = "childAndParentsRelationship" )
+  @JsonProperty ( "childAndParentsRelationships" )
+  @JsonName ( "childAndParentsRelationships" )
   public List<ChildAndParentsRelationship> getChildAndParentsRelationships() {
     return childAndParentsRelationships;
   }
@@ -163,7 +170,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param childAndParentsRelationships The child-and-parents relationships for this data set.
    */
-  @JsonProperty ("childAndParentsRelationships")
+  @JsonProperty ( "childAndParentsRelationships" )
   public void setChildAndParentsRelationships(List<ChildAndParentsRelationship> childAndParentsRelationships) {
     this.childAndParentsRelationships = childAndParentsRelationships;
   }
@@ -175,9 +182,10 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   public void addChildAndParentsRelationship(ChildAndParentsRelationship childAndParentsRelationship) {
     if (childAndParentsRelationship != null) {
-      if (childAndParentsRelationships == null)
+      if (childAndParentsRelationships == null) {
         childAndParentsRelationships = new LinkedList<ChildAndParentsRelationship>();
-      childAndParentsRelationships.add( childAndParentsRelationship );
+      }
+      childAndParentsRelationships.add(childAndParentsRelationship);
     }
   }
 
@@ -185,8 +193,8 @@ public class FamilySearchPlatform extends Gedcomx {
     if (child != null && getRelationships() != null && (parent1 != null || parent2 != null)) {
       for (ChildAndParentsRelationship relationship : getChildAndParentsRelationships()) {
         if (samePerson(relationship.getChild(), child) &&
-            samePerson(relationship.getFather(), parent1) &&
-            samePerson(relationship.getMother(), parent2)) {
+          samePerson(relationship.getFather(), parent1) &&
+          samePerson(relationship.getMother(), parent2)) {
           return relationship;
         }
       }
@@ -209,9 +217,9 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @return The discussions included in this data set.
    */
-  @XmlElement ( name="discussion" )
-  @JsonProperty ("discussions")
-  @JsonName ("discussions")
+  @XmlElement ( name = "discussion" )
+  @JsonProperty ( "discussions" )
+  @JsonName ( "discussions" )
   public List<Discussion> getDiscussions() {
     return discussions;
   }
@@ -221,7 +229,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param discussions The discussions included in this data set.
    */
-  @JsonProperty ("discussions")
+  @JsonProperty ( "discussions" )
   public void setDiscussions(List<Discussion> discussions) {
     this.discussions = discussions;
   }
@@ -231,11 +239,12 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param discussion The discussion to be added.
    */
-  public void addDiscussion( Discussion discussion ) {
+  public void addDiscussion(Discussion discussion) {
     if (discussion != null) {
-      if (discussions == null)
+      if (discussions == null) {
         discussions = new LinkedList<Discussion>();
-      discussions.add( discussion );
+      }
+      discussions.add(discussion);
     }
   }
 
@@ -245,7 +254,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @param discussion The discussion to be added.
    * @return this.
    */
-  public FamilySearchPlatform discussion( Discussion discussion ) {
+  public FamilySearchPlatform discussion(Discussion discussion) {
     addDiscussion(discussion);
     return this;
   }
@@ -255,9 +264,9 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @return The users included in this genealogical data set.
    */
-  @XmlElement (name="user")
-  @JsonProperty ("users")
-  @JsonName ("users")
+  @XmlElement ( name = "user" )
+  @JsonProperty ( "users" )
+  @JsonName ( "users" )
   public List<User> getUsers() {
     return users;
   }
@@ -267,7 +276,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param users The users included in this data set.
    */
-  @JsonProperty ("users")
+  @JsonProperty ( "users" )
   public void setUsers(List<User> users) {
     this.users = users;
   }
@@ -287,9 +296,9 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @return The set of features defined in the platform API.
    */
-  @XmlElement ( name="feature" )
-  @JsonProperty ("features")
-  @JsonName ("features")
+  @XmlElement ( name = "feature" )
+  @JsonProperty ( "features" )
+  @JsonName ( "features" )
   public List<Feature> getFeatures() {
     return features;
   }
@@ -299,7 +308,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param features The set of features defined in the platform API.
    */
-  @JsonProperty ("features")
+  @JsonProperty ( "features" )
   public void setFeatures(List<Feature> features) {
     this.features = features;
   }
@@ -309,11 +318,12 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param user The user to be added.
    */
-  public void addUser( User user ) {
+  public void addUser(User user) {
     if (user != null) {
-      if (users == null)
+      if (users == null) {
         users = new LinkedList<User>();
-      users.add( user );
+      }
+      users.add(user);
     }
   }
 
@@ -329,7 +339,7 @@ public class FamilySearchPlatform extends Gedcomx {
   @Override
   public void accept(GedcomxModelVisitor visitor) {
     if (visitor instanceof FamilySearchPlatformModelVisitor) {
-      ((FamilySearchPlatformModelVisitor)visitor).visitFamilySearchPlatform(this);
+      ((FamilySearchPlatformModelVisitor) visitor).visitFamilySearchPlatform(this);
     }
     else {
       super.accept(visitor);
@@ -341,7 +351,7 @@ public class FamilySearchPlatform extends Gedcomx {
     super.embed(gedcomx);
 
     if (gedcomx instanceof FamilySearchPlatform) {
-      List<ChildAndParentsRelationship> relationships = ((FamilySearchPlatform)gedcomx).getChildAndParentsRelationships();
+      List<ChildAndParentsRelationship> relationships = ((FamilySearchPlatform) gedcomx).getChildAndParentsRelationships();
       if (relationships != null) {
         for (ChildAndParentsRelationship relationship : relationships) {
           boolean found = false;
@@ -363,7 +373,7 @@ public class FamilySearchPlatform extends Gedcomx {
         }
       }
 
-      List<Discussion> discussions = ((FamilySearchPlatform)gedcomx).getDiscussions();
+      List<Discussion> discussions = ((FamilySearchPlatform) gedcomx).getDiscussions();
       if (discussions != null) {
         for (Discussion discussion : discussions) {
           boolean found = false;
