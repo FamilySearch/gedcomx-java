@@ -51,6 +51,15 @@ public class UtilTest {
   }
 
   @Test
+  public void shouldParseSingleDayRange() {
+    GedcomxDate date = GedcomxDateUtil.parse("+1934-08-31/+1934-09-01");
+
+    assertThat(date).isInstanceOf(GedcomxDateRange.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+    assertThat(((GedcomxDateRange)date).getDuration().getDays()).isEqualTo(1);
+  }
+
+  @Test
   public void shouldParseApproximate() {
     GedcomxDate date = GedcomxDateUtil.parse("A+1000");
 
@@ -232,12 +241,32 @@ public class UtilTest {
             new GedcomxDateSimple("+1970-01-31"),
             new GedcomxDateSimple("+1973-02-01"));
 
-    assertThat(duration.getYears()).isEqualTo(2);
-    assertThat(duration.getMonths()).isEqualTo(11);
-    assertThat(duration.getDays()).isEqualTo(29);
+    assertThat(duration.getYears()).isEqualTo(3);
+    assertThat(duration.getMonths()).isEqualTo(null);
+    assertThat(duration.getDays()).isEqualTo(1);
     assertThat(duration.getHours()).isEqualTo(null);
     assertThat(duration.getMinutes()).isEqualTo(null);
     assertThat(duration.getSeconds()).isEqualTo(null);
+  }
+
+  @Test
+  public void shouldCalcSimpleDuration() {
+    GedcomxDate date = GedcomxDateUtil.parse("+1970-01-31/P01D");
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+
+    GedcomxDateDuration duration = ((GedcomxDateRange)date).getDuration();
+
+    assertThat(duration.getYears()).isEqualTo(null);
+    assertThat(duration.getMonths()).isEqualTo(null);
+    assertThat(duration.getDays()).isEqualTo(1);
+    assertThat(duration.getHours()).isEqualTo(null);
+    assertThat(duration.getMinutes()).isEqualTo(null);
+    assertThat(duration.getSeconds()).isEqualTo(null);
+
+    GedcomxDateSimple endDate = ((GedcomxDateRange)date).getEnd();
+    assertThat(endDate.getYear()).isEqualTo(1970);
+    assertThat(endDate.getMonth()).isEqualTo(2);
+    assertThat(endDate.getDay()).isEqualTo(1);
   }
 
   /**
