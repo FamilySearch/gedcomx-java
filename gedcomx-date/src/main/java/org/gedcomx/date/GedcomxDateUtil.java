@@ -103,7 +103,7 @@ public class GedcomxDateUtil {
 
     if(end.day != null) {
       while(end.day-start.day < 0) {
-        end.day += daysInMonth(end.month, end.year);
+        end.day += daysInMonth(end.month == 1 ? 12 : end.month - 1, end.year);
         end.month -= 1;
         if(end.month < 1) {
           end.year -= 1;
@@ -131,7 +131,7 @@ public class GedcomxDateUtil {
 
     String finalDuration = duration.toString();
 
-    if(end.year-start.year < 0 || duration.equals("")) {
+    if(end.year-start.year < 0 || duration.toString().equals("")) {
       throw new GedcomxDateException("Start Date must be less than End Date");
     }
 
@@ -204,12 +204,12 @@ public class GedcomxDateUtil {
         end.day += duration.getDays();
       }
       while (end.day >= GedcomxDateUtil.daysInMonth(end.month, end.year)) {
+        end.day -= GedcomxDateUtil.daysInMonth(end.month, end.year);
         end.month += 1;
         if(end.month > 12) {
           end.month -= 12;
           end.year += 1;
         }
-        end.day -= GedcomxDateUtil.daysInMonth(end.month, end.year);
       }
       endString.insert(0, String.format("%02d", end.day)).insert(0, "-");
     }
