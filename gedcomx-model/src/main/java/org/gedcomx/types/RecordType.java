@@ -275,6 +275,11 @@ public enum RecordType implements ControlledVocabulary {
   Vital,
 
   /**
+   * A voter registration record.
+   */
+  VoterRegistration,
+
+  /**
    * Custom
    */
   @XmlUnknownQNameEnumValue
