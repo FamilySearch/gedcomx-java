@@ -27,7 +27,9 @@ import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.*;
+import org.gedcomx.rs.client.RelationshipState;
+import org.gedcomx.rs.client.SourceDescriptionState;
+import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;

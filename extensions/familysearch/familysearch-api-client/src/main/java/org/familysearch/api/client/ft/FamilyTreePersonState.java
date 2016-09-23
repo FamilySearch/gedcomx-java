@@ -654,4 +654,13 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonMergeState(request, invoke(request, options), this.accessToken);
   }
 
+  public FamilyTreePersonFamiliesState readFamilies(StateTransitionOption... options) {
+    Link link = getLink(Rel.FAMILIES);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonFamiliesState(request, invoke(request, options), this.accessToken);
+  }
 }

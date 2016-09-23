@@ -24,8 +24,9 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
-import org.gedcomx.rs.client.*;
+import org.gedcomx.rs.client.GedcomxApplicationException;
+import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;

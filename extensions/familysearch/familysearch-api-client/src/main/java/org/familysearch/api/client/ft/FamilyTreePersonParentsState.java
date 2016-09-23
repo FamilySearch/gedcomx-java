@@ -17,22 +17,16 @@ package org.familysearch.api.client.ft;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.common.EvidenceReference;
-import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
-import org.gedcomx.conclusion.*;
-import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.*;
-import org.gedcomx.source.SourceReference;
+import org.gedcomx.conclusion.Person;
+import org.gedcomx.conclusion.Relationship;
+import org.gedcomx.rs.client.PersonParentsState;
+import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MultivaluedMap;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

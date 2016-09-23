@@ -123,4 +123,9 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   protected PersonMatchResolutionsState newPersonMatchResolutionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new PersonMatchResolutionsState(request, response, accessToken, this);
   }
+
+  protected FamilyTreePersonFamiliesState newPersonFamiliesState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilyTreePersonFamiliesState(request, response, accessToken, this);
+  }
+
 }

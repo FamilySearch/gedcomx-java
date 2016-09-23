@@ -24,8 +24,6 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rs.client.PersonChildrenState;
-import org.gedcomx.rs.client.PersonParentsState;
-import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.StateTransitionOption;
 
 import javax.ws.rs.HttpMethod;
