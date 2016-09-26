@@ -16,17 +16,20 @@
 package org.familysearch.platform.artifacts;
 
 import org.codehaus.enunciate.json.JsonName;
+import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.gedcomx.common.Qualifier;
+import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,14 +38,17 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlRootElement
-@JsonElementWrapper (name = "artifactMetadata")
-@XmlType ( name = "ArtifactMetadata" )
+@JsonElementWrapper(name = "artifactMetadata")
+@XmlType(name = "ArtifactMetadata")
 public class ArtifactMetadata {
 
   private String filename;
   private List<Qualifier> qualifiers;
   private Integer width;
   private Integer height;
+  private Long size;
+  private URI screeningState;
+  private Boolean editable;
 
   /**
    * The original filename of the memories item.
@@ -114,7 +120,7 @@ public class ArtifactMetadata {
    */
   @JsonIgnore
   public void setKnownType(ArtifactType type) {
-    this.qualifiers = new ArrayList<Qualifier>(Arrays.asList(new Qualifier(type)));
+    this.qualifiers = new ArrayList<Qualifier>(Collections.singletonList(new Qualifier(type)));
   }
 
   /**
@@ -151,5 +157,82 @@ public class ArtifactMetadata {
    */
   public void setHeight(Integer height) {
     this.height = height;
+  }
+
+  /**
+   * The size of the artifact.
+   *
+   * @return The size of the artifact.
+   */
+  public Long getSize() {
+    return size;
+  }
+
+  /**
+   * The size of the artifact.
+   *
+   * @param size The size of the artifact.
+   */
+  public void setSize(Long size) {
+    this.size = size;
+  }
+
+  /**
+   * The screening state of the artifact.
+   *
+   * @return The screening state of the artifact.
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(ArtifactScreeningState.class)
+  public URI getScreeningState() {
+    return screeningState;
+  }
+
+  /**
+   * The screening state of the artifact.
+   *
+   * @param screeningState The screening state of the artifact.
+   */
+  public void setScreeningState(URI screeningState) {
+    this.screeningState = screeningState;
+  }
+
+  /**
+   * The known screening state of the artifact.
+   *
+   * @return The known screening state of the artifact.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public ArtifactScreeningState getKnownScreeningState() {
+    return getScreeningState() == null ? null : ArtifactScreeningState.fromQNameURI(getScreeningState());
+  }
+
+  /**
+   * The known screening state of the artifact.
+   *
+   * @param screeningState The known screening state of the artifact.
+   */
+  @JsonIgnore
+  public void setKnownScreeningState(ArtifactScreeningState screeningState) {
+    setScreeningState(screeningState == null ? null : screeningState.toQNameURI());
+  }
+
+  /**
+   * Whether or not the artifact is editable by the current user.
+   *
+   * @return True if the artifact is editable by the current user; false otherwise.
+   */
+  public Boolean isEditable() {
+    return editable;
+  }
+
+  /**
+   * Whether or not the artifact is editable by the current user.
+   *
+   * @param editable True if the artifact is editable by the current user; false otherwise.
+   */
+  public void setEditable(Boolean editable) {
+    this.editable = editable;
   }
 }
