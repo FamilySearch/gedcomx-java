@@ -41,6 +41,7 @@ public class Rel {
   public static final String CHILDREN = "children";
   public static final String CHILD_RELATIONSHIPS = "child-relationships";
   public static final String COLLECTION = "collection";
+  public static final String COVERAGE = "coverage";
   public static final String SUBCOLLECTIONS = "subcollections";
   public static final String CONCLUSION = "conclusion";
   public static final String CONCLUSIONS = "conclusions";

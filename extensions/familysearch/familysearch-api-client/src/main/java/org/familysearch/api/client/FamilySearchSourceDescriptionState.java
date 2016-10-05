@@ -21,6 +21,7 @@ import org.familysearch.api.client.util.RequestUtil;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.CollectionState;
+import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.source.SourceDescription;
@@ -38,7 +39,7 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
 
   @Override
   protected FamilySearchSourceDescriptionState clone(ClientRequest request, ClientResponse response) {
-    return new FamilySearchSourceDescriptionState(request, response, this.accessToken, (FamilySearchStateFactory) this.stateFactory);
+    return new FamilySearchSourceDescriptionState(request, response, this.accessToken, getStateFactory());
   }
 
   @Override
@@ -81,6 +82,16 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
     return (FamilySearchSourceDescriptionState) super.update(description);
   }
 
+  public FamilySearchSourceDescriptionState deleteCoverage(StateTransitionOption... options) {
+    Link link = getLink(Rel.COVERAGE);
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Coverage cannot be deleted: missing link.");
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return getStateFactory().newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
+
   public DiscussionState readComments(StateTransitionOption... options) {
     Link link = getLink(Rel.COMMENTS);
     if (link == null || link.getHref() == null) {
@@ -88,7 +99,7 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
+    return getStateFactory().newDiscussionState(request, invoke(request, options), this.accessToken);
   }
 
   //TODO: Create FamilysearchSourceReferencesQueryState class, add it to FamilySearchStateFactory when link is created
@@ -99,7 +110,7 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newFamilySearchSourceReferencesQueryState(request, invoke(request), this.accessToken);
+    return getStateFactory().newFamilySearchSourceReferencesQueryState(request, invoke(request), this.accessToken);
   }  */
 
   public FamilySearchSourceDescriptionState moveToCollection(CollectionState collection, StateTransitionOption... options) {
@@ -115,6 +126,10 @@ public class FamilySearchSourceDescriptionState extends SourceDescriptionState {
 
     Gedcomx gx = new Gedcomx().sourceDescription(new SourceDescription().id(me.getId()));
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(link.getHref().toURI(), HttpMethod.POST);
-    return ((FamilySearchStateFactory)this.stateFactory).newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+    return getStateFactory().newSourceDescriptionState(request, invoke(request, options), this.accessToken);
+  }
+
+  private FamilySearchStateFactory getStateFactory() {
+    return (FamilySearchStateFactory)this.stateFactory;
   }
 }
