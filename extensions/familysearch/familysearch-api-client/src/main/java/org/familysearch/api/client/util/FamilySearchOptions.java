@@ -39,6 +39,7 @@ public class FamilySearchOptions {
   public static final String INCLUDE_PERSON_DETAILS = "personDetails";
   public static final String INCLUDE_PERSONS = "persons";
   public static final String PERSON_NAME = "personName";
+  public static final String PIDS = "pids";
   public static final String SPOUSE_ID = "spouse";
   public static final String STATUS = "status";
   public static final String TITLE = "title";
@@ -80,6 +81,10 @@ public class FamilySearchOptions {
 
   public static QueryParameter personName(String personName) {
     return new QueryParameter(true, PERSON_NAME, personName);
+  }
+
+  public static QueryParameter pids(String joinedPids) {
+    return new QueryParameter(true, PIDS, joinedPids);
   }
 
   public static QueryParameter artifactType(ArtifactType type) {

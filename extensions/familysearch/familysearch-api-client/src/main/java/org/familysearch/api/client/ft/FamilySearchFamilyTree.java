@@ -15,6 +15,15 @@
  */
 package org.familysearch.api.client.ft;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.MultivaluedMap;
+
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
@@ -22,10 +31,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import org.familysearch.api.client.*;
-import org.familysearch.api.client.util.RequestUtil;
-import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
@@ -33,17 +38,25 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.client.*;
+import org.gedcomx.rs.client.GedcomxApplicationException;
+import org.gedcomx.rs.client.PersonState;
+import org.gedcomx.rs.client.PersonsState;
+import org.gedcomx.rs.client.RelationshipState;
+import org.gedcomx.rs.client.RelationshipsState;
+import org.gedcomx.rs.client.SourceDescriptionsState;
+import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rs.client.options.ConnegSetter;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.types.RelationshipType;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MultivaluedMap;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.familysearch.api.client.FamilySearchCollectionState;
+import org.familysearch.api.client.FamilySearchReferenceEnvironment;
+import org.familysearch.api.client.PersonMatchResolutionsState;
+import org.familysearch.api.client.Rel;
+import org.familysearch.api.client.UserState;
+import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.ct.ChildAndParentsRelationship;
 
 /**
  * @author Ryan Heaton
@@ -458,6 +471,21 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   @Override
   public FamilyTreePersonState readPerson(Person person, StateTransitionOption... options) {
     return (FamilyTreePersonState) super.readPerson(person, options);
+  }
+
+  public PersonsState readPersons(Set<String> personIds, StateTransitionOption... options) {
+    StringBuilder sb = new StringBuilder(512);
+    for(String pid: personIds) {
+      if (sb.length() > 0) {
+        sb.append(',');
+      }
+      sb.append(pid);
+    }
+
+    StateTransitionOption newOptions[] = Arrays.copyOf(options, options.length + 2);
+    newOptions[options.length+1] = new ConnegSetter(FamilySearchPlatform.JSON_MEDIA_TYPE);
+    
+    return super.readPersons(newOptions);
   }
 
   public PersonMatchResolutionsState queryMatchResolutions(List<org.gedcomx.common.URI> personaUris, StateTransitionOption... options) {
