@@ -20,6 +20,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.gedcomx</groupId>
       <artifactId>gedcomx-atom</artifactId>
       <version>${project.version}</version>

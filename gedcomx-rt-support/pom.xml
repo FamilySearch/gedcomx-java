@@ -24,11 +24,6 @@
       <artifactId>jackson-databind</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>com.fasterxml.jackson.jaxrs</groupId>
-      <artifactId>jackson-jaxrs-json-provider</artifactId>
-    </dependency>
-
     <!--
     We have to use the woodstox XMLStreamWriter, because Java's default implementation has a bug
     in which Unicode surrogate pairs incorrectly get left in a StringBuffer, causing each
