@@ -18,34 +18,6 @@
     <root.basedir>${basedir}/..</root.basedir>
   </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.enunciate</groupId>
-        <artifactId>maven-enunciate-plugin</artifactId>
-        <version>${enunciate.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>assemble</goal>
-            </goals>
-            <configuration>
-              <stepTo>build</stepTo>
-              <forceWarPackaging>false</forceWarPackaging>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.gedcomx</groupId>
-            <artifactId>enunciate-gedcomx-support</artifactId>
-            <version>${project.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
     <dependency>
       <groupId>org.gedcomx</groupId>

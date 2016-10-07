@@ -354,35 +354,4 @@ public class GedcomNamespaceManager extends NamespacePrefixMapper {
     return KNOWN_JSON_TYPES_BY_TYPE_ID.get(typeId);
   }
 
-  /**
-   * Get the version of the runtime java library that defines the model for the given namespace.
-   *
-   * @param namespace The model namespace.
-   * @return The runtime version.
-   */
-  public synchronized static String getRuntimeVersion(String namespace) {
-    String prefix = getKnownPrefixes().get(namespace);
-    String version = RUNTIME_VERSIONS.get(prefix);
-    if (version == null) {
-      InputStream in = GedcomNamespaceManager.class.getClassLoader().getResourceAsStream("META-INF/" + prefix + ".rt.properties");
-      if (in != null) {
-        Properties properties = new Properties();
-        try {
-          properties.load(in);
-          version = properties.getProperty("version");
-        }
-        catch (IOException e) {
-          version = null;
-        }
-      }
-
-      if (version == null) {
-        version = "(unknown)";
-      }
-
-      RUNTIME_VERSIONS.put(prefix, version);
-    }
-    return version;
-  }
-
 }

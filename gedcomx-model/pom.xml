@@ -16,92 +16,14 @@
     <!--we have to duplicate the config files to all modules. Currently-->
     <!--opting for the former.-->
     <root.basedir>${basedir}/..</root.basedir>
-    <recipes.dir>${project.build.directory}/recipes</recipes.dir>
   </properties>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.enunciate</groupId>
-        <artifactId>maven-enunciate-plugin</artifactId>
-        <version>${enunciate.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>assemble</goal>
-            </goals>
-            <configuration>
-              <stepTo>build</stepTo>
-              <forceWarPackaging>false</forceWarPackaging>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.gedcomx</groupId>
-            <artifactId>enunciate-gedcomx-support</artifactId>
-            <version>${project.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <systemPropertyVariables>
-            <recipes.dir>${recipes.dir}</recipes.dir>
-          </systemPropertyVariables>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${recipes.dir}</directory>
-                  <filtering>true</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>delete-recipes</id>
-            <phase>process-test-classes</phase>
-            <configuration>
-              <tasks>
-                <delete dir="${recipes.dir}" />
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 
   <dependencies>
     <dependency>
-      <groupId>com.fasterxml.woodstox</groupId>
-      <artifactId>woodstox-core</artifactId>
-      <version>5.0.1</version>
+      <groupId>org.codehaus.enunciate</groupId>
+      <artifactId>enunciate-core-rt</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.gedcomx</groupId>
       <artifactId>gedcomx-rt-support</artifactId>
@@ -112,6 +34,7 @@
       <groupId>org.gedcomx</groupId>
       <artifactId>gedcomx-test-support</artifactId>
       <version>${project.version}</version>
+
       <scope>test</scope>
     </dependency>
   </dependencies>

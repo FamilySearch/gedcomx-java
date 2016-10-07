@@ -19,32 +19,63 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-jaxrs</artifactId>
+      <version>1.8.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-xc</artifactId>
+      <version>1.8.0</version>
+    </dependency>
+
+    <!--<dependency>-->
+      <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+      <!--<artifactId>jackson-databind</artifactId>-->
+    <!--</dependency>-->
+
+    <!--<dependency>-->
+      <!--<groupId>com.fasterxml.jackson.jaxrs</groupId>-->
+      <!--<artifactId>jackson-jaxrs-providers</artifactId>-->
+    <!--</dependency>-->
+
     <!--
-        we explicitly depend on jaxb-impl (even for JDK6) in order to implement
-        the namespace prefix mapper, which doesn't work with the JDK 6 implementation.
+    We have to use the woodstox XMLStreamWriter, because Java's default implementation has a bug
+    in which Unicode surrogate pairs incorrectly get left in a StringBuffer, causing each
+    subsequent attribute with surrogate pairs to get all previous ones as a bigger and bigger
+    prefix(!).
+
+    Update 2016-10-07: Still isn't fixed in jdk1.8.0_60.
+    -->
+    <dependency>
+      <groupId>com.fasterxml.woodstox</groupId>
+      <artifactId>woodstox-core</artifactId>
+    </dependency>
+
+    <!--
+        we explicitly depend on jaxb-impl in order to implement the namespace prefix mapper.
     -->
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
-      <version>2.2.7</version>
     </dependency>
 
     <dependency>
       <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-      <version>1.1.1</version>
+      <artifactId>javax.ws.rs-api</artifactId>
     </dependency>
 
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>1.8</version>
     </dependency>
 
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-client</artifactId>
-      <version>${jersey.version}</version>
+
       <scope>test</scope>
     </dependency>
 
