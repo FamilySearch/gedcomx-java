@@ -54,6 +54,7 @@ import org.familysearch.api.client.FamilySearchReferenceEnvironment;
 import org.familysearch.api.client.PersonMatchResolutionsState;
 import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.UserState;
+import org.familysearch.api.client.util.FamilySearchOptions;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
@@ -483,6 +484,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     }
 
     StateTransitionOption newOptions[] = Arrays.copyOf(options, options.length + 2);
+    newOptions[options.length] = FamilySearchOptions.pids(sb.toString());
     newOptions[options.length+1] = new ConnegSetter(FamilySearchPlatform.JSON_MEDIA_TYPE);
     
     return super.readPersons(newOptions);
