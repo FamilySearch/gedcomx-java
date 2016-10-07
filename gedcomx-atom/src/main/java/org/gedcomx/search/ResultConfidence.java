@@ -15,11 +15,12 @@
  */
 package org.gedcomx.search;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.codehaus.enunciate.Facet;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.annotate.JsonValue;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.bind.annotation.XmlEnum;
@@ -86,7 +87,7 @@ public enum ResultConfidence {
     }
   }
 
-  static class ResultConfidenceDeserializer extends org.codehaus.jackson.map.JsonDeserializer<ResultConfidence>
+  static class ResultConfidenceDeserializer extends JsonDeserializer<ResultConfidence>
   {
     @Override
     public ResultConfidence deserialize(final JsonParser parser, final DeserializationContext context) throws IOException

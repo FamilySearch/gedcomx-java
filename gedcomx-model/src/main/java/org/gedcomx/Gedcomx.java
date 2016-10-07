@@ -17,8 +17,8 @@ package org.gedcomx;
 
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;

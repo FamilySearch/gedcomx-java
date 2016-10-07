@@ -80,7 +80,7 @@ public class ChangeInfo {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public ChangeOperation getKnownOperation() {
     return getOperation() == null ? null : ChangeOperation.fromQNameURI(getOperation());
   }
@@ -91,7 +91,7 @@ public class ChangeInfo {
    * @param knownOperation the change operation.
    */
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownOperation(ChangeOperation knownOperation) {
     setOperation(knownOperation == null ? null : knownOperation.toQNameURI());
   }
@@ -123,7 +123,7 @@ public class ChangeInfo {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public ChangeObjectType getKnownObjectType() {
     return getObjectType() == null ? null : ChangeObjectType.fromQNameURI(getObjectType());
   }
@@ -134,7 +134,7 @@ public class ChangeInfo {
    * @param knownObject the change object.
    */
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownObjectType(ChangeObjectType knownObject) {
     setObjectType(knownObject == null ? null : knownObject.toQNameURI());
   }
@@ -168,7 +168,7 @@ public class ChangeInfo {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public ChangeObjectModifier getKnownObjectModifier() {
     return getObjectModifier() == null ? null : ChangeObjectModifier.fromQNameURI(getObjectModifier());
   }
@@ -179,7 +179,7 @@ public class ChangeInfo {
    * @param knownObject the change object.
    */
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownObjectModifier(ChangeObjectModifier knownObject) {
     setObjectModifier(knownObject == null ? null : knownObject.toQNameURI());
   }

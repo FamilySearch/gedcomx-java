@@ -15,7 +15,7 @@
  */
 package org.gedcomx.rt;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.xml.bind.JAXBContext;
 

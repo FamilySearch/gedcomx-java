@@ -16,7 +16,7 @@
 package org.familysearch.platform.reservations;
 
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.familysearch.platform.ordinances.OrdinanceAssignee;
 import org.familysearch.platform.ordinances.OrdinanceStatus;
 import org.familysearch.platform.ordinances.OrdinanceType;

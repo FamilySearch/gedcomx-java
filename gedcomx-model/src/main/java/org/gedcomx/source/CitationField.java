@@ -16,7 +16,7 @@
 package org.gedcomx.source;
 
 import org.codehaus.enunciate.Facet;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.HasJsonKey;

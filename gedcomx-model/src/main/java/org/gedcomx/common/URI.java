@@ -15,7 +15,8 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.jackson.annotate.JsonValue;
+
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 

@@ -15,13 +15,13 @@
  */
 package org.gedcomx.rs.client;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.header.LinkHeader;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
 import org.gedcomx.common.Attributable;
@@ -39,7 +39,6 @@ import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.*;
 
@@ -423,7 +422,7 @@ public abstract class GedcomxApplicationState<E> {
         throw new GedcomxApplicationException("Illegal access token response: no access_token provided.", response);
       }
 
-      return authenticateWithAccessToken(access_token.getValueAsText());
+      return authenticateWithAccessToken(access_token.asText());
     }
     else {
       StringBuilder messageDetails = new StringBuilder();

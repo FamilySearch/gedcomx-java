@@ -16,7 +16,7 @@
 package org.gedcomx.records;
 
 import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;

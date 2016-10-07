@@ -17,8 +17,8 @@ package org.familysearch.platform.artifacts;
 
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;

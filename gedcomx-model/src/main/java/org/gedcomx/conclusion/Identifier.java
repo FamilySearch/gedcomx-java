@@ -16,9 +16,9 @@
 package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.types.IdentifierType;

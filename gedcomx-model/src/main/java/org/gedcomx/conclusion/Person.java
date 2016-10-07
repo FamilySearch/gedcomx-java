@@ -17,8 +17,8 @@ package org.gedcomx.conclusion;
 
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;

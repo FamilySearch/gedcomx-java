@@ -16,7 +16,7 @@
 package org.familysearch.platform.ct;
 
 import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.rt.json.JsonElementWrapper;
 

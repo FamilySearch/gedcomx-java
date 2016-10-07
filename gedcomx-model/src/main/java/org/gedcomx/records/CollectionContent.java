@@ -15,7 +15,7 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
