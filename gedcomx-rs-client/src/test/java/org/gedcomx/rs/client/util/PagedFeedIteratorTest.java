@@ -67,7 +67,7 @@ public class PagedFeedIteratorTest {
     Feed feed = new Feed();
     for (URI uri : expected) {
       String rel = uri.toString().substring(baseUri.length() + 1);
-      System.out.println(rel);
+      //System.out.println(rel);
       feed.addLink(rel, uri);
     }
     PagedFeedIterator pagedFeedIterator = PagedFeedIterator.fromFeed(feed);

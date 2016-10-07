@@ -21,7 +21,6 @@ import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.apache.http.client.utils.URIBuilder;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;
@@ -29,8 +28,8 @@ import org.gedcomx.rt.GedcomxConstants;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * @author Tygan Shelton
@@ -171,13 +170,7 @@ public class ArtifactsCollection extends FamilySearchCollectionState {
       throw new GedcomxApplicationException(e);
     }
 
-    URI uri;
-    try {
-      uri = new URIBuilder(artifactUri)
-        .addParameter("count", Integer.toString(count)).addParameter("start", Integer.toString(start)).build();
-    } catch (URISyntaxException e) {
-      throw new GedcomxApplicationException(e);
-    }
+    URI uri = UriBuilder.fromUri(artifactUri).queryParam("count", Integer.toString(count)).queryParam("start", Integer.toString(start)).build();
     ClientRequest request = createAuthenticatedGedcomxRequest().build(uri, HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
   }
