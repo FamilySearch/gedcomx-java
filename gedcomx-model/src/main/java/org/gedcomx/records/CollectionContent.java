@@ -16,6 +16,7 @@
 package org.gedcomx.records;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "collectionContent" )
 @XmlType ( name = "CollectionContent" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class CollectionContent extends HypermediaEnabledData {
 
   private URI resourceType;

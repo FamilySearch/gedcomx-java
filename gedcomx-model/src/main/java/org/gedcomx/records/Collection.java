@@ -15,6 +15,7 @@
  */
 package org.gedcomx.records;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.Attributable;
@@ -46,6 +47,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "collections" )
 @XmlType ( name = "Collection", propOrder = { "identifiers", "title", "size", "content", "attribution" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;

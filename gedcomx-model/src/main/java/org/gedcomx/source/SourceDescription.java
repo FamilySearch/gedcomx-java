@@ -15,6 +15,7 @@
  */
 package org.gedcomx.source;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.Facets;
 import org.codehaus.enunciate.json.JsonName;
@@ -45,6 +46,7 @@ import java.util.*;
 @XmlRootElement
 @XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses" } )
 @JsonElementWrapper ( name = "sourceDescriptions" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
 
   private String lang;

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.source;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.*;
@@ -39,6 +40,7 @@ import java.util.List;
 @XmlRootElement ( name = "sourceReference" )
 @JsonElementWrapper ( name = "sourceReferences" )
 @XmlType ( name = "SourceReference" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SourceReference extends HypermediaEnabledData implements Attributable {
 
   private URI descriptionRef;

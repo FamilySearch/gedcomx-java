@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
@@ -67,6 +68,7 @@ import java.util.List;
 @XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features"} )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, SearchInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, UserHistoryInfo.class, Reservation.class, Ordinance.class} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilySearchPlatform extends Gedcomx {
 
   public static final String PROJECT_ID = "fs-platform";

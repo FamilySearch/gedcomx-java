@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,6 +43,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType ( name = "EventRole", propOrder = { "person", "details" } )
 @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class EventRole extends Conclusion {
 
   private ResourceReference person;

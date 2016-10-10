@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,6 +49,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
 @XmlType ( name = "Person", propOrder = { "private", "living", "principal", "gender", "names", "facts", "fields", "displayExtension" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Person extends Subject implements HasFacts, HasFields {
 
   private Boolean isPrivate;

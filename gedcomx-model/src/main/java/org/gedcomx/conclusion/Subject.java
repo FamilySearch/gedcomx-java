@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,6 +46,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Subject", propOrder = { "evidence", "media", "identifiers" })
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public abstract class Subject extends Conclusion implements Attributable {
 
   private Boolean extracted;

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.atom;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -42,6 +43,7 @@ import java.util.Map;
 @XmlRootElement
 @XmlType ( name = "Entry" )
 @JsonElementWrapper ( name = "entries" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings ( "gedcomx:no_id" )
 @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public class Entry extends ExtensibleElement implements SupportsLinks {

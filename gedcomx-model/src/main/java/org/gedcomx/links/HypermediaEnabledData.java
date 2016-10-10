@@ -15,6 +15,7 @@
  */
 package org.gedcomx.links;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,6 +34,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "HypermediaEnabledData" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public abstract class HypermediaEnabledData extends ExtensibleData implements SupportsLinks {
 
   private List<Link> links;

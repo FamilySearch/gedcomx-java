@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.ClientName;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
@@ -40,6 +41,7 @@ import java.util.List;
  */
 @ClientName ("DateInfo")
 @XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fields"})
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Date extends ExtensibleData implements HasFields {
 
   private String original;

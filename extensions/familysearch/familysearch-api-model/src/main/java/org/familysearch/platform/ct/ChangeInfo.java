@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonIgnore;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ResourceReference;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "changeInfo" )
 @XmlType ( name = "ChangeInfo" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class ChangeInfo {
 
   private URI operation;

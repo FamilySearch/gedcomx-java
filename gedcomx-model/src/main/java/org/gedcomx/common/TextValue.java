@@ -15,6 +15,7 @@
  */
 package org.gedcomx.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.rt.GedcomxConstants;
 
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlValue;
  * An element representing a text value that may be in a specific language.
  */
 @XmlType ( name = "TextValue" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class TextValue {
 
   private String lang;

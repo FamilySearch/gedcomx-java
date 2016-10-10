@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
@@ -38,6 +39,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper( name = "child-and-parents-relationships" )
 @XmlType ( name = "ChildAndParentsRelationship", propOrder = { "father", "mother", "child", "fatherFacts", "motherFacts" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class ChildAndParentsRelationship extends Subject {
 
   private ResourceReference father;

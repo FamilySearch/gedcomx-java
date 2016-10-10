@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.URI;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement (name = "discussion-reference")
 @JsonElementWrapper (name = "discussion-references")
 @XmlType ( name = "DiscussionReference" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class DiscussionReference extends HypermediaEnabledData {
 
   private URI resource;

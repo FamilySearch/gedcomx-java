@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
@@ -44,6 +45,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Conclusion", propOrder = { "attribution", "sources", "analysis", "notes" })
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public abstract class Conclusion extends HypermediaEnabledData implements Attributable, ReferencesSources, HasNotes {
 
   private String lang;

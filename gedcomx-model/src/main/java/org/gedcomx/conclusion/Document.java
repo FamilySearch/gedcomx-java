@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 @JsonElementWrapper (name = "documents")
 @XmlType(name = "Document", propOrder = { "text" })
 @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Document extends Conclusion implements HasText, Attributable {
   
   public static final String TEXT_TYPE_PLAIN = "plain";

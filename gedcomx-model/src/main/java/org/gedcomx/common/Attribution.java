@@ -15,6 +15,7 @@
  */
 package org.gedcomx.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.rt.GedcomxConstants;
@@ -35,6 +36,7 @@ import java.util.Date;
 @XmlRootElement
 @JsonElementWrapper (name = "attribution")
 @XmlType ( name = "Attribution", propOrder = { "contributor", "modified", "changeMessage", "creator", "created" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
 public final class Attribution extends ExtensibleData {
 

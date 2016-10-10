@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -30,6 +31,7 @@ import java.io.Serializable;
 @XmlRootElement
 @JsonElementWrapper(name = "tags")
 @XmlType( name = "Tag" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
 public class Tag implements Serializable {
 

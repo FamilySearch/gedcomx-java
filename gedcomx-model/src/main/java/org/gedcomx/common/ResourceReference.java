@@ -15,6 +15,7 @@
  */
 package org.gedcomx.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.Facets;
 import org.gedcomx.rt.GedcomxConstants;
@@ -34,6 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType ( name = "ResourceReference" )
 @JsonElementWrapper ( name = "resourceReference" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class ResourceReference {
 
   private URI resource;

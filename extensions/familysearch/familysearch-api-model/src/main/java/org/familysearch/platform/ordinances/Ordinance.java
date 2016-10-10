@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ordinances;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
 @XmlType( name = "Ordinance" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Ordinance extends Reservation {
 
   private Boolean living;

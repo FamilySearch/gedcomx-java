@@ -15,6 +15,7 @@
  */
 package org.gedcomx.source;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,6 +40,7 @@ import java.util.List;
  * Represents a source citation.
  */
 @XmlType ( name = "SourceCitation" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SourceCitation extends HypermediaEnabledData {
 
   private String lang;

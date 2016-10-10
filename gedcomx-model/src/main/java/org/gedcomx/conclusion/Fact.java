@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
@@ -43,6 +44,7 @@ import java.util.List;
 @XmlType ( name = "Fact", propOrder = {"date", "place", "value", "qualifiers", "fields"} )
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
 
   /**

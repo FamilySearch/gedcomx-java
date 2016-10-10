@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -38,6 +39,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "NameForm", propOrder = { "fullText", "parts", "fields"})
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class NameForm extends ExtensibleData implements HasFields {
 
   private String lang;

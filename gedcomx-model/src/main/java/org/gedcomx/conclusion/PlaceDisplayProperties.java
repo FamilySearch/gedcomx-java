@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType ( name = "PlaceDisplayProperties" )
 @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class PlaceDisplayProperties extends ExtensibleData {
 
   private String name;

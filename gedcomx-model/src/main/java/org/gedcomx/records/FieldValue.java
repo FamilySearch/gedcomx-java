@@ -15,6 +15,7 @@
  */
 package org.gedcomx.records;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.Attribution;
@@ -42,6 +43,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType ( name = "FieldValue" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class FieldValue extends Conclusion {
 
   /**

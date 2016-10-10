@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
@@ -33,6 +34,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "mergeAnalysis" )
 @XmlType ( name = "MergeAnalysis", propOrder = {"survivorResources", "duplicateResources", "conflictingResources", "survivor", "duplicate"} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class MergeAnalysis {
 
   private List<ResourceReference> survivorResources;

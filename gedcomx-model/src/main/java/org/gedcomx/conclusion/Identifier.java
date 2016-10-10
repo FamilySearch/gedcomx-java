@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,6 +35,7 @@ import javax.xml.bind.annotation.XmlValue;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Identifier" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class Identifier implements HasJsonKey {
 
   private boolean hasUniqueKey = false;

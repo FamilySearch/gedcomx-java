@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,6 +40,7 @@ import java.util.List;
  * A reference to genealogical place.
  */
 @XmlType ( name = "PlaceReference", propOrder = { "original", "normalizedExtensions", "fields" })
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class PlaceReference extends ExtensibleData implements HasFields {
 
   private String original;

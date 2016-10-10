@@ -15,6 +15,7 @@
  */
 package org.gedcomx.source;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.URI;
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlType ( name = "CitationField" )
 @Facet ( name = GedcomxConstants.FACET_GEDCOMX_CITATION )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class CitationField implements HasJsonKey {
 
   private URI name;

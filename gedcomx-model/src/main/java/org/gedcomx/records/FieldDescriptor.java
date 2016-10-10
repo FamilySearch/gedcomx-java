@@ -15,6 +15,7 @@
  */
 package org.gedcomx.records;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
@@ -36,6 +37,7 @@ import java.util.List;
  */
 @XmlType ( name = "FieldDescriptor", propOrder = { "originalLabel", "descriptions", "values"})
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FieldDescriptor extends HypermediaEnabledData {
 
   private String originalLabel; // what the original form said, e.g,. "Nombre:"

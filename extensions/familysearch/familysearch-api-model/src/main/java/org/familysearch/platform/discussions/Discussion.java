@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.discussions;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
@@ -36,6 +37,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper (name = "discussions")
 @XmlType ( name = "Discussion", propOrder = { "title", "details", "created", "contributor", "modified", "numberOfComments", "comments" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Discussion extends HypermediaEnabledData {
 
   private String title;

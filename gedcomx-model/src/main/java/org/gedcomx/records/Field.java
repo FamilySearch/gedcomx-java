@@ -15,6 +15,7 @@
  */
 package org.gedcomx.records;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,6 +42,7 @@ import java.util.List;
 @XmlType ( name = "Field" )
 @JsonElementWrapper ( name = "fields" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Field extends HypermediaEnabledData {
 
   /**

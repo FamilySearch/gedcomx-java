@@ -15,6 +15,7 @@
  */
 package org.gedcomx.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper(name = "notes")
 @XmlType ( name = "Note", propOrder = { "subject", "text", "attribution" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Note extends HypermediaEnabledData implements Attributable, HasText {
 
   private String lang;

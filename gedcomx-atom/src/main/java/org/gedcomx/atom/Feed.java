@@ -15,6 +15,7 @@
  */
 package org.gedcomx.atom;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.atom.rt.AtomModelVisitor;
@@ -61,6 +62,7 @@ import java.util.List;
 )
 @XmlRootElement
 @XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries", "facets"} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings ( "gedcomx:no_id" )
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
 public class Feed extends ExtensibleElement implements SupportsLinks {

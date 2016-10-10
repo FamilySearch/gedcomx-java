@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +41,7 @@ import java.util.List;
  * of a place as a snapshot in time.
  */
 @XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "place", "jurisdiction", "displayExtension" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class PlaceDescription extends Subject {
 
   private List<TextValue> names;

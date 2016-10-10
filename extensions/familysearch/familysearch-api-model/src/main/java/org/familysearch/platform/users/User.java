@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.users;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType ( name = "User" )
 @JsonElementWrapper ( name = "users" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class User extends HypermediaEnabledData {
 
   private String contactName;

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,6 +36,7 @@ import java.util.List;
  */
 @XmlType (name = "DisplayProperties")
 @Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class DisplayProperties extends ExtensibleData {
 
   private String name;

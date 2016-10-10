@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.artifacts;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,6 +41,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper(name = "artifactMetadata")
 @XmlType(name = "ArtifactMetadata")
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class ArtifactMetadata {
 
   private String filename;

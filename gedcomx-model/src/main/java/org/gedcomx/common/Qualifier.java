@@ -16,6 +16,7 @@
 package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.rt.ControlledVocabulary;
 
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlValue;
  * @author Ryan Heaton
  */
 @XmlType( name = "Qualifier" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class Qualifier {
 
   private URI name;

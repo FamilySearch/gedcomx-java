@@ -15,6 +15,7 @@
  */
 package org.gedcomx;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -82,6 +83,7 @@ import java.util.List;
 )
 @XmlRootElement
 @JsonElementWrapper (name = "gedcomx")
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 @XmlType ( name = "Gedcomx" , propOrder = { "attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors" })
 public class Gedcomx extends HypermediaEnabledData {
 

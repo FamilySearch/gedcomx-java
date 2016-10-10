@@ -15,6 +15,7 @@
  */
 package org.gedcomx.records;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.Gedcomx;
@@ -61,6 +62,7 @@ import java.util.List;
 @JsonElementWrapper (name = "records")
 @XmlType ( name = "RecordSet", propOrder = { "metadata", "records" })
 @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class RecordSet extends HypermediaEnabledData {
 
   private String lang;

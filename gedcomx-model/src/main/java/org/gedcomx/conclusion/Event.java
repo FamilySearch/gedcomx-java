@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
@@ -45,6 +46,7 @@ import java.util.List;
 @JsonElementWrapper (name = "events")
 @XmlType ( name = "Event", propOrder = { "date", "place", "roles" } )
 @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Event extends Subject implements HasDateAndPlace {
 
   private URI type;

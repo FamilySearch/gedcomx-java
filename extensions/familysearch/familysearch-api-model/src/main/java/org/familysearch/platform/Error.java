@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "errors")
 @XmlType ( name = "Error" )
+@JsonInclude( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
 public class Error {
 

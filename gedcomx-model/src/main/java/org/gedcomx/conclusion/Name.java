@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
@@ -47,6 +48,7 @@ import java.util.List;
 @XmlType ( name = "Name", propOrder = { "preferred", "date", "nameForms"} )
 @XmlRootElement
 @JsonElementWrapper ( name = "names" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Name extends Conclusion {
 
   /**

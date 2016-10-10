@@ -15,6 +15,7 @@
  */
 package org.gedcomx.agent;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,6 +44,7 @@ import java.util.List;
 @XmlRootElement
 @XmlType ( name = "Agent" )
 @JsonElementWrapper ( name = "agents" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Agent extends HypermediaEnabledData {
 
   private List<TextValue> names;

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,6 +42,7 @@ import java.util.List;
 @Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
 @JsonElementWrapper( name = "families" )
 @XmlType( name = "FamilyView", propOrder = { "parent1", "parent2", "children"} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilyView extends HypermediaEnabledData {
 
   private ResourceReference parent1; // First parent, i.e., the father or husband

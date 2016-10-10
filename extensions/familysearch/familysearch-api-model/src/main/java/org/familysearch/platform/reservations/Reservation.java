@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.reservations;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.familysearch.platform.ordinances.OrdinanceAssignee;
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper (name = "reservations")
 @XmlType ( name = "Reservation", propOrder = {"ordinanceType", "type", "status", "spouse", "father", "mother", "assignee" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Reservation extends Conclusion {
 
   private URI type;

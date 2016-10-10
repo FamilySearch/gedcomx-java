@@ -15,6 +15,7 @@
  */
 package org.gedcomx.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType ( name = "EvidenceReference" )
 @JsonElementWrapper ( name = "evidence" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class EvidenceReference extends HypermediaEnabledData implements Attributable {
 
   private URI resource;

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.source;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.Facet;
 import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "coverage" )
 @XmlType ( name = "Coverage" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Coverage extends HypermediaEnabledData {
 
   private PlaceReference spatial;

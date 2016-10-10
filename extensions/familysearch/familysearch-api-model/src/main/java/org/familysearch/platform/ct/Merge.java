@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
@@ -33,6 +34,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "merge" )
 @XmlType ( name = "Merge", propOrder = {"resourcesToDelete", "resourcesToCopy"} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Merge {
 
   private List<ResourceReference> resourcesToDelete;

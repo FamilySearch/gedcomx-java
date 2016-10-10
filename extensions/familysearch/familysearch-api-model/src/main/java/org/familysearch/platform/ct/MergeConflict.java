@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ResourceReference;
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "mergeConflict" )
 @XmlType ( name = "MergeConflict", propOrder = {"survivorResource", "duplicateResource"} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class MergeConflict {
   private ResourceReference survivorResource;
   private ResourceReference duplicateResource;
