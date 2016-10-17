@@ -47,13 +47,11 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "fs",
   name = "FamilySearch",
   description = "The FamilySearch data formats define serialization formats that are specific the FamilySearch developer API.",
   version = "1.0",
   xmlMediaType = FamilySearchPlatform.XML_MEDIA_TYPE,
   jsonMediaType = FamilySearchPlatform.JSON_MEDIA_TYPE,
-  projectId = FamilySearchPlatform.PROJECT_ID,
   models = {
     @Model (
       id = "fs",

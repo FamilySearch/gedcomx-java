@@ -44,13 +44,11 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "atom",
   name = "Atom",
   description = "The Atom data formats provide a format for web content and metadata syndication.",
   version = "1.0",
   xmlMediaType = AtomModel.ATOM_XML_MEDIA_TYPE,
   jsonMediaType = AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE,
-  projectId = "gedcomx-rs",
   models = {
     @Model (
       id = "atom",

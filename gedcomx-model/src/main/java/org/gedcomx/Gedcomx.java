@@ -59,13 +59,11 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "gx",
   name = "GEDCOM X",
   description = "The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model.",
   version = "1.0",
   xmlMediaType = GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE,
   jsonMediaType = GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE,
-  projectId = GedcomxConstants.GEDCOMX_PROJECT_ID,
   models = {
     @Model (
       id = "gx",

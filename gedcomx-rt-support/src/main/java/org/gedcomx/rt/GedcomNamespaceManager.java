@@ -159,31 +159,6 @@ public class GedcomNamespaceManager extends NamespacePrefixMapper {
       MediaTypeDefinition mediaTypeInfo = modelClass.getAnnotation(MediaTypeDefinition.class);
       for (Model model : mediaTypeInfo.models()) {
         namespacePrefixes.put(model.namespace(), model.id());
-
-        for (Class objectFactory : model.objectFactory()) {
-          for (Method method : objectFactory.getDeclaredMethods()) {
-            JsonElementWrapper jsonElementWrapper = method.getAnnotation(JsonElementWrapper.class);
-            if (jsonElementWrapper != null) {
-              XmlElementDecl elementDecl = method.getAnnotation(XmlElementDecl.class);
-              if (elementDecl != null && method.getParameterTypes().length == 1) {
-                String ns = elementDecl.namespace();
-                if ("##default".equals(ns)) {
-                  if (objectFactory.getPackage().isAnnotationPresent(XmlSchema.class)) {
-                    ns = objectFactory.getPackage().getAnnotation(XmlSchema.class).namespace();
-                  }
-                  else {
-                    ns = "";
-                  }
-                }
-
-                String name = elementDecl.name();
-                String jsonAttribute = jsonElementWrapper.namespace() +  jsonElementWrapper.name();
-                wrapperJsonNames.put(new QName(ns, name), jsonAttribute);
-                wrappedJsonTypes.put(jsonAttribute, method.getParameterTypes()[0]);
-              }
-            }
-          }
-        }
       }
     }
 

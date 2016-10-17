@@ -25,9 +25,6 @@ public class GedcomxConstants {
 
   private GedcomxConstants() {}
 
-  public static final String GEDCOMX_DOMAIN = "http://gedcomx.org/";
-  public static final String GEDCOMX_PROJECT_ID = "gedcomx";
-
   public static final String GEDCOMX_TYPES_NAMESPACE = "http://gedcomx.org/"; //the constrained vocabulary isn't versioned.
   public static final String GEDCOMX_NAMESPACE = "http://gedcomx.org/v1/";
   public static final String GEDCOMX_XML_MEDIA_TYPE = "application/x-gedcomx-v1+xml";

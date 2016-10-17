@@ -27,15 +27,11 @@ import java.lang.annotation.Target;
 @Target( ElementType.TYPE )
 public @interface MediaTypeDefinition {
 
-  String id();
-
   String name();
 
   String version();
 
   String description();
-
-  String projectId();
 
   String xmlMediaType();
 

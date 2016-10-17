@@ -42,13 +42,11 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "gxrecs",
   name = "GEDCOM X Record Set",
   description = "The GEDCOM X record set data format is used to exchange multiple, distinct genealogical data sets.",
   version = "1.0",
   xmlMediaType = GedcomxConstants.GEDCOMX_RECORDSET_XML_MEDIA_TYPE,
   jsonMediaType = GedcomxConstants.GEDCOMX_RECORDSET_JSON_MEDIA_TYPE,
-  projectId = "gedcomx-recset",
   models = {
     @Model (
       id = "gxrecs",
