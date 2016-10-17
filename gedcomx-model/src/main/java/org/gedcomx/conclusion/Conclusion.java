@@ -16,9 +16,8 @@
 package org.gedcomx.conclusion;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.*;
@@ -82,7 +81,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    * @return The language of the conclusion.
    */
   @XmlAttribute ( namespace = XMLConstants.XML_NS_URI )
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  @Facet ( GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public String getLang() {
     return lang;
   }
@@ -177,7 +176,6 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    */
   @XmlElement (name="source")
   @JsonProperty ("sources")
-  @JsonName ("sources")
   public List<SourceReference> getSources() {
     return sources;
   }
@@ -234,7 +232,6 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    */
   @XmlElement (name = "note")
   @JsonProperty ("notes")
-  @JsonName ("notes")
   public List<Note> getNotes() {
     return notes;
   }
@@ -310,7 +307,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    *
    * @return A reference to the analysis document explaining the analysis that went into this conclusion.
    */
-  @Facet( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public ResourceReference getAnalysis() {
     return analysis;
   }
@@ -365,7 +362,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    * @return A sort key in relation to other facts for display purposes.
    */
   @XmlAttribute
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public String getSortKey() {
     return sortKey;
   }

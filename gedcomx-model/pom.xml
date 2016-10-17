@@ -20,8 +20,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.codehaus.enunciate</groupId>
-      <artifactId>enunciate-core-rt</artifactId>
+      <groupId>com.webcohesion.enunciate</groupId>
+      <artifactId>enunciate-core-annotations</artifactId>
     </dependency>
 
     <dependency>

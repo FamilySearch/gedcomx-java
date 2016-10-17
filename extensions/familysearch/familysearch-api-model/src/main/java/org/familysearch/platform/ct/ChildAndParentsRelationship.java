@@ -16,7 +16,6 @@
 package org.familysearch.platform.ct;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
@@ -182,7 +181,6 @@ public class ChildAndParentsRelationship extends Subject {
    */
   @XmlElement (name="fatherFact")
   @JsonProperty ("fatherFacts")
-  @JsonName ("fatherFacts")
   public List<Fact> getFatherFacts() {
     return fatherFacts;
   }
@@ -229,7 +227,6 @@ public class ChildAndParentsRelationship extends Subject {
    */
   @XmlElement (name="motherFact")
   @JsonProperty ("motherFacts")
-  @JsonName ("motherFacts")
   public List<Fact> getMotherFacts() {
     return motherFacts;
   }

@@ -16,9 +16,8 @@
 package org.gedcomx.conclusion;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
 
@@ -35,7 +34,7 @@ import java.util.List;
  * application context and are NOT considered canonical for the purposes of data exchange.
  */
 @XmlType (name = "DisplayProperties")
-@Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
+@Facet (GedcomxConstants.FACET_GEDCOMX_RS)
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class DisplayProperties extends ExtensibleData {
 
@@ -389,7 +388,6 @@ public class DisplayProperties extends ExtensibleData {
    */
   @XmlElement(name="familyAsParent")
   @JsonProperty("familiesAsParent")
-  @JsonName("familiesAsParent")
   public List<FamilyView> getFamiliesAsParent() {
     return familiesAsParent;
   }
@@ -425,7 +423,6 @@ public class DisplayProperties extends ExtensibleData {
    */
   @XmlElement(name="familyAsChild")
   @JsonProperty("familiesAsChild")
-  @JsonName("familiesAsChild")
   public List<FamilyView> getFamiliesAsChild() {
     return familiesAsChild;
   }

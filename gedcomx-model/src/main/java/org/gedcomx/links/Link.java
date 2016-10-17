@@ -15,9 +15,9 @@
  */
 package org.gedcomx.links;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.HasJsonKey;
@@ -40,7 +40,7 @@ import java.util.TreeSet;
 @XmlType ( name = "Link", propOrder = {"rel", "href", "template", "title", "type", "accept", "allow", "hreflang"})
 @JsonElementWrapper ( name = "links" )
 @SuppressWarnings("gedcomx:no_id")
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Link implements HasJsonKey {
 
@@ -72,7 +72,6 @@ public class Link implements HasJsonKey {
 
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   @Override
   public boolean isHasUniqueKey() {
     return this.rel != null && !NON_UNIQUE_RELS.contains(this.rel);
@@ -85,7 +84,6 @@ public class Link implements HasJsonKey {
    */
   @XmlAttribute
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public String getRel() {
     return rel;
   }
@@ -467,7 +465,6 @@ public class Link implements HasJsonKey {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public String getHttpHeaderValue() {
     StringBuilder builder = new StringBuilder("<");
 

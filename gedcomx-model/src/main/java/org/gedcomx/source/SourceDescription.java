@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,13 +15,12 @@
  */
 package org.gedcomx.source;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.Facets;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.Facets;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
@@ -44,7 +43,7 @@ import java.util.*;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = { "citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses" } )
+@XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
@@ -139,7 +138,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The type of the resource being described.
    */
   @XmlAttribute
-  @XmlQNameEnumRef (ResourceType.class)
+  @XmlQNameEnumRef ( ResourceType.class )
   public URI getResourceType() {
     return resourceType;
   }
@@ -199,9 +198,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The rights for this source.
    */
-  @XmlElement (name="rights")
-  @JsonProperty ("rights")
-  @JsonName ("rights")
+  @XmlElement ( name = "rights" )
+  @JsonProperty ( "rights" )
   public List<URI> getRights() {
     return rights;
   }
@@ -211,7 +209,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param rights The rights for this source.
    */
-  @JsonProperty ("rights")
+  @JsonProperty ( "rights" )
   public void setRights(List<URI> rights) {
     this.rights = rights;
   }
@@ -256,9 +254,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The bibliographic citations for this source.
    */
-  @XmlElement (name="citation")
-  @JsonProperty ("citations")
-  @JsonName ("citations")
+  @XmlElement ( name = "citation" )
+  @JsonProperty ( "citations" )
   public List<SourceCitation> getCitations() {
     return citations;
   }
@@ -268,7 +265,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param citations The bibliographic citations for this source.
    */
-  @JsonProperty ("citations")
+  @JsonProperty ( "citations" )
   public void setCitations(List<SourceCitation> citations) {
     this.citations = citations;
   }
@@ -342,7 +339,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The URI (if applicable) of the actual source.
    */
   @XmlAttribute
-  @XmlSchemaType (name = "anyURI", namespace = XMLConstants.W3C_XML_SCHEMA_NS_URI)
+  @XmlSchemaType ( name = "anyURI", namespace = XMLConstants.W3C_XML_SCHEMA_NS_URI )
   public URI getAbout() {
     return about;
   }
@@ -386,7 +383,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
   /**
    * Build out this source description with a mediator.
-   * 
+   *
    * @param mediator The mediator.
    * @return this.
    */
@@ -411,9 +408,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
    */
-  @XmlElement (name="source")
-  @JsonProperty ("sources")
-  @JsonName ("sources")
+  @XmlElement ( name = "source" )
+  @JsonProperty ( "sources" )
   public List<SourceReference> getSources() {
     return sources;
   }
@@ -423,7 +419,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param sources References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
    */
-  @JsonProperty ("sources")
+  @JsonProperty ( "sources" )
   public void setSources(List<SourceReference> sources) {
     this.sources = sources;
   }
@@ -523,9 +519,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return A list of titles for this source.
    */
-  @XmlElement (name="title")
-  @JsonProperty ("titles")
-  @JsonName ("titles")
+  @XmlElement ( name = "title" )
+  @JsonProperty ( "titles" )
   public List<TextValue> getTitles() {
     return titles;
   }
@@ -535,7 +530,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param titles A list of titles for this source.
    */
-  @JsonProperty ("titles")
+  @JsonProperty ( "titles" )
   public void setTitles(List<TextValue> titles) {
     this.titles = titles;
   }
@@ -568,7 +563,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return A label for the title of this description.
    */
-  @Facets({@Facet(name = GedcomxConstants.FACET_GEDCOMX_RECORD), @Facet(name = GedcomxConstants.FACET_GEDCOMX_RS)})
+  @Facets ( {@Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD ), @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )} )
   public TextValue getTitleLabel() {
     return titleLabel;
   }
@@ -597,9 +592,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Notes about a source.
    */
-  @XmlElement (name="note")
-  @JsonProperty ("notes")
-  @JsonName ("notes")
+  @XmlElement ( name = "note" )
+  @JsonProperty ( "notes" )
   public List<Note> getNotes() {
     return notes;
   }
@@ -609,7 +603,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param notes Notes about a source.
    */
-  @JsonProperty ("notes")
+  @JsonProperty ( "notes" )
   public void setNotes(List<Note> notes) {
     this.notes = notes;
   }
@@ -732,9 +726,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The list of identifiers for the source.
    */
-  @XmlElement (name="replaces")
-  @JsonProperty ("replaces")
-  @JsonName ("replaces")
+  @XmlElement ( name = "replaces" )
+  @JsonProperty ( "replaces" )
   public List<URI> getReplaces() {
     return replaces;
   }
@@ -744,7 +737,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param replaces The list of identifiers of the source.
    */
-  @JsonProperty ("replaces")
+  @JsonProperty ( "replaces" )
   public void setReplaces(List<URI> replaces) {
     this.replaces = replaces;
   }
@@ -754,9 +747,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The list of status types for the source.
    */
-  @XmlElement (name="status")
-  @JsonProperty ("statuses")
-  @JsonName ("statuses")
+  @XmlElement ( name = "status" )
+  @JsonProperty ( "statuses" )
   public List<URI> getStatuses() {
     return statuses;
   }
@@ -766,7 +758,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param statuses The list of identifiers of the source.
    */
-  @JsonProperty ("status")
+  @JsonProperty ( "status" )
   public void setStatuses(List<URI> statuses) {
     this.statuses = statuses;
   }
@@ -801,9 +793,8 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The list of identifiers for the source.
    */
-  @XmlElement (name="identifier")
-  @JsonProperty ("identifiers")
-  @JsonName ("identifiers")
+  @XmlElement ( name = "identifier" )
+  @JsonProperty ( "identifiers" )
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }
@@ -813,7 +804,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param identifiers The list of identifiers of the source.
    */
-  @JsonProperty ("identifiers")
+  @JsonProperty ( "identifiers" )
   public void setIdentifiers(List<Identifier> identifiers) {
     this.identifiers = identifiers;
   }
@@ -833,10 +824,10 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
   /**
    * A sort key to be used in determining the position of this source relative to other sources in the same collection.
-   * 
+   *
    * @return A sort key to be used in determining the position of this source relative to other sources in the same collection.
    */
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   @XmlAttribute
   public String getSortKey() {
     return sortKey;
@@ -844,7 +835,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
   /**
    * A sort key to be used in determining the position of this source relative to other sources in the same collection.
-   * 
+   *
    * @param sortKey A sort key to be used in determining the position of this source relative to other sources in the same collection.
    */
   public void setSortKey(String sortKey) {
@@ -863,20 +854,19 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
   /**
    * Human-readable descriptions of the source.
-   * 
+   *
    * @return Human-readable descriptions of the source.
    */
-  @XmlElement (name="description")
-  @JsonProperty ("descriptions")
-  @JsonName ("descriptions")
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @XmlElement ( name = "description" )
+  @JsonProperty ( "descriptions" )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<TextValue> getDescriptions() {
     return descriptions;
   }
 
   /**
    * Human-readable descriptions of the source.
-   * 
+   *
    * @param descriptions Human-readable descriptions of the source.
    */
   public void setDescriptions(List<TextValue> descriptions) {
@@ -908,17 +898,17 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
   /**
    * The date the source was created.
-   * 
+   *
    * @return The date the source was created.
    */
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public Date getCreated() {
     return created;
   }
 
   /**
    * The date the source was created.
-   * 
+   *
    * @param created The date the source was created.
    */
   public void setCreated(Date created) {
@@ -938,17 +928,17 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
   /**
    * The date the source was last modified.
-   * 
+   *
    * @return The date the source was last modified.
    */
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public Date getModified() {
     return modified;
   }
 
   /**
    * The date the source was last modified.
-   * 
+   *
    * @param modified The date the source was last modified.
    */
   public void setModified(Date modified) {
@@ -969,7 +959,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Declarations of the coverage of the source.
    */
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Coverage> getCoverage() {
     return this.coverage;
   }
@@ -1002,10 +992,9 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The fields that are applicable to the resource being described.
    */
-  @XmlElement (name="field")
-  @JsonProperty ("fields")
-  @JsonName ("fields")
-  @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @XmlElement ( name = "field" )
+  @JsonProperty ( "fields" )
+  @com.webcohesion.enunciate.metadata.Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }
@@ -1015,7 +1004,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param fields The fields that are applicable to the resource being described.
    */
-  @JsonProperty ("fields")
+  @JsonProperty ( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }
@@ -1035,11 +1024,12 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param field The field to be added.
    */
-  public void addField( Field field ) {
+  public void addField(Field field) {
     if (field != null) {
-      if (fields == null)
+      if (fields == null) {
         fields = new LinkedList<Field>();
-      fields.add( field );
+      }
+      fields.add(field);
     }
   }
 
@@ -1048,7 +1038,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Reference to an agent describing the repository in which the source is found.
    */
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public ResourceReference getRepository() {
     return repository;
   }
@@ -1088,10 +1078,9 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
    */
-  @XmlElement (name="descriptor")
-  @JsonProperty ("descriptor")
-  @JsonName ("descriptor")
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @XmlElement ( name = "descriptor" )
+  @JsonProperty ( "descriptor" )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public ResourceReference getDescriptorRef() {
     return descriptorRef;
   }
@@ -1101,7 +1090,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param descriptorRef Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
    */
-  @JsonProperty ("descriptor")
+  @JsonProperty ( "descriptor" )
   public void setDescriptorRef(ResourceReference descriptorRef) {
     this.descriptorRef = descriptorRef;
   }

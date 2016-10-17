@@ -16,9 +16,8 @@
 package org.gedcomx.conclusion;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.*;
@@ -342,7 +341,6 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    */
   @XmlElement(name="fact")
   @JsonProperty("facts")
-  @JsonName("facts")
   public List<Fact> getFacts() {
     return facts;
   }
@@ -388,8 +386,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    */
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
-  @JsonName( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

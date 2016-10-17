@@ -16,7 +16,7 @@
 package org.gedcomx.source;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlValue;
  * Represents a citation field -- its name and value.
  */
 @XmlType ( name = "CitationField" )
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_CITATION )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_CITATION )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class CitationField implements HasJsonKey {
 
@@ -54,7 +54,6 @@ public class CitationField implements HasJsonKey {
 
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   @Override
   public boolean isHasUniqueKey() {
     return true;

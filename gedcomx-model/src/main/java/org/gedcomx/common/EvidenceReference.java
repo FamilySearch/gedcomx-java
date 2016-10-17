@@ -16,7 +16,7 @@
 package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -82,7 +82,7 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
    * @return The resource id of the resource being referenced.
    */
   @XmlAttribute
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public String getResourceId() {
     return resourceId;
   }

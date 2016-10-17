@@ -15,20 +15,15 @@
  */
 package org.familysearch.platform.artifacts;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,7 +71,6 @@ public class ArtifactMetadata {
    * @return The qualifiers associated with this artifact.
    */
   @XmlElement ( name = "qualifier" )
-  @JsonName ( "qualifiers" )
   @JsonProperty ( "qualifiers" )
   public List<Qualifier> getQualifiers() {
     return qualifiers;

@@ -15,7 +15,7 @@
  */
 package org.gedcomx.atom;
 
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.rt.AtomModelVisitor;
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType ( name = "Content" )
 @SuppressWarnings("gedcomx:no_id")
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 public final class Content {
 
   private String type = GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE;

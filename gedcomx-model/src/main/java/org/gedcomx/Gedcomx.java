@@ -15,11 +15,10 @@
  */
 package org.gedcomx;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
@@ -137,9 +136,8 @@ public class Gedcomx extends HypermediaEnabledData {
    * @return A reference to a description of this data set.
    */
   @XmlAttribute ( name = "description" )
-  @JsonName ( "description" )
   @JsonProperty ( "description" )
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public URI getDescriptionRef() {
     return descriptionRef;
   }
@@ -200,7 +198,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public Person getPerson() {
     return this.persons != null && this.persons.size() > 0 ? this.persons.get(0) : null;
   }
@@ -212,7 +209,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="person")
   @JsonProperty ("persons")
-  @JsonName ("persons")
   public List<Person> getPersons() {
     return persons;
   }
@@ -257,7 +253,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public List<Relationship> getCoupleRelationships() {
     ArrayList<Relationship> filtered = null;
     if (this.relationships != null) {
@@ -278,7 +273,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public List<Relationship> getParentChildRelationships() {
     ArrayList<Relationship> filtered = null;
     if (this.relationships != null) {
@@ -359,7 +353,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="relationship")
   @JsonProperty ("relationships")
-  @JsonName ("relationships")
   public List<Relationship> getRelationships() {
     return relationships;
   }
@@ -404,7 +397,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public SourceDescription getSourceDescription() {
     return this.sourceDescriptions != null && this.sourceDescriptions.size() > 0 ? this.sourceDescriptions.get(0) : null;
   }
@@ -435,7 +427,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="sourceDescription")
   @JsonProperty ("sourceDescriptions")
-  @JsonName ("sourceDescriptions")
   public List<SourceDescription> getSourceDescriptions() {
     return sourceDescriptions;
   }
@@ -480,7 +471,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="agent")
   @JsonProperty ("agents")
-  @JsonName ("agents")
   public List<Agent> getAgents() {
     return agents;
   }
@@ -525,7 +515,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="event")
   @JsonProperty ("events")
-  @JsonName ("events")
   public List<Event> getEvents() {
     return events;
   }
@@ -570,7 +559,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="place")
   @JsonProperty ("places")
-  @JsonName ("places")
   public List<PlaceDescription> getPlaces() {
     return places;
   }
@@ -615,7 +603,6 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="document")
   @JsonProperty ("documents")
-  @JsonName ("documents")
   public List<Document> getDocuments() {
     return documents;
   }
@@ -660,8 +647,7 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="collection")
   @JsonProperty ("collections")
-  @JsonName ("collections")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Collection> getCollections() {
     return collections;
   }
@@ -709,8 +695,7 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="field")
   @JsonProperty ("fields")
-  @JsonName ("fields")
-  @org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }
@@ -755,8 +740,7 @@ public class Gedcomx extends HypermediaEnabledData {
    */
   @XmlElement (name="recordDescriptor")
   @JsonProperty ("recordDescriptors")
-  @JsonName ("recordDescriptors")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<RecordDescriptor> getRecordDescriptors() {
     return recordDescriptors;
   }

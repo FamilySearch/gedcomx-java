@@ -16,10 +16,8 @@
 package org.gedcomx.records;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -59,7 +57,7 @@ import java.util.List;
 @XmlRootElement (name = "records")
 @JsonElementWrapper (name = "records")
 @XmlType ( name = "RecordSet", propOrder = { "metadata", "records" })
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class RecordSet extends HypermediaEnabledData {
 
@@ -154,7 +152,6 @@ public class RecordSet extends HypermediaEnabledData {
    */
   @XmlElement (name="record")
   @JsonProperty ("records")
-  @JsonName ("records")
   public List<Gedcomx> getRecords() {
     return records;
   }

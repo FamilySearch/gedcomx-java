@@ -16,7 +16,7 @@
 package org.familysearch.platform.ct;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -59,7 +59,7 @@ public final class DiscussionReference extends HypermediaEnabledData {
    * @return The id of the discussion being referenced.
    */
   @XmlAttribute
-  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  @Facet( GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public String getResourceId() {
     return resourceId;
   }

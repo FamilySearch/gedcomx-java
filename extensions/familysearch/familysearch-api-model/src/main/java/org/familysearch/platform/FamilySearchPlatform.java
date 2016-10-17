@@ -16,7 +16,6 @@
 package org.familysearch.platform;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.*;
@@ -88,7 +87,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "mergeAnalysis" )
   @JsonProperty ( "mergeAnalyses" )
-  @JsonName ( "mergeAnalyses" )
   public List<MergeAnalysis> getMergeAnalyses() {
     return mergeAnalyses;
   }
@@ -124,7 +122,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "merge" )
   @JsonProperty ( "merges" )
-  @JsonName ( "merges" )
   public List<Merge> getMerges() {
     return merges;
   }
@@ -160,7 +157,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "childAndParentsRelationship" )
   @JsonProperty ( "childAndParentsRelationships" )
-  @JsonName ( "childAndParentsRelationships" )
   public List<ChildAndParentsRelationship> getChildAndParentsRelationships() {
     return childAndParentsRelationships;
   }
@@ -219,7 +215,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "discussion" )
   @JsonProperty ( "discussions" )
-  @JsonName ( "discussions" )
   public List<Discussion> getDiscussions() {
     return discussions;
   }
@@ -266,7 +261,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "user" )
   @JsonProperty ( "users" )
-  @JsonName ( "users" )
   public List<User> getUsers() {
     return users;
   }
@@ -298,7 +292,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "feature" )
   @JsonProperty ( "features" )
-  @JsonName ( "features" )
   public List<Feature> getFeatures() {
     return features;
   }

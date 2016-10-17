@@ -15,10 +15,10 @@
  */
 package org.gedcomx.conclusion;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper (name = "documents")
 @XmlType(name = "Document", propOrder = { "text" })
-@Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Document extends Conclusion implements HasText, Attributable {
   
@@ -206,7 +206,6 @@ public class Document extends Conclusion implements HasText, Attributable {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public boolean isPlainText() {
     return this.textType == null || TEXT_TYPE_PLAIN.equals(this.textType);
   }
@@ -218,7 +217,6 @@ public class Document extends Conclusion implements HasText, Attributable {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   public boolean isXhtmlText() {
     return TEXT_TYPE_XHTML.equals(this.textType);
   }

@@ -15,11 +15,9 @@
  */
 package org.gedcomx.agent;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
@@ -29,7 +27,10 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,6 @@ public class Agent extends HypermediaEnabledData {
    */
   @XmlElement (name="name")
   @JsonProperty ("names")
-  @JsonName ("names")
   public List<TextValue> getNames() {
     return names;
   }
@@ -150,7 +150,6 @@ public class Agent extends HypermediaEnabledData {
    */
   @XmlElement (name="identifier")
   @JsonProperty ("identifiers")
-  @JsonName ("identifiers")
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }
@@ -271,7 +270,6 @@ public class Agent extends HypermediaEnabledData {
    * @return The accounts that belong to this person or organization.
    */
   @XmlElement(name = "account")
-  @JsonName ("accounts")
   @JsonProperty ("accounts")
   public List<OnlineAccount> getAccounts() {
     return accounts;
@@ -316,7 +314,6 @@ public class Agent extends HypermediaEnabledData {
    * @return The emails that belong to this person or organization.
    */
   @XmlElement(name = "email")
-  @JsonName ("emails")
   @JsonProperty ("emails")
   public List<ResourceReference> getEmails() {
     return emails;
@@ -382,7 +379,6 @@ public class Agent extends HypermediaEnabledData {
    * @return The phones that belong to this person or organization.
    */
   @XmlElement(name = "phone")
-  @JsonName ("phones")
   @JsonProperty ("phones")
   public List<ResourceReference> getPhones() {
     return phones;
@@ -445,7 +441,6 @@ public class Agent extends HypermediaEnabledData {
    * @return The addresses that belong to this person or organization.
    */
   @XmlElement(name = "address")
-  @JsonName ("addresses")
   @JsonProperty ("addresses")
   @SuppressWarnings("gedcomx:plural_xml_name")
   public List<Address> getAddresses() {

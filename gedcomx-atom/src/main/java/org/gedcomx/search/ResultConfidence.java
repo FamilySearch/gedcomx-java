@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.gedcomx.rt.GedcomxConstants;
 
@@ -36,7 +36,7 @@ import java.io.IOException;
 @XmlType ( name = "ResultConfidence" )
 @XmlEnum ( Integer.class )
 @JsonDeserialize (using = ResultConfidence.ResultConfidenceDeserializer.class)
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 public enum ResultConfidence {
 
   /**

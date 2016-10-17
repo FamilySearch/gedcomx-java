@@ -16,7 +16,7 @@
 package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.XMLConstants;
@@ -48,7 +48,7 @@ public class TextValue {
    * @return The language of the text value.
    */
   @XmlAttribute( namespace = XMLConstants.XML_NS_URI )
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  @Facet ( GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public String getLang() {
     return lang;
   }

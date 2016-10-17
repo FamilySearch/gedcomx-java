@@ -16,7 +16,7 @@
 package org.familysearch.platform.reservations;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.familysearch.platform.ordinances.OrdinanceAssignee;
 import org.familysearch.platform.ordinances.OrdinanceStatus;
@@ -112,7 +112,6 @@ public class Reservation extends Conclusion {
   @Deprecated
   @XmlAttribute
   @XmlQNameEnumRef(OrdinanceType.class)
-  @org.codehaus.enunciate.json.JsonIgnore
   public URI getOrdinanceType() {
     return null;
   }

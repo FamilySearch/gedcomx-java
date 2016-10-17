@@ -16,9 +16,7 @@
 package org.gedcomx.records;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -36,7 +34,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "FieldDescriptor", propOrder = { "originalLabel", "descriptions", "values"})
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FieldDescriptor extends HypermediaEnabledData {
 
@@ -100,7 +98,6 @@ public class FieldDescriptor extends HypermediaEnabledData {
    */
   @XmlElement (name="description")
   @JsonProperty ("descriptions")
-  @JsonName ("descriptions")
   public List<TextValue> getDescriptions() {
     return descriptions;
   }
@@ -155,7 +152,6 @@ public class FieldDescriptor extends HypermediaEnabledData {
    */
   @XmlElement (name="value")
   @JsonProperty ("values")
-  @JsonName ("values")
   public List<FieldValueDescriptor> getValues() {
     return values;
   }

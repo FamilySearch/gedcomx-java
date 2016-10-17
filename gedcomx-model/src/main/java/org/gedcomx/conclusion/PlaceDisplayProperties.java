@@ -16,7 +16,7 @@
 package org.gedcomx.conclusion;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
 
@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  * application context and are NOT considered canonical for the purposes of data exchange.
  */
 @XmlType ( name = "PlaceDisplayProperties" )
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class PlaceDisplayProperties extends ExtensibleData {
 

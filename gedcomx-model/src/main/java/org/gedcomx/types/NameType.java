@@ -15,9 +15,9 @@
  */
 package org.gedcomx.types;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.qname.XmlQNameEnum;
-import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
+import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -39,7 +39,7 @@ public enum NameType implements ControlledVocabulary {
   /**
    * Name used at the time of death.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   DeathName,
 
   /**
@@ -60,19 +60,19 @@ public enum NameType implements ControlledVocabulary {
   /**
    * Name given at adoption.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   AdoptiveName,
 
   /**
    * A formal name, usually given to distinguish it from a name more commonly used.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   FormalName,
 
   /**
    * A name given at a religious rite or ceremony.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   ReligiousName,
 
   @XmlUnknownQNameEnumValue

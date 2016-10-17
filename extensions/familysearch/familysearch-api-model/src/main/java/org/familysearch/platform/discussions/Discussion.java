@@ -16,7 +16,6 @@
 package org.familysearch.platform.discussions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
@@ -219,7 +218,6 @@ public class Discussion extends HypermediaEnabledData {
    */
   @XmlElement ( name="comment" )
   @JsonProperty ( "comments" )
-  @JsonName ( "comments" )
   public List<Comment> getComments() {
     return comments;
   }

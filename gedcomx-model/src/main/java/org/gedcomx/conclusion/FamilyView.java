@@ -16,8 +16,7 @@
 package org.gedcomx.conclusion;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
+import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -39,7 +38,7 @@ import java.util.List;
  * and only one for each single-parent family with a particular parent.
  */
 @XmlRootElement( name = "family" )
-@Facet (name = GedcomxConstants.FACET_GEDCOMX_RS)
+@Facet (GedcomxConstants.FACET_GEDCOMX_RS)
 @JsonElementWrapper( name = "families" )
 @XmlType( name = "FamilyView", propOrder = { "parent1", "parent2", "children"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
@@ -122,7 +121,6 @@ public class FamilyView extends HypermediaEnabledData {
    */
   @XmlElement(name="child")
   @JsonProperty("children")
-  @JsonName("children")
   public List<ResourceReference> getChildren() {
     return children;
   }

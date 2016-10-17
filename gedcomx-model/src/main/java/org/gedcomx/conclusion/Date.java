@@ -15,19 +15,17 @@
  */
 package org.gedcomx.conclusion;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.ClientName;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.ClientName;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
-import org.gedcomx.util.date.Duration;
 import org.gedcomx.util.date.FormalDate;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -147,7 +145,7 @@ public class Date extends ExtensibleData implements HasFields {
    */
   @XmlElement ( name = "normalized" )
   @JsonProperty ("normalized")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public List<TextValue> getNormalizedExtensions() {
     return normalized;
   }
@@ -185,8 +183,7 @@ public class Date extends ExtensibleData implements HasFields {
    */
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
-  @JsonName( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

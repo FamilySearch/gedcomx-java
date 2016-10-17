@@ -16,7 +16,6 @@
 package org.familysearch.platform.ct;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
@@ -45,7 +44,6 @@ public class Merge {
    */
   @XmlElement (name="resourceToDelete")
   @JsonProperty ("resourcesToDelete")
-  @JsonName ("resourcesToDelete")
   public List<ResourceReference> getResourcesToDelete() {
     return resourcesToDelete;
   }
@@ -60,7 +58,6 @@ public class Merge {
    */
   @XmlElement (name="resourceToCopy")
   @JsonProperty ("resourcesToCopy")
-  @JsonName ("resourcesToCopy")
   public List<ResourceReference> getResourcesToCopy() {
     return resourcesToCopy;
   }

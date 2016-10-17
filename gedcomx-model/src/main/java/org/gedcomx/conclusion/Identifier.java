@@ -15,11 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.types.IdentifierType;
@@ -97,7 +97,6 @@ public final class Identifier implements HasJsonKey {
    */
   @XmlAttribute
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   @XmlQNameEnumRef (IdentifierType.class)
   public URI getType() {
     return type;
@@ -167,7 +166,6 @@ public final class Identifier implements HasJsonKey {
 
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.enunciate.json.JsonIgnore
   @Override
   public boolean isHasUniqueKey() {
     return this.hasUniqueKey;

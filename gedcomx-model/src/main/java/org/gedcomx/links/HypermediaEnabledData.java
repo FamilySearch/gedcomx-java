@@ -16,8 +16,7 @@
 package org.gedcomx.links;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
+import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
@@ -46,9 +45,8 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
    */
   @Override
   @XmlElement (name = "link")
-  @JsonName ("links")
   @JsonProperty ("links")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public List<Link> getLinks() {
     return links;
   }

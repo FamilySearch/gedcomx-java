@@ -15,12 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
@@ -257,7 +256,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @return Whether this fact is the primary fact of the record from which the subject was extracted.
    */
   @XmlAttribute
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public Boolean getPrimary() {
     return primary;
   }
@@ -376,9 +375,8 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @return The qualifiers associated with this fact.
    */
   @XmlElement ( name = "qualifier" )
-  @JsonName ( "qualifiers" )
   @JsonProperty ( "qualifiers" )
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
   }
@@ -423,8 +421,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    */
   @XmlElement ( name = "field" )
   @JsonProperty ( "fields" )
-  @JsonName ( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

@@ -16,9 +16,8 @@
 package org.gedcomx.atom;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
@@ -45,7 +44,7 @@ import java.util.Map;
 @JsonElementWrapper ( name = "entries" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings ( "gedcomx:no_id" )
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 public class Entry extends ExtensibleElement implements SupportsLinks {
 
   private List<Person> authors;
@@ -68,7 +67,6 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return The author of the entry.
    */
   @XmlElement ( name = "author" )
-  @JsonName ( "authors" )
   @JsonProperty ( "authors" )
   public List<Person> getAuthors() {
     return authors;
@@ -90,7 +88,6 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return information about a category associated with an entry.
    */
   @XmlElement ( name = "category" )
-  @JsonName ( "categories" )
   @JsonProperty ( "categories" )
   public List<Category> getCategories() {
     return categories;
@@ -130,7 +127,6 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return information about a category associated with the entry
    */
   @XmlElement ( name = "contributor" )
-  @JsonName ( "contributors" )
   @JsonProperty ( "contributors" )
   public List<Person> getContributors() {
     return contributors;
@@ -209,7 +205,6 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return a reference from a entry to a Web resource.
    */
   @XmlElement ( name = "link" )
-  @JsonName ( "links" )
   @JsonProperty ( "links" )
   public List<Link> getLinks() {
     return links;

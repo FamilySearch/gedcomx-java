@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,7 @@
 package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -35,8 +35,8 @@ import javax.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlRootElement
-@JsonElementWrapper(name = "notes")
-@XmlType ( name = "Note", propOrder = { "subject", "text", "attribution" } )
+@JsonElementWrapper ( name = "notes" )
+@XmlType ( name = "Note", propOrder = {"subject", "text", "attribution"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Note extends HypermediaEnabledData implements Attributable, HasText {
 
@@ -71,7 +71,7 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
    * @return The language of the note.
    */
   @XmlAttribute ( namespace = XMLConstants.XML_NS_URI )
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public String getLang() {
     return lang;
   }
@@ -194,11 +194,12 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
       '}';
   }
 
-  private String getTextBrief( String text ) {
+  private String getTextBrief(String text) {
     if (text != null) {
       final int substrLen = 40;
-      if (text.length() > substrLen)
+      if (text.length() > substrLen) {
         return text.substring(0, substrLen) + "...";
+      }
       return text;
     }
     return null;

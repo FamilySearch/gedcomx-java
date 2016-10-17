@@ -17,8 +17,7 @@ package org.familysearch.platform.ct;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonIgnore;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -68,7 +67,6 @@ public class MatchInfo {
    * @deprecated Use get/setCollection
    */
   @XmlTransient
-  @JsonIgnore
   @com.fasterxml.jackson.annotation.JsonIgnore
   public URI getSystem() {
     return getCollection();
@@ -80,7 +78,6 @@ public class MatchInfo {
    * @param system The system in which this match was found.
    * @deprecated Use get/setCollection
    */
-  @JsonIgnore
   @com.fasterxml.jackson.annotation.JsonIgnore
   public void setSystem(URI system) {
     setCollection(system);
@@ -92,7 +89,6 @@ public class MatchInfo {
    * @return The enum referencing the known collection of this match.
    */
   @XmlTransient
-  @JsonIgnore
   @com.fasterxml.jackson.annotation.JsonIgnore
   public MatchCollection getKnownCollection() {
     return getCollection() == null ? null : MatchCollection.fromQNameURI(getCollection());
@@ -103,7 +99,6 @@ public class MatchInfo {
    *
    * @param knownCollection The enum referencing the known collection of this match.
    */
-  @JsonIgnore
   @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownCollection(MatchCollection knownCollection) {
     setCollection(knownCollection == null ? null : knownCollection.toQNameURI());
@@ -135,7 +130,6 @@ public class MatchInfo {
    * @return The enum referencing the known resolution of this match.
    */
   @XmlTransient
-  @JsonIgnore
   @com.fasterxml.jackson.annotation.JsonIgnore
   public MatchStatus getKnownStatus() {
     return getStatus() == null ? null : MatchStatus.fromQNameURI(getStatus());
@@ -146,7 +140,6 @@ public class MatchInfo {
    *
    * @param knownResolution The enum referencing the known resolution of this match.
    */
-  @JsonIgnore
   @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownStatus(MatchStatus knownResolution) {
     setStatus(knownResolution == null ? null : knownResolution.toQNameURI());

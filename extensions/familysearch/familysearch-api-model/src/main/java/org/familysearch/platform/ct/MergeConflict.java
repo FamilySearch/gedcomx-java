@@ -16,7 +16,6 @@
 package org.familysearch.platform.ct;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -47,7 +46,6 @@ public class MergeConflict {
 
   @XmlElement (name="survivorResource")
   @JsonProperty ("survivorResource")
-  @JsonName ("survivorResource")
   public ResourceReference getSurvivorResource() {
     return survivorResource;
   }
@@ -58,7 +56,6 @@ public class MergeConflict {
 
   @XmlElement (name="duplicateResource")
   @JsonProperty ("duplicateResource")
-  @JsonName ("duplicateResource")
   public ResourceReference getDuplicateResource() {
     return duplicateResource;
   }

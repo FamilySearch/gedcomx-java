@@ -16,8 +16,8 @@
 package org.gedcomx.source;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
@@ -111,7 +111,7 @@ public class Coverage extends HypermediaEnabledData {
    *
    * @return The type of record being covered.
    */
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   @XmlQNameEnumRef(RecordType.class)
   public URI getRecordType() {
     return recordType;

@@ -16,15 +16,12 @@
 package org.gedcomx.source;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.gedcomx.common.ExtensibleData;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
-import org.gedcomx.records.Field;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
@@ -131,7 +128,7 @@ public class SourceCitation extends HypermediaEnabledData {
    *
    * @return A reference to the citation template for this citation.
    */
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_CITATION )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_CITATION )
   public ResourceReference getCitationTemplate() {
     return citationTemplate;
   }
@@ -163,8 +160,7 @@ public class SourceCitation extends HypermediaEnabledData {
    */
   @XmlElement (name="field")
   @JsonProperty ("fields")
-  @JsonName ("fields")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_CITATION )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_CITATION )
   public List<CitationField> getFields() {
     return fields;
   }
