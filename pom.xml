@@ -14,6 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <root.basedir>${project.basedir}</root.basedir>
     <jersey.version>1.19.2</jersey.version>
+    <jackson.version>2.7.8</jackson.version>
   </properties>
 
   <modules>
@@ -62,13 +63,13 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>2.8.3</version>
+        <version>${jackson.version}</version>
       </dependency>
 
       <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
         <artifactId>jackson-jaxrs-json-provider</artifactId>
-        <version>2.8.3</version>
+        <version>${jackson.version}</version>
       </dependency>
 
       <dependency>
@@ -85,8 +86,8 @@
 
       <dependency>
         <groupId>javax.ws.rs</groupId>
-        <artifactId>javax.ws.rs-api</artifactId>
-        <version>2.0.1</version>
+        <artifactId>jsr311-api</artifactId>
+        <version>1.1.1</version>
       </dependency>
 
       <dependency>
