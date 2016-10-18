@@ -15,6 +15,7 @@
  */
 package org.gedcomx.atom;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
@@ -364,6 +365,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
   }
 
   @XmlAnyAttribute
+  @JsonIgnore
   public Map<QName, String> getExtensionAttributes() {
     return extensionAttributes;
   }
