@@ -70,9 +70,9 @@ public class Field extends HypermediaEnabledData {
   }
 
   /**
-   * The type of the gender.
+   * The type of the field.
    *
-   * @return The type of the gender.
+   * @return The type of the field.
    */
   @XmlAttribute
   @XmlQNameEnumRef ( FieldType.class )
@@ -81,9 +81,9 @@ public class Field extends HypermediaEnabledData {
   }
 
   /**
-   * The type of the gender.
+   * The type of the field.
    *
-   * @param type The type of the gender.
+   * @param type The type of the field.
    */
   public void setType(URI type) {
     this.type = type;
