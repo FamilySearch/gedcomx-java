@@ -42,7 +42,7 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
   protected ChildAndParentsRelationshipState newChildAndParentsRelationshipState(ClientRequest request, ClientResponse response, String accessToken) {
     return new ChildAndParentsRelationshipState(request, response, accessToken, this);
   }
-
+  
   @Override
   protected FamilyTreeRelationshipsState newRelationshipsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilyTreeRelationshipsState(request, response, accessToken, this);
@@ -60,6 +60,11 @@ public class FamilyTreeStateFactory extends FamilySearchStateFactory {
 
   protected FamilyTreePersonState newPersonWithRelationshipsState(ClientRequest request, ClientResponse response, String accessToken) {
     return new FamilyTreePersonState(request, response, accessToken, Rel.PERSON_WITH_RELATIONSHIPS, this);
+  }
+
+  @Override
+  protected FamilyTreePersonsState newPersonsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new FamilyTreePersonsState(request, response, accessToken, this);
   }
 
   @Override
