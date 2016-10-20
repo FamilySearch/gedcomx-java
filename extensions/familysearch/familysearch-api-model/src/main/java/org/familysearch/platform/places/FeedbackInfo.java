@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * Information about a match.
+ * Information about a a feedback submission about a place.
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "feedbackInfo" )
