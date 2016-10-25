@@ -22,103 +22,18 @@ import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 /**
- * Enumeration of known artifact screening states.
- *
- * @author chapmantk
+ * Enumeration of known artifact screening states. Note that this is intentionally similar to
+ * org.familysearch.platform.ct.MatchStatus
  */
-@XmlQNameEnum(
+@XmlQNameEnum (
     base = XmlQNameEnum.BaseType.URI
 )
 public enum ArtifactScreeningState implements ControlledVocabulary {
 
-  /**
-   * Un-screened.
-   */
-  Unscreened,
+  Pending,
 
-  /**
-   * First screening.
-   */
-  FirstScreening,
+  Accepted,
 
-  /**
-   * First screening done.
-   */
-  FirstDone,
-
-  /**
-   * Second screening.
-   */
-  SecondScreening,
-
-  /**
-   * Second screening done.
-   */
-  SecondDone,
-
-  /**
-   * Third screening.
-   */
-  ThirdScreening,
-
-  /**
-   * Third screening done.
-   */
-  ThirdDone,
-
-  /**
-   * Fourth screening.
-   */
-  FourthScreening,
-
-  /**
-   * Fourth screening done.
-   */
-  FourthDone,
-
-  /**
-   * Fifth screening.
-   */
-  FifthScreening,
-
-  /**
-   * Fifth screening done.
-   */
-  FifthDone,
-
-  /**
-   * Sixth screening.
-   */
-  SixthScreening,
-
-  /**
-   * Sixth screening done.
-   */
-  SixthDone,
-
-  /**
-   * Seventh screening.
-   */
-  SeventhScreening,
-
-  /**
-   * Seventh screening done.
-   */
-  SeventhDone,
-
-  /**
-   * High priority.
-   */
-  Escalate,
-
-  /**
-   * Approved.
-   */
-  Approved,
-
-  /**
-   * Approved, but with restrictions.
-   */
   Restricted;
 
   private static final EnumURIMap<ArtifactScreeningState> URI_MAP =
