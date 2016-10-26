@@ -66,7 +66,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "familysearch" )
 @XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features"} )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
-@XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, SearchInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, UserHistoryInfo.class, Reservation.class, Ordinance.class} )
+@XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, SearchInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, UserHistoryInfo.class, Reservation.class, Ordinance.class, NameFormInfo.class} )
 public class FamilySearchPlatform extends Gedcomx {
 
   public static final String PROJECT_ID = "fs-platform";
