@@ -15,11 +15,11 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.map.JsonSerializer;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.introspect.BasicBeanDescription;
-import org.codehaus.jackson.map.ser.BeanSerializer;
-import org.codehaus.jackson.map.ser.BeanSerializerModifier;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.ser.BeanSerializer;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 
 /**
  * Modifications for GEDCOM bean serializers.
@@ -29,7 +29,7 @@ import org.codehaus.jackson.map.ser.BeanSerializerModifier;
 public class GedcomBeanSerializerModifier extends BeanSerializerModifier {
 
   @Override
-  public JsonSerializer<?> modifySerializer(SerializationConfig config, BasicBeanDescription beanDesc, JsonSerializer<?> serializer) {
+  public JsonSerializer<?> modifySerializer(SerializationConfig config, BeanDescription beanDesc, JsonSerializer<?> serializer) {
     return (serializer instanceof BeanSerializer) ? new ExtensibleObjectSerializer((BeanSerializer) serializer) : serializer;
   }
 

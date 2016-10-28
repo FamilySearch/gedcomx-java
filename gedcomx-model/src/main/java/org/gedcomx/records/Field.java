@@ -15,11 +15,10 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.ExtensibleData;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -40,7 +39,8 @@ import java.util.List;
  */
 @XmlType ( name = "Field" )
 @JsonElementWrapper ( name = "fields" )
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Field extends HypermediaEnabledData {
 
   /**
@@ -140,7 +140,6 @@ public class Field extends HypermediaEnabledData {
    */
   @XmlElement (name="value")
   @JsonProperty ("values")
-  @JsonName ("values")
   public List<FieldValue> getValues() {
     return values;
   }

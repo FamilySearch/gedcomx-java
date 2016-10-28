@@ -15,11 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
@@ -47,6 +47,7 @@ import java.util.List;
 @XmlType ( name = "Gender" )
 @XmlRootElement
 @JsonElementWrapper ( name = "genders" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Gender extends Conclusion implements HasFields {
 
   private URI type;
@@ -212,8 +213,7 @@ public class Gender extends Conclusion implements HasFields {
    */
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
-  @JsonName( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

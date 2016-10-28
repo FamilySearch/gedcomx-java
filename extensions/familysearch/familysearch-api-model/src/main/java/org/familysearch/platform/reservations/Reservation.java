@@ -15,8 +15,9 @@
  */
 package org.familysearch.platform.reservations;
 
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.familysearch.platform.ordinances.OrdinanceAssignee;
 import org.familysearch.platform.ordinances.OrdinanceStatus;
 import org.familysearch.platform.ordinances.OrdinanceType;
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper (name = "reservations")
 @XmlType ( name = "Reservation", propOrder = {"ordinanceType", "type", "status", "spouse", "father", "mother", "assignee" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Reservation extends Conclusion {
 
   private URI type;
@@ -110,7 +112,6 @@ public class Reservation extends Conclusion {
   @Deprecated
   @XmlAttribute
   @XmlQNameEnumRef(OrdinanceType.class)
-  @org.codehaus.enunciate.json.JsonIgnore
   public URI getOrdinanceType() {
     return null;
   }

@@ -15,8 +15,8 @@
  */
 package org.gedcomx.util;
 
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 

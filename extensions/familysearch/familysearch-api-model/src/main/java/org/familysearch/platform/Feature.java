@@ -15,6 +15,8 @@
  */
 package org.familysearch.platform;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
@@ -24,6 +26,7 @@ import java.util.Date;
  * @author Ryan Heaton
  */
 @XmlType ( name = "FeatureSet", propOrder = {"name", "description", "enabled", "activationDate"})
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Feature {
 
   private String name;

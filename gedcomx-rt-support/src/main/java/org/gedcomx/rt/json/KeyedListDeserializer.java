@@ -15,12 +15,13 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.JsonToken;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonDeserializer;
-import org.codehaus.jackson.map.JsonMappingException;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class KeyedListDeserializer extends JsonDeserializer<List<? extends HasJs
       jp.nextToken();
     }
     else {
-      throw new JsonMappingException("Unable to deserialize keyed list: unexpected token: " + jp.getCurrentToken().name());
+      throw new JsonMappingException(jp, "Unable to deserialize keyed list: unexpected token: " + jp.getCurrentToken().name());
     }
 
     ArrayList<HasJsonKey> list = new ArrayList<HasJsonKey>();

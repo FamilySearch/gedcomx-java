@@ -15,12 +15,14 @@
  */
 package org.familysearch.platform.users;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
 
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class AgentName extends TextValue {
   private URI type;
 

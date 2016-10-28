@@ -16,6 +16,7 @@
 package org.familysearch.platform.places;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "feedbackInfo" )
 @XmlType ( name = "FeedbackInfo" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FeedbackInfo {
 
   private URI resolution;

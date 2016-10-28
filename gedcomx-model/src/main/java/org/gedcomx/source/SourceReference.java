@@ -15,9 +15,12 @@
  */
 package org.gedcomx.source;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.gedcomx.common.Attributable;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.Qualifier;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -39,6 +42,7 @@ import java.util.List;
 @XmlRootElement ( name = "sourceReference" )
 @JsonElementWrapper ( name = "sourceReferences" )
 @XmlType ( name = "SourceReference" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SourceReference extends HypermediaEnabledData implements Attributable {
 
   private URI descriptionRef;
@@ -101,7 +105,6 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    * @return A reference to a description of the source being referenced.
    */
   @XmlAttribute ( name = "description" )
-  @JsonName ( "description" )
   @JsonProperty ( "description" )
   public URI getDescriptionRef() {
     return descriptionRef;
@@ -134,7 +137,6 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    * @return Id of the source being referenced.
    */
   @XmlAttribute ( name = "descriptionId" )
-  @JsonName ( "descriptionId" )
   @JsonProperty ( "descriptionId" )
   public String getDescriptionId() {
     return descriptionId;
@@ -180,7 +182,6 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    * @return The qualifiers associated with this source reference.
    */
   @XmlElement (name = "qualifier")
-  @JsonName ("qualifiers")
   @JsonProperty ("qualifiers")
   public List<Qualifier> getQualifiers() {
     return qualifiers;

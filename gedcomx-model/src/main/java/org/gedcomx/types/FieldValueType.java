@@ -15,9 +15,9 @@
  */
 package org.gedcomx.types;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.qname.XmlQNameEnum;
-import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
+import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -31,7 +31,7 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
 public enum FieldValueType implements ControlledVocabulary {
 
   /**

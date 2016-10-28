@@ -15,11 +15,12 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.JsonDeserializer;
-import org.codehaus.jackson.map.deser.BeanDeserializer;
-import org.codehaus.jackson.map.deser.BeanDeserializerModifier;
-import org.codehaus.jackson.map.introspect.BasicBeanDescription;
+
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.deser.BeanDeserializer;
+import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 
 /**
  * Modifications for GEDCOM bean serializers.
@@ -27,8 +28,10 @@ import org.codehaus.jackson.map.introspect.BasicBeanDescription;
  * @author Ryan Heaton
  */
 public class GedcomBeanDeserializerModifier extends BeanDeserializerModifier {
+
   @Override
-  public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BasicBeanDescription beanDesc, JsonDeserializer<?> deserializer) {
+  public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
     return deserializer instanceof BeanDeserializer ? new ExtensibleObjectDeserializer((BeanDeserializer) deserializer) : deserializer;
   }
+
 }

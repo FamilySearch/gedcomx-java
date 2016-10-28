@@ -15,10 +15,10 @@
  */
 package org.gedcomx.rt;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.node.ObjectNode;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.w3c.dom.Document;
 
@@ -192,8 +192,7 @@ public class SerializationUtil {
 
   public static <C> void writeJson(Object reference, Class<? extends C> instanceClass, ObjectMapper mapper, OutputStream out) throws IOException {
     GedcomNamespaceManager.registerKnownJsonType(instanceClass);
-    mapper.getSerializationConfig().enable(SerializationConfig.Feature.INDENT_OUTPUT);
-    mapper.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+    mapper = mapper.enable(SerializationFeature.INDENT_OUTPUT).setSerializationInclusion(JsonInclude.Include.NON_NULL);
     mapper.writeValue(out, reference);
   }
 

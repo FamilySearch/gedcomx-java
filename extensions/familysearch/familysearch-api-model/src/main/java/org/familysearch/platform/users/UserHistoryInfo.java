@@ -16,6 +16,7 @@
 package org.familysearch.platform.users;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "userHistoryInfo" )
 @XmlType ( name = "UserHistoryInfo" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class UserHistoryInfo {
 
   private Boolean pinned;

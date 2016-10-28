@@ -15,8 +15,8 @@
  */
 package org.familysearch.platform.ct;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -33,6 +33,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "mergeAnalysis" )
 @XmlType ( name = "MergeAnalysis", propOrder = {"survivorResources", "duplicateResources", "conflictingResources", "survivor", "duplicate"} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class MergeAnalysis {
 
   private List<ResourceReference> survivorResources;
@@ -44,7 +45,6 @@ public class MergeAnalysis {
 
   @XmlElement (name="survivorResource")
   @JsonProperty ("survivorResources")
-  @JsonName ("survivorResources")
   public List<ResourceReference> getSurvivorResources() {
     return survivorResources;
   }
@@ -55,7 +55,6 @@ public class MergeAnalysis {
 
   @XmlElement (name="duplicateResource")
   @JsonProperty ("duplicateResources")
-  @JsonName ("duplicateResources")
   public List<ResourceReference> getDuplicateResources() {
     return duplicateResources;
   }
@@ -66,7 +65,6 @@ public class MergeAnalysis {
 
   @XmlElement (name="conflictingResource")
   @JsonProperty ("conflictingResources")
-  @JsonName ("conflictingResources")
   public List<MergeConflict> getConflictingResources() {
     return conflictingResources;
   }
@@ -78,7 +76,6 @@ public class MergeAnalysis {
 
   @XmlElement (name="survivor")
   @JsonProperty ("survivor")
-  @JsonName ("survivor")
   public ResourceReference getSurvivor() {
     return survivor;
   }
@@ -89,7 +86,6 @@ public class MergeAnalysis {
 
   @XmlElement (name="duplicate")
   @JsonProperty ("duplicate")
-  @JsonName ("duplicate")
   public ResourceReference getDuplicate() {
     return duplicate;
   }

@@ -15,10 +15,10 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -45,6 +45,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Subject", propOrder = { "evidence", "media", "identifiers" })
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public abstract class Subject extends Conclusion implements Attributable {
 
   private Boolean extracted;
@@ -133,7 +134,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    * @return Whether this subject has been identified as "extracted".
    */
   @XmlAttribute
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Boolean getExtracted() {
     return extracted;
   }
@@ -210,7 +211,6 @@ public abstract class Subject extends Conclusion implements Attributable {
    */
   @XmlElement (name="identifier")
   @JsonProperty ("identifiers")
-  @JsonName ("identifiers")
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }

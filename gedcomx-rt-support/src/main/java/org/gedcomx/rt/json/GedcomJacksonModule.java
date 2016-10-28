@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,12 +15,15 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.*;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.introspect.JacksonAnnotationIntrospector;
-import org.codehaus.jackson.map.type.CollectionType;
-import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
+import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.gedcomx.rt.GedcomNamespaceManager;
 
 /**
@@ -37,12 +40,11 @@ public class GedcomJacksonModule extends Module {
    * @return The object mapper.
    */
   public static ObjectMapper createObjectMapper(Class<?>... classes) {
-    ObjectMapper mapper = new ObjectMapper();
-    AnnotationIntrospector introspector = AnnotationIntrospector.pair(new JacksonAnnotationIntrospector(), new JaxbAnnotationIntrospector());
-    mapper.getSerializationConfig().withAnnotationIntrospector(introspector);
-    mapper.getSerializationConfig().enable(SerializationConfig.Feature.INDENT_OUTPUT);
-    mapper.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
-    mapper.getDeserializationConfig().withAnnotationIntrospector(introspector);
+    AnnotationIntrospector introspector = new JacksonAnnotationIntrospector();
+    ObjectMapper mapper = new ObjectMapper()
+      .setAnnotationIntrospector(introspector)
+      .enable(SerializationFeature.INDENT_OUTPUT)
+      .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     mapper.registerModule(new GedcomJacksonModule());
     for (Class<?> contextClass : classes) {
       GedcomNamespaceManager.registerKnownJsonType(contextClass);
@@ -57,7 +59,7 @@ public class GedcomJacksonModule extends Module {
 
   @Override
   public Version version() {
-    return new Version(1,0,0,null);
+    return new Version(1, 0, 0, null, "org.gedcomx", "gedcomx");
   }
 
   @Override
@@ -68,27 +70,26 @@ public class GedcomJacksonModule extends Module {
     context.addSerializers(new GedcomSerializers());
   }
 
-  protected static class GedcomSerializers extends Serializers.None {
-
+  protected static class GedcomSerializers extends Serializers.Base {
     @Override
-    public JsonSerializer<?> findCollectionSerializer(SerializationConfig config, CollectionType type, BeanDescription beanDesc, BeanProperty property, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
+    public JsonSerializer<?> findCollectionSerializer(SerializationConfig config, CollectionType type, BeanDescription beanDesc, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
       if (type.getContentType() != null && HasJsonKey.class.isAssignableFrom(type.getContentType().getRawClass())) {
         return new KeyedListSerializer();
       }
 
-      return super.findCollectionSerializer(config, type, beanDesc, property, elementTypeSerializer, elementValueSerializer);
+      return super.findCollectionSerializer(config, type, beanDesc, elementTypeSerializer, elementValueSerializer);
     }
   }
 
-  protected static class GedcomDeserializers extends Deserializers.None {
+  protected static class GedcomDeserializers extends Deserializers.Base {
 
     @Override
-    public JsonDeserializer<?> findCollectionDeserializer(CollectionType type, DeserializationConfig config, DeserializerProvider provider, BeanDescription beanDesc, BeanProperty property, TypeDeserializer elementTypeDeserializer, JsonDeserializer<?> elementDeserializer) throws JsonMappingException {
+    public JsonDeserializer<?> findCollectionDeserializer(CollectionType type, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer elementTypeDeserializer, JsonDeserializer<?> elementDeserializer) throws JsonMappingException {
       if (type.getContentType() != null && HasJsonKey.class.isAssignableFrom(type.getContentType().getRawClass())) {
         return new KeyedListDeserializer(type.getContentType().getRawClass());
       }
 
-      return super.findCollectionDeserializer(type, config, provider, beanDesc, property, elementTypeDeserializer, elementDeserializer);
+      return super.findCollectionDeserializer(type, config, beanDesc, elementTypeDeserializer, elementDeserializer);
     }
 
   }

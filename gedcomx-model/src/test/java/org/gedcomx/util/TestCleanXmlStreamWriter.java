@@ -94,8 +94,8 @@ public class TestCleanXmlStreamWriter extends TestCase {
 
     RecordSetIterator recordSetIterator = new XmlRecordSetIterator(new ByteArrayInputStream(bos.toByteArray()), false);
     Gedcomx doc1 = recordSetIterator.next();
-    System.out.println("Orig: =====\n" + MarshalUtil.toXml(doc));
-    System.out.println("Then: =====\n" + MarshalUtil.toXml(doc1));
+    //System.out.println("Orig: =====\n" + MarshalUtil.toXml(doc));
+    //System.out.println("Then: =====\n" + MarshalUtil.toXml(doc1));
     NameForm nameForm = doc1.getPerson().getName().getNameForm();
     assertEquals(full, nameForm.getFullText());
     assertEquals(surname, nameForm.getParts().get(0).getValue());

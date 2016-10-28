@@ -15,8 +15,8 @@
  */
 package org.familysearch.platform.ordinances;
 
-import org.codehaus.enunciate.qname.XmlQNameEnum;
-import org.codehaus.enunciate.qname.XmlUnknownQNameEnumValue;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
+import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;

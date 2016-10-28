@@ -15,7 +15,9 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.jackson.annotate.JsonValue;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -25,6 +27,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * @author Ryan Heaton
  */
 @XmlJavaTypeAdapter(URIAdapter.class)
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class URI {
 
   private final String value;

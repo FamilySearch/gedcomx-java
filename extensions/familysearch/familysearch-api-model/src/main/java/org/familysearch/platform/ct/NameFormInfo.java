@@ -15,8 +15,8 @@
  */
 package org.familysearch.platform.ct;
 
-import org.codehaus.enunciate.json.JsonIgnore;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -65,7 +65,6 @@ public class NameFormInfo {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
   public NameFormOrder getKnownOrder() {
     return getOrder() == null ? null : NameFormOrder.fromQNameURI(getOrder());
   }
@@ -76,7 +75,6 @@ public class NameFormInfo {
    * @param nameFormOrder The enum referencing the known resolution of this name form order.
    */
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownOrder(NameFormOrder nameFormOrder) {
     setOrder(nameFormOrder == null ? null : nameFormOrder.toQNameURI());
   }

@@ -15,11 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
@@ -47,6 +47,7 @@ import java.util.List;
 @XmlType ( name = "Name", propOrder = { "preferred", "date", "nameForms"} )
 @XmlRootElement
 @JsonElementWrapper ( name = "names" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Name extends Conclusion {
 
   /**
@@ -205,7 +206,7 @@ public class Name extends Conclusion {
    *
    * @return The date the name was first applied or adopted.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Date getDate() {
     return date;
   }
@@ -235,7 +236,6 @@ public class Name extends Conclusion {
    * @return Alternate forms of the name, such as the romanized form of a non-latin name.
    */
   @XmlElement (name = "nameForm")
-  @JsonName ("nameForms")
   @JsonProperty ("nameForms")
   public List<NameForm> getNameForms() {
     return nameForms;

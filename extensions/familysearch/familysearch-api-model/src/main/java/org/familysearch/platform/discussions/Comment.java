@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.discussions;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -27,6 +28,7 @@ import java.util.Date;
  */
 @XmlType ( name = "Comment", propOrder = { "text", "created", "contributor" } )
 @SuppressWarnings("gedcomx:no_id")
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Comment extends HypermediaEnabledData {
 
   private String text;

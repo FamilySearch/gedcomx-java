@@ -15,11 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
@@ -48,6 +48,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "relationships" )
 @XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fields" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Relationship extends Subject implements HasFacts, HasFields {
 
   /**
@@ -340,7 +341,6 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    */
   @XmlElement(name="fact")
   @JsonProperty("facts")
-  @JsonName("facts")
   public List<Fact> getFacts() {
     return facts;
   }
@@ -386,8 +386,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    */
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
-  @JsonName( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

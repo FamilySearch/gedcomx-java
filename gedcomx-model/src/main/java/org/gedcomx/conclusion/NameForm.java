@@ -15,9 +15,9 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
@@ -38,6 +38,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "NameForm", propOrder = { "fullText", "parts", "fields"})
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class NameForm extends ExtensibleData implements HasFields {
 
   private String lang;
@@ -130,7 +131,6 @@ public class NameForm extends ExtensibleData implements HasFields {
    * @return The different parts of the name form.
    */
   @XmlElement (name = "part")
-  @JsonName ("parts")
   @JsonProperty ("parts")
   public List<NamePart> getParts() {
     return parts;
@@ -191,8 +191,7 @@ public class NameForm extends ExtensibleData implements HasFields {
    */
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
-  @JsonName( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

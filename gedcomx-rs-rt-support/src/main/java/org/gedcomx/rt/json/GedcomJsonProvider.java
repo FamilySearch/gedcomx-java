@@ -15,9 +15,9 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.jaxrs.Annotations;
-import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jaxrs.cfg.Annotations;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomxConstants;
 

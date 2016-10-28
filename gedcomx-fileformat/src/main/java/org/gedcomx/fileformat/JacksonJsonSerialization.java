@@ -15,15 +15,12 @@
  */
 package org.gedcomx.fileformat;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.type.JavaType;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomJacksonModule;
-import org.gedcomx.rt.json.GedcomJsonProvider;
 
 import java.io.IOException;
 import java.io.InputStream;

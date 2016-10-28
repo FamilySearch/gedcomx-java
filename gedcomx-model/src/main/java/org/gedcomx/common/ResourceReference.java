@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,8 +15,9 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.Facets;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.Facets;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -34,6 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType ( name = "ResourceReference" )
 @JsonElementWrapper ( name = "resourceReference" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class ResourceReference {
 
   private URI resource;
@@ -61,9 +63,9 @@ public final class ResourceReference {
    * @return The resource id of the resource being referenced.
    */
   @XmlAttribute
-  @Facets( {
-    @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS ),
-    @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  @Facets ( {
+    @Facet ( GedcomxConstants.FACET_GEDCOMX_RS ),
+    @Facet ( GedcomxConstants.FACET_FS_FT_READ_ONLY )
   } )
   public String getResourceId() {
     return resourceId;
@@ -97,7 +99,7 @@ public final class ResourceReference {
    * @return The URI to the resource.
    */
   @XmlAttribute
-  @XmlSchemaType (name = "anyURI", namespace = XMLConstants.W3C_XML_SCHEMA_NS_URI)
+  @XmlSchemaType ( name = "anyURI", namespace = XMLConstants.W3C_XML_SCHEMA_NS_URI )
   public URI getResource() {
     return resource;
   }

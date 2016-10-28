@@ -15,8 +15,8 @@
  */
 package org.familysearch.platform.ct;
 
-import org.codehaus.enunciate.json.JsonIgnore;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "changeInfo" )
 @XmlType ( name = "ChangeInfo" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class ChangeInfo {
 
   private URI operation;
@@ -79,8 +80,7 @@ public class ChangeInfo {
    * @return The enum referencing the known operation of the change.
    */
   @XmlTransient
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public ChangeOperation getKnownOperation() {
     return getOperation() == null ? null : ChangeOperation.fromQNameURI(getOperation());
   }
@@ -90,8 +90,7 @@ public class ChangeInfo {
    *
    * @param knownOperation the change operation.
    */
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownOperation(ChangeOperation knownOperation) {
     setOperation(knownOperation == null ? null : knownOperation.toQNameURI());
   }
@@ -122,8 +121,7 @@ public class ChangeInfo {
    * @return The enum referencing the known object type of the change.
    */
   @XmlTransient
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public ChangeObjectType getKnownObjectType() {
     return getObjectType() == null ? null : ChangeObjectType.fromQNameURI(getObjectType());
   }
@@ -133,8 +131,7 @@ public class ChangeInfo {
    *
    * @param knownObject the change object.
    */
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownObjectType(ChangeObjectType knownObject) {
     setObjectType(knownObject == null ? null : knownObject.toQNameURI());
   }
@@ -167,8 +164,7 @@ public class ChangeInfo {
    * @return The enum referencing the known object modifier of the change.
    */
   @XmlTransient
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public ChangeObjectModifier getKnownObjectModifier() {
     return getObjectModifier() == null ? null : ChangeObjectModifier.fromQNameURI(getObjectModifier());
   }
@@ -178,8 +174,7 @@ public class ChangeInfo {
    *
    * @param knownObject the change object.
    */
-  @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
+  @com.fasterxml.jackson.annotation.JsonIgnore
   public void setKnownObjectModifier(ChangeObjectModifier knownObject) {
     setObjectModifier(knownObject == null ? null : knownObject.toQNameURI());
   }

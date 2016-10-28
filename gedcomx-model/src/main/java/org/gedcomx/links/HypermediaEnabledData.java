@@ -15,9 +15,9 @@
  */
 package org.gedcomx.links;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
@@ -33,6 +33,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "HypermediaEnabledData" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public abstract class HypermediaEnabledData extends ExtensibleData implements SupportsLinks {
 
   private List<Link> links;
@@ -44,9 +45,8 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
    */
   @Override
   @XmlElement (name = "link")
-  @JsonName ("links")
   @JsonProperty ("links")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public List<Link> getLinks() {
     return links;
   }

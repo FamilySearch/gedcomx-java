@@ -15,7 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
-import org.codehaus.enunciate.qname.XmlQNameEnum;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;

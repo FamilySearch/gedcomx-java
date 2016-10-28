@@ -15,11 +15,10 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
-import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -45,7 +44,8 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "collections" )
 @XmlType ( name = "Collection", propOrder = { "identifiers", "title", "size", "content", "attribution" })
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Collection extends HypermediaEnabledData implements Attributable {
 
   private String lang;
@@ -139,7 +139,6 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   @XmlElement(name="identifier")
   @JsonProperty("identifiers")
-  @JsonName("identifiers")
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }

@@ -159,31 +159,6 @@ public class GedcomNamespaceManager extends NamespacePrefixMapper {
       MediaTypeDefinition mediaTypeInfo = modelClass.getAnnotation(MediaTypeDefinition.class);
       for (Model model : mediaTypeInfo.models()) {
         namespacePrefixes.put(model.namespace(), model.id());
-
-        for (Class objectFactory : model.objectFactory()) {
-          for (Method method : objectFactory.getDeclaredMethods()) {
-            JsonElementWrapper jsonElementWrapper = method.getAnnotation(JsonElementWrapper.class);
-            if (jsonElementWrapper != null) {
-              XmlElementDecl elementDecl = method.getAnnotation(XmlElementDecl.class);
-              if (elementDecl != null && method.getParameterTypes().length == 1) {
-                String ns = elementDecl.namespace();
-                if ("##default".equals(ns)) {
-                  if (objectFactory.getPackage().isAnnotationPresent(XmlSchema.class)) {
-                    ns = objectFactory.getPackage().getAnnotation(XmlSchema.class).namespace();
-                  }
-                  else {
-                    ns = "";
-                  }
-                }
-
-                String name = elementDecl.name();
-                String jsonAttribute = jsonElementWrapper.namespace() +  jsonElementWrapper.name();
-                wrapperJsonNames.put(new QName(ns, name), jsonAttribute);
-                wrappedJsonTypes.put(jsonAttribute, method.getParameterTypes()[0]);
-              }
-            }
-          }
-        }
       }
     }
 
@@ -352,37 +327,6 @@ public class GedcomNamespaceManager extends NamespacePrefixMapper {
    */
   public static Class<?> getKnownTypeById(String typeId) {
     return KNOWN_JSON_TYPES_BY_TYPE_ID.get(typeId);
-  }
-
-  /**
-   * Get the version of the runtime java library that defines the model for the given namespace.
-   *
-   * @param namespace The model namespace.
-   * @return The runtime version.
-   */
-  public synchronized static String getRuntimeVersion(String namespace) {
-    String prefix = getKnownPrefixes().get(namespace);
-    String version = RUNTIME_VERSIONS.get(prefix);
-    if (version == null) {
-      InputStream in = GedcomNamespaceManager.class.getClassLoader().getResourceAsStream("META-INF/" + prefix + ".rt.properties");
-      if (in != null) {
-        Properties properties = new Properties();
-        try {
-          properties.load(in);
-          version = properties.getProperty("version");
-        }
-        catch (IOException e) {
-          version = null;
-        }
-      }
-
-      if (version == null) {
-        version = "(unknown)";
-      }
-
-      RUNTIME_VERSIONS.put(prefix, version);
-    }
-    return version;
   }
 
 }

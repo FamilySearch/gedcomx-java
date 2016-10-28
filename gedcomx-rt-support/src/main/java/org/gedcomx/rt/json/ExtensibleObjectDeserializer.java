@@ -15,12 +15,12 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.JsonToken;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.deser.BeanDeserializer;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.deser.BeanDeserializer;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.rt.SupportsExtensionAttributes;
 import org.gedcomx.rt.SupportsExtensionElements;
@@ -158,7 +158,7 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
       return KeyedListDeserializer.deserializeGeneric(jp, ctxt, type);
     }
     else {
-      throw new JsonMappingException("Unable to parse keyed map of " + type.getName() + ": expect start object, but got: " + jp.getCurrentToken().name());
+      throw new JsonMappingException(jp, "Unable to parse keyed map of " + type.getName() + ": expect start object, but got: " + jp.getCurrentToken().name());
     }
   }
 

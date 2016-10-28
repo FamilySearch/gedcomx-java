@@ -15,8 +15,8 @@
  */
 package org.familysearch.platform;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
@@ -46,13 +46,11 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "fs",
   name = "FamilySearch",
   description = "The FamilySearch data formats define serialization formats that are specific the FamilySearch developer API.",
   version = "1.0",
   xmlMediaType = FamilySearchPlatform.XML_MEDIA_TYPE,
   jsonMediaType = FamilySearchPlatform.JSON_MEDIA_TYPE,
-  projectId = FamilySearchPlatform.PROJECT_ID,
   models = {
     @Model (
       id = "fs",
@@ -67,6 +65,7 @@ import java.util.List;
 @XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features"} )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, SearchInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, UserHistoryInfo.class, Reservation.class, Ordinance.class, NameFormInfo.class} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilySearchPlatform extends Gedcomx {
 
   public static final String PROJECT_ID = "fs-platform";
@@ -88,7 +87,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "mergeAnalysis" )
   @JsonProperty ( "mergeAnalyses" )
-  @JsonName ( "mergeAnalyses" )
   public List<MergeAnalysis> getMergeAnalyses() {
     return mergeAnalyses;
   }
@@ -124,7 +122,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "merge" )
   @JsonProperty ( "merges" )
-  @JsonName ( "merges" )
   public List<Merge> getMerges() {
     return merges;
   }
@@ -160,7 +157,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "childAndParentsRelationship" )
   @JsonProperty ( "childAndParentsRelationships" )
-  @JsonName ( "childAndParentsRelationships" )
   public List<ChildAndParentsRelationship> getChildAndParentsRelationships() {
     return childAndParentsRelationships;
   }
@@ -219,7 +215,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "discussion" )
   @JsonProperty ( "discussions" )
-  @JsonName ( "discussions" )
   public List<Discussion> getDiscussions() {
     return discussions;
   }
@@ -266,7 +261,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "user" )
   @JsonProperty ( "users" )
-  @JsonName ( "users" )
   public List<User> getUsers() {
     return users;
   }
@@ -298,7 +292,6 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   @XmlElement ( name = "feature" )
   @JsonProperty ( "features" )
-  @JsonName ( "features" )
   public List<Feature> getFeatures() {
     return features;
   }

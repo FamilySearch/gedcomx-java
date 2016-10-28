@@ -15,8 +15,9 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
@@ -41,7 +42,8 @@ import javax.xml.bind.annotation.XmlType;
  * An element representing a value in a record field.
  */
 @XmlType ( name = "FieldValue" )
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class FieldValue extends Conclusion {
 
   /**

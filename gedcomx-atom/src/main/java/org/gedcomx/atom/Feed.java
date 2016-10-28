@@ -15,8 +15,8 @@
  */
 package org.gedcomx.atom;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
@@ -43,13 +43,11 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "atom",
   name = "Atom",
   description = "The Atom data formats provide a format for web content and metadata syndication.",
   version = "1.0",
   xmlMediaType = AtomModel.ATOM_XML_MEDIA_TYPE,
   jsonMediaType = AtomModel.ATOM_GEDCOMX_JSON_MEDIA_TYPE,
-  projectId = "gedcomx-rs",
   models = {
     @Model (
       id = "atom",
@@ -61,8 +59,9 @@ import java.util.List;
 )
 @XmlRootElement
 @XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries", "facets"} )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings ( "gedcomx:no_id" )
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RS )
 public class Feed extends ExtensibleElement implements SupportsLinks {
 
   private List<Person> authors;
@@ -87,7 +86,6 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return The author of the feed.
    */
   @XmlElement ( name = "author" )
-  @JsonName ( "authors" )
   @JsonProperty ( "authors" )
   public List<Person> getAuthors() {
     return authors;
@@ -109,7 +107,6 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return information about a category associated with the feed
    */
   @XmlElement ( name = "contributor" )
-  @JsonName ( "contributors" )
   @JsonProperty ( "contributors" )
   public List<Person> getContributors() {
     return contributors;
@@ -225,7 +222,6 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return a reference from a feed to a Web resource.
    */
   @XmlElement ( name = "link" )
-  @JsonName ( "links" )
   @JsonProperty ( "links" )
   public List<Link> getLinks() {
     return links;
@@ -409,7 +405,6 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return The entries in the feed.
    */
   @XmlElement ( name = "entry" )
-  @JsonName ( "entries" )
   @JsonProperty ( "entries" )
   public List<Entry> getEntries() {
     return entries;
@@ -431,7 +426,6 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return The list of facets for the feed, used for convenience in browsing and filtering.
    */
   @XmlElement ( name = "facet" )
-  @JsonName ( "facets" )
   @JsonProperty ( "facets" )
   public List<Field> getFacets() {
     return facets;

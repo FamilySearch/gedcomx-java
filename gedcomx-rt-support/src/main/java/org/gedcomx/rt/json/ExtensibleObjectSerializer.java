@@ -15,12 +15,12 @@
  */
 package org.gedcomx.rt.json;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.SerializerProvider;
-import org.codehaus.jackson.map.ser.BeanSerializer;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.BeanSerializer;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.rt.SupportsExtensionAttributes;
 import org.gedcomx.rt.SupportsExtensionElements;
@@ -102,7 +102,7 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
           else {
             name = GedcomNamespaceManager.getJsonName(element.getClass());
             if (name == null) {
-              throw new JsonMappingException("Unable to serialize custom element " + value +
+              throw new JsonMappingException(jgen, "Unable to serialize custom element " + value +
                                                " because it's not a JAXBElement, DOM element, nor is it annotated with either @JsonElementWrapper or @XmlRootElement.");
             }
           }

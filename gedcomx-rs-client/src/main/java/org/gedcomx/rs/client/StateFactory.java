@@ -15,12 +15,12 @@
  */
 package org.gedcomx.rs.client;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomJsonProvider;

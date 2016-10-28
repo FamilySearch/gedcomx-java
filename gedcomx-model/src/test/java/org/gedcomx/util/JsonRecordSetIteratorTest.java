@@ -15,8 +15,8 @@
  */
 package org.gedcomx.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.TestCase;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.rt.json.GedcomJacksonModule;

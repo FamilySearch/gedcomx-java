@@ -15,10 +15,9 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -41,13 +40,11 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @MediaTypeDefinition (
-  id = "gxrecs",
   name = "GEDCOM X Record Set",
   description = "The GEDCOM X record set data format is used to exchange multiple, distinct genealogical data sets.",
   version = "1.0",
   xmlMediaType = GedcomxConstants.GEDCOMX_RECORDSET_XML_MEDIA_TYPE,
   jsonMediaType = GedcomxConstants.GEDCOMX_RECORDSET_JSON_MEDIA_TYPE,
-  projectId = "gedcomx-recset",
   models = {
     @Model (
       id = "gxrecs",
@@ -60,7 +57,8 @@ import java.util.List;
 @XmlRootElement (name = "records")
 @JsonElementWrapper (name = "records")
 @XmlType ( name = "RecordSet", propOrder = { "metadata", "records" })
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class RecordSet extends HypermediaEnabledData {
 
   private String lang;
@@ -154,7 +152,6 @@ public class RecordSet extends HypermediaEnabledData {
    */
   @XmlElement (name="record")
   @JsonProperty ("records")
-  @JsonName ("records")
   public List<Gedcomx> getRecords() {
     return records;
   }

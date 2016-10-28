@@ -15,8 +15,8 @@
  */
 package org.gedcomx.records;
 
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -36,7 +36,8 @@ import java.util.List;
  */
 @XmlType( name = "RecordDescriptor" )
 @JsonElementWrapper ( name = "recordDescriptors" )
-@org.codehaus.enunciate.Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+@com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class RecordDescriptor extends HypermediaEnabledData {
 
   private String lang;
@@ -68,7 +69,6 @@ public class RecordDescriptor extends HypermediaEnabledData {
    */
   @XmlElement (name="field")
   @JsonProperty ("fields")
-  @JsonName ("fields")
   public List<FieldDescriptor> getFields() {
     return fields;
   }

@@ -16,14 +16,10 @@
 package org.familysearch.platform.ct;
 
 
-import org.codehaus.enunciate.json.JsonIgnore;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.gedcomx.common.URI;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -32,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "searchInfo" )
 @XmlType ( name = "SearchInfo" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SearchInfo {
 
   private Integer totalHits;

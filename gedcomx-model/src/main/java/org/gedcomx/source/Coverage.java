@@ -15,9 +15,10 @@
  */
 package org.gedcomx.source;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.conclusion.PlaceReference;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "coverage" )
 @XmlType ( name = "Coverage" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Coverage extends HypermediaEnabledData {
 
   private PlaceReference spatial;
@@ -109,7 +111,7 @@ public class Coverage extends HypermediaEnabledData {
    *
    * @return The type of record being covered.
    */
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   @XmlQNameEnumRef(RecordType.class)
   public URI getRecordType() {
     return recordType;

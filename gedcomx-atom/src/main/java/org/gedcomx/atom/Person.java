@@ -15,7 +15,7 @@
  */
 package org.gedcomx.atom;
 
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  * @see <a href="http://tools.ietf.org/html/rfc4287#section-3.2">The atom spec, section 3.2.</a>
  */
 @XmlType( name = "Person", propOrder = {"name", "uri", "email"} )
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 public final class Person extends ExtensibleElement {
   
   private String name;

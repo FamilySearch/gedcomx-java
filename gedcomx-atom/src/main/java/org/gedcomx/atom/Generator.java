@@ -15,7 +15,7 @@
  */
 package org.gedcomx.atom;
 
-import org.codehaus.enunciate.Facet;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
 
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlValue;
  * @see <a href="http://tools.ietf.org/html/rfc4287#section-4.2.4">The atom spec, section 4.2.4.</a>
  */
 @XmlType ( name = "Generator" )
-@Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+@Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 public final class Generator {
 
   private String lang;

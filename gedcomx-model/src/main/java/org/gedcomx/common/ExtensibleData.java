@@ -15,7 +15,7 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.rt.SupportsExtensionElements;
 
 import javax.xml.bind.JAXBElement;

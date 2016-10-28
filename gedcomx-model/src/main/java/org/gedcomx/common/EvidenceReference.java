@@ -15,7 +15,8 @@
  */
 package org.gedcomx.common;
 
-import org.codehaus.enunciate.Facet;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType ( name = "EvidenceReference" )
 @JsonElementWrapper ( name = "evidence" )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public final class EvidenceReference extends HypermediaEnabledData implements Attributable {
 
   private URI resource;
@@ -80,7 +82,7 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
    * @return The resource id of the resource being referenced.
    */
   @XmlAttribute
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public String getResourceId() {
     return resourceId;
   }

@@ -15,9 +15,9 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -40,6 +40,7 @@ import java.util.List;
  * of a place as a snapshot in time.
  */
 @XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "place", "jurisdiction", "displayExtension" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class PlaceDescription extends Subject {
 
   private List<TextValue> names;
@@ -169,7 +170,6 @@ public class PlaceDescription extends Subject {
    * @return An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
    */
   @XmlElement (name = "name")
-  @JsonName ("names")
   @JsonProperty ("names")
   public List<TextValue> getNames() {
     return names;
@@ -231,7 +231,7 @@ public class PlaceDescription extends Subject {
    * @return An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
    */
   @XmlAttribute
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public URI getType() {
     return type;
   }
@@ -260,7 +260,7 @@ public class PlaceDescription extends Subject {
    *
    * @return A description of the time period to which this place description is relevant.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public Date getTemporalDescription() {
     return temporalDescription;
   }
@@ -348,7 +348,7 @@ public class PlaceDescription extends Subject {
    *
    * @return  A reference to a geospatial description of this place.
    */
-  @Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public ResourceReference getSpatialDescription() {
     return spatialDescription;
   }
@@ -438,7 +438,7 @@ public class PlaceDescription extends Subject {
    */
   @XmlElement(name = "display")
   @JsonProperty("display")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public PlaceDisplayProperties getDisplayExtension() {
     return display;
   }

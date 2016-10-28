@@ -15,11 +15,9 @@
  */
 package org.gedcomx.rs.client;
 
-import com.github.jsonldjava.jena.JenaJSONLD;
-import com.hp.hpl.jena.rdf.model.*;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.rdf.model.*;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
@@ -30,10 +28,6 @@ import org.gedcomx.vocab.VocabElementList;
 public class VocabElementListState extends GedcomxApplicationState<Model> {
 
   private Resource resourceDescribingList;
-
-  static {
-    JenaJSONLD.init();
-  }
 
   protected VocabElementListState(ClientRequest request, ClientResponse response, String accessToken, StateFactory stateFactory) {
     super(request, response, accessToken, stateFactory);
@@ -112,7 +106,7 @@ public class VocabElementListState extends GedcomxApplicationState<Model> {
   @Override
   protected Model loadEntity(ClientResponse response) {
     Model model = ModelFactory.createDefaultModel();
-    RDFDataMgr.read(model, response.getEntityInputStream(), null, JenaJSONLD.JSONLD);
+    model.read(response.getEntityInputStream(), null, "JSONLD");
     this.resourceDescribingList = model.getResource(this.request.getURI().toString());
     return model;
   }

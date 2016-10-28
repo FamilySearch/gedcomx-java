@@ -15,11 +15,10 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.Gedcomx;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
@@ -48,6 +47,7 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper (name = "persons")
 @XmlType ( name = "Person", propOrder = { "private", "living", "principal", "gender", "names", "facts", "fields", "displayExtension" } )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Person extends Subject implements HasFacts, HasFields {
 
   private Boolean isPrivate;
@@ -233,7 +233,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @return Living status of the person as treated by the system.
    */
-  @Facet( name = GedcomxConstants.FACET_FS_FT_READ_ONLY )
+  @Facet( GedcomxConstants.FACET_FS_FT_READ_ONLY )
   public Boolean getLiving() {
     return living;
   }
@@ -266,7 +266,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return Whether this person is the "principal" person extracted from the record.
    */
   @XmlAttribute
-  @Facet( name = GedcomxConstants.FACET_GEDCOMX_RECORD)
+  @Facet( GedcomxConstants.FACET_GEDCOMX_RECORD)
   public Boolean getPrincipal() {
     return principal;
   }
@@ -337,7 +337,6 @@ public class Person extends Subject implements HasFacts, HasFields {
    */
   @XmlElement(name="name")
   @JsonProperty("names")
-  @JsonName("names")
   public List<Name> getNames() {
     return names;
   }
@@ -448,7 +447,6 @@ public class Person extends Subject implements HasFacts, HasFields {
    */
   @XmlElement(name="fact")
   @JsonProperty("facts")
-  @JsonName("facts")
   public List<Fact> getFacts() {
     return facts;
   }
@@ -535,7 +533,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    */
   @XmlElement(name = "display")
   @JsonProperty("display")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public DisplayProperties getDisplayExtension() {
     return display;
   }
@@ -596,8 +594,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    */
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
-  @JsonName( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

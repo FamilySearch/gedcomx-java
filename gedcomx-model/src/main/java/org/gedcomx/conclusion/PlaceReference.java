@@ -15,10 +15,9 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.gedcomx.common.EvidenceReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
@@ -39,6 +38,7 @@ import java.util.List;
  * A reference to genealogical place.
  */
 @XmlType ( name = "PlaceReference", propOrder = { "original", "normalizedExtensions", "fields" })
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class PlaceReference extends ExtensibleData implements HasFields {
 
   private String original;
@@ -81,7 +81,6 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    * @return A reference to a description of the place being referenced.
    */
   @XmlAttribute ( name = "description" )
-  @JsonName ( "description" )
   @JsonProperty ( "description" )
   @RDFRange (PlaceDescription.class)
   public URI getDescriptionRef() {
@@ -129,7 +128,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    */
   @XmlElement ( name = "normalized" )
   @JsonProperty ("normalized")
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RS )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public List<TextValue> getNormalizedExtensions() {
     return normalized;
   }
@@ -178,8 +177,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    */
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
-  @JsonName( "fields" )
-  @Facet ( name = GedcomxConstants.FACET_GEDCOMX_RECORD )
+  @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
   }

@@ -56,17 +56,4 @@ public @interface Model {
    */
   String description() default "";
 
-  /**
-   * Whether the model defines an RDF schema.
-   *
-   * @return Whether the model defines an RDF schema.
-   */
-  boolean definesRDFSchema() default false;
-
-  /**
-   * The object factories that supply possible local element names and json properties for types in this model.
-   *
-   * @return The object factories that supply possible local element names and json properties for types in this model.
-   */
-  Class[] objectFactory() default {};
 }

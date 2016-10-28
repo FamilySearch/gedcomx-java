@@ -15,11 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
-import org.codehaus.enunciate.Facet;
-import org.codehaus.enunciate.json.JsonName;
-import org.codehaus.enunciate.qname.XmlQNameEnumRef;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -44,7 +44,8 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper (name = "events")
 @XmlType ( name = "Event", propOrder = { "date", "place", "roles" } )
-@Facet ( name = GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Event extends Subject implements HasDateAndPlace {
 
   private URI type;
@@ -319,7 +320,6 @@ public class Event extends Subject implements HasDateAndPlace {
    */
   @XmlElement (name="role")
   @JsonProperty ("roles")
-  @JsonName ("roles")
   public List<EventRole> getRoles() {
     return roles;
   }
