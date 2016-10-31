@@ -26,6 +26,12 @@
 
     <dependency>
       <groupId>org.gedcomx</groupId>
+      <artifactId>gedcomx-date</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.gedcomx</groupId>
       <artifactId>gedcomx-rt-support</artifactId>
       <version>${project.version}</version>
     </dependency>

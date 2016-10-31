@@ -26,9 +26,9 @@
     <module>gedcomx-test-support</module>
 
     <!--gedcomx-core modules-->
+    <module>gedcomx-date</module>
     <module>gedcomx-model</module>
     <module>gedcomx-fileformat</module>
-    <module>gedcomx-date</module>
 
     <!--gedcomx-rs modules-->
     <module>gedcomx-atom</module>

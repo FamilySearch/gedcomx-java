@@ -22,11 +22,11 @@ import com.webcohesion.enunciate.metadata.ClientName;
 import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.date.GedcomxDate;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
-import org.gedcomx.util.date.FormalDate;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -111,8 +111,10 @@ public class Date extends ExtensibleData implements HasFields {
    */
   @XmlTransient
   @JsonIgnore
-  public void setFormalDate(FormalDate formal) {
-    setFormal(formal.toString());
+  public void setFormalDate(GedcomxDate formal) {
+    if (formal != null) {
+      setFormal(formal.toFormalString());
+    }
   }
 
   /**
@@ -132,8 +134,8 @@ public class Date extends ExtensibleData implements HasFields {
    * @param formal The formal date.
    * @return this.
    */
-  public Date formal(FormalDate formal) {
-    return formal(formal.toString());
+  public Date formal(GedcomxDate formal) {
+    return formal(formal.toFormalString());
   }
 
   /**
