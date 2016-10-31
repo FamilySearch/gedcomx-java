@@ -42,8 +42,8 @@ import java.util.regex.Pattern;
  *   A(simpleDate)
  *   A(dateRange)
  *
- * => ([A](simpleDate|dateRange) | R[repetitions]/simpleDate/(simpleDate|Duration))
- * => [A]simpleDate
+ * ([A](simpleDate|dateRange) | R[repetitions]/simpleDate/(simpleDate|Duration))
+ * [A]simpleDate
  *    [A]simpleDate/[simpleDate|Duration]
  *    [A]/simpleDate
  *    R[repetitions]/simpleDate/(simpleDate|Duration)
@@ -187,7 +187,7 @@ public class FormalDate {
    * If the date is a range, and the end is null, then it means "any time from the starting date or later".
    * If the date is not a range, the end must be null.
    * If the date is a range, then either the start or end must be non-null.
-   * @param end
+   * @param end The end date.
    */
   public void setEnd(SimpleDate end) {
     this.end = end;
@@ -198,7 +198,7 @@ public class FormalDate {
    * If the duration is non-null, then the starting date must be non-null.
    * A duration is used in a range or in a recurring date.
    * Must be null if the end is non-null.
-   * @return
+   * @return The duration.
    */
   public Duration getDuration() {
     return duration;
@@ -206,7 +206,7 @@ public class FormalDate {
 
   /**
    * Set the duration of a FormalDate.
-   * @param duration
+   * @param duration The duration.
    */
   public void setDuration(Duration duration) {
     this.duration = duration;

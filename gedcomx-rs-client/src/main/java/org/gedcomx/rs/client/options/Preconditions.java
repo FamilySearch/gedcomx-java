@@ -21,15 +21,6 @@ import org.gedcomx.rs.client.StateTransitionOption;
 
 import java.util.Date;
 
-/**
- * Created by IntelliJ IDEA.
- *
- * @author: Family History Department
- * @author: wilfordej
- * @date: 8/13/14
- * @time: 10:56 AM
- * @copyright 8/13/14 Intellectual Reserve, Inc. All rights reserved.
- */
 public class Preconditions implements StateTransitionOption {
 
   private final String etag;

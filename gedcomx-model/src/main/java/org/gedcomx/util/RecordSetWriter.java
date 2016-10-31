@@ -92,7 +92,7 @@ public class RecordSetWriter {
   /**
    * Write the given record to the underlying byte-level (and possibly GZipped) output stream.
    * @param record - GedcomX document to add as a 'record' to the RecordSet OutputStream.
-   * @throws JAXBException
+   * @throws JAXBException If there's a problem with the XML.
    */
   public synchronized void writeRecord(Gedcomx record) throws JAXBException {
     writeRecord(record, "record");
@@ -104,6 +104,7 @@ public class RecordSetWriter {
    *   information such as collection source descriptions, record descriptors, etc. May describe a collection that
    *   goes beyond the records contained within this same GedcomX RecordSet.
    * @param metadata - GedcomX document with group-level information.
+   * @throws JAXBException If there's a problem with the XML.
    */
   public synchronized void setMetadata(Gedcomx metadata) throws JAXBException {
     if (wroteMetadata) {
@@ -127,7 +128,7 @@ public class RecordSetWriter {
 
   /**
    * Finish writing the file, including metadata (if set), and the closing tag. Closes the writers and output stream.
-   * @throws IOException
+   * @throws IOException If there's an I/O problem.
    */
   public synchronized void close() throws IOException {
     try {

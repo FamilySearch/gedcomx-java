@@ -23,12 +23,6 @@ import org.gedcomx.rt.json.GedcomJacksonModule;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- * User: brenthale
- * Date: 6/8/2015
- * <p/>
- * Copyright FamilySearch.org
- */
 public class JsonRecordSetWriter {
   // Stream to write data to
   private OutputStream outputStream;
@@ -89,7 +83,6 @@ public class JsonRecordSetWriter {
 
   /**
    * Finish writing the file, including metadata (if set), and the closing tag. Closes the writers and output stream.
-   * @throws IOException
    */
   public void close() throws IOException {
     if (outputStream != null) {

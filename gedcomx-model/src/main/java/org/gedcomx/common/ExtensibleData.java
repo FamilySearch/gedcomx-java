@@ -57,6 +57,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    * Build up this object with an id.
    *
    * @param id The id.
+   * @return this.
    */
   public ExtensibleData id(String id) {
     this.id = id;
@@ -106,6 +107,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    * Remove extension elements of a given type.
    *
    * @param clazz The type of extension element to remove.
+   * @param <E> The type of extension elements.
    * @return The removed extension elements.
    */
   @SuppressWarnings ( {"unchecked"} )
@@ -138,6 +140,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    * Finds the first extension of a specified type.
    *
    * @param clazz The type.
+   * @param <E> The type of extension elements.
    * @return The extension, or null if none found.
    */
   @SuppressWarnings ( {"unchecked"} )
@@ -155,6 +158,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    * Find the extensions of a specified type.
    *
    * @param clazz The type.
+   * @param <E> The type.
    * @return The extensions, possibly empty but not null.
    */
   @SuppressWarnings ( {"unchecked"} )

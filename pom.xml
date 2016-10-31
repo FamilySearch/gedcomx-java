@@ -15,6 +15,9 @@
     <root.basedir>${project.basedir}</root.basedir>
     <jersey.version>1.19.2</jersey.version>
     <jackson.version>2.7.8</jackson.version>
+
+    <skip.javadoc>true</skip.javadoc>
+    <skip.pgp>true</skip.pgp>
   </properties>
 
   <modules>
@@ -208,6 +211,41 @@
           <goals>deploy</goals>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <skip>${skip.javadoc}</skip>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.kohsuke</groupId>
+        <artifactId>pgp-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <skip>${skip.pgp}</skip>
+          <secretkey>keyfile:${env.PGP_SECRET_KEYFILE}</secretkey>
+          <passphrase>literal:</passphrase>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -248,41 +286,10 @@
   <profiles>
     <profile>
       <id>release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.4</version>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.kohsuke</groupId>
-            <artifactId>pgp-maven-plugin</artifactId>
-            <version>1.1</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <secretkey>keyfile:${env.PGP_SECRET_KEYFILE}</secretkey>
-              <passphrase>literal:</passphrase>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
+      <properties>
+        <skip.javadoc>false</skip.javadoc>
+        <skip.pgp>false</skip.pgp>
+      </properties>
     </profile>
   </profiles>
 

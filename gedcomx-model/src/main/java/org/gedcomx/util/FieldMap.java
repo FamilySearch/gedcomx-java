@@ -149,8 +149,8 @@ public class FieldMap {
 
   /**
    * Get the display label for the given labelId in the closest language available to the one given.
-   * @param labelId - labelId to get the display value for (e.g., "PR_NAME")
-   * @param language - Preferred language to get the display label in. null => use en-US.
+   * @param labelId labelId to get the display value for (e.g., "PR_NAME")
+   * @param language Preferred language to get the display label in. If null use "en-US".
    * @return Display label to use for the labelId, or null if there is not one.
    */
   public String getDisplayLabel(String labelId, String language) {
@@ -180,8 +180,8 @@ public class FieldMap {
   /**
    * Get a list of values that had the given labelId in the record for the given person.
    * Must be a census record.
-   * @param person - person to get values for (null => get record-level values for the given labelId, if any)
-   * @param labelId - LabelId to get the values for
+   * @param person person to get values for (if null, get record-level values for the given labelId, if any)
+   * @param labelId LabelId to get the values for
    * @return List of values for the given labelId, or null if none.
    */
   public List<String> getValues(Person person, String labelId) {

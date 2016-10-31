@@ -45,7 +45,7 @@ public class JsonRecordSetIterator implements RecordSetIterator {
   /**
    * Constructor for a record iterator that takes a filename of a RecordSet file and iterates through its record elements.
    * @param filename - Filename to read a GedcomX RecordSet file from.
-   * @throws IOException
+   * @throws IOException If there's an I/O problem.
    */
   public JsonRecordSetIterator(String filename) throws IOException {
     this(new FileInputStream(filename), filename.toLowerCase().endsWith(".gz"));
@@ -61,7 +61,7 @@ public class JsonRecordSetIterator implements RecordSetIterator {
    * InputStream.
    *
    * @param inputStream - InputStream to read a GedcomX RecordSet file from.
-   * @throws IOException
+   * @throws IOException If there's an I/O problem.
    */
   public JsonRecordSetIterator(InputStream inputStream) throws IOException {
     this.inputStream = new BufferedInputStream(inputStream);

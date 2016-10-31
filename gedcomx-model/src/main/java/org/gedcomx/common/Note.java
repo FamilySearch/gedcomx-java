@@ -89,6 +89,7 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
    * Build up this note with a locale.
    *
    * @param lang The locale.
+   * @return this.
    */
   public Note lang(String lang) {
     this.lang = lang;
@@ -148,6 +149,7 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
    * Build up this note with some text.
    *
    * @param text The text.
+   * @return this.
    */
   public Note text(String text) {
     this.text = text;

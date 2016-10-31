@@ -292,7 +292,7 @@ public class DocCheck {
    * Check a GedcomX RecordSet for problems. Calls checkDocument(doc, collection) on each record.
    * @param records - Set of GedcomX documents to check.
    * @param collection - Collection to use to check RecordDescriptors and labelIds.
-   *                     null => use records.getMetadata(), if any, or else don't check label IDs.
+   *                     If null, use records.getMetadata(), if any, or else don't check label IDs.
    * @return String containing a list of errors, if any, or null if there were no errors.
    */
   public static String checkRecordSet(RecordSet records, Gedcomx collection) {

@@ -133,7 +133,7 @@ public class Agent extends HypermediaEnabledData {
   /**
    * Add a name.
    * 
-   * param name The name.
+   * @param name The name.
    */
   public void addName(TextValue name) {
     if (this.names == null) {

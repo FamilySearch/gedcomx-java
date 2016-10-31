@@ -202,6 +202,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * Build out this document with a child-and-parents relationship.
    *
    * @param chap The child-and-parents relationship
+   * @return this.
    */
   public FamilySearchPlatform childAndParentsRelationship(ChildAndParentsRelationship chap) {
     addChildAndParentsRelationship(chap);

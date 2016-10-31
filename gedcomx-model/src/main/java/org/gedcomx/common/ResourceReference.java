@@ -95,7 +95,7 @@ public final class ResourceReference {
    * The URI to the resource. For more information, see <a href="http://www.w3.org/TR/webarch/#identification">Architecture of the World
    * Wide Web, Volume One, Section 2</a>
    *
-   * @link http://www.w3.org/TR/webarch/#identification
+   * @see <a href="http://www.w3.org/TR/webarch/#identification">http://www.w3.org/TR/webarch/#identification</a>
    * @return The URI to the resource.
    */
   @XmlAttribute
@@ -108,7 +108,7 @@ public final class ResourceReference {
    * The URI to the resource. For more information, see <a href="http://www.w3.org/TR/webarch/#identification">Architecture of the World
    * Wide Web, Volume One, Section 2</a>
    *
-   * @link http://www.w3.org/TR/webarch/#identification
+   * @see <a href="http://www.w3.org/TR/webarch/#identification">http://www.w3.org/TR/webarch/#identification</a>
    * @param resource The URI to the resource.
    */
   public void setResource(URI resource) {

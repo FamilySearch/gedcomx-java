@@ -125,7 +125,7 @@ public class SimpleDate {
    * @param hour: 0..23 (must be null if day is null)
    * @param minute: 0..59 (must be null if hour is null)
    * @param second: 0..59 (must be null if minute is null)
-   * @param isUTC: true => UTC time zone (i.e., use "Z" in string).
+   * @param isUTC: UTC time zone (i.e., use "Z" in string).
    * @param timeZoneHours: -23..23 (must be null if isUTC, or if hour is null)
    * @param timeZoneMinutes: 00..59 (can be null if 0; must be null if timeZoneHours is null)
    */
@@ -322,6 +322,7 @@ public class SimpleDate {
   /**
    * Set the flag for whether this SimpleDate uses a time in Universal Time Code (UTC),
    *   in which case "Z" is used in the string, and the time zone hours and minutes are ignored.
+   * @param UTC Whether to use UTC
    */
   public void setUTC(boolean UTC) {
     isUTC = UTC;

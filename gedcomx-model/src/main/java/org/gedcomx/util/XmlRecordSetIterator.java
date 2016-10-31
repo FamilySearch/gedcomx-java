@@ -60,7 +60,7 @@ public class XmlRecordSetIterator implements RecordSetIterator {
   /**
    * Constructor for a record iterator that takes a filename of a RecordSet file and iterates through its record elements.
    * @param filename - Filename to read a GedcomX RecordSet file from.
-   * @throws java.io.IOException
+   * @throws IOException If there's an I/O problem.
    */
   public XmlRecordSetIterator(String filename) throws IOException {
     this(new FileInputStream(filename), filename.toLowerCase().endsWith(".gz"));
@@ -73,7 +73,7 @@ public class XmlRecordSetIterator implements RecordSetIterator {
   /**
    * Constructor for a record iterator that takes an InputStream of a RecordSet file and iterates through its record elements.
    * @param inputStream - InputStream to read a GedcomX RecordSet file from.
-   * @throws IOException
+   * @throws IOException If there's an I/O problem.
    */
   public XmlRecordSetIterator(InputStream inputStream) throws IOException {
     this(new BufferedReader(new InputStreamReader(inputStream, "UTF-8")));
@@ -82,7 +82,7 @@ public class XmlRecordSetIterator implements RecordSetIterator {
   /**
    * Constructor for a record iterator that takes a BufferedReader of a RecordSet file and iterates through its record elements.
    * @param reader - BufferedReader to read a GedcomX RecordSet file from.
-   * @throws IOException
+   * @throws IOException If there's an I/O problem.
    */
   public XmlRecordSetIterator(BufferedReader reader) throws IOException {
     try {

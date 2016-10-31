@@ -337,6 +337,7 @@ public class Gedcomx extends HypermediaEnabledData {
   /**
    * Tell whether the given resource reference is referencing the current person
    * @param ref1 - Local reference to a person URI.
+   * @param ref2 - Local reference to a person URI.
    * @return true if the personReference is referencing this person (or both are null). False otherwise.
    */
   protected static boolean samePerson(ResourceReference ref1, ResourceReference ref2) {

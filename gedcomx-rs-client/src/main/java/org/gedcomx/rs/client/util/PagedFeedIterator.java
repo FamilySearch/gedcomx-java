@@ -27,9 +27,8 @@ import java.util.*;
 
 /**
  * A paged {@link org.gedcomx.atom.Feed feed} iterator.
- * <p/>
- * The HTTP GET requests can be customized by using a custom {@link WebResourceProvider} and/or adding {@link
- * WebResourceBuilderExtension}s.
+ *
+ * The HTTP GET requests can be customized by using a custom {@link WebResourceProvider} and/or adding {@link WebResourceBuilderExtension}s.
  *
  * @see <a href="http://tools.ietf.org/search/rfc5005#section-3">Paged Feeds</a>
  */

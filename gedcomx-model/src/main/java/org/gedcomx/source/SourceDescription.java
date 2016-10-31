@@ -706,6 +706,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
 
   /**
    * The URI that this resource has been replaced by.
+   * @return What this description is replaced by.
    */
   public URI getReplacedBy() {
     return replacedBy;
@@ -948,6 +949,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   /**
    * Build out this source description with a modified date.
    * @param modified the modified date.
+   * @return this
    */
   public SourceDescription modified(Date modified) {
     setModified(modified);

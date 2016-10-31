@@ -92,6 +92,7 @@ public class OnlineAccount extends ExtensibleData {
    * Build up this online account with an account name.
    *
    * @param accountName The account name.
+   * @return this.
    */
   public OnlineAccount accountName(String accountName) {
     this.accountName = accountName;

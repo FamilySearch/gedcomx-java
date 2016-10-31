@@ -100,6 +100,7 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
    * Build up this reference with a resource id.
    *
    * @param resourceId The resource id.
+   * @return this.
    */
   public EvidenceReference resourceId(String resourceId) {
     this.resourceId = resourceId;
@@ -109,7 +110,7 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
   /**
    * The URI to the resource being referenced as evidence.
    *
-   * @link http://www.w3.org/TR/webarch/#identification
+   * @see <a href="http://www.w3.org/TR/webarch/#identification">http://www.w3.org/TR/webarch/#identification</a>
    * @return The URI to the resource.
    */
   @XmlAttribute
@@ -121,7 +122,7 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
   /**
    * The URI to the resource being referenced as evidence.
    *
-   * @link http://www.w3.org/TR/webarch/#identification
+   * @see <a href="http://www.w3.org/TR/webarch/#identification">http://www.w3.org/TR/webarch/#identification</a>
    * @param resource The URI to the resource.
    */
   public void setResource(URI resource) {
@@ -132,6 +133,7 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
    * Build up this reference with a resource URI.
    *
    * @param resource The resource.
+   * @return this
    */
   public EvidenceReference resource(URI resource) {
     this.resource = resource;
