@@ -474,7 +474,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return (FamilyTreePersonState) super.readPerson(person, options);
   }
 
-  public PersonsState readPersons(Set<String> personIds, StateTransitionOption... options) {
+  public FamilyTreePersonsState readPersons(Set<String> personIds, StateTransitionOption... options) {
     StringBuilder sb = new StringBuilder(512);
     for(String pid: personIds) {
       if (sb.length() > 0) {
@@ -487,7 +487,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     newOptions[options.length] = FamilySearchOptions.pids(sb.toString());
     newOptions[options.length+1] = new ConnegSetter(FamilySearchPlatform.JSON_MEDIA_TYPE);
     
-    return super.readPersons(newOptions);
+    return (FamilyTreePersonsState)super.readPersons(newOptions);
   }
 
   public PersonMatchResolutionsState queryMatchResolutions(List<org.gedcomx.common.URI> personaUris, StateTransitionOption... options) {
