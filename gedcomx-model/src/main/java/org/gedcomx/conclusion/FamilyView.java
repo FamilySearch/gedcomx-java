@@ -120,7 +120,7 @@ public class FamilyView extends HypermediaEnabledData {
    * @return A list of references to the children of this family.
    */
   @XmlElement(name="child")
-  @JsonProperty("children")
+  @JsonProperty("children") @org.codehaus.jackson.annotate.JsonProperty("children")
   public List<ResourceReference> getChildren() {
     return children;
   }
@@ -130,7 +130,7 @@ public class FamilyView extends HypermediaEnabledData {
    *
    * @param children A list of references to the children of this family.
    */
-  @JsonProperty("children")
+  @JsonProperty("children") @org.codehaus.jackson.annotate.JsonProperty("children")
   public void setChildren(List<ResourceReference> children) {
     this.children = children;
   }

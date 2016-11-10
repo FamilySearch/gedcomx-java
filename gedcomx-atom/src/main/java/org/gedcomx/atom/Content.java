@@ -43,7 +43,7 @@ public final class Content {
    * @return The type of the content.
    */
   @XmlAttribute
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public String getType() {
     return type;
   }
@@ -53,7 +53,7 @@ public final class Content {
    *
    * @param type The type of the content.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setType(String type) {
     this.type = type;
   }

@@ -154,7 +154,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    * @return The value of a the known confidence level, or {@link org.gedcomx.types.ConfidenceLevel#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public ConfidenceLevel getKnownConfidenceLevel() {
     return getConfidence() == null ? null : ConfidenceLevel.fromQNameURI(getConfidence());
   }
@@ -164,7 +164,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    *
    * @param level The known level.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownConfidenceLevel(ConfidenceLevel level) {
     setConfidence(level == null ? null : level.toQNameURI());
   }
@@ -175,7 +175,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    * @return The source references for a conclusion.
    */
   @XmlElement (name="source")
-  @JsonProperty ("sources")
+  @JsonProperty ("sources") @org.codehaus.jackson.annotate.JsonProperty ("sources")
   public List<SourceReference> getSources() {
     return sources;
   }
@@ -185,7 +185,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    *
    * @param sourceReferences The source references for a conclusion.
    */
-  @JsonProperty("sources")
+  @JsonProperty("sources") @org.codehaus.jackson.annotate.JsonProperty("sources")
   public void setSources(List<SourceReference> sourceReferences) {
     this.sources = sourceReferences;
   }
@@ -231,7 +231,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    * @return Notes about a person.
    */
   @XmlElement (name = "note")
-  @JsonProperty ("notes")
+  @JsonProperty ("notes") @org.codehaus.jackson.annotate.JsonProperty ("notes")
   public List<Note> getNotes() {
     return notes;
   }
@@ -241,7 +241,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
    *
    * @param notes Notes about a person.
    */
-  @JsonProperty ("notes")
+  @JsonProperty ("notes") @org.codehaus.jackson.annotate.JsonProperty ("notes")
   public void setNotes(List<Note> notes) {
     this.notes = notes;
   }

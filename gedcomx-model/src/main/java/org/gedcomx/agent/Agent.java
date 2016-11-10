@@ -83,7 +83,7 @@ public class Agent extends HypermediaEnabledData {
    * @return The preferred name for this agent.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public TextValue getName() {
     return this.names == null || this.names.isEmpty() ? null : this.names.get(0);
   }
@@ -94,7 +94,7 @@ public class Agent extends HypermediaEnabledData {
    * @return The list of names for the agent.
    */
   @XmlElement (name="name")
-  @JsonProperty ("names")
+  @JsonProperty ("names") @org.codehaus.jackson.annotate.JsonProperty ("names")
   public List<TextValue> getNames() {
     return names;
   }
@@ -104,7 +104,7 @@ public class Agent extends HypermediaEnabledData {
    *
    * @param names The list of names for the agent.
    */
-  @JsonProperty ("names")
+  @JsonProperty ("names") @org.codehaus.jackson.annotate.JsonProperty ("names")
   public void setNames(List<TextValue> names) {
     this.names = names;
   }
@@ -149,7 +149,7 @@ public class Agent extends HypermediaEnabledData {
    * @return The list of identifiers for the agent.
    */
   @XmlElement (name="identifier")
-  @JsonProperty ("identifiers")
+  @JsonProperty ("identifiers") @org.codehaus.jackson.annotate.JsonProperty ("identifiers")
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }
@@ -159,7 +159,7 @@ public class Agent extends HypermediaEnabledData {
    *
    * @param identifiers The list of identifiers of the agent.
    */
-  @JsonProperty ("identifiers")
+  @JsonProperty ("identifiers") @org.codehaus.jackson.annotate.JsonProperty ("identifiers")
   public void setIdentifiers(List<Identifier> identifiers) {
     this.identifiers = identifiers;
   }
@@ -270,7 +270,7 @@ public class Agent extends HypermediaEnabledData {
    * @return The accounts that belong to this person or organization.
    */
   @XmlElement(name = "account")
-  @JsonProperty ("accounts")
+  @JsonProperty ("accounts") @org.codehaus.jackson.annotate.JsonProperty ("accounts")
   public List<OnlineAccount> getAccounts() {
     return accounts;
   }
@@ -280,7 +280,7 @@ public class Agent extends HypermediaEnabledData {
    *
    * @param accounts The accounts that belong to this person or organization.
    */
-  @JsonProperty ("accounts")
+  @JsonProperty ("accounts") @org.codehaus.jackson.annotate.JsonProperty ("accounts")
   public void setAccounts(List<OnlineAccount> accounts) {
     this.accounts = accounts;
   }
@@ -314,7 +314,7 @@ public class Agent extends HypermediaEnabledData {
    * @return The emails that belong to this person or organization.
    */
   @XmlElement(name = "email")
-  @JsonProperty ("emails")
+  @JsonProperty ("emails") @org.codehaus.jackson.annotate.JsonProperty ("emails")
   public List<ResourceReference> getEmails() {
     return emails;
   }
@@ -324,7 +324,7 @@ public class Agent extends HypermediaEnabledData {
    *
    * @param emails The emails that belong to this person or organization.
    */
-  @JsonProperty ("emails")
+  @JsonProperty ("emails") @org.codehaus.jackson.annotate.JsonProperty ("emails")
   public void setEmails(List<ResourceReference> emails) {
     this.emails = emails;
   }
@@ -379,7 +379,7 @@ public class Agent extends HypermediaEnabledData {
    * @return The phones that belong to this person or organization.
    */
   @XmlElement(name = "phone")
-  @JsonProperty ("phones")
+  @JsonProperty ("phones") @org.codehaus.jackson.annotate.JsonProperty ("phones")
   public List<ResourceReference> getPhones() {
     return phones;
   }
@@ -389,7 +389,7 @@ public class Agent extends HypermediaEnabledData {
    *
    * @param phones The phones that belong to this person or organization.
    */
-  @JsonProperty ("phones")
+  @JsonProperty ("phones") @org.codehaus.jackson.annotate.JsonProperty ("phones")
   public void setPhones(List<ResourceReference> phones) {
     this.phones = phones;
   }
@@ -441,7 +441,7 @@ public class Agent extends HypermediaEnabledData {
    * @return The addresses that belong to this person or organization.
    */
   @XmlElement(name = "address")
-  @JsonProperty ("addresses")
+  @JsonProperty ("addresses") @org.codehaus.jackson.annotate.JsonProperty ("addresses")
   @SuppressWarnings("gedcomx:plural_xml_name")
   public List<Address> getAddresses() {
     return addresses;
@@ -452,7 +452,7 @@ public class Agent extends HypermediaEnabledData {
    *
    * @param addresses The addresses that belong to this person or organization.
    */
-  @JsonProperty ("addresses")
+  @JsonProperty ("addresses") @org.codehaus.jackson.annotate.JsonProperty ("addresses")
   public void setAddresses(List<Address> addresses) {
     this.addresses = addresses;
   }

@@ -44,7 +44,7 @@ public class MergeAnalysis {
 
 
   @XmlElement (name="survivorResource")
-  @JsonProperty ("survivorResources")
+  @JsonProperty ("survivorResources") @org.codehaus.jackson.annotate.JsonProperty ("survivorResources")
   public List<ResourceReference> getSurvivorResources() {
     return survivorResources;
   }
@@ -54,7 +54,7 @@ public class MergeAnalysis {
   }
 
   @XmlElement (name="duplicateResource")
-  @JsonProperty ("duplicateResources")
+  @JsonProperty ("duplicateResources") @org.codehaus.jackson.annotate.JsonProperty ("duplicateResources")
   public List<ResourceReference> getDuplicateResources() {
     return duplicateResources;
   }
@@ -64,7 +64,7 @@ public class MergeAnalysis {
   }
 
   @XmlElement (name="conflictingResource")
-  @JsonProperty ("conflictingResources")
+  @JsonProperty ("conflictingResources") @org.codehaus.jackson.annotate.JsonProperty ("conflictingResources")
   public List<MergeConflict> getConflictingResources() {
     return conflictingResources;
   }
@@ -75,7 +75,7 @@ public class MergeAnalysis {
 
 
   @XmlElement (name="survivor")
-  @JsonProperty ("survivor")
+  @JsonProperty ("survivor") @org.codehaus.jackson.annotate.JsonProperty ("survivor")
   public ResourceReference getSurvivor() {
     return survivor;
   }
@@ -85,7 +85,7 @@ public class MergeAnalysis {
   }
 
   @XmlElement (name="duplicate")
-  @JsonProperty ("duplicate")
+  @JsonProperty ("duplicate") @org.codehaus.jackson.annotate.JsonProperty ("duplicate")
   public ResourceReference getDuplicate() {
     return duplicate;
   }

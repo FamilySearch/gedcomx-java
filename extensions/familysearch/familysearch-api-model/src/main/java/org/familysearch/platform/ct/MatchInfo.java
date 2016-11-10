@@ -16,6 +16,7 @@
 package org.familysearch.platform.ct;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
@@ -67,7 +68,7 @@ public class MatchInfo {
    * @deprecated Use get/setCollection
    */
   @XmlTransient
-  @com.fasterxml.jackson.annotation.JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public URI getSystem() {
     return getCollection();
   }
@@ -78,7 +79,7 @@ public class MatchInfo {
    * @param system The system in which this match was found.
    * @deprecated Use get/setCollection
    */
-  @com.fasterxml.jackson.annotation.JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setSystem(URI system) {
     setCollection(system);
   }
@@ -89,7 +90,7 @@ public class MatchInfo {
    * @return The enum referencing the known collection of this match.
    */
   @XmlTransient
-  @com.fasterxml.jackson.annotation.JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public MatchCollection getKnownCollection() {
     return getCollection() == null ? null : MatchCollection.fromQNameURI(getCollection());
   }
@@ -99,7 +100,7 @@ public class MatchInfo {
    *
    * @param knownCollection The enum referencing the known collection of this match.
    */
-  @com.fasterxml.jackson.annotation.JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownCollection(MatchCollection knownCollection) {
     setCollection(knownCollection == null ? null : knownCollection.toQNameURI());
   }
@@ -130,7 +131,7 @@ public class MatchInfo {
    * @return The enum referencing the known resolution of this match.
    */
   @XmlTransient
-  @com.fasterxml.jackson.annotation.JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public MatchStatus getKnownStatus() {
     return getStatus() == null ? null : MatchStatus.fromQNameURI(getStatus());
   }
@@ -140,7 +141,7 @@ public class MatchInfo {
    *
    * @param knownResolution The enum referencing the known resolution of this match.
    */
-  @com.fasterxml.jackson.annotation.JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownStatus(MatchStatus knownResolution) {
     setStatus(knownResolution == null ? null : knownResolution.toQNameURI());
   }

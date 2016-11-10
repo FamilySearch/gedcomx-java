@@ -45,7 +45,7 @@ public class MergeConflict {
   }
 
   @XmlElement (name="survivorResource")
-  @JsonProperty ("survivorResource")
+  @JsonProperty ("survivorResource") @org.codehaus.jackson.annotate.JsonProperty ("survivorResource")
   public ResourceReference getSurvivorResource() {
     return survivorResource;
   }
@@ -55,7 +55,7 @@ public class MergeConflict {
   }
 
   @XmlElement (name="duplicateResource")
-  @JsonProperty ("duplicateResource")
+  @JsonProperty ("duplicateResource") @org.codehaus.jackson.annotate.JsonProperty ("duplicateResource")
   public ResourceReference getDuplicateResource() {
     return duplicateResource;
   }

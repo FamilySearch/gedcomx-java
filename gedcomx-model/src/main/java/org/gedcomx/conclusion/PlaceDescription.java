@@ -170,7 +170,7 @@ public class PlaceDescription extends Subject {
    * @return An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
    */
   @XmlElement (name = "name")
-  @JsonProperty ("names")
+  @JsonProperty ("names") @org.codehaus.jackson.annotate.JsonProperty ("names")
   public List<TextValue> getNames() {
     return names;
   }
@@ -184,7 +184,7 @@ public class PlaceDescription extends Subject {
    *
    * @param names An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
    */
-  @JsonProperty ("names")
+  @JsonProperty ("names") @org.codehaus.jackson.annotate.JsonProperty ("names")
   public void setNames(List<TextValue> names) {
     this.names = names;
   }
@@ -437,7 +437,7 @@ public class PlaceDescription extends Subject {
    * @return Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
   @XmlElement(name = "display")
-  @JsonProperty("display")
+  @JsonProperty("display") @org.codehaus.jackson.annotate.JsonProperty("display")
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public PlaceDisplayProperties getDisplayExtension() {
     return display;
@@ -448,7 +448,7 @@ public class PlaceDescription extends Subject {
    *
    * @param display Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
-  @JsonProperty("display")
+  @JsonProperty("display") @org.codehaus.jackson.annotate.JsonProperty("display")
   public void setDisplayExtension(PlaceDisplayProperties display) {
     this.display = display;
   }

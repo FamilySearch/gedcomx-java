@@ -43,7 +43,7 @@ public class Merge {
    * @return List of resources to remove from the survivor person.
    */
   @XmlElement (name="resourceToDelete")
-  @JsonProperty ("resourcesToDelete")
+  @JsonProperty ("resourcesToDelete") @org.codehaus.jackson.annotate.JsonProperty ("resourcesToDelete")
   public List<ResourceReference> getResourcesToDelete() {
     return resourcesToDelete;
   }
@@ -57,7 +57,7 @@ public class Merge {
    * @return List of resources to copy from the duplicate person to survivor person.
    */
   @XmlElement (name="resourceToCopy")
-  @JsonProperty ("resourcesToCopy")
+  @JsonProperty ("resourcesToCopy") @org.codehaus.jackson.annotate.JsonProperty ("resourcesToCopy")
   public List<ResourceReference> getResourcesToCopy() {
     return resourcesToCopy;
   }

@@ -180,7 +180,7 @@ public class ChildAndParentsRelationship extends Subject {
    * @return The fact conclusions for the father.
    */
   @XmlElement (name="fatherFact")
-  @JsonProperty ("fatherFacts")
+  @JsonProperty ("fatherFacts") @org.codehaus.jackson.annotate.JsonProperty ("fatherFacts")
   public List<Fact> getFatherFacts() {
     return fatherFacts;
   }
@@ -190,7 +190,7 @@ public class ChildAndParentsRelationship extends Subject {
    *
    * @param facts The fact conclusions for the father.
    */
-  @JsonProperty("fatherFacts")
+  @JsonProperty("fatherFacts") @org.codehaus.jackson.annotate.JsonProperty("fatherFacts")
   public void setFatherFacts(List<Fact> facts) {
     this.fatherFacts = facts;
   }
@@ -226,7 +226,7 @@ public class ChildAndParentsRelationship extends Subject {
    * @return The fact conclusions for the mother.
    */
   @XmlElement (name="motherFact")
-  @JsonProperty ("motherFacts")
+  @JsonProperty ("motherFacts") @org.codehaus.jackson.annotate.JsonProperty ("motherFacts")
   public List<Fact> getMotherFacts() {
     return motherFacts;
   }
@@ -236,7 +236,7 @@ public class ChildAndParentsRelationship extends Subject {
    *
    * @param facts The fact conclusions for the mother.
    */
-  @JsonProperty("motherFacts")
+  @JsonProperty("motherFacts") @org.codehaus.jackson.annotate.JsonProperty("motherFacts")
   public void setMotherFacts(List<Fact> facts) {
     this.motherFacts = facts;
   }

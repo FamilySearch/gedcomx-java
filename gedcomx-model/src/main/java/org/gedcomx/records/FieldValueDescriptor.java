@@ -91,7 +91,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    * @return The type of the field value.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public FieldValueType getKnownType() {
     return getType() == null ? null : FieldValueType.fromQNameURI(getType());
   }
@@ -101,7 +101,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    *
    * @param type The type of the field value.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownType(FieldValueType type) {
     setType(type == null ? null : type.toQNameURI());
   }
@@ -131,7 +131,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    * @return The labels to be used for display purposes.
    */
   @XmlElement (name="label")
-  @JsonProperty ("labels")
+  @JsonProperty ("labels") @org.codehaus.jackson.annotate.JsonProperty ("labels")
   public List<TextValue> getDisplayLabels() {
     return displayLabels;
   }
@@ -141,7 +141,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    *
    * @param displayLabels The labels to be used for display purposes.
    */
-  @JsonProperty ("labels")
+  @JsonProperty ("labels") @org.codehaus.jackson.annotate.JsonProperty ("labels")
   public void setDisplayLabels(List<TextValue> displayLabels) {
     this.displayLabels = displayLabels;
   }

@@ -213,7 +213,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    * @return The enum referencing the known type of the relationship, or {@link org.gedcomx.types.RelationshipType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public RelationshipType getKnownType() {
     return getType() == null ? null : RelationshipType.fromQNameURI(getType());
   }
@@ -223,7 +223,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    *
    * @param type The relationship type.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownType(RelationshipType type) {
     setType(type == null ? null : type.toQNameURI());
   }
@@ -340,7 +340,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    * @return The fact conclusions for the relationship.
    */
   @XmlElement(name="fact")
-  @JsonProperty("facts")
+  @JsonProperty("facts") @org.codehaus.jackson.annotate.JsonProperty("facts")
   public List<Fact> getFacts() {
     return facts;
   }
@@ -350,7 +350,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    *
    * @param facts The fact conclusions for the relationship.
    */
-  @JsonProperty("facts")
+  @JsonProperty("facts") @org.codehaus.jackson.annotate.JsonProperty("facts")
   public void setFacts(List<Fact> facts) {
     this.facts = facts;
   }
@@ -385,7 +385,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement( name = "field" )
-  @JsonProperty( "fields" )
+  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -396,7 +396,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" )
+  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

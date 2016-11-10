@@ -71,7 +71,7 @@ public class Link implements HasJsonKey {
   }
 
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   @Override
   public boolean isHasUniqueKey() {
     return this.rel != null && !NON_UNIQUE_RELS.contains(this.rel);
@@ -83,7 +83,7 @@ public class Link implements HasJsonKey {
    * @return The link relationship.
    */
   @XmlAttribute
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public String getRel() {
     return rel;
   }
@@ -93,7 +93,7 @@ public class Link implements HasJsonKey {
    *
    * @param rel The link relationship.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setRel(String rel) {
     this.rel = rel;
   }
@@ -115,7 +115,7 @@ public class Link implements HasJsonKey {
    * @return The json key that is used define this link in a map.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   @Override
   public String getJsonKey() {
     return getRel();
@@ -127,7 +127,7 @@ public class Link implements HasJsonKey {
    * @param jsonKey The json key that is used define this link in a map.
    */
   @Override
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setJsonKey(String jsonKey) {
     setRel(jsonKey);
   }
@@ -464,7 +464,7 @@ public class Link implements HasJsonKey {
    * @return The value of this link formatted per RFC 5988.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public String getHttpHeaderValue() {
     StringBuilder builder = new StringBuilder("<");
 

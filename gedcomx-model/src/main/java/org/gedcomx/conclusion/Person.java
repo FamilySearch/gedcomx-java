@@ -157,7 +157,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return References to the persona being referenced.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public List<EvidenceReference> getPersonaReferences() {
     return getEvidence();
   }
@@ -167,7 +167,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param refs References to the persona being referenced.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setPersonaReferences(List<EvidenceReference> refs) {
     setEvidence(refs);
   }
@@ -336,7 +336,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return The name conclusions for the person.
    */
   @XmlElement(name="name")
-  @JsonProperty("names")
+  @JsonProperty("names") @org.codehaus.jackson.annotate.JsonProperty("names")
   public List<Name> getNames() {
     return names;
   }
@@ -347,7 +347,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return The first name of this person.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public Name getName() {
     return this.names != null && this.names.size() > 0 ? this.names.get(0) : null;
   }
@@ -358,7 +358,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @param type The type.
    * @return the first name in the name list of the specified type, or null if none.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public Name getFirstNameOfType(NameType type) {
     if (this.names == null) {
       return null;
@@ -379,7 +379,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return the preferred name of the person or first name if there is no preferred name.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public Name getPreferredName() {
     if(this.names == null || this.names.size() <= 0) {
       return null;
@@ -401,7 +401,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param names The name conclusions for the person.
    */
-  @JsonProperty("names")
+  @JsonProperty("names") @org.codehaus.jackson.annotate.JsonProperty("names")
   public void setNames(List<Name> names) {
     this.names = names;
   }
@@ -446,7 +446,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return The fact conclusions for the person.
    */
   @XmlElement(name="fact")
-  @JsonProperty("facts")
+  @JsonProperty("facts") @org.codehaus.jackson.annotate.JsonProperty("facts")
   public List<Fact> getFacts() {
     return facts;
   }
@@ -457,7 +457,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @param type The type.
    * @return the first fact in the fact list of the specified type, or null if none.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public Fact getFirstFactOfType(FactType type) {
     if (this.facts == null) {
       return null;
@@ -478,7 +478,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @param factType The type of facts to return.
    * @return The fact conclusions that match the factType. An empty list will be returned if no facts are found.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public List<Fact> getFacts(FactType factType) {
     ArrayList<Fact> factsToReturn = new ArrayList<Fact>();
     if (facts != null && factType != null) {
@@ -496,7 +496,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param facts The fact conclusions for the person.
    */
-  @JsonProperty("facts")
+  @JsonProperty("facts") @org.codehaus.jackson.annotate.JsonProperty("facts")
   public void setFacts(List<Fact> facts) {
     this.facts = facts;
   }
@@ -532,7 +532,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
   @XmlElement(name = "display")
-  @JsonProperty("display")
+  @JsonProperty("display") @org.codehaus.jackson.annotate.JsonProperty("display")
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public DisplayProperties getDisplayExtension() {
     return display;
@@ -543,7 +543,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param display Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
-  @JsonProperty("display")
+  @JsonProperty("display") @org.codehaus.jackson.annotate.JsonProperty("display")
   public void setDisplayExtension(DisplayProperties display) {
     this.display = display;
   }
@@ -593,7 +593,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement( name = "field" )
-  @JsonProperty( "fields" )
+  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -604,7 +604,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" )
+  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }
