@@ -22,8 +22,8 @@ import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 /**
- * Enumeration of known artifact screening states. Note that this is intentionally similar to
- * org.familysearch.platform.ct.MatchStatus
+ * Enumeration of known artifact screening states.
+ * Note that this is intentionally similar to (but not exactly the same as) org.familysearch.platform.ct.MatchStatus
  */
 @XmlQNameEnum (
     base = XmlQNameEnum.BaseType.URI
@@ -32,7 +32,7 @@ public enum ArtifactScreeningState implements ControlledVocabulary {
 
   Pending,
 
-  Accepted,
+  Approved,
 
   Restricted;
 
