@@ -38,7 +38,7 @@ public class TestRecordSetIterator extends TestCase {
     String a = "\uD842\uDFB7"; // Unicode "surrogate pair" Chinese character.
     String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                      "<root a1='" + a + "' a2='" + a + "'></root>\n";
-    ByteArrayInputStream bis = new ByteArrayInputStream(xml.getBytes());
+    ByteArrayInputStream bis = new ByteArrayInputStream(xml.getBytes("UTF-8"));
     XMLStreamReader xmlr = XMLInputFactory.newFactory().createXMLStreamReader(bis, "UTF-8");
 
     assertEquals(XMLStreamConstants.START_ELEMENT, xmlr.next());
