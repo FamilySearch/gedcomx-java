@@ -117,7 +117,7 @@ public class Field extends Conclusion {
    * @return The type of the field.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public FieldType getKnownType() {
     return getType() == null ? null : FieldType.fromQNameURI(getType());
   }
@@ -127,7 +127,7 @@ public class Field extends Conclusion {
    *
    * @param type The type of the field.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownType(FieldType type) {
     setType(type == null ? null : type.toQNameURI());
   }
@@ -139,7 +139,7 @@ public class Field extends Conclusion {
    * @return The set of values for the field.
    */
   @XmlElement (name="value")
-  @JsonProperty ("values")
+  @JsonProperty ("values") @org.codehaus.jackson.annotate.JsonProperty ("values")
   public List<FieldValue> getValues() {
     return values;
   }
@@ -149,7 +149,7 @@ public class Field extends Conclusion {
    *
    * @param values The set of values for the field.
    */
-  @JsonProperty ("values")
+  @JsonProperty ("values") @org.codehaus.jackson.annotate.JsonProperty ("values")
   public void setValues(List<FieldValue> values) {
     this.values = values;
   }

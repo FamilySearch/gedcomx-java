@@ -97,7 +97,7 @@ public class FieldDescriptor extends HypermediaEnabledData {
    * @return The description of the field.
    */
   @XmlElement (name="description")
-  @JsonProperty ("descriptions")
+  @JsonProperty ("descriptions") @org.codehaus.jackson.annotate.JsonProperty ("descriptions")
   public List<TextValue> getDescriptions() {
     return descriptions;
   }
@@ -151,7 +151,7 @@ public class FieldDescriptor extends HypermediaEnabledData {
    * @return Descriptors of the values that are applicable to the field.
    */
   @XmlElement (name="value")
-  @JsonProperty ("values")
+  @JsonProperty ("values") @org.codehaus.jackson.annotate.JsonProperty ("values")
   public List<FieldValueDescriptor> getValues() {
     return values;
   }
@@ -161,7 +161,7 @@ public class FieldDescriptor extends HypermediaEnabledData {
    *
    * @param values Descriptors of the values that are applicable to the field.
    */
-  @JsonProperty ("values")
+  @JsonProperty ("values") @org.codehaus.jackson.annotate.JsonProperty ("values")
   public void setValues(List<FieldValueDescriptor> values) {
     this.values = values;
   }

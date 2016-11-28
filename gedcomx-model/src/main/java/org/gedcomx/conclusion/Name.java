@@ -186,7 +186,7 @@ public class Name extends Conclusion {
    * @return The enum referencing the known name type, or {@link org.gedcomx.types.NameType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public NameType getKnownType() {
     return getType() == null ? null : NameType.fromQNameURI(getType());
   }
@@ -196,7 +196,7 @@ public class Name extends Conclusion {
    *
    * @param knownType The known type.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownType(NameType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
@@ -236,7 +236,7 @@ public class Name extends Conclusion {
    * @return Alternate forms of the name, such as the romanized form of a non-latin name.
    */
   @XmlElement (name = "nameForm")
-  @JsonProperty ("nameForms")
+  @JsonProperty ("nameForms") @org.codehaus.jackson.annotate.JsonProperty ("nameForms")
   public List<NameForm> getNameForms() {
     return nameForms;
   }
@@ -246,7 +246,7 @@ public class Name extends Conclusion {
    *
    * @return The first name form of this name.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   @XmlTransient
   public NameForm getNameForm() {
     return this.nameForms != null && this.nameForms.size() > 0 ? this.nameForms.get(0) : null;
@@ -257,7 +257,7 @@ public class Name extends Conclusion {
    *
    * @param nameForms Alternate forms of the name, such as the romanized form of a non-latin name.
    */
-  @JsonProperty ("nameForms")
+  @JsonProperty ("nameForms") @org.codehaus.jackson.annotate.JsonProperty ("nameForms")
   public void setNameForms(List<NameForm> nameForms) {
     this.nameForms = nameForms;
   }

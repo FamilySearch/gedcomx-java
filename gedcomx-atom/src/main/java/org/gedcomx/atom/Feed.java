@@ -86,7 +86,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return The author of the feed.
    */
   @XmlElement ( name = "author" )
-  @JsonProperty ( "authors" )
+  @JsonProperty ( "authors" ) @org.codehaus.jackson.annotate.JsonProperty ( "authors" )
   public List<Person> getAuthors() {
     return authors;
   }
@@ -96,7 +96,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    *
    * @param authors The author of the feed.
    */
-  @JsonProperty ( "authors" )
+  @JsonProperty ( "authors" ) @org.codehaus.jackson.annotate.JsonProperty ( "authors" )
   public void setAuthors(List<Person> authors) {
     this.authors = authors;
   }
@@ -107,7 +107,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return information about a category associated with the feed
    */
   @XmlElement ( name = "contributor" )
-  @JsonProperty ( "contributors" )
+  @JsonProperty ( "contributors" ) @org.codehaus.jackson.annotate.JsonProperty ( "contributors" )
   public List<Person> getContributors() {
     return contributors;
   }
@@ -117,7 +117,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    *
    * @param contributors information about a category associated with the feed
    */
-  @JsonProperty ( "contributors" )
+  @JsonProperty ( "contributors" ) @org.codehaus.jackson.annotate.JsonProperty ( "contributors" )
   public void setContributors(List<Person> contributors) {
     this.contributors = contributors;
   }
@@ -222,7 +222,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return a reference from a feed to a Web resource.
    */
   @XmlElement ( name = "link" )
-  @JsonProperty ( "links" )
+  @JsonProperty ( "links" ) @org.codehaus.jackson.annotate.JsonProperty ( "links" )
   public List<Link> getLinks() {
     return links;
   }
@@ -232,7 +232,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    *
    * @param links a reference from a feed to a Web resource.
    */
-  @JsonProperty ( "links" )
+  @JsonProperty ( "links" ) @org.codehaus.jackson.annotate.JsonProperty ( "links" )
   public void setLinks(List<Link> links) {
     this.links = links;
   }
@@ -405,7 +405,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return The entries in the feed.
    */
   @XmlElement ( name = "entry" )
-  @JsonProperty ( "entries" )
+  @JsonProperty ( "entries" ) @org.codehaus.jackson.annotate.JsonProperty ( "entries" )
   public List<Entry> getEntries() {
     return entries;
   }
@@ -415,7 +415,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    *
    * @param entries The entries in the feed.
    */
-  @JsonProperty ( "entries" )
+  @JsonProperty ( "entries" ) @org.codehaus.jackson.annotate.JsonProperty ( "entries" )
   public void setEntries(List<Entry> entries) {
     this.entries = entries;
   }
@@ -426,7 +426,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    * @return The list of facets for the feed, used for convenience in browsing and filtering.
    */
   @XmlElement ( name = "facet" )
-  @JsonProperty ( "facets" )
+  @JsonProperty ( "facets" ) @org.codehaus.jackson.annotate.JsonProperty ( "facets" )
   public List<Field> getFacets() {
     return facets;
   }
@@ -436,7 +436,7 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
    *
    * @param facets The list of facets for the feed, used for convenience in browsing and filtering.
    */
-  @JsonProperty ( "facets" )
+  @JsonProperty ( "facets" ) @org.codehaus.jackson.annotate.JsonProperty ( "facets" )
   public void setFacets(List<Field> facets) {
     this.facets = facets;
   }

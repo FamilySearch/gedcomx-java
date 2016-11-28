@@ -215,7 +215,7 @@ public class EventRole extends Conclusion {
    * @return The enum referencing the known role type, or {@link org.gedcomx.types.EventRoleType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public EventRoleType getKnownType() {
     return getType() == null ? null : EventRoleType.fromQNameURI(getType());
   }
@@ -225,7 +225,7 @@ public class EventRole extends Conclusion {
    *
    * @param knownType The role type.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownType(EventRoleType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }

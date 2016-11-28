@@ -69,7 +69,7 @@ public enum ResultConfidence {
   @XmlEnumValue("5")
   five;
 
-  @JsonValue
+  @JsonValue @org.codehaus.jackson.annotate.JsonValue
   public Integer value() {
     switch(this) {
       case one:

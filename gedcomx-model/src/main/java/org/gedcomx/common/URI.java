@@ -57,7 +57,7 @@ public final class URI {
   }
 
   @Override
-  @JsonValue
+  @JsonValue @org.codehaus.jackson.annotate.JsonValue
   public String toString() {
     return this.value;
   }

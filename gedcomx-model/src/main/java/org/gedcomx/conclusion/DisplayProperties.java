@@ -387,7 +387,7 @@ public class DisplayProperties extends ExtensibleData {
    * @return The family views where this person is a parent.
    */
   @XmlElement(name="familyAsParent")
-  @JsonProperty("familiesAsParent")
+  @JsonProperty("familiesAsParent") @org.codehaus.jackson.annotate.JsonProperty("familiesAsParent")
   public List<FamilyView> getFamiliesAsParent() {
     return familiesAsParent;
   }
@@ -397,7 +397,7 @@ public class DisplayProperties extends ExtensibleData {
    *
    * @param familiesAsParent The families where this person is a parent
    */
-  @JsonProperty ("familiesAsParent")
+  @JsonProperty ("familiesAsParent") @org.codehaus.jackson.annotate.JsonProperty ("familiesAsParent")
   public void setFamiliesAsParent(List<FamilyView> familiesAsParent) {
     this.familiesAsParent = familiesAsParent;
   }
@@ -422,7 +422,7 @@ public class DisplayProperties extends ExtensibleData {
    * @return The family views where this person is a child
    */
   @XmlElement(name="familyAsChild")
-  @JsonProperty("familiesAsChild")
+  @JsonProperty("familiesAsChild") @org.codehaus.jackson.annotate.JsonProperty("familiesAsChild")
   public List<FamilyView> getFamiliesAsChild() {
     return familiesAsChild;
   }
@@ -432,7 +432,7 @@ public class DisplayProperties extends ExtensibleData {
    *
    * @param familiesAsChild The families where this person is a child 
    */
-  @JsonProperty ("familiesAsChild")
+  @JsonProperty ("familiesAsChild") @org.codehaus.jackson.annotate.JsonProperty ("familiesAsChild")
   public void setFamiliesAsChild(List<FamilyView> familiesAsChild) {
     this.familiesAsChild = familiesAsChild;
   }

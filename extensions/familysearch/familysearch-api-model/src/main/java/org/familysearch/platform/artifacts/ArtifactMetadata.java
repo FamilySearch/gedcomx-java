@@ -71,7 +71,7 @@ public class ArtifactMetadata {
    * @return The qualifiers associated with this artifact.
    */
   @XmlElement ( name = "qualifier" )
-  @JsonProperty ( "qualifiers" )
+  @JsonProperty ( "qualifiers" ) @org.codehaus.jackson.annotate.JsonProperty ( "qualifiers" )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
   }
@@ -81,7 +81,7 @@ public class ArtifactMetadata {
    *
    * @param qualifiers qualifiers to associate with this fact.
    */
-  @JsonProperty ( "qualifiers" )
+  @JsonProperty ( "qualifiers" ) @org.codehaus.jackson.annotate.JsonProperty ( "qualifiers" )
   public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
   }
@@ -92,7 +92,7 @@ public class ArtifactMetadata {
    * @return The type of the artifact.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public ArtifactType getKnownType() {
     if (this.qualifiers != null) {
       for (Qualifier qualifier : this.qualifiers) {
@@ -114,7 +114,7 @@ public class ArtifactMetadata {
    *
    * @param type The type of the artifact.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownType(ArtifactType type) {
     this.qualifiers = new ArrayList<Qualifier>(Collections.singletonList(new Qualifier(type)));
   }
@@ -199,7 +199,7 @@ public class ArtifactMetadata {
    * @return The known screening state of the artifact.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public ArtifactScreeningState getKnownScreeningState() {
     return getScreeningState() == null ? null : ArtifactScreeningState.fromQNameURI(getScreeningState());
   }
@@ -209,7 +209,7 @@ public class ArtifactMetadata {
    *
    * @param screeningState The known screening state of the artifact.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownScreeningState(ArtifactScreeningState screeningState) {
     setScreeningState(screeningState == null ? null : screeningState.toQNameURI());
   }

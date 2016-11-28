@@ -108,7 +108,7 @@ public class CollectionContent extends HypermediaEnabledData {
    * @return The type of resource being covered in this collection.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public ResourceType getKnownResourceType() {
     return getResourceType() == null ? null : ResourceType.fromQNameURI(getResourceType());
   }
@@ -118,7 +118,7 @@ public class CollectionContent extends HypermediaEnabledData {
    *
    * @param type The type of resource being covered in this collection.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownResourceType(ResourceType type) {
     setResourceType(type == null ? null : type.toQNameURI());
   }

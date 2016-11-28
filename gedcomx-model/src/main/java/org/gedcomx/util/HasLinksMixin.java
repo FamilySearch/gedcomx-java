@@ -36,7 +36,7 @@ abstract class HasLinksMixin {
    *
    * @return The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
-  @JsonProperty ("links")
+  @JsonProperty ("links") @org.codehaus.jackson.annotate.JsonProperty ("links")
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public abstract Map<String, Link> getLinks();
 
@@ -45,7 +45,7 @@ abstract class HasLinksMixin {
    *
    * @param links The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
-  @JsonProperty ("links")
+  @JsonProperty ("links") @org.codehaus.jackson.annotate.JsonProperty ("links")
   public abstract void setLinks(Map<String, Link> links);
 
 }

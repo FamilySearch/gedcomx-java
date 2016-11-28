@@ -64,7 +64,7 @@ public final class Identifier implements HasJsonKey {
    * @return The id value.
    */
   @XmlValue
-  @JsonValue
+  @JsonValue @org.codehaus.jackson.annotate.JsonValue
   public URI getValue() {
     return value;
   }
@@ -74,7 +74,7 @@ public final class Identifier implements HasJsonKey {
    *
    * @param value The id value.
    */
-  @JsonValue
+  @JsonValue @org.codehaus.jackson.annotate.JsonValue
   public void setValue(URI value) {
     this.value = value;
   }
@@ -96,7 +96,7 @@ public final class Identifier implements HasJsonKey {
    * @return The type of the id.
    */
   @XmlAttribute
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   @XmlQNameEnumRef (IdentifierType.class)
   public URI getType() {
     return type;
@@ -107,7 +107,7 @@ public final class Identifier implements HasJsonKey {
    *
    * @param type The type of the id.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setType(URI type) {
     this.type = type;
   }
@@ -149,7 +149,7 @@ public final class Identifier implements HasJsonKey {
    * @return The enum referencing a known identifier type, or {@link org.gedcomx.types.IdentifierType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public IdentifierType getKnownType() {
     return getType() == null ? null : IdentifierType.fromQNameURI(getType());
   }
@@ -159,26 +159,26 @@ public final class Identifier implements HasJsonKey {
    *
    * @param knownType The known identifier type.
    */
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setKnownType(IdentifierType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
 
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   @Override
   public boolean isHasUniqueKey() {
     return this.hasUniqueKey;
   }
 
   @XmlTransient
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   @Override
   public String getJsonKey() {
     return this.type == null ? null : this.type.toString();
   }
 
-  @JsonIgnore
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   @Override
   public void setJsonKey(String jsonKey) {
     this.type = new URI(jsonKey);
