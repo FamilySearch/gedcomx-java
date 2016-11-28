@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
-import org.gedcomx.links.HypermediaEnabledData;
+import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -41,7 +41,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "fields" )
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-public class Field extends HypermediaEnabledData {
+public class Field extends Conclusion {
 
   /**
    * @see org.gedcomx.types.FieldType
