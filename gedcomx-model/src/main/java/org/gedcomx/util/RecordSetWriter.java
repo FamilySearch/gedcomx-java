@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,7 +15,6 @@
  */
 package org.gedcomx.util;
 
-import com.sun.xml.txw2.output.IndentingXMLStreamWriter;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.rt.GedcomxConstants;
@@ -76,15 +75,17 @@ public class RecordSetWriter {
         xmlWriter = new CleanXMLStreamWriter(xmlWriter);
       }
       xmlWriter.setDefaultNamespace(GedcomxConstants.GEDCOMX_NAMESPACE);
-      xmlWriter = new IndentingXMLStreamWriter(xmlWriter);
       xmlWriter.writeStartDocument();
       xmlWriter.writeStartElement(GedcomxConstants.GEDCOMX_NAMESPACE, "records");
       xmlWriter.writeNamespace("", GedcomxConstants.GEDCOMX_NAMESPACE);
-    } catch (XMLStreamException e) {
+    }
+    catch (XMLStreamException e) {
       throw new RuntimeException(e);
-    } catch (PropertyException e) {
+    }
+    catch (PropertyException e) {
       throw new RuntimeException(e);
-    } catch (JAXBException e) {
+    }
+    catch (JAXBException e) {
       throw new RuntimeException(e);
     }
   }
@@ -138,9 +139,11 @@ public class RecordSetWriter {
       xmlWriter.writeEndElement();
       xmlWriter.close();
       outputStream.close();
-    } catch (XMLStreamException e) {
+    }
+    catch (XMLStreamException e) {
       throw new RuntimeException(e);
-    } catch (JAXBException e) {
+    }
+    catch (JAXBException e) {
       throw new RuntimeException(e);
     }
   }
