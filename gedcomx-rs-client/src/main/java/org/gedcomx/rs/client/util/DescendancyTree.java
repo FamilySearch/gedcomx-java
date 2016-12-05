@@ -43,7 +43,16 @@ public class DescendancyTree {
           if (spouse) {
             number = number.substring(0, number.length() - 2);
           }
-          int[] coordinates = parseCoordinates(number);
+
+          int[] coordinates;
+          try {
+            coordinates = parseCoordinates(number);
+          }
+          catch (NumberFormatException e) {
+            //non-standard descendancy number; move along.
+            continue;
+          }
+
           List<DescendancyNode> current = rootArray;
           int i = 0;
           DescendancyNode node = null;
