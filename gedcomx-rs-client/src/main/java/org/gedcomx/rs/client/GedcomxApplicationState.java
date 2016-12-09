@@ -39,6 +39,7 @@ import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.*;
 
@@ -332,7 +333,13 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected String buildFailureMessage() {
-    StringBuilder builder = new StringBuilder("Unsuccessful ").append(this.request.getMethod()).append(" to ").append(getUri()).append(" (").append(this.response.getStatus()).append(")");
+    Response.StatusType status = this.response.getStatusInfo();
+    StringBuilder builder = new StringBuilder("Unsuccessful ").append(this.request.getMethod()).append(" to ").append(getUri()).append(" (").append(status.getStatusCode());
+    if (status.getReasonPhrase() != null) {
+      builder = builder.append(": ").append(status.getReasonPhrase());
+    }
+    builder = builder.append(")");
+
     List<HttpWarning> warnings = getWarnings();
     if (warnings != null && warnings.size() > 0) {
       for (HttpWarning warning : warnings) {
