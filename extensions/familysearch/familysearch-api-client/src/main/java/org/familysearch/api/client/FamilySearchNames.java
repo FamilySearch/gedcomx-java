@@ -39,7 +39,7 @@ import java.net.URI;
 public class FamilySearchNames extends FamilySearchCollectionState {
 
   public static final String URI = "https://familysearch.org/platform/collections/names";
-  public static final String SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/names";
+  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/names";
 
   public FamilySearchNames() {
     this(false);

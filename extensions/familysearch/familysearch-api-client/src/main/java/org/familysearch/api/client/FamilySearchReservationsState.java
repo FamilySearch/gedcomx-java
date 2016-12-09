@@ -35,7 +35,7 @@ import java.util.List;
 public class FamilySearchReservationsState extends FamilySearchCollectionState {
 
   public static final String URI = "https://familysearch.org/platform/collections/reservations";
-  public static final String SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/reservations";
+  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/reservations";
 
   public FamilySearchReservationsState() {
     this(false);

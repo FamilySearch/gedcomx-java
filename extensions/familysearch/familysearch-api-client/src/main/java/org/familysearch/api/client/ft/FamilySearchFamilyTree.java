@@ -65,7 +65,7 @@ import org.familysearch.platform.ct.ChildAndParentsRelationship;
 public class FamilySearchFamilyTree extends FamilySearchCollectionState {
 
   public static final String URI = "https://familysearch.org/platform/collections/tree";
-  public static final String SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
+  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/tree";
 
   public FamilySearchFamilyTree() {
     this(false);

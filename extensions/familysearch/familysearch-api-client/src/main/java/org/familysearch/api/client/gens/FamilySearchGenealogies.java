@@ -46,7 +46,7 @@ import java.net.URI;
 public class FamilySearchGenealogies extends FamilySearchCollectionState {
 
   public static final String URI = "https://familysearch.org/platform/collections/genealogies";
-  public static final String SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/genealogies";
+  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/genealogies";
 
   public FamilySearchGenealogies() {
     this(false);

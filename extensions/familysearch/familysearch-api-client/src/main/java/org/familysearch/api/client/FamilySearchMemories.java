@@ -42,7 +42,7 @@ import static org.familysearch.api.client.util.FamilySearchOptions.artifactType;
 public class FamilySearchMemories extends FamilySearchCollectionState {
 
   public static final String URI = "https://familysearch.org/platform/collections/memories";
-  public static final String SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/memories";
+  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/memories";
 
   public FamilySearchMemories() {
     this(false);

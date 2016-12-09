@@ -26,7 +26,7 @@ public enum FamilySearchReferenceEnvironment {
 
   BETA("https://beta.familysearch.org/platform"),
 
-  SANDBOX("https://sandbox.familysearch.org/platform");
+  SANDBOX("https://integration.familysearch.org/platform");
 
   private final String base;
 
