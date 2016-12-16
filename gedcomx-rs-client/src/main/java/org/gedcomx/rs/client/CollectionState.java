@@ -441,6 +441,16 @@ public class CollectionState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newCollectionState(request, invoke(request, options), this.accessToken);
   }
 
+  public SourceDescriptionsState readResourcesById(StateTransitionOption... options) {
+    Link link = getLink(Rel.ARTIFACTS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
+    return this.stateFactory.newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
+  }
+
   public SourceDescriptionsState readResourcesOfCurrentUser(StateTransitionOption... options) {
     Link link = getLink(Rel.CURRENT_USER_RESOURCES);
     if (link == null || link.getHref() == null) {
