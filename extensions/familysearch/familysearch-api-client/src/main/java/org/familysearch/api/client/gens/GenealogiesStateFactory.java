@@ -18,6 +18,7 @@ package org.familysearch.api.client.gens;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchStateFactory;
+import org.gedcomx.rs.client.SourceDescriptionsState;
 
 import java.net.URI;
 
@@ -45,4 +46,8 @@ public class GenealogiesStateFactory extends FamilySearchStateFactory {
     return new GenealogiesPersonState(request, response, accessToken, this);
   }
 
+  @Override
+  protected SourceDescriptionsState newSourceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return super.newSourceDescriptionsState(request, response, accessToken);
+  }
 }

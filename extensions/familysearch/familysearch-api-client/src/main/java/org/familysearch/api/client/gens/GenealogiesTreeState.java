@@ -20,14 +20,20 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.FamilySearchCollectionState;
 import org.familysearch.api.client.FamilySearchReferenceEnvironment;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.conclusion.Person;
+import org.gedcomx.links.Link;
 import org.gedcomx.records.Collection;
 import org.gedcomx.rs.client.PersonState;
+import org.gedcomx.rs.client.SourceDescriptionsState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.source.SourceDescription;
+import org.gedcomx.types.ResourceType;
 
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import java.net.URI;
+import java.util.List;
 
 public class GenealogiesTreeState extends FamilySearchCollectionState {
 
@@ -139,5 +145,18 @@ public class GenealogiesTreeState extends FamilySearchCollectionState {
     return (GenealogiesPersonState) super.readPerson(person, options);
   }
 
+  public SourceDescriptionsState readPersonsByExternalIds(List<Identifier> identifiers, StateTransitionOption... options) {
+    Link link = getLink("persons-by-external-ids");
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
 
+    Gedcomx query = new Gedcomx();
+    for (Identifier identifier : identifiers) {
+      query = query.sourceDescription(new SourceDescription().resourceType(ResourceType.Person).identifier(identifier));
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(query).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((GenealogiesStateFactory)this.stateFactory).newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
+  }
 }
