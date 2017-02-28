@@ -22,6 +22,7 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.FieldValue;
 import org.gedcomx.records.RecordSet;
+import org.gedcomx.source.Coverage;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 
@@ -69,6 +70,13 @@ public class DocCheck {
         }
         if (sourceDescription.getSources() != null) {
           checkSources(errors, "Error 3: " + getSourceDescriptionName(sourceDescription), sourceDescription.getSources(), null, sourceDescription.getFields(), docMap);
+        }
+        if (sourceDescription.getCoverage() != null) {
+          for (Coverage coverage : sourceDescription.getCoverage()) {
+            if (coverage.getSpatial() != null) {
+              checkPlace(errors, coverage.getSpatial(), docMap);
+            }
+          }
         }
       }
     }
@@ -199,14 +207,7 @@ public class DocCheck {
     if (facts != null) {
       for (Fact fact : facts) {
         checkSources(errors, whereReferencedFrom + " (fact)", fact.getSources(), null, fact.getFields(), docMap);
-        if (fact.getPlace() != null) {
-          // Make sure place references that refer to local URIs have a corresponding PlaceDescription
-          if (fact.getPlace().getDescriptionRef() != null && fact.getPlace().getDescriptionRef().toString().startsWith("#")) {
-            if(docMap.getPlaceDescription(fact.getPlace().getDescriptionRef()) == null) {
-              errors.append("Could not find referenced place ").append(fact.getPlace().getDescriptionRef().toString()).append("\n");
-            }
-          }
-        }
+        checkPlace(errors, fact.getPlace(), docMap);
       }
     }
     if (fields != null) {
@@ -220,6 +221,21 @@ public class DocCheck {
     }
   }
 
+  /**
+   * Check to see if the given placeRef can be found in the given DocMap (if the placeRef and its description ref are non-null
+   *   and refer to a local id, i.e., one starting with "#"). If it is local and can't be found, add an error to 'errors'.
+   * @param errors - StringBuilder to add a message to if there is a problem (i.e., if placeRef references a local place description
+   *                  via a URI starting with "#", and there is no corresponding place description in the same document).
+   * @param placeRef - PlaceReference object to check for a broken local link.
+   * @param docMap - DocMap for a GedcomX document.
+   */
+  private static void checkPlace(StringBuilder errors, PlaceReference placeRef, DocMap docMap) {
+    if (placeRef != null && placeRef.getDescriptionRef() != null && placeRef.getDescriptionRef().toString().startsWith("#")) {
+      if (docMap.getPlaceDescription(placeRef) == null) {
+        errors.append("Error 13: Could not find referenced place ").append(placeRef.toString()).append("\n");
+      }
+    }
+  }
 
   /**
    * Get a String to use as the name of a SourceReference (usually the String of its descriptionRef URI).

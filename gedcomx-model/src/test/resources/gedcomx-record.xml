@@ -166,6 +166,16 @@
   <relationship type="http://gedcomx.org/Couple" id="MM9.1.6/78TF-8JF">
     <person1 resource="#p_11156434701"/>
     <person2 resource="#p_11156434704"/>
+    <fact type="http://gedcomx.org/Marriage">
+      <place description="#place_1927115">
+        <original>South Africa</original>
+        <field type="http://gedcomx.org/Place">
+          <value labelId="EVENT_PLACE" type="http://gedcomx.org/Interpreted">
+            <text>South Africa</text>
+          </value>
+        </field>
+      </place>
+    </fact>
   </relationship>
   <relationship type="http://gedcomx.org/ParentChild" id="MM9.1.6/78TF-8JN">
     <person1 resource="#p_11156434702"/>
@@ -192,7 +202,7 @@
     <modified>2014-05-24T12:50:54.647Z</modified>
     <coverage>
       <recordType>http://gedcomx.org/Probate</recordType>
-      <spatial>
+      <spatial description="#place_1927115">
         <original>South Africa</original>
       </spatial>
       <temporal>

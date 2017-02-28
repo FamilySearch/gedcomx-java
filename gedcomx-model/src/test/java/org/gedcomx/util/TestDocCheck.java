@@ -3,6 +3,7 @@ package org.gedcomx.util;
 import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.URI;
+import org.gedcomx.conclusion.PlaceDescription;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.records.FieldValue;
 import org.gedcomx.source.SourceReference;
@@ -14,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class for...
+ * Class for testing DocCheck
  * User: Randy Wilson
  * Date: 10/6/2014
  * Time: 9:51 PM
@@ -55,6 +56,11 @@ public class TestDocCheck extends TestCase {
     sourceReference.setDescriptionRef(wrongLocalUri);
     checkDoc(doc, 3);
     sourceReference.setDescriptionRef(descriptionRef);
+    PlaceDescription place = doc.getPlaces().get(0);
+    String temp = place.getId();
+    place.setId(null);
+    checkDoc(doc, 13);
+    place.setId(temp);
 
     // Break relationship
     Relationship rel = doc.getRelationships().get(0);
