@@ -66,12 +66,12 @@ public class JacksonJsonSerialization implements GedcomxEntrySerializer, Gedcomx
 
   @Override
   public Object deserialize(InputStream in) throws IOException {
-    return this.mapper.readValue(factory.createJsonParser(in), (JavaType) null);
+    return this.mapper.readValue(factory.createParser(in), (JavaType) null);
   }
 
   @Override
   public void serialize(Object resource, OutputStream out) throws IOException {
-    JsonGenerator generator = factory.createJsonGenerator(out);
+    JsonGenerator generator = factory.createGenerator(out);
     this.mapper.writeValue(generator, resource);
   }
 
