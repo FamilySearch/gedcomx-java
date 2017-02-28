@@ -262,6 +262,10 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  /**
+   * @deprecated Use {@link #readPersonById(String, StateTransitionOption...)}
+   */
+  @Deprecated
   public FamilyTreePersonState readPersonWithRelationshipsById(String id, StateTransitionOption... options) {
     Link link = getLink(Rel.PERSON_WITH_RELATIONSHIPS);
     if (link == null || link.getTemplate() == null) {
@@ -271,7 +275,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     String template = link.getTemplate();
     String uri;
     try{
-      uri = UriTemplate.fromTemplate(template).set("person", id).expand();
+      uri = UriTemplate.fromTemplate(template).set("person", id).set("pid", id).expand();
     }
     catch (VariableExpansionException e) {
       throw new GedcomxApplicationException(e);

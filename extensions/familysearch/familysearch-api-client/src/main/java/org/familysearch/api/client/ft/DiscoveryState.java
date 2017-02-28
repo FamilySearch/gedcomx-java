@@ -139,6 +139,10 @@ public class DiscoveryState extends GedcomxApplicationState<Feed> {
     return (DiscoveryState) super.authenticateViaOAuth2(formData, options);
   }
 
+  /**
+   * @deprecated The "Person" is now the "Person With Relationships".
+   */
+  @Deprecated
   public FamilyTreePersonState readPersonWithRelationships(String personId, StateTransitionOption... options) {
     Link pwrTemplate = getLink("person-with-relationships-query");
     if (pwrTemplate == null || pwrTemplate.getTemplate() == null) {
@@ -148,7 +152,7 @@ public class DiscoveryState extends GedcomxApplicationState<Feed> {
 
     String uri;
     try {
-      uri = UriTemplate.fromTemplate(template).set("person", personId).expand();
+      uri = UriTemplate.fromTemplate(template).set("person", personId).set("pid", personId).expand();
     }
     catch (VariableExpansionException e) {
       throw new GedcomxApplicationException(e);
