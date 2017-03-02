@@ -203,6 +203,17 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Find a person in the document by URI.
+   *
+   * @return The person, or null.
+   */
+  @XmlTransient
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  public Person findPerson(URI uri) {
+    return findSubject(this.persons, uri);
+  }
+
+  /**
    * The persons included in this genealogical data set.
    * 
    * @return The persons included in this genealogical data set.
@@ -348,6 +359,17 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Find a relationship in the document by URI.
+   *
+   * @return The relationship, or null.
+   */
+  @XmlTransient
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  public Relationship findRelationship(URI uri) {
+    return findSubject(this.relationships, uri);
+  }
+
+  /**
    * The relationships included in this genealogical data set.
    * 
    * @return The relationships included in this genealogical data set.
@@ -422,6 +444,17 @@ public class Gedcomx extends HypermediaEnabledData {
   }
 
   /**
+   * Find a description in the document by URI.
+   *
+   * @return The description, or null.
+   */
+  @XmlTransient
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  public SourceDescription findDescription(URI uri) {
+    return findElement(this.sourceDescriptions, uri);
+  }
+
+  /**
    * The descriptions of sources included in this genealogical data set.
    * 
    * @return The descriptions of sources included in this genealogical data set.
@@ -474,6 +507,17 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("agents") @org.codehaus.jackson.annotate.JsonProperty ("agents")
   public List<Agent> getAgents() {
     return agents;
+  }
+
+  /**
+   * Find a agent in the document by URI.
+   *
+   * @return The agent, or null.
+   */
+  @XmlTransient
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  public Agent findAgent(URI uri) {
+    return findElement(this.agents, uri);
   }
 
   /**
@@ -562,6 +606,17 @@ public class Gedcomx extends HypermediaEnabledData {
   @JsonProperty ("places") @org.codehaus.jackson.annotate.JsonProperty ("places")
   public List<PlaceDescription> getPlaces() {
     return places;
+  }
+
+  /**
+   * Find a place in the document by URI.
+   *
+   * @return The place, or null.
+   */
+  @XmlTransient
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  public PlaceDescription findPlace(URI uri) {
+    return findSubject(this.places, uri);
   }
 
   /**
@@ -1029,6 +1084,46 @@ public class Gedcomx extends HypermediaEnabledData {
         }
       }
     }
+  }
+
+  public static <S extends Subject> S findSubject(List<S> items, URI ref) {
+    if (items == null || ref == null) {
+      return null;
+    }
+
+    String value = ref.toString();
+    String id = value.startsWith("#") ? value.substring(1) : null;
+    for (S subject : items) {
+      if (id != null && id.equals(subject.getId())) {
+        return subject;
+      }
+
+      if (subject.getIdentifiers() != null) {
+        for (Identifier identifier : subject.getIdentifiers()) {
+          if (ref.equals(identifier.getValue())) {
+            return subject;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  public static <E extends HypermediaEnabledData> E findElement(List<E> items, URI ref) {
+    if (items == null || ref == null) {
+      return null;
+    }
+
+    String value = ref.toString();
+    String id = value.startsWith("#") ? value.substring(1) : null;
+    for (E element : items) {
+      if (id != null && id.equals(element.getId())) {
+        return element;
+      }
+    }
+
+    return null;
   }
 
 }
