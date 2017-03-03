@@ -27,15 +27,20 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
+import org.gedcomx.conclusion.Identifier;
+import org.gedcomx.conclusion.Person;
+import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rt.*;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.source.SourceDescription;
+import org.gedcomx.types.IdentifierType;
+import org.gedcomx.types.RelationshipType;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>The FamilySearch data types define serialization formats that are specific to the FamilySearch developer platform. These
@@ -388,6 +393,126 @@ public class FamilySearchPlatform extends Gedcomx {
         }
       }
     }
+  }
 
+  public FamilySearchPlatform addParentChildRelationshipForEachChildAndParentsRelationship() {
+    //for each child-and-parents relationship, add a parent-child relationship.
+    List<ChildAndParentsRelationship> parentRelationships = getChildAndParentsRelationships();
+    if (parentRelationships != null) {
+      for (ChildAndParentsRelationship childAndParentsRelationship : parentRelationships) {
+        String relationshipId = childAndParentsRelationship.getId();
+        if (relationshipId == null) {
+          continue;
+        }
+
+        String childId = childAndParentsRelationship.getChild() != null ? childAndParentsRelationship.getChild().getResourceId() : null;
+        if (childId == null) {
+          continue;
+        }
+
+        String fatherId = childAndParentsRelationship.getFather() != null ? childAndParentsRelationship.getFather().getResourceId() : null;
+        String motherId = childAndParentsRelationship.getMother() != null ? childAndParentsRelationship.getMother().getResourceId() : null;
+
+        Identifier primaryIdentifier = null;
+        if (childAndParentsRelationship.getIdentifiers() != null) {
+          for (Identifier identifier : childAndParentsRelationship.getIdentifiers()) {
+            if (identifier.getKnownType() == IdentifierType.Primary) {
+              primaryIdentifier = identifier;
+              break;
+            }
+          }
+        }
+
+        if (fatherId != null) {
+          Relationship fatherChildRelationship = new Relationship();
+          fatherChildRelationship.setId("F" + relationshipId);
+          fatherChildRelationship.setKnownType(RelationshipType.ParentChild);
+          fatherChildRelationship.setPerson1(childAndParentsRelationship.getFather());
+          fatherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
+          if (primaryIdentifier != null) {
+            fatherChildRelationship.setIdentifiers(new ArrayList<>(1));
+            fatherChildRelationship.getIdentifiers().add(new Identifier());
+            fatherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
+            fatherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
+          }
+          for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
+            fatherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
+          }
+          fatherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
+          addRelationship(fatherChildRelationship);
+        }
+
+        if (motherId != null) {
+          Relationship motherChildRelationship = new Relationship();
+          motherChildRelationship.setId("M" + relationshipId);
+          motherChildRelationship.setKnownType(RelationshipType.ParentChild);
+          motherChildRelationship.setPerson1(childAndParentsRelationship.getMother());
+          motherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
+          if (primaryIdentifier != null) {
+            motherChildRelationship.setIdentifiers(new ArrayList<>(1));
+            motherChildRelationship.getIdentifiers().add(new Identifier());
+            motherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
+            motherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
+          }
+          for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
+            motherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
+          }
+          motherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
+          addRelationship(motherChildRelationship);
+        }
+      }
+    }
+    return this;
+  }
+
+  @Override
+  public FamilySearchPlatform fixLocalReferences() {
+    List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
+    List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
+    List<Ordinance> ordinances = getOrdinances(this);
+    List<SourceDescription> sds = getSourceDescriptions() == null ? Collections.emptyList() : getSourceDescriptions();
+
+    for (Person local : locals) {
+      String localId = local.getId();
+      if (localId != null) {
+        for (ChildAndParentsRelationship relationship : childAndParentsRelationships) {
+          fixId(relationship.getFather(), localId);
+          fixId(relationship.getMother(), localId);
+          fixId(relationship.getChild(), localId);
+          fixupSourceReferences(sds, relationship);
+        }
+        fixupPersonReferencesInOrdinances(ordinances, localId);
+      }
+    }
+
+    return (FamilySearchPlatform) super.fixLocalReferences();
+  }
+
+  protected static List<Ordinance> getOrdinances(Gedcomx gx) {
+    List<Ordinance> rtn = new ArrayList<>();
+    if (gx.getPersons() != null) {
+      for (Person person : gx.getPersons()) {
+        if (person.getExtensionElements() != null) {
+          for (Object extension : person.getExtensionElements()) {
+            if (extension instanceof List) {
+              for (Object item : (List) extension) {
+                if (item instanceof Ordinance) {
+                  rtn.add((Ordinance) item);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return rtn;
+  }
+
+  protected static void fixupPersonReferencesInOrdinances(List<Ordinance> ordinances, String personId) {
+    for (Ordinance ordinance : ordinances) {
+      fixId(ordinance.getSpouse(), personId);
+      fixId(ordinance.getFather(), personId);
+      fixId(ordinance.getMother(), personId);
+    }
   }
 }
