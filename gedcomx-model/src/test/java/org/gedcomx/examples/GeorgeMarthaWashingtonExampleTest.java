@@ -26,6 +26,18 @@ import java.util.List;
 @Test
 public class GeorgeMarthaWashingtonExampleTest {
 
+//  public void testEventsOnPlaces() throws Exception {
+//    PlaceDescription place = new PlaceDescription().id("P1").name("Family Farm in Scandinavia");
+//    Event event1 = new Event().id("E1").place(new PlaceReference().description(place));
+//    Event event2 = new Event().id("E2").place(new PlaceReference().description(place));
+//    Event event3 = new Event().id("E3").place(new PlaceReference().description(place));
+//    Gedcomx gx = new Gedcomx();
+//    gx.place(place).event(event1).event(event2).event(event3);
+//
+//    byte[] bytes = SerializationUtil.toJsonStream(gx);
+//    System.out.println(new String(bytes, "UTF-8"));
+//  }
+//
   public void testExample() throws Exception {
     PlaceDescription popesCreek = createPopesCreek();
     PlaceDescription mountVernon = createMountVernon();
