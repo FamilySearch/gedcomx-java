@@ -41,7 +41,6 @@ public class GedcomxOutputStream {
     this.gedxOutputStream = new JarOutputStream(gedxOutputStream);
     this.mf = new Manifest();
     this.mf.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-
   }
 
     /**
@@ -92,7 +91,7 @@ public class GedcomxOutputStream {
     if (this.entryCount > 0) {
       entryName.append(this.entryCount);
     }
-    entryName.append(".xml");
+    entryName.append(this.serializer.suggestFilenameExtension());
     addResource(entryName.toString(), resource, lastModified);
   }
 

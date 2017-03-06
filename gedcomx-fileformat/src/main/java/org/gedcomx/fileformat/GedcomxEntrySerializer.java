@@ -40,4 +40,11 @@ public interface GedcomxEntrySerializer {
    * @return Whether the content type is "known".
    */
   boolean isKnownContentType(String contentType);
+
+  /**
+   * Suggest a filename extension for the entries of this serializer.
+   *
+   * @return The suggested filename extension.
+   */
+  String suggestFilenameExtension();
 }

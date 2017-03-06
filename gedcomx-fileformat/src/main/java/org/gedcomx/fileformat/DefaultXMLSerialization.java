@@ -116,4 +116,8 @@ public class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxE
     return JAXBContext.newInstance((Class<?>[]) contextClasses.toArray(new Class<?>[contextClasses.size()]));
   }
 
+  @Override
+  public String suggestFilenameExtension() {
+    return ".xml";
+  }
 }

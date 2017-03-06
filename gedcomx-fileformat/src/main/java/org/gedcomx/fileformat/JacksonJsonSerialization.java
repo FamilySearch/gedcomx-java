@@ -80,6 +80,11 @@ public class JacksonJsonSerialization implements GedcomxEntrySerializer, Gedcomx
     return this.knownContentTypes.contains(contentType);
   }
 
+  @Override
+  public String suggestFilenameExtension() {
+    return ".json";
+  }
+
   public Set<String> getKnownContentTypes() {
     return knownContentTypes;
   }
