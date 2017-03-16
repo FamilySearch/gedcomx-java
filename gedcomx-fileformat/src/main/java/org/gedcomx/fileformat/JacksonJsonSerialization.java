@@ -15,19 +15,14 @@
  */
 package org.gedcomx.fileformat;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
@@ -36,8 +31,6 @@ import java.util.Set;
 public class JacksonJsonSerialization implements GedcomxEntrySerializer, GedcomxEntryDeserializer {
 
   private final ObjectMapper mapper;
-  private final JsonFactory factory;
-  private Set<String> knownContentTypes = new HashSet<String>(Arrays.asList( GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE));
 
   public JacksonJsonSerialization(Class<?>... classes) {
     this(true, classes);
@@ -48,16 +41,7 @@ public class JacksonJsonSerialization implements GedcomxEntrySerializer, Gedcomx
   }
 
   public JacksonJsonSerialization(ObjectMapper mapper) {
-    this(mapper, new JsonFactory());
-  }
-
-  public JacksonJsonSerialization(JsonFactory factory) {
-    this(createObjectMapper(true), factory);
-  }
-
-  public JacksonJsonSerialization(ObjectMapper mapper, JsonFactory factory) {
     this.mapper = mapper;
-    this.factory = factory;
   }
 
   public static ObjectMapper createObjectMapper(boolean pretty, Class<?>... classes) {
@@ -65,32 +49,24 @@ public class JacksonJsonSerialization implements GedcomxEntrySerializer, Gedcomx
   }
 
   @Override
-  public Object deserialize(InputStream in) throws IOException {
-    return this.mapper.readValue(factory.createParser(in), (JavaType) null);
+  public Object deserialize(InputStream in, String mediaType) throws IOException {
+    Class<?> clazz = findClass(mediaType);
+    return clazz == null ? in : this.mapper.readValue(in, clazz);
+  }
+
+  protected Class<?> findClass(String mediaType) {
+    return mediaType.endsWith("json") ? Gedcomx.class : null;
   }
 
   @Override
   public void serialize(Object resource, OutputStream out) throws IOException {
-    JsonGenerator generator = factory.createGenerator(out);
+    JsonGenerator generator = this.mapper.getFactory().createGenerator(out); //we're creating a generator so that the stream doesn't get auto-closed
     this.mapper.writeValue(generator, resource);
-  }
-
-  @Override
-  public boolean isKnownContentType(String contentType) {
-    return this.knownContentTypes.contains(contentType);
   }
 
   @Override
   public String suggestFilenameExtension() {
     return ".json";
-  }
-
-  public Set<String> getKnownContentTypes() {
-    return knownContentTypes;
-  }
-
-  public void setKnownContentTypes(Set<String> knownContentTypes) {
-    this.knownContentTypes = knownContentTypes;
   }
 
 }

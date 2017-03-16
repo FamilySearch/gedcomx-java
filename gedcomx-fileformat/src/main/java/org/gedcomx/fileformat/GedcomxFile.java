@@ -46,7 +46,7 @@ public class GedcomxFile {
    * @throws IOException if an I/O error has occurred
    */
   public GedcomxFile(JarFile jarFile, Class<?>... classes) throws IOException {
-    this(jarFile, new DefaultXMLSerialization(classes));
+    this(jarFile, new JacksonJsonSerialization(classes));
   }
 
   /**
@@ -125,7 +125,7 @@ public class GedcomxFile {
    * @throws IOException If there was a problem unmarshalling the resource.
    */
   public Object readResource(GedcomxFileEntry gedxEntry) throws IOException {
-    return this.deserializer.deserialize(getResourceStream(gedxEntry));
+    return this.deserializer.deserialize(getResourceStream(gedxEntry), gedxEntry.getContentType());
   }
 
 

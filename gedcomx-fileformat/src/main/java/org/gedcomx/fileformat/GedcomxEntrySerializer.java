@@ -34,14 +34,6 @@ public interface GedcomxEntrySerializer {
   void serialize(Object resource, OutputStream out) throws IOException;
 
   /**
-   * Whether the specified content type is a known content type and therefore doesn't need to be written to the entry attributes.
-   *
-   * @param contentType The content type.
-   * @return Whether the content type is "known".
-   */
-  boolean isKnownContentType(String contentType);
-
-  /**
    * Suggest a filename extension for the entries of this serializer.
    *
    * @return The suggested filename extension.

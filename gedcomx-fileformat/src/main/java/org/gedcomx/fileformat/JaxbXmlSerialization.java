@@ -34,17 +34,16 @@ import java.util.Set;
 /**
  * A class for creating instances of <code>JAXBContext</code> appropriate for reading and writing GEDCOM X files.
  */
-public class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDeserializer {
+public class JaxbXmlSerialization implements GedcomxEntrySerializer, GedcomxEntryDeserializer {
 
   private final Unmarshaller unmarshaller;
   private final Marshaller marshaller;
-  private Set<String> knownContentTypes = new HashSet<String>(Arrays.asList( GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE));
 
-  public DefaultXMLSerialization(Class<?>... classes) {
+  public JaxbXmlSerialization(Class<?>... classes) {
     this(true, classes);
   }
 
-  public DefaultXMLSerialization(boolean pretty, Class<?>... classes) {
+  public JaxbXmlSerialization(boolean pretty, Class<?>... classes) {
     try {
       JAXBContext context = newContext(classes);
       this.unmarshaller = context.createUnmarshaller();
@@ -60,13 +59,21 @@ public class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxE
   }
 
   @Override
-  public Object deserialize(InputStream in) throws IOException {
+  public Object deserialize(InputStream in, String mediaType) throws IOException {
+    if (!isKnownContentType(mediaType)) {
+      return in;
+    }
+
     try {
       return this.unmarshaller.unmarshal(in);
     }
     catch (JAXBException e) {
       throw new IOException(e);
     }
+  }
+
+  private boolean isKnownContentType(String mediaType) {
+    return mediaType.endsWith("xml");
   }
 
   @Override
@@ -77,19 +84,6 @@ public class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxE
     catch (JAXBException e) {
       throw new IOException(e);
     }
-  }
-
-  @Override
-  public boolean isKnownContentType(String contentType) {
-    return this.knownContentTypes.contains(contentType);
-  }
-
-  public Set<String> getKnownContentTypes() {
-    return knownContentTypes;
-  }
-
-  public void setKnownContentTypes(Set<String> knownContentTypes) {
-    this.knownContentTypes = knownContentTypes;
   }
 
   /**

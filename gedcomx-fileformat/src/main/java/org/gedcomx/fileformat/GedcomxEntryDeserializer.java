@@ -28,8 +28,9 @@ public interface GedcomxEntryDeserializer {
   /**
    * Deserialize the resource from the specified input stream.
    *
-   * @param in the input stream.
+   * @param in The input stream.
+   * @param mediaType The media type of the input stream.
    * @return the resource.
    */
-  Object deserialize(InputStream in) throws IOException;
+  Object deserialize(InputStream in, String mediaType) throws IOException;
 }

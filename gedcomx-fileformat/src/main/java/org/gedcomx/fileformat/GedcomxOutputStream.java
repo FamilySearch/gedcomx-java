@@ -52,11 +52,9 @@ public class GedcomxOutputStream {
     *
     * @param gedxOutputStream an output stream to which the GEDCOM X resources will appended
     * @param classes classes representing resources that will be marshaled (via JAXB) into the GEDCOM X output stream
-    *
-    * @throws IOException
     */
   public GedcomxOutputStream(OutputStream gedxOutputStream, Class<?>... classes) throws IOException {
-    this(gedxOutputStream, new DefaultXMLSerialization(classes));
+    this(gedxOutputStream, new JacksonJsonSerialization(classes));
   }
 
   /**
@@ -73,7 +71,6 @@ public class GedcomxOutputStream {
    * Add a resource to the GEDCOM X output stream.
    *
    * @param resource The resource.
-   * @throws IOException
    */
   public void addResource(Gedcomx resource) throws IOException {
     addResource(resource, new Date());
@@ -84,7 +81,6 @@ public class GedcomxOutputStream {
    *
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
-   * @throws IOException
    */
   public void addResource(Gedcomx resource, Date lastModified) throws IOException {
     StringBuilder entryName = new StringBuilder("tree");
@@ -101,10 +97,9 @@ public class GedcomxOutputStream {
    * @param entryName The name by which this resource shall be known within the GEDCOM X file.
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
-   * @throws IOException
    */
   public void addResource(String entryName, Gedcomx resource, Date lastModified) throws IOException {
-    addResource(GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE, entryName, resource, lastModified, null);
+    addResource(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE, entryName, resource, lastModified, null);
   }
 
   /**
@@ -115,7 +110,6 @@ public class GedcomxOutputStream {
    * @param entryName The name by which this resource shall be known within the GEDCOM X file.
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
-   * @throws IOException
    */
   public void addResource(String contentType, String entryName, Object resource, Date lastModified) throws IOException {
     addResource(contentType, entryName, resource, lastModified, null);
@@ -129,8 +123,6 @@ public class GedcomxOutputStream {
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
    * @param attributes The attributes of the resource.
-   *
-   * @throws IOException
    */
   public void addResource(String contentType, String entryName, Object resource, Date lastModified, Map<String, String> attributes) throws IOException {
     putNextEntry(contentType, entryName, lastModified, attributes);
@@ -146,8 +138,6 @@ public class GedcomxOutputStream {
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
    * @param attributes The attributes of the resource.
-   *
-   * @throws IOException
    */
   public void addResource(String contentType, String entryName, InputStream resource, Date lastModified, Map<String, String> attributes) throws IOException {
     putNextEntry(contentType, entryName, lastModified, attributes);
@@ -175,9 +165,7 @@ public class GedcomxOutputStream {
       entryAttrs.putValue("X-DC-modified", GedcomxTimeStampUtil.formatAsXmlUTC(lastModified));
     }
 
-    if (!isKnownContentType(contentType)) {
-      entryAttrs.put(Attributes.Name.CONTENT_TYPE, contentType);
-    }
+    entryAttrs.put(Attributes.Name.CONTENT_TYPE, contentType);
 
     if (attributes != null) {
       for (Map.Entry<String, String> entry : attributes.entrySet()) {
@@ -192,14 +180,8 @@ public class GedcomxOutputStream {
     this.gedxOutputStream.putNextEntry(gedxEntry);
   }
 
-  protected boolean isKnownContentType(String contentType) {
-    return this.serializer.isKnownContentType(contentType);
-  }
-
   /**
    * Closes the GEDCOM X output stream as well as the stream being filtered.
-   *
-   * @throws IOException
    */
   public void close() throws IOException {
     this.gedxOutputStream.putNextEntry(new JarEntry(JarFile.MANIFEST_NAME));
