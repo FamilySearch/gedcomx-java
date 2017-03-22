@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 
 /**
@@ -87,14 +88,32 @@ public class GedcomxFile {
       @Override
       public Iterator<GedcomxFileEntry> iterator() {
         return new Iterator<GedcomxFileEntry>() {
+          private GedcomxFileEntry nextEntry = findNext();
+
           @Override
           public boolean hasNext() {
-            return jarEntries.hasMoreElements();
+            return nextEntry != null;
           }
 
           @Override
           public GedcomxFileEntry next() {
-            return new GedcomxFileEntry(jarEntries.nextElement());
+            GedcomxFileEntry nextEntry = this.nextEntry;
+            this.nextEntry = findNext();
+            return nextEntry;
+          }
+
+          private GedcomxFileEntry findNext() {
+            if (!jarEntries.hasMoreElements()) {
+              return null;
+            }
+
+            JarEntry jarEntry = jarEntries.nextElement();
+            if ("META-INF/MANIFEST.MF".equals(jarEntry.getName())) {
+              //filter out the manifest.
+              return findNext();
+            }
+
+            return new GedcomxFileEntry(jarEntry);
           }
 
           @Override
@@ -104,6 +123,15 @@ public class GedcomxFile {
         };
       }
     };
+  }
+
+  /**
+   * Get the manifest.
+   *
+   * @return The manifest.
+   */
+  public Manifest getManifest() throws IOException {
+    return gedxFile.getManifest();
   }
 
   /**

@@ -37,6 +37,9 @@ public class GedcomxFileEntry {
     if (jarEntry == null) {
       throw new NullPointerException("jarEntry");
     }
+    else if (jarEntry.getName().equals("META-INF/MANIFEST.MF")) {
+      throw new IllegalStateException("Manifest can't be a gx file entry.");
+    }
 
     this.jarEntry = jarEntry;
   }

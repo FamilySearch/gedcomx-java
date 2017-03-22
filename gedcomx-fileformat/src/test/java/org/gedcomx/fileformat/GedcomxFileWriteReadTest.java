@@ -70,7 +70,7 @@ public class GedcomxFileWriteReadTest {
 
           for (GedcomxFileEntry gedxEntry : gedxFile.getEntries()) {
             String name = gedxEntry.getJarEntry().getName();
-            if ((name != null) && (!"META-INF/MANIFEST.MF".equals(name)) && !name.endsWith("png")) {
+            if ((name != null) && (!name.endsWith("png"))) {
               assertEquals(gedxEntry.getContentType(), GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
               Map<String, String> entryAttributes = gedxEntry.getAttributes();
               for (Map.Entry<String, String> entry : entryAttributes.entrySet()) {

@@ -55,7 +55,7 @@ public class JacksonJsonSerialization implements GedcomxEntrySerializer, Gedcomx
   }
 
   protected Class<?> findClass(String mediaType) {
-    return mediaType.endsWith("json") ? Gedcomx.class : null;
+    return mediaType == null || mediaType.endsWith("json") ? Gedcomx.class : null;
   }
 
   @Override
