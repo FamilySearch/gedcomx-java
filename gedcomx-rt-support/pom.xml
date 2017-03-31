@@ -41,7 +41,7 @@
         we explicitly depend on jaxb-impl in order to implement the namespace prefix mapper.
     -->
     <dependency>
-      <groupId>com.sun.xml.bind</groupId>
+      <groupId>javax.xml</groupId>
       <artifactId>jaxb-impl</artifactId>
     </dependency>
 
