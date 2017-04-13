@@ -370,6 +370,26 @@ public class FamilySearchPersonState extends PersonState {
     return ((FamilySearchStateFactory)this.stateFactory).newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
   }
 
+  public SourceDescriptionsState setPortrait(SourceReference mediaRef, StateTransitionOption... options) {
+    Link link = getLink(Rel.PORTRAITS);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().entity(new Gedcomx().person(new Person().media(mediaRef))).build(link.getHref().toURI(), HttpMethod.POST);
+    return ((FamilySearchStateFactory)this.stateFactory).newSourceDescriptionsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public FamilySearchPersonState deletePortrait(StateTransitionOption... options) {
+    Link link = getLink(Rel.PORTRAIT);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.DELETE);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
   public ClientResponse readPortrait(StateTransitionOption... options) {
     Link link = getLink(Rel.PORTRAIT);
     if (link == null || link.getHref() == null) {
