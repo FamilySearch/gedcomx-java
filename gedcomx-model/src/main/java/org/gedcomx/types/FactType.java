@@ -90,6 +90,11 @@ public enum FactType implements ControlledVocabulary {
   Birth,
 
   /**
+   * A fact of a person's birth notice, such as posted in a newspaper or other publishing medium.
+   */
+  BirthNotice,
+
+  /**
    * A fact of an official blessing received by a person, such as at the hands of a clergy member or at another religious rite.
    */
   Blessing,
