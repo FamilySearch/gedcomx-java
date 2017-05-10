@@ -759,7 +759,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param statuses The list of identifiers of the source.
    */
-  @JsonProperty ( "status" ) @org.codehaus.jackson.annotate.JsonProperty ( "status" )
+  @JsonProperty ( "statuses" ) @org.codehaus.jackson.annotate.JsonProperty ( "statuses" )
   public void setStatuses(List<URI> statuses) {
     this.statuses = statuses;
   }
