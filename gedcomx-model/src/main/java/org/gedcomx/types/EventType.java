@@ -42,10 +42,14 @@ public enum EventType implements ControlledVocabulary {
    */
   AdultChristening,
 
+  Amnesty,
+
   /**
    * An annulment event of a marriage.
    */
   Annulment,
+
+  Apprenticeship,
 
   /**
    * A baptism event.
@@ -62,10 +66,14 @@ public enum EventType implements ControlledVocabulary {
    */
   BatMitzvah,
 
+  Biography,
+
   /**
    * A birth event.
    */
   Birth,
+
+  BirthRegistration,
 
   /**
    * A an official blessing event, such as at the hands of a clergy member or at another religious rite.
@@ -92,10 +100,17 @@ public enum EventType implements ControlledVocabulary {
    */
   Circumcision,
 
+  CommonLawMarriage,
+
   /**
    * A confirmation event (or other rite of initiation) in a church or religion.
    */
   Confirmation,
+
+  /**
+   * A governmental Court action
+   */
+  Court,
 
   /**
    * A cremation event after death.
@@ -106,6 +121,8 @@ public enum EventType implements ControlledVocabulary {
    * A death event.
    */
   Death,
+
+  DeathRegistration,
 
   /**
    * A divorce event.
@@ -122,15 +139,17 @@ public enum EventType implements ControlledVocabulary {
    */
   Education,
 
-  /**
-   * An engagement to be married event.
-   */
-  Engagement,
+  EducationEnrollment,
 
   /**
    * An emigration event.
    */
   Emigration,
+
+  /**
+   * An engagement to be married event.
+   */
+  Engagement,
 
   /**
    * An excommunication event from a church.
@@ -147,10 +166,15 @@ public enum EventType implements ControlledVocabulary {
    */
   Funeral,
 
+  Graduation,
+  GuardianParent,
+
   /**
    * An immigration event.
    */
   Immigration,
+
+  Imprisonment,
 
   /**
    * A legal inquest. Inquests usually only occur when there’s something suspicious about the death. Inquests might in
@@ -159,25 +183,40 @@ public enum EventType implements ControlledVocabulary {
    */
   Inquest,
 
+  LandAssessment,
+
   /**
    * A land transaction event.
    */
   LandTransaction,
+
+  Living,
 
   /**
    * A marriage event.
    */
   Marriage,
 
+  MarriageBanns,
+  MarriageContract,
+  MarriageLicense,
+  MarriageRegistration,
+  Medical,
+  Membership,
+
   /**
    * A military award event.
    */
   MilitaryAward,
 
+  MilitaryCorrespondence,
+
   /**
    * A military discharge event.
    */
   MilitaryDischarge,
+  MilitaryDraftRegistration,
+  MilitaryService,
 
   /**
    * A mission event.
@@ -199,16 +238,32 @@ public enum EventType implements ControlledVocabulary {
    */
   Naturalization,
 
+  Obituary,
+  Occupation,
+  Ordinance,
+
   /**
    * An ordination event.
    */
   Ordination,
+
+  PassportApplication,
+  Pension,
+  Probate,
+  Property,
+  ReligiousAffiliation,
+  Residence,
 
   /**
    * A retirement event.
    */
   Retirement,
 
+  ScholasticAchievement,
+  Separation,
+  TaxAssessment,
+  WorkhouseAdmission,
+  Will,
 
   @XmlUnknownQNameEnumValue
   OTHER;
