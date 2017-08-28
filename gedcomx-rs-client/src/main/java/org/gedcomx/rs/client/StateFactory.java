@@ -19,6 +19,7 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import org.gedcomx.rs.client.util.HttpWarning;
@@ -36,6 +37,7 @@ import java.util.List;
  */
 public class StateFactory {
   protected static final String ENABLE_JERSEY_LOGGING_ENV_NAME = "enableJerseyLogging";        // env variable/property to set
+  protected static final String DONT_FOLLOW_REDIRECTS = "dontFollowRedirects";  // env variable/property that must be set for this feature
 
   public CollectionState newCollectionState(URI discoveryUri) {
     return newCollectionState(discoveryUri, loadDefaultClient());
@@ -47,6 +49,9 @@ public class StateFactory {
 
   public CollectionState newCollectionState(URI discoveryUri, Client client, String method) {
     ClientRequest request = ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, method);
+    if (Boolean.valueOf(System.getProperty(DONT_FOLLOW_REDIRECTS))) {
+      request.getProperties().put(ClientConfig.PROPERTY_FOLLOW_REDIRECTS, false);
+    }
     return newCollectionState(request, client.handle(request), null);
   }
 
@@ -60,6 +65,9 @@ public class StateFactory {
 
   public PersonState newPersonState(URI discoveryUri, Client client, String method) {
     ClientRequest request = ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, method);
+    if (Boolean.valueOf(System.getProperty(ENABLE_JERSEY_LOGGING_ENV_NAME))) {     // handles null
+      client.addFilter(new com.sun.jersey.api.client.filter.LoggingFilter());
+    }
     return newPersonState(request, client.handle(request), null);
   }
 
@@ -73,6 +81,9 @@ public class StateFactory {
 
   public RecordState newRecordState(URI discoveryUri, Client client, String method) {
     ClientRequest request = ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, method);
+    if (Boolean.valueOf(System.getProperty(DONT_FOLLOW_REDIRECTS))) {
+      request.getProperties().put(ClientConfig.PROPERTY_FOLLOW_REDIRECTS, false);
+    }
     return newRecordState(request, client.handle(request), null);
   }
 
