@@ -27,6 +27,7 @@ import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
+import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -46,7 +47,7 @@ import java.util.*;
 @XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, ReferencesSources {
+public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, HasFields, ReferencesSources {
 
   private String lang;
   private List<SourceCitation> citations;

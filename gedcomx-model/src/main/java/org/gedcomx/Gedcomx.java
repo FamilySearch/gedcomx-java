@@ -28,6 +28,7 @@ import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Collection;
 import org.gedcomx.records.Field;
+import org.gedcomx.records.HasFields;
 import org.gedcomx.records.RecordDescriptor;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -87,7 +88,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "gedcomx" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @XmlType ( name = "Gedcomx", propOrder = {"attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors"} )
-public class Gedcomx extends HypermediaEnabledData {
+public class Gedcomx extends HypermediaEnabledData implements HasFields {
 
   private String lang;
   private URI descriptionRef;
