@@ -40,8 +40,8 @@ import java.net.URI;
  */
 public class FamilySearchPlaces extends FamilySearchCollectionState {
 
-  public static final String URI = "https://familysearch.org/platform/collections/places";
-  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/places";
+  public static final String URI = "https://api.familysearch.org/platform/collections/places";
+  public static final String SANDBOX_URI = "https://api-integ.familysearch.org/platform/collections/places";
 
   public FamilySearchPlaces() {
     this(false);

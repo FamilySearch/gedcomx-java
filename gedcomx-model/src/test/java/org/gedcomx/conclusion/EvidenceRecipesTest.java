@@ -34,7 +34,7 @@ public class EvidenceRecipesTest extends RecipeTest {
    */
   public void testCitingOnlineArtifact() throws Exception {
     createRecipe("Citing an Online Artifact")
-      .withDescription("The following example illustrates how to cite an online record. Evidence for Israel Hoyt Heaton is found in the 1920 U.S. Census. The URI to the record is \"https://familysearch.org/pal:/MM9.1.1/M8PT-4GN\". The URI for a description of the record is \"https://familysearch.org/platform/sources/GGG-GGGG\".")
+      .withDescription("The following example illustrates how to cite an online record. Evidence for Israel Hoyt Heaton is found in the 1920 U.S. Census. The URI to the record is \"https://familysearch.org/pal:/MM9.1.1/M8PT-4GN\". The URI for a description of the record is \"https://api.familysearch.org/platform/sources/GGG-GGGG\".")
       .applicableTo(Person.class);
 
     Person person = createPersonCitingOnlineArtifact();
@@ -49,7 +49,7 @@ public class EvidenceRecipesTest extends RecipeTest {
 
     SourceDescription sourceDescription = createDescriptionOfOnlineArtifact();
 
-    snippet = new Snippet("The description of the source. The URI to the description is \"https://familysearch.org/platform/sources/GGG-GGGG\".");
+    snippet = new Snippet("The description of the source. The URI to the description is \"https://api.familysearch.org/platform/sources/GGG-GGGG\".");
     SourceDescription sourceDescriptionThruXml = processThroughXml(sourceDescription, snippet);
     SourceDescription sourceDescriptionThruJson = processThroughJson(sourceDescription, snippet);
     addSnippet(snippet);
@@ -110,9 +110,9 @@ public class EvidenceRecipesTest extends RecipeTest {
     SourceReference attributedSourceReference = new SourceReference();
     Attribution attribution = new Attribution();
     attribution.setContributor(new ResourceReference());
-    attribution.getContributor().setResource(URI.create("https://familysearch.org/platform/contributors/STV-WXZY"));
+    attribution.getContributor().setResource(URI.create("https://api.familysearch.org/platform/contributors/STV-WXZY"));
     attributedSourceReference.setAttribution(attribution);
-    attributedSourceReference.setDescriptionRef(URI.create("https://familysearch.org/platform/sources/GGG-GGGG"));
+    attributedSourceReference.setDescriptionRef(URI.create("https://api.familysearch.org/platform/sources/GGG-GGGG"));
     sources.add(attributedSourceReference);
     person.setSources(sources);
 
@@ -126,7 +126,7 @@ public class EvidenceRecipesTest extends RecipeTest {
    */
   public void testCitingPhysicalArtifact() throws Exception {
     createRecipe("Citing a Physical Artifact")
-      .withDescription("The following example illustrates how to cite a physical artifact, such as a book. Evidence for Asa Phillips is found in a book authored by Helen Kelly Brink. The book doesn't have a URI, but the URI for a description of the book is \"https://familysearch.org/platform/sources/KKK-KKKK\".")
+      .withDescription("The following example illustrates how to cite a physical artifact, such as a book. Evidence for Asa Phillips is found in a book authored by Helen Kelly Brink. The book doesn't have a URI, but the URI for a description of the book is \"https://api.familysearch.org/platform/sources/KKK-KKKK\".")
       .applicableTo(Person.class);
 
     Person person = createPersonCitingPhysicalArtifact();
@@ -141,7 +141,7 @@ public class EvidenceRecipesTest extends RecipeTest {
 
     SourceDescription description = createDescriptionOfPhysicalArtifact();
 
-    snippet = new Snippet("The description of the source. The URI to the description is \"https://familysearch.org/platform/sources/KKK-KKKK\".");
+    snippet = new Snippet("The description of the source. The URI to the description is \"https://api.familysearch.org/platform/sources/KKK-KKKK\".");
     SourceDescription descriptionThruXml = processThroughXml(description, snippet);
     SourceDescription descriptionThruJson = processThroughJson(description, snippet);
     addSnippet(snippet);
@@ -207,9 +207,9 @@ public class EvidenceRecipesTest extends RecipeTest {
     SourceReference attributedSourceReference = new SourceReference();
     Attribution attribution = new Attribution();
     attribution.setContributor(new ResourceReference());
-    attribution.getContributor().setResource(URI.create("https://familysearch.org/platform/contributors/STV-WXZY"));
+    attribution.getContributor().setResource(URI.create("https://api.familysearch.org/platform/contributors/STV-WXZY"));
     attributedSourceReference.setAttribution(attribution);
-    attributedSourceReference.setDescriptionRef(URI.create("https://familysearch.org/platform/sources/KKK-KKKK"));
+    attributedSourceReference.setDescriptionRef(URI.create("https://api.familysearch.org/platform/sources/KKK-KKKK"));
     sources.add(attributedSourceReference);
     person.setSources(sources);
 
@@ -224,7 +224,7 @@ public class EvidenceRecipesTest extends RecipeTest {
    */
   public void testConclusionsCitingOtherConclusions() throws Exception {
     createRecipe("Citing Other Conclusions")
-      .withDescription("The following example illustrates how to cite another conclusion. Evidence for Israel Heaton is found in another conclusion person that (presumably) describes the same person. The URI to the person being cited is \"https://familysearch.org/platform/persons/NNN-NNNN\".")
+      .withDescription("The following example illustrates how to cite another conclusion. Evidence for Israel Heaton is found in another conclusion person that (presumably) describes the same person. The URI to the person being cited is \"https://api.familysearch.org/platform/persons/NNN-NNNN\".")
       .applicableTo(Person.class);
 
     Person person = createPersonCitingOtherConclusion();
@@ -233,7 +233,7 @@ public class EvidenceRecipesTest extends RecipeTest {
     processThroughJson(person, snippet);
     addSnippet(snippet);
 
-    snippet = new Snippet("The person being cited. The URI to this conclusion person is \"https://familysearch.org/platform/sources/NNN-NNNN\".");
+    snippet = new Snippet("The person being cited. The URI to this conclusion person is \"https://api.familysearch.org/platform/sources/NNN-NNNN\".");
     Person description = createPersonBeingCitedByAnotherPerson();
     Person descriptionThruXml = processThroughXml(description, snippet);
     Person descriptionThruJson = processThroughJson(description, snippet);
@@ -318,9 +318,9 @@ public class EvidenceRecipesTest extends RecipeTest {
     SourceReference attributedSourceReference = new SourceReference();
     Attribution attribution = new Attribution();
     attribution.setContributor(new ResourceReference());
-    attribution.getContributor().setResource(URI.create("https://familysearch.org/platform/contributors/ZZZ-ZZZZ"));
+    attribution.getContributor().setResource(URI.create("https://api.familysearch.org/platform/contributors/ZZZ-ZZZZ"));
     attributedSourceReference.setAttribution(attribution);
-    attributedSourceReference.setDescriptionRef(URI.create("https://familysearch.org/platform/sources/JJJ-JJJJ"));
+    attributedSourceReference.setDescriptionRef(URI.create("https://api.familysearch.org/platform/sources/JJJ-JJJJ"));
     sources.add(attributedSourceReference);
     person.setSources(sources);
 

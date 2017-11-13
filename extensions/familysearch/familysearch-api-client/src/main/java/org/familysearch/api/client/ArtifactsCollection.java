@@ -36,8 +36,8 @@ import java.net.URI;
  */
 public class ArtifactsCollection extends FamilySearchCollectionState {
 
-  public static final String URI = "https://familysearch.org/platform/collections/artifacts";
-  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/artifacts";
+  public static final String URI = "https://api.familysearch.org/platform/collections/artifacts";
+  public static final String SANDBOX_URI = "https://api-integ.familysearch.org/platform/collections/artifacts";
   public static final String DGS_FOLDER_PARAM = "folder";
   public static final String START_PARAM = "start";
   public static final String COUNT_PARAM = "count";

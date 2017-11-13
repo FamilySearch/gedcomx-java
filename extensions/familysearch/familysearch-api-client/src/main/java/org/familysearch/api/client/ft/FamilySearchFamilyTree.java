@@ -64,8 +64,8 @@ import org.familysearch.platform.ct.ChildAndParentsRelationship;
  */
 public class FamilySearchFamilyTree extends FamilySearchCollectionState {
 
-  public static final String URI = "https://familysearch.org/platform/collections/tree";
-  public static final String SANDBOX_URI = "https://integration.familysearch.org/platform/collections/tree";
+  public static final String URI = "https://api.familysearch.org/platform/collections/tree";
+  public static final String SANDBOX_URI = "https://api-integ.familysearch.org/platform/collections/tree";
 
   public FamilySearchFamilyTree() {
     this(false);
@@ -490,7 +490,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     StateTransitionOption newOptions[] = Arrays.copyOf(options, options.length + 2);
     newOptions[options.length] = FamilySearchOptions.pids(sb.toString());
     newOptions[options.length+1] = new ConnegSetter(FamilySearchPlatform.JSON_MEDIA_TYPE);
-    
+
     return (FamilyTreePersonsState)super.readPersons(newOptions);
   }
 

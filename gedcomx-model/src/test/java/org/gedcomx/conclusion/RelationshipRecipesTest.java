@@ -47,8 +47,8 @@ public class RelationshipRecipesTest extends RecipeTest {
 
     relationship.setKnownType(RelationshipType.ParentChild);
 
-    relationship.setPerson1(new ResourceReference(URI.create("https://familysearch.org/platform/persons/DDD-D001")));
-    relationship.setPerson2(new ResourceReference(URI.create("https://familysearch.org/platform/persons/DDD-D002")));
+    relationship.setPerson1(new ResourceReference(URI.create("https://api.familysearch.org/platform/persons/DDD-D001")));
+    relationship.setPerson2(new ResourceReference(URI.create("https://api.familysearch.org/platform/persons/DDD-D002")));
 
     relationship.addFact(new Fact());
     relationship.getFacts().get(0).setId("F123");
@@ -59,11 +59,11 @@ public class RelationshipRecipesTest extends RecipeTest {
 
     relationship.setIdentifiers(Arrays.asList(new Identifier()));
     relationship.getIdentifiers().get(0).setType(URI.create("http://familysearch.org/v1/ParentPairing"));
-    relationship.getIdentifiers().get(0).setValue(URI.create("https://familysearch.org/platform/parent-relationships/FFF-FFFF"));
+    relationship.getIdentifiers().get(0).setValue(URI.create("https://api.familysearch.org/platform/parent-relationships/FFF-FFFF"));
 
     relationship.setAttribution(new Attribution());
     relationship.getAttribution().setChangeMessage("(justification here)");
-    relationship.getAttribution().setContributor(new ResourceReference(URI.create("https://familysearch.org/platform/contributors/BCD-FGHJ")));
+    relationship.getAttribution().setContributor(new ResourceReference(URI.create("https://api.familysearch.org/platform/contributors/BCD-FGHJ")));
 
     return relationship;
   }
@@ -76,8 +76,8 @@ public class RelationshipRecipesTest extends RecipeTest {
 
     assertEquals(RelationshipType.ParentChild, relationship.getKnownType());
 
-    assertEquals(URI.create("https://familysearch.org/platform/persons/DDD-D001"), relationship.getPerson1().getResource());
-    assertEquals(URI.create("https://familysearch.org/platform/persons/DDD-D002"), relationship.getPerson2().getResource());
+    assertEquals(URI.create("https://api.familysearch.org/platform/persons/DDD-D001"), relationship.getPerson1().getResource());
+    assertEquals(URI.create("https://api.familysearch.org/platform/persons/DDD-D002"), relationship.getPerson2().getResource());
 
     assertNotNull(relationship.getFacts());
     assertEquals(1, relationship.getFacts().size());
@@ -90,11 +90,11 @@ public class RelationshipRecipesTest extends RecipeTest {
     assertNotNull(relationship.getIdentifiers());
     assertEquals(1, relationship.getIdentifiers().size());
     assertEquals(URI.create("http://familysearch.org/v1/ParentPairing"), relationship.getIdentifiers().get(0).getType());
-    assertEquals(URI.create("https://familysearch.org/platform/parent-relationships/FFF-FFFF"), relationship.getIdentifiers().get(0).getValue());
+    assertEquals(URI.create("https://api.familysearch.org/platform/parent-relationships/FFF-FFFF"), relationship.getIdentifiers().get(0).getValue());
 
     assertNotNull(relationship.getAttribution());
     assertEquals("(justification here)", relationship.getAttribution().getChangeMessage());
-    assertEquals(URI.create("https://familysearch.org/platform/contributors/BCD-FGHJ"), relationship.getAttribution().getContributor().getResource());
+    assertEquals(URI.create("https://api.familysearch.org/platform/contributors/BCD-FGHJ"), relationship.getAttribution().getContributor().getResource());
   }
 
 }

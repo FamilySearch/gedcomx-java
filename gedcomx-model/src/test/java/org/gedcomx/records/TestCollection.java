@@ -22,7 +22,7 @@ public class TestCollection {
   public void testCollection() {
     Collection collection = new Collection();
     collection.setId("c1");
-    collection.setIdentifiers(Collections.singletonList(new Identifier(new URI("https://familysearch.org/platform/records/collections/12345"), IdentifierType.Primary)));
+    collection.setIdentifiers(Collections.singletonList(new Identifier(new URI("https://api.familysearch.org/platform/records/collections/12345"), IdentifierType.Primary)));
     collection.setTitle("Pretend collection");
     collection.setLang("en");
 

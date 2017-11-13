@@ -22,11 +22,11 @@ import java.net.URI;
  */
 public enum FamilySearchReferenceEnvironment {
 
-  PRODUCTION("https://familysearch.org/platform"),
+  PRODUCTION("https://api.familysearch.org/platform"),
 
-  BETA("https://beta.familysearch.org/platform"),
+  BETA("https://apibeta.familysearch.org/platform"),
 
-  SANDBOX("https://integration.familysearch.org/platform");
+  SANDBOX("https://api-integ.familysearch.org/platform");
 
   private final String base;
 

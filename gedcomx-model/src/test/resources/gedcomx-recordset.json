@@ -9,7 +9,7 @@
             "value": "\"South Africa, Orange Free State, Estate Files, 1951-2006.\" Index and images. <i>FamilySearch</i>. http://FamilySearch.org : accessed 2014. Citing The Master of Supreme Court. Master of the Free State High Court, Bloemfontein."
           }
         ],
-        "about": "https://familysearch.org/platform/records/collections/1407787",
+        "about": "https://api.familysearch.org/platform/records/collections/1407787",
         "componentOf": {
           "description": "#src_2"
         },
@@ -27,7 +27,7 @@
           }
         ],
         "identifiers": {
-          "http://gedcomx.org/Primary": ["https://familysearch.org/platform/records/collections/1407787"]
+          "http://gedcomx.org/Primary": ["https://api.familysearch.org/platform/records/collections/1407787"]
         },
         "coverage": [
           {
@@ -45,10 +45,10 @@
       },
       {
         "id": "src_2",
-        "about": "https://familysearch.org/platform/records/collections",
+        "about": "https://api.familysearch.org/platform/records/collections",
         "resourceType": "http://familysearch.org/types/resources/Container",
         "identifiers": {
-          "http://gedcomx.org/Primary": ["https://familysearch.org/platform/records/collections"]
+          "http://gedcomx.org/Primary": ["https://api.familysearch.org/platform/records/collections"]
         }
       }
     ],

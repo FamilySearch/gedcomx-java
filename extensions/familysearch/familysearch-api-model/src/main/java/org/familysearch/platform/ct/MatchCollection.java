@@ -28,7 +28,7 @@ import org.gedcomx.rt.EnumURIMap;
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI,
-  namespace = "https://familysearch.org/platform/collections/"
+  namespace = "https://api.familysearch.org/platform/collections/"
 )
 public enum MatchCollection implements ControlledVocabulary {
 

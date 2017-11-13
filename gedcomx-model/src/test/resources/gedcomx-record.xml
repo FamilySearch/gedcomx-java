@@ -197,7 +197,7 @@
     <componentOf description="#src_2"/>
     <title xml:lang="en-US">Entry for Maria Johanna Potgieter Van Wyk, "South Africa, Orange Free State, Estate Files, 1951-2006"</title>
     <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/1:2:91PT-TWL</identifier>
-    <identifier>https://familysearch.org/platform/externalId/easy/1000605267248</identifier>
+    <identifier>https://api.familysearch.org/platform/externalId/easy/1000605267248</identifier>
     <created>2014-02-19T20:16:40.712Z</created>
     <modified>2014-05-24T12:50:54.647Z</modified>
     <coverage>
@@ -209,11 +209,11 @@
         <original>17 Feb 1960</original>
       </temporal>
     </coverage>
-    <descriptor resource="https://familysearch.org/platform/records/collections/1407787#rd_MM9.1.9/MMMM-MLG"/>
+    <descriptor resource="https://api.familysearch.org/platform/records/collections/1407787#rd_MM9.1.9/MMMM-MLG"/>
   </sourceDescription>
-  <sourceDescription about="https://familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="src_1">
+  <sourceDescription about="https://api.familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="src_1">
     <title xml:lang="en-US">South Africa, Orange Free State, Estate Files, 1951-2006</title>
-    <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections/1407787</identifier>
+    <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/platform/records/collections/1407787</identifier>
     <coverage>
       <recordType>http://gedcomx.org/Probate</recordType>
       <spatial description="#place_1927115">
@@ -221,10 +221,10 @@
       </spatial>
     </coverage>
   </sourceDescription>
-  <sourceDescription about="https://familysearch.org/platform/records/collections/1407787/records" resourceType="http://familysearch.org/types/resources/Container" id="src_2">
+  <sourceDescription about="https://api.familysearch.org/platform/records/collections/1407787/records" resourceType="http://familysearch.org/types/resources/Container" id="src_2">
     <componentOf description="#src_1"/>
     <title xml:lang="en-US">South Africa, Orange Free State, Estate Files, 1951-2006</title>
-    <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections/1407787/records</identifier>
+    <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/platform/records/collections/1407787/records</identifier>
   </sourceDescription>
   <sourceDescription about="https://familysearch.org/ark:/61903/3:1:S3HY-DKTS-PZ1?cc=1133" resourceType="http://gedcomx.org/DigitalArtifact" id="src_s1">
     <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/3:1:S3HY-DKTS-PZ1?cc=1133</identifier>

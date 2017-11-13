@@ -3097,14 +3097,14 @@
     </field>
   </record>
   <metadata xmlns="http://gedcomx.org/v1/" xmlns:fs="http://familysearch.org/v1/" xmlns:atom="http://www.w3.org/2005/Atom" description="#src_1">
-    <sourceDescription about="https://familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="src_1">
+    <sourceDescription about="https://api.familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="src_1">
       <citation>
         <value>"South Africa, Orange Free State, Estate Files, 1951-2006." Index and images. &lt;i&gt;FamilySearch&lt;/i&gt;. http://FamilySearch.org : accessed 2014. Citing The Master of Supreme Court. Master of the Free State High Court, Bloemfontein.</value>
       </citation>
       <componentOf description="#src_2"/>
       <title>South Africa, Orange Free State, Estate Files, 1951-2006</title>
       <description xml:lang="en_US">Images of estate files from The Master of Supreme Court in Bloemfontein. This collection (including text, images, databases and other information) is owned or licensed by GSU. You may view, download, and print material from this collection only for your personal, noncommercial use unless we specifically indicate that other uses are permitted. You may not use this site or information found at this site (including the names and addresses of those who submit information) for selling or promoting products or services, soliciting clients, or any other commercial purpose. Notwithstanding the foregoing, we reserve the right, at our sole discretion, to deny, revoke, or limit use of this site to any person. GSU is not responsible for any use that you make of materials from this site, and you agree to fully indemnify GSU for any claims against GSU based on your actions. In many instances, we do not provide source citations, and in no case do we guarantee that materials on this site may be used for anything beyond personal, noncommercial genealogical research.</description>
-      <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections/1407787</identifier>
+      <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/platform/records/collections/1407787</identifier>
       <coverage>
         <recordType>http://gedcomx.org/Probate</recordType>
         <spatial description="#place_1927115">
@@ -3117,8 +3117,8 @@
       </coverage>
       <rights/>
     </sourceDescription>
-    <sourceDescription about="https://familysearch.org/platform/records/collections" resourceType="http://familysearch.org/types/resources/Container" id="src_2">
-      <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections</identifier>
+    <sourceDescription about="https://api.familysearch.org/platform/records/collections" resourceType="http://familysearch.org/types/resources/Container" id="src_2">
+      <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/platform/records/collections</identifier>
     </sourceDescription>
     <place>
       <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/authorities/v1/place/1927115</identifier>
