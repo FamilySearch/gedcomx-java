@@ -69,6 +69,10 @@ public class FamilySearchStateFactory extends StateFactory {
     return new PersonMatchResultsState(request, response, accessToken, this);
   }
 
+  protected RecordMatchResultsState newRecordMatchResultsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new RecordMatchResultsState(request, response, accessToken, this);
+  }
+
   @Override
   protected SourceDescriptionsState newSourceDescriptionsState(ClientRequest request, ClientResponse response, String accessToken) {
     return super.newSourceDescriptionsState(request, response, accessToken);

@@ -231,4 +231,26 @@ public class FamilySearchHistoricalRecordsArchive extends FamilySearchCollection
     return ((FamilySearchStateFactory)this.stateFactory).newSourceDescriptionState(request, invoke(request, options), this.accessToken);
   }
 
+  public RecordMatchResultsState matchPersona(String personaId, StateTransitionOption... options) {
+    Link matchLink = getLink(Rel.MATCHES);
+    if (matchLink == null || matchLink.getTemplate() == null) {
+      return null;
+    }
+    String template = matchLink.getTemplate();
+
+    String matchUri;
+    try {
+      matchUri = UriTemplate.fromTemplate(template).set("pid", personaId).expand();
+    }
+    catch (VariableExpansionException e) {
+      throw new GedcomxApplicationException(e);
+    }
+    catch(MalformedUriTemplateException e) {
+      throw new GedcomxApplicationException(e);
+    }
+
+    ClientRequest request = createAuthenticatedGedcomxRequest().build(java.net.URI.create(matchUri), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newRecordMatchResultsState(request, invoke(request, options), this.accessToken);
+  }
+
 }
