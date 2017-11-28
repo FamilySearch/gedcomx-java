@@ -3,14 +3,14 @@
   <sourceDescription about="https://api.familysearch.org/platform/records/imageItems/3WP4-978?cc=1133" resourceType="http://gedcomx.org/Record" id="s1">
     <source description="#s2"/>
     <componentOf description="#s3"/>
-    <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/platform/records/imageItems/3WP4-978?cc=1133</identifier>
-    <descriptor resource="https://api.familysearch.org/platform/records/collections/1407787#wd_1407787"/>
+    <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/imageItems/3WP4-978?cc=1133</identifier>
+    <descriptor resource="https://familysearch.org/platform/records/collections/1407787#wd_1407787"/>
   </sourceDescription>
   <sourceDescription about="https://familysearch.org/ark:/61903/3:1:S3HT-DRB9-V94" resourceType="http://gedcomx.org/DigitalArtifact" id="s2">
     <identifier type="http://gedcomx.org/Persistent">https://familysearch.org/ark:/61903/3:1:S3HT-DRB9-V94</identifier>
   </sourceDescription>
-  <sourceDescription about="https://api.familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="s3">
-    <identifier type="http://gedcomx.org/Primary">https://api.familysearch.org/platform/records/collections/1407787</identifier>
+  <sourceDescription about="https://familysearch.org/platform/records/collections/1407787" resourceType="http://gedcomx.org/Collection" id="s3">
+    <identifier type="http://gedcomx.org/Primary">https://familysearch.org/platform/records/collections/1407787</identifier>
   </sourceDescription>
   <field type="http://familysearch.org/types/fields/YEAR">
     <value labelId="YEAR" type="http://gedcomx.org/Original">
