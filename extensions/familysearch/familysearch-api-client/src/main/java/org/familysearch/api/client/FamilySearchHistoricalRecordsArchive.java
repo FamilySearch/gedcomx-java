@@ -249,7 +249,7 @@ public class FamilySearchHistoricalRecordsArchive extends FamilySearchCollection
       throw new GedcomxApplicationException(e);
     }
 
-    ClientRequest request = createAuthenticatedGedcomxRequest().build(java.net.URI.create(matchUri), HttpMethod.GET);
+    ClientRequest request = createAuthenticatedFeedRequest().build(java.net.URI.create(matchUri), HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newRecordMatchResultsState(request, invoke(request, options), this.accessToken);
   }
 
