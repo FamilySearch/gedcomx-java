@@ -17,6 +17,7 @@ package org.familysearch.api.client;
 
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
+import com.damnhandy.uri.template.UriTemplateComponent;
 import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
@@ -212,6 +213,17 @@ public class FamilySearchCollectionState extends CollectionState {
     }
 
     ClientRequest request = createAuthenticatedFeedRequest().build(URI.create(uri), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonMatchResultsState searchForPersonMatches(Gedcomx gx, StateTransitionOption... options) {
+    Link searchLink = getLink(Rel.PERSON_MATCHES_QUERY);
+    if (searchLink == null || searchLink.getTemplate() == null) {
+      return null;
+    }
+    String template = UriTemplate.fromTemplate(searchLink.getTemplate()).getComponents().iterator().next().getValue();
+
+    ClientRequest request = RequestUtil.applyFamilySearchXml(createAuthenticatedRequest()).entity(gx).build(URI.create(template), HttpMethod.POST);
     return ((FamilySearchStateFactory)this.stateFactory).newPersonMatchResultsState(request, invoke(request, options), this.accessToken);
   }
 

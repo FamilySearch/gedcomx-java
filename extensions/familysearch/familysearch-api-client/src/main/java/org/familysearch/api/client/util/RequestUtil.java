@@ -20,6 +20,9 @@ import org.familysearch.platform.FamilySearchPlatform;
 
 import javax.ws.rs.core.MediaType;
 
+import org.gedcomx.atom.AtomModel;
+import org.gedcomx.rt.GedcomxConstants;
+
 /**
  * @author Ryan Heaton
  */
@@ -37,5 +40,9 @@ public class RequestUtil {
    */
   public static ClientRequest.Builder applyFamilySearchJson(ClientRequest.Builder request) {
     return request.accept(MediaType.APPLICATION_JSON_TYPE).type(MediaType.APPLICATION_JSON_TYPE);
+  }
+
+  public static ClientRequest.Builder applyFamilySearchXml(ClientRequest.Builder request) {
+    return request.accept(AtomModel.ATOM_XML_MEDIA_TYPE).type(GedcomxConstants.GEDCOMX_XML_MEDIA_TYPE);
   }
 }
