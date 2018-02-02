@@ -198,7 +198,7 @@ public class FamilySearchStateFactory extends StateFactory {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
       ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
-      Error.class, FeedbackInfo.class, MatchInfo.class, SearchInfo.class, Merge.class, MergeAnalysis.class, MergeConflict.class,
+      Error.class, FeedbackInfo.class, MatchInfo.class, PersonInfo.class, SearchInfo.class, Merge.class, MergeAnalysis.class, MergeConflict.class,
       Tag.class, User.class, Ordinance.class };
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
