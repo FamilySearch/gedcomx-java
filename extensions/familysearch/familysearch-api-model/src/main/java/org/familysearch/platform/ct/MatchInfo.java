@@ -38,6 +38,9 @@ public class MatchInfo {
 
   private URI collection;
   private URI status;
+  private Boolean addsPerson;
+  private Boolean addsFact;
+  private Boolean addsDateOrPlace;
 
   public MatchInfo() {
   }
@@ -82,6 +85,57 @@ public class MatchInfo {
   @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setSystem(URI system) {
     setCollection(system);
+  }
+
+  /**
+   * tells if the match would add a person to the target system
+   * @return true if the match would add a person to the target system
+   */
+  @XmlAttribute
+  public Boolean getAddsPerson() {
+    return addsPerson;
+  }
+
+  /**
+   * sets whether the match would add a person to the target system
+   * @param addsPerson whether or not the match would add a person to the target system
+   */
+  public void setAddsPerson(Boolean addsPerson) {
+    this.addsPerson = addsPerson;
+  }
+
+  /**
+   * tells if the match would add a vital fact to the target system
+   * @return true if the match would add a vital fact to the target system
+   */
+  @XmlAttribute
+  public Boolean getAddsFact() {
+    return addsFact;
+  }
+
+  /**
+   * sets whether the match would add a vital fact to the target system
+   * @param addsFact whether or not the match would add a vital fact to the target system
+   */
+  public void setAddsFact(Boolean addsFact) {
+    this.addsFact = addsFact;
+  }
+
+  /**
+   * tells if the match would add a date or place to an existing vital fact
+   * @return true the match would add a date or place to an existing vital fact
+   */
+  @XmlAttribute
+  public Boolean getAddsDateOrPlace() {
+    return addsDateOrPlace;
+  }
+
+  /**
+   * sets whether the match would add a date or place to an existing vital fact
+   * @param addsDateOrPlace whether the match would add a date or place to an existing vital fact
+   */
+  public void setAddsDateOrPlace(Boolean addsDateOrPlace) {
+    this.addsDateOrPlace = addsDateOrPlace;
   }
 
   /**
