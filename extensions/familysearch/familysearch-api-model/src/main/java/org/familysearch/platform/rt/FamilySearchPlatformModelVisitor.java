@@ -21,6 +21,9 @@ import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.messages.Message;
+import org.familysearch.platform.messages.MessageThread;
+import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.users.User;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
@@ -39,6 +42,12 @@ public interface FamilySearchPlatformModelVisitor extends GedcomxModelVisitor {
   void visitDiscussion(Discussion discussion);
 
   void visitComment(Comment comment);
+
+  void visitMessageThread(MessageThread messageThread);
+
+  void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary);
+
+  void visitMessage(Message message);
 
   void visitUser(User user);
 }
