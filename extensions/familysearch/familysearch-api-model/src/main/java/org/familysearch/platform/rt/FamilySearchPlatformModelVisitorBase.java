@@ -21,6 +21,9 @@ import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.messages.Message;
+import org.familysearch.platform.messages.MessageThread;
+import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
@@ -185,6 +188,30 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
 
   @Override
   public void visitComment(Comment comment) {
+    //no-op.
+  }
+
+  @Override
+  public void visitMessageThread(MessageThread messageThread) {
+    this.contextStack.push(messageThread);
+    List<Message> messages = messageThread.getMessages();
+    if (messages != null) {
+      for (Message message : messages) {
+        if (message != null) {
+          message.accept(this);
+        }
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
+    //no-op.
+  }
+
+  @Override
+  public void visitMessage(Message message) {
     //no-op.
   }
 

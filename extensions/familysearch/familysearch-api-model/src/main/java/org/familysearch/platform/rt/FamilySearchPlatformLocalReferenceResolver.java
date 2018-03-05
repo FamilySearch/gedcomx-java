@@ -18,6 +18,9 @@ package org.familysearch.platform.rt;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.messages.Message;
+import org.familysearch.platform.messages.MessageThread;
+import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
@@ -95,6 +98,24 @@ public class FamilySearchPlatformLocalReferenceResolver extends FamilySearchPlat
   public void visitComment(Comment comment) {
     bindIfNeeded(comment);
     super.visitComment(comment);
+  }
+
+  @Override
+  public void visitMessageThread(MessageThread messageThread) {
+    bindIfNeeded(messageThread);
+    super.visitMessageThread(messageThread);
+  }
+
+  @Override
+  public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
+    bindIfNeeded(userMessageThreadSummary);
+    super.visitUserMessageThreadSummary(userMessageThreadSummary);
+  }
+
+  @Override
+  public void visitMessage(Message message) {
+    bindIfNeeded(message);
+    super.visitMessage(message);
   }
 
   @Override
