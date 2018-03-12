@@ -52,6 +52,16 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
+    this.contextStack.push(fsp);
+    List<MessageThread> messageThreads = fsp.getMessageThreads();
+    if (messageThreads != null) {
+      for (MessageThread messageThread : messageThreads) {
+        if (messageThread != null) {
+          messageThread.accept(this);
+        }
+      }
+    }
+
     List<Merge> merges = fsp.getMerges();
     if (merges != null) {
       for (Merge merge : merges) {
@@ -100,6 +110,15 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       for (Discussion discussion : discussions) {
         if (discussion != null) {
           discussion.accept(this);
+        }
+      }
+    }
+
+    List<MessageThread> messageThreads = gx.findExtensionsOfType(MessageThread.class);
+    if (messageThreads != null) {
+      for (MessageThread messageThread : messageThreads) {
+        if (messageThread != null) {
+          messageThread.accept(this);
         }
       }
     }

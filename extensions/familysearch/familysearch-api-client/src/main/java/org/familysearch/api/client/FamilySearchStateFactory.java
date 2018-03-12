@@ -28,6 +28,7 @@ import org.familysearch.platform.Tag;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
+import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.places.FeedbackInfo;
 import org.familysearch.platform.users.User;
@@ -55,6 +56,14 @@ public class FamilySearchStateFactory extends StateFactory {
 
   protected DiscussionState newDiscussionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new DiscussionState(request, response, accessToken, this);
+  }
+
+  protected MessageThreadsState newMessageThreadsState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new MessageThreadsState(request, response, accessToken, this);
+  }
+
+  protected MessageThreadState newMessageThreadState(ClientRequest request, ClientResponse response, String accessToken) {
+    return new MessageThreadState(request, response, accessToken, this);
   }
 
   protected UserState newUserState(ClientRequest request, ClientResponse response, String accessToken) {
@@ -197,7 +206,7 @@ public class FamilySearchStateFactory extends StateFactory {
   public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
-      ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
+      ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class, MessageThread.class,
       Error.class, FeedbackInfo.class, MatchInfo.class, PersonInfo.class, SearchInfo.class, Merge.class, MergeAnalysis.class, MergeConflict.class,
       Tag.class, User.class, Ordinance.class };
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
