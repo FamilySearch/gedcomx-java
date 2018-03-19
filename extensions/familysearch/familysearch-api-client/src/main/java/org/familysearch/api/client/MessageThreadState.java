@@ -89,7 +89,7 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
   }
 
   public MessageThreadState loadMessages(StateTransitionOption... options) {
-    Link link = getLink(Rel.MESSAGING);
+    Link link = getLink(Rel.MESSAGES);
     if (this.entity != null && link != null && link.getHref() != null) {
       embed(link, this.entity, options);
     }
@@ -112,10 +112,9 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
     return updateMessages(messageThread, options);
   }
 
-
   protected MessageThreadState updateMessages(MessageThread messageThread, StateTransitionOption... options) {
     URI target = getSelfUri();
-    Link link = getLink(Rel.MESSAGING);
+    Link link = getLink(Rel.MESSAGES);
     if (link != null && link.getHref() != null) {
       target = link.getHref().toURI();
     }
@@ -130,7 +129,7 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
     Link link = MessageThread.getLink(Rel.MESSAGES);
     link = link == null ? MessageThread.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
-      throw new GedcomxApplicationException("Comment cannot be deleted: missing link.");
+      throw new GedcomxApplicationException("Message cannot be deleted: missing link.");
     }
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);

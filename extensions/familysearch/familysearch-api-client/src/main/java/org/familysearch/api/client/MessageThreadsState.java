@@ -15,11 +15,11 @@
  */
 package org.familysearch.api.client;
 
-import java.util.List;
-import javax.ws.rs.HttpMethod;
-
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.messages.MessageThread;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
@@ -27,10 +27,12 @@ import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateTransitionOption;
 
-import org.familysearch.api.client.util.RequestUtil;
-import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.messages.MessageThread;
+import javax.ws.rs.HttpMethod;
+import java.util.List;
 
+/**
+ * @author Todd Chapman
+ */
 public class MessageThreadsState extends GedcomxApplicationState<FamilySearchPlatform> {
 
   public MessageThreadsState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
@@ -114,8 +116,7 @@ public class MessageThreadsState extends GedcomxApplicationState<FamilySearchPla
   public MessageThreadState addMessageThread(MessageThread messageThread, StateTransitionOption... options) {
     FamilySearchPlatform entity = new FamilySearchPlatform();
     entity.addMessageThread(messageThread);
-    ClientRequest request = RequestUtil
-        .applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).entity(entity).build(getSelfUri(), HttpMethod.POST);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).entity(entity).build(getSelfUri(), HttpMethod.POST);
     return ((FamilySearchStateFactory)this.stateFactory).newMessageThreadState(request, invoke(request, options), this.accessToken);
   }
 
