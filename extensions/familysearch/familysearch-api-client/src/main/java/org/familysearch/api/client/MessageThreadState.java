@@ -77,7 +77,7 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
     return getEntity() == null ? null : getEntity().getMessageThreads() == null ? null : getEntity().getMessageThreads().isEmpty() ? null : getEntity().getMessageThreads().get(0);
   }
 
-  protected MessageThread createEmptySelf() {
+    protected MessageThread createEmptySelf() {
     MessageThread messageThread = new MessageThread();
     messageThread.setId(getLocalSelfId());
     return messageThread;
@@ -95,6 +95,17 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
     }
 
     return this;
+  }
+
+  public MessageThreadState deleteMessageThread(StateTransitionOption... options) {
+    Link link = getLink(Rel.MESSAGE_THREAD);
+    link = link == null ? getLink(Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      throw new GedcomxApplicationException("Message thread cannot be deleted: missing link.");
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
+    return ((FamilySearchStateFactory)this.stateFactory).newMessageThreadState(request, invoke(request, options), this.accessToken);
   }
 
   @Override

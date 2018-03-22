@@ -32,6 +32,7 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String DISCUSSIONS = "discussions";
   public static final String MESSAGING = "messaging";
   public static final String MESSAGES = "messages";
+  public static final String MESSAGE_THREAD = "message-thread";
   public static final String FAMILIES = "families";
   public static final String IMAGE_METADATA = "image-metadata";
   public static final String IMAGE_RECORDS = "image-records";
