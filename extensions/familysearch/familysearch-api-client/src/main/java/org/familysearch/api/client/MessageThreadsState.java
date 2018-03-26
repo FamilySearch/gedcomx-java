@@ -20,6 +20,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.messages.MessageThread;
+import org.familysearch.platform.messages.UserMessageThreadsSummary;
+
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rs.Rel;
@@ -74,8 +76,8 @@ public class MessageThreadsState extends GedcomxApplicationState<FamilySearchPla
     return response.getClientResponseStatus() == ClientResponse.Status.OK ? response.getEntity(FamilySearchPlatform.class) : null;
   }
 
-  public List<MessageThread> getMessageThreads() {
-    return getEntity() == null ? null : getEntity().getMessageThreads();
+  public List<UserMessageThreadsSummary> getUserMessageThreadsSummary() {
+    return getEntity() == null ? null : getEntity().getUserMessageThreadsSummaries();
   }
 
   @Override

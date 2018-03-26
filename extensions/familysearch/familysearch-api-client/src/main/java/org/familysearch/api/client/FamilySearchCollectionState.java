@@ -25,6 +25,7 @@ import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.MessageThread;
+import org.familysearch.platform.messages.UserMessageThreadSummary;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.TextValue;
@@ -248,6 +249,17 @@ public class FamilySearchCollectionState extends CollectionState {
     entity.addDiscussion(discussion);
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(entity).build(link.getHref().toURI(), HttpMethod.POST);
     return ((FamilySearchStateFactory)this.stateFactory).newDiscussionState(request, invoke(request, options), this.accessToken);
+  }
+
+  public MessageThreadState readMessageThread(UserMessageThreadSummary messageThreadSummary, StateTransitionOption... options) {
+    Link link = messageThreadSummary.getLink(Rel.MESSAGE_THREAD);
+//    link = link == null ? messageThreadSummary.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.GET);
+    return ((FamilySearchStateFactory)this.stateFactory).newMessageThreadState(request, invoke(request, options), this.accessToken);
   }
 
   public MessageThreadsState readMessageThreads(StateTransitionOption... options) {

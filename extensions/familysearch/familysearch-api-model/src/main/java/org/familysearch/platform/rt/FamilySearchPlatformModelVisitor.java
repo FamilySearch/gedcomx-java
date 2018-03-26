@@ -23,6 +23,7 @@ import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.Message;
 import org.familysearch.platform.messages.MessageThread;
+import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.users.User;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -45,9 +46,11 @@ public interface FamilySearchPlatformModelVisitor extends GedcomxModelVisitor {
 
   void visitMessageThread(MessageThread messageThread);
 
-  void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary);
-
   void visitMessage(Message message);
+
+  void visitUserMessageThreadsSummary(UserMessageThreadsSummary userMessageThreadsSummary);
+
+  void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary);
 
   void visitUser(User user);
 }

@@ -24,6 +24,7 @@ import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.Message;
 import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadSummary;
+import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
@@ -58,6 +59,16 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       for (MessageThread messageThread : messageThreads) {
         if (messageThread != null) {
           messageThread.accept(this);
+        }
+      }
+    }
+
+    this.contextStack.push(fsp);
+    List<UserMessageThreadsSummary> userMessageThreadsSummaries = fsp.getUserMessageThreadsSummaries();
+    if (userMessageThreadsSummaries != null) {
+      for (UserMessageThreadsSummary userMessageThreadsSummary : userMessageThreadsSummaries) {
+        if (userMessageThreadsSummary != null) {
+          userMessageThreadsSummary.accept(this);
         }
       }
     }
@@ -225,12 +236,26 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
   }
 
   @Override
-  public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
+  public void visitMessage(Message message) {
     //no-op.
   }
 
   @Override
-  public void visitMessage(Message message) {
+  public void visitUserMessageThreadsSummary(UserMessageThreadsSummary userMessageThreadsSummary) {
+    this.contextStack.push(userMessageThreadsSummary);
+    List<UserMessageThreadSummary> userMessageThreadSummaries = userMessageThreadsSummary.getUserMessageThreadSummaries();
+    if (userMessageThreadSummaries != null) {
+      for (UserMessageThreadSummary userMessageThreadSummary : userMessageThreadSummaries) {
+        if (userMessageThreadSummary != null) {
+          userMessageThreadSummary.accept(this);
+        }
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
     //no-op.
   }
 

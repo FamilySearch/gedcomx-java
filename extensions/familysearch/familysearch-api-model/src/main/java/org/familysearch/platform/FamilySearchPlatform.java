@@ -22,6 +22,7 @@ import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadSummary;
+import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.places.FeedbackInfo;
 import org.familysearch.platform.reservations.Reservation;
@@ -68,7 +69,8 @@ import java.util.*;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper ( name = "familysearch" )
-@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features", "messageThreads", "userMessageThreadSummaries"} )
+@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features", "messageThreads",
+    "userMessageThreadsSummaries" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, PersonInfo.class, SearchInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Reservation.class, Ordinance.class, NameFormInfo.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
@@ -86,7 +88,7 @@ public class FamilySearchPlatform extends Gedcomx {
   private List<User> users;
   private List<Feature> features;
   private List<MessageThread> messageThreads;
-  private List<UserMessageThreadSummary> userMessageThreadSummaries;
+  private List<UserMessageThreadsSummary> userMessageThreadsSummaries;
 
   /**
    * The merge analysis results for this data set.
@@ -310,48 +312,48 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   /**
-   * The user message thread summaries included in this data set.
+   * The user message thread userMessageThreadSummary included in this data set.
    *
-   * @return The user message thread summaries included in this data set.
+   * @return The user message thread userMessageThreadSummary included in this data set.
    */
   @XmlElement ( name = "userMessageThreadSummaries" )
   @JsonProperty ( "userMessageThreadSummaries" ) @org.codehaus.jackson.annotate.JsonProperty ( "userMessageThreadSummaries" )
-  public List<UserMessageThreadSummary> getUserMessageThreadSummaries() {
-    return userMessageThreadSummaries;
+  public List<UserMessageThreadsSummary> getUserMessageThreadsSummaries() {
+    return userMessageThreadsSummaries;
   }
 
   /**
-   * The user message thread summaries included in this data set.
+   * The user message thread userMessageThreadSummary included in this data set.
    *
-   * @param userMessageThreadSummaries The user message thread summaries included in this data set.
+   * @param userMessageThreadsSummaries The user message thread userMessageThreadSummary included in this data set.
    */
   @JsonProperty ( "userMessageThreadSummaries" ) @org.codehaus.jackson.annotate.JsonProperty ( "userMessageThreadSummaries" )
-  public void setUserMessageThreadSummaries(List<UserMessageThreadSummary> userMessageThreadSummaries) {
-    this.userMessageThreadSummaries = userMessageThreadSummaries;
+  public void setUserMessageThreadsSummaries(List<UserMessageThreadsSummary> userMessageThreadsSummaries) {
+    this.userMessageThreadsSummaries = userMessageThreadsSummaries;
   }
 
   /**
    * Add a user message thread summary to the data set.
    *
-   * @param userMessageThreadSummary The user message thread summary to be added.
+   * @param userMessageThreadsSummary The user message thread summary to be added.
    */
-  public void addUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
-    if (userMessageThreadSummary != null) {
-      if (userMessageThreadSummaries == null) {
-        userMessageThreadSummaries = new LinkedList<UserMessageThreadSummary>();
+  public void addUserMessageThreadsSummary(UserMessageThreadsSummary userMessageThreadsSummary) {
+    if (userMessageThreadsSummary != null) {
+      if (userMessageThreadsSummaries == null) {
+        userMessageThreadsSummaries = new LinkedList<UserMessageThreadsSummary>();
       }
-      userMessageThreadSummaries.add(userMessageThreadSummary);
+      userMessageThreadsSummaries.add(userMessageThreadsSummary);
     }
   }
 
   /**
    * Build out this document with a user message thread summary.
    *
-   * @param userMessageThreadSummary The user message thread summary to be added.
+   * @param userMessageThreadsSummary The user message thread summary to be added.
    * @return this.
    */
-  public FamilySearchPlatform userMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
-    addUserMessageThreadSummary(userMessageThreadSummary);
+  public FamilySearchPlatform userMessageThreadsSummary(UserMessageThreadsSummary userMessageThreadsSummary) {
+    addUserMessageThreadsSummary(userMessageThreadsSummary);
     return this;
   }
 
@@ -511,15 +513,15 @@ public class FamilySearchPlatform extends Gedcomx {
         }
       }
 
-      List<UserMessageThreadSummary> userMessageThreadSummaries = ((FamilySearchPlatform) gedcomx).getUserMessageThreadSummaries();
-      if (userMessageThreadSummaries != null) {
-        for (UserMessageThreadSummary userMessageThreadSummary : userMessageThreadSummaries) {
+      List<UserMessageThreadsSummary> userMessageThreadsSummaries = ((FamilySearchPlatform) gedcomx).getUserMessageThreadsSummaries();
+      if (userMessageThreadsSummaries != null) {
+        for (UserMessageThreadsSummary userMessageThreadsSummary : userMessageThreadsSummaries) {
           boolean found = false;
-          if (userMessageThreadSummary.getId() != null) {
-            if (getUserMessageThreadSummaries() != null) {
-              for (UserMessageThreadSummary target : getUserMessageThreadSummaries()) {
-                if (userMessageThreadSummary.getId().equals(target.getId())) {
-                  target.embed(userMessageThreadSummary);
+          if (userMessageThreadsSummary.getId() != null) {
+            if (getUserMessageThreadsSummaries() != null) {
+              for (UserMessageThreadsSummary target : getUserMessageThreadsSummaries()) {
+                if (userMessageThreadsSummary.getId().equals(target.getId())) {
+                  target.embed(userMessageThreadsSummary);
                   found = true;
                   break;
                 }
@@ -528,7 +530,7 @@ public class FamilySearchPlatform extends Gedcomx {
           }
 
           if (!found) {
-            addUserMessageThreadSummary(userMessageThreadSummary);
+            addUserMessageThreadsSummary(userMessageThreadsSummary);
           }
         }
       }

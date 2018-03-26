@@ -21,6 +21,7 @@ import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.Message;
 import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadSummary;
+import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.users.User;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
@@ -107,15 +108,21 @@ public class FamilySearchPlatformLocalReferenceResolver extends FamilySearchPlat
   }
 
   @Override
-  public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
-    bindIfNeeded(userMessageThreadSummary);
-    super.visitUserMessageThreadSummary(userMessageThreadSummary);
-  }
-
-  @Override
   public void visitMessage(Message message) {
     bindIfNeeded(message);
     super.visitMessage(message);
+  }
+
+  @Override
+  public void visitUserMessageThreadsSummary(UserMessageThreadsSummary userMessageThreadsSummary) {
+    bindIfNeeded(userMessageThreadsSummary);
+    super.visitUserMessageThreadsSummary(userMessageThreadsSummary);
+  }
+
+  @Override
+  public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
+    bindIfNeeded(userMessageThreadSummary);
+    super.visitUserMessageThreadSummary(userMessageThreadSummary);
   }
 
   @Override
