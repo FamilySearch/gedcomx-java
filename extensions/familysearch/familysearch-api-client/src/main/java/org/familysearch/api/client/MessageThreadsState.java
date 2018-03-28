@@ -17,9 +17,7 @@ package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadsSummary;
 
 import org.gedcomx.links.Link;
@@ -49,11 +47,6 @@ public class MessageThreadsState extends GedcomxApplicationState<FamilySearchPla
   @Override
   public MessageThreadsState ifSuccessful() {
     return (MessageThreadsState) super.ifSuccessful();
-  }
-
-  @Override
-  public MessageThreadsState head(StateTransitionOption... options) {
-    return (MessageThreadsState) super.head(options);
   }
 
   @Override
@@ -100,11 +93,6 @@ public class MessageThreadsState extends GedcomxApplicationState<FamilySearchPla
     return (MessageThreadsState) super.readFirstPage(options);
   }
 
-  @Override
-  public MessageThreadsState readLastPage(StateTransitionOption... options) {
-    return (MessageThreadsState) super.readLastPage(options);
-  }
-
   public CollectionState readCollection(StateTransitionOption... options) {
     Link link = getLink(Rel.COLLECTION);
     if (link == null || link.getHref() == null) {
@@ -113,13 +101,6 @@ public class MessageThreadsState extends GedcomxApplicationState<FamilySearchPla
 
     ClientRequest request = createAuthenticatedGedcomxRequest().build(link.getHref().toURI(), HttpMethod.GET);
     return ((FamilySearchStateFactory)this.stateFactory).newCollectionState(request, invoke(request, options), this.accessToken);
-  }
-
-  public MessageThreadState addMessageThread(MessageThread messageThread, StateTransitionOption... options) {
-    FamilySearchPlatform entity = new FamilySearchPlatform();
-    entity.addMessageThread(messageThread);
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedGedcomxRequest()).entity(entity).build(getSelfUri(), HttpMethod.POST);
-    return ((FamilySearchStateFactory)this.stateFactory).newMessageThreadState(request, invoke(request, options), this.accessToken);
   }
 
 }

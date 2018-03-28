@@ -49,11 +49,6 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
   }
 
   @Override
-  public MessageThreadState head(StateTransitionOption... options) {
-    return (MessageThreadState) super.head(options);
-  }
-
-  @Override
   public MessageThreadState get(StateTransitionOption... options) {
     return (MessageThreadState) super.get(options);
   }
@@ -73,11 +68,26 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
     return getMessageThread();
   }
 
+  @Override
+  public MessageThreadState readNextPage(StateTransitionOption... options) {
+    return (MessageThreadState) super.readNextPage(options);
+  }
+
+  @Override
+  public MessageThreadState readPreviousPage(StateTransitionOption... options) {
+    return (MessageThreadState) super.readPreviousPage(options);
+  }
+
+  @Override
+  public MessageThreadState readFirstPage(StateTransitionOption... options) {
+    return (MessageThreadState) super.readFirstPage(options);
+  }
+
   public MessageThread getMessageThread() {
     return getEntity() == null ? null : getEntity().getMessageThreads() == null ? null : getEntity().getMessageThreads().isEmpty() ? null : getEntity().getMessageThreads().get(0);
   }
 
-    protected MessageThread createEmptySelf() {
+  protected MessageThread createEmptySelf() {
     MessageThread messageThread = new MessageThread();
     messageThread.setId(getLocalSelfId());
     return messageThread;
@@ -86,15 +96,6 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
   protected String getLocalSelfId() {
     MessageThread me = getMessageThread();
     return me == null ? null : me.getId();
-  }
-
-  public MessageThreadState loadMessages(StateTransitionOption... options) {
-    Link link = getLink(Rel.MESSAGES);
-    if (this.entity != null && link != null && link.getHref() != null) {
-      embed(link, this.entity, options);
-    }
-
-    return this;
   }
 
   public MessageThreadState deleteMessageThread(StateTransitionOption... options) {
@@ -117,13 +118,13 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
     return addMessages(new Message[]{message}, options);
   }
 
-  public MessageThreadState addMessages(Message[] messages, StateTransitionOption... options) {
+  private MessageThreadState addMessages(Message[] messages, StateTransitionOption... options) {
     MessageThread messageThread = createEmptySelf();
     messageThread.setMessages(Arrays.asList(messages));
     return updateMessages(messageThread, options);
   }
 
-  protected MessageThreadState updateMessages(MessageThread messageThread, StateTransitionOption... options) {
+  private MessageThreadState updateMessages(MessageThread messageThread, StateTransitionOption... options) {
     URI target = getSelfUri();
     Link link = getLink(Rel.MESSAGES);
     if (link != null && link.getHref() != null) {
@@ -133,17 +134,6 @@ public class MessageThreadState extends GedcomxApplicationState<FamilySearchPlat
     FamilySearchPlatform gx = new FamilySearchPlatform();
     gx.setMessageThreads(Arrays.asList(messageThread));
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(gx).build(target, HttpMethod.POST);
-    return ((FamilySearchStateFactory)this.stateFactory).newMessageThreadState(request, invoke(request, options), this.accessToken);
-  }
-
-  public MessageThreadState deleteMessage(Message MessageThread, StateTransitionOption... options) {
-    Link link = MessageThread.getLink(Rel.MESSAGES);
-    link = link == null ? MessageThread.getLink(Rel.SELF) : link;
-    if (link == null || link.getHref() == null) {
-      throw new GedcomxApplicationException("Message cannot be deleted: missing link.");
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilySearchStateFactory)this.stateFactory).newMessageThreadState(request, invoke(request, options), this.accessToken);
   }
 
