@@ -45,6 +45,11 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
   private URI type;
   private Boolean optional;
   private List<TextValue> displayLabels;
+  private String displaySortKey; // a sort key for sorting the field values by how they should be displayed for viewing
+  private String entrySortKey; // a sort key for sorting the field values by how they should be entered for editing
+  private Boolean entryRequired; // whether some kind of entry is required when entering data for editing.
+  private Boolean editable; //whether the field value is editable (as opposed to composed from other values by the system).
+  private String parentLabelId; //the label id of the "parent" field value. E.g. The parent of a "given name" field value might be the "name" field value.
 
   /**
    * The id of the label applicable to the field value.
@@ -144,5 +149,96 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
   @JsonProperty ("labels") @org.codehaus.jackson.annotate.JsonProperty ("labels")
   public void setDisplayLabels(List<TextValue> displayLabels) {
     this.displayLabels = displayLabels;
+  }
+
+  /**
+   * A sort key for sorting this field value relative to other field values according to how they should be displayed for viewing.
+   *
+   * @return A sort key for sorting this field value relative to other field values according to how they should be displayed for viewing.
+   */
+  public String getDisplaySortKey() {
+    return displaySortKey;
+  }
+
+  /**
+   * A sort key for sorting this field value relative to other field values according to how they should be displayed for viewing.
+   *
+   * @param displaySortKey A sort key for sorting this field value relative to other field values according to how they should be displayed for viewing.
+   */
+  public void setDisplaySortKey(String displaySortKey) {
+    this.displaySortKey = displaySortKey;
+  }
+
+  /**
+   * A sort key for sorting this field value relative to other field values according to how they should be entered for editing.
+   *
+   * @return A sort key for sorting this field value relative to other field values according to how they should be entered for editing.
+   */
+  public String getEntrySortKey() {
+    return entrySortKey;
+  }
+
+  /**
+   * A sort key for sorting this field value relative to other field values according to how they should be entered for editing.
+   *
+   * @param entrySortKey A sort key for sorting this field value relative to other field values according to how they should be entered for editing.
+   */
+  public void setEntrySortKey(String entrySortKey) {
+    this.entrySortKey = entrySortKey;
+  }
+
+  /**
+   * Whether some kind of entry is required when entering data for editing.
+   *
+   * @return Whether some kind of entry is required when entering data for editing.
+   */
+  public Boolean getEntryRequired() {
+    return entryRequired;
+  }
+
+  /**
+   * Whether some kind of entry is required when entering data for editing.
+   *
+   * @param entryRequired Whether some kind of entry is required when entering data for editing.
+   */
+  public void setEntryRequired(Boolean entryRequired) {
+    this.entryRequired = entryRequired;
+  }
+
+  /**
+   * Whether the field value is editable. Some field values might be composed from other field values or otherwise calculated by the system.
+   *
+   * @return Whether the field value is editable. Some field values might be composed from other field values or otherwise calculated by the system.
+   */
+  @XmlAttribute
+  public Boolean getEditable() {
+    return editable;
+  }
+
+  /**
+   * Whether the field value is editable. Some field values might be composed from other field values or otherwise calculated by the system.
+   *
+   * @param editable Whether the field value is editable. Some field values might be composed from other field values or otherwise calculated by the system.
+   */
+  public void setEditable(Boolean editable) {
+    this.editable = editable;
+  }
+
+  /**
+   * The id of the label for the "parent" field value. For example, the parent field value of a "given name" field value might be the "name" field value.
+   *
+   * @return The id of the label for the "parent" field value. For example, the parent field value of a "given name" field value might be the "name" field value.
+   */
+  public String getParentLabelId() {
+    return parentLabelId;
+  }
+
+  /**
+   * The id of the label for the "parent" field value. For example, the parent field value of a "given name" field value might be the "name" field value.
+   *
+   * @param parentLabelId The id of the label for the "parent" field value. For example, the parent field value of a "given name" field value might be the "name" field value.
+   */
+  public void setParentLabelId(String parentLabelId) {
+    this.parentLabelId = parentLabelId;
   }
 }
