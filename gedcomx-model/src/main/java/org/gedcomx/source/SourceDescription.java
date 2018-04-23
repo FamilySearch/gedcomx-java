@@ -54,6 +54,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private String mediaType;
   private URI about;
   private ResourceReference mediator;
+  private ResourceReference publisher;
   private List<SourceReference> sources;
   private ResourceReference analysis;
   private SourceReference componentOf;
@@ -402,6 +403,46 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
   public void setMediatorURI(URI mediator) {
     this.mediator = mediator != null ? new ResourceReference(mediator) : null;
+  }
+
+  /**
+   * A reference to the entity responsible for making the described source available.
+   *
+   * @return A reference to the entity responsible for making the described source available.
+   */
+  public ResourceReference getPublisher() {
+    return publisher;
+  }
+
+  /**
+   * A reference to the entity responsible for making the described source available.
+   *
+   * @param publisher A reference to the entity responsible for making the described source available.
+   */
+  public void setPublisher(ResourceReference publisher) {
+    this.publisher = publisher;
+  }
+
+  /**
+   * Build out this source description with a publisher.
+   *
+   * @param publisher The publisher.
+   * @return this.
+   */
+  public SourceDescription publisher(ResourceReference publisher) {
+    setPublisher(publisher);
+    return this;
+  }
+
+  /**
+   * A reference to the entity responsible for making the described source available.
+   *
+   * @param publisher A reference to the entity responsible for making the described source available.
+   */
+  @XmlTransient
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  public void setPublisherURI(URI publisher) {
+    this.publisher = publisher != null ? new ResourceReference(publisher) : null;
   }
 
   /**
