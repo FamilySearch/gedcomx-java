@@ -44,7 +44,7 @@ import java.util.*;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
+@XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "publisher", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, HasFields, ReferencesSources {
