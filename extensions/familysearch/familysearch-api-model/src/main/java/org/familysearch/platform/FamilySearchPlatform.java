@@ -21,7 +21,6 @@ import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.*;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.MessageThread;
-import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.places.FeedbackInfo;
