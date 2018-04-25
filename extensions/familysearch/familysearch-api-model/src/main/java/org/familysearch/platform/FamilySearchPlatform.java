@@ -24,6 +24,7 @@ import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.places.FeedbackInfo;
+import org.familysearch.platform.places.PlaceDescriptionInfo;
 import org.familysearch.platform.reservations.Reservation;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
@@ -71,7 +72,7 @@ import java.util.*;
 @XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features", "messageThreads",
     "userMessageThreadsSummaries" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
-@XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, PersonInfo.class, SearchInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Reservation.class, Ordinance.class, NameFormInfo.class} )
+@XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, PersonInfo.class, SearchInfo.class, PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Reservation.class, Ordinance.class, NameFormInfo.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilySearchPlatform extends Gedcomx {
 
