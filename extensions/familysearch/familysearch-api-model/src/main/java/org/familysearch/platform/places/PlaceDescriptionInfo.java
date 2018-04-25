@@ -23,7 +23,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement
 @XmlType ( name = "PlaceDescriptionInfo", propOrder = { "zoomLevel", "relatedType", "relatedSubType" } )
-@JsonElementWrapper( name = "relatedPlaceDescriptionInfo" )
+@JsonElementWrapper( name = "placeDescriptionInfo" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
 public class PlaceDescriptionInfo {
 
