@@ -15,11 +15,13 @@
  */
 package org.familysearch.platform.places;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+@XmlRootElement
 @XmlType ( name = "PlaceDescriptionInfo", propOrder = { "zoomLevel", "relatedType", "relatedSubType" } )
 @JsonElementWrapper( name = "relatedPlaceDescriptionInfo" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
