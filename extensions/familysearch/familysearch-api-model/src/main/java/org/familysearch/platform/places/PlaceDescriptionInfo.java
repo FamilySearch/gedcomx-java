@@ -28,7 +28,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class PlaceDescriptionInfo {
 
   private Integer zoomLevel;
-  private RelatedPlaceDescriptionType relatedType;
+  private String relatedType;
   private String relatedSubType;
 
   /**
@@ -66,7 +66,7 @@ public class PlaceDescriptionInfo {
    *
    * @return The type of this related place description.
    */
-  public RelatedPlaceDescriptionType getRelatedType() {
+  public String getRelatedType() {
     return this.relatedType;
   }
 
@@ -75,7 +75,7 @@ public class PlaceDescriptionInfo {
    *
    * @param relatedType The type of this related place description.
    */
-  public void setRelatedType(final RelatedPlaceDescriptionType relatedType) {
+  public void setRelatedType(final String relatedType) {
     this.relatedType = relatedType;
   }
 
@@ -86,7 +86,7 @@ public class PlaceDescriptionInfo {
    * @param type The type of this related place description.
    * @return this.
    */
-  public PlaceDescriptionInfo type(final RelatedPlaceDescriptionType type) {
+  public PlaceDescriptionInfo type(final String type) {
     this.relatedType = type;
     return this;
   }

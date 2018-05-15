@@ -19,7 +19,7 @@ public class PlaceDescriptionInfoTest {
 
   @Test
   public void testRelatedPlaceDescriptionType() {
-    final RelatedPlaceDescriptionType type = RelatedPlaceDescriptionType.ASSOCIATED;
+    final String type = "ASSOCIATED";
 
     PlaceDescriptionInfo result = new PlaceDescriptionInfo();
     result.setRelatedType(type);
