@@ -22,6 +22,8 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.core.header.LinkHeader;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHeaders;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
 import org.gedcomx.common.Attributable;
@@ -40,6 +42,8 @@ import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.*;
 
@@ -49,6 +53,21 @@ import java.util.*;
 public abstract class GedcomxApplicationState<E> {
 
   protected static final EmbeddedLinkLoader DEFAULT_EMBEDDED_LINK_LOADER = new EmbeddedLinkLoader();
+
+  private static final String SDK_VERSION;
+  static {
+    String localSdkVersion = null;
+    final String propertiesFile = "/META-INF/maven/org.gedcomx/gedcomx-rs-client/pom.properties";
+    try (final InputStream propertiesInputStream = ClassLoader.class.getResourceAsStream(propertiesFile)) {
+      final Properties properties = new Properties();
+      properties.load(propertiesInputStream);
+      localSdkVersion = properties.getProperty("version");
+    }
+    catch (IOException ioe) {
+      // Intentionally do nothing
+    }
+    SDK_VERSION = StringUtils.isBlank(localSdkVersion) ? "UNKNOWN" : localSdkVersion;
+  }
 
   protected final StateFactory stateFactory;
   protected final Map<String, Link> links;
@@ -191,7 +210,7 @@ public abstract class GedcomxApplicationState<E> {
   public URI getUri() {
     return this.request.getURI();
   }
-  
+
   public boolean hasClientError() {
     return this.response.getStatus() >= 400 && this.response.getStatus() < 500;
   }
@@ -509,7 +528,7 @@ public abstract class GedcomxApplicationState<E> {
   }
 
   protected ClientRequest.Builder createRequest() {
-    return ClientRequest.create();
+    return ClientRequest.create().header(HttpHeaders.USER_AGENT, "gedcomx-java-sdk/" + SDK_VERSION);
   }
 
   protected ClientRequest.Builder createAuthenticatedRequest() {

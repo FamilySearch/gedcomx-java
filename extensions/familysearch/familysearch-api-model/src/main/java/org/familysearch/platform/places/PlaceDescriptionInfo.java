@@ -51,7 +51,6 @@ public class PlaceDescriptionInfo {
 
   /**
    * Build out this place with a zoom level.
-   * descriptions."
    *
    * @param zoomLevel The zoom level for this place description.
    * @return this.

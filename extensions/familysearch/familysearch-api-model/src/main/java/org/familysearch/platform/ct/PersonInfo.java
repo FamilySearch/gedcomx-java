@@ -32,6 +32,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonInclude( JsonInclude.Include.NON_NULL )
 public class PersonInfo {
   private Boolean readOnly = false;
+  private Boolean privateSpaceRestricted = false;
 
   public PersonInfo() {
   }
@@ -41,9 +42,9 @@ public class PersonInfo {
   }
 
   /**
-   * If this person is a readOnly person
+   * Set if this person is a readOnly person.
    *
-   * @return The readOnly URI if this person is readOnly
+   * @return True if this person is readOnly; false otherwise.
    */
   @XmlAttribute
   public Boolean isReadOnly() {
@@ -51,11 +52,53 @@ public class PersonInfo {
   }
 
   /**
-   * If this person is a readOnly person
+   * Get if this person is a readOnly person.
    *
-   * @param readOnly If this person is a readOnly person
+   * @param readOnly True if this person is readOnly; false otherwise.
    */
   public void setReadOnly(Boolean readOnly) {
     this.readOnly = readOnly;
   }
+
+  /**
+   * Build out this person with a read only state.
+   *
+   * @param readOnly The read only state for this person.
+   * @return this.
+   */
+  public PersonInfo readOnly(final Boolean readOnly) {
+    this.readOnly = readOnly;
+    return this;
+  }
+
+  /**
+   * Get if this person is a private space restricted person.
+   *
+   * @return True if this person is a private space restricted person; false otherwise.
+   */
+  @XmlAttribute
+  public Boolean isPrivateSpaceRestricted() {
+    return privateSpaceRestricted;
+  }
+
+  /**
+   * Set if this person is a private space restricted person.
+   *
+   * @param privateSpaceRestricted True if this person is a private space restricted person; false otherwise.
+   */
+  public void setPrivateSpaceRestricted(Boolean privateSpaceRestricted) {
+    this.privateSpaceRestricted = privateSpaceRestricted;
+  }
+
+  /**
+   * Build out this person with a private space restricted state.
+   *
+   * @param privateSpaceRestricted The private space restricted state for this person.
+   * @return this.
+   */
+  public PersonInfo privateSpaceRestricted(final Boolean privateSpaceRestricted) {
+    this.privateSpaceRestricted = privateSpaceRestricted;
+    return this;
+  }
+
 }
