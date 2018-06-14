@@ -15,6 +15,8 @@
  */
 package org.gedcomx.rs.client;
 
+import javax.ws.rs.core.UriBuilder;
+
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.apache.jena.rdf.model.*;
@@ -82,7 +84,13 @@ public class VocabElementState extends GedcomxApplicationState<Model> {
   protected Model loadEntity(ClientResponse response) {
     model = ModelFactory.createDefaultModel();
     model.read(response.getEntityInputStream(), null, "JSONLD");
-    this.resourceDescribingElement = model.getResource(this.request.getURI().toString());
+
+    // remove the flag=fs query param from the url if there.  Any gedcomx-java hyperlinks used to get to this endpoint would have the flag=fs parameter
+    // as of 06/14/2018.  This Uri becomes the name/id of the Resource object and should not have that query param as part of the name/id for
+    // getVocabElement() to work.
+    this.resourceDescribingElement = model.getResource(UriBuilder.fromUri(this.request.getURI()).replaceQueryParam("flag", (Object[]) null).build().toString());
+//    this.resourceDescribingElement = model.getResource(this.request.getURI().toString());
+
     return model;
   }
 
