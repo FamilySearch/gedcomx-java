@@ -24,6 +24,8 @@ public class FamilySearchFactTypeTest {
     testType("http://familysearch.org/v1/BirthOrder", FamilySearchFactType.BirthOrder);
     testType("http://familysearch.org/v1/DiedBeforeEight", FamilySearchFactType.DiedBeforeEight);
     testType("http://familysearch.org/v1/LifeSketch", FamilySearchFactType.LifeSketch);
+    testType("http://familysearch.org/v1/NeverMarried", FamilySearchFactType.NeverMarried);
+    testType("http://familysearch.org/v1/NoChildren", FamilySearchFactType.NoChildren);
     testType("http://familysearch.org/v1/TitleOfNobility", FamilySearchFactType.TitleOfNobility);
     testType("http://familysearch.org/v1/TribeName", FamilySearchFactType.TribeName);
 
@@ -34,7 +36,7 @@ public class FamilySearchFactTypeTest {
       }
     }
   }
-  
+
   private void testType(String enumStr, FamilySearchFactType srcRefTagType) {
     assertEquals(FamilySearchFactType.fromQNameURI(srcRefTagType.toQNameURI()).toQNameURI().toString(), enumStr);
     typesTested.add( srcRefTagType );

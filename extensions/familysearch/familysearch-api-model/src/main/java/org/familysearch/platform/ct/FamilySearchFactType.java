@@ -36,6 +36,11 @@ public enum FamilySearchFactType implements ControlledVocabulary {
   Affiliation,
 
   /**
+   * A child's birth order to parents.
+   */
+  BirthOrder,
+
+  /**
    * Person died before age eight.
    */
   DiedBeforeEight,
@@ -46,6 +51,16 @@ public enum FamilySearchFactType implements ControlledVocabulary {
   LifeSketch,
 
   /**
+   * Person was never married.
+   */
+  NeverMarried,
+
+  /**
+   * Person had no children.
+   */
+  NoChildren,
+
+  /**
    * Person's title of nobility.
    */
   TitleOfNobility,
@@ -54,11 +69,6 @@ public enum FamilySearchFactType implements ControlledVocabulary {
    * Person's tribe name.
    */
   TribeName,
-
-  /**
-   * A child's birth order to parents.
-   */
-  BirthOrder,
 
   @XmlUnknownQNameEnumValue
   OTHER;
