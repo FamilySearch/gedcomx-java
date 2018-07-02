@@ -10,20 +10,20 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class ConceptTest {
+public class VocabConceptTest {
 
   @Test
   public void testId() {
     final String id = "testId";
 
     // Test using setter
-    ExtensibleData classUnderTest = new Concept();
+    ExtensibleData classUnderTest = new VocabConcept();
     classUnderTest.setId(id);
 
     assertEquals(classUnderTest.getId(), id);
 
     // Test using builder pattern method
-    classUnderTest = new Concept().id(id);
+    classUnderTest = new VocabConcept().id(id);
 
     assertEquals(classUnderTest.getId(), id);
   }
@@ -33,13 +33,13 @@ public class ConceptTest {
     final String description = "testDescription";
 
     // Test using setter
-    Concept classUnderTest = new Concept();
+    VocabConcept classUnderTest = new VocabConcept();
     classUnderTest.setDescription(description);
 
     assertEquals(classUnderTest.getDescription(), description);
 
     // Test using builder pattern method
-    classUnderTest = new Concept().description(description);
+    classUnderTest = new VocabConcept().description(description);
 
     assertEquals(classUnderTest.getDescription(), description);
   }
@@ -49,13 +49,13 @@ public class ConceptTest {
     final String note = "testNote";
 
     // Test using setter
-    Concept classUnderTest = new Concept();
+    VocabConcept classUnderTest = new VocabConcept();
     classUnderTest.setNote(note);
 
     assertEquals(classUnderTest.getNote(), note);
 
     // Test using builder pattern method
-    classUnderTest = new Concept().note(note);
+    classUnderTest = new VocabConcept().note(note);
 
     assertEquals(classUnderTest.getNote(), note);
   }
@@ -65,45 +65,45 @@ public class ConceptTest {
     final String uriBase = "http://some.valid.uri/";
     final TextValue testTextValue = new TextValue("testValue");
     testTextValue.setLang("testLang");
-    final Term testTerm = (Term) new Term()
-        .concept(new URI(uriBase + "concept/testConceptId"))
-        .sublist(new URI(uriBase + "term/testTerm"))
+    final VocabTerm testVocabTerm = (VocabTerm) new VocabTerm()
+        .vocabConcept(new URI(uriBase + "vocabConcept/testVocabConceptUri"))
+        .sublist(new URI(uriBase + "vocabTerm/testVocabTermUri"))
         .sublistPosition(4736)
         .type(new URI(uriBase + "type/testType"))
         .values(Collections.singletonList(testTextValue))
         .id("testId");
-    List<Term> testTerms = Collections.singletonList(testTerm);
+    List<VocabTerm> testVocabTerms = Collections.singletonList(testVocabTerm);
 
     // Test using setter
-    Concept classUnderTest = new Concept();
-    classUnderTest.setTerms(testTerms);
+    VocabConcept classUnderTest = new VocabConcept();
+    classUnderTest.setVocabTerms(testVocabTerms);
 
-    assertEquals(classUnderTest.getTerms(), testTerms);
+    assertEquals(classUnderTest.getVocabTerms(), testVocabTerms);
 
     // Test using builder pattern method
-    classUnderTest = new Concept().terms(testTerms);
+    classUnderTest = new VocabConcept().vocabTerms(testVocabTerms);
 
-    assertEquals(classUnderTest.getTerms(), testTerms);
+    assertEquals(classUnderTest.getVocabTerms(), testVocabTerms);
   }
 
   @Test
   public void testAttributes() {
-    final ConceptAttribute testConceptAttribute = new ConceptAttribute()
+    final VocabConceptAttribute testVocabConceptAttribute = new VocabConceptAttribute()
         .id("testId")
         .name("testName")
         .value("testValue");
-    List<ConceptAttribute> testConceptAttributes = Collections.singletonList(testConceptAttribute);
+    List<VocabConceptAttribute> testVocabConceptAttributes = Collections.singletonList(testVocabConceptAttribute);
 
     // Test using setter
-    Concept classUnderTest = new Concept();
-    classUnderTest.setAttributes(testConceptAttributes);
+    VocabConcept classUnderTest = new VocabConcept();
+    classUnderTest.setAttributes(testVocabConceptAttributes);
 
-    assertEquals(classUnderTest.getAttributes(), testConceptAttributes);
+    assertEquals(classUnderTest.getAttributes(), testVocabConceptAttributes);
 
     // Test using builder pattern method
-    classUnderTest = new Concept().attributes(testConceptAttributes);
+    classUnderTest = new VocabConcept().attributes(testVocabConceptAttributes);
 
-    assertEquals(classUnderTest.getAttributes(), testConceptAttributes);
+    assertEquals(classUnderTest.getAttributes(), testVocabConceptAttributes);
   }
 
   @Test
@@ -111,13 +111,13 @@ public class ConceptTest {
     final URI uri = new URI("http://some.valid.url/test");
 
     // Test using setter
-    Concept classUnderTest = new Concept();
+    VocabConcept classUnderTest = new VocabConcept();
     classUnderTest.setGedcomxUri(uri);
 
     assertEquals(classUnderTest.getGedcomxUri(), uri);
 
     // Test using builder pattern method
-    classUnderTest = new Concept().gedcomxUri(uri);
+    classUnderTest = new VocabConcept().gedcomxUri(uri);
 
     assertEquals(classUnderTest.getGedcomxUri(), uri);
   }

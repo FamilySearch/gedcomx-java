@@ -23,6 +23,9 @@ import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.users.User;
+import org.familysearch.platform.vocab.VocabConcept;
+import org.familysearch.platform.vocab.VocabTerm;
+
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.*;
@@ -123,6 +126,18 @@ public class FamilySearchPlatformLocalReferenceResolver extends FamilySearchPlat
   public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
     bindIfNeeded(userMessageThreadSummary);
     super.visitUserMessageThreadSummary(userMessageThreadSummary);
+  }
+
+  @Override
+  public void visitVocabConcept(VocabConcept vocabConcept) {
+    bindIfNeeded(vocabConcept);
+    super.visitVocabConcept(vocabConcept);
+  }
+
+  @Override
+  public void visitVocabTerm(VocabTerm vocabTerm) {
+    bindIfNeeded(vocabTerm);
+    super.visitVocabTerm(vocabTerm);
   }
 
   @Override

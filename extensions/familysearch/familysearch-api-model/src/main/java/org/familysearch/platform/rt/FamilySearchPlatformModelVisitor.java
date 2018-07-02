@@ -26,6 +26,9 @@ import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.users.User;
+import org.familysearch.platform.vocab.VocabConcept;
+import org.familysearch.platform.vocab.VocabTerm;
+
 import org.gedcomx.rt.GedcomxModelVisitor;
 
 /**
@@ -53,4 +56,9 @@ public interface FamilySearchPlatformModelVisitor extends GedcomxModelVisitor {
   void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary);
 
   void visitUser(User user);
+
+  void visitVocabConcept(VocabConcept vocabConcept);
+
+  void visitVocabTerm(VocabTerm vocabTerm);
+
 }

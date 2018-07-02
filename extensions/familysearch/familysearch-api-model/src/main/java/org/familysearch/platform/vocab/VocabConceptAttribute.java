@@ -22,98 +22,98 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement
-@JsonElementWrapper(name = "conceptAttribute")
-@XmlType(name = "ConceptAttribute", propOrder = {"id", "name", "value" })
+@JsonElementWrapper(name = "vocabConceptAttributes")
+@XmlType(name = "VocabConceptAttribute", propOrder = {"id", "name", "value" })
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ConceptAttribute {
+public class VocabConceptAttribute {
 
   private String id;
   private String name;
   private String value;
 
   /**
-   * Get the concept attribute id.
+   * Get the vocabulary concept attribute id.
    *
-   * @return The concept attribute id.
+   * @return The vocabulary concept attribute id.
    */
   public String getId() {
     return id;
   }
 
   /**
-   * Set the concept attribute id.
+   * Set the vocabulary concept attribute id.
    *
-   *@param id The concept attribute id.
+   *@param id The vocabulary concept attribute id.
    */
   public void setId(final String id) {
     this.id = id;
   }
 
   /**
-   * Build out this concept attribute by applying an id.
+   * Build out this vocabulary concept attribute by applying an id.
    *
-   * @param id The id to apply to this concept attribute.
+   * @param id The id to apply to this vocabulary concept attribute.
    * @return this.
    */
-  public ConceptAttribute id(final String id) {
+  public VocabConceptAttribute id(final String id) {
     this.setId(id);
     return this;
   }
 
   /**
-   * Get the concept attribute name.
+   * Get the vocabulary concept attribute name.
    *
-   * @return The concept attribute name.
+   * @return The vocabulary concept attribute name.
    */
   public String getName() {
     return name;
   }
 
   /**
-   * Set the concept attribute name.
+   * Set the vocabulary concept attribute name.
    *
-   * @param name The concept attribute name.
+   * @param name The vocabulary concept attribute name.
    */
   public void setName(final String name) {
     this.name = name;
   }
 
   /**
-   * Build out this concept attribute by applying a name.
+   * Build out this vocabulary concept attribute by applying a name.
    *
-   * @param name The name to apply to this concept attribute.
+   * @param name The name to apply to this vocabulary concept attribute.
    * @return this.
    */
-  public ConceptAttribute name(final String name) {
+  public VocabConceptAttribute name(final String name) {
     this.setName(name);
     return this;
   }
 
   /**
-   * Get the concept attribute value.
+   * Get the vocabulary concept attribute value.
    *
-   * @return The concept attribute value.
+   * @return The vocabulary concept attribute value.
    */
   public String getValue() {
     return value;
   }
 
   /**
-   * Set the concept attribute value.
+   * Set the vocabulary concept attribute value.
    *
-   * @param value The concept attribute value.
+   * @param value The vocabulary concept attribute value.
    */
   public void setValue(final String value) {
     this.value = value;
   }
 
   /**
-   * Build out this concept attribute by applying a value.
+   * Build out this vocabulary concept attribute by applying a value.
    *
-   * @param value The value to apply to this concept attribute.
+   * @param value The value to apply to this vocabulary concept attribute.
    * @return this.
    */
-  public ConceptAttribute value(final String value) {
+  public VocabConceptAttribute value(final String value) {
     this.setValue(value);
     return this;
   }

@@ -18,63 +18,63 @@ public class TermTest {
     final String id = "testId";
 
     // Test using setter
-    ExtensibleData classUnderTest = new Term();
+    ExtensibleData classUnderTest = new VocabTerm();
     classUnderTest.setId(id);
 
     assertEquals(classUnderTest.getId(), id);
 
     // Test using builder pattern method
-    classUnderTest = new Term().id(id);
+    classUnderTest = new VocabTerm().id(id);
 
     assertEquals(classUnderTest.getId(), id);
   }
 
   @Test
   public void testType() {
-    final URI type = new URI(URI_BASE + "type/typeTest");
+    final URI type = new URI(URI_BASE + "type/vocabTypeTest");
 
     // Test using setter
-    Term classUnderTest = new Term();
-    classUnderTest.setType(type);
+    VocabTerm classUnderTest = new VocabTerm();
+    classUnderTest.setTypeUri(type);
 
-    assertEquals(classUnderTest.getType(), type);
+    assertEquals(classUnderTest.getTypeUri(), type);
 
     // Test using builder pattern method
-    classUnderTest = new Term().type(type);
+    classUnderTest = new VocabTerm().type(type);
 
-    assertEquals(classUnderTest.getType(), type);
+    assertEquals(classUnderTest.getTypeUri(), type);
   }
 
   @Test
   public void testConceptId() {
-    final URI concept = new URI(URI_BASE + "concept/testConceptId");
+    final URI vocabConceptUri = new URI(URI_BASE + "vocabConcept/testVocabConceptId");
 
     // Test using setter
-    Term classUnderTest = new Term();
-    classUnderTest.setConcept(concept);
+    VocabTerm classUnderTest = new VocabTerm();
+    classUnderTest.setVocabConceptUri(vocabConceptUri);
 
-    assertEquals(classUnderTest.getConcept(), concept);
+    assertEquals(classUnderTest.getVocabConcept(), vocabConceptUri);
 
     // Test using builder pattern method
-    classUnderTest = new Term().concept(concept);
+    classUnderTest = new VocabTerm().vocabConcept(vocabConceptUri);
 
-    assertEquals(classUnderTest.getConcept(), concept);
+    assertEquals(classUnderTest.getVocabConcept(), vocabConceptUri);
   }
 
   @Test
-  public void testSublistId() {
-    final URI sublistId = new URI("http://some.valid.uri/list/testSublistId");
+  public void testSublistUri() {
+    final URI sublistUri = new URI("http://some.valid.uri/list/testSublistUri");
 
     // Test using setter
-    Term classUnderTest = new Term();
-    classUnderTest.setSublist(sublistId);
+    VocabTerm classUnderTest = new VocabTerm();
+    classUnderTest.setSublistUri(sublistUri);
 
-    assertEquals(classUnderTest.getSublist(), sublistId);
+    assertEquals(classUnderTest.getSublistUri(), sublistUri);
 
     // Test using builder pattern method
-    classUnderTest = new Term().sublist(sublistId);
+    classUnderTest = new VocabTerm().sublist(sublistUri);
 
-    assertEquals(classUnderTest.getSublist(), sublistId);
+    assertEquals(classUnderTest.getSublistUri(), sublistUri);
   }
 
   @Test
@@ -82,13 +82,13 @@ public class TermTest {
     final Integer sublistPosition = 349873;
 
     // Test using setter
-    Term classUnderTest = new Term();
+    VocabTerm classUnderTest = new VocabTerm();
     classUnderTest.setSublistPosition(sublistPosition);
 
     assertEquals(classUnderTest.getSublistPosition(), sublistPosition);
 
     // Test using builder pattern method
-    classUnderTest = new Term().sublistPosition(sublistPosition);
+    classUnderTest = new VocabTerm().sublistPosition(sublistPosition);
 
     assertEquals(classUnderTest.getSublistPosition(), sublistPosition);
   }
@@ -100,13 +100,13 @@ public class TermTest {
     List<TextValue> values = Collections.singletonList(testTextValue);
 
     // Test using setter
-    Term classUnderTest = new Term();
+    VocabTerm classUnderTest = new VocabTerm();
     classUnderTest.setValues(values);
 
     assertEquals(classUnderTest.getValues(), values);
 
     // Test using builder pattern method
-    classUnderTest = new Term().values(values);
+    classUnderTest = new VocabTerm().values(values);
 
     assertEquals(classUnderTest.getValues(), values);
   }

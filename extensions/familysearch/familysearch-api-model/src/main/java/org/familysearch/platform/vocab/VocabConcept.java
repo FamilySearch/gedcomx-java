@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.vocab;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,17 +26,19 @@ import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
+
 @XmlRootElement
-@JsonElementWrapper(name = "concept")
-@XmlType(name = "Concept")
+@JsonElementWrapper(name = "vocabConcepts")
+@XmlType(name = "VocabConcept")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Concept extends HypermediaEnabledData {
+public class VocabConcept extends HypermediaEnabledData {
 
   private String description;
   private String note;
   private URI gedcomxUri;
-  private List<Term> terms;
-  private List<ConceptAttribute> attributes;
+  private List<VocabTerm> vocabTerms;
+  private List<VocabConceptAttribute> attributes;
 
   /**
    * Get the vocabulary concept description.
@@ -61,7 +64,7 @@ public class Concept extends HypermediaEnabledData {
    * @param description The description to apply to this vocabulary concept.
    * @return this.
    */
-  public Concept description(final String description) {
+  public VocabConcept description(final String description) {
     this.setDescription(description);
     return this;
   }
@@ -90,7 +93,7 @@ public class Concept extends HypermediaEnabledData {
    * @param note The note to apply to this vocabulary concept.
    * @return this.
    */
-  public Concept note(final String note) {
+  public VocabConcept note(final String note) {
     this.setNote(note);
     return this;
   }
@@ -119,7 +122,7 @@ public class Concept extends HypermediaEnabledData {
    * @param gedcomxUri The Gedcomx URI to apply to this vocabulary concept.
    * @return this.
    */
-  public Concept gedcomxUri(final URI gedcomxUri) {
+  public VocabConcept gedcomxUri(final URI gedcomxUri) {
     this.setGedcomxUri(gedcomxUri);
     return this;
   }
@@ -129,27 +132,39 @@ public class Concept extends HypermediaEnabledData {
    *
    * @return The vocabulary terms associated with this vocabulary concept.
    */
-  public List<Term> getTerms() {
-    return terms;
+  public List<VocabTerm> getVocabTerms() {
+    return vocabTerms;
   }
 
   /**
    * Set the vocabulary terms associated with this vocabulary concept.
    *
-   * @param terms The vocabulary terms associated with this vocabulary concept.
+   * @param vocabTerms The vocabulary terms associated with this vocabulary concept.
    */
-  public void setTerms(final List<Term> terms) {
-    this.terms = terms;
+  public void setVocabTerms(final List<VocabTerm> vocabTerms) {
+    this.vocabTerms = vocabTerms;
+  }
+
+  /**
+   * Add a vocabulary term.
+   *
+   * @param vocabTerm The vocabulary term to add.
+   */
+  public void addVocabTerm(VocabTerm vocabTerm) {
+    if (vocabTerms == null) {
+      vocabTerms = new ArrayList<>();
+    }
+    vocabTerms.add(vocabTerm);
   }
 
   /**
    * Build out this vocabulary concept by applying the given list of vocabulary terms.
    *
-   * @param terms The vocabulary terms to apply to this vocabulary concept.
+   * @param vocabTerms The vocabulary terms to apply to this vocabulary concept.
    * @return this.
    */
-  public Concept terms(final List<Term> terms) {
-    this.setTerms(terms);
+  public VocabConcept vocabTerms(final List<VocabTerm> vocabTerms) {
+    this.setVocabTerms(vocabTerms);
     return this;
   }
 
@@ -158,7 +173,7 @@ public class Concept extends HypermediaEnabledData {
    *
    * @return The attributes associated with this vocabulary concept.
    */
-  public List<ConceptAttribute> getAttributes() {
+  public List<VocabConceptAttribute> getAttributes() {
     return attributes;
   }
 
@@ -167,7 +182,7 @@ public class Concept extends HypermediaEnabledData {
    *
    * @param attributes The attributes associated with this vocabulary concept.
    */
-  public void setAttributes(final List<ConceptAttribute> attributes) {
+  public void setAttributes(final List<VocabConceptAttribute> attributes) {
     this.attributes = attributes;
   }
 
@@ -177,9 +192,44 @@ public class Concept extends HypermediaEnabledData {
    * @param attributes The attributes to apply to this vocabulary concept.
    * @return this.
    */
-  public Concept attributes(final List<ConceptAttribute> attributes) {
+  public VocabConcept attributes(final List<VocabConceptAttribute> attributes) {
     this.setAttributes(attributes);
     return this;
+  }
+
+  /**
+   * Accept a visitor.
+   *
+   * @param visitor The visitor to accept.
+   */
+  public void accept(FamilySearchPlatformModelVisitor visitor) {
+    visitor.visitVocabConcept(this);
+  }
+
+  public void embed(VocabConcept vocabConcept) {
+    List<VocabTerm> vocabTerms = vocabConcept.getVocabTerms();
+    if (vocabTerms != null) {
+      for (VocabTerm vocabTerm : vocabTerms) {
+        boolean found = false;
+        if (vocabTerm.getId() != null) {
+          if (getVocabTerms() != null) {
+            for (VocabTerm target : getVocabTerms()) {
+              if (vocabTerm.getId().equals(target.getId())) {
+                target.embed(vocabTerm);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addVocabTerm(vocabTerm);
+        }
+      }
+    }
+
+    super.embed(vocabConcept);
   }
 
 }

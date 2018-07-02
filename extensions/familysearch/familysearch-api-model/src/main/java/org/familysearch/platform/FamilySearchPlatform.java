@@ -28,6 +28,8 @@ import org.familysearch.platform.places.PlaceDescriptionInfo;
 import org.familysearch.platform.reservations.Reservation;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
+import org.familysearch.platform.vocab.VocabConcept;
+
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Identifier;
@@ -69,8 +71,8 @@ import java.util.*;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper ( name = "familysearch" )
-@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges", "mergeAnalyses", "features", "messageThreads",
-    "userMessageThreadsSummaries" } )
+@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges",
+    "mergeAnalyses", "features", "messageThreads", "userMessageThreadsSummaries", "vocabConcepts" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, PersonInfo.class, SearchInfo.class, PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Reservation.class, Ordinance.class, NameFormInfo.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
@@ -89,6 +91,7 @@ public class FamilySearchPlatform extends Gedcomx {
   private List<Feature> features;
   private List<MessageThread> messageThreads;
   private List<UserMessageThreadsSummary> userMessageThreadsSummaries;
+  private List<VocabConcept> vocabConcepts;
 
   /**
    * The merge analysis results for this data set.
@@ -358,6 +361,52 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   /**
+   * The vocabulary concepts included in this data set.
+   *
+   * @return The vocabulary concepts included in this data set.
+   */
+  @XmlElement ( name = "vocabConcepts" )
+  @JsonProperty ( "vocabConcepts" ) @org.codehaus.jackson.annotate.JsonProperty ( "vocabConcepts" )
+  public List<VocabConcept> getVocabConcepts() {
+    return vocabConcepts;
+  }
+
+  /**
+   * The vocabulary concepts included in this data set.
+   *
+   * @param vocabConcepts The vocabulary concepts included in this data set.
+   */
+  @JsonProperty ( "vocabConcepts" ) @org.codehaus.jackson.annotate.JsonProperty ( "vocabConcepts" )
+  public void setVocabConcepts(List<VocabConcept> vocabConcepts) {
+    this.vocabConcepts = vocabConcepts;
+  }
+
+  /**
+   * Add a vocabulary concept to the data set.
+   *
+   * @param vocabConcept The vocabulary concept to be added.
+   */
+  public void addVocabConcept(VocabConcept vocabConcept) {
+    if (vocabConcept != null) {
+      if (vocabConcepts == null) {
+        vocabConcepts = new LinkedList<>();
+      }
+      vocabConcepts.add(vocabConcept);
+    }
+  }
+
+  /**
+   * Build out this document with a vocabulary concept.
+   *
+   * @param vocabConcept The vocabulary concept to be added.
+   * @return this.
+   */
+  public FamilySearchPlatform vocabConcept(VocabConcept vocabConcept) {
+    addVocabConcept(vocabConcept);
+    return this;
+  }
+
+  /**
    * The users included in this data set.
    *
    * @return The users included in this genealogical data set.
@@ -532,6 +581,28 @@ public class FamilySearchPlatform extends Gedcomx {
           if (!found) {
             addUserMessageThreadsSummary(userMessageThreadsSummary);
           }
+        }
+      }
+    }
+
+    List<VocabConcept> localVocabConcepts = ((FamilySearchPlatform) gedcomx).getVocabConcepts();
+    if (localVocabConcepts != null) {
+      for (VocabConcept vocabConcept : localVocabConcepts) {
+        boolean found = false;
+        if (vocabConcept.getId() != null) {
+          if (getVocabConcepts() != null) {
+            for (VocabConcept target : getVocabConcepts()) {
+              if (vocabConcept.getId().equals(target.getId())) {
+                target.embed(vocabConcept);
+                found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (!found) {
+          addVocabConcept(vocabConcept);
         }
       }
     }

@@ -4,20 +4,20 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class ConceptAttributeTest {
+public class VocabConceptAttributeTest {
 
   @Test
   public void testId() {
     final String id = "testId";
 
     // Test using setter
-    ConceptAttribute classUnderTest = new ConceptAttribute();
+    VocabConceptAttribute classUnderTest = new VocabConceptAttribute();
     classUnderTest.setId(id);
 
     assertEquals(classUnderTest.getId(), id);
 
     // Test using builder pattern method
-    classUnderTest = new ConceptAttribute().id(id);
+    classUnderTest = new VocabConceptAttribute().id(id);
 
     assertEquals(classUnderTest.getId(), id);
   }
@@ -27,13 +27,13 @@ public class ConceptAttributeTest {
     final String name = "testName";
 
     // Test using setter
-    ConceptAttribute classUnderTest = new ConceptAttribute();
+    VocabConceptAttribute classUnderTest = new VocabConceptAttribute();
     classUnderTest.setName(name);
 
     assertEquals(classUnderTest.getName(), name);
 
     // Test using builder pattern method
-    classUnderTest = new ConceptAttribute().name(name);
+    classUnderTest = new VocabConceptAttribute().name(name);
 
     assertEquals(classUnderTest.getName(), name);
   }
@@ -43,13 +43,13 @@ public class ConceptAttributeTest {
     final String value = "testValue";
 
     // Test using setter
-    ConceptAttribute classUnderTest = new ConceptAttribute();
+    VocabConceptAttribute classUnderTest = new VocabConceptAttribute();
     classUnderTest.setValue(value);
 
     assertEquals(classUnderTest.getValue(), value);
 
     // Test using builder pattern method
-    classUnderTest = new ConceptAttribute().value(value);
+    classUnderTest = new VocabConceptAttribute().value(value);
 
     assertEquals(classUnderTest.getValue(), value);
   }

@@ -26,6 +26,9 @@ import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadSummary;
 import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.users.User;
+import org.familysearch.platform.vocab.VocabConcept;
+import org.familysearch.platform.vocab.VocabTerm;
+
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
@@ -59,6 +62,16 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       for (MessageThread messageThread : messageThreads) {
         if (messageThread != null) {
           messageThread.accept(this);
+        }
+      }
+    }
+
+    this.contextStack.push(fsp);
+    List<VocabConcept> vocabConcepts = fsp.getVocabConcepts();
+    if (vocabConcepts != null) {
+      for (VocabConcept vocabConcept : vocabConcepts) {
+        if (vocabConcept != null) {
+          vocabConcept.accept(this);
         }
       }
     }
@@ -130,6 +143,15 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       for (MessageThread messageThread : messageThreads) {
         if (messageThread != null) {
           messageThread.accept(this);
+        }
+      }
+    }
+
+    List<VocabConcept> vocabConcepts = gx.findExtensionsOfType(VocabConcept.class);
+    if (vocabConcepts != null) {
+      for (VocabConcept vocabConcept : vocabConcepts) {
+        if (vocabConcept != null) {
+          vocabConcept.accept(this);
         }
       }
     }
@@ -261,6 +283,25 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
 
   @Override
   public void visitUser(User user) {
+    //no-op.
+  }
+
+  @Override
+  public void visitVocabConcept(VocabConcept vocabConcept) {
+    this.contextStack.push(vocabConcept);
+    List<VocabTerm> vocabTerms = vocabConcept.getVocabTerms();
+    if (vocabTerms != null) {
+      for (VocabTerm vocabTerm : vocabTerms) {
+        if (vocabTerm != null) {
+          vocabTerm.accept(this);
+        }
+      }
+    }
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitVocabTerm(VocabTerm vocabTerm) {
     //no-op.
   }
 }
