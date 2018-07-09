@@ -45,6 +45,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
   private URI type;
   private Boolean optional;
   private List<TextValue> displayLabels;
+  private List<TextValue> entryLabels;
   private String displaySortKey; // a sort key for sorting the field values by how they should be displayed for viewing
   private String entrySortKey; // a sort key for sorting the field values by how they should be entered for editing
   private Boolean entryRequired; // whether some kind of entry is required when entering data for editing.
@@ -149,6 +150,27 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
   @JsonProperty ("labels") @org.codehaus.jackson.annotate.JsonProperty ("labels")
   public void setDisplayLabels(List<TextValue> displayLabels) {
     this.displayLabels = displayLabels;
+  }
+
+  /**
+   * The labels to be used for entry purposes.
+   *
+   * @return The labels to be used for entry purposes.
+   */
+  @XmlElement (name="entryLabel")
+  @JsonProperty ("entryLabels") @org.codehaus.jackson.annotate.JsonProperty ("entryLabels")
+  public List<TextValue> getEntryLabels() {
+    return entryLabels;
+  }
+
+  /**
+   * The labels to be used for entry purposes.
+   *
+   * @param entryLabels The labels to be used for entry purposes.
+   */
+  @JsonProperty ("entryLabels") @org.codehaus.jackson.annotate.JsonProperty ("entryLabels")
+  public void setEntryLabels(List<TextValue> entryLabels) {
+    this.entryLabels = entryLabels;
   }
 
   /**
