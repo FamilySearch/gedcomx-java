@@ -38,11 +38,11 @@
     </dependency>
 
     <!--
-        we explicitly depend on jaxb-impl in order to implement the namespace prefix mapper.
+        we explicitly depend on jaxb-runtime in order to implement the namespace prefix mapper.
     -->
     <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
     </dependency>
 
     <dependency>
