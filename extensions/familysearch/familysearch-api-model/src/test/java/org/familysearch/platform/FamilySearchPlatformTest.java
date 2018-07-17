@@ -2,8 +2,8 @@ package org.familysearch.platform;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
-import org.familysearch.platform.records.reservations.AlternateDate;
-import org.familysearch.platform.records.reservations.AlternatePlaceReference;
+import org.familysearch.platform.records.AlternateDate;
+import org.familysearch.platform.records.AlternatePlaceReference;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
