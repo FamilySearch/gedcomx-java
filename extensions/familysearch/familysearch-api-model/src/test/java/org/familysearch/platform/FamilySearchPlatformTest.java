@@ -1,9 +1,14 @@
 package org.familysearch.platform;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
+import org.familysearch.platform.records.reservations.AlternateDate;
+import org.familysearch.platform.records.reservations.AlternatePlaceReference;
+import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.*;
+import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
 import org.testng.annotations.Test;
@@ -18,6 +23,24 @@ import static org.testng.AssertJUnit.assertNull;
  */
 @Test
 public class FamilySearchPlatformTest {
+
+  public void testAltDatesPlaces() throws Exception {
+    Fact fact = new Fact(FactType.Adoption, "value");
+    AlternateDate altDate = new AlternateDate();
+    altDate.setOriginal("orig");
+    fact.addExtensionElement(altDate);
+    AlternatePlaceReference altPlace = new AlternatePlaceReference();
+    altPlace.setOriginal("place");
+    fact.addExtensionElement(altPlace);
+    Gedcomx gx = new Gedcomx().person(new Person().fact(fact));
+
+    ObjectMapper objectMapper = GedcomJacksonModule.createObjectMapper(AlternateDate.class, AlternatePlaceReference.class);
+    String value = objectMapper.writeValueAsString(gx);
+    System.out.println(value);
+    gx = objectMapper.readValue(value, Gedcomx.class);
+    assertEquals("orig", gx.getPerson().getFirstFactOfType(FactType.Adoption).findExtensionOfType(AlternateDate.class).getOriginal());
+  }
+
   public void testFamily() {
     FamilySearchPlatform g = makeDoc();
     FamilyView family = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(0);
