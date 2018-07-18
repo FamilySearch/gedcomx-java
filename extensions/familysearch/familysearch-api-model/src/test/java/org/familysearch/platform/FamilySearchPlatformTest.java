@@ -13,6 +13,8 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
 import org.testng.annotations.Test;
 
+import javax.xml.bind.JAXBContext;
+
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNull;
 
@@ -36,9 +38,11 @@ public class FamilySearchPlatformTest {
 
     ObjectMapper objectMapper = GedcomJacksonModule.createObjectMapper(AlternateDate.class, AlternatePlaceReference.class);
     String value = objectMapper.writeValueAsString(gx);
-    System.out.println(value);
+    //System.out.println(value);
     gx = objectMapper.readValue(value, Gedcomx.class);
     assertEquals("orig", gx.getPerson().getFirstFactOfType(FactType.Adoption).findExtensionOfType(AlternateDate.class).getOriginal());
+
+    //JAXBContext.newInstance(FamilySearchPlatform.class).createMarshaller().marshal(gx, System.out);
   }
 
   public void testFamily() {
