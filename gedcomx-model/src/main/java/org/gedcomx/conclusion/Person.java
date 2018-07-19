@@ -452,6 +452,27 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * The primary fact for this person.
+   *
+   * @return The primary fact for this person.
+   */
+  @XmlTransient
+  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  public Fact getPrimaryFact() {
+    if (this.facts == null) {
+      return null;
+    }
+
+    for (Fact fact : this.facts) {
+      if (fact.getPrimary() != null && fact.getPrimary()) {
+        return fact;
+      }
+    }
+
+    return null;
+  }
+
+  /**
    * Get the first fact of the specified type.
    *
    * @param type The type.
