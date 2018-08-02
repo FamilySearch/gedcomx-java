@@ -1,5 +1,9 @@
 # GEDCOM X Java RS Client
 
+##### On-going support for this client has been discontinued. New functionality added to the GEDCOM X RS Specification will not be supported. Future changes to the GEDCOM X RS Specification may break this client.
+
+##### This only pertains to this sub-project. The other sub-projects of gedcomx-java will continue to be supported.
+
 This is a Java library that provides support for consuming a genealogical Web service API that
 conforms to the [GEDCOM X RS Specification](https://github.com/FamilySearch/gedcomx-rs).
 
