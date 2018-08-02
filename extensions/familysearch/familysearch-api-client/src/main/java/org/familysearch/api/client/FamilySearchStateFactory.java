@@ -15,35 +15,49 @@
  */
 package org.familysearch.api.client;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.net.URI;
+import java.util.List;
+import javax.ws.rs.HttpMethod;
+
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+
 import org.familysearch.api.client.rt.FamilySearchPlatformJsonProvider;
 import org.familysearch.platform.Error;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.Tag;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
-import org.familysearch.platform.ct.*;
+import org.familysearch.platform.ct.ChangeInfo;
+import org.familysearch.platform.ct.ChildAndParentsRelationship;
+import org.familysearch.platform.ct.DiscussionReference;
+import org.familysearch.platform.ct.MatchInfo;
+import org.familysearch.platform.ct.Merge;
+import org.familysearch.platform.ct.MergeAnalysis;
+import org.familysearch.platform.ct.MergeConflict;
+import org.familysearch.platform.ct.PersonInfo;
+import org.familysearch.platform.ct.SearchInfo;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.MessageThread;
+import org.familysearch.platform.names.NameSearchInfo;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.places.FeedbackInfo;
 import org.familysearch.platform.users.User;
 import org.gedcomx.common.ExtensibleData;
-import org.gedcomx.rs.client.*;
+import org.gedcomx.rs.client.GedcomxApplicationState;
+import org.gedcomx.rs.client.PlaceDescriptionState;
+import org.gedcomx.rs.client.RecordsState;
+import org.gedcomx.rs.client.SourceDescriptionsState;
+import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
-
-import javax.ws.rs.HttpMethod;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.net.URI;
-import java.util.List;
 
 /**
  * @author Ryan Heaton
@@ -207,8 +221,8 @@ public class FamilySearchStateFactory extends StateFactory {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
       ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class, MessageThread.class,
-      Error.class, FeedbackInfo.class, MatchInfo.class, PersonInfo.class, SearchInfo.class, Merge.class, MergeAnalysis.class, MergeConflict.class,
-      Tag.class, User.class, Ordinance.class };
+      Error.class, FeedbackInfo.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class,
+      Merge.class, MergeAnalysis.class, MergeConflict.class, Tag.class, User.class, Ordinance.class };
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
