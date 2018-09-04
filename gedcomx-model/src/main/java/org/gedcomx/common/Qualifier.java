@@ -141,4 +141,28 @@ public final class Qualifier {
     setValue(value);
     return this;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Qualifier qualifier = (Qualifier) o;
+
+    if (!name.equals(qualifier.name)) {
+      return false;
+    }
+    return value.equals(qualifier.value);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = name.hashCode();
+    result = 31 * result + value.hashCode();
+    return result;
+  }
 }
