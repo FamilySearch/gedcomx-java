@@ -39,6 +39,7 @@ public class MatchInfo {
   private URI collection;
   private URI status;
   private Boolean addsPerson;
+  private Boolean addsPerson110YearRule;
   private Boolean addsFact;
   private Boolean addsDateOrPlace;
 
@@ -102,6 +103,23 @@ public class MatchInfo {
    */
   public void setAddsPerson(Boolean addsPerson) {
     this.addsPerson = addsPerson;
+  }
+
+  /**
+   * tells if the match would add a person to the target system who passes the 110-year rule
+   * @return true if the match would add a person to the target system who passes the 110-year rule
+   */
+  @XmlAttribute
+  public Boolean getAddsPerson110YearRule() {
+    return addsPerson110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a person to the target system who passes the 110-year rule
+   * @param addsPerson110YearRule whether or not the match would add a person to the target system who passes the 110-year rule
+   */
+  public void setAddsPerson110YearRule(Boolean addsPerson110YearRule) {
+    this.addsPerson110YearRule = addsPerson110YearRule;
   }
 
   /**
