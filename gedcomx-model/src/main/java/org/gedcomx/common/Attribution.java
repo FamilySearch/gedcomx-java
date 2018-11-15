@@ -35,7 +35,7 @@ import java.util.Date;
  */
 @XmlRootElement
 @JsonElementWrapper (name = "attribution")
-@XmlType ( name = "Attribution", propOrder = { "contributor", "modified", "changeMessage", "creator", "created" } )
+@XmlType ( name = "Attribution", propOrder = { "contributor", "modified", "changeMessage", "changeMessageResource", "creator", "created" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
 public final class Attribution extends ExtensibleData {
@@ -45,6 +45,7 @@ public final class Attribution extends ExtensibleData {
   private Date modified;
   private Date created;
   private String changeMessage;
+  private URI changeMessageResource;
 
   @Override
   public Attribution id(String id) {
@@ -257,6 +258,35 @@ public final class Attribution extends ExtensibleData {
    */
   public Attribution changeMessage(String changeMessage) {
     this.changeMessage = changeMessage;
+    return this;
+  }
+
+  /**
+   * A reference to the change message for the attributed data provided by the contributor.
+   *
+   * @return A reference to the change message for the attributed data provided by the contributor.
+   */
+  public URI getChangeMessageResource() {
+    return changeMessageResource;
+  }
+
+  /**
+   * A reference to the change message for the attributed data provided by the contributor.
+   *
+   * @param changeMessageResource A reference to the change message for the attributed data provided by the contributor.
+   */
+  public void setChangeMessageResource(URI changeMessageResource) {
+    this.changeMessageResource = changeMessageResource;
+  }
+
+  /**
+   * Build up this attribution with a change message resource.
+   *
+   * @param changeMessageResource The change message resource.
+   * @return this.
+   */
+  public Attribution changeMessageResource(URI changeMessageResource) {
+    this.changeMessageResource = changeMessageResource;
     return this;
   }
 
