@@ -140,6 +140,11 @@ public class DiscoveryState extends GedcomxApplicationState<Feed> {
   }
 
   /**
+   * Read person-with-relationships.
+   *
+   * @param personId The person id.
+   * @param options The options.
+   * @return The person-with-relationships state.
    * @deprecated The "Person" is now the "Person With Relationships".
    */
   @Deprecated

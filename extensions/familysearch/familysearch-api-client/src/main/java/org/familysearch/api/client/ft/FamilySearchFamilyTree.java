@@ -263,6 +263,11 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   }
 
   /**
+   * Read person with relationships by id.
+   *
+   * @param id The id.
+   * @param options The options.
+   * @return The person-with-relationships state.
    * @deprecated Use {@link #readPersonById(String, StateTransitionOption...)}
    */
   @Deprecated
