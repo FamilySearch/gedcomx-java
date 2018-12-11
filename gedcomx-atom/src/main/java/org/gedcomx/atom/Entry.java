@@ -18,6 +18,7 @@ package org.gedcomx.atom;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.DocumentationExample;
 import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
@@ -186,6 +187,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    *
    * @return The confidence of the result, if this entry represents a search result.
    */
+  @DocumentationExample(value="4", value2="3")    // so enunciate generated docs will have consistent values - otherwise json type randomly generates a value
   @XmlElement ( namespace = GedcomxConstants.GEDCOMX_NAMESPACE )
   public ResultConfidence getConfidence() {
     return confidence;
