@@ -17,15 +17,16 @@ package org.gedcomx.util;
 
 import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.conclusion.*;
+import org.gedcomx.conclusion.Name;
+import org.gedcomx.conclusion.NameForm;
+import org.gedcomx.conclusion.NamePart;
+import org.gedcomx.conclusion.Person;
 import org.gedcomx.records.RecordSet;
-import org.gedcomx.types.FactType;
 import org.gedcomx.types.NamePartType;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
@@ -142,7 +143,7 @@ public class TestRecordSetWriter extends TestCase {
     }
 
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    RecordSetWriter writer = new RecordSetWriter(bos, false);
+    RecordSetWriter writer = new RecordSetWriter(bos, false, Gedcomx.class, RecordSet.class);
     writer.writeRecord(doc);
     writer.close();
     byte[] bytes = bos.toByteArray();
