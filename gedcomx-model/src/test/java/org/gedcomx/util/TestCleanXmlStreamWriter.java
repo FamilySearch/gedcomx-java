@@ -6,6 +6,7 @@ import org.gedcomx.conclusion.Name;
 import org.gedcomx.conclusion.NameForm;
 import org.gedcomx.conclusion.NamePart;
 import org.gedcomx.conclusion.Person;
+import org.gedcomx.records.RecordSet;
 import org.gedcomx.types.NamePartType;
 
 import javax.xml.bind.JAXBException;
@@ -53,7 +54,7 @@ public class TestCleanXmlStreamWriter extends TestCase {
     person.addName(name);
 
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    RecordSetWriter cleanWriter = new RecordSetWriter(bos, false);
+    RecordSetWriter cleanWriter = new RecordSetWriter(bos, false, Gedcomx.class, RecordSetWriter.class);
     cleanWriter.writeRecord(doc);
     cleanWriter.close();
 
@@ -62,7 +63,7 @@ public class TestCleanXmlStreamWriter extends TestCase {
     assertEquals(orig, doc1.getPerson().getName().getNameForm().getFullText());
 
     bos = new ByteArrayOutputStream();
-    RecordSetWriter cleanWriter2 = new RecordSetWriter(bos, true);
+    RecordSetWriter cleanWriter2 = new RecordSetWriter(bos, true, Gedcomx.class, RecordSetWriter.class);
     cleanWriter2.writeRecord(doc);
     cleanWriter2.close();
     recordSetIterator = new XmlRecordSetIterator(new ByteArrayInputStream(bos.toByteArray()), false);
@@ -88,7 +89,7 @@ public class TestCleanXmlStreamWriter extends TestCase {
     doc.addPerson(new Person().id("p." + full).name(name));
 
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    RecordSetWriter cleanWriter = new RecordSetWriter(bos, false);
+    RecordSetWriter cleanWriter = new RecordSetWriter(bos, false, Gedcomx.class, RecordSet.class);
     cleanWriter.writeRecord(doc);
     cleanWriter.close();
 
