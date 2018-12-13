@@ -1,3 +1,3 @@
-The build for the GEDCOM X Java implementation is at Cloudbees. Just run the release build[1], specifying the release version and the next development version.
+Command:
 
-[1] https://gedcom.ci.cloudbees.com/job/gedcomx-java/
+mvn -B -P release clean release:clean release:prepare -Dtag=$RELEASE_VERSION -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform
