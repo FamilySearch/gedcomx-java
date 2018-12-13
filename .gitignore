@@ -7,3 +7,4 @@ target
 .ideaproject
 *.zargo~
 .DS_Store
+*.asc
