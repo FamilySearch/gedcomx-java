@@ -54,7 +54,7 @@
     <connection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</connection>
     <developerConnection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</developerConnection>
     <url>https://github.com/FamilySearch/gedcomx-java</url>
-    <tag>2.13.0-SNAPSHOT</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencyManagement>
@@ -268,10 +268,6 @@
     <developer>
       <name>Ryan Heaton</name>
       <url>https://github.com/stoicflame</url>
-    </developer>
-    <developer>
-      <name>John Clark</name>
-      <url>https://github.com/jonnymbgood</url>
     </developer>
     <developer>
       <name>Todd Chapman</name>
