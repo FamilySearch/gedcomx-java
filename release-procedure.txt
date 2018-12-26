@@ -30,12 +30,14 @@ Procedure:  (required setup must be completed first)
 
 
 
-NOTES:  After you successfully release, your component will be published to Central, typically within 10 minutes, though updates to
-        search.maven.org can take up to two hours.   see http://central.maven.org/maven2/org/gedcomx/gedcomx-model/
-                                                         https://search.maven.org/search?q=gedcomx
+NOTES:  After you release you will have the released artifacts in your local repository, but that does not mean then have been sync'ed to maven central.
+        If they are not on maven central anyone trying to use those versions, including FamilySearch build servers, will fail.
+        After you successfully release, your component will be published to Central, possibly within 10 minutes, but could be much longer.  Updates to
+        search.maven.org can take up to two hours or more.   see  http://central.maven.org/maven2/org/gedcomx/
+                                                                  https://search.maven.org/search?q=gedcomx
 
         If you try to use the artifact before it is available at maven central you will need to wait an additional 15 minutes before it will be
-        available on the FamilySearch nexus repositorty.  The FamilySearch nexus repository keeps a 15 minute cache before retrying to download
+        available on the FamilySearch nexus repository.  The FamilySearch nexus repository keeps a 15 minute cache before retrying to download
         from maven central again.
 
         To see what would be changed, you could run:      mvn release:prepare -DdryRun=true
