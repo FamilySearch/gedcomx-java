@@ -33,8 +33,8 @@ Procedure:  (required setup must be completed first)
 NOTES:  After you release you will have released artifacts in your local repository with the new version, but that does not mean then have
         been sync'ed to maven central. If they are not on maven central anyone trying to use those versions, including FamilySearch build
         servers, will fail. After you successfully release, your component will be published to Central, possibly within 10 minutes, probably
-        within 2 hours, but could be longer.  Updates to search.maven.org can take even longer.   see  http://central.maven.org/maven2/org/gedcomx/
-                                                                                                       https://search.maven.org/search?q=gedcomx
+        within 2 hours, but could be longer.  Updates to search.maven.org can take longer.   See  http://central.maven.org/maven2/org/gedcomx/
+                                                                                                  https://search.maven.org/search?q=gedcomx
 
         If you try to use the artifact before it is available at maven central you will need to wait an additional 15 minutes before it will be
         available on the FamilySearch nexus repository.  The FamilySearch nexus repository keeps a 15 minute cache before retrying to download
@@ -83,10 +83,10 @@ SETUP - required before releasing the project
 
 =============================================================================================================================================
 =============================================================================================================================================
-Documentation from sonatype
+Documentation from Sonatype
+
 
 https://central.sonatype.org/pages/ossrh-guide.html
-
 
 https://oss.sonatype.org/
 
@@ -100,24 +100,36 @@ Accessing Repositories
             https://oss.sonatype.org/content/repositories/snapshots/
             https://oss.sonatype.org/content/repositories/snapshots/org/gedcomx/
 
-        Repository URL for release deployment, no download access!  (THIS IS NOT WORKING?)
+        Repository URL for release deployment, no download access!  (THIS DOES NOT SEEM TO WORK?)
             https://oss.sonatype.org/service/local/staging/deploy/maven2/
             https://oss.sonatype.org/service/local/staging/deploy/maven2/org/gedcomx/
 
-        General repository group at sonatype that contains snapshots and releases
+        General public repository group at sonatype that contains snapshots and releases
             https://oss.sonatype.org/content/groups/public/
             https://oss.sonatype.org/content/groups/public/org/gedcomx
 
-        - Repository URL for release download access, this repository is synced to the Central Repository, direct deployment to this repository is NOT possible
-          You may look here to verify the project has been successfully staged at Sonatype
+
+        - Repository URL for staged/released artifacts at Sonatype, this repository is synced to the Maven Central Repository.
+          You may look here to verify the project has been successfully staged/released at Sonatype (see notes below)
               https://oss.sonatype.org/content/repositories/releases/
               https://oss.sonatype.org/content/repositories/releases/org/gedcomx
 
 
-        - Maven Central repository.  When its here then FamilySearch nexus will be able to pull it.
+        - Maven Central repository.  When its here then FamilySearch's nexus will be able to pull it.
               http://central.maven.org/maven2/org/gedcomx/
               https://search.maven.org/search?q=gedcomx         search.maven.org can take longer to appear
 
 
         - FamilySearch nexus repository.  You must be vpn'ed in to access this.
               http://nexus.a.fsglobal.net/content/groups/dev/org/gedcomx
+
+
+
+NOTES:  After Central Sync is activated, your future promotion will be synced automatically. The sync process runs roughly every 2 hours.
+          See https://stackoverflow.com/questions/23235892/how-long-does-sonatype-staging-take-to-sync-my-artifacts-with-maven-central?rq=1
+        Upon release, your component will be published to Central: this typically occurs within 10 minutes, though updates to search can take up to two hours.
+          See https://central.sonatype.org/pages/ossrh-guide.html#releasing-to-central
+        My conclusion is somewhere between 10 minutes and 2 hours to get to maven central.  I've seen it be from about 30 mins to 2 hours so far.
+
+
+
