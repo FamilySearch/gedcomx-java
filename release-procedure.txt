@@ -38,7 +38,7 @@ NOTES:  After you release you will have released artifacts in your local reposit
 
         If you try to use the artifact before it is available at maven central you will need to wait an additional 15 minutes before it will be
         available on the FamilySearch nexus repository.  The FamilySearch nexus repository keeps a 15 minute cache before retrying to download
-        from maven central again.
+        from maven central again.  You may be able to work around this using mvn -U ...
 
         To see what would be changed, you could run:      mvn release:prepare -DdryRun=true
             run mvn release:clean to clean up afterwards
@@ -104,17 +104,20 @@ Accessing Repositories
             https://oss.sonatype.org/service/local/staging/deploy/maven2/
             https://oss.sonatype.org/service/local/staging/deploy/maven2/org/gedcomx/
 
-        Repository URL for release download access, this repository is synced to the Central Repository, direct deployment to this repository is NOT possible
-        You may look here to verify the project has been successfully staged at Sonatype
-            https://oss.sonatype.org/content/repositories/releases/
-            https://oss.sonatype.org/content/repositories/releases/org/gedcomx
-
         General repository group at sonatype that contains snapshots and releases
             https://oss.sonatype.org/content/groups/public/
             https://oss.sonatype.org/content/groups/public/org/gedcomx
 
+        - Repository URL for release download access, this repository is synced to the Central Repository, direct deployment to this repository is NOT possible
+          You may look here to verify the project has been successfully staged at Sonatype
+              https://oss.sonatype.org/content/repositories/releases/
+              https://oss.sonatype.org/content/repositories/releases/org/gedcomx
 
-        Maven Central repository.  When its here then FamilySearch nexus will be able to pull it.
-            http://central.maven.org/maven2/org/gedcomx/
-            https://search.maven.org/search?q=gedcomx         search.maven.org can take longer to appear
 
+        - Maven Central repository.  When its here then FamilySearch nexus will be able to pull it.
+              http://central.maven.org/maven2/org/gedcomx/
+              https://search.maven.org/search?q=gedcomx         search.maven.org can take longer to appear
+
+
+        - FamilySearch nexus repository.  You must be vpn'ed in to access this.
+              http://nexus.a.fsglobal.net/content/groups/dev/org/gedcomx
