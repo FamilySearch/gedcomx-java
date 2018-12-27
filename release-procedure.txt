@@ -26,7 +26,14 @@ Procedure:  (required setup must be completed first)
         release:perform   Perform a release from SCM.   (Checkout from SCM URL, Run predefined Maven goals to release project i.e deploy site-deploy)
 
 
-3. "push" the local git changes back to git@github.com:familysearch/gedcomx-java to avoid future conflicts - DO NOT FORGET THIS!
+3. Optional   If you now run 'git status' it may tell you that "Your branch is ahead of 'origin/master' by 2 commits". However your changes should actually
+              be pushed to the master repository.  You can verify that at  https://github.com/FamilySearch/gedcomx-java/commits/master
+
+        The maven release plugin runs 'git push git@github.com:FamilySearch/gedcomx-java.git refs/heads/master:refs/heads/master', but for some reason the
+        local git tools show that local changes still need to be pushed to master.  You can fix this by running 'git fetch' or 'git pull' or even 'git push'
+             See https://stackoverflow.com/questions/7365415/pull-only-repos-git-status-saying-the-branch-is-ahead-of-origin-master-why
+                 https://stackoverflow.com/questions/2432579/git-your-branch-is-ahead-by-x-commits
+        If you figure out why the maven release plugin leaves things looking like this let us know.
 
 
 
