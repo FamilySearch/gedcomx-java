@@ -144,14 +144,14 @@ public enum FactType implements ControlledVocabulary {
   Confirmation,
 
   /**
-   * A fact of the cremation of person's body after death.
-   */
-  Cremation,
-
-  /**
    * A fact of the appearance of a person in a court proceeding.
    */
   Court,
+
+  /**
+   * A fact of the cremation of person's body after death.
+   */
+  Cremation,
 
   /**
    * A fact of the death of a person.
@@ -641,8 +641,8 @@ public enum FactType implements ControlledVocabulary {
     public static final FactType Circumcision = include(FactType.Circumcision);
     public static final FactType Clan = include(FactType.Clan);
     public static final FactType Confirmation = include(FactType.Confirmation);
-    public static final FactType Cremation = include(FactType.Cremation);
     public static final FactType Court = include(FactType.Court);
+    public static final FactType Cremation = include(FactType.Cremation);
     public static final FactType Death = include(FactType.Death);
     public static final FactType Education = include(FactType.Education);
     public static final FactType EducationEnrollment = include(FactType.EducationEnrollment);
