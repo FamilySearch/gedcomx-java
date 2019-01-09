@@ -69,6 +69,12 @@ public enum FactType implements ControlledVocabulary {
   Arrest,
 
   /**
+   * A fact of a person's award (medal, honor).
+   */
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Award,
+
+  /**
    * A fact of a person's baptism.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
@@ -204,6 +210,14 @@ public enum FactType implements ControlledVocabulary {
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Graduation,
+
+  /**
+   * A fact of a person's heimat. "Heimat" refers to a person's affiliation by birth to a specific geographic place.
+   * Distinct heimaten are often useful as indicators that two persons of the same name are not likely to be closely related genealogically.
+   * In English, "heimat" may be described using terms like "ancestral home", "homeland", or "place of origin".
+   */
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Heimat,
 
   /**
    * A fact of a person's immigration.
@@ -370,6 +384,12 @@ public enum FactType implements ControlledVocabulary {
   Property,
 
   /**
+   * A fact of the declaration of a person's race, presumably in a historical document.
+   */
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Race,
+
+  /**
    * A fact of a person's religion.
    */
   Religion,
@@ -395,6 +415,12 @@ public enum FactType implements ControlledVocabulary {
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   TaxAssessment,
+
+  /**
+   * A fact of a person's tribe.
+   */
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  Tribe,
 
   /**
    * A fact of a person's will.
@@ -527,6 +553,12 @@ public enum FactType implements ControlledVocabulary {
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   SociologicalParent,
 
+  /**
+   * A fact about a pregnancy surrogate relationship between a parent and a child.
+   */
+  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  SurrogateParent,
+
   @XmlUnknownQNameEnumValue
   OTHER;
 
@@ -594,10 +626,13 @@ public enum FactType implements ControlledVocabulary {
     public static final FactType AdultChristening = include(FactType.AdultChristening);
     public static final FactType Amnesty = include(FactType.Amnesty);
     public static final FactType Apprenticeship = include(FactType.Apprenticeship);
+    public static final FactType Arrest = include(FactType.Arrest);
+    public static final FactType Award = include(FactType.Award);
     public static final FactType Baptism = include(FactType.Baptism);
     public static final FactType BarMitzvah = include(FactType.BarMitzvah);
     public static final FactType BatMitzvah = include(FactType.BatMitzvah);
     public static final FactType Birth = include(FactType.Birth);
+    public static final FactType BirthNotice = include(FactType.BirthNotice);
     public static final FactType Blessing = include(FactType.Blessing);
     public static final FactType Burial = include(FactType.Burial);
     public static final FactType Caste = include(FactType.Caste);
@@ -607,42 +642,57 @@ public enum FactType implements ControlledVocabulary {
     public static final FactType Clan = include(FactType.Clan);
     public static final FactType Confirmation = include(FactType.Confirmation);
     public static final FactType Cremation = include(FactType.Cremation);
+    public static final FactType Court = include(FactType.Court);
     public static final FactType Death = include(FactType.Death);
+    public static final FactType Education = include(FactType.Education);
+    public static final FactType EducationEnrollment = include(FactType.EducationEnrollment);
     public static final FactType Emigration = include(FactType.Emigration);
     public static final FactType Ethnicity = include(FactType.Ethnicity);
     public static final FactType Excommunication = include(FactType.Excommunication);
     public static final FactType FirstCommunion = include(FactType.FirstCommunion);
-    public static final FactType Living = include(FactType.Living);
     public static final FactType Funeral = include(FactType.Funeral);
-    public static final FactType Education = include(FactType.Education);
+    public static final FactType GenderChange = include(FactType.GenderChange);
+    public static final FactType Graduation = include(FactType.Graduation);
+    public static final FactType Heimat = include(FactType.Heimat);
     public static final FactType Immigration = include(FactType.Immigration);
     public static final FactType Imprisonment = include(FactType.Imprisonment);
+    public static final FactType Inquest = include(FactType.Inquest);
     public static final FactType LandTransaction = include(FactType.LandTransaction);
+    public static final FactType Language = include(FactType.Language);
+    public static final FactType Living = include(FactType.Living);
     public static final FactType MaritalStatus = include(FactType.MaritalStatus);
     public static final FactType Medical = include(FactType.Medical);
     public static final FactType MilitaryAward = include(FactType.MilitaryAward);
     public static final FactType MilitaryDischarge = include(FactType.MilitaryDischarge);
+    public static final FactType MilitaryDraftRegistration = include(FactType.MilitaryDraftRegistration);
+    public static final FactType MilitaryInduction = include(FactType.MilitaryInduction);
     public static final FactType MilitaryService = include(FactType.MilitaryService);
     public static final FactType Mission = include(FactType.Mission);
-    public static final FactType MoveTo = include(FactType.MoveTo);
     public static final FactType MoveFrom = include(FactType.MoveFrom);
-    public static final FactType Naturalization = include(FactType.Naturalization);
-    public static final FactType NumberOfMarriages = include(FactType.NumberOfMarriages);
+    public static final FactType MoveTo = include(FactType.MoveTo);
+    public static final FactType MultipleBirth = include(FactType.MultipleBirth);
     public static final FactType NationalId = include(FactType.NationalId);
     public static final FactType Nationality = include(FactType.Nationality);
+    public static final FactType Naturalization = include(FactType.Naturalization);
+    public static final FactType NumberOfChildren = include(FactType.NumberOfChildren);
+    public static final FactType NumberOfMarriages = include(FactType.NumberOfMarriages);
     public static final FactType Obituary = include(FactType.Obituary);
     public static final FactType Occupation = include(FactType.Occupation);
     public static final FactType Ordination = include(FactType.Ordination);
+    public static final FactType Pardon = include(FactType.Pardon);
     public static final FactType PhysicalDescription = include(FactType.PhysicalDescription);
     public static final FactType Probate = include(FactType.Probate);
     public static final FactType Property = include(FactType.Property);
+    public static final FactType Race = include(FactType.Race);
     public static final FactType Religion = include(FactType.Religion);
     public static final FactType Residence = include(FactType.Residence);
     public static final FactType Retirement = include(FactType.Retirement);
     public static final FactType Stillbirth = include(FactType.Stillbirth);
-    public static final FactType MultipleBirth = include(FactType.MultipleBirth);
+    public static final FactType TaxAssessment = include(FactType.TaxAssessment);
+    public static final FactType Tribe = include(FactType.Tribe);
     public static final FactType Will = include(FactType.Will);
     public static final FactType Visit = include(FactType.Visit);
+    public static final FactType Yahrzeit = include(FactType.Yahrzeit);
 
     /**
      * Whether the given fact type is applicable to a person.
@@ -667,6 +717,8 @@ public enum FactType implements ControlledVocabulary {
     
     public static final FactType Annulment = include(FactType.Annulment);
     public static final FactType CommonLawMarriage = include(FactType.CommonLawMarriage);
+    public static final FactType CivilUnion = include(FactType.CivilUnion);
+    public static final FactType DomesticPartnership = include(FactType.DomesticPartnership);
     public static final FactType Divorce = include(FactType.Divorce);
     public static final FactType DivorceFiling = include(FactType.DivorceFiling);
     public static final FactType Engagement = include(FactType.Engagement);
@@ -698,13 +750,14 @@ public enum FactType implements ControlledVocabulary {
       PARENT_CHILD_FACT_TYPES.add(type);
       return type;
     }
-    
-    public static final FactType BiologicalParent = include(FactType.BiologicalParent);
+
     public static final FactType AdoptiveParent = include(FactType.AdoptiveParent);
-    public static final FactType StepParent = include(FactType.StepParent);
+    public static final FactType BiologicalParent = include(FactType.BiologicalParent);
     public static final FactType FosterParent = include(FactType.FosterParent);
     public static final FactType GuardianParent = include(FactType.GuardianParent);
+    public static final FactType StepParent = include(FactType.StepParent);
     public static final FactType SociologicalParent = include(FactType.SociologicalParent);
+    public static final FactType SurrogateParent = include(FactType.SurrogateParent);
 
     /**
      * Whether the given fact type is applicable to a parent-child relationship.
