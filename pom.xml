@@ -11,7 +11,10 @@
   <packaging>pom</packaging>
 
   <properties>
+    <!-- Various settings -->
+    <java.compiler.version>1.8</java.compiler.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <root.basedir>${project.basedir}</root.basedir>
     <jersey.version>1.19.2</jersey.version>
     <jackson.version>2.9.7</jackson.version>
@@ -19,6 +22,22 @@
 
     <skip.javadoc>true</skip.javadoc>
     <skip.pgp>true</skip.pgp>
+
+
+    <!-- Dependency versions -->
+
+
+
+    <!-- Plugin versions -->
+    <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+    <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+    <maven-license-plugin.version>1.4.0</maven-license-plugin.version>
+    <maven-release-plugin-plugin.version>2.5.3</maven-release-plugin-plugin.version>
+    <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
+    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+    <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+    <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+    <pgp-maven-plugin.version>1.1</pgp-maven-plugin.version>
   </properties>
 
   <modules>
@@ -144,22 +163,19 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
         <configuration>
-          <encoding>UTF-8</encoding>
-          <source>1.8</source>
-          <target>1.8</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <source>${java.compiler.version}</source>
+          <target>${java.compiler.version}</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.19.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -173,12 +189,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.1</version>
       </plugin>
       <plugin>
         <groupId>com.google.code.maven-license-plugin</groupId>
         <artifactId>maven-license-plugin</artifactId>
-        <version>1.4.0</version>
         <configuration>
           <header>${root.basedir}/LICENSE-header.txt</header>
           <includes>
@@ -200,7 +214,6 @@
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.7</version>
         <extensions>true</extensions>
         <configuration>
           <serverId>ossrh</serverId>
@@ -211,7 +224,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
           <useReleaseProfile>false</useReleaseProfile>
@@ -222,7 +234,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.4</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -238,7 +249,6 @@
       <plugin>
         <groupId>org.kohsuke</groupId>
         <artifactId>pgp-maven-plugin</artifactId>
-        <version>1.1</version>
         <executions>
           <execution>
             <id>sign-artifacts</id>
@@ -255,6 +265,55 @@
         </configuration>
       </plugin>
     </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.google.code.maven-license-plugin</groupId>
+          <artifactId>maven-license-plugin</artifactId>
+          <version>${maven-license-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>${nexus-staging-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.kohsuke</groupId>
+          <artifactId>pgp-maven-plugin</artifactId>
+          <version>${pgp-maven-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
   <licenses>
