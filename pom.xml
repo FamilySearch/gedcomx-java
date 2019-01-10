@@ -14,19 +14,23 @@
     <!-- Various settings -->
     <java.compiler.version>1.8</java.compiler.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
     <root.basedir>${project.basedir}</root.basedir>
-    <jersey.version>1.19.2</jersey.version>
-    <jackson.version>2.9.7</jackson.version>
-    <jackson1.version>1.9.13</jackson1.version>
-
     <skip.javadoc>true</skip.javadoc>
     <skip.pgp>true</skip.pgp>
 
-
     <!-- Dependency versions -->
-
-
+    <commons-codec.version>1.10</commons-codec.version>
+    <enunciate.version>2.7.0</enunciate.version>
+    <handy-uri.version>2.1.6</handy-uri.version>
+    <jackson.version>2.9.7</jackson.version>
+    <jackson1.version>1.9.13</jackson1.version>
+    <jaxb-runtime.version>2.2.11</jaxb-runtime.version>
+    <jersey.version>1.19.2</jersey.version>
+    <jena-arq.version>3.1.0</jena-arq.version>
+    <jsr311-api.version>1.1.1</jsr311-api.version>
+    <junit.version>4.12</junit.version>
+    <testng.version>5.14.10</testng.version>
+    <woodstox-core.version>5.0.3</woodstox-core.version>
 
     <!-- Plugin versions -->
     <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
@@ -64,7 +68,6 @@
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -81,7 +84,7 @@
       <dependency>
         <groupId>com.webcohesion.enunciate</groupId>
         <artifactId>enunciate-core-annotations</artifactId>
-        <version>2.7.0</version>
+        <version>${enunciate.version}</version>
       </dependency>
 
       <dependency>
@@ -99,7 +102,7 @@
       <dependency>
         <groupId>com.fasterxml.woodstox</groupId>
         <artifactId>woodstox-core</artifactId>
-        <version>5.0.3</version>
+        <version>${woodstox-core.version}</version>
       </dependency>
 
       <dependency>
@@ -111,25 +114,32 @@
       <dependency>
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-runtime</artifactId>
-        <version>2.2.11</version>
+        <version>${jaxb-runtime.version}</version>
       </dependency>
 
       <dependency>
         <groupId>javax.ws.rs</groupId>
         <artifactId>jsr311-api</artifactId>
-        <version>1.1.1</version>
+        <version>${jsr311-api.version}</version>
       </dependency>
 
       <dependency>
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
-        <version>1.10</version>
+        <version>${commons-codec.version}</version>
       </dependency>
 
       <dependency>
         <groupId>com.sun.jersey</groupId>
         <artifactId>jersey-client</artifactId>
         <version>${jersey.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-server</artifactId>
+        <version>${jersey.version}</version>
+        <scope>provided</scope>
       </dependency>
 
       <dependency>
@@ -141,24 +151,31 @@
       <dependency>
         <groupId>com.damnhandy</groupId>
         <artifactId>handy-uri-templates</artifactId>
-        <version>2.1.6</version>
+        <version>${handy-uri.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.jena</groupId>
         <artifactId>jena-arq</artifactId>
-        <version>3.1.0</version>
+        <version>${jena-arq.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
-        <version>5.14.10</version>
+        <version>${testng.version}</version>
       </dependency>
+
+      <!--<dependency>-->
+        <!--<groupId>junit</groupId>-->
+        <!--<artifactId>junit</artifactId>-->
+        <!--<version>${junit.version}</version>-->
+      <!--</dependency>-->
+
     </dependencies>
   </dependencyManagement>
 
-  <build>
+ <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
