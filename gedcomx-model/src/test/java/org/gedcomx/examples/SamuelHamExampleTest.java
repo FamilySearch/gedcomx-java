@@ -11,7 +11,7 @@ import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.*;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,9 +19,9 @@ import java.text.SimpleDateFormat;
 /**
  * @author Ryan Heaton
  */
-@Test
 public class SamuelHamExampleTest {
 
+  @Test
   public void testExample() throws Exception {
     //Jane Doe, the researcher.
     Agent janeDoe = new Agent().id("A-1").name("Jane Doe").email("example@example.org");

@@ -3,9 +3,9 @@ package org.familysearch.platform.messages;
 import java.util.Date;
 
 import org.gedcomx.agent.Agent;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class MessageTest extends MessageTestBase {
 

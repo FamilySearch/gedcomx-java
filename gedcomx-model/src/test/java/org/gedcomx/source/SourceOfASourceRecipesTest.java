@@ -7,13 +7,13 @@ import org.gedcomx.common.*;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.test.RecipeTest;
 import org.gedcomx.test.Snippet;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.*;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.Assert.*;
+import static org.junit.Assert.*;
 
 
 /**

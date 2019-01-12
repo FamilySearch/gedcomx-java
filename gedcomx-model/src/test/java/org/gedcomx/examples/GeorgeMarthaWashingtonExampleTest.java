@@ -14,7 +14,7 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 import org.gedcomx.types.NamePartType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +23,6 @@ import java.util.List;
 /**
  * @author Ryan Heaton
  */
-@Test
 public class GeorgeMarthaWashingtonExampleTest {
 
 //  public void testEventsOnPlaces() throws Exception {
@@ -38,6 +37,7 @@ public class GeorgeMarthaWashingtonExampleTest {
 //    System.out.println(new String(bytes, "UTF-8"));
 //  }
 //
+  @Test
   public void testExample() throws Exception {
     PlaceDescription popesCreek = createPopesCreek();
     PlaceDescription mountVernon = createMountVernon();

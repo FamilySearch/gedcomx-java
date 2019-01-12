@@ -2,8 +2,8 @@ package org.gedcomx.conclusion;
 
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.testng.annotations.Test;
-import static org.testng.AssertJUnit.*;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 /**
@@ -11,8 +11,9 @@ import static org.testng.AssertJUnit.*;
  * User: Randy Wilson
  * Date: 15 May 2015
  */
-@Test
 public class FamilyTest {
+
+  @Test
   public void testFamily() {
     FamilyView family = new FamilyView();
 

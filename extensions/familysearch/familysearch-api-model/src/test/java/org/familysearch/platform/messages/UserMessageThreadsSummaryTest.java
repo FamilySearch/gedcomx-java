@@ -3,9 +3,9 @@ package org.familysearch.platform.messages;
 import java.util.Collections;
 import java.util.List;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class UserMessageThreadsSummaryTest {
   private static final String USER_ID = "cis.user.UUUU-PPPP";

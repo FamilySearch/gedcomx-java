@@ -1,11 +1,11 @@
 package org.gedcomx.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 import org.gedcomx.common.TextValue;
 
 import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class for...
@@ -13,8 +13,9 @@ import java.util.*;
  * Date: 7/31/2014
  * Time: 12:03 PM
  */
-public class TestLocaleUtil extends TestCase {
+public class TestLocaleUtil {
 
+  @Test
   public void testTextValueLocales() {
     List<TextValue> list = Arrays.asList(
             value("Spanish", "es"),
@@ -38,6 +39,7 @@ public class TestLocaleUtil extends TestCase {
     return v;
   }
 
+  @Test
   public void testGetBasicLocale() {
     tryLocale("en", "en", "", "");
     tryLocale("en-us", "en", "US", "");
@@ -56,6 +58,7 @@ public class TestLocaleUtil extends TestCase {
     assertEquals(expectedVariant, locale.getVariant());
   }
 
+  @Test
   public void testClosestLocale() {
     Set<Locale> list = new LinkedHashSet<Locale>(Arrays.asList(
             new Locale("es"),

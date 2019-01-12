@@ -9,7 +9,7 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 import org.gedcomx.types.NamePartQualifierType;
 import org.gedcomx.types.NamePartType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -23,7 +23,6 @@ import static org.gedcomx.rt.SerializationUtil.processThroughXml;
 /**
  * @author Ryan Heaton
  */
-@Test
 public class PersonRecipesTest extends RecipeTest {
 
   @XmlRootElement ( namespace = "http://familysearch.org/v1/" )
@@ -48,6 +47,7 @@ public class PersonRecipesTest extends RecipeTest {
   /**
    * tests processing a WWW person through xml...
    */
+  @Test
   public void testStandardPerson() throws Exception {
     createRecipe("Simple Person")
       .withDescription("Simple example for a person.")
@@ -64,6 +64,7 @@ public class PersonRecipesTest extends RecipeTest {
     verifyPerson(personThurJson);
   }
 
+  @Test
   public void testMarriageWithNoSpouse() throws Exception {
     createRecipe("Marriage Fact With No Spouse Provided")
       .withDescription("How to model a marriage (or divorce) event for which the spouse is not available or otherwise not provided.")

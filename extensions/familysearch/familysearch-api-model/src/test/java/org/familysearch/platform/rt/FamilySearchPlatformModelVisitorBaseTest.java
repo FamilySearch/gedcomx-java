@@ -10,12 +10,12 @@ import org.gedcomx.agent.Agent;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.source.SourceDescription;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 
 import java.util.ArrayList;
 
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 
 public class FamilySearchPlatformModelVisitorBaseTest {
   @Test

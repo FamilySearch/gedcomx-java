@@ -1,10 +1,10 @@
 package org.gedcomx.conclusion;
 
 import org.gedcomx.types.FactType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class FactTest {
   @Test

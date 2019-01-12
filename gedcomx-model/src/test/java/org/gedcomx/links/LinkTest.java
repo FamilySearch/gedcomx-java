@@ -1,21 +1,21 @@
 package org.gedcomx.links;
 
 import org.gedcomx.common.URI;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class LinkTest {
 
   /**
    * tests link xml
    */
+  @Test
   public void testLinkXml() throws Exception {
     Link link = createLink();
     link = processThroughXml(link);
@@ -29,6 +29,7 @@ public class LinkTest {
   /**
    * tests link json
    */
+  @Test
   public void testLinkJson() throws Exception {
     Link link = createLink();
     link = processThroughJson(link);
@@ -40,6 +41,7 @@ public class LinkTest {
   /**
    * tests link json
    */
+  @Test
   public void testHeaderValueForUninitializedLink() throws Exception {
     Link link = new Link();
     assertEquals("<>", link.getHttpHeaderValue());

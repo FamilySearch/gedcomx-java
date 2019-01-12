@@ -15,7 +15,8 @@
  */
 package org.gedcomx.util;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Name;
 import org.gedcomx.conclusion.NameForm;
@@ -31,6 +32,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
 /**
  * Class for testing the RecordSetWriter and RecordSetIterator class.
  *
@@ -38,8 +44,9 @@ import java.util.zip.GZIPOutputStream;
  * Date: 12/4/13
  * Time: 3:39 PM
  */
-public class TestRecordSetWriter extends TestCase {
+public class TestRecordSetWriter {
 
+  @Test
   public void testRecordSetWriter() throws IOException, JAXBException {
     for (int metadataPos = -1; metadataPos <= 1; metadataPos++) {
       for (boolean isGzipped : new boolean[]{false, true}) {
@@ -129,6 +136,7 @@ public class TestRecordSetWriter extends TestCase {
     return metadata;
   }
 
+  @Test
   public void testCjk() throws Exception {
     final String surname = "岩\uD842\uDFB7";//"\uD850\uDDAC成功";
     final String givenName = "岩\uD842\uDFB7";

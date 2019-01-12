@@ -12,7 +12,7 @@ import org.gedcomx.test.RecipeTest;
 import org.gedcomx.test.Snippet;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,12 +26,12 @@ import static org.gedcomx.rt.SerializationUtil.processThroughXml;
  * Recipes for citing evidence in GEDCOM X.
  * @author Ryan Heaton
  */
-@Test
 public class EvidenceRecipesTest extends RecipeTest {
 
   /**
    * tests citing an online record.
    */
+  @Test
   public void testCitingOnlineArtifact() throws Exception {
     createRecipe("Citing an Online Artifact")
       .withDescription("The following example illustrates how to cite an online record. Evidence for Israel Hoyt Heaton is found in the 1920 U.S. Census. The URI to the record is \"https://familysearch.org/pal:/MM9.1.1/M8PT-4GN\". The URI for a description of the record is \"https://api.familysearch.org/platform/sources/GGG-GGGG\".")
@@ -124,6 +124,7 @@ public class EvidenceRecipesTest extends RecipeTest {
   /**
    * tests citing an online record.
    */
+  @Test
   public void testCitingPhysicalArtifact() throws Exception {
     createRecipe("Citing a Physical Artifact")
       .withDescription("The following example illustrates how to cite a physical artifact, such as a book. Evidence for Asa Phillips is found in a book authored by Helen Kelly Brink. The book doesn't have a URI, but the URI for a description of the book is \"https://api.familysearch.org/platform/sources/KKK-KKKK\".")
@@ -222,6 +223,7 @@ public class EvidenceRecipesTest extends RecipeTest {
   /**
    * tests citing an online record.
    */
+  @Test
   public void testConclusionsCitingOtherConclusions() throws Exception {
     createRecipe("Citing Other Conclusions")
       .withDescription("The following example illustrates how to cite another conclusion. Evidence for Israel Heaton is found in another conclusion person that (presumably) describes the same person. The URI to the person being cited is \"https://api.familysearch.org/platform/persons/NNN-NNNN\".")

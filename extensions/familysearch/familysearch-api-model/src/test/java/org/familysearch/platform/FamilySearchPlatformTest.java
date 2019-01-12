@@ -11,21 +11,21 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Class for testing the FamilySearchPlatform class
  * User: Randy Wilson
  * Date: 20 May 2015
  */
-@Test
 public class FamilySearchPlatformTest {
 
+  @Test
   public void testAltDatesPlaces() throws Exception {
     Fact fact = new Fact(FactType.Adoption, "value");
     AlternateDate altDate = new AlternateDate();
@@ -45,6 +45,7 @@ public class FamilySearchPlatformTest {
     //JAXBContext.newInstance(FamilySearchPlatform.class).createMarshaller().marshal(gx, System.out);
   }
 
+  @Test
   public void testFamily() {
     FamilySearchPlatform g = makeDoc();
     FamilyView family = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(0);

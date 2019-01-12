@@ -9,14 +9,14 @@ import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.FactQualifierType;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class MiscellaneousFactsExampleTest {
 
+  @Test
   public void testCensusAndResidenceLikeFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.Census, "...", "..."))
@@ -31,6 +31,7 @@ public class MiscellaneousFactsExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testMilitaryServiceFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.MilitaryAward, "...", "..."))
@@ -43,6 +44,7 @@ public class MiscellaneousFactsExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testEducationAndOccupationFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.Apprenticeship, "...", "..."))
@@ -54,6 +56,7 @@ public class MiscellaneousFactsExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testReligiousOrCulturalFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.AdultChristening, "...", "..."))
@@ -76,6 +79,7 @@ public class MiscellaneousFactsExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testFactQualifiers() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.Christening, "...", "...").qualifier(new Qualifier(FactQualifierType.Religion, "Catholic")))
@@ -86,6 +90,7 @@ public class MiscellaneousFactsExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testCustomFact() throws Exception {
     Person person = new Person()
       .fact(new Fact().type(URI.create(DataURIUtil.encodeDataURI("Eagle Scout").toString())).place(new PlaceReference().original("...")).date(new Date().original("...")));
@@ -94,6 +99,7 @@ public class MiscellaneousFactsExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testRelationshipFacts() throws Exception {
     Relationship couple = new Relationship()
       .type(RelationshipType.Couple)

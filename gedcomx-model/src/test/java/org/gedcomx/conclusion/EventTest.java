@@ -6,21 +6,21 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.types.EventRoleType;
 import org.gedcomx.types.EventType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class EventTest {
 
+  @Test
   public void testCtors() throws Exception {
     Event event;
 
@@ -83,6 +83,7 @@ public class EventTest {
     assertNull(event.getTransientProperty("junkProp"));
   }
 
+  @Test
   public void testSetKnownTypeWithNull() throws Exception {
     Event event = new Event();
     event.setKnownType(null);
@@ -92,6 +93,7 @@ public class EventTest {
   /**
    * tests processing a event through xml...
    */
+  @Test
   public void testEventXml() throws Exception {
     Event event = createTestEvent();
     event = processThroughXml(event);
@@ -101,6 +103,7 @@ public class EventTest {
   /**
    * tests processing a event through json...
    */
+  @Test
   public void testPersonJson() throws Exception {
     Event event = createTestEvent();
     event = processThroughJson(event);

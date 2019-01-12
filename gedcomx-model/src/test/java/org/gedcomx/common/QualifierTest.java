@@ -2,22 +2,22 @@ package org.gedcomx.common;
 
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.SourceReferenceQualifierType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class QualifierTest {
 
   /**
    * tests qualifier xml
    */
+  @Test
   public void testQualifierXml() throws Exception {
     SourceReference sourceReference = new SourceReference();
     sourceReference.qualifier(new Qualifier(SourceReferenceQualifierType.RectangleRegion.toQNameURI(), "1,2,3,4"));
@@ -29,6 +29,7 @@ public class QualifierTest {
   /**
    * tests qualifier json
    */
+  @Test
   public void testQualifierJson() throws Exception {
     SourceReference sourceReference = new SourceReference();
     sourceReference.qualifier(new Qualifier(SourceReferenceQualifierType.RectangleRegion.toQNameURI(), "1,2,3,4"));

@@ -11,7 +11,7 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 import org.gedcomx.types.RelationshipType;
 import org.gedcomx.types.ResourceType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,9 +19,9 @@ import java.text.SimpleDateFormat;
 /**
  * @author Ryan Heaton
  */
-@Test
 public class EmmaBocockExampleTest {
 
+  @Test
   public void testExample() throws Exception {
     Agent contributor = new Agent().id("A-1").name("Jane Doe").email("example@example.org");
     Agent repository = new Agent().id("A-2").name("General Registry Office, Southport");

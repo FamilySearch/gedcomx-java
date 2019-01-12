@@ -1,6 +1,6 @@
 package org.gedcomx.source;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.ResourceStatusType;
@@ -9,14 +9,17 @@ import javax.xml.bind.JAXBException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Class for testing the SourceDescription class.
  * User: Randy Wilson
  * Date: 11/25/2014
  * Time: 2:42 PM
  */
-public class SourceDescriptionTest extends TestCase {
+public class SourceDescriptionTest {
 
+  @Test
   public void testXml() throws JAXBException, UnsupportedEncodingException {
     SourceDescription sd = new SourceDescription();
     sd.setAbout(new URI("https://company.com/resource/id"));

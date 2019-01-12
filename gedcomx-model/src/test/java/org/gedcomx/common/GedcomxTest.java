@@ -5,23 +5,23 @@ import org.gedcomx.agent.Agent;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class GedcomxTest {
 
   /**
    * tests id xml
    */
+  @Test
   public void testResourceSetXml() throws Exception {
     Gedcomx meta = createData();
     meta = processThroughXml(meta);
@@ -31,6 +31,7 @@ public class GedcomxTest {
   /**
    * tests id json
    */
+  @Test
   public void testResourceSetJson() throws Exception {
     Gedcomx meta = createData();
     meta = processThroughJson(meta);
@@ -77,6 +78,7 @@ public class GedcomxTest {
     return person;
   }
 
+  @Test
   public void testFamily() {
     Gedcomx g = makeDoc();
     FamilyView family = g.getPersons().get(0).getDisplayExtension().getFamiliesAsParent().get(0);

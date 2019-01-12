@@ -17,7 +17,7 @@ package org.gedcomx.fileformat;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomxConstants;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,8 +29,8 @@ import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class GedcomxFileWriteReadTest {
@@ -99,24 +99,24 @@ public class GedcomxFileWriteReadTest {
     }
   }
 
-  @Test ( expectedExceptions = NullPointerException.class )
+  @Test ( expected = NullPointerException.class )
   public void testGedcomxFileEntryNullPointerException() {
     new GedcomxFileEntry(null);
   }
 
-  @Test ( expectedExceptions = NullPointerException.class )
+  @Test ( expected = NullPointerException.class )
   public void testGedcomxOutputStreamAddResourceNullPointerException1() throws IOException {
     GedcomxOutputStream gedxOutputStream = new GedcomxOutputStream(new ByteArrayOutputStream());
     gedxOutputStream.addResource(null, null, null, null);
   }
 
-  @Test ( expectedExceptions = IllegalArgumentException.class )
+  @Test ( expected = IllegalArgumentException.class )
   public void testGedcomxOutputStreamAddResourceIllegalArgumentException1() throws IOException {
     GedcomxOutputStream gedxOutputStream = new GedcomxOutputStream(new ByteArrayOutputStream());
     gedxOutputStream.addResource("", null, null, null);
   }
 
-  @Test ( expectedExceptions = NullPointerException.class )
+  @Test ( expected = NullPointerException.class )
   public void testGedcomxOutputStreamAddResourceNullPointerException2() throws IOException {
     GedcomxOutputStream gedxOutputStream = new GedcomxOutputStream(new ByteArrayOutputStream());
     gedxOutputStream.addResource(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE, null, null, null);

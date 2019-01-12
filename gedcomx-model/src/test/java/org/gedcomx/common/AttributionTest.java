@@ -1,21 +1,20 @@
 package org.gedcomx.common;
 
 import org.gedcomx.rt.GedcomNamespaceManager;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 import java.util.Date;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class AttributionTest {
 
   static {
@@ -25,6 +24,7 @@ public class AttributionTest {
   /**
    * tests attribution xml
    */
+  @Test
   public void testAttributionXml() throws Exception {
     Date ts = new Date();
 
@@ -56,6 +56,7 @@ public class AttributionTest {
   /**
    * tests attribution json
    */
+  @Test
   public void testAttributionJson() throws Exception {
     Date ts = new Date();
 

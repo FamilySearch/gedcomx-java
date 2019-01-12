@@ -4,9 +4,9 @@ import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.ResourceType;
-import org.testng.annotations.Test;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,9 +16,9 @@ import java.util.Collections;
  * User: Randy Wilson
  * Date: 23 June 2015
  */
-@Test
 public class TestCollection {
 
+  @Test
   public void testCollection() {
     Collection collection = new Collection();
     collection.setId("c1");

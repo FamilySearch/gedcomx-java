@@ -17,9 +17,9 @@ package org.gedcomx.rs.client.util;
 
 import org.gedcomx.atom.Feed;
 import org.gedcomx.common.URI;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.*;
+import static org.junit.Assert.*;
 
 public class PagedFeedIteratorTest {
   private static final String baseUri = "http://www.example.com/feed";

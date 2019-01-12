@@ -8,7 +8,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.types.IdentifierType;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Methods and attributes shared between multiple User-to-User Messaging tests.

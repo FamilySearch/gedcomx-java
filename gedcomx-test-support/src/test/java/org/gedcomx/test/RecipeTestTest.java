@@ -1,11 +1,11 @@
 package org.gedcomx.test;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.Test;
+import org.junit.After;
+import org.junit.Test;
 
 import java.io.File;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
 
@@ -132,9 +132,11 @@ public class RecipeTestTest extends RecipeTest {
    */
   @Override
   public void tearDown() throws Exception {
+    // This is kind of weird to me.  The super class (RecipeTest.java) has a tearDown() method also annotated with @After, so the method is to be called
+    // after running a test, but this is the actual method (not the super method) that is called
   }
-  
-  @AfterClass
+
+  @After
   public void cleanUp() {
     File dir = new File( DEFAULT_OUTPUT_DIR );
     if (dir.exists()) {

@@ -1,21 +1,21 @@
 package org.gedcomx.common;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class NoteTest {
 
   /**
    * tests note xml
    */
+  @Test
   public void testNoteXml() throws Exception {
     Note note = new Note();
     note.setText("hello, there");
@@ -47,6 +47,7 @@ public class NoteTest {
   /**
    * tests note json
    */
+  @Test
   public void testNoteJson() throws Exception {
     Note note = new Note();
     note.setSubject("subject");

@@ -5,12 +5,12 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.types.IdentifierType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.*;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 
 public class PlaceTest {
@@ -71,8 +71,8 @@ public class PlaceTest {
     assertEquals(tikhvinDesc.getNames().get(2).getValue(), "Tikhvin, Leningrad Oblast, Russia");
     assertEquals(tikhvinDesc.getType().toURI().toString(), "urn:place-authority/city");
     assertEquals(tikhvinDesc.getTemporalDescription().getFormal(), "A+1383/");
-    assertEquals(tikhvinDesc.getLatitude(), 59.6436111d);
-    assertEquals(tikhvinDesc.getLongitude(), 33.5094444d);
+    assertEquals(tikhvinDesc.getLatitude(), 59.6436111d, 0d);
+    assertEquals(tikhvinDesc.getLongitude(), 33.5094444d, 0d);
     assertEquals(tikhvinDesc.getSpatialDescription().getResource().toURI().toString(), "data:application/vnd.google-earth.kml+xml;base64," +
       "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxrbWwgeG1sbnM9Imh0dHA6" +
       "Ly93d3cub3Blbmdpcy5uZXQva21sLzIuMiIgeG1sbnM6Z3g9Imh0dHA6Ly93d3cuZ29vZ2xlLmNv" +
@@ -167,8 +167,8 @@ public class PlaceTest {
     assertEquals(lugaDesc.getNames().get(2).getValue(), "Luga, Leningrad Oblast, Russia");
     assertEquals(lugaDesc.getType().toURI().toString(), "urn:place-authority/city");
     assertEquals(lugaDesc.getTemporalDescription().getFormal(), "+1777-08-03/");
-    assertEquals(lugaDesc.getLatitude(), 58.7372222d);
-    assertEquals(lugaDesc.getLongitude(), 29.8452778d);
+    assertEquals(lugaDesc.getLatitude(), 58.7372222d, 0d);
+    assertEquals(lugaDesc.getLongitude(), 29.8452778d, 0d);
     assertEquals(lugaDesc.getSpatialDescription().getResource().toURI().toString(), "data:application/vnd.google-earth.kml+xml;base64," +
       "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxrbWwgeG1sbnM9Imh0dHA6" +
       "Ly93d3cub3Blbmdpcy5uZXQva21sLzIuMiIgeG1sbnM6Z3g9Imh0dHA6Ly93d3cuZ29vZ2xlLmNv" +

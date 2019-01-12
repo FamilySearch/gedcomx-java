@@ -3,9 +3,9 @@ package org.gedcomx.conclusion;
 import org.gedcomx.common.*;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.DocumentType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 
 
 public class DocumentTest {

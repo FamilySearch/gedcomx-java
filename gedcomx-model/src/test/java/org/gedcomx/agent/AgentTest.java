@@ -6,9 +6,7 @@ import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.rt.json.GedcomJacksonModule;
-import org.testng.Assert;
-import org.testng.AssertJUnit;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 import java.util.ArrayList;
@@ -16,8 +14,8 @@ import java.util.Arrays;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 
 public class AgentTest {
@@ -35,7 +33,7 @@ public class AgentTest {
     assertEquals(agent.findExtensionsOfType(String.class).size(), 0);
     assertEquals(agent.findExtensionsOfType(CustomEntity.class).size(), 3);
     assertEquals(agent.findExtensionsOfType(CustomEntity.class).get(1).getId(), "5432");
-    Assert.assertEquals(((CustomEntity) agent.getExtensionElements().get(2)).getId(), "6543");
+    assertEquals(((CustomEntity) agent.getExtensionElements().get(2)).getId(), "6543");
 
     agent.setExtensionElements(null);
     assertNull(agent.getExtensionElements());
@@ -56,7 +54,7 @@ public class AgentTest {
     assertEquals(agent.findExtensionsOfType(String.class).size(), 0);
     assertEquals(agent.findExtensionsOfType(CustomEntity.class).size(), 3);
     assertEquals(agent.findExtensionsOfType(CustomEntity.class).get(1).getId(), "5432");
-    Assert.assertEquals(((CustomEntity) agent.getExtensionElements().get(2)).getId(), "6543");
+    assertEquals(((CustomEntity) agent.getExtensionElements().get(2)).getId(), "6543");
 
     agent.setExtensionElements(null);
     assertNull(agent.getExtensionElements());
@@ -118,25 +116,25 @@ public class AgentTest {
   }
 
   private void assertPerson(Agent person) {
-    AssertJUnit.assertEquals(1, person.getAccounts().size());
-    AssertJUnit.assertEquals("account name", person.getAccounts().get(0).getAccountName());
-    AssertJUnit.assertEquals("http://familysearch.org", person.getAccounts().get(0).getServiceHomepage().getResource().toString());
-    AssertJUnit.assertEquals(1, person.getAddresses().size());
-    AssertJUnit.assertEquals("street1\nstreet2\nstreet3\ncity UT, 88888\ncountry", person.getAddresses().get(0).getValue());
-    AssertJUnit.assertEquals("city", person.getAddresses().get(0).getCity());
-    AssertJUnit.assertEquals("country", person.getAddresses().get(0).getCountry());
-    AssertJUnit.assertEquals("88888", person.getAddresses().get(0).getPostalCode());
-    AssertJUnit.assertEquals("UT", person.getAddresses().get(0).getStateOrProvince());
-    AssertJUnit.assertEquals("street1", person.getAddresses().get(0).getStreet());
-    AssertJUnit.assertEquals("street2", person.getAddresses().get(0).getStreet2());
-    AssertJUnit.assertEquals("street3", person.getAddresses().get(0).getStreet3());
-    AssertJUnit.assertEquals(1, person.getEmails().size());
-    AssertJUnit.assertEquals("mailto:heatonra@familysearch.org", person.getEmails().get(0).getResource().toString());
-    AssertJUnit.assertEquals("http://familysearch.org/heatonra", person.getHomepage().getResource().toString());
-    AssertJUnit.assertEquals("Ryan Heaton", person.getName().getValue());
-    AssertJUnit.assertEquals("openid", person.getOpenid().getResource().toString());
-    AssertJUnit.assertEquals(1, person.getPhones().size());
-    AssertJUnit.assertEquals("tel:+18012401000", person.getPhones().get(0).getResource().toString());
-    AssertJUnit.assertEquals("identifier", person.getIdentifiers().get(0).getValue().toString());
+    assertEquals(1, person.getAccounts().size());
+    assertEquals("account name", person.getAccounts().get(0).getAccountName());
+    assertEquals("http://familysearch.org", person.getAccounts().get(0).getServiceHomepage().getResource().toString());
+    assertEquals(1, person.getAddresses().size());
+    assertEquals("street1\nstreet2\nstreet3\ncity UT, 88888\ncountry", person.getAddresses().get(0).getValue());
+    assertEquals("city", person.getAddresses().get(0).getCity());
+    assertEquals("country", person.getAddresses().get(0).getCountry());
+    assertEquals("88888", person.getAddresses().get(0).getPostalCode());
+    assertEquals("UT", person.getAddresses().get(0).getStateOrProvince());
+    assertEquals("street1", person.getAddresses().get(0).getStreet());
+    assertEquals("street2", person.getAddresses().get(0).getStreet2());
+    assertEquals("street3", person.getAddresses().get(0).getStreet3());
+    assertEquals(1, person.getEmails().size());
+    assertEquals("mailto:heatonra@familysearch.org", person.getEmails().get(0).getResource().toString());
+    assertEquals("http://familysearch.org/heatonra", person.getHomepage().getResource().toString());
+    assertEquals("Ryan Heaton", person.getName().getValue());
+    assertEquals("openid", person.getOpenid().getResource().toString());
+    assertEquals(1, person.getPhones().size());
+    assertEquals("tel:+18012401000", person.getPhones().get(0).getResource().toString());
+    assertEquals("identifier", person.getIdentifiers().get(0).getValue().toString());
   }
 }

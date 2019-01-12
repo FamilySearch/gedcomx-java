@@ -1,11 +1,11 @@
 package org.familysearch.platform.ct;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static org.testng.AssertJUnit.*;
+import static org.junit.Assert.*;
 
 public class ChangeTypeTest {
 
@@ -197,7 +197,7 @@ public class ChangeTypeTest {
     testChangeType( "Child and Parents Note Changed", ChangeType.EDIT_CHILD_PARENTS_NOTE);
     testChangeType( "Child and Parents Note Removed", ChangeType.DELETE_CHILD_PARENTS_NOTE);
   }
-  
+
   private void testChangeType( String enumStr, ChangeType changeType ) {
     String typeString = changeType.toString();
     assertEquals( enumStr, typeString );

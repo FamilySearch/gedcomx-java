@@ -5,24 +5,22 @@ import org.gedcomx.common.CustomEntity;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.SerializationUtil;
-import org.testng.AssertJUnit;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class SourceReferenceTest {
 
   /**
    * tests source reference xml
    */
+  @Test
   public void testSourceReferenceXml() throws Exception {
     SourceReference reference = new SourceReference();
     reference.setAttribution(new Attribution());
@@ -35,8 +33,8 @@ public class SourceReferenceTest {
     custom = SerializationUtil.processThroughXml(custom);
     assertEquals("urn:contributorid", custom.getSource().getAttribution().toString());
     assertEquals("urn:srcDescInstance", custom.getSource().getDescriptionRef().toString());
-    AssertJUnit.assertEquals("alt1", ((CustomEntity) custom.getSource().getExtensionElements().get(0)).getId());
-    AssertJUnit.assertEquals("alt2", ((CustomEntity) custom.getSource().getExtensionElements().get(1)).getId());
+    assertEquals("alt1", ((CustomEntity) custom.getSource().getExtensionElements().get(0)).getId());
+    assertEquals("alt2", ((CustomEntity) custom.getSource().getExtensionElements().get(1)).getId());
     assertNull(custom.getSource().findExtensionOfType(String.class));
     assertEquals("alt1", custom.getSource().findExtensionOfType(CustomEntity.class).getId());
     assertEquals(0, custom.getSource().findExtensionsOfType(String.class).size());
@@ -64,7 +62,7 @@ public class SourceReferenceTest {
     custom.setSource(reference);
     custom = SerializationUtil.processThroughJson(custom);
     assertEquals("urn:srcDescInstance", custom.getSource().getDescriptionRef().toString());
-    AssertJUnit.assertEquals("alt", ((CustomEntity) custom.getSource().getExtensionElements().get(0)).getId());
+    assertEquals("alt", ((CustomEntity) custom.getSource().getExtensionElements().get(0)).getId());
   }
 
 }

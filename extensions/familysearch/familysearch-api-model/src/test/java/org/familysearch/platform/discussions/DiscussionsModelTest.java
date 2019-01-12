@@ -4,10 +4,10 @@
 package org.familysearch.platform.discussions;
 
 import org.gedcomx.common.ResourceReference;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  */

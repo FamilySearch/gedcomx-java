@@ -1,8 +1,6 @@
 package org.gedcomx.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.ResourceReference;
@@ -17,14 +15,17 @@ import org.gedcomx.types.RelationshipType;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Class for testing the DocMap utility class.
  * User: Randy Wilson
  * Date: 6/10/14
  * Time: 12:19 PM
  */
-public class TestDocMap extends TestCase {
+public class TestDocMap {
 
+  @Test
   public void testStuff() {
     Gedcomx doc = new Gedcomx();
     Person p1 = new Person();

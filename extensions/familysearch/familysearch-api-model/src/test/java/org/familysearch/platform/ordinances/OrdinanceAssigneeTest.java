@@ -1,10 +1,9 @@
 package org.familysearch.platform.ordinances;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.AssertJUnit.assertSame;
+import static org.junit.Assert.assertSame;
 
-@Test
 @SuppressWarnings ( "unchecked" )
 public class OrdinanceAssigneeTest {
 

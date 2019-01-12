@@ -46,7 +46,6 @@
       <groupId>org.gedcomx</groupId>
       <artifactId>gedcomx-test-support</artifactId>
       <version>${project.version}</version>
-
       <scope>test</scope>
     </dependency>
   </dependencies>

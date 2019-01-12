@@ -9,9 +9,9 @@ import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.types.IdentifierType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for the MessageThread class. Note that this also tests the AbstractMessageThread class.

@@ -2,18 +2,17 @@ package org.gedcomx.rs.client;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.Feed;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.net.URI;
 
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Ryan Heaton
  */
-@Test( groups = "integration" )
+//@Test( groups = "integration" )
 public class GedcomxApplicationStateTest {
 
 //  private GedcomxApplicationState<Feed> initialState;

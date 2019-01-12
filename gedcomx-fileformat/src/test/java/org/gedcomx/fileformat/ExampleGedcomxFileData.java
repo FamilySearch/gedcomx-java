@@ -27,7 +27,7 @@ import org.gedcomx.types.RelationshipType;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 
 public class ExampleGedcomxFileData {

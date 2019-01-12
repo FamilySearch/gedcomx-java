@@ -15,7 +15,6 @@
  */
 package org.gedcomx.util;
 
-import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 
 import javax.xml.bind.JAXBException;
@@ -28,13 +27,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 /**
  * User: brenthale
  * Date: 6/8/2015
  * <p/>
  */
-public class JsonRecordSetWriterTest extends TestCase {
+public class JsonRecordSetWriterTest {
 
+  @Test
   public void testRecordSetWriterJson() throws IOException, JAXBException {
     for (boolean isGzipped : new boolean[]{false, true}) {
       InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset.json");

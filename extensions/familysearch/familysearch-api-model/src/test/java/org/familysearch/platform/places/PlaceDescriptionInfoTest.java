@@ -1,7 +1,8 @@
 package org.familysearch.platform.places;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class PlaceDescriptionInfoTest {
 
@@ -11,10 +12,10 @@ public class PlaceDescriptionInfoTest {
 
     PlaceDescriptionInfo result = new PlaceDescriptionInfo();
     result.setZoomLevel(zoomLevel);
-    Assert.assertEquals(result.getZoomLevel(), zoomLevel);
+    assertEquals(result.getZoomLevel(), zoomLevel);
 
     result = new PlaceDescriptionInfo().zoomLevel(zoomLevel);
-    Assert.assertEquals(result.getZoomLevel(), zoomLevel);
+    assertEquals(result.getZoomLevel(), zoomLevel);
   }
 
   @Test
@@ -23,10 +24,10 @@ public class PlaceDescriptionInfoTest {
 
     PlaceDescriptionInfo result = new PlaceDescriptionInfo();
     result.setRelatedType(type);
-    Assert.assertEquals(result.getRelatedType(), type);
+    assertEquals(result.getRelatedType(), type);
 
     result = new PlaceDescriptionInfo().type(type);
-    Assert.assertEquals(result.getRelatedType(), type);
+    assertEquals(result.getRelatedType(), type);
   }
 
   @Test
@@ -35,10 +36,10 @@ public class PlaceDescriptionInfoTest {
 
     PlaceDescriptionInfo result = new PlaceDescriptionInfo();
     result.setRelatedSubType(subType);
-    Assert.assertEquals(result.getRelatedSubType(), subType);
+    assertEquals(result.getRelatedSubType(), subType);
 
     result = new PlaceDescriptionInfo().subType(subType);
-    Assert.assertEquals(result.getRelatedSubType(), subType);
+    assertEquals(result.getRelatedSubType(), subType);
   }
 
 }

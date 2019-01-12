@@ -5,7 +5,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.search.ResultConfidence;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
@@ -15,23 +15,24 @@ import java.util.HashMap;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class FeedTest {
 
+  @Test
   public void testFeedXml() throws Exception {
     Feed feed = createFeed();
     feed = processThroughXml(feed, Feed.class, JAXBContext.newInstance(Feed.class, CustomEntity.class, JunkEntity.class));
     assertFeed(feed);
   }
 
+  @Test
   public void testFeedJson() throws Exception {
     Feed feed = createFeed();
     GedcomNamespaceManager.registerKnownJsonType(CustomEntity.class);
@@ -209,7 +210,7 @@ public class FeedTest {
 
     assertEquals(new Date(1234567L), entry.getPublished());
     assertEquals("none", entry.getRights());
-    assertEquals(0.6F, entry.getScore());
+    assertEquals(0.6F, entry.getScore(), 0F);
     assertEquals(ResultConfidence.four, entry.getConfidence());
     assertEquals("entry title", entry.getTitle());
     assertEquals(new Date(1234568L), entry.getUpdated());

@@ -1,11 +1,14 @@
 package org.gedcomx.records;
 
-import junit.framework.TestCase;
 import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.FieldValueStatusType;
 
 import javax.xml.bind.JAXBException;
 import java.io.UnsupportedEncodingException;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class for testing the FieldValue class.
@@ -13,8 +16,9 @@ import java.io.UnsupportedEncodingException;
  * Date: 11/25/2014
  * Time: 2:55 PM
  */
-public class TestFieldValue extends TestCase {
+public class TestFieldValue {
 
+  @Test
   public void testXml() throws JAXBException, UnsupportedEncodingException {
     FieldValue fieldValue = new FieldValue();
     fieldValue.setKnownStatus(FieldValueStatusType.Unreadable);

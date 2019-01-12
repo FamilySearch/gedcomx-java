@@ -3,7 +3,7 @@ package org.gedcomx.conclusion;
 import org.gedcomx.common.*;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.*;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,21 +11,21 @@ import java.util.List;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertNull;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class PersonTest {
 
   /**
    * tests processing a WWW person through xml...
    */
+  @Test
   public void testPersonXml() throws Exception {
     Person person = create();
     person = processThroughXml(person);
@@ -35,12 +35,14 @@ public class PersonTest {
   /**
    * tests processing a WWW person through json...
    */
+  @Test
   public void testPersonJson() throws Exception {
     Person person = create();
     person = processThroughJson(person);
     assertPersonEquals(person);
   }
 
+  @Test
   public void testDisplayProperties() throws Exception {
     Person person = new Person();
     DisplayProperties display = new DisplayProperties();
@@ -67,6 +69,7 @@ public class PersonTest {
 
   }
 
+  @Test
   public void testPersonPersistentIdHelpers() throws Exception {
     Person person = create();
     assertPersonEquals(person);
@@ -86,6 +89,7 @@ public class PersonTest {
     assertEquals("urn:pal", person.getPersistentId().toURI().toString());
   }
 
+  @Test
   public void testPersonGetFirstNameOfType() throws Exception {
     Person person = create();
     assertPersonEquals(person);
@@ -95,6 +99,7 @@ public class PersonTest {
     assertNull(person.getFirstNameOfType(NameType.FormalName));
   }
 
+  @Test
   public void testPersonGetPreferredName() throws Exception {
     Person person = create();
     assertPersonEquals(person);
@@ -103,6 +108,7 @@ public class PersonTest {
     assertNull(person.getPreferredName());
   }
 
+  @Test
   public void testFactHelpers() throws Exception {
     Fact fact = new Fact();
 

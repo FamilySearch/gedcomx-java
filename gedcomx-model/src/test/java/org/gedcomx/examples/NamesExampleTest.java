@@ -9,17 +9,17 @@ import org.gedcomx.conclusion.Person;
 import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.NamePartQualifierType;
 import org.gedcomx.types.NamePartType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class NamesExampleTest {
 
+  @Test
   public void testBasicWesternName() throws Exception {
     NameForm nameForm = new NameForm("John Fitzgerald Kennedy")
       .lang("en")
@@ -33,6 +33,7 @@ public class NamesExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testMultipleJapaneseForms() throws Exception {
     NameForm kanji = new NameForm("山田太郎")
       .lang("ja-Hani")
@@ -53,6 +54,7 @@ public class NamesExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testMultipleNamePartsOnePartPerType() throws Exception {
     NameForm nameForm = new NameForm("José Eduardo Santos Tavares Melo Silva")
       .lang("pt-BR")
@@ -65,6 +67,7 @@ public class NamesExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testMultipleNamePartsMultiplePartsPerType() throws Exception {
     NameForm nameForm = new NameForm("José Eduardo Santos Tavares Melo Silva")
       .lang("pt-BR")
@@ -81,6 +84,7 @@ public class NamesExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testPatronymic() throws Exception {
     NameForm nameForm = new NameForm("Björk Guðmundsdóttir")
       .lang("is")
@@ -93,6 +97,7 @@ public class NamesExampleTest {
     SerializationUtil.processThroughJson(gx);
   }
 
+  @Test
   public void testGetPart() throws Exception {
     NameForm nameForm = new NameForm("John Fitzgerald Kennedy")
       .lang("en")

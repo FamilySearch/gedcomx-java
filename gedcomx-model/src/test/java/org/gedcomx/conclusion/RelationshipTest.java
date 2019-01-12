@@ -5,25 +5,25 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.types.RelationshipType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class RelationshipTest {
 
   /**
    * tests processing a relationship through xml...
    */
+  @Test
   public void testRelationshipXml() throws Exception {
     Relationship relationship = createTestRelationship();
     relationship = processThroughXml(relationship);
@@ -33,6 +33,7 @@ public class RelationshipTest {
   /**
    * tests processing a relationship through json...
    */
+  @Test
   public void testPersonJson() throws Exception {
     Relationship relationship = createTestRelationship();
     relationship = processThroughJson(relationship);

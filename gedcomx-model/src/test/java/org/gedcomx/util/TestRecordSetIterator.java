@@ -15,7 +15,6 @@
  */
 package org.gedcomx.util;
 
-import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 
 import javax.xml.stream.XMLInputFactory;
@@ -25,6 +24,14 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.*;
 import java.net.URL;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Class for testing the RecordIterator
  *
@@ -32,8 +39,9 @@ import java.net.URL;
  * Date: 11/21/13
  * Time: 1:46 PM
  */
-public class TestRecordSetIterator extends TestCase {
+public class TestRecordSetIterator {
 
+  @Test
   public void testXmlStreamReaderCjk() throws Exception {
     String a = "\uD842\uDFB7"; // Unicode "surrogate pair" Chinese character.
     String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
@@ -46,6 +54,7 @@ public class TestRecordSetIterator extends TestCase {
     assertEquals(a, xmlr.getAttributeValue(1));
   }
 
+  @Test
   public void testParser() throws IOException, XMLStreamException {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset.xml");
     RecordSetIterator recordIterator = new XmlRecordSetIterator(inputStream);
@@ -66,6 +75,7 @@ public class TestRecordSetIterator extends TestCase {
     inputStream.close();
   }
 
+  @Test
   public void testParserWithMetadata() throws IOException, XMLStreamException {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset2.xml");
     RecordSetIterator recordIterator = new XmlRecordSetIterator(inputStream);
@@ -95,6 +105,7 @@ public class TestRecordSetIterator extends TestCase {
     recordIterator.close();
   }
 
+  @Test
   public void testClose() throws IOException, XMLStreamException {
     URL url = getClass().getClassLoader().getResource("gedcomx-recordset2.xml");
     assertNotNull(url);

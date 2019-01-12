@@ -1,15 +1,15 @@
 package org.gedcomx.rt;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.net.URI;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings ( "unchecked" )
-@Test
 public class DataURIUtilTest {
 
+  @Test
   public void testEncodeDecode() throws Exception {
     String value = "Birthplace may be Maryland:  http://www.smokykin.com/tng/getperson.php?personID=I4441&tree=Smokykin";
     assertEquals(value, DataURIUtil.getValueAsString(DataURIUtil.encodeDataURI(value)));

@@ -1,10 +1,14 @@
 package org.gedcomx.util;
 
-import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 
 import javax.xml.bind.JAXBException;
 import java.util.Locale;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Class for...
@@ -12,8 +16,9 @@ import java.util.Locale;
  * Date: 7/31/2014
  * Time: 12:04 PM
  */
-public class TestFieldMap extends TestCase {
+public class TestFieldMap {
 
+  @Test
   public void testRecordFieldMap() throws JAXBException {
     Gedcomx record = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-record.xml"));
     Gedcomx collection = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml"));
@@ -32,6 +37,7 @@ public class TestFieldMap extends TestCase {
    *   used to tag a group of images to support image browsing.
    * @throws JAXBException
    */
+  @Test
   public void testImageItemFieldMap() throws JAXBException {
     Gedcomx imageItem = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-image.xml"));
     Gedcomx collection = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml"));

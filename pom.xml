@@ -29,7 +29,6 @@
     <jena-arq.version>3.1.0</jena-arq.version>
     <jsr311-api.version>1.1.1</jsr311-api.version>
     <junit.version>4.12</junit.version>
-    <testng.version>5.14.10</testng.version>
     <woodstox-core.version>5.0.3</woodstox-core.version>
 
     <!-- Plugin versions -->
@@ -66,8 +65,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -160,17 +159,17 @@
         <version>${jena-arq.version}</version>
       </dependency>
 
-      <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>${testng.version}</version>
-      </dependency>
-
       <!--<dependency>-->
-        <!--<groupId>junit</groupId>-->
-        <!--<artifactId>junit</artifactId>-->
-        <!--<version>${junit.version}</version>-->
+        <!--<groupId>org.testng</groupId>-->
+        <!--<artifactId>testng</artifactId>-->
+        <!--<version>${testng.version}</version>-->
       <!--</dependency>-->
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
 
     </dependencies>
   </dependencyManagement>

@@ -6,22 +6,22 @@ import org.gedcomx.test.RecipeTest;
 import org.gedcomx.test.Snippet;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class RelationshipRecipesTest extends RecipeTest {
 
+  @Test
   public void testRelationship() throws Exception {
     createRecipe("Simple Relationship")
       .withDescription("Simple example for a relationship.")

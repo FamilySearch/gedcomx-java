@@ -2,14 +2,14 @@ package org.familysearch.platform.ct;
 
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Mike Gardiner

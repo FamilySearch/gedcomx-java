@@ -16,7 +16,8 @@
 package org.gedcomx.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import org.gedcomx.Gedcomx;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.rt.json.GedcomJacksonModule;
@@ -32,13 +33,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * User: Brent Hale
  * Date: 6/4/2015
  * <p/>
  */
-public class JsonRecordSetIteratorTest extends TestCase {
+public class JsonRecordSetIteratorTest {
 
+  @Test
   public void testReadingWritingJsonRecordSetFromFile() throws JAXBException, IOException {
     URL url = getClass().getClassLoader().getResource("gedcomx-recordset.json");
     assertNotNull(url);
@@ -56,6 +62,8 @@ public class JsonRecordSetIteratorTest extends TestCase {
 
     assertEquals(recordSet.getRecords().size(), 3);
   }
+
+  @Test
   public void testReadingWritingJsonRecordSet() throws JAXBException, IOException {
     RecordSet recordSet1 = new RecordSet();
 
@@ -97,6 +105,7 @@ public class JsonRecordSetIteratorTest extends TestCase {
     }
   }
 
+  @Test
   public void testRemoveIsUnsupported() throws JAXBException, IOException {
     RecordSet recordSet1 = new RecordSet();
 

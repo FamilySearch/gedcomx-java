@@ -15,15 +15,15 @@
  */
 package org.gedcomx.test;
 
-import org.testng.annotations.AfterMethod;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+
+import org.junit.After;
 
 /**
  * Base class for a test class that can be used for creating recipes.
@@ -76,7 +76,7 @@ public class RecipeTest {
     CURRENT_RECIPE.set(recipe);
   }
 
-  @AfterMethod
+  @After
   public void tearDown() throws Exception {
     endRecipe();
 
@@ -95,6 +95,7 @@ public class RecipeTest {
       File file = new File(recipesDir, generateFilename(recipe.getTitle()));
 
       if (ensureUniqueRecipes && file.exists()) {
+        RECIPES.get().clear();                // this throws but we must still clear the recipes so we don't have side affects on other tests
         throw new Exception("File is not unique, please ensure the recipe title is unique!\n" + recipe.getTitle());
       }
 

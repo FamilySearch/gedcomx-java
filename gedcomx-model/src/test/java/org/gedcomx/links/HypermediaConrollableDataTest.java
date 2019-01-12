@@ -1,23 +1,23 @@
 package org.gedcomx.links;
 
 import org.gedcomx.common.URI;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class HypermediaConrollableDataTest {
 
   /**
    * tests link xml
    */
+  @Test
   public void testDataXml() throws Exception {
     CustomData data = createData();
     data = processThroughXml(data);
@@ -27,6 +27,7 @@ public class HypermediaConrollableDataTest {
   /**
    * tests link json
    */
+  @Test
   public void testDataJson() throws Exception {
     CustomData data = createData();
     data = processThroughJson(data);

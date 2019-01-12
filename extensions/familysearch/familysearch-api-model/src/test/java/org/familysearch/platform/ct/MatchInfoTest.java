@@ -1,11 +1,12 @@
 package org.familysearch.platform.ct;
 
 import org.gedcomx.common.URI;
-import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import org.junit.Test;
+
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MatchInfoTest {
 

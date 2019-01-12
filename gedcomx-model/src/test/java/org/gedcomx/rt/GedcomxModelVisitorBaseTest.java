@@ -8,16 +8,16 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class GedcomxModelVisitorBaseTest {
-  @Test (expectedExceptions = NullPointerException.class)
+  @Test (expected = NullPointerException.class)
   public void testNullVisitor() throws Exception {
     Gedcomx gedcomxDocument = new Gedcomx();
     gedcomxDocument.accept(null);

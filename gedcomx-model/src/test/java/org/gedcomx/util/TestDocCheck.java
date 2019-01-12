@@ -1,6 +1,5 @@
 package org.gedcomx.util;
 
-import junit.framework.TestCase;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.PlaceDescription;
@@ -14,18 +13,24 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Class for testing DocCheck
  * User: Randy Wilson
  * Date: 10/6/2014
  * Time: 9:51 PM
  */
-public class TestDocCheck extends TestCase {
+public class TestDocCheck {
 
   /**
    * Test the DocCheck on a record (but without fields here).
    * @throws JAXBException
    */
+  @Test
   public void testDocCheck() throws JAXBException {
     Gedcomx doc = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-record.xml"));
     URI wrongLocalUri = new URI("#wrongId");
@@ -95,7 +100,7 @@ public class TestDocCheck extends TestCase {
     // Done, so don't bother repairing the above.
   }
 
-
+  @Test
   public void testDocCheckWithFields() throws JAXBException {
     Gedcomx record = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-record.xml"));
     Gedcomx collection = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml"));

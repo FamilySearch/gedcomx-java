@@ -7,17 +7,17 @@ import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.atom.Person;
 import org.gedcomx.links.Link;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class BaseAtomModelVisitorTest {
-  @Test ( expectedExceptions = NullPointerException.class )
+  @Test ( expected = NullPointerException.class )
   public void testNullVisitor() throws Exception {
     Feed feed = new Feed();
     feed.accept(null);

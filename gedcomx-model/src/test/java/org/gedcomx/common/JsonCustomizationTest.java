@@ -2,7 +2,7 @@ package org.gedcomx.common;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomNamespaceManager;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
 import java.util.ArrayList;
@@ -10,22 +10,22 @@ import java.util.List;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * @author Ryan Heaton
  */
-@Test
 public class JsonCustomizationTest {
 
   /**
    * tests source reference xml
    */
+  @Test
   public void testKeyedItemsXml() throws Exception {
     CustomEntity custom = new CustomEntity();
     custom.setRefToSomething(new org.gedcomx.common.URI("uri:hello"));
-    
+
     custom.setUniqueKeyedItems(new ArrayList<UniqueCustomKeyedItem>());
     UniqueCustomKeyedItem item1 = new UniqueCustomKeyedItem();
     item1.setVal1("1");
@@ -37,7 +37,7 @@ public class JsonCustomizationTest {
     item2.setVal2("two");
     String key2 = item2.getKey();
     custom.getUniqueKeyedItems().add(item2);
-    
+
     custom.setKeyedItems(new ArrayList<CustomKeyedItem>());
     CustomKeyedItem item3 = new CustomKeyedItem();
     item3.setVal1("1");
@@ -49,9 +49,9 @@ public class JsonCustomizationTest {
     item4.setVal2("two");
     item4.setKey(key3);
     custom.getKeyedItems().add(item4);
-    
+
     custom = processThroughXml(custom);
-    
+
     assertEquals("uri:hello", custom.getRefToSomething().toString());
     assertEquals(2, custom.getUniqueKeyedItems().size());
     assertEquals("1", custom.getUniqueKeyedItems().get(0).getVal1());
@@ -72,10 +72,11 @@ public class JsonCustomizationTest {
   /**
    * tests source reference json
    */
+  @Test
   public void testKeyedItemsJson() throws Exception {
     CustomEntity custom = new CustomEntity();
     custom.setRefToSomething(new org.gedcomx.common.URI("uri:hello"));
-    
+
     custom.setUniqueKeyedItems(new ArrayList<UniqueCustomKeyedItem>());
     UniqueCustomKeyedItem item1 = new UniqueCustomKeyedItem();
     item1.setVal1("1");
@@ -132,6 +133,7 @@ public class JsonCustomizationTest {
     }
   }
 
+  @Test
   public void testKeyedItemsAsExtensionsXml() throws Exception {
     Gedcomx set = new Gedcomx();
     UniqueCustomKeyedItem item1 = new UniqueCustomKeyedItem();
@@ -175,6 +177,7 @@ public class JsonCustomizationTest {
     assertEquals(key3, keyedItems2.get(1).getKey());
   }
 
+  @Test
   public void testKeyedItemsAsExtensionsJson() throws Exception {
     Gedcomx set = new Gedcomx();
     UniqueCustomKeyedItem item1 = new UniqueCustomKeyedItem();

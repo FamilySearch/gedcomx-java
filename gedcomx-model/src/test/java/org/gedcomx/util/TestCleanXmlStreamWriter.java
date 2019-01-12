@@ -1,6 +1,6 @@
 package org.gedcomx.util;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Name;
 import org.gedcomx.conclusion.NameForm;
@@ -14,12 +14,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Class for testing the CleanXmlStreamWriter.
  * User: Randy Wilson
  * Date: 17 September 2015
  */
-public class TestCleanXmlStreamWriter extends TestCase {
+public class TestCleanXmlStreamWriter {
+
+  @Test
   public void testEscape() {
     String orig = "\uD850\uDDAC成功";
     String escaped = CleanXMLStreamWriter.escapeCharacters(orig);
@@ -34,6 +38,7 @@ public class TestCleanXmlStreamWriter extends TestCase {
     assertEquals(orig, escaped);
   }
 
+  @Test
   public void testVerticalTab() {
     String orig = "Vertical\u000BTab";
     String escaped = CleanXMLStreamWriter.escapeCharacters(orig);
@@ -41,6 +46,7 @@ public class TestCleanXmlStreamWriter extends TestCase {
     assertEquals("Vertical\uFFFDTab", escaped);
   }
 
+  @Test
   public void testSurrogatePairs() throws JAXBException, IOException {
     testName("\uD850\uDDAC成功");
     testName("岩\uD842\uDFB7");
@@ -79,6 +85,7 @@ public class TestCleanXmlStreamWriter extends TestCase {
    * To solve the problem, we switched to using Woodstox's XMLStreamWriter instead.
    * This test validated the problem before the switch, and made sure it worked afterwards.
    */
+  @Test
   public void testSurrogateAttributes() throws Exception {
     String surname = "\uD850\uDDAC";
     String given = "\uD842\uDFB7";
