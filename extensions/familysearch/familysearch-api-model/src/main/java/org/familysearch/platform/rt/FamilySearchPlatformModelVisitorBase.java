@@ -193,7 +193,7 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
 
     List<Fact> facts;
 
-    facts = pcr.getFatherFacts();
+    facts = pcr.getParent1Facts();
     if (facts != null) {
       for (Fact fact : facts) {
         if (fact != null) {
@@ -202,7 +202,7 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
-    facts = pcr.getMotherFacts();
+    facts = pcr.getParent2Facts();
     if (facts != null) {
       for (Fact fact : facts) {
         if (fact != null) {

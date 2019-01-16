@@ -42,6 +42,42 @@ public class ChildAndParentsRelationshipTest {
     ArrayList<SourceReference> sources = new ArrayList<SourceReference>();
     ArrayList<Note> notes = new ArrayList<Note>();
     ChildAndParentsRelationship rel = new ChildAndParentsRelationship();
+    rel.setParent1(new ResourceReference(URI.create("urn:parent1")));
+    rel.setParent2(new ResourceReference(URI.create("urn:parent2")));
+    rel.setChild(new ResourceReference(URI.create("urn:child")));
+    rel.setSources(sources);
+    rel.setNotes(notes);
+
+    assertEquals(URI.create("urn:parent1"), rel.getParent1().getResource());
+    assertEquals(URI.create("urn:parent2"), rel.getParent2().getResource());
+    assertEquals(URI.create("urn:child"), rel.getChild().getResource());
+    assertEquals(sources, rel.getSources());
+    assertEquals(notes,rel.getNotes());
+
+    rel.addParent1Fact(null);
+    assertNull(rel.getParent1Facts());
+    rel.addParent1Fact(new Fact(FactType.Birth, "origBirthValue"));
+    rel.addParent1Fact(new Fact(FactType.Death, "origDeathValue"));
+    assertNotNull(rel.getParent1Facts());
+    assertEquals(rel.getParent1Facts().size(), 2);
+    assertEquals(rel.getParent1Facts().get(0).getValue(), "origBirthValue");
+    assertEquals(rel.getParent1Facts().get(1).getValue(), "origDeathValue");
+
+    rel.addParent2Fact(null);
+    assertNull(rel.getParent2Facts());
+    rel.addParent2Fact(new Fact(FactType.Birth, "origBirthValue"));
+    rel.addParent2Fact(new Fact(FactType.Death, "origDeathValue"));
+    assertNotNull(rel.getParent2Facts());
+    assertEquals(rel.getParent2Facts().size(), 2);
+    assertEquals(rel.getParent2Facts().get(0).getValue(), "origBirthValue");
+    assertEquals(rel.getParent2Facts().get(1).getValue(), "origDeathValue");
+  }
+
+  @Test
+  public void testDeprecatedModel() {
+    ArrayList<SourceReference> sources = new ArrayList<SourceReference>();
+    ArrayList<Note> notes = new ArrayList<Note>();
+    ChildAndParentsRelationship rel = new ChildAndParentsRelationship();
     rel.setFather(new ResourceReference(URI.create("urn:father")));
     rel.setMother(new ResourceReference(URI.create("urn:mother")));
     rel.setChild(new ResourceReference(URI.create("urn:child")));
@@ -54,19 +90,23 @@ public class ChildAndParentsRelationshipTest {
     assertEquals(sources, rel.getSources());
     assertEquals(notes,rel.getNotes());
 
-    rel.addFatherFact(null);
+    rel.setFatherFacts(null);
     assertNull(rel.getFatherFacts());
-    rel.addFatherFact(new Fact(FactType.Birth, "origBirthValue"));
-    rel.addFatherFact(new Fact(FactType.Death, "origDeathValue"));
+    List<Fact> tmpFatherFacts = new ArrayList<Fact>();
+    tmpFatherFacts.add(new Fact(FactType.Birth, "origBirthValue"));
+    tmpFatherFacts.add(new Fact(FactType.Death, "origDeathValue"));
+    rel.setFatherFacts(tmpFatherFacts);
     assertNotNull(rel.getFatherFacts());
     assertEquals(rel.getFatherFacts().size(), 2);
     assertEquals(rel.getFatherFacts().get(0).getValue(), "origBirthValue");
     assertEquals(rel.getFatherFacts().get(1).getValue(), "origDeathValue");
 
-    rel.addMotherFact(null);
+    rel.setMotherFacts(null);
     assertNull(rel.getMotherFacts());
-    rel.addMotherFact(new Fact(FactType.Birth, "origBirthValue"));
-    rel.addMotherFact(new Fact(FactType.Death, "origDeathValue"));
+    List<Fact> tmpMotherFacts = new ArrayList<Fact>();
+    tmpMotherFacts.add(new Fact(FactType.Birth, "origBirthValue"));
+    tmpMotherFacts.add(new Fact(FactType.Death, "origDeathValue"));
+    rel.setMotherFacts(tmpMotherFacts);
     assertNotNull(rel.getMotherFacts());
     assertEquals(rel.getMotherFacts().size(), 2);
     assertEquals(rel.getMotherFacts().get(0).getValue(), "origBirthValue");
@@ -116,11 +156,11 @@ public class ChildAndParentsRelationshipTest {
       fail("ChildAndParentsRelationship should not be null");
     }
     compareResourceReference("Child ResourceReference", actual.getChild(), expected.getChild());
-    compareResourceReference("Father ResourceReference", actual.getFather(), expected.getFather());
-    compareResourceReference("Mother ResourceReference", actual.getMother(), expected.getMother());
+    compareResourceReference("Parent1 ResourceReference", actual.getParent1(), expected.getParent1());
+    compareResourceReference("Parent2 ResourceReference", actual.getParent2(), expected.getParent2());
 
-    compareFactsList("Father Facts", actual.getFatherFacts(), expected.getFatherFacts());
-    compareFactsList("Mother Facts", actual.getMotherFacts(), expected.getMotherFacts());
+    compareFactsList("Parent1 Facts", actual.getParent1Facts(), expected.getParent1Facts());
+    compareFactsList("Parent2 Facts", actual.getParent2Facts(), expected.getParent2Facts());
   }
 
   private void compareResourceReference(String msg, ResourceReference actual, ResourceReference expected) {
@@ -196,8 +236,8 @@ public class ChildAndParentsRelationshipTest {
     ChildAndParentsRelationship childAndParentsRelationship = new ChildAndParentsRelationship();
 
     ResourceReference childResourceReference = new ResourceReference(URI.create("urn:child"), "childId");
-    ResourceReference fatherResourceReference = new ResourceReference(URI.create("urn:father"), "fatherId");
-    ResourceReference motherResourceReference = new ResourceReference(URI.create("urn:mother"), "motherId");
+    ResourceReference parent1ResourceReference = new ResourceReference(URI.create("urn:parent1"), "parent1Id");
+    ResourceReference parent2ResourceReference = new ResourceReference(URI.create("urn:parent2"), "parent2Id");
 
     Fact fact1a = new Fact();
     fact1a.setKnownType(FactType.Birth);
@@ -213,7 +253,7 @@ public class ChildAndParentsRelationshipTest {
     fact1a.getPlace().setDescriptionRef(URI.create("#fact1a placeId"));
 
     Fact fact1b = new Fact();
-    fact1b.setKnownType(FactType.Birth);
+    fact1b.setKnownType(FactType.Death);
     fact1b.setValue("fact1b Value");
     fact1b.setId("fact1b Id");
     fact1b.setLang("fact1b lang");
@@ -226,7 +266,7 @@ public class ChildAndParentsRelationshipTest {
     fact1b.getPlace().setDescriptionRef(URI.create("#fact1b placeId"));
 
     Fact fact2a = new Fact();
-    fact1a.setKnownType(FactType.Birth);
+    fact1a.setKnownType(FactType.Confirmation);
     fact1a.setValue("fact1a Value");
     fact1a.setId("fact1a Id");
     fact1a.setLang("fact1a lang");
@@ -239,7 +279,7 @@ public class ChildAndParentsRelationshipTest {
     fact1a.getPlace().setDescriptionRef(URI.create("#fact1a placeId"));
 
     Fact fact2b = new Fact();
-    fact2b.setKnownType(FactType.Birth);
+    fact2b.setKnownType(FactType.Cremation);
     fact2b.setValue("fact2b Value");
     fact2b.setId("fact2b Id");
     fact2b.setLang("fact2b lang");
@@ -253,13 +293,13 @@ public class ChildAndParentsRelationshipTest {
 
 
     childAndParentsRelationship.setChild(childResourceReference);
-    childAndParentsRelationship.setFather(fatherResourceReference);
-    childAndParentsRelationship.setMother(motherResourceReference);
+    childAndParentsRelationship.setParent1(parent1ResourceReference);
+    childAndParentsRelationship.setParent2(parent2ResourceReference);
 
-    childAndParentsRelationship.addFatherFact(fact1a);
-    childAndParentsRelationship.addFatherFact(fact1b);
-    childAndParentsRelationship.addMotherFact(fact2a);
-    childAndParentsRelationship.addMotherFact(fact2b);
+    childAndParentsRelationship.addParent1Fact(fact1a);
+    childAndParentsRelationship.addParent1Fact(fact1b);
+    childAndParentsRelationship.addParent2Fact(fact2a);
+    childAndParentsRelationship.addParent2Fact(fact2b);
 
     return childAndParentsRelationship;
   }

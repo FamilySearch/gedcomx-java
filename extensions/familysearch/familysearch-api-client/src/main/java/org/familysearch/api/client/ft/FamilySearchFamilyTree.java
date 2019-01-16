@@ -197,14 +197,14 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return super.addRelationships(relationships, options);
   }
 
-  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother, StateTransitionOption... options) {
+  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState parent1, PersonState parent2, StateTransitionOption... options) {
     ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
     chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
-    if (father != null) {
-      chap.setFather(new ResourceReference(new org.gedcomx.common.URI(father.getSelfUri().toString())));
+    if (parent1 != null) {
+      chap.setParent1(new ResourceReference(new org.gedcomx.common.URI(parent1.getSelfUri().toString())));
     }
-    if (mother != null) {
-      chap.setMother(new ResourceReference(new org.gedcomx.common.URI(mother.getSelfUri().toString())));
+    if (parent2 != null) {
+      chap.setParent2(new ResourceReference(new org.gedcomx.common.URI(parent2.getSelfUri().toString())));
     }
     return addChildAndParentsRelationship(chap, options);
   }

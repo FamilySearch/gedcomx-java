@@ -104,7 +104,7 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
       Iterator<ChildAndParentsRelationship> it = relationships.iterator();
       while (it.hasNext()) {
         ChildAndParentsRelationship relationship = it.next();
-        if (refersToMe(relationship.getFather()) || refersToMe(relationship.getMother())) {
+        if (refersToMe(relationship.getParent1()) || refersToMe(relationship.getParent2())) {
           it.remove();
         }
       }

@@ -80,24 +80,24 @@ public class FamilySearchPlatformTest {
 
     // Now also look up ChildAndParentsRelationship
     ChildAndParentsRelationship rel = g.findChildAndParentsRelationship(family.getChildren().get(0), family.getParent1(), family.getParent2());
-    assertEquals("#dad", rel.getFather().getResource().toString());
-    assertEquals("#mom", rel.getMother().getResource().toString());
+    assertEquals("#dad", rel.getParent1().getResource().toString());
+    assertEquals("#mom", rel.getParent2().getResource().toString());
     assertEquals("#kid1", rel.getChild().getResource().toString());
-    assertEquals(FactType.AdoptiveParent, rel.getFatherFacts().get(0).getKnownType());
-    assertEquals(FactType.BiologicalParent, rel.getMotherFacts().get(0).getKnownType());
+    assertEquals(FactType.AdoptiveParent, rel.getParent1Facts().get(0).getKnownType());
+    assertEquals(FactType.BiologicalParent, rel.getParent2Facts().get(0).getKnownType());
 
     rel = g.findChildAndParentsRelationship(family.getChildren().get(1), family.getParent1(), family.getParent2());
-    assertEquals("#dad", rel.getFather().getResource().toString());
-    assertEquals("#mom", rel.getMother().getResource().toString());
+    assertEquals("#dad", rel.getParent1().getResource().toString());
+    assertEquals("#mom", rel.getParent2().getResource().toString());
     assertEquals("#kid2", rel.getChild().getResource().toString());
-    assertNull(rel.getFatherFacts());
-    assertNull(rel.getMotherFacts());
+    assertNull(rel.getParent1Facts());
+    assertNull(rel.getParent2Facts());
 
     // Test single-parent family
     FamilyView fam2 = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(1);
     rel = g.findChildAndParentsRelationship(fam2.getChildren().get(0), fam2.getParent1(), fam2.getParent2());
-    assertEquals("#dad", rel.getFather().getResource().toString());
-    assertNull(rel.getMother());
+    assertEquals("#dad", rel.getParent1().getResource().toString());
+    assertNull(rel.getParent2());
     assertEquals("#kid3", rel.getChild().getResource().toString());
 
     assertNull(g.findCoupleRelationship(fam2));
@@ -125,31 +125,31 @@ public class FamilySearchPlatformTest {
     return person;
   }
 
-  private static void addChild(FamilySearchPlatform doc, String fatherId, String motherId, String childId,
-                               FactType fatherFactType, FactType motherFactType) {
+  private static void addChild(FamilySearchPlatform doc, String parent1Id, String parent2Id, String childId,
+                               FactType parent1FactType, FactType parent2FactType) {
     ChildAndParentsRelationship rel = new ChildAndParentsRelationship();
-    if (fatherId != null) {
-      doc.addRelationship(kidRel(fatherId, childId, fatherFactType));
-      rel.setFather(makeRef(fatherId));
+    if (parent1Id != null) {
+      doc.addRelationship(kidRel(parent1Id, childId, parent1FactType));
+      rel.setParent1(makeRef(parent1Id));
     }
-    if (motherId != null) {
-      doc.addRelationship(kidRel(motherId, childId, motherFactType));
-      rel.setMother(makeRef(motherId));
+    if (parent2Id != null) {
+      doc.addRelationship(kidRel(parent2Id, childId, parent2FactType));
+      rel.setParent2(makeRef(parent2Id));
     }
     rel.setChild(makeRef(childId));
-    if (fatherFactType != null) {
-      rel.addFatherFact(new Fact(fatherFactType, null));
+    if (parent1FactType != null) {
+      rel.addParent1Fact(new Fact(parent1FactType, null));
     }
-    if (motherFactType != null) {
-      rel.addMotherFact(new Fact(motherFactType, null));
+    if (parent2FactType != null) {
+      rel.addParent2Fact(new Fact(parent2FactType, null));
     }
     doc.addChildAndParentsRelationship(rel);
   }
 
-  private static FamilyView makeFam(String fatherId, String motherId, String... kidIds) {
+  private static FamilyView makeFam(String parent1Id, String parent2Id, String... kidIds) {
     FamilyView family = new FamilyView();
-    family.setParent1(makeRef(fatherId));
-    family.setParent2(makeRef(motherId));
+    family.setParent1(makeRef(parent1Id));
+    family.setParent2(makeRef(parent2Id));
     if (kidIds != null) {
       for (String kidId : kidIds) {
         family.addChild(makeRef(kidId));
