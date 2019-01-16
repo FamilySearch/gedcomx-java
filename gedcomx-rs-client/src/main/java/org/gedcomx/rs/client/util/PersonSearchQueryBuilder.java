@@ -33,7 +33,6 @@ public class PersonSearchQueryBuilder extends BaseSearchQueryBuilder {
   public static final String FATHER_NAME = "fatherName";
   public static final String FATHER_GIVEN_NAME = "fatherGivenName";
   public static final String FATHER_SURNAME = "fatherSurname";
-  public static final String FATHER_GENDER = "fatherGender";
   public static final String FATHER_BIRTH_DATE = "fatherBirthDate";
   public static final String FATHER_BIRTH_PLACE = "fatherBirthPlace";
   public static final String FATHER_DEATH_DATE = "fatherDeathDate";
@@ -43,7 +42,6 @@ public class PersonSearchQueryBuilder extends BaseSearchQueryBuilder {
   public static final String MOTHER_NAME = "motherName";
   public static final String MOTHER_GIVEN_NAME = "motherGivenName";
   public static final String MOTHER_SURNAME = "motherSurname";
-  public static final String MOTHER_GENDER = "motherGender";
   public static final String MOTHER_BIRTH_DATE = "motherBirthDate";
   public static final String MOTHER_BIRTH_PLACE = "motherBirthPlace";
   public static final String MOTHER_DEATH_DATE = "motherDeathDate";
@@ -240,18 +238,6 @@ public class PersonSearchQueryBuilder extends BaseSearchQueryBuilder {
     return param(required ? "+" : null, FATHER_SURNAME, value, exact);
   }
 
-  public PersonSearchQueryBuilder fatherGender(String value) {
-    return fatherGender(value, false);
-  }
-
-  public PersonSearchQueryBuilder fatherGender(String value, boolean exact) {
-    return fatherGender(value, exact, false);
-  }
-
-  public PersonSearchQueryBuilder fatherGender(String value, boolean exact, boolean required) {
-    return param(required ? "+" : null, FATHER_GENDER, value, exact);
-  }
-
   public PersonSearchQueryBuilder fatherBirthDate(String value) {
     return fatherBirthDate(value, false);
   }
@@ -323,7 +309,7 @@ public class PersonSearchQueryBuilder extends BaseSearchQueryBuilder {
   public PersonSearchQueryBuilder fatherMarriagePlace(String value, boolean exact, boolean required) {
     return param(required ? "+" : null, FATHER_MARRIAGE_PLACE, value, exact);
   }
-  
+
   public PersonSearchQueryBuilder motherName(String value) {
     return motherName(value, false);
   }
@@ -358,18 +344,6 @@ public class PersonSearchQueryBuilder extends BaseSearchQueryBuilder {
 
   public PersonSearchQueryBuilder motherSurname(String value, boolean exact, boolean required) {
     return param(required ? "+" : null, MOTHER_SURNAME, value, exact);
-  }
-
-  public PersonSearchQueryBuilder motherGender(String value) {
-    return motherGender(value, false);
-  }
-
-  public PersonSearchQueryBuilder motherGender(String value, boolean exact) {
-    return motherGender(value, exact, false);
-  }
-
-  public PersonSearchQueryBuilder motherGender(String value, boolean exact, boolean required) {
-    return param(required ? "+" : null, MOTHER_GENDER, value, exact);
   }
 
   public PersonSearchQueryBuilder motherBirthDate(String value) {

@@ -148,7 +148,7 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
   }
 
   public PersonState readMother() {
-    PersonState mother = null;   //if no male parent found, return null;
+    PersonState mother = null;   //if no female parent found, return null;
     List<Person> listOfParents = getPersons();  //extract List<Person> from this PersonParentsState
     if (null != listOfParents) {
       for (Person parent : listOfParents) {
