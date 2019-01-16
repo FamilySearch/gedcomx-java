@@ -625,8 +625,8 @@ public class FamilySearchPlatform extends Gedcomx {
           continue;
         }
 
-        String fatherId = childAndParentsRelationship.getParent1() != null ? childAndParentsRelationship.getParent1().getResourceId() : null;
-        String motherId = childAndParentsRelationship.getParent2() != null ? childAndParentsRelationship.getParent2().getResourceId() : null;
+        String parent1Id = childAndParentsRelationship.getParent1() != null ? childAndParentsRelationship.getParent1().getResourceId() : null;
+        String parent2Id = childAndParentsRelationship.getParent2() != null ? childAndParentsRelationship.getParent2().getResourceId() : null;
 
         Identifier primaryIdentifier = null;
         if (childAndParentsRelationship.getIdentifiers() != null) {
@@ -638,7 +638,7 @@ public class FamilySearchPlatform extends Gedcomx {
           }
         }
 
-        if (fatherId != null) {
+        if (parent1Id != null) {
           Relationship parent1ChildRelationship = new Relationship();
           parent1ChildRelationship.setId("P1" + relationshipId);
           parent1ChildRelationship.setKnownType(RelationshipType.ParentChild);
@@ -657,7 +657,7 @@ public class FamilySearchPlatform extends Gedcomx {
           addRelationship(parent1ChildRelationship);
         }
 
-        if (motherId != null) {
+        if (parent2Id != null) {
           Relationship parent2ChildRelationship = new Relationship();
           parent2ChildRelationship.setId("P2" + relationshipId);
           parent2ChildRelationship.setKnownType(RelationshipType.ParentChild);

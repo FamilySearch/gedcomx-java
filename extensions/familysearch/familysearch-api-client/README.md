@@ -207,11 +207,11 @@ RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, r
 ```java
 FamilySearchFamilyTree ft = ...;
 
-PersonState father = ...;
-PersonState mother = ...;
+PersonState parent1 = ...;
+PersonState parent2 = ...;
 PersonState child = ...;
 
-ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, father, mother, reason("Because I said so."));
+ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, parent1, parent2, reason("Because I said so."));
 ```
 
 <a name="create-source"/>
