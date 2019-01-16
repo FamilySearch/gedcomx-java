@@ -74,11 +74,11 @@ public class AncestryTree {
       return ancestry.get(this.number - 1);
     }
 
-    public AncestryNode getFather() {
+    public AncestryNode getParent1() {
       return getAncestor(this.number * 2);
     }
 
-    public AncestryNode getMother() {
+    public AncestryNode getParent2() {
       return getAncestor((this.number * 2) + 1);
     }
   }
