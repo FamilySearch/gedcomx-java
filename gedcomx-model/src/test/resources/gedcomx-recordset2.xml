@@ -887,7 +887,7 @@
       </field>
       <field type="http://familysearch.org/types/fields/PR_RELATIONSHIP_TO_HEAD_CSS">
         <value labelId="PR_RELATIONSHIP_TO_HEAD_CSS" type="http://gedcomx.org/Original">
-          <text>Wife</text>
+          <text>Spouse</text>
         </value>
       </field>
       <field type="http://familysearch.org/types/fields/RECORD_GROUP">
@@ -912,7 +912,7 @@
       </field>
       <field type="http://familysearch.org/types/fields/RELATIONSHIP_CODE">
         <value labelId="RELATIONSHIP_CODE" type="http://gedcomx.org/Original">
-          <text>WIFE</text>
+          <text>SPOUSE</text>
         </value>
       </field>
       <field type="http://familysearch.org/types/fields/SHEET_LTR">
@@ -968,10 +968,10 @@
       </field>
       <field type="http://gedcomx.org/RelationshipToHead">
         <value labelId="PR_RELATIONSHIP_TO_HEAD_ORIG" type="http://gedcomx.org/Original">
-          <text>Wife</text>
+          <text>Spouse</text>
         </value>
         <value labelId="PR_RELATIONSHIP_TO_HEAD" type="http://gedcomx.org/Interpreted">
-          <text>Wife</text>
+          <text>Spouse</text>
         </value>
       </field>
       <field type="http://gedcomx.org/FatherBirthPlace">

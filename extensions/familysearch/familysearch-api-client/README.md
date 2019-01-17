@@ -194,10 +194,10 @@ PersonState person = ft.addPerson(new Person()
 ```java
 FamilySearchFamilyTree ft = ...;
 
-PersonState husband = ...;
-PersonState wife = ...;
+PersonState spouse1 = ...;
+PersonState spouse2 = ...;
 
-RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, reason("Because I said so."));
+RelationshipState coupleRelationship = ft.addSpouseRelationship(spouse1, spouse2, reason("Because I said so."));
 ```
 
 <a name="create-ft-chap"/>
