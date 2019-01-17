@@ -51,23 +51,32 @@ public enum ChangeObjectType implements ControlledVocabulary {
   ChildAndParentsRelationship,
 
   /**
-   * The man in a couple relationship was changed.
+   * The Spouse1 in a couple relationship was changed.
    */
+  Spouse1,
+
+  /**
+   * The Spouse2 in a couple relationship was changed.
+   */
+  Spouse2,
+
+  /**
+   * The Parent1 in a couple-child relationship was changed.
+   */
+  Parent1,
+
+  /**
+   * The Parent2 in a couple-child relationship was changed.
+   */
+  Parent2,
+
+  @Deprecated
   Man,
-
-  /**
-   * The man in a couple relationship was changed.
-   */
+  @Deprecated
   Woman,
-
-  /**
-   * The father in a couple-child relationship was changed.
-   */
+  @Deprecated
   Father,
-
-  /**
-   * The mother in a couple-child relationship was changed.
-   */
+  @Deprecated
   Mother,
 
   /**

@@ -142,7 +142,7 @@ FamilyTreePersonState person = ft.readPersonWithRelationshipsById(pid);
 FamilySearchFamilyTree ft = ...;
 
 //put together a search query
-GedcomxPersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
+PersonSearchQueryBuilder query = new ø()
   //for a John Smith
   .name("John Smith")
   //born 1/1/1900

@@ -527,7 +527,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public ChildAndParentsRelationshipState deleteParent1(StateTransitionOption... options) {
-    Link link = getLink(org.familysearch.api.client.Rel.FATHER_ROLE);
+    Link link = getLink(org.familysearch.api.client.Rel.PARENT1_ROLE);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -564,7 +564,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public ChildAndParentsRelationshipState deleteParent2(StateTransitionOption... options) {
-    Link link = getLink(org.familysearch.api.client.Rel.MOTHER_ROLE);
+    Link link = getLink(org.familysearch.api.client.Rel.PARENT2_ROLE);
     if (link == null || link.getHref() == null) {
       return null;
     }
