@@ -32,14 +32,23 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum RelationshipRole implements ControlledVocabulary {
 
-  Father,
+  Parent1,
 
-  Mother,
+  Parent2,
 
   Child,
 
-  Man,
+  Spouse1,
 
+  Spouse2,
+
+  @Deprecated
+  Father,
+  @Deprecated
+  Mother,
+  @Deprecated
+  Man,
+  @Deprecated
   Woman,
 
   @XmlUnknownQNameEnumValue

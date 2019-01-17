@@ -133,6 +133,10 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
     return this.stateFactory.newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  public PersonState readMaleParent() {
+    return readFather();
+  }
+
   public PersonState readFather() {
     PersonState father = null;   //if no male parent found, return null;
     List<Person> listOfParents = getPersons();  //extract List<Person> from this PersonParentsState
@@ -145,6 +149,10 @@ public class PersonParentsState extends GedcomxApplicationState<Gedcomx> {
       }
     }
     return father;
+  }
+
+  public PersonState readFemaleParent() {
+    return readMother();
   }
 
   public PersonState readMother() {

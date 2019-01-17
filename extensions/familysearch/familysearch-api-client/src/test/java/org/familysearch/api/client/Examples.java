@@ -100,11 +100,11 @@ public class Examples {
   public void createChildAndParentsRelationshipInFamilyTree() {
     FamilySearchFamilyTree ft = null;
 
-    PersonState father = null;
-    PersonState mother = null;
+    PersonState parent1 = null;
+    PersonState parent2 = null;
     PersonState child = null;
 
-    ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, father, mother, reason("Because I said so."));
+    ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, parent1, parent2, reason("Because I said so."));
   }
 
   public void createASource() {

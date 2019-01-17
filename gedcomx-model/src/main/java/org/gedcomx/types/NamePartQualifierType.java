@@ -76,12 +76,12 @@ public enum NamePartQualifierType implements ControlledVocabulary {
   Maiden,
 
   /**
-   * A name derived from a father or paternal ancestor.
+   * A name derived from a paternal ancestor.
    */
   Patronymic,
 
   /**
-   * A name derived from a mother or maternal ancestor.
+   * A name derived from a maternal ancestor.
    */
   Matronymic,
 

@@ -127,10 +127,10 @@ public class GedcomxTest {
     return g;
   }
 
-  private static FamilyView makeFam(String fatherId, String motherId, String... kidIds) {
+  private static FamilyView makeFam(String parent1Id, String parent2Id, String... kidIds) {
     FamilyView family = new FamilyView();
-    family.setParent1(makeRef(fatherId));
-    family.setParent2(makeRef(motherId));
+    family.setParent1(makeRef(parent1Id));
+    family.setParent2(makeRef(parent2Id));
     if (kidIds != null) {
       for (String kidId : kidIds) {
         family.addChild(makeRef(kidId));
