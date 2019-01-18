@@ -323,6 +323,19 @@ public class ChildAndParentsRelationship extends Subject {
   public void setFather(ResourceReference father) {
     this.father = father;
   }
+  @Deprecated
+  public ChildAndParentsRelationship father(ResourceReference father) {
+    setFather(father);
+    return this;
+  }
+  @Deprecated
+  public ChildAndParentsRelationship father(Person father) {
+    if (father.getId() == null) {
+      throw new IllegalStateException("Cannot reference father: no id.");
+    }
+    setFather(new ResourceReference(URI.create("#" + father.getId())));
+    return this;
+  }
 
   /**
    * The mother of the child.
@@ -342,6 +355,19 @@ public class ChildAndParentsRelationship extends Subject {
   @Deprecated
   public void setMother(ResourceReference mother) {
     this.mother = mother;
+  }
+  @Deprecated
+  public ChildAndParentsRelationship mother(ResourceReference mother) {
+    setMother(mother);
+    return this;
+  }
+  @Deprecated
+  public ChildAndParentsRelationship mother(Person mother) {
+    if (mother.getId() == null) {
+      throw new IllegalStateException("Cannot reference mother: no id.");
+    }
+    setMother(new ResourceReference(URI.create("#" + mother.getId())));
+    return this;
   }
 
   /**
@@ -366,6 +392,20 @@ public class ChildAndParentsRelationship extends Subject {
   public void setFatherFacts(List<Fact> facts) {
     this.fatherFacts = facts;
   }
+  @Deprecated
+  public void addFatherFact(Fact fact) {
+    if (fact != null) {
+      if (fatherFacts == null) {
+        fatherFacts = new ArrayList<Fact>();
+      }
+      fatherFacts.add(fact);
+    }
+  }
+  @Deprecated
+  public ChildAndParentsRelationship fatherFact(Fact fact) {
+    this.addFatherFact(fact);
+    return this;
+  }
 
   /**
    * The fact conclusions for the mother.
@@ -388,6 +428,20 @@ public class ChildAndParentsRelationship extends Subject {
   @Deprecated
   public void setMotherFacts(List<Fact> facts) {
     this.motherFacts = facts;
+  }
+  @Deprecated
+  public void addMotherFact(Fact fact) {
+    if (fact != null) {
+      if (motherFacts == null) {
+        motherFacts = new ArrayList<Fact>();
+      }
+      motherFacts.add(fact);
+    }
+  }
+  @Deprecated
+  public ChildAndParentsRelationship motherFact(Fact fact) {
+    this.addMotherFact(fact);
+    return this;
   }
 
 }

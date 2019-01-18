@@ -211,6 +211,28 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Deprecated - For now need to visit the Facts on deprecated fact fields also - this should be removed
+    facts = pcr.getFatherFacts();
+    if (facts != null) {
+      for (Fact fact : facts) {
+        if (fact != null) {
+          fact.accept(this);
+        }
+      }
+    }
+    facts = pcr.getMotherFacts();
+    if (facts != null) {
+      for (Fact fact : facts) {
+        if (fact != null) {
+          fact.accept(this);
+        }
+      }
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     this.contextStack.pop();
   }
 
