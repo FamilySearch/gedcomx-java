@@ -22,7 +22,7 @@
     <commons-codec.version>1.10</commons-codec.version>
     <enunciate.version>2.7.0</enunciate.version>
     <handy-uri.version>2.1.6</handy-uri.version>
-    <jackson.version>2.9.7</jackson.version>
+    <jackson.version>2.9.8</jackson.version>
     <jackson1.version>1.9.13</jackson1.version>
     <jaxb-runtime.version>2.2.11</jaxb-runtime.version>
     <jersey.version>1.19.2</jersey.version>
