@@ -104,7 +104,7 @@ public class Examples {
     PersonState parent2 = null;
     PersonState child = null;
 
-    ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationshipNew(child, parent1, parent2, reason("Because I said so."));
+    ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, parent1, parent2, reason("Because I said so."));
   }
 
   public void createASource() {
