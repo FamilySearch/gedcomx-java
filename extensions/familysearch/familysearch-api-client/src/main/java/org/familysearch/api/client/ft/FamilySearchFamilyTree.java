@@ -235,11 +235,6 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return ((FamilyTreeStateFactory)this.stateFactory).newRelationshipsState(request, invoke(request, options), this.accessToken);
   }
 
-  public DiscoveryState readDiscoveryDocument(StateTransitionOption... options) {
-    ClientRequest request = createAuthenticatedFeedRequest().build(getSelfUri().resolve("/.well-known/app-meta"), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newDiscoveryState(request, invoke(request, options), this.accessToken);
-  }
-
   public FamilyTreePersonState readPersonById(String id, StateTransitionOption... options) {
     Link link = getLink(Rel.PERSON);
     if (link == null || link.getTemplate() == null) {
@@ -260,37 +255,6 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
 
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
-  }
-
-  /**
-   * Read person with relationships by id.
-   *
-   * @param id The id.
-   * @param options The options.
-   * @return The person-with-relationships state.
-   * @deprecated Use {@link #readPersonById(String, StateTransitionOption...)}
-   */
-  @Deprecated
-  public FamilyTreePersonState readPersonWithRelationshipsById(String id, StateTransitionOption... options) {
-    Link link = getLink(Rel.PERSON_WITH_RELATIONSHIPS);
-    if (link == null || link.getTemplate() == null) {
-      return null;
-    }
-
-    String template = link.getTemplate();
-    String uri;
-    try{
-      uri = UriTemplate.fromTemplate(template).set("person", id).set("pid", id).expand();
-    }
-    catch (VariableExpansionException e) {
-      throw new GedcomxApplicationException(e);
-    }
-    catch (MalformedUriTemplateException e) {
-      throw new GedcomxApplicationException(e);
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-    return ((FamilyTreeStateFactory)this.stateFactory).newPersonWithRelationshipsState(request, invoke(request, options), this.accessToken);
   }
 
   public PreferredRelationshipState readPreferredSpouseRelationship(UserState user, FamilyTreePersonState person, StateTransitionOption... options) {
