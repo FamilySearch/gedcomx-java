@@ -73,46 +73,6 @@ public class ChildAndParentsRelationshipTest {
     assertEquals(rel.getParent2Facts().get(1).getValue(), "origDeathValue");
   }
 
-  @Test
-  public void testDeprecatedModel() {
-    ArrayList<SourceReference> sources = new ArrayList<SourceReference>();
-    ArrayList<Note> notes = new ArrayList<Note>();
-    ChildAndParentsRelationship rel = new ChildAndParentsRelationship();
-    rel.setFather(new ResourceReference(URI.create("urn:father")));
-    rel.setMother(new ResourceReference(URI.create("urn:mother")));
-    rel.setChild(new ResourceReference(URI.create("urn:child")));
-    rel.setSources(sources);
-    rel.setNotes(notes);
-
-    assertEquals(URI.create("urn:father"), rel.getFather().getResource());
-    assertEquals(URI.create("urn:mother"), rel.getMother().getResource());
-    assertEquals(URI.create("urn:child"), rel.getChild().getResource());
-    assertEquals(sources, rel.getSources());
-    assertEquals(notes,rel.getNotes());
-
-    rel.setFatherFacts(null);
-    assertNull(rel.getFatherFacts());
-    List<Fact> tmpFatherFacts = new ArrayList<Fact>();
-    tmpFatherFacts.add(new Fact(FactType.Birth, "origBirthValue"));
-    tmpFatherFacts.add(new Fact(FactType.Death, "origDeathValue"));
-    rel.setFatherFacts(tmpFatherFacts);
-    assertNotNull(rel.getFatherFacts());
-    assertEquals(rel.getFatherFacts().size(), 2);
-    assertEquals(rel.getFatherFacts().get(0).getValue(), "origBirthValue");
-    assertEquals(rel.getFatherFacts().get(1).getValue(), "origDeathValue");
-
-    rel.setMotherFacts(null);
-    assertNull(rel.getMotherFacts());
-    List<Fact> tmpMotherFacts = new ArrayList<Fact>();
-    tmpMotherFacts.add(new Fact(FactType.Birth, "origBirthValue"));
-    tmpMotherFacts.add(new Fact(FactType.Death, "origDeathValue"));
-    rel.setMotherFacts(tmpMotherFacts);
-    assertNotNull(rel.getMotherFacts());
-    assertEquals(rel.getMotherFacts().size(), 2);
-    assertEquals(rel.getMotherFacts().get(0).getValue(), "origBirthValue");
-    assertEquals(rel.getMotherFacts().get(1).getValue(), "origDeathValue");
-  }
-
 
   @Test
   public void testMarshalling() {

@@ -209,21 +209,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return addChildAndParentsRelationship(chap, options);
   }
 
-  @Deprecated
-  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother, StateTransitionOption... options) {
-    ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
-    chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
-    if (father != null) {
-      chap.setFather(new ResourceReference(new org.gedcomx.common.URI(father.getSelfUri().toString())));
-    }
-    if (mother != null) {
-      chap.setMother(new ResourceReference(new org.gedcomx.common.URI(mother.getSelfUri().toString())));
-    }
-    return addChildAndParentsRelationship(chap, options);
-  }
-
-
-  public ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap, StateTransitionOption... options) {
+  private ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap, StateTransitionOption... options) {
     Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
