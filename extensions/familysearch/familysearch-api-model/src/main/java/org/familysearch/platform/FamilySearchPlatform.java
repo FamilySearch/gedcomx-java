@@ -208,9 +208,8 @@ public class FamilySearchPlatform extends Gedcomx {
 //          samePerson(relationship.getParent2(), parent2)) {
 //          return relationship;
         if (samePerson(relationship.getChild(), child)) {
-          // Only parent1/parent2 or father/mother should be set - never both or any type of cross over
-          ResourceReference capParent1 = (relationship.getParent1() == null) ? relationship.getFather() : relationship.getParent1();
-          ResourceReference capParent2 = (relationship.getParent2() == null) ? relationship.getMother() : relationship.getParent2();
+          ResourceReference capParent1 = relationship.getParent1();
+          ResourceReference capParent2 = relationship.getParent2();
           if (samePerson(capParent1, parent1) &&
               samePerson(capParent2, parent2)) {
             return relationship;
@@ -635,8 +634,8 @@ public class FamilySearchPlatform extends Gedcomx {
 
 //        String parent1Id = childAndParentsRelationship.getParent1() != null ? childAndParentsRelationship.getParent1().getResourceId() : null;
 //        String parent2Id = childAndParentsRelationship.getParent2() != null ? childAndParentsRelationship.getParent2().getResourceId() : null;
-        ResourceReference capParent1 = (childAndParentsRelationship.getParent1() == null) ? childAndParentsRelationship.getFather() : childAndParentsRelationship.getParent1();
-        ResourceReference capParent2 = (childAndParentsRelationship.getParent2() == null) ? childAndParentsRelationship.getMother() : childAndParentsRelationship.getParent2();
+        ResourceReference capParent1 = childAndParentsRelationship.getParent1();
+        ResourceReference capParent2 = childAndParentsRelationship.getParent2();
         String parent1Id = capParent1 != null ? capParent1.getResourceId() : null;
         String parent2Id = capParent2 != null ? capParent2.getResourceId() : null;
 
@@ -705,8 +704,8 @@ public class FamilySearchPlatform extends Gedcomx {
       String localId = local.getId();
       if (localId != null) {
         for (ChildAndParentsRelationship relationship : childAndParentsRelationships) {
-          ResourceReference capParent1 = (relationship.getParent1() == null) ? relationship.getFather() : relationship.getParent1();
-          ResourceReference capParent2 = (relationship.getParent2() == null) ? relationship.getMother() : relationship.getParent2();
+          ResourceReference capParent1 = relationship.getParent1();
+          ResourceReference capParent2 = relationship.getParent2();
           fixId(capParent1, localId);
           fixId(capParent2, localId);
           fixId(relationship.getChild(), localId);
