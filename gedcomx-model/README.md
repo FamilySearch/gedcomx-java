@@ -35,31 +35,31 @@ Person person = new Person() //create a person
   .gender(GenderType.Female) //female
   .fact(new Fact(FactType.Birth, "August 8, 1888", "England")); //born 8/8/1888 in England
 
-Person father = new Person() //create a father
+Person parent1 = new Person() //create a parent1
   .source(sourceDescription) //citing the source
   .name("William Smith") //named William Smith
   .fact(new Fact(FactType.Occupation, "Toll Collector")); //toll collector
 
-Person mother = new Person() //create a mother
+Person parent2 = new Person() //create a parent2
   .source(sourceDescription) //citing the source
   .name("Sarah Smith"); //named Sarah Smith
 
-Relationship fatherRelationship = new Relationship() //create a relationship
+Relationship parent1Relationship = new Relationship() //create a relationship
   .type(RelationshipType.ParentChild) //of type parent-child
-  .person1(father) //between the father
+  .person1(parent1) //between the parent1
   .person2(person); //and the person
 
-Relationship motherRelationship = new Relationship() //create a relationship
+Relationship parent2Relationship = new Relationship() //create a relationship
   .type(RelationshipType.ParentChild) //of type parent-child
-  .person1(mother) //between the mother
+  .person1(parent2) //between the parent2
   .person2(person); //and the person
   
 Gedcomx gx = new Gedcomx() //create a GEDCOM X document
   .person(person) //with the person
-  .person(father) //and the father
-  .person(mother) //and the mother
-  .relationship(fatherRelationship) //and the father relationship
-  .relationship(motherRelationship); //and the mother relationship
+  .person(parent1) //and the parent1
+  .person(parent2) //and the parent2
+  .relationship(parent1Relationship) //and the parent1 relationship
+  .relationship(parent2Relationship); //and the parent2 relationship
 
 ```
 

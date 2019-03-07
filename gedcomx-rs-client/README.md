@@ -89,7 +89,7 @@ Once you have a collection, you can search it for records or persons.
 CollectionState collection = ...;
 
 //put together a search query
-GedcomxPersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
+PersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
   //for a John Smith
   .name("John Smith")
   //born 1/1/1900

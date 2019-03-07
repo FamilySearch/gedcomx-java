@@ -142,7 +142,7 @@ FamilyTreePersonState person = ft.readPersonWithRelationshipsById(pid);
 FamilySearchFamilyTree ft = ...;
 
 //put together a search query
-GedcomxPersonSearchQueryBuilder query = new GedcomxPersonSearchQueryBuilder()
+PersonSearchQueryBuilder query = new ø()
   //for a John Smith
   .name("John Smith")
   //born 1/1/1900
@@ -194,10 +194,10 @@ PersonState person = ft.addPerson(new Person()
 ```java
 FamilySearchFamilyTree ft = ...;
 
-PersonState husband = ...;
-PersonState wife = ...;
+PersonState spouse1 = ...;
+PersonState spouse2 = ...;
 
-RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, reason("Because I said so."));
+RelationshipState coupleRelationship = ft.addSpouseRelationship(spouse1, spouse2, reason("Because I said so."));
 ```
 
 <a name="create-ft-chap"/>
@@ -207,11 +207,11 @@ RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, r
 ```java
 FamilySearchFamilyTree ft = ...;
 
-PersonState father = ...;
-PersonState mother = ...;
+PersonState parent1 = ...;
+PersonState parent2 = ...;
 PersonState child = ...;
 
-ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, father, mother, reason("Because I said so."));
+ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, parent1, parent2, reason("Because I said so."));
 ```
 
 <a name="create-source"/>

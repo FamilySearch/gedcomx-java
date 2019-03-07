@@ -76,12 +76,12 @@ public enum NamePartQualifierType implements ControlledVocabulary {
   Maiden,
 
   /**
-   * A name derived from a father or paternal ancestor.
+   * A name derived from a paternal ancestor.
    */
   Patronymic,
 
   /**
-   * A name derived from a mother or maternal ancestor.
+   * A name derived from a maternal ancestor.
    */
   Matronymic,
 
@@ -108,7 +108,7 @@ public enum NamePartQualifierType implements ControlledVocabulary {
   /**
    * A grammatical designation for articles (a, the, dem, las, el, etc.),
    * prepositions (of, from, aus, zu, op, etc.), initials (e.g. PhD, MD),
-   * annotations (e.g. twin, wife of, infant, unknown),
+   * annotations (e.g. twin, spouse, infant, unknown),
    * comparators (e.g. Junior, Senior, younger, little), ordinals (e.g. III, eighth),
    * and conjunctions (e.g. and, or, nee, ou, y, o, ne, &amp;).
    */

@@ -203,10 +203,18 @@ public class FamilySearchPlatform extends Gedcomx {
   public ChildAndParentsRelationship findChildAndParentsRelationship(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
     if (child != null && getRelationships() != null && (parent1 != null || parent2 != null)) {
       for (ChildAndParentsRelationship relationship : getChildAndParentsRelationships()) {
-        if (samePerson(relationship.getChild(), child) &&
-          samePerson(relationship.getFather(), parent1) &&
-          samePerson(relationship.getMother(), parent2)) {
-          return relationship;
+//        if (samePerson(relationship.getChild(), child) &&
+//          samePerson(relationship.getParent1(), parent1) &&
+//          samePerson(relationship.getParent2(), parent2)) {
+//          return relationship;
+        if (samePerson(relationship.getChild(), child)) {
+          // Only parent1/parent2 or father/mother should be set - never both or any type of cross over
+          ResourceReference capParent1 = (relationship.getParent1() == null) ? relationship.getFather() : relationship.getParent1();
+          ResourceReference capParent2 = (relationship.getParent2() == null) ? relationship.getMother() : relationship.getParent2();
+          if (samePerson(capParent1, parent1) &&
+              samePerson(capParent2, parent2)) {
+            return relationship;
+          }
         }
       }
     }
@@ -625,8 +633,12 @@ public class FamilySearchPlatform extends Gedcomx {
           continue;
         }
 
-        String fatherId = childAndParentsRelationship.getFather() != null ? childAndParentsRelationship.getFather().getResourceId() : null;
-        String motherId = childAndParentsRelationship.getMother() != null ? childAndParentsRelationship.getMother().getResourceId() : null;
+//        String parent1Id = childAndParentsRelationship.getParent1() != null ? childAndParentsRelationship.getParent1().getResourceId() : null;
+//        String parent2Id = childAndParentsRelationship.getParent2() != null ? childAndParentsRelationship.getParent2().getResourceId() : null;
+        ResourceReference capParent1 = (childAndParentsRelationship.getParent1() == null) ? childAndParentsRelationship.getFather() : childAndParentsRelationship.getParent1();
+        ResourceReference capParent2 = (childAndParentsRelationship.getParent2() == null) ? childAndParentsRelationship.getMother() : childAndParentsRelationship.getParent2();
+        String parent1Id = capParent1 != null ? capParent1.getResourceId() : null;
+        String parent2Id = capParent2 != null ? capParent2.getResourceId() : null;
 
         Identifier primaryIdentifier = null;
         if (childAndParentsRelationship.getIdentifiers() != null) {
@@ -638,42 +650,44 @@ public class FamilySearchPlatform extends Gedcomx {
           }
         }
 
-        if (fatherId != null) {
-          Relationship fatherChildRelationship = new Relationship();
-          fatherChildRelationship.setId("F" + relationshipId);
-          fatherChildRelationship.setKnownType(RelationshipType.ParentChild);
-          fatherChildRelationship.setPerson1(childAndParentsRelationship.getFather());
-          fatherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
+        if (parent1Id != null) {
+          Relationship parent1ChildRelationship = new Relationship();
+          parent1ChildRelationship.setId("P1" + relationshipId);
+          parent1ChildRelationship.setKnownType(RelationshipType.ParentChild);
+//          parent1ChildRelationship.setPerson1(childAndParentsRelationship.getParent1());
+          parent1ChildRelationship.setPerson1(capParent1);
+          parent1ChildRelationship.setPerson2(childAndParentsRelationship.getChild());
           if (primaryIdentifier != null) {
-            fatherChildRelationship.setIdentifiers(new ArrayList<>(1));
-            fatherChildRelationship.getIdentifiers().add(new Identifier());
-            fatherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
-            fatherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
+            parent1ChildRelationship.setIdentifiers(new ArrayList<>(1));
+            parent1ChildRelationship.getIdentifiers().add(new Identifier());
+            parent1ChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
+            parent1ChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
           }
           for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
-            fatherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
+            parent1ChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
           }
-          fatherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
-          addRelationship(fatherChildRelationship);
+          parent1ChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
+          addRelationship(parent1ChildRelationship);
         }
 
-        if (motherId != null) {
-          Relationship motherChildRelationship = new Relationship();
-          motherChildRelationship.setId("M" + relationshipId);
-          motherChildRelationship.setKnownType(RelationshipType.ParentChild);
-          motherChildRelationship.setPerson1(childAndParentsRelationship.getMother());
-          motherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
+        if (parent2Id != null) {
+          Relationship parent2ChildRelationship = new Relationship();
+          parent2ChildRelationship.setId("P2" + relationshipId);
+          parent2ChildRelationship.setKnownType(RelationshipType.ParentChild);
+//          parent2ChildRelationship.setPerson1(childAndParentsRelationship.getParent2());
+          parent2ChildRelationship.setPerson1(capParent2);
+          parent2ChildRelationship.setPerson2(childAndParentsRelationship.getChild());
           if (primaryIdentifier != null) {
-            motherChildRelationship.setIdentifiers(new ArrayList<>(1));
-            motherChildRelationship.getIdentifiers().add(new Identifier());
-            motherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
-            motherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
+            parent2ChildRelationship.setIdentifiers(new ArrayList<>(1));
+            parent2ChildRelationship.getIdentifiers().add(new Identifier());
+            parent2ChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
+            parent2ChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
           }
           for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
-            motherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
+            parent2ChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
           }
-          motherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
-          addRelationship(motherChildRelationship);
+          parent2ChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
+          addRelationship(parent2ChildRelationship);
         }
       }
     }
@@ -691,8 +705,10 @@ public class FamilySearchPlatform extends Gedcomx {
       String localId = local.getId();
       if (localId != null) {
         for (ChildAndParentsRelationship relationship : childAndParentsRelationships) {
-          fixId(relationship.getFather(), localId);
-          fixId(relationship.getMother(), localId);
+          ResourceReference capParent1 = (relationship.getParent1() == null) ? relationship.getFather() : relationship.getParent1();
+          ResourceReference capParent2 = (relationship.getParent2() == null) ? relationship.getMother() : relationship.getParent2();
+          fixId(capParent1, localId);
+          fixId(capParent2, localId);
           fixId(relationship.getChild(), localId);
           fixupSourceReferences(sds, relationship);
         }

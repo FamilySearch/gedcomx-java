@@ -193,7 +193,7 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
 
     List<Fact> facts;
 
-    facts = pcr.getFatherFacts();
+    facts = pcr.getParent1Facts();
     if (facts != null) {
       for (Fact fact : facts) {
         if (fact != null) {
@@ -202,6 +202,26 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
+    facts = pcr.getParent2Facts();
+    if (facts != null) {
+      for (Fact fact : facts) {
+        if (fact != null) {
+          fact.accept(this);
+        }
+      }
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Deprecated - For now need to visit the Facts on deprecated fact fields also - this should be removed
+    facts = pcr.getFatherFacts();
+    if (facts != null) {
+      for (Fact fact : facts) {
+        if (fact != null) {
+          fact.accept(this);
+        }
+      }
+    }
     facts = pcr.getMotherFacts();
     if (facts != null) {
       for (Fact fact : facts) {
@@ -210,6 +230,8 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
         }
       }
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     this.contextStack.pop();
   }

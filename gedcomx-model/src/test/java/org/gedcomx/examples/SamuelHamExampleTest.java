@@ -68,22 +68,22 @@ public class SamuelHamExampleTest {
       .date(new Date().original("3 November 1828").formal("+1828-11-03"))
       .place(new PlaceReference().original("Wilton St George, Wilton, Somerset, England"));
 
-    //the groom's residence.
+    //the spouse1's residence.
     Fact samsResidence = new Fact()
       .type(FactType.Residence)
       .date(new Date().original("3 November 1828").formal("+1828-11-03"))
       .place(new PlaceReference().original("parish of Honiton, Devon, England"));
 
-    //the groom's residence.
+    //the spouse1's residence.
     Fact lizsResidence = new Fact()
       .type(FactType.Residence)
       .date(new Date().original("3 November 1828").formal("+1828-11-03"))
       .place(new PlaceReference().original("parish of Wilton, Somerset, England"));
 
-    //the groom
+    //the spouse1
     Person sam = new Person().id("P-1").extracted(true).source(transcriptionDescription).name("Samuel Ham").gender(GenderType.Male).fact(samsResidence);
 
-    //the bride.
+    //the spouse2.
     Person liz = new Person().id("P-2").extracted(true).source(transcriptionDescription).name("Elizabeth Spiller").gender(GenderType.Female).fact(lizsResidence);
 
     //witnesses

@@ -50,54 +50,54 @@ public class FamilySearchPlatformTest {
     FamilySearchPlatform g = makeDoc();
     FamilyView family = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(0);
 
-    // dad-mom relationship
+    // parent1-parent2 relationship
     Relationship couple = g.findCoupleRelationship(family);
     assertEquals(RelationshipType.Couple, couple.getKnownType());
-    assertEquals("#dad", couple.getPerson1().getResource().toString());
-    assertEquals("#mom", couple.getPerson2().getResource().toString());
+    assertEquals("#parent1", couple.getPerson1().getResource().toString());
+    assertEquals("#parent2", couple.getPerson2().getResource().toString());
 
-    // dad-kid1 relationship
+    // parent1-kid1 relationship
     Relationship pcRel = g.findParentChildRelationship(family.getParent1(), family.getChildren().get(0));
     assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
-    assertEquals("#dad", pcRel.getPerson1().getResource().toString());
+    assertEquals("#parent1", pcRel.getPerson1().getResource().toString());
     assertEquals("#kid1", pcRel.getPerson2().getResource().toString());
     assertEquals(FactType.AdoptiveParent, pcRel.getFacts().get(0).getKnownType());
     assertNull(pcRel.getFacts().get(0).getValue());
 
-    // mom-kid1 relationship
+    // parent2-kid1 relationship
     pcRel = g.findParentChildRelationship(family.getParent2(), family.getChildren().get(0));
     assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
-    assertEquals("#mom", pcRel.getPerson1().getResource().toString());
+    assertEquals("#parent2", pcRel.getPerson1().getResource().toString());
     assertEquals("#kid1", pcRel.getPerson2().getResource().toString());
     assertEquals(FactType.BiologicalParent, pcRel.getFacts().get(0).getKnownType());
 
-    // mom-kid2 relationship
+    // parent2-kid2 relationship
     pcRel = g.findParentChildRelationship(family.getParent2(), family.getChildren().get(1));
     assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
-    assertEquals("#mom", pcRel.getPerson1().getResource().toString());
+    assertEquals("#parent2", pcRel.getPerson1().getResource().toString());
     assertEquals("#kid2", pcRel.getPerson2().getResource().toString());
     assertNull(pcRel.getFacts());
 
     // Now also look up ChildAndParentsRelationship
     ChildAndParentsRelationship rel = g.findChildAndParentsRelationship(family.getChildren().get(0), family.getParent1(), family.getParent2());
-    assertEquals("#dad", rel.getFather().getResource().toString());
-    assertEquals("#mom", rel.getMother().getResource().toString());
+    assertEquals("#parent1", rel.getParent1().getResource().toString());
+    assertEquals("#parent2", rel.getParent2().getResource().toString());
     assertEquals("#kid1", rel.getChild().getResource().toString());
-    assertEquals(FactType.AdoptiveParent, rel.getFatherFacts().get(0).getKnownType());
-    assertEquals(FactType.BiologicalParent, rel.getMotherFacts().get(0).getKnownType());
+    assertEquals(FactType.AdoptiveParent, rel.getParent1Facts().get(0).getKnownType());
+    assertEquals(FactType.BiologicalParent, rel.getParent2Facts().get(0).getKnownType());
 
     rel = g.findChildAndParentsRelationship(family.getChildren().get(1), family.getParent1(), family.getParent2());
-    assertEquals("#dad", rel.getFather().getResource().toString());
-    assertEquals("#mom", rel.getMother().getResource().toString());
+    assertEquals("#parent1", rel.getParent1().getResource().toString());
+    assertEquals("#parent2", rel.getParent2().getResource().toString());
     assertEquals("#kid2", rel.getChild().getResource().toString());
-    assertNull(rel.getFatherFacts());
-    assertNull(rel.getMotherFacts());
+    assertNull(rel.getParent1Facts());
+    assertNull(rel.getParent2Facts());
 
     // Test single-parent family
     FamilyView fam2 = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(1);
     rel = g.findChildAndParentsRelationship(fam2.getChildren().get(0), fam2.getParent1(), fam2.getParent2());
-    assertEquals("#dad", rel.getFather().getResource().toString());
-    assertNull(rel.getMother());
+    assertEquals("#parent1", rel.getParent1().getResource().toString());
+    assertNull(rel.getParent2());
     assertEquals("#kid3", rel.getChild().getResource().toString());
 
     assertNull(g.findCoupleRelationship(fam2));
@@ -107,13 +107,13 @@ public class FamilySearchPlatformTest {
     FamilySearchPlatform g = new FamilySearchPlatform();
     g.addPerson(makePerson());
 
-    g.addRelationship(makeRel("dad", "mom", RelationshipType.Couple));
-    addChild(g, "dad", "mom", "kid1", FactType.AdoptiveParent, FactType.BiologicalParent);
-    addChild(g, "dad", "mom", "kid2", null, null);
+    g.addRelationship(makeRel("parent1", "parent2", RelationshipType.Couple));
+    addChild(g, "parent1", "parent2", "kid1", FactType.AdoptiveParent, FactType.BiologicalParent);
+    addChild(g, "parent1", "parent2", "kid2", null, null);
 
     // Add single-parent family
-    g.getPerson().getDisplayExtension().addFamilyAsChild(makeFam("dad", null, "kid3"));
-    addChild(g, "dad", null, "kid3", null, null);
+    g.getPerson().getDisplayExtension().addFamilyAsChild(makeFam("parent1", null, "kid3"));
+    addChild(g, "parent1", null, "kid3", null, null);
 
     return g;
   }
@@ -121,35 +121,35 @@ public class FamilySearchPlatformTest {
   private Person makePerson() {
     Person person = new Person();
     person.setDisplayExtension(new DisplayProperties());
-    person.getDisplayExtension().addFamilyAsChild(makeFam("dad", "mom", "kid1", "kid2"));
+    person.getDisplayExtension().addFamilyAsChild(makeFam("parent1", "parent2", "kid1", "kid2"));
     return person;
   }
 
-  private static void addChild(FamilySearchPlatform doc, String fatherId, String motherId, String childId,
-                               FactType fatherFactType, FactType motherFactType) {
+  private static void addChild(FamilySearchPlatform doc, String parent1Id, String parent2Id, String childId,
+                               FactType parent1FactType, FactType parent2FactType) {
     ChildAndParentsRelationship rel = new ChildAndParentsRelationship();
-    if (fatherId != null) {
-      doc.addRelationship(kidRel(fatherId, childId, fatherFactType));
-      rel.setFather(makeRef(fatherId));
+    if (parent1Id != null) {
+      doc.addRelationship(kidRel(parent1Id, childId, parent1FactType));
+      rel.setParent1(makeRef(parent1Id));
     }
-    if (motherId != null) {
-      doc.addRelationship(kidRel(motherId, childId, motherFactType));
-      rel.setMother(makeRef(motherId));
+    if (parent2Id != null) {
+      doc.addRelationship(kidRel(parent2Id, childId, parent2FactType));
+      rel.setParent2(makeRef(parent2Id));
     }
     rel.setChild(makeRef(childId));
-    if (fatherFactType != null) {
-      rel.addFatherFact(new Fact(fatherFactType, null));
+    if (parent1FactType != null) {
+      rel.addParent1Fact(new Fact(parent1FactType, null));
     }
-    if (motherFactType != null) {
-      rel.addMotherFact(new Fact(motherFactType, null));
+    if (parent2FactType != null) {
+      rel.addParent2Fact(new Fact(parent2FactType, null));
     }
     doc.addChildAndParentsRelationship(rel);
   }
 
-  private static FamilyView makeFam(String fatherId, String motherId, String... kidIds) {
+  private static FamilyView makeFam(String parent1Id, String parent2Id, String... kidIds) {
     FamilyView family = new FamilyView();
-    family.setParent1(makeRef(fatherId));
-    family.setParent2(makeRef(motherId));
+    family.setParent1(makeRef(parent1Id));
+    family.setParent2(makeRef(parent2Id));
     if (kidIds != null) {
       for (String kidId : kidIds) {
         family.addChild(makeRef(kidId));

@@ -74,7 +74,7 @@ public class GedcomxTest {
   private Person makePerson() {
     Person person = new Person();
     person.setDisplayExtension(new DisplayProperties());
-    person.getDisplayExtension().addFamilyAsParent(makeFam("dad", "mom", "kid1", "kid2"));
+    person.getDisplayExtension().addFamilyAsParent(makeFam("parent1", "parent2", "kid1", "kid2"));
     return person;
   }
 
@@ -83,32 +83,32 @@ public class GedcomxTest {
     Gedcomx g = makeDoc();
     FamilyView family = g.getPersons().get(0).getDisplayExtension().getFamiliesAsParent().get(0);
 
-    // dad-mom relationship
+    // parent1-parent2 relationship
     Relationship couple = g.findCoupleRelationship(family);
     assertEquals(RelationshipType.Couple, couple.getKnownType());
-    assertEquals("#dad", couple.getPerson1().getResource().toString());
-    assertEquals("#mom", couple.getPerson2().getResource().toString());
+    assertEquals("#parent1", couple.getPerson1().getResource().toString());
+    assertEquals("#parent2", couple.getPerson2().getResource().toString());
     assertEquals(couple, g.findCoupleRelationship(family.getParent1(), family.getParent2()));
 
-    // dad-kid1 relationship
+    // parent1-kid1 relationship
     Relationship pcRel = g.findParentChildRelationship(family.getParent1(), family.getChildren().get(0));
     assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
-    assertEquals("#dad", pcRel.getPerson1().getResource().toString());
+    assertEquals("#parent1", pcRel.getPerson1().getResource().toString());
     assertEquals("#kid1", pcRel.getPerson2().getResource().toString());
     assertEquals(FactType.AdoptiveParent, pcRel.getFacts().get(0).getKnownType());
     assertNull(pcRel.getFacts().get(0).getValue());
 
-    // mom-kid1 relationship
+    // parent2-kid1 relationship
     pcRel = g.findParentChildRelationship(family.getParent2(), family.getChildren().get(0));
     assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
-    assertEquals("#mom", pcRel.getPerson1().getResource().toString());
+    assertEquals("#parent2", pcRel.getPerson1().getResource().toString());
     assertEquals("#kid1", pcRel.getPerson2().getResource().toString());
     assertEquals(FactType.BiologicalParent, pcRel.getFacts().get(0).getKnownType());
 
-    // mom-kid2 relationship
+    // parent2-kid2 relationship
     pcRel = g.findParentChildRelationship(family.getParent2(), family.getChildren().get(1));
     assertEquals(RelationshipType.ParentChild, pcRel.getKnownType());
-    assertEquals("#mom", pcRel.getPerson1().getResource().toString());
+    assertEquals("#parent2", pcRel.getPerson1().getResource().toString());
     assertEquals("#kid2", pcRel.getPerson2().getResource().toString());
     assertNull(pcRel.getFacts());
   }
@@ -118,19 +118,19 @@ public class GedcomxTest {
 
     g.addPerson(makePerson());
 
-    g.addRelationship(makeRel("dad", "mom", RelationshipType.Couple));
-    g.addRelationship(kidRel("dad", "kid1", FactType.AdoptiveParent));
-    g.addRelationship(kidRel("mom", "kid1", FactType.BiologicalParent));
-    g.addRelationship(kidRel("dad", "kid2", null));
-    g.addRelationship(kidRel("mom", "kid2", null));
+    g.addRelationship(makeRel("parent1", "parent2", RelationshipType.Couple));
+    g.addRelationship(kidRel("parent1", "kid1", FactType.AdoptiveParent));
+    g.addRelationship(kidRel("parent2", "kid1", FactType.BiologicalParent));
+    g.addRelationship(kidRel("parent1", "kid2", null));
+    g.addRelationship(kidRel("parent2", "kid2", null));
 
     return g;
   }
 
-  private static FamilyView makeFam(String fatherId, String motherId, String... kidIds) {
+  private static FamilyView makeFam(String parent1Id, String parent2Id, String... kidIds) {
     FamilyView family = new FamilyView();
-    family.setParent1(makeRef(fatherId));
-    family.setParent2(makeRef(motherId));
+    family.setParent1(makeRef(parent1Id));
+    family.setParent2(makeRef(parent2Id));
     if (kidIds != null) {
       for (String kidId : kidIds) {
         family.addChild(makeRef(kidId));

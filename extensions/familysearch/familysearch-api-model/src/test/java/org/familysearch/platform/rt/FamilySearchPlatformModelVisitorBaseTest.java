@@ -73,14 +73,14 @@ public class FamilySearchPlatformModelVisitorBaseTest {
 
     // re-visit feed; add empty lists to discussions and parent-child relationships
     discussions.get(0).setComments(new ArrayList<Comment>());
-    childAndParentsRelationships.get(0).setFatherFacts(new ArrayList<Fact>());
-    childAndParentsRelationships.get(0).setMotherFacts(new ArrayList<Fact>());
+    childAndParentsRelationships.get(0).setParent1Facts(new ArrayList<Fact>());
+    childAndParentsRelationships.get(0).setParent2Facts(new ArrayList<Fact>());
     fsp.accept(visitor);
 
     // re-visit feed; add single element to comments and facts lists
     discussions.get(0).getComments().add(new Comment());
-    childAndParentsRelationships.get(0).getFatherFacts().add(new Fact());
-    childAndParentsRelationships.get(0).getMotherFacts().add(new Fact());
+    childAndParentsRelationships.get(0).getParent1Facts().add(new Fact());
+    childAndParentsRelationships.get(0).getParent2Facts().add(new Fact());
     fsp.accept(visitor);
   }
 }

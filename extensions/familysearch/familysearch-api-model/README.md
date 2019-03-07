@@ -37,8 +37,8 @@ User user = new User(); //create a FamilySearch user.
 
 ChildAndParentsRelationship childAndParentsRelationship = new ChildAndParentsRelationship() //create a child-and-parents relationship
   .child(child) //between a child
-  .father(father) //a father
-  .mother(mother); //and a mother
+  .parent1(parent1) //parent1
+  .parent2(parent2); //and parent2
 
 FamilySearchPlatform doc = new FamilySearchPlatform()
   .discussion(discussion)

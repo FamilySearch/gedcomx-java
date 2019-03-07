@@ -112,18 +112,36 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public Conclusion getConclusion() {
-    return getFatherFact() != null ? getFatherFact() : getMotherFact() != null ? getMotherFact() : null;
+//    return getParent1Fact() != null ? getParent1Fact() : getParent2Fact() != null ? getParent2Fact() : null;
+    Conclusion conclusion = getParent1Fact() != null ? getParent1Fact() : getParent2Fact();
+    if (conclusion == null) {
+      conclusion = getFatherFact() != null ? getFatherFact() : getMotherFact();
+    }
+    return conclusion;
   }
 
+  public Fact getParent1Fact() {
+    ChildAndParentsRelationship relationship = getRelationship();
+    return relationship == null ? null : relationship.getParent1Facts() == null ? null : relationship.getParent1Facts().isEmpty() ? null : relationship.getParent1Facts().get(0);
+  }
+
+  public Fact getParent2Fact() {
+    ChildAndParentsRelationship relationship = getRelationship();
+    return relationship == null ? null : relationship.getParent2Facts() == null ? null : relationship.getParent2Facts().isEmpty() ? null : relationship.getParent2Facts().get(0);
+  }
+
+
+  @Deprecated
   public Fact getFatherFact() {
     ChildAndParentsRelationship relationship = getRelationship();
     return relationship == null ? null : relationship.getFatherFacts() == null ? null : relationship.getFatherFacts().isEmpty() ? null : relationship.getFatherFacts().get(0);
   }
-
+  @Deprecated
   public Fact getMotherFact() {
     ChildAndParentsRelationship relationship = getRelationship();
     return relationship == null ? null : relationship.getMotherFacts() == null ? null : relationship.getMotherFacts().isEmpty() ? null : relationship.getMotherFacts().get(0);
   }
+
 
   public Note getNote() {
     ChildAndParentsRelationship relationship = getRelationship();
@@ -206,45 +224,90 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     return me == null ? null : me.getId();
   }
 
+  public ChildAndParentsRelationshipState addParent1Fact(Fact fact, StateTransitionOption... options) {
+    return addParent1Facts(new Fact[]{fact}, options);
+  }
+
+  public ChildAndParentsRelationshipState addParent1Facts(Fact[] facts, StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = createEmptySelf();
+    relationship.setParent1Facts(Arrays.asList(facts));
+    return updateConclusions(relationship, options);
+  }
+
+  public ChildAndParentsRelationshipState updateParent1Fact(Fact fact, StateTransitionOption... options) {
+    return updateParent1Facts(new Fact[]{fact}, options);
+  }
+
+  public ChildAndParentsRelationshipState updateParent1Facts(Fact[] facts, StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = createEmptySelf();
+    relationship.setParent1Facts(Arrays.asList(facts));
+    return updateConclusions(relationship, options);
+  }
+
+  public ChildAndParentsRelationshipState addParent2Fact(Fact fact, StateTransitionOption... options) {
+    return addParent2Facts(new Fact[]{fact}, options);
+  }
+
+  public ChildAndParentsRelationshipState addParent2Facts(Fact[] facts, StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = createEmptySelf();
+    relationship.setParent2Facts(Arrays.asList(facts));
+    return updateConclusions(relationship, options);
+  }
+
+  public ChildAndParentsRelationshipState updateParent2Fact(Fact fact, StateTransitionOption... options) {
+    return updateParent2Facts(new Fact[]{fact}, options);
+  }
+
+  public ChildAndParentsRelationshipState updateParent2Facts(Fact[] facts, StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = createEmptySelf();
+    relationship.setParent2Facts(Arrays.asList(facts));
+    return updateConclusions(relationship, options);
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  @Deprecated
   public ChildAndParentsRelationshipState addFatherFact(Fact fact, StateTransitionOption... options) {
     return addFatherFacts(new Fact[]{fact}, options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState addFatherFacts(Fact[] facts, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf();
     relationship.setFatherFacts(Arrays.asList(facts));
     return updateConclusions(relationship, options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateFatherFact(Fact fact, StateTransitionOption... options) {
     return updateFatherFacts(new Fact[]{fact}, options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateFatherFacts(Fact[] facts, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf();
     relationship.setFatherFacts(Arrays.asList(facts));
     return updateConclusions(relationship, options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState addMotherFact(Fact fact, StateTransitionOption... options) {
     return addMotherFacts(new Fact[]{fact}, options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState addMotherFacts(Fact[] facts, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf();
     relationship.setMotherFacts(Arrays.asList(facts));
     return updateConclusions(relationship, options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateMotherFact(Fact fact, StateTransitionOption... options) {
     return updateMotherFacts(new Fact[]{fact}, options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateMotherFacts(Fact[] facts, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf();
     relationship.setMotherFacts(Arrays.asList(facts));
     return updateConclusions(relationship, options);
   }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   protected ChildAndParentsRelationshipState updateConclusions(ChildAndParentsRelationship relationship, StateTransitionOption... options) {
     URI target = getSelfUri();
@@ -499,6 +562,83 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
 
+  public PersonState readParent1(StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = getRelationship();
+    if (relationship == null) {
+      return null;
+    }
+
+    ResourceReference parent1 = relationship.getParent1();
+    if (parent1 == null || parent1.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(parent1.getResource().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public ChildAndParentsRelationshipState updateParent1(PersonState parent1, StateTransitionOption... options) {
+    return updateParent1(parent1.getSelfUri(), options);
+  }
+
+  public ChildAndParentsRelationshipState updateParent1(URI parent1Id, StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = createEmptySelf().parent1(new ResourceReference(parent1Id));
+    FamilySearchPlatform fsp = new FamilySearchPlatform();
+    fsp.addChildAndParentsRelationship(relationship);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(getSelfUri(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
+  }
+
+  public ChildAndParentsRelationshipState deleteParent1(StateTransitionOption... options) {
+    Link link = getLink(org.familysearch.api.client.Rel.PARENT1_ROLE);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
+  }
+
+  public PersonState readParent2(StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = getRelationship();
+    if (relationship == null) {
+      return null;
+    }
+
+    ResourceReference parent2 = relationship.getParent2();
+    if (parent2 == null || parent2.getResource() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(parent2.getResource().toURI(), HttpMethod.GET);
+    return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
+  }
+
+  public ChildAndParentsRelationshipState updateParent2(PersonState parent2, StateTransitionOption... options) {
+    return updateParent2(parent2.getSelfUri(), options);
+  }
+
+  public ChildAndParentsRelationshipState updateParent2(URI parent2Id, StateTransitionOption... options) {
+    ChildAndParentsRelationship relationship = createEmptySelf().parent2(new ResourceReference(parent2Id));
+    FamilySearchPlatform fsp = new FamilySearchPlatform();
+    fsp.addChildAndParentsRelationship(relationship);
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(getSelfUri(), HttpMethod.POST);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
+  }
+
+  public ChildAndParentsRelationshipState deleteParent2(StateTransitionOption... options) {
+    Link link = getLink(org.familysearch.api.client.Rel.PARENT2_ROLE);
+    if (link == null || link.getHref() == null) {
+      return null;
+    }
+
+    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
+    return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  @Deprecated
   public PersonState readFather(StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = getRelationship();
     if (relationship == null) {
@@ -513,11 +653,11 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(father.getResource().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateFather(PersonState father, StateTransitionOption... options) {
     return updateFather(father.getSelfUri(), options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateFather(URI fatherId, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf().father(new ResourceReference(fatherId));
     FamilySearchPlatform fsp = new FamilySearchPlatform();
@@ -525,36 +665,33 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(getSelfUri(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState deleteFather(StateTransitionOption... options) {
     Link link = getLink(org.familysearch.api.client.Rel.FATHER_ROLE);
     if (link == null || link.getHref() == null) {
       return null;
     }
-
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
-
+  @Deprecated
   public PersonState readMother(StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = getRelationship();
     if (relationship == null) {
       return null;
     }
-
     ResourceReference mother = relationship.getMother();
     if (mother == null || mother.getResource() == null) {
       return null;
     }
-
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(mother.getResource().toURI(), HttpMethod.GET);
     return ((FamilyTreeStateFactory)this.stateFactory).newPersonState(request, invoke(request, options), this.accessToken);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateMother(PersonState mother, StateTransitionOption... options) {
     return updateMother(mother.getSelfUri(), options);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState updateMother(URI motherId, StateTransitionOption... options) {
     ChildAndParentsRelationship relationship = createEmptySelf().mother(new ResourceReference(motherId));
     FamilySearchPlatform fsp = new FamilySearchPlatform();
@@ -562,16 +699,17 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).entity(fsp).build(getSelfUri(), HttpMethod.POST);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
-
+  @Deprecated
   public ChildAndParentsRelationshipState deleteMother(StateTransitionOption... options) {
     Link link = getLink(org.familysearch.api.client.Rel.MOTHER_ROLE);
     if (link == null || link.getHref() == null) {
       return null;
     }
-
     ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(link.getHref().toURI(), HttpMethod.DELETE);
     return ((FamilyTreeStateFactory)this.stateFactory).newChildAndParentsRelationshipState(request, invoke(request, options), this.accessToken);
   }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   public ChildAndParentsRelationshipState restore(StateTransitionOption... options) {
     Link link = getLink(org.familysearch.api.client.Rel.RESTORE);

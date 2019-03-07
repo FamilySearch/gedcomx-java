@@ -106,7 +106,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
 
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
-   * Note that some language-enabled elements MAY override the language. 
+   * Note that some language-enabled elements MAY override the language.
    *
    * @return The language of the genealogical data.
    */
@@ -320,8 +320,8 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
 
   /**
    * Find the couple relationship (if any) that corresponds to the relationship between the people with the given IDs.
-   * @param person1 - person1 to find (i.e., husband)
-   * @param person2 - person2 to find (i.e., wife)
+   * @param person1 - person1 to find (i.e., spouse1)
+   * @param person2 - person2 to find (i.e., spouse2)
    * @return the couple relationship for the parents in the family, if any, or null if there isn't one (or if there are not two parents).
    */
   public Relationship findCoupleRelationship(ResourceReference person1, ResourceReference person2) {

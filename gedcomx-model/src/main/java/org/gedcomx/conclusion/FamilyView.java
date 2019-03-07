@@ -44,8 +44,8 @@ import java.util.List;
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilyView extends HypermediaEnabledData {
 
-  private ResourceReference parent1; // First parent, i.e., the father or husband
-  private ResourceReference parent2; // Second parent, i.e., the mother or wife
+  private ResourceReference parent1; // First parent
+  private ResourceReference parent2; // Second parent
   private List<ResourceReference> children; // List of children
 
   /**
@@ -72,7 +72,7 @@ public class FamilyView extends HypermediaEnabledData {
 
   /**
    * Build out this family with a reference to parent1.
-   * 
+   *
    * @param parent1 Parent 1.
    * @return this.
    */

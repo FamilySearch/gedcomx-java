@@ -2914,7 +2914,7 @@
                 {
                   "type": "http://gedcomx.org/Original",
                   "labelId": "PR_RELATIONSHIP_TO_HEAD_CSS",
-                  "text": "Wife"
+                  "text": "Spouse"
                 }
               ]
             },
@@ -2964,7 +2964,7 @@
                 {
                   "type": "http://gedcomx.org/Original",
                   "labelId": "RELATIONSHIP_CODE",
-                  "text": "WIFE"
+                  "text": "SPOUSE"
                 }
               ]
             },
@@ -3074,12 +3074,12 @@
                 {
                   "type": "http://gedcomx.org/Original",
                   "labelId": "PR_RELATIONSHIP_TO_HEAD_ORIG",
-                  "text": "Wife"
+                  "text": "Spouse"
                 },
                 {
                   "type": "http://gedcomx.org/Interpreted",
                   "labelId": "PR_RELATIONSHIP_TO_HEAD",
-                  "text": "Wife"
+                  "text": "Spouse"
                 }
               ]
             },

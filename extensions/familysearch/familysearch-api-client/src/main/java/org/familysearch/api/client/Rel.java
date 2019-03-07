@@ -49,8 +49,12 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String PORTRAIT = "portrait";
   public static final String PORTRAITS = "portraits";
   public static final String RESTORE = "restore";
+  @Deprecated
   public static final String FATHER_ROLE = "father-role";
+  @Deprecated
   public static final String MOTHER_ROLE = "mother-role";
+  public static final String PARENT1_ROLE = "parent1-role";
+  public static final String PARENT2_ROLE = "parent2-role";
   public static final String PERSON_WITH_RELATIONSHIPS = "person-with-relationships";
   public static final String PLACE = "place";
   public static final String PLACE_TYPE_GROUPS = "place-type-groups";

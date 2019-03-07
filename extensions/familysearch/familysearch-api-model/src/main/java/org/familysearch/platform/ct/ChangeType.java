@@ -35,22 +35,44 @@ public enum ChangeType {
 
   CREATE_COUPLE_RELATIONSHIP("Couple Relationship Created", ChangeOperation.Create, ChangeObjectType.Couple, null),
   DELETE_COUPLE_RELATIONSHIP("Couple Relationship Removed", ChangeOperation.Delete, ChangeObjectType.Couple, null),
+
+  @Deprecated
   ADD_MAN("Man Added", ChangeOperation.Create, ChangeObjectType.Man, ChangeObjectModifier.Couple),
+  @Deprecated
   EDIT_MAN("Man Changed", ChangeOperation.Update, ChangeObjectType.Man, ChangeObjectModifier.Couple),
+  @Deprecated
   ADD_WOMAN("Woman Added", ChangeOperation.Create, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
+  @Deprecated
   EDIT_WOMAN("Woman Changed", ChangeOperation.Update, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
+  ADD_SPOUSE1("Spouse1 Added", ChangeOperation.Create, ChangeObjectType.Spouse1, ChangeObjectModifier.Couple),
+  EDIT_SPOUSE1("Spouse1 Changed", ChangeOperation.Update, ChangeObjectType.Spouse1, ChangeObjectModifier.Couple),
+  ADD_SPOUSE2("Spouse2 Added", ChangeOperation.Create, ChangeObjectType.Spouse2, ChangeObjectModifier.Couple),
+  EDIT_SPOUSE2("Spouse2 Changed", ChangeOperation.Update, ChangeObjectType.Spouse2, ChangeObjectModifier.Couple),
   MERGE_COUPLE_RELATIONSHIP("Couple Relationship Merged", ChangeOperation.Merge, ChangeObjectType.Couple, null),
   UNMERGE_COUPLE_RELATIONSHIP("Couple Relationship Unmerged", ChangeOperation.Unmerge, ChangeObjectType.Couple, null),
   UNTOMBSTONE_COUPLE_RELATIONSHIP("Couple Relationship Restored", ChangeOperation.Restore, ChangeObjectType.Couple, null),
 
   CREATE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Created", ChangeOperation.Create, ChangeObjectType.ChildAndParentsRelationship, null),
   DELETE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Removed", ChangeOperation.Delete, ChangeObjectType.ChildAndParentsRelationship, null),
+
+  @Deprecated
   ADD_FATHER("Father Added", ChangeOperation.Create, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
+  @Deprecated
   EDIT_FATHER("Father Changed", ChangeOperation.Update, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
+  @Deprecated
   REMOVE_FATHER("Father Removed", ChangeOperation.Delete, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
+  @Deprecated
   ADD_MOTHER("Mother Added", ChangeOperation.Create, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
+  @Deprecated
   EDIT_MOTHER("Mother Changed", ChangeOperation.Update, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
+  @Deprecated
   REMOVE_MOTHER("Mother Removed", ChangeOperation.Delete, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
+  ADD_PARENT1("Parent1 Added", ChangeOperation.Create, ChangeObjectType.Parent1, ChangeObjectModifier.ChildAndParentsRelationship),
+  EDIT_PARENT1("Parent1 Changed", ChangeOperation.Update, ChangeObjectType.Parent1, ChangeObjectModifier.ChildAndParentsRelationship),
+  REMOVE_PARENT1("Parent1 Removed", ChangeOperation.Delete, ChangeObjectType.Parent1, ChangeObjectModifier.ChildAndParentsRelationship),
+  ADD_PARENT2("Parent2 Added", ChangeOperation.Create, ChangeObjectType.Parent2, ChangeObjectModifier.ChildAndParentsRelationship),
+  EDIT_PARENT2("Parent2 Changed", ChangeOperation.Update, ChangeObjectType.Parent2, ChangeObjectModifier.ChildAndParentsRelationship),
+  REMOVE_PARENT2("Parent2 Removed", ChangeOperation.Delete, ChangeObjectType.Parent2, ChangeObjectModifier.ChildAndParentsRelationship),
   ADD_CHILD("Child Added", ChangeOperation.Create, ChangeObjectType.Child, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_CHILD("Child Changed", ChangeOperation.Update, ChangeObjectType.Child, ChangeObjectModifier.ChildAndParentsRelationship),
   MERGE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Merged", ChangeOperation.Merge, ChangeObjectType.ChildAndParentsRelationship, null),

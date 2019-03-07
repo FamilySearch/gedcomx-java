@@ -197,6 +197,19 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return super.addRelationships(relationships, options);
   }
 
+  public ChildAndParentsRelationshipState addChildAndParentsRelationshipNew(PersonState child, PersonState parent1, PersonState parent2, StateTransitionOption... options) {
+    ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
+    chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
+    if (parent1 != null) {
+      chap.setParent1(new ResourceReference(new org.gedcomx.common.URI(parent1.getSelfUri().toString())));
+    }
+    if (parent2 != null) {
+      chap.setParent2(new ResourceReference(new org.gedcomx.common.URI(parent2.getSelfUri().toString())));
+    }
+    return addChildAndParentsRelationship(chap, options);
+  }
+
+  @Deprecated
   public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother, StateTransitionOption... options) {
     ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
     chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));
@@ -208,6 +221,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     }
     return addChildAndParentsRelationship(chap, options);
   }
+
 
   public ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap, StateTransitionOption... options) {
     Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);

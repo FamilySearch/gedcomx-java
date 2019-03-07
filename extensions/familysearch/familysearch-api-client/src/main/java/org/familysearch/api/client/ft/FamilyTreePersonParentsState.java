@@ -132,14 +132,20 @@ public class FamilyTreePersonParentsState extends PersonParentsState {
     List<ChildAndParentsRelationship> relationships = getChildAndParentsRelationships();
     if (relationships != null) {
       for (ChildAndParentsRelationship relationship : relationships) {
-        ResourceReference personReference = relationship.getFather();
+        ResourceReference personReference = relationship.getParent1();
+        if (personReference == null) {
+          personReference = relationship.getFather();
+        }
         if (personReference != null) {
           String reference = personReference.getResource().toString();
           if (reference.equals("#" + spouse.getId())) {
             return relationship;
           }
         }
-        personReference = relationship.getMother();
+        personReference = relationship.getParent2();
+        if (personReference == null) {
+          personReference = relationship.getMother();
+        }
         if (personReference != null) {
           String reference = personReference.getResource().toString();
           if (reference.equals("#" + spouse.getId())) {

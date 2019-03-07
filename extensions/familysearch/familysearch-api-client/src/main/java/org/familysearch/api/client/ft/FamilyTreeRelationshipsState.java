@@ -117,14 +117,14 @@ public class FamilyTreeRelationshipsState extends RelationshipsState {
     return super.addRelationship(relationship, options);
   }
 
-  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState father, PersonState mother, StateTransitionOption... options) {
+  public ChildAndParentsRelationshipState addChildAndParentsRelationship(PersonState child, PersonState parent1, PersonState parent2, StateTransitionOption... options) {
     ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
     chap.setChild(new ResourceReference(new URI(child.getSelfUri().toString())));
-    if (father != null) {
-      chap.setFather(new ResourceReference(new URI(father.getSelfUri().toString())));
+    if (parent1 != null) {
+      chap.setParent1(new ResourceReference(new URI(parent1.getSelfUri().toString())));
     }
-    if (mother != null) {
-      chap.setMother(new ResourceReference(new URI(mother.getSelfUri().toString())));
+    if (parent2 != null) {
+      chap.setParent2(new ResourceReference(new URI(parent2.getSelfUri().toString())));
     }
     return addChildAndParentsRelationship(chap, options);
   }

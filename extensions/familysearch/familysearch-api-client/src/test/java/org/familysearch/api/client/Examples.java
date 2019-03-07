@@ -91,20 +91,20 @@ public class Examples {
   public void createCoupleRelationshipInFamilyTree() {
     FamilySearchFamilyTree ft = null;
 
-    PersonState husband = null;
-    PersonState wife = null;
+    PersonState spouse1 = null;
+    PersonState spouse2 = null;
 
-    RelationshipState coupleRelationship = ft.addSpouseRelationship(husband, wife, reason("Because I said so."));
+    RelationshipState coupleRelationship = ft.addSpouseRelationship(spouse1, spouse2, reason("Because I said so."));
   }
 
   public void createChildAndParentsRelationshipInFamilyTree() {
     FamilySearchFamilyTree ft = null;
 
-    PersonState father = null;
-    PersonState mother = null;
+    PersonState parent1 = null;
+    PersonState parent2 = null;
     PersonState child = null;
 
-    ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, father, mother, reason("Because I said so."));
+    ChildAndParentsRelationshipState chap = ft.addChildAndParentsRelationship(child, parent1, parent2, reason("Because I said so."));
   }
 
   public void createASource() {
