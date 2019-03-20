@@ -209,7 +209,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return addChildAndParentsRelationship(chap, options);
   }
 
-  private ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap, StateTransitionOption... options) {
+  public ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap, StateTransitionOption... options) {
     Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
