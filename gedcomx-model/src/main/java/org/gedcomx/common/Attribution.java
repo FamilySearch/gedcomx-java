@@ -38,7 +38,7 @@ import java.util.Date;
 @XmlType ( name = "Attribution", propOrder = { "contributor", "modified", "changeMessage", "changeMessageResource", "creator", "created" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
-public final class Attribution extends ExtensibleData {
+public class Attribution extends ExtensibleData {
 
   private ResourceReference contributor;
   private ResourceReference creator;
