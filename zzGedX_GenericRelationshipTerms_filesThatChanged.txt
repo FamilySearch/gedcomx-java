@@ -1,8 +1,25 @@
-
-
-// I think I need to brind back the old naming and also have the new naming - Can I change method names to make the distinction
-Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/FamilySearchPlatform.java  differ
-
+  Gedcomx
+    2.66.0  The last version before any generic naming changes were made
+    2.67.0  Generic names are defined in the model and both names are available in the model and in the SDK
+    2.71.0  Old naming support from the SDK has been removed.
+                  The SDK (GedcomxApplicationState) always adds a header "X-FS-Feature-Tag" "generic.relationship.terms" to platform-API calls
+                  FamilySearchFamilyTree.addChildAndParentsRelationshipNew() is the method name for now
+            The model has both new and old deprecated names available.
+                  ChangeObjectType  ChangeType  ChildAndParentsRelationship  RelationshipRole
+            Utility classes have updates
+                  FamilySearchPlatformModelVisitorBase visits both new and old deprecated fact field names automatically
+                  FamilySearchPlatform - method name changes
+                        findChildAndParentsRelationship() -> findChildAndParentsRelationshipNew() and findChildAndParentsRelationshipOld()
+                        addParentChildRelationshipForEachChildAndParentsRelationship() ->
+                                            addParentChildRelationshipForEachChildAndParentsRelationshipNew() and
+                                            addParentChildRelationshipForEachChildAndParentsRelationshipOld()
+                        fixLocalReferences() -> fixLocalReferencesNew() and fixLocalReferencesOld()
+                            However fixLocalReferences() overrides a method in it's super class Gedcomx, so the "unnamed" method still exists and
+                            just calls fixLocalReferencesNew() by default.  Users will need to search for this rather than rely on the compiler.
+                  When using addParentChildRelationshipForEachChildAndParentsRelationshipNew local Relationship ids changed from "F"+id and "M"+id
+                      to "P1"+id and "P2"+id.  These did not change for addParentChildRelationshipForEachChildAndParentsRelationshipOld()
+    "remove-deprecated" branch (currently 2.72.0.SNAPSHOT) exists where deprecated model and utilities have been removed.  However the SDK still
+            calls platform-API with header.  This can be used to find locations where the old deprecated model was used.
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +38,9 @@ Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java
 
 // Both new and old fact fields are visited - this allows the Vistor to work either with new naming or with old naming - Note that a gedcomx document should never contain both.
 Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/rt/FamilySearchPlatformModelVisitorBase.java differ
+
+// FamilySearchPlatform - method name changes described above
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/FamilySearchPlatform.java  differ
 
 
 
