@@ -197,6 +197,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
     return super.addRelationships(relationships, options);
   }
 
+  // todo GenericRelationshipTerms cleanup    not required but the "...New" part could be be removed
   public ChildAndParentsRelationshipState addChildAndParentsRelationshipNew(PersonState child, PersonState parent1, PersonState parent2, StateTransitionOption... options) {
     ChildAndParentsRelationship chap = new ChildAndParentsRelationship();
     chap.setChild(new ResourceReference(new org.gedcomx.common.URI(child.getSelfUri().toString())));

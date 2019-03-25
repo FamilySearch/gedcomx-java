@@ -36,6 +36,7 @@ public enum ChangeType {
   CREATE_COUPLE_RELATIONSHIP("Couple Relationship Created", ChangeOperation.Create, ChangeObjectType.Couple, null),
   DELETE_COUPLE_RELATIONSHIP("Couple Relationship Removed", ChangeOperation.Delete, ChangeObjectType.Couple, null),
 
+  // todo GenericRelationshipTerms cleanup    remove @Deprecated values
   @Deprecated
   ADD_MAN("Man Added", ChangeOperation.Create, ChangeObjectType.Man, ChangeObjectModifier.Couple),
   @Deprecated

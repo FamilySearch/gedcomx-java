@@ -47,6 +47,7 @@ public class ChildAndParentsRelationship extends Subject {
   private List<Fact> parent1Facts;
   private List<Fact> parent2Facts;
 
+  // todo GenericRelationshipTerms cleanup    remove @Deprecated values and methods
   @Deprecated
   private ResourceReference father;
   @Deprecated
