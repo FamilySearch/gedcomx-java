@@ -200,20 +200,28 @@ public class FamilySearchPlatform extends Gedcomx {
     }
   }
 
-  public ChildAndParentsRelationship findChildAndParentsRelationship(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
+  public ChildAndParentsRelationship findChildAndParentsRelationshipNew(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
     if (child != null && getRelationships() != null && (parent1 != null || parent2 != null)) {
       for (ChildAndParentsRelationship relationship : getChildAndParentsRelationships()) {
-//        if (samePerson(relationship.getChild(), child) &&
-//          samePerson(relationship.getParent1(), parent1) &&
-//          samePerson(relationship.getParent2(), parent2)) {
-//          return relationship;
-        if (samePerson(relationship.getChild(), child)) {
-          ResourceReference capParent1 = relationship.getParent1();
-          ResourceReference capParent2 = relationship.getParent2();
-          if (samePerson(capParent1, parent1) &&
-              samePerson(capParent2, parent2)) {
-            return relationship;
-          }
+        if (samePerson(relationship.getChild(), child) &&
+            samePerson(relationship.getParent1(), parent1) &&
+            samePerson(relationship.getParent2(), parent2)) {
+          return relationship;
+        }
+      }
+    }
+    return null;
+  }
+
+  // todo GenericRelationshipTerms cleanup    remove Deprecated method   may want to rename method findChildAndParentsRelationshipNew() above
+  @Deprecated
+  public ChildAndParentsRelationship findChildAndParentsRelationshipOld(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
+    if (child != null && getRelationships() != null && (parent1 != null || parent2 != null)) {
+      for (ChildAndParentsRelationship relationship : getChildAndParentsRelationships()) {
+        if (samePerson(relationship.getChild(), child) &&
+            samePerson(relationship.getFather(), parent1) &&
+            samePerson(relationship.getMother(), parent2)) {
+          return relationship;
         }
       }
     }
@@ -617,7 +625,7 @@ public class FamilySearchPlatform extends Gedcomx {
     }
   }
 
-  public FamilySearchPlatform addParentChildRelationshipForEachChildAndParentsRelationship() {
+  public FamilySearchPlatform addParentChildRelationshipForEachChildAndParentsRelationshipNew() {
     //for each child-and-parents relationship, add a parent-child relationship.
     List<ChildAndParentsRelationship> parentRelationships = getChildAndParentsRelationships();
     if (parentRelationships != null) {
@@ -632,8 +640,6 @@ public class FamilySearchPlatform extends Gedcomx {
           continue;
         }
 
-//        String parent1Id = childAndParentsRelationship.getParent1() != null ? childAndParentsRelationship.getParent1().getResourceId() : null;
-//        String parent2Id = childAndParentsRelationship.getParent2() != null ? childAndParentsRelationship.getParent2().getResourceId() : null;
         ResourceReference capParent1 = childAndParentsRelationship.getParent1();
         ResourceReference capParent2 = childAndParentsRelationship.getParent2();
         String parent1Id = capParent1 != null ? capParent1.getResourceId() : null;
@@ -653,7 +659,6 @@ public class FamilySearchPlatform extends Gedcomx {
           Relationship parent1ChildRelationship = new Relationship();
           parent1ChildRelationship.setId("P1" + relationshipId);
           parent1ChildRelationship.setKnownType(RelationshipType.ParentChild);
-//          parent1ChildRelationship.setPerson1(childAndParentsRelationship.getParent1());
           parent1ChildRelationship.setPerson1(capParent1);
           parent1ChildRelationship.setPerson2(childAndParentsRelationship.getChild());
           if (primaryIdentifier != null) {
@@ -673,7 +678,6 @@ public class FamilySearchPlatform extends Gedcomx {
           Relationship parent2ChildRelationship = new Relationship();
           parent2ChildRelationship.setId("P2" + relationshipId);
           parent2ChildRelationship.setKnownType(RelationshipType.ParentChild);
-//          parent2ChildRelationship.setPerson1(childAndParentsRelationship.getParent2());
           parent2ChildRelationship.setPerson1(capParent2);
           parent2ChildRelationship.setPerson2(childAndParentsRelationship.getChild());
           if (primaryIdentifier != null) {
@@ -693,8 +697,109 @@ public class FamilySearchPlatform extends Gedcomx {
     return this;
   }
 
+  // todo GenericRelationshipTerms cleanup    remove Deprecated method   may want to rename method addParentChildRelationshipForEachChildAndParentsRelationshipNew() above
+  @Deprecated
+  public FamilySearchPlatform addParentChildRelationshipForEachChildAndParentsRelationshipOld() {
+    //for each child-and-parents relationship, add a parent-child relationship.
+    List<ChildAndParentsRelationship> parentRelationships = getChildAndParentsRelationships();
+    if (parentRelationships != null) {
+      for (ChildAndParentsRelationship childAndParentsRelationship : parentRelationships) {
+        String relationshipId = childAndParentsRelationship.getId();
+        if (relationshipId == null) {
+          continue;
+        }
+
+        String childId = childAndParentsRelationship.getChild() != null ? childAndParentsRelationship.getChild().getResourceId() : null;
+        if (childId == null) {
+          continue;
+        }
+
+        String fatherId = childAndParentsRelationship.getFather() != null ? childAndParentsRelationship.getFather().getResourceId() : null;
+        String motherId = childAndParentsRelationship.getMother() != null ? childAndParentsRelationship.getMother().getResourceId() : null;
+
+        Identifier primaryIdentifier = null;
+        if (childAndParentsRelationship.getIdentifiers() != null) {
+          for (Identifier identifier : childAndParentsRelationship.getIdentifiers()) {
+            if (identifier.getKnownType() == IdentifierType.Primary) {
+              primaryIdentifier = identifier;
+              break;
+            }
+          }
+        }
+
+        if (fatherId != null) {
+          Relationship fatherChildRelationship = new Relationship();
+          fatherChildRelationship.setId("F" + relationshipId);
+          fatherChildRelationship.setKnownType(RelationshipType.ParentChild);
+          fatherChildRelationship.setPerson1(childAndParentsRelationship.getFather());
+          fatherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
+          if (primaryIdentifier != null) {
+            fatherChildRelationship.setIdentifiers(new ArrayList<>(1));
+            fatherChildRelationship.getIdentifiers().add(new Identifier());
+            fatherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
+            fatherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
+          }
+          for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
+            fatherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
+          }
+          fatherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
+          addRelationship(fatherChildRelationship);
+        }
+
+        if (motherId != null) {
+          Relationship motherChildRelationship = new Relationship();
+          motherChildRelationship.setId("M" + relationshipId);
+          motherChildRelationship.setKnownType(RelationshipType.ParentChild);
+          motherChildRelationship.setPerson1(childAndParentsRelationship.getMother());
+          motherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
+          if (primaryIdentifier != null) {
+            motherChildRelationship.setIdentifiers(new ArrayList<>(1));
+            motherChildRelationship.getIdentifiers().add(new Identifier());
+            motherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
+            motherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
+          }
+          for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
+            motherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
+          }
+          motherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
+          addRelationship(motherChildRelationship);
+        }
+      }
+    }
+    return this;
+  }
+
   @Override
   public FamilySearchPlatform fixLocalReferences() {
+    return fixLocalReferencesNew();
+  }
+
+  // todo GenericRelationshipTerms cleanup    just rename this method to fixLocalReferences() and make it the @Override
+  public FamilySearchPlatform fixLocalReferencesNew() {
+    List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
+    List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
+    List<Ordinance> ordinances = getOrdinances(this);
+    List<SourceDescription> sds = getSourceDescriptions() == null ? Collections.emptyList() : getSourceDescriptions();
+
+    for (Person local : locals) {
+      String localId = local.getId();
+      if (localId != null) {
+        for (ChildAndParentsRelationship capRelationship : childAndParentsRelationships) {
+          fixId(capRelationship.getParent1(), localId);
+          fixId(capRelationship.getParent2(), localId);
+          fixId(capRelationship.getChild(), localId);
+          fixupSourceReferences(sds, capRelationship);
+        }
+        fixupPersonReferencesInOrdinances(ordinances, localId);
+      }
+    }
+
+    return (FamilySearchPlatform) super.fixLocalReferences();
+  }
+
+  // todo GenericRelationshipTerms cleanup    remove Deprecated method   may want to rename method fixLocalReferencesNew() above
+  @Deprecated
+  public FamilySearchPlatform fixLocalReferencesOld() {
     List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
     List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
     List<Ordinance> ordinances = getOrdinances(this);
@@ -704,10 +809,8 @@ public class FamilySearchPlatform extends Gedcomx {
       String localId = local.getId();
       if (localId != null) {
         for (ChildAndParentsRelationship relationship : childAndParentsRelationships) {
-          ResourceReference capParent1 = relationship.getParent1();
-          ResourceReference capParent2 = relationship.getParent2();
-          fixId(capParent1, localId);
-          fixId(capParent2, localId);
+          fixId(relationship.getFather(), localId);
+          fixId(relationship.getMother(), localId);
           fixId(relationship.getChild(), localId);
           fixupSourceReferences(sds, relationship);
         }
