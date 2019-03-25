@@ -1,0 +1,72 @@
+
+
+// I think I need to brind back the old naming and also have the new naming - Can I change method names to make the distinction
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/FamilySearchPlatform.java  differ
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Ongoing Work - post cleanup may be done also
+
+    Use the following to find places that should be cleaned up when generic relationship terms are fully adopted and dual support is no longer required:
+              // todo GenericRelationshipTerms cleanup
+
+// These are Model classes that have BOTH old and new naming in them - the old deprecated naming needs to be cleaned up
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/ct/ChangeObjectType.java  differ
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/ct/ChangeType.java  differ
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/ct/ChildAndParentsRelationship.java  differ
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/ct/RelationshipRole.java differ
+
+
+// Both new and old fact fields are visited - this allows the Vistor to work either with new naming or with old naming - Note that a gedcomx document should never contain both.
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/main/java/org/familysearch/platform/rt/FamilySearchPlatformModelVisitorBase.java differ
+
+
+
+GedcomxApplicationState  always adds a header "X-FS-Feature-Tag" "generic.relationship.terms" to platform-API calls
+
+FamilySearchFamilyTree.addChildAndParentsRelationshipNew() could be renamed back
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// All OK below here   - as of 3/22/2019 nothing left in platform-api to worry about affected by these changes.
+//                                No further work should be required for these files to fully function
+//
+
+                // these were comment changes only - nothing changed in code
+Files gedcomx-java_/gedcomx-model/src/main/java/org/gedcomx/types/NamePartQualifierType.java
+Files gedcomx-java_/gedcomx-model/src/main/java/org/gedcomx/conclusion/FamilyView.java
+Files gedcomx-java_/gedcomx-model/src/main/java/org/gedcomx/Gedcomx.java
+
+
+              // tests should not matter
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/test/java/org/familysearch/platform/FamilySearchPlatformTest.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/test/java/org/familysearch/platform/ct/ChangeTypeTest.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/test/java/org/familysearch/platform/ct/ChildAndParentsRelationshipTest.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-model/src/test/java/org/familysearch/platform/rt/FamilySearchPlatformModelVisitorBaseTest.java
+
+              // tests should not matter
+Files gedcomx-java_/gedcomx-model/src/test/java/org/gedcomx/common/GedcomxTest.java
+Files gedcomx-java_/gedcomx-model/src/test/java/org/gedcomx/conclusion/FamilyTest.java
+Files gedcomx-java_/gedcomx-model/src/test/java/org/gedcomx/examples/SamuelHamExampleTest.java
+Files gedcomx-java_/gedcomx-model/src/test/resources/gedcomx-recordset.json
+Files gedcomx-java_/gedcomx-model/src/test/resources/gedcomx-recordset.xml
+Files gedcomx-java_/gedcomx-model/src/test/resources/gedcomx-recordset2.xml
+
+            // SDK should only affect platform-api functional tests  (Rel.java is used other places and has been noted - these are just Strings)
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/main/java/org/familysearch/api/client/Rel.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/main/java/org/familysearch/api/client/ft/ChildAndParentsRelationshipState.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/main/java/org/familysearch/api/client/ft/FamilySearchFamilyTree.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/main/java/org/familysearch/api/client/ft/FamilyTreePersonParentsState.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/main/java/org/familysearch/api/client/ft/FamilyTreePersonState.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/main/java/org/familysearch/api/client/ft/FamilyTreeRelationshipsState.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/main/java/org/familysearch/api/client/ft/FamilyTreeStateFactory.java
+Files gedcomx-java_/extensions/familysearch/familysearch-api-client/src/test/java/org/familysearch/api/client/Examples.java
+
+            // SDK should only affect platform-api functional tests
+Files gedcomx-java_/gedcomx-rs-client/src/main/java/org/gedcomx/rs/client/GedcomxApplicationState.java
+Files gedcomx-java_/gedcomx-rs-client/src/main/java/org/gedcomx/rs/client/PersonParentsState.java
+Files gedcomx-java_/gedcomx-rs-client/src/main/java/org/gedcomx/rs/client/util/AncestryTree.java
+Files gedcomx-java_/gedcomx-rs-client/src/main/java/org/gedcomx/rs/client/util/PersonSearchQueryBuilder.java
