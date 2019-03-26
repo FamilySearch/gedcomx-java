@@ -770,11 +770,36 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   @Override
+  // todo GenericRelationshipTerms cleanup    remove this method and rename the fixLocalReferencesNew() below and make it the @Override
   public FamilySearchPlatform fixLocalReferences() {
-    return fixLocalReferencesNew();
+    List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
+    List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
+    List<Ordinance> ordinances = getOrdinances(this);
+    List<SourceDescription> sds = getSourceDescriptions() == null ? Collections.emptyList() : getSourceDescriptions();
+
+    for (Person local : locals) {
+      String localId = local.getId();
+      if (localId != null) {
+        for (ChildAndParentsRelationship capRelationship : childAndParentsRelationships) {
+          // fixId() checks if ResourceReference is null or not so this will work for both old and new naming.  Both namings must not exist at the same time
+          fixId(capRelationship.getParent1(), localId);
+          fixId(capRelationship.getParent2(), localId);
+          /////////////////////
+          fixId(capRelationship.getFather(), localId);      // Both namings must not exist at the same time
+          fixId(capRelationship.getMother(), localId);      // Both namings must not exist at the same time
+          /////////////////////
+
+          fixId(capRelationship.getChild(), localId);
+          fixupSourceReferences(sds, capRelationship);
+        }
+        fixupPersonReferencesInOrdinances(ordinances, localId);
+      }
+    }
+
+    return (FamilySearchPlatform) super.fixLocalReferences();
   }
 
-  // todo GenericRelationshipTerms cleanup    just rename this method to fixLocalReferences() and make it the @Override
+  // todo GenericRelationshipTerms cleanup    just rename this method to fixLocalReferences() and make this code the @Override
   public FamilySearchPlatform fixLocalReferencesNew() {
     List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
     List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();

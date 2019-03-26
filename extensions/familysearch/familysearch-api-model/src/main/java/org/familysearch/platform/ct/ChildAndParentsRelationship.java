@@ -47,7 +47,8 @@ public class ChildAndParentsRelationship extends Subject {
   private List<Fact> parent1Facts;
   private List<Fact> parent2Facts;
 
-  // todo GenericRelationshipTerms cleanup    remove @Deprecated values and methods
+  // todo GenericRelationshipTerms cleanup    remove @Deprecated values and methods   (also remove from propOrder above)
+  /////////////////////
   @Deprecated
   private ResourceReference father;
   @Deprecated
@@ -56,6 +57,7 @@ public class ChildAndParentsRelationship extends Subject {
   private List<Fact> fatherFacts;
   @Deprecated
   private List<Fact> motherFacts;
+  /////////////////////
 
   /**
    * The parent1 of the child.
@@ -294,6 +296,21 @@ public class ChildAndParentsRelationship extends Subject {
       this.parent1Facts = this.parent1Facts == null ? new ArrayList<Fact>() : this.parent1Facts;
       this.parent1Facts.addAll(relationship.parent1Facts);
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // todo GenericRelationshipTerms cleanup    Deprecated - For now we need to embed any Facts on deprecated fact fields also.
+    //          The model should never have both old and new naming at the same time.  This should be removed when the deprecated fact fields go away
+    if (relationship.motherFacts != null) {
+      this.motherFacts = this.motherFacts == null ? new ArrayList<Fact>() : this.motherFacts;
+      this.motherFacts.addAll(relationship.motherFacts);
+    }
+    if (relationship.fatherFacts != null) {
+      this.fatherFacts = this.fatherFacts == null ? new ArrayList<Fact>() : this.fatherFacts;
+      this.fatherFacts.addAll(relationship.fatherFacts);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     super.embed(relationship);
   }
 

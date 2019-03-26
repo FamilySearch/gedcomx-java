@@ -1,24 +1,56 @@
   Gedcomx
     2.66.0  The last version before any generic naming changes were made
-    2.67.0  Generic names are defined in the model and both names are available in the model and in the SDK
-    2.73.0  Old naming support from the SDK has been removed.
+    2.67.0  Generic names are defined in the model and both names are available in the model and in the SDK  (not well tested)
+    2.74.0  Old naming support from the SDK has been removed.
                   The SDK (GedcomxApplicationState) always adds a header "X-FS-Feature-Tag" "generic.relationship.terms" to platform-API calls
-                  FamilySearchFamilyTree.addChildAndParentsRelationshipNew() is the method name for now
-            The model has both new and old deprecated names available.
-                  ChangeObjectType  ChangeType  ChildAndParentsRelationship  RelationshipRole
+                  FamilySearchFamilyTree.addChildAndParentsRelationshipNew() is the only method name for now
+
+            The model has both new and old deprecated names available.  ALL endpoint calls in and out of Platform-API could be affected by these model changes.
+                  4 model classes are affected: ChangeObjectType  ChangeType  ChildAndParentsRelationship  RelationshipRole
+                       CLASS NAME                    NEW GENERIC NAME       @DEPRECATED
+                    ChangeObjectType                      Spouse1                Man
+                                                          Spouse2                Woman
+                                                          Parent1                Father
+                                                          Parent2                Mother
+
+                    ChangeType                            ADD_SPOUSE1           ADD_MAN
+                                                          EDIT_SPOUSE1          EDIT_MAN
+                                                          ADD_SPOUSE2           ADD_WOMAN
+                                                          EDIT_SPOUSE2          EDIT_WOMAN
+                                                          ADD_PARENT1           ADD_FATHER
+                                                          EDIT_PARENT1          EDIT_FATHER
+                                                          REMOVE_PARENT1        REMOVE_FATHER
+                                                          ADD_PARENT2           ADD_MOTHER
+                                                          EDIT_PARENT2          EDIT_MOTHER
+                                                          REMOVE_PARENT2        REMOVE_MOTHER
+
+                    ChildAndParentsRelationship           parent1               father
+                                                          parent2               mother
+                                                          parent1Facts          fatherFacts
+                                                          parent2Facts          motherFacts
+                          associated getters and setters exist
+                          ChildAndParentsRelationship.embed() will embed both new and old fact names. The model should never have both namings at the same time.
+
+                    RelationshipRole                      Parent1               Father
+                                                          Parent2               Mother
+                                                          Spouse1               Man
+                                                          Spouse2               Woman
+
             Utility classes have updates
-                  FamilySearchPlatformModelVisitorBase visits both new and old deprecated fact field names automatically
+                  FamilySearchPlatformModelVisitorBase.visitChildAndParentsRelationship() visits both new and old deprecated fact field names automatically
                   FamilySearchPlatform - method name changes
                         findChildAndParentsRelationship() -> findChildAndParentsRelationshipNew() and findChildAndParentsRelationshipOld()
                         addParentChildRelationshipForEachChildAndParentsRelationship() ->
                                             addParentChildRelationshipForEachChildAndParentsRelationshipNew() and
                                             addParentChildRelationshipForEachChildAndParentsRelationshipOld()
                         fixLocalReferences() -> fixLocalReferencesNew() and fixLocalReferencesOld()
-                            However fixLocalReferences() overrides a method in it's super class Gedcomx, so the "unnamed" method still exists and
-                            just calls fixLocalReferencesNew() by default.  Users will need to search for this rather than rely on the compiler.
-                  When using addParentChildRelationshipForEachChildAndParentsRelationshipNew local Relationship ids changed from "F"+id and "M"+id
-                      to "P1"+id and "P2"+id.  These did not change for addParentChildRelationshipForEachChildAndParentsRelationshipOld()
-    "remove-deprecated" branch (currently 2.74.0.SNAPSHOT) exists where deprecated model and utilities have been removed.  However the SDK still
+                            Note that fixLocalReferences() overrides a method in it's super class Gedcomx, so the unnamed method still exists and will
+                            fix the ids of both old and new names by default.  Users may want to search for this method rather than rely on the compiler.
+                        Note - there may be a problem (yours - not mine) if you try to FamilySearchPlatform.embed(fsp) and the naming of the 2 don't match
+                  When using addParentChildRelationshipForEachChildAndParentsRelationshipNew local Relationship ids are changed from "F"+id and "M"+id
+                      to "P1"+id and "P2"+id.  The addParentChildRelationshipForEachChildAndParentsRelationshipOld() still uses "F"+id and "M"+id
+
+    "remove-deprecated" branch (currently 2.75.0.SNAPSHOT) exists where deprecated model and utilities have been removed.  However the SDK still
             calls platform-API with header.  This can be used to find locations where the old deprecated model was used.
 
 

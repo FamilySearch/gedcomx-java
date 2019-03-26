@@ -72,6 +72,8 @@ public enum ChangeObjectType implements ControlledVocabulary {
 
 
   // todo GenericRelationshipTerms cleanup    remove @Deprecated values
+  /////////////////////
+  @Deprecated
   Man,
   @Deprecated
   Woman,
@@ -79,6 +81,7 @@ public enum ChangeObjectType implements ControlledVocabulary {
   Father,
   @Deprecated
   Mother,
+  /////////////////////
 
   /**
    * The child in a couple-child relationship was changed.
