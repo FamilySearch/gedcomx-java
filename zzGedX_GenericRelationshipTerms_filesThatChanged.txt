@@ -1,11 +1,12 @@
   Gedcomx
     2.66.0  The last version before any generic naming changes were made
     2.67.0  Generic names are defined in the model and both names are available in the model and in the SDK  (not well tested)
-    2.74.0  Old naming support from the SDK has been removed.
-                  The SDK (GedcomxApplicationState) always adds a header "X-FS-Feature-Tag" "generic.relationship.terms" to platform-API calls
-                  FamilySearchFamilyTree.addChildAndParentsRelationshipNew() is the only method name for now
+    2.75.0  Old naming support from the SDK has been removed.  Model has both old and new naming.
+                The SDK (GedcomxApplicationState) always adds a header "X-FS-Feature-Tag" "generic.relationship.terms" to platform-API calls
+                FamilySearchFamilyTree.addChildAndParentsRelationship() has been renamed to addChildAndParentsRelationshipNew()
 
-            The model has both new and old deprecated names available.  ALL endpoint calls in and out of Platform-API could be affected by these model changes.
+            The model has both new and old deprecated names available.  ALL endpoint calls in and out of Platform-API could be affected by
+            these model changes.
                   4 model classes are affected: ChangeObjectType  ChangeType  ChildAndParentsRelationship  RelationshipRole
                        CLASS NAME                    NEW GENERIC NAME       @DEPRECATED
                     ChangeObjectType                      Spouse1                Man
@@ -36,6 +37,8 @@
                                                           Spouse1               Man
                                                           Spouse2               Woman
 
+            Terminology in change history responses will be affected by the experiment
+
             Utility classes have updates
                   FamilySearchPlatformModelVisitorBase.visitChildAndParentsRelationship() visits both new and old deprecated fact field names automatically
                   FamilySearchPlatform - method name changes
@@ -50,7 +53,7 @@
                   When using addParentChildRelationshipForEachChildAndParentsRelationshipNew local Relationship ids are changed from "F"+id and "M"+id
                       to "P1"+id and "P2"+id.  The addParentChildRelationshipForEachChildAndParentsRelationshipOld() still uses "F"+id and "M"+id
 
-    "remove-deprecated" branch (currently 2.75.0.SNAPSHOT) exists where deprecated model and utilities have been removed.  However the SDK still
+    "remove-deprecated" branch (currently 2.76.0.SNAPSHOT) exists where deprecated model and utilities have been removed.  However the SDK still
             calls platform-API with header.  This can be used to find locations where the old deprecated model was used.
 
 

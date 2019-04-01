@@ -42,12 +42,24 @@ public enum ChangeType {
   EDIT_SPOUSE2("Spouse2 Changed", ChangeOperation.Update, ChangeObjectType.Spouse2, ChangeObjectModifier.Couple),
   // todo GenericRelationshipTerms cleanup    remove @Deprecated values
   /////////////////////
+  /**
+   * Deprecated: Use ADD_SPOUSE1.
+   */
   @Deprecated
   ADD_MAN("Man Added", ChangeOperation.Create, ChangeObjectType.Man, ChangeObjectModifier.Couple),
+  /**
+   * Deprecated: Use EDIT_SPOUSE1.
+   */
   @Deprecated
   EDIT_MAN("Man Changed", ChangeOperation.Update, ChangeObjectType.Man, ChangeObjectModifier.Couple),
+  /**
+   * Deprecated: Use ADD_SPOUSE2.
+   */
   @Deprecated
   ADD_WOMAN("Woman Added", ChangeOperation.Create, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
+  /**
+   * Deprecated: Use EDIT_SPOUSE2.
+   */
   @Deprecated
   EDIT_WOMAN("Woman Changed", ChangeOperation.Update, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
   /////////////////////
@@ -68,16 +80,34 @@ public enum ChangeType {
   REMOVE_PARENT2("Parent2 Removed", ChangeOperation.Delete, ChangeObjectType.Parent2, ChangeObjectModifier.ChildAndParentsRelationship),
   // todo GenericRelationshipTerms cleanup    remove @Deprecated values
   /////////////////////
+  /**
+   * Deprecated: Use ADD_PARENT1.
+   */
   @Deprecated
   ADD_FATHER("Father Added", ChangeOperation.Create, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
+  /**
+   * Deprecated: Use EDIT_PARENT1.
+   */
   @Deprecated
   EDIT_FATHER("Father Changed", ChangeOperation.Update, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
+  /**
+   * Deprecated: Use REMOVE_PARENT1.
+   */
   @Deprecated
   REMOVE_FATHER("Father Removed", ChangeOperation.Delete, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
+  /**
+   * Deprecated: Use ADD_PARENT2.
+   */
   @Deprecated
   ADD_MOTHER("Mother Added", ChangeOperation.Create, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
+  /**
+   * Deprecated: Use EDIT_PARENT2.
+   */
   @Deprecated
   EDIT_MOTHER("Mother Changed", ChangeOperation.Update, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
+  /**
+   * Deprecated: Use REMOVE_PARENT2.
+   */
   @Deprecated
   REMOVE_MOTHER("Mother Removed", ChangeOperation.Delete, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
   /////////////////////

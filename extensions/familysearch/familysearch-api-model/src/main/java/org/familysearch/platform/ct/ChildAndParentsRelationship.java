@@ -321,9 +321,9 @@ public class ChildAndParentsRelationship extends Subject {
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * The father of the child.
+   * Deprecated: The father of the child.  Use parent1.
    *
-   * @return The father of the child.
+   * @return Deprecated: The father of the child.  Use parent1.
    * @deprecated use {@link #getParent1()}
    */
   @Deprecated
@@ -332,9 +332,9 @@ public class ChildAndParentsRelationship extends Subject {
   }
 
   /**
-   * Set the father of the child.
+   * Deprecated: Set the father of the child.   Use parent1.
    *
-   * @param father The father of the child.
+   * @param father Deprecated: The father of the child.  Use parent1.
    * @deprecated use {@link #setParent1(ResourceReference)}
    */
   @Deprecated
@@ -356,9 +356,9 @@ public class ChildAndParentsRelationship extends Subject {
   }
 
   /**
-   * The mother of the child.
+   * Deprecated: The mother of the child.  Use parent2.
    *
-   * @return The mother of the child.
+   * @return Deprecated: The mother of the child.  Use parent2.
    */
   @Deprecated
   public ResourceReference getMother() {
@@ -366,9 +366,9 @@ public class ChildAndParentsRelationship extends Subject {
   }
 
   /**
-   * Set the mother of the child.
+   * Deprecated: Set the mother of the child.  Use parent2.
    *
-   * @param mother The mother of the child.
+   * @param mother Deprecated: The mother of the child.  Use parent2.
    */
   @Deprecated
   public void setMother(ResourceReference mother) {
@@ -389,9 +389,9 @@ public class ChildAndParentsRelationship extends Subject {
   }
 
   /**
-   * The fact conclusions for the father.
+   * Deprecated: The fact conclusions for the father.  Use parent1Facts.
    *
-   * @return The fact conclusions for the father.
+   * @return Deprecated: The fact conclusions for the father.  Use parent1Facts.
    */
   @XmlElement (name="fatherFact")
   @JsonProperty ("fatherFacts") @org.codehaus.jackson.annotate.JsonProperty ("fatherFacts")
@@ -401,9 +401,9 @@ public class ChildAndParentsRelationship extends Subject {
   }
 
   /**
-   * The fact conclusions for the father.
+   * Deprecated: The fact conclusions for the father.  Use parent1Facts.
    *
-   * @param facts The fact conclusions for the father.
+   * @param facts Deprecated: The fact conclusions for the father.  Use parent1Facts.
    */
   @JsonProperty("fatherFacts") @org.codehaus.jackson.annotate.JsonProperty("fatherFacts")
   @Deprecated
@@ -426,9 +426,9 @@ public class ChildAndParentsRelationship extends Subject {
   }
 
   /**
-   * The fact conclusions for the mother.
+   * Deprecated: The fact conclusions for the mother.  Use parent2Facts.
    *
-   * @return The fact conclusions for the mother.
+   * @return Deprecated: The fact conclusions for the mother.  Use parent2Facts.
    */
   @XmlElement (name="motherFact")
   @JsonProperty ("motherFacts") @org.codehaus.jackson.annotate.JsonProperty ("motherFacts")
@@ -438,9 +438,9 @@ public class ChildAndParentsRelationship extends Subject {
   }
 
   /**
-   * The fact conclusions for the mother.
+   * Deprecated: The fact conclusions for the mother.  Use parent2Facts.
    *
-   * @param facts The fact conclusions for the mother.
+   * @param facts Deprecated: The fact conclusions for the mother.  Use parent2Facts.
    */
   @JsonProperty("motherFacts") @org.codehaus.jackson.annotate.JsonProperty("motherFacts")
   @Deprecated
