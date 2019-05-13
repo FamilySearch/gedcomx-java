@@ -48,6 +48,7 @@ import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.names.NameSearchInfo;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.places.FeedbackInfo;
+import org.familysearch.platform.reservations.Reservation;
 import org.familysearch.platform.users.User;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rs.client.GedcomxApplicationState;
@@ -219,10 +220,10 @@ public class FamilySearchStateFactory extends StateFactory {
   @Override
   public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();
-    Class<?>[] extensionClasses = new Class[]{ FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
-      ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class, MessageThread.class,
-      Error.class, FeedbackInfo.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class,
-      Merge.class, MergeAnalysis.class, MergeConflict.class, Tag.class, User.class, Ordinance.class };
+    Class<?>[] extensionClasses = new Class[]{FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
+                                              ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class, MessageThread.class,
+                                              Error.class, FeedbackInfo.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class,
+                                              Merge.class, MergeAnalysis.class, MergeConflict.class, Tag.class, User.class, Reservation.class, Ordinance.class};
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
