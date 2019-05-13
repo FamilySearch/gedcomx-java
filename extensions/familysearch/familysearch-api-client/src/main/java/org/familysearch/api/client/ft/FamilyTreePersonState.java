@@ -26,6 +26,7 @@ import org.familysearch.api.client.util.RequestUtil;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
+import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.ordinances.OrdinanceType;
 import org.familysearch.platform.reservations.Reservation;
 import org.gedcomx.Gedcomx;
@@ -580,9 +581,9 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
 
     Person person = new Person();
     for (OrdinanceType ordinanceType : ordinanceTypes) {
-      Reservation reservation = new Reservation();
-      reservation.setKnownType(ordinanceType);
-      person.addExtensionElement(reservation);
+      Ordinance ordinance = new Ordinance();
+      ordinance.setKnownType(ordinanceType);
+      person.addExtensionElement(ordinance);
     }
 
     FamilySearchPlatform entity = new FamilySearchPlatform();
