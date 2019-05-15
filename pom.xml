@@ -263,6 +263,8 @@
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <!-- 05/15/2019 getting a timeout error closing staging repository at oss.sonatype.org  It seemed to be working, just slow.  default is 5 min -->
+          <stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
         </configuration>
       </plugin>
       <plugin>
