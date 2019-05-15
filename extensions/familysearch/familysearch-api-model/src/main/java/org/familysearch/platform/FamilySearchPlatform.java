@@ -15,14 +15,35 @@
  */
 package org.familysearch.platform;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.familysearch.platform.artifacts.ArtifactMetadata;
-import org.familysearch.platform.ct.*;
+import org.familysearch.platform.ct.ChangeInfo;
+import org.familysearch.platform.ct.ChildAndParentsRelationship;
+import org.familysearch.platform.ct.DiscussionReference;
+import org.familysearch.platform.ct.FamilySearchIdentifierType;
+import org.familysearch.platform.ct.MatchInfo;
+import org.familysearch.platform.ct.Merge;
+import org.familysearch.platform.ct.MergeAnalysis;
+import org.familysearch.platform.ct.NameFormInfo;
+import org.familysearch.platform.ct.PersonInfo;
+import org.familysearch.platform.ct.SearchInfo;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.ordinances.Ordinance;
+import org.familysearch.platform.ordinances.OrdinanceParticipant;
 import org.familysearch.platform.places.FeedbackInfo;
 import org.familysearch.platform.places.PlaceDescriptionInfo;
 import org.familysearch.platform.records.AlternateDate;
@@ -31,23 +52,20 @@ import org.familysearch.platform.reservations.Reservation;
 import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.familysearch.platform.users.User;
 import org.familysearch.platform.vocab.VocabConcept;
-
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
-import org.gedcomx.rt.*;
+import org.gedcomx.rt.DefaultNamespace;
+import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.rt.MediaTypeDefinition;
+import org.gedcomx.rt.Model;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.RelationshipType;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import java.util.*;
 
 /**
  * <p>The FamilySearch data types define serialization formats that are specific to the FamilySearch developer platform. These
@@ -868,9 +886,17 @@ public class FamilySearchPlatform extends Gedcomx {
 
   protected static void fixupPersonReferencesInOrdinances(List<Ordinance> ordinances, String personId) {
     for (Ordinance ordinance : ordinances) {
+      // todo GenericRelationshipTerms ordinances  remove these fixIds when fields go away
       fixId(ordinance.getSpouse(), personId);
       fixId(ordinance.getFather(), personId);
       fixId(ordinance.getMother(), personId);
+
+      if (ordinance.getParticipants() != null) {
+        for (OrdinanceParticipant participant: ordinance.getParticipants()) {
+          fixId(participant.getParticipant(), personId);
+        }
+      }
+
     }
   }
 }
