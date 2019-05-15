@@ -29,19 +29,24 @@ import org.gedcomx.rt.EnumURIMap;
 @XmlQNameEnum(
   base = XmlQNameEnum.BaseType.URI
 )
+// todo GenericRelationshipTerms ordinances  This class should be deleted
+@Deprecated
 public enum OrdinanceAssignee implements ControlledVocabulary {
 
   @XmlQNameEnumValue(
     namespace = "https://www.lds.org/",
     localPart = ""
   )
+  @Deprecated
   LdsChurch,
+
+  @Deprecated
   OTHER;
 
   private static final EnumURIMap<OrdinanceAssignee> URI_MAP = new EnumURIMap<OrdinanceAssignee>(OrdinanceAssignee.class, FamilySearchPlatform.NAMESPACE);
 
   /**
-   * Return the QName value for this enum.
+   * Deprecated: Return the QName value for this enum.
    *
    * @return The QName value for this enum.
    */
@@ -50,7 +55,7 @@ public enum OrdinanceAssignee implements ControlledVocabulary {
   }
 
   /**
-   * Get the enumeration from the QName.
+   * Deprecated: Get the enumeration from the QName.
    *
    * @param qname The qname.
    * @return The enumeration.

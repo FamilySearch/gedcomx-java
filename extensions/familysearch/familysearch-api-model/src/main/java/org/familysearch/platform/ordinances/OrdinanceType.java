@@ -16,7 +16,9 @@
 package org.familysearch.platform.ordinances;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumValue;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -26,8 +28,8 @@ import org.gedcomx.rt.EnumURIMap;
  *
  */
 @XmlQNameEnum(
-  namespace = "http://lds.org/",
-  base = XmlQNameEnum.BaseType.URI
+    namespace = OrdinanceType.ORDINANCE_TYPE_NAMESPACE,
+    base = XmlQNameEnum.BaseType.URI
 )
 public enum OrdinanceType implements ControlledVocabulary {
 
@@ -61,10 +63,55 @@ public enum OrdinanceType implements ControlledVocabulary {
    */
   SealingChildToParents,
 
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  // todo GenericRelationshipTerms ordinances cleanup remove these enums
+  @Deprecated
+  @XmlQNameEnumValue(
+      namespace = "http://lds.org/",
+      localPart = "Baptism"
+  )
+  Deprecated_Baptism,
+  @Deprecated
+  @XmlQNameEnumValue(
+      namespace = "http://lds.org/",
+      localPart = "Confirmation"
+  )
+  Deprecated_Confirmation,
+  @Deprecated
+  @XmlQNameEnumValue(
+      namespace = "http://lds.org/",
+      localPart = "Initiatory"
+  )
+  Deprecated_Initiatory,
+  @Deprecated
+  @XmlQNameEnumValue(
+      namespace = "http://lds.org/",
+      localPart = "Endowment"
+  )
+  Deprecated_Endowment,
+  @Deprecated
+  @XmlQNameEnumValue(
+      namespace = "http://lds.org/",
+      localPart = "SealingToSpouse"
+  )
+  Deprecated_SealingToSpouse,
+  @Deprecated
+  @XmlQNameEnumValue(
+      namespace = "http://lds.org/",
+      localPart = "SealingChildToParents"
+  )
+  Deprecated_SealingChildToParents,
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  private static final EnumURIMap<OrdinanceType> URI_MAP = new EnumURIMap<OrdinanceType>(OrdinanceType.class, "http://lds.org/");
+  static final String ORDINANCE_TYPE_NAMESPACE = "http://www.churchofjesuschrist.org/";
+
+  private static final EnumURIMap<OrdinanceType> URI_MAP = new EnumURIMap<OrdinanceType>(OrdinanceType.class, ORDINANCE_TYPE_NAMESPACE);
 
   /**
    * Return the QName value for this enum.

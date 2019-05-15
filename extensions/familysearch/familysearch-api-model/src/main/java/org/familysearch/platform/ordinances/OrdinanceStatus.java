@@ -17,6 +17,7 @@ package org.familysearch.platform.ordinances;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+
 import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
@@ -26,41 +27,6 @@ import org.gedcomx.rt.EnumURIMap;
   base = XmlQNameEnum.BaseType.URI
 )
 public enum OrdinanceStatus implements ControlledVocabulary {
-
-  /**
-   * The ordinance can be reserved by the current user.
-   */
-  Ready,
-
-  /**
-   * The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time.
-   */
-  NotReady,
-
-  /**
-   * The ordinance has been reserved, but can not be submitted by the current user, most likely because it is reserved by a different user.
-   */
-  Reserved,
-
-  /**
-   * The ordinance has been reserved and can be submitted by the current user through the completion process.
-   */
-  Submittable,
-
-  /**
-   * The ordinance can not be reserved by the current user because more information is needed about the person.
-   */
-  NeedMoreInformation,
-
-  /**
-   * The ordinance is not available to be reserved by the current user.
-   */
-  NotAvailable,
-
-  /**
-   * The ordinance has been completed.
-   */
-  Completed,
 
   /**
    * The ordinance can not be reserved because it is not needed according to the policies of the Church.
@@ -73,34 +39,63 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   NotNeededBornInCovenant,
 
   /**
-   * The ordinance is currently in progress of the completion process, but can not be resubmitted by the current user.
+   * The ordinance has been reserved by the current user and can be submitted/printed.
    */
-  InProgress,
+  ReservedBySelf,
 
   /**
-   * The ordinance is currently in progress of the completion process and can be resubmitted by the current user for the process to be restarted.
+   * The ordinance has been reserved by a different user.
    */
-  Resubmittable,
+  ReservedByOther,
+
+  /**
+   * The ordinance can be reserved by the current user.
+   */
+  Ready,
+
+  /**
+   * The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time.
+   */
+  NotReady,
+
+  /**
+   * The ordinance has been completed.
+   */
+  Completed,
+
+  /**
+   * The ordinance is not available to be reserved by the current user.
+   */
+  NotAvailable,
+
+  /**
+   * The ordinance can not be reserved by the current user because more information is needed about the person.
+   */
+  NeedMoreInformation,
+
+  /**
+   * The ordinance is currently in progress of the completion process by the current user and can be resubmitted/printed by the current user.
+   */
+  InProgressBySelf,
+
+  /**
+   * The ordinance is currently in progress of the completion process by a different.
+   */
+  InProgressByOther,
 
   /**
    * The ordinance can not be reserved by the current user without special permission.
    */
   NeedPermission,
 
-  /**
-   * The ordinance has been cancelled and is uncompleted.
-   */
-  Cancelled,
-
-  /**
-   * The ordinance has been deleted and is uncompleted.
-   */
-  Deleted,
-
-  /**
-   * The ordinance is invalid.
-   */
-  Invalid,
+  // todo GenericRelationshipTerms ordinances cleanup
+  @Deprecated Cancelled,
+  @Deprecated Deleted,
+  @Deprecated Invalid,
+  @Deprecated Reserved,
+  @Deprecated Submittable,
+  @Deprecated InProgress,
+  @Deprecated Resubmittable,
 
   @XmlUnknownQNameEnumValue
   OTHER;

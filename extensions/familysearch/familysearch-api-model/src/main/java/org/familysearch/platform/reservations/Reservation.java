@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 @JsonElementWrapper (name = "reservations")
 @XmlType ( name = "Reservation", propOrder = {"ordinanceType", "type", "status", "spouse", "father", "mother", "assignee" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+// todo GenericRelationshipTerms ordinances  This class should be deleted
+@Deprecated
 public class Reservation extends Conclusion {
 
   private URI type;
@@ -202,7 +204,7 @@ public class Reservation extends Conclusion {
 
   /**
    * Build out this reservation with a spouse.
-   * 
+   *
    * @param spouse The spouse.
    * @return this.
    */
@@ -222,7 +224,7 @@ public class Reservation extends Conclusion {
 
   /**
    * The father associated with the ordinance, if the ordinance type is sealing-to-parents.
-   * 
+   *
    * @param father The father associated with the ordinance, if the ordinance type is sealing-to-parents.
    */
   public void setFather(ResourceReference father) {
@@ -242,7 +244,7 @@ public class Reservation extends Conclusion {
 
   /**
    * The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
-   * 
+   *
    * @return The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
    */
   public ResourceReference getMother() {
@@ -251,7 +253,7 @@ public class Reservation extends Conclusion {
 
   /**
    * The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
-   * 
+   *
    * @param mother The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
    */
   public void setMother(ResourceReference mother) {
@@ -272,7 +274,7 @@ public class Reservation extends Conclusion {
   /**
    * The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
    * is assumed to be the owner of the reservation.
-   * 
+   *
    * @return The user or entity assigned to fulfill the ordinance work for this reservation.
    */
   public ResourceReference getAssignee() {
@@ -282,7 +284,7 @@ public class Reservation extends Conclusion {
   /**
    * The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
    * is assumed to be the owner of the reservation.
-   * 
+   *
    * @param assignee The user or entity assigned to fulfill the ordinance work for this reservation.
    */
   public void setAssignee(ResourceReference assignee) {

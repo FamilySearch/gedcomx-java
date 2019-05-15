@@ -18,24 +18,37 @@ package org.familysearch.platform.ordinances;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 
-import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
 
+/**
+ * Enumeration of known ordinance types
+ *
+ */
 @XmlQNameEnum(
-  base = XmlQNameEnum.BaseType.URI
+    namespace = OrdinanceReservationInventoryType.INVENTORY_NAMESPACE,
+    base = XmlQNameEnum.BaseType.URI
 )
-public enum OrdinanceRoleType implements ControlledVocabulary {
-  Principal,
-  Father,
-  Mother,
-  Spouse,
+public enum OrdinanceReservationInventoryType implements ControlledVocabulary {
+
+  /**
+   * Church inventory
+   */
+  Church,
+
+  /**
+   * Personal inventory
+   */
+  Personal,
 
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  private static final EnumURIMap<OrdinanceRoleType> URI_MAP = new EnumURIMap<OrdinanceRoleType>(OrdinanceRoleType.class, FamilySearchPlatform.NAMESPACE);
+  static final String INVENTORY_NAMESPACE = "http://www.churchofjesuschrist.org/";
+
+  private static final EnumURIMap<OrdinanceReservationInventoryType> URI_MAP =
+      new EnumURIMap<OrdinanceReservationInventoryType>(OrdinanceReservationInventoryType.class, INVENTORY_NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -52,8 +65,9 @@ public enum OrdinanceRoleType implements ControlledVocabulary {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static OrdinanceRoleType fromQNameURI(URI qname) {
+  public static OrdinanceReservationInventoryType fromQNameURI(URI qname) {
     return URI_MAP.fromURIValue(qname);
   }
+
 
 }
