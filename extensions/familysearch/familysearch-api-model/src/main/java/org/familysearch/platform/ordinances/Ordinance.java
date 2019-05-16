@@ -123,7 +123,7 @@ public class Ordinance extends Conclusion {
    * @param knownType The known ordinance type.
    * @return this.
    */
-  public Ordinance knownType(OrdinanceType knownType) {
+  public Ordinance type(OrdinanceType knownType) {
     setKnownType(knownType);
     return this;
   }
@@ -184,7 +184,7 @@ public class Ordinance extends Conclusion {
    * @param knownStatus The known ordinance status.
    * @return this.
    */
-  public Ordinance knownStatus(OrdinanceStatus knownStatus) {
+  public Ordinance status(OrdinanceStatus knownStatus) {
     setKnownStatus(knownStatus);
     return this;
   }
@@ -230,7 +230,7 @@ public class Ordinance extends Conclusion {
     return this;
   }
 
-  public Ordinance knownStatusReason(OrdinanceStatusReason knownStatusReason) {
+  public Ordinance statusReason(OrdinanceStatusReason knownStatusReason) {
     addKnownStatusReason(knownStatusReason);
     return this;
   }

@@ -23,32 +23,32 @@ import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
 
 /**
- * Enumeration of known ordinance types
+ * Enumeration of known assignee types
  *
  */
 @XmlQNameEnum(
-    namespace = OrdinanceReservationInventoryType.INVENTORY_NAMESPACE,
+    namespace = OrdinanceReservationAssigneeType.ASSIGNEE_TYPE_NAMESPACE,
     base = XmlQNameEnum.BaseType.URI
 )
-public enum OrdinanceReservationInventoryType implements ControlledVocabulary {
+public enum OrdinanceReservationAssigneeType implements ControlledVocabulary {
 
   /**
-   * Church inventory
+   * Assigned to Church inventory
    */
   Church,
 
   /**
-   * Personal inventory
+   * Assigned to Personal inventory
    */
   Personal,
 
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  static final String INVENTORY_NAMESPACE = "http://www.churchofjesuschrist.org/";
+  static final String ASSIGNEE_TYPE_NAMESPACE = "http://www.churchofjesuschrist.org/";
 
-  private static final EnumURIMap<OrdinanceReservationInventoryType> URI_MAP =
-      new EnumURIMap<OrdinanceReservationInventoryType>(OrdinanceReservationInventoryType.class, INVENTORY_NAMESPACE);
+  private static final EnumURIMap<OrdinanceReservationAssigneeType> URI_MAP =
+      new EnumURIMap<OrdinanceReservationAssigneeType>(OrdinanceReservationAssigneeType.class, ASSIGNEE_TYPE_NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -65,7 +65,7 @@ public enum OrdinanceReservationInventoryType implements ControlledVocabulary {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static OrdinanceReservationInventoryType fromQNameURI(URI qname) {
+  public static OrdinanceReservationAssigneeType fromQNameURI(URI qname) {
     return URI_MAP.fromURIValue(qname);
   }
 

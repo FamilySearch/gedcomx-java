@@ -32,7 +32,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-//@XmlRootElement(name = "reservation")   // not a root element or something that is added as an extension element
+//@XmlRootElement(name = "reservation")   // not a root element or something that is added as an extension element so not needed
 @JsonElementWrapper(name = "reservation")
 @XmlType( name = "OrdinanceReservation" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
@@ -42,9 +42,8 @@ public class OrdinanceReservation {
   private Date reserved;
   private Date modified;
   private Date expired;
-  private URI inventoryType;
-  private List<URI> assignableInventoryTypes;
-
+  private URI assigneeType;
+  private List<URI> possibleAssigneeTypes;
 
   /**
    * Get the owner associated with the ordinance reservation
@@ -148,110 +147,110 @@ public class OrdinanceReservation {
   }
 
   /**
-   * Get the inventoryType this reservation is assigned to.
-   * @return The inventoryType this reservation is assigned to.
+   * Get the assigneeType this reservation is assigned to.
+   * @return The assigneeType this reservation is assigned to.
    */
   @XmlAttribute
-  @XmlQNameEnumRef(OrdinanceReservationInventoryType.class)
-  public URI getInventoryType() {
-    return inventoryType;
+  @XmlQNameEnumRef(OrdinanceReservationAssigneeType.class)
+  public URI getAssigneeType() {
+    return assigneeType;
   }
 
   /**
-   * Set the inventoryType this reservation is assigned to.
-   * @param inventoryType The inventoryType this reservation is assigned to.
+   * Set the assigneeType this reservation is assigned to.
+   * @param assigneeType The assigneeType this reservation is assigned to.
    */
-  public void setInventoryType(URI inventoryType) {
-    this.inventoryType = inventoryType;
+  public void setAssigneeType(URI assigneeType) {
+    this.assigneeType = assigneeType;
   }
 
   /**
-   * Build out this reservation with the inventoryType this reservation is assigned to.
+   * Build out this reservation with the assigneeType this reservation is assigned to.
    *
-   * @param inventoryType The inventoryType this reservation is assigned to.
+   * @param assigneeType The assigneeType this reservation is assigned to.
    * @return this.
    */
-  public OrdinanceReservation inventoryType(URI inventoryType) {
-    setInventoryType(inventoryType);
+  public OrdinanceReservation assigneeType(URI assigneeType) {
+    setAssigneeType(assigneeType);
     return this;
   }
 
   /**
-   * The enum referencing the inventoryType this reservation is assigned to.
+   * The enum referencing the assigneeType this reservation is assigned to.
    *
-   * @return The enum referencing the inventoryType this reservation is assigned to.
+   * @return The enum referencing the assigneeType this reservation is assigned to.
    */
   @XmlTransient
   @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
-  public OrdinanceReservationInventoryType getKnownInventoryType() {
-    return getInventoryType() == null ? null : OrdinanceReservationInventoryType.fromQNameURI(getInventoryType());
+  public OrdinanceReservationAssigneeType getKnownAssigneeType() {
+    return getAssigneeType() == null ? null : OrdinanceReservationAssigneeType.fromQNameURI(getAssigneeType());
   }
 
   /**
-   * Set the inventoryType this reservation is assigned to from an enumeration of known ordinance reservation inventory types.
+   * Set the assigneeType this reservation is assigned to from an enumeration of known ordinance reservation assignee types.
    *
-   * @param knownInventoryType The enum referencing the inventoryType this reservation is assigned to.
+   * @param knownAssigneeType The enum referencing the assigneeType this reservation is assigned to.
    */
   @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
-  public void setKnownInventoryType(OrdinanceReservationInventoryType knownInventoryType) {
-    setInventoryType(knownInventoryType == null ? null : knownInventoryType.toQNameURI());
+  public void setKnownAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
+    setAssigneeType(knownAssigneeType == null ? null : knownAssigneeType.toQNameURI());
   }
 
   /**
-   * Build out this reservation with a known inventoryType this reservation is assigned to.
+   * Build out this reservation with a known assigneeType this reservation is assigned to.
    *
-   * @param knownReservationInventoryType The known inventoryType.
+   * @param knownAssigneeType The known assigneeType.
    * @return this.
    */
-  public OrdinanceReservation knownInventoryType(OrdinanceReservationInventoryType knownReservationInventoryType) {
-    setKnownInventoryType(knownReservationInventoryType);
+  public OrdinanceReservation assigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
+    setKnownAssigneeType(knownAssigneeType);
     return this;
   }
 
   /**
-   * inventoryTypes the reservation could be assigned to.
+   * The possible assigneeTypes the reservation could be assigned to.
    *
-   * @return The inventoryTypes the reservation could be assigned to.
+   * @return The possible assigneeTypes the reservation could be assigned to.
    */
-  @XmlElement(name="assignableInventoryType")
-  @JsonProperty("assignableInventoryTypes") @org.codehaus.jackson.annotate.JsonProperty("assignableInventoryTypes")
-  // Do not include this annotation: @XmlQNameEnumRef(OrdinanceReservationInventoryType.class)  There is a bug in enunciate for Collection<URI/String>
-  public List<URI> getAssignableInventoryTypes() {
-    return assignableInventoryTypes;
+  @XmlElement(name="possibleAssigneeType")
+  @JsonProperty("possibleAssigneeTypes") @org.codehaus.jackson.annotate.JsonProperty("possibleAssigneeTypes")
+  // Do not include this annotation: @XmlQNameEnumRef(OrdinanceReservationAssigneeType.class)  There is a bug in enunciate for Collection<URI/String>
+  public List<URI> getPossibleAssigneeTypes() {
+    return possibleAssigneeTypes;
   }
 
-  @JsonProperty("assignableInventoryTypes") @org.codehaus.jackson.annotate.JsonProperty("assignableInventoryTypes")
-  public void setAssignableInventoryTypes(List<URI> assignableInventoryTypes) {
-    this.assignableInventoryTypes = assignableInventoryTypes;
+  @JsonProperty("possibleAssigneeTypes") @org.codehaus.jackson.annotate.JsonProperty("possibleAssigneeTypes")
+  public void setPossibleAssigneeTypes(List<URI> possibleAssigneeTypes) {
+    this.possibleAssigneeTypes = possibleAssigneeTypes;
   }
 
-  public void addAssignableInventory(URI assignableInventoryType) {
-    if (assignableInventoryType != null) {
-      if (assignableInventoryTypes == null) {
-        assignableInventoryTypes = new ArrayList<>();
+  public void addPossibleAssigneeType(URI assigneeType) {
+    if (assigneeType != null) {
+      if (possibleAssigneeTypes == null) {
+        possibleAssigneeTypes = new ArrayList<>();
       }
-      assignableInventoryTypes.add(assignableInventoryType);
+      possibleAssigneeTypes.add(assigneeType);
     }
   }
 
-  public void addKnownAssignableInventoryType(OrdinanceReservationInventoryType knownAssignableInventoryType) {
-    addAssignableInventory(knownAssignableInventoryType == null ? null : knownAssignableInventoryType.toQNameURI());
+  public void addKnownPossibleAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
+    addPossibleAssigneeType(knownAssigneeType == null ? null : knownAssigneeType.toQNameURI());
   }
 
   /**
-   * Build out the inventoryTypes the reservation could be assigned to.
+   * Build out the possible assigneeTypes the reservation could be assigned to.
    *
-   * @param assignableInventoryType The URI for the inventoryType the reservation could be assigned to.
+   * @param assigneeType The URI for the possible assigneeType the reservation could be assigned to.
    *
    * @return this.
    */
-  public OrdinanceReservation assignableInventoryType(URI assignableInventoryType) {
-    addAssignableInventory(assignableInventoryType);
+  public OrdinanceReservation possibleAssigneeType(URI assigneeType) {
+    addPossibleAssigneeType(assigneeType);
     return this;
   }
 
-  public OrdinanceReservation knownAssignableInventoryType(OrdinanceReservationInventoryType knownAssignableInventoryType) {
-    addKnownAssignableInventoryType(knownAssignableInventoryType);
+  public OrdinanceReservation possibleAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
+    addKnownPossibleAssigneeType(knownAssigneeType);
     return this;
   }
 
