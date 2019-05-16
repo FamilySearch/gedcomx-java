@@ -118,13 +118,13 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * Build up this ordinance with an ordinance type.
+   * Build up this ordinance with a known ordinance type.
    *
-   * @param type The ordinance type.
+   * @param knownType The known ordinance type.
    * @return this.
    */
-  public Ordinance type(OrdinanceType type) {
-    setKnownType(type);
+  public Ordinance knownType(OrdinanceType knownType) {
+    setKnownType(knownType);
     return this;
   }
 
@@ -179,13 +179,13 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * Build up this ordinance with an ordinance status.
+   * Build up this ordinance with a known ordinance status.
    *
-   * @param status The ordinance status.
+   * @param knownStatus The known ordinance status.
    * @return this.
    */
-  public Ordinance status(OrdinanceStatus status) {
-    setKnownStatus(status);
+  public Ordinance knownStatus(OrdinanceStatus knownStatus) {
+    setKnownStatus(knownStatus);
     return this;
   }
 
@@ -215,6 +215,10 @@ public class Ordinance extends Conclusion {
     }
   }
 
+  public void addKnownStatusReason(OrdinanceStatusReason knownStatusReason) {
+    addStatusReason(knownStatusReason == null ? null : knownStatusReason.toQNameURI());
+  }
+
   /**
    * Build out the status reasons.
    *
@@ -223,6 +227,11 @@ public class Ordinance extends Conclusion {
    */
   public Ordinance statusReason(URI statusReason) {
     addStatusReason(statusReason);
+    return this;
+  }
+
+  public Ordinance knownStatusReason(OrdinanceStatusReason knownStatusReason) {
+    addKnownStatusReason(knownStatusReason);
     return this;
   }
 
@@ -283,7 +292,7 @@ public class Ordinance extends Conclusion {
    * @param reservation the ordinance reservation.
    * @return this
    */
-  public Ordinance displayExtension(OrdinanceReservation reservation) {
+  public Ordinance reservation(OrdinanceReservation reservation) {
     setReservation(reservation);
     return this;
   }
@@ -307,6 +316,11 @@ public class Ordinance extends Conclusion {
     this.living = living;
   }
 
+  public Ordinance living(Boolean living) {
+    setLiving(living);
+    return this;
+  }
+
   /**
    * The date of this ordinance.
    *
@@ -325,6 +339,11 @@ public class Ordinance extends Conclusion {
     this.date = date;
   }
 
+  public Ordinance date(Date date) {
+    setDate(date);
+    return this;
+  }
+
   /**
    * The code for the temple at which the ordinance was performed.
    *
@@ -341,6 +360,11 @@ public class Ordinance extends Conclusion {
    */
   public void setTempleCode(String templeCode) {
     this.templeCode = templeCode;
+  }
+
+  public Ordinance templeCode(String templeCode) {
+    setTempleCode(templeCode);
+    return this;
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////

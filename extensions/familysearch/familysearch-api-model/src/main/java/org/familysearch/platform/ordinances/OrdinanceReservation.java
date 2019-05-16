@@ -166,9 +166,20 @@ public class OrdinanceReservation {
   }
 
   /**
-   * The enum referencing the reservation inventory type this reservation is assigned to.
+   * Build out this reservation with the inventoryType this reservation is assigned to.
    *
-   * @return The enum referencing the reservation inventory type this reservation is assigned to.
+   * @param inventoryType The inventoryType this reservation is assigned to.
+   * @return this.
+   */
+  public OrdinanceReservation inventoryType(URI inventoryType) {
+    setInventoryType(inventoryType);
+    return this;
+  }
+
+  /**
+   * The enum referencing the inventoryType this reservation is assigned to.
+   *
+   * @return The enum referencing the inventoryType this reservation is assigned to.
    */
   @XmlTransient
   @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
@@ -177,13 +188,24 @@ public class OrdinanceReservation {
   }
 
   /**
-   * Set the reservation inventoryType from an enumeration of known reservation inventory types.
+   * Set the inventoryType this reservation is assigned to from an enumeration of known ordinance reservation inventory types.
    *
-   * @param knownReservationInventoryType The inventoryType this reservation is assigned to.
+   * @param knownInventoryType The enum referencing the inventoryType this reservation is assigned to.
    */
   @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
-  public void setKnownReservationInventoryType(OrdinanceReservationInventoryType knownReservationInventoryType) {
-    setInventoryType(knownReservationInventoryType == null ? null : knownReservationInventoryType.toQNameURI());
+  public void setKnownInventoryType(OrdinanceReservationInventoryType knownInventoryType) {
+    setInventoryType(knownInventoryType == null ? null : knownInventoryType.toQNameURI());
+  }
+
+  /**
+   * Build out this reservation with a known inventoryType this reservation is assigned to.
+   *
+   * @param knownReservationInventoryType The known inventoryType.
+   * @return this.
+   */
+  public OrdinanceReservation knownInventoryType(OrdinanceReservationInventoryType knownReservationInventoryType) {
+    setKnownInventoryType(knownReservationInventoryType);
+    return this;
   }
 
   /**
@@ -212,15 +234,26 @@ public class OrdinanceReservation {
     }
   }
 
+  public void addKnownAssignableInventoryType(OrdinanceReservationInventoryType knownAssignableInventoryType) {
+    addAssignableInventory(knownAssignableInventoryType == null ? null : knownAssignableInventoryType.toQNameURI());
+  }
+
   /**
    * Build out the inventoryTypes the reservation could be assigned to.
    *
-   * @param assignableInventory The URI for the inventoryType.
+   * @param assignableInventoryType The URI for the inventoryType the reservation could be assigned to.
+   *
    * @return this.
    */
-  public OrdinanceReservation assignableInventory(URI assignableInventory) {
-    addAssignableInventory(assignableInventory);
+  public OrdinanceReservation assignableInventoryType(URI assignableInventoryType) {
+    addAssignableInventory(assignableInventoryType);
     return this;
   }
+
+  public OrdinanceReservation knownAssignableInventoryType(OrdinanceReservationInventoryType knownAssignableInventoryType) {
+    addKnownAssignableInventoryType(knownAssignableInventoryType);
+    return this;
+  }
+
 
 }
