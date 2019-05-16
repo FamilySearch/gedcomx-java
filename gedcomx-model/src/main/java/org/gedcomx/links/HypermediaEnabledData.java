@@ -45,7 +45,7 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
    */
   @Override
   @XmlElement (name = "link")
-  @JsonProperty ("links") @org.codehaus.jackson.annotate.JsonProperty ("links")
+  @JsonProperty ("links")
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public List<Link> getLinks() {
     return links;
@@ -57,7 +57,7 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
    * @param links The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
   @Override
-  @JsonProperty ("links") @org.codehaus.jackson.annotate.JsonProperty ("links")
+  @JsonProperty ("links")
   public void setLinks(List<Link> links) {
     this.links = links;
   }

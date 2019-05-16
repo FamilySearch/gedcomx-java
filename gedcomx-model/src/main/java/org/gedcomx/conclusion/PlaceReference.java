@@ -81,7 +81,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    * @return A reference to a description of the place being referenced.
    */
   @XmlAttribute ( name = "description" )
-  @JsonProperty ( "description" ) @org.codehaus.jackson.annotate.JsonProperty ( "description" )
+  @JsonProperty ( "description" )
   @RDFRange (PlaceDescription.class)
   public URI getDescriptionRef() {
     return descriptionRef;
@@ -92,7 +92,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    *
    * @param descriptionRef A reference to a description of the place being referenced.
    */
-  @JsonProperty ( "description" ) @org.codehaus.jackson.annotate.JsonProperty ( "description" )
+  @JsonProperty ( "description" )
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
   }
@@ -127,7 +127,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
   @XmlElement ( name = "normalized" )
-  @JsonProperty ("normalized") @org.codehaus.jackson.annotate.JsonProperty ("normalized")
+  @JsonProperty ("normalized")
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public List<TextValue> getNormalizedExtensions() {
     return normalized;
@@ -140,7 +140,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    * @param normalized The list of normalized values for the place, provided for display purposes by the application. Normalized values are
    * not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
-  @JsonProperty ("normalized") @org.codehaus.jackson.annotate.JsonProperty ("normalized")
+  @JsonProperty ("normalized")
   public void setNormalizedExtensions(List<TextValue> normalized) {
     this.normalized = normalized;
   }
@@ -176,7 +176,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement( name = "field" )
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -187,7 +187,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

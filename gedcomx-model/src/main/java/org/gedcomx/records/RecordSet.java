@@ -151,7 +151,7 @@ public class RecordSet extends HypermediaEnabledData {
    * @return The records included in this genealogical data set.
    */
   @XmlElement (name="record")
-  @JsonProperty ("records") @org.codehaus.jackson.annotate.JsonProperty ("records")
+  @JsonProperty ("records")
   public List<Gedcomx> getRecords() {
     return records;
   }
@@ -161,7 +161,7 @@ public class RecordSet extends HypermediaEnabledData {
    *
    * @param records The records included in this genealogical data set.
    */
-  @JsonProperty ("records") @org.codehaus.jackson.annotate.JsonProperty ("records")
+  @JsonProperty ("records")
   public void setRecords(List<Gedcomx> records) {
     this.records = records;
   }

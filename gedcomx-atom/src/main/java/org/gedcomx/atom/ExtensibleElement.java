@@ -42,7 +42,7 @@ public abstract class ExtensibleElement extends CommonAttributes implements Supp
    * @return Custom extension elements.
    */
   @XmlAnyElement (lax = true)
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public List<Object> getExtensionElements() {
     return extensionElements;
   }
@@ -52,7 +52,7 @@ public abstract class ExtensibleElement extends CommonAttributes implements Supp
    *
    * @param extensionElements Custom extension elements.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setExtensionElements(List<Object> extensionElements) {
     this.extensionElements = extensionElements;
   }
@@ -109,7 +109,7 @@ public abstract class ExtensibleElement extends CommonAttributes implements Supp
     return ext;
   }
 
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @XmlTransient
   @Override
   public Map<String, Object> getTransientProperties() {

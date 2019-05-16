@@ -72,7 +72,7 @@ public class MatchInfo {
    * @deprecated Use get/setCollection
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public URI getSystem() {
     return getCollection();
   }
@@ -83,7 +83,7 @@ public class MatchInfo {
    * @param system The system in which this match was found.
    * @deprecated Use get/setCollection
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setSystem(URI system) {
     setCollection(system);
   }
@@ -162,7 +162,7 @@ public class MatchInfo {
    * @return The enum referencing the known collection of this match.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public MatchCollection getKnownCollection() {
     return getCollection() == null ? null : MatchCollection.fromQNameURI(getCollection());
   }
@@ -172,7 +172,7 @@ public class MatchInfo {
    *
    * @param knownCollection The enum referencing the known collection of this match.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownCollection(MatchCollection knownCollection) {
     setCollection(knownCollection == null ? null : knownCollection.toQNameURI());
   }
@@ -203,7 +203,7 @@ public class MatchInfo {
    * @return The enum referencing the known resolution of this match.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public MatchStatus getKnownStatus() {
     return getStatus() == null ? null : MatchStatus.fromQNameURI(getStatus());
   }
@@ -213,7 +213,7 @@ public class MatchInfo {
    *
    * @param knownResolution The enum referencing the known resolution of this match.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownStatus(MatchStatus knownResolution) {
     setStatus(knownResolution == null ? null : knownResolution.toQNameURI());
   }

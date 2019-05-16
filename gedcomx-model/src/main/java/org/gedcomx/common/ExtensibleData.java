@@ -70,7 +70,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    * @return Custom extension elements for a conclusion.
    */
   @XmlAnyElement (lax = true)
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public List<Object> getExtensionElements() {
     return extensionElements;
   }
@@ -80,7 +80,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    *
    * @param extensionElements Custom extension elements for a conclusion.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setExtensionElements(List<Object> extensionElements) {
     this.extensionElements = extensionElements;
   }
@@ -224,7 +224,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    *
    * @return the transient properties.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @XmlTransient
   @Override
   public Map<String, Object> getTransientProperties() {

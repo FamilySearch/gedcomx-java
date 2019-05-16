@@ -143,7 +143,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlAttribute ( name = "description" )
   @JsonProperty ( "description" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "description" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public URI getDescriptionRef() {
     return descriptionRef;
@@ -155,7 +154,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param descriptionRef A reference to a description of this data set.
    */
   @JsonProperty ( "description" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "description" )
+
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
   }
@@ -206,7 +205,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
   public Person getPerson() {
     return this.persons != null && this.persons.size() > 0 ? this.persons.get(0) : null;
   }
@@ -227,7 +225,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "person" )
   @JsonProperty ( "persons" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "persons" )
   public List<Person> getPersons() {
     return persons;
   }
@@ -238,7 +235,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param persons The persons included in this genealogical data set.
    */
   @JsonProperty ( "persons" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "persons" )
+
   public void setPersons(List<Person> persons) {
     this.persons = persons;
   }
@@ -274,7 +271,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
   public List<Relationship> getCoupleRelationships() {
     ArrayList<Relationship> filtered = null;
     if (this.relationships != null) {
@@ -295,7 +291,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
   public List<Relationship> getParentChildRelationships() {
     ArrayList<Relationship> filtered = null;
     if (this.relationships != null) {
@@ -386,7 +381,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "relationship" )
   @JsonProperty ( "relationships" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "relationships" )
   public List<Relationship> getRelationships() {
     return relationships;
   }
@@ -397,7 +391,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param relationships The relationships included in this genealogical data set.
    */
   @JsonProperty ( "relationships" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "relationships" )
+
   public void setRelationships(List<Relationship> relationships) {
     this.relationships = relationships;
   }
@@ -433,7 +427,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlTransient
   @JsonIgnore
-  @org.codehaus.jackson.annotate.JsonIgnore
   public SourceDescription getSourceDescription() {
     return this.sourceDescriptions != null && this.sourceDescriptions.size() > 0 ? this.sourceDescriptions.get(0) : null;
   }
@@ -473,7 +466,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "sourceDescription" )
   @JsonProperty ( "sourceDescriptions" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "sourceDescriptions" )
   public List<SourceDescription> getSourceDescriptions() {
     return sourceDescriptions;
   }
@@ -484,7 +476,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param sourceDescriptions The descriptions of sources included in this genealogical data set.
    */
   @JsonProperty ( "sourceDescriptions" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "sourceDescriptions" )
+
   public void setSourceDescriptions(List<SourceDescription> sourceDescriptions) {
     this.sourceDescriptions = sourceDescriptions;
   }
@@ -520,7 +512,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "agent" )
   @JsonProperty ( "agents" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "agents" )
   public List<Agent> getAgents() {
     return agents;
   }
@@ -540,7 +531,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param agents The agents included in this genealogical data set.
    */
   @JsonProperty ( "agents" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "agents" )
+
   public void setAgents(List<Agent> agents) {
     this.agents = agents;
   }
@@ -576,7 +567,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "event" )
   @JsonProperty ( "events" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "events" )
   public List<Event> getEvents() {
     return events;
   }
@@ -587,7 +577,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param events The events included in this genealogical data set.
    */
   @JsonProperty ( "events" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "events" )
+
   public void setEvents(List<Event> events) {
     this.events = events;
   }
@@ -623,7 +613,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "place" )
   @JsonProperty ( "places" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "places" )
   public List<PlaceDescription> getPlaces() {
     return places;
   }
@@ -643,7 +632,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param places The places included in this genealogical data set.
    */
   @JsonProperty ( "places" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "places" )
+
   public void setPlaces(List<PlaceDescription> places) {
     this.places = places;
   }
@@ -679,7 +668,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "document" )
   @JsonProperty ( "documents" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "documents" )
   public List<Document> getDocuments() {
     return documents;
   }
@@ -690,7 +678,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param documents The documents included in this genealogical data set.
    */
   @JsonProperty ( "documents" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "documents" )
+
   public void setDocuments(List<Document> documents) {
     this.documents = documents;
   }
@@ -726,7 +714,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "collection" )
   @JsonProperty ( "collections" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "collections" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Collection> getCollections() {
     return collections;
@@ -738,7 +725,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param collections The collections included in this genealogical data set.
    */
   @JsonProperty ( "collections" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "collections" )
+
   public void setCollections(List<Collection> collections) {
     this.collections = collections;
   }
@@ -777,7 +764,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "field" )
   @JsonProperty ( "fields" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "fields" )
   @com.webcohesion.enunciate.metadata.Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -789,7 +775,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param fields The extracted fields included in this genealogical data set.
    */
   @JsonProperty ( "fields" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "fields" )
+
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }
@@ -825,7 +811,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   @XmlElement ( name = "recordDescriptor" )
   @JsonProperty ( "recordDescriptors" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "recordDescriptors" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<RecordDescriptor> getRecordDescriptors() {
     return recordDescriptors;
@@ -837,7 +822,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param recordDescriptors The record descriptors included in this genealogical data set.
    */
   @JsonProperty ( "recordDescriptors" )
-  @org.codehaus.jackson.annotate.JsonProperty ( "recordDescriptors" )
+
   public void setRecordDescriptors(List<RecordDescriptor> recordDescriptors) {
     this.recordDescriptors = recordDescriptors;
   }

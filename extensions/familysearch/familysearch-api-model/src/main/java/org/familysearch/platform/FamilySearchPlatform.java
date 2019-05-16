@@ -119,7 +119,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The merge analysis results for this data set.
    */
   @XmlElement ( name = "mergeAnalysis" )
-  @JsonProperty ( "mergeAnalyses" ) @org.codehaus.jackson.annotate.JsonProperty ( "mergeAnalyses" )
+  @JsonProperty ( "mergeAnalyses" )
   public List<MergeAnalysis> getMergeAnalyses() {
     return mergeAnalyses;
   }
@@ -129,7 +129,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param mergeAnalyses The merge analysis results for this data set.
    */
-  @JsonProperty ( "mergeAnalyses" ) @org.codehaus.jackson.annotate.JsonProperty ( "mergeAnalyses" )
+  @JsonProperty ( "mergeAnalyses" )
   public void setMergeAnalyses(List<MergeAnalysis> mergeAnalyses) {
     this.mergeAnalyses = mergeAnalyses;
   }
@@ -154,7 +154,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The merges for this data set.
    */
   @XmlElement ( name = "merge" )
-  @JsonProperty ( "merges" ) @org.codehaus.jackson.annotate.JsonProperty ( "merges" )
+  @JsonProperty ( "merges" )
   public List<Merge> getMerges() {
     return merges;
   }
@@ -164,7 +164,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param merges The merges for this data set.
    */
-  @JsonProperty ( "merges" ) @org.codehaus.jackson.annotate.JsonProperty ( "merges" )
+  @JsonProperty ( "merges" )
   public void setMerges(List<Merge> merges) {
     this.merges = merges;
   }
@@ -189,7 +189,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The child-and-parents relationships for this data set.
    */
   @XmlElement ( name = "childAndParentsRelationship" )
-  @JsonProperty ( "childAndParentsRelationships" ) @org.codehaus.jackson.annotate.JsonProperty ( "childAndParentsRelationships" )
+  @JsonProperty ( "childAndParentsRelationships" )
   public List<ChildAndParentsRelationship> getChildAndParentsRelationships() {
     return childAndParentsRelationships;
   }
@@ -199,7 +199,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param childAndParentsRelationships The child-and-parents relationships for this data set.
    */
-  @JsonProperty ( "childAndParentsRelationships" ) @org.codehaus.jackson.annotate.JsonProperty ( "childAndParentsRelationships" )
+  @JsonProperty ( "childAndParentsRelationships" )
   public void setChildAndParentsRelationships(List<ChildAndParentsRelationship> childAndParentsRelationships) {
     this.childAndParentsRelationships = childAndParentsRelationships;
   }
@@ -263,7 +263,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The discussions included in this data set.
    */
   @XmlElement ( name = "discussion" )
-  @JsonProperty ( "discussions" ) @org.codehaus.jackson.annotate.JsonProperty ( "discussions" )
+  @JsonProperty ( "discussions" )
   public List<Discussion> getDiscussions() {
     return discussions;
   }
@@ -273,7 +273,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param discussions The discussions included in this data set.
    */
-  @JsonProperty ( "discussions" ) @org.codehaus.jackson.annotate.JsonProperty ( "discussions" )
+  @JsonProperty ( "discussions" )
   public void setDiscussions(List<Discussion> discussions) {
     this.discussions = discussions;
   }
@@ -309,7 +309,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The message threads included in this data set.
    */
   @XmlElement ( name = "messageThreads" )
-  @JsonProperty ( "messageThreads" ) @org.codehaus.jackson.annotate.JsonProperty ( "messageThreads" )
+  @JsonProperty ( "messageThreads" )
   public List<MessageThread> getMessageThreads() {
     return messageThreads;
   }
@@ -319,7 +319,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param messageThreads The message threads included in this data set.
    */
-  @JsonProperty ( "messageThreads" ) @org.codehaus.jackson.annotate.JsonProperty ( "messageThreads" )
+  @JsonProperty ( "messageThreads" )
   public void setMessageThreads(List<MessageThread> messageThreads) {
     this.messageThreads = messageThreads;
   }
@@ -355,7 +355,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The user message thread userMessageThreadSummary included in this data set.
    */
   @XmlElement ( name = "userMessageThreadSummaries" )
-  @JsonProperty ( "userMessageThreadSummaries" ) @org.codehaus.jackson.annotate.JsonProperty ( "userMessageThreadSummaries" )
+  @JsonProperty ( "userMessageThreadSummaries" )
   public List<UserMessageThreadsSummary> getUserMessageThreadsSummaries() {
     return userMessageThreadsSummaries;
   }
@@ -365,7 +365,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param userMessageThreadsSummaries The user message thread userMessageThreadSummary included in this data set.
    */
-  @JsonProperty ( "userMessageThreadSummaries" ) @org.codehaus.jackson.annotate.JsonProperty ( "userMessageThreadSummaries" )
+  @JsonProperty ( "userMessageThreadSummaries" )
   public void setUserMessageThreadsSummaries(List<UserMessageThreadsSummary> userMessageThreadsSummaries) {
     this.userMessageThreadsSummaries = userMessageThreadsSummaries;
   }
@@ -401,7 +401,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The vocabulary concepts included in this data set.
    */
   @XmlElement ( name = "vocabConcepts" )
-  @JsonProperty ( "vocabConcepts" ) @org.codehaus.jackson.annotate.JsonProperty ( "vocabConcepts" )
+  @JsonProperty ( "vocabConcepts" )
   public List<VocabConcept> getVocabConcepts() {
     return vocabConcepts;
   }
@@ -411,7 +411,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param vocabConcepts The vocabulary concepts included in this data set.
    */
-  @JsonProperty ( "vocabConcepts" ) @org.codehaus.jackson.annotate.JsonProperty ( "vocabConcepts" )
+  @JsonProperty ( "vocabConcepts" )
   public void setVocabConcepts(List<VocabConcept> vocabConcepts) {
     this.vocabConcepts = vocabConcepts;
   }
@@ -447,7 +447,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The users included in this genealogical data set.
    */
   @XmlElement ( name = "user" )
-  @JsonProperty ( "users" ) @org.codehaus.jackson.annotate.JsonProperty ( "users" )
+  @JsonProperty ( "users" )
   public List<User> getUsers() {
     return users;
   }
@@ -457,7 +457,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param users The users included in this data set.
    */
-  @JsonProperty ( "users" ) @org.codehaus.jackson.annotate.JsonProperty ( "users" )
+  @JsonProperty ( "users" )
   public void setUsers(List<User> users) {
     this.users = users;
   }
@@ -478,7 +478,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @return The set of features defined in the platform API.
    */
   @XmlElement ( name = "feature" )
-  @JsonProperty ( "features" ) @org.codehaus.jackson.annotate.JsonProperty ( "features" )
+  @JsonProperty ( "features" )
   public List<Feature> getFeatures() {
     return features;
   }
@@ -488,7 +488,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param features The set of features defined in the platform API.
    */
-  @JsonProperty ( "features" ) @org.codehaus.jackson.annotate.JsonProperty ( "features" )
+  @JsonProperty ( "features" )
   public void setFeatures(List<Feature> features) {
     this.features = features;
   }

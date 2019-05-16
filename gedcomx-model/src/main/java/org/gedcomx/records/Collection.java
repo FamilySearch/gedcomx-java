@@ -138,7 +138,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    * @return The list of identifiers for the source.
    */
   @XmlElement(name="identifier")
-  @JsonProperty("identifiers") @org.codehaus.jackson.annotate.JsonProperty("identifiers")
+  @JsonProperty("identifiers")
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }
@@ -148,7 +148,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    *
    * @param identifiers The list of identifiers of the source.
    */
-  @JsonProperty ("identifiers") @org.codehaus.jackson.annotate.JsonProperty ("identifiers")
+  @JsonProperty ("identifiers")
   public void setIdentifiers(List<Identifier> identifiers) {
     this.identifiers = identifiers;
   }

@@ -105,7 +105,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    * @return A reference to a description of the source being referenced.
    */
   @XmlAttribute ( name = "description" )
-  @JsonProperty ( "description" ) @org.codehaus.jackson.annotate.JsonProperty ( "description" )
+  @JsonProperty ( "description" )
   public URI getDescriptionRef() {
     return descriptionRef;
   }
@@ -115,7 +115,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    *
    * @param descriptionRef A reference to a description of the source being referenced.
    */
-  @JsonProperty ( "description" ) @org.codehaus.jackson.annotate.JsonProperty ( "description" )
+  @JsonProperty ( "description" )
   public void setDescriptionRef(URI descriptionRef) {
     this.descriptionRef = descriptionRef;
   }
@@ -137,7 +137,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    * @return Id of the source being referenced.
    */
   @XmlAttribute ( name = "descriptionId" )
-  @JsonProperty ( "descriptionId" ) @org.codehaus.jackson.annotate.JsonProperty ( "descriptionId" )
+  @JsonProperty ( "descriptionId" )
   public String getDescriptionId() {
     return descriptionId;
   }
@@ -147,7 +147,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    *
    * @param descriptionId Id of the source being referenced.
    */
-  @JsonProperty ( "descriptionId" ) @org.codehaus.jackson.annotate.JsonProperty ( "descriptionId" )
+  @JsonProperty ( "descriptionId" )
   public void setDescriptionId(String descriptionId) {
     this.descriptionId = descriptionId;
   }
@@ -182,7 +182,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    * @return The qualifiers associated with this source reference.
    */
   @XmlElement (name = "qualifier")
-  @JsonProperty ("qualifiers") @org.codehaus.jackson.annotate.JsonProperty ("qualifiers")
+  @JsonProperty ("qualifiers")
   public List<Qualifier> getQualifiers() {
     return qualifiers;
   }
@@ -192,7 +192,7 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    *
    * @param qualifiers qualifiers to associate with this source reference.
    */
-  @JsonProperty ("qualifiers") @org.codehaus.jackson.annotate.JsonProperty ("qualifiers")
+  @JsonProperty ("qualifiers")
   public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
   }

@@ -236,7 +236,7 @@ public class Event extends Subject implements HasDateAndPlace {
    * @return The enum referencing the known type of the event, or {@link org.gedcomx.types.EventType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public org.gedcomx.types.EventType getKnownType() {
     return getType() == null ? null : EventType.fromQNameURI(getType());
   }
@@ -246,7 +246,7 @@ public class Event extends Subject implements HasDateAndPlace {
    *
    * @param knownType the event type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(org.gedcomx.types.EventType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
@@ -319,7 +319,7 @@ public class Event extends Subject implements HasDateAndPlace {
    * @return The roles played in this event.
    */
   @XmlElement (name="role")
-  @JsonProperty ("roles") @org.codehaus.jackson.annotate.JsonProperty ("roles")
+  @JsonProperty ("roles")
   public List<EventRole> getRoles() {
     return roles;
   }

@@ -91,7 +91,7 @@ public class Ordinance extends Conclusion {
    * @return The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceType getKnownType() {
     return getType() == null ? null : OrdinanceType.fromQNameURI(getType());
   }
@@ -101,7 +101,7 @@ public class Ordinance extends Conclusion {
    *
    * @param knownType The ordinance type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(OrdinanceType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
@@ -152,7 +152,7 @@ public class Ordinance extends Conclusion {
    * @return The enum referencing the known ordinance status, or {@link OrdinanceStatus#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceStatus getKnownStatus() {
     return getStatus() == null ? null : OrdinanceStatus.fromQNameURI(getStatus());
   }
@@ -162,7 +162,7 @@ public class Ordinance extends Conclusion {
    *
    * @param knownStatus The ordinance status.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownStatus(OrdinanceStatus knownStatus) {
     setStatus(knownStatus == null ? null : knownStatus.toQNameURI());
   }
@@ -195,13 +195,13 @@ public class Ordinance extends Conclusion {
    * @return The status reasons for the ordinance status.
    */
   @XmlElement(name="statusReason")
-  @JsonProperty("statusReasons") @org.codehaus.jackson.annotate.JsonProperty("statusReasons")
+  @JsonProperty("statusReasons")
   // Do not include this annotation: @XmlQNameEnumRef(OrdinanceStatusReason.class)  There is a bug in enunciate for Collection<URI/String>
   public List<URI> getStatusReasons() {
     return statusReasons;
   }
 
-  @JsonProperty("statusReasons") @org.codehaus.jackson.annotate.JsonProperty("statusReasons")
+  @JsonProperty("statusReasons")
   public void setStatusReasons(List<URI> statusReasons) {
     this.statusReasons = statusReasons;
   }
@@ -241,12 +241,12 @@ public class Ordinance extends Conclusion {
    * @return The participants for this ordinance.
    */
   @XmlElement(name="participant")
-  @JsonProperty("participants") @org.codehaus.jackson.annotate.JsonProperty("participants")
+  @JsonProperty("participants")
   public List<OrdinanceParticipant> getParticipants() {
     return participants;
   }
 
-  @JsonProperty("participants") @org.codehaus.jackson.annotate.JsonProperty("participants")
+  @JsonProperty("participants")
   public void setParticipants(List<OrdinanceParticipant> participants) {
     this.participants = participants;
   }
@@ -276,12 +276,12 @@ public class Ordinance extends Conclusion {
    * @return the reservation for this ordinance
    */
   @XmlElement(name = "reservation")
-  @JsonProperty("reservation") @org.codehaus.jackson.annotate.JsonProperty("reservation")
+  @JsonProperty("reservation")
   public OrdinanceReservation getReservation() {
     return reservation;
   }
 
-  @JsonProperty("reservation") @org.codehaus.jackson.annotate.JsonProperty("reservation")
+  @JsonProperty("reservation")
   public void setReservation(OrdinanceReservation reservation) {
     this.reservation = reservation;
   }

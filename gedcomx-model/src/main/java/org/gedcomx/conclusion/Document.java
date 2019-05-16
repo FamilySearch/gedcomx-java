@@ -205,7 +205,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    * @return Whether the text of the document is to be interpreted as plain text (as opposed to XHTML).
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public boolean isPlainText() {
     return this.textType == null || TEXT_TYPE_PLAIN.equals(this.textType);
   }
@@ -216,7 +216,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    * @return Whether the text of the document is to be interpreted as XHTML text (as opposed to plain text).
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public boolean isXhtmlText() {
     return TEXT_TYPE_XHTML.equals(this.textType);
   }
@@ -257,7 +257,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    * @return The enum referencing the known type of the document, or {@link org.gedcomx.types.DocumentType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public org.gedcomx.types.DocumentType getKnownType() {
     return getType() == null ? null : DocumentType.fromQNameURI(getType());
   }
@@ -267,7 +267,7 @@ public class Document extends Conclusion implements HasText, Attributable {
    *
    * @param knownType the document type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(org.gedcomx.types.DocumentType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }

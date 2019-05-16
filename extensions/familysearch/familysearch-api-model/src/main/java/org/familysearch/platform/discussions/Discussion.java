@@ -217,7 +217,7 @@ public class Discussion extends HypermediaEnabledData {
    * @return The comments on this discussion.
    */
   @XmlElement ( name="comment" )
-  @JsonProperty ( "comments" ) @org.codehaus.jackson.annotate.JsonProperty ( "comments" )
+  @JsonProperty ( "comments" )
   public List<Comment> getComments() {
     return comments;
   }
@@ -227,7 +227,7 @@ public class Discussion extends HypermediaEnabledData {
    *
    * @param comments The comments on this discussion.
    */
-  @JsonProperty ( "comments" ) @org.codehaus.jackson.annotate.JsonProperty ( "comments" )
+  @JsonProperty ( "comments" )
   public void setComments(List<Comment> comments) {
     this.comments = comments;
   }

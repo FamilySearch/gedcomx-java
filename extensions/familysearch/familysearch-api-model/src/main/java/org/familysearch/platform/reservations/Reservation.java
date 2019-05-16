@@ -74,7 +74,7 @@ public class Reservation extends Conclusion {
    * @return The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceType getKnownType() {
     return getType() == null ? null : OrdinanceType.fromQNameURI(getType());
   }
@@ -84,7 +84,7 @@ public class Reservation extends Conclusion {
    *
    * @param knownType The ordinance type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(OrdinanceType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
@@ -147,7 +147,7 @@ public class Reservation extends Conclusion {
    * @return The enum referencing the known ordinance status, or {@link OrdinanceStatus#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceStatus getKnownStatus() {
     return getStatus() == null ? null : OrdinanceStatus.fromQNameURI(getStatus());
   }
@@ -157,7 +157,7 @@ public class Reservation extends Conclusion {
    *
    * @param knownStatus The ordinance status.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownStatus(OrdinanceStatus knownStatus) {
     setStatus(knownStatus == null ? null : knownStatus.toQNameURI());
   }

@@ -180,7 +180,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The type of the resource being described.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public ResourceType getKnownType() {
     return getResourceType() == null ? null : ResourceType.fromQNameURI(getResourceType());
   }
@@ -190,7 +190,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param type The type of the resource being described.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(ResourceType type) {
     setResourceType(type == null ? null : type.toQNameURI());
   }
@@ -201,7 +201,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The rights for this source.
    */
   @XmlElement ( name = "rights" )
-  @JsonProperty ( "rights" ) @org.codehaus.jackson.annotate.JsonProperty ( "rights" )
+  @JsonProperty ( "rights" )
   public List<URI> getRights() {
     return rights;
   }
@@ -211,7 +211,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param rights The rights for this source.
    */
-  @JsonProperty ( "rights" ) @org.codehaus.jackson.annotate.JsonProperty ( "rights" )
+  @JsonProperty ( "rights" )
   public void setRights(List<URI> rights) {
     this.rights = rights;
   }
@@ -246,7 +246,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The preferred bibliographic citation for this source.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public SourceCitation getCitation() {
     return citations == null || citations.isEmpty() ? null : citations.get(0);
   }
@@ -257,7 +257,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The bibliographic citations for this source.
    */
   @XmlElement ( name = "citation" )
-  @JsonProperty ( "citations" ) @org.codehaus.jackson.annotate.JsonProperty ( "citations" )
+  @JsonProperty ( "citations" )
   public List<SourceCitation> getCitations() {
     return citations;
   }
@@ -267,7 +267,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param citations The bibliographic citations for this source.
    */
-  @JsonProperty ( "citations" ) @org.codehaus.jackson.annotate.JsonProperty ( "citations" )
+  @JsonProperty ( "citations" )
   public void setCitations(List<SourceCitation> citations) {
     this.citations = citations;
   }
@@ -400,7 +400,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @param mediator A reference to the entity that mediates access to the described source.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setMediatorURI(URI mediator) {
     this.mediator = mediator != null ? new ResourceReference(mediator) : null;
   }
@@ -440,7 +440,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @param publisher A reference to the entity responsible for making the described source available.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setPublisherURI(URI publisher) {
     this.publisher = publisher != null ? new ResourceReference(publisher) : null;
   }
@@ -451,7 +451,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
    */
   @XmlElement ( name = "source" )
-  @JsonProperty ( "sources" ) @org.codehaus.jackson.annotate.JsonProperty ( "sources" )
+  @JsonProperty ( "sources" )
   public List<SourceReference> getSources() {
     return sources;
   }
@@ -461,7 +461,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param sources References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
    */
-  @JsonProperty ( "sources" ) @org.codehaus.jackson.annotate.JsonProperty ( "sources" )
+  @JsonProperty ( "sources" )
   public void setSources(List<SourceReference> sources) {
     this.sources = sources;
   }
@@ -551,7 +551,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The preferred title for this source description.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public TextValue getTitle() {
     return this.titles == null || this.titles.isEmpty() ? null : this.titles.get(0);
   }
@@ -562,7 +562,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return A list of titles for this source.
    */
   @XmlElement ( name = "title" )
-  @JsonProperty ( "titles" ) @org.codehaus.jackson.annotate.JsonProperty ( "titles" )
+  @JsonProperty ( "titles" )
   public List<TextValue> getTitles() {
     return titles;
   }
@@ -572,7 +572,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param titles A list of titles for this source.
    */
-  @JsonProperty ( "titles" ) @org.codehaus.jackson.annotate.JsonProperty ( "titles" )
+  @JsonProperty ( "titles" )
   public void setTitles(List<TextValue> titles) {
     this.titles = titles;
   }
@@ -635,7 +635,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return Notes about a source.
    */
   @XmlElement ( name = "note" )
-  @JsonProperty ( "notes" ) @org.codehaus.jackson.annotate.JsonProperty ( "notes" )
+  @JsonProperty ( "notes" )
   public List<Note> getNotes() {
     return notes;
   }
@@ -645,7 +645,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param notes Notes about a source.
    */
-  @JsonProperty ( "notes" ) @org.codehaus.jackson.annotate.JsonProperty ( "notes" )
+  @JsonProperty ( "notes" )
   public void setNotes(List<Note> notes) {
     this.notes = notes;
   }
@@ -706,7 +706,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The long-term, persistent identifier for this source.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public URI getPersistentId() {
     URI identifier = null;
     if (this.identifiers != null) {
@@ -725,7 +725,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param persistentId A long-term, persistent, globally unique identifier for this source.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setPersistentId(URI persistentId) {
     if (this.identifiers == null) {
       this.identifiers = new ArrayList<Identifier>();
@@ -770,7 +770,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The list of identifiers for the source.
    */
   @XmlElement ( name = "replaces" )
-  @JsonProperty ( "replaces" ) @org.codehaus.jackson.annotate.JsonProperty ( "replaces" )
+  @JsonProperty ( "replaces" )
   public List<URI> getReplaces() {
     return replaces;
   }
@@ -780,7 +780,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param replaces The list of identifiers of the source.
    */
-  @JsonProperty ( "replaces" ) @org.codehaus.jackson.annotate.JsonProperty ( "replaces" )
+  @JsonProperty ( "replaces" )
   public void setReplaces(List<URI> replaces) {
     this.replaces = replaces;
   }
@@ -791,7 +791,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The list of status types for the source.
    */
   @XmlElement ( name = "status" )
-  @JsonProperty ( "statuses" ) @org.codehaus.jackson.annotate.JsonProperty ( "statuses" )
+  @JsonProperty ( "statuses" )
   public List<URI> getStatuses() {
     return statuses;
   }
@@ -801,7 +801,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param statuses The list of identifiers of the source.
    */
-  @JsonProperty ( "statuses" ) @org.codehaus.jackson.annotate.JsonProperty ( "statuses" )
+  @JsonProperty ( "statuses" )
   public void setStatuses(List<URI> statuses) {
     this.statuses = statuses;
   }
@@ -837,7 +837,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The list of identifiers for the source.
    */
   @XmlElement ( name = "identifier" )
-  @JsonProperty ( "identifiers" ) @org.codehaus.jackson.annotate.JsonProperty ( "identifiers" )
+  @JsonProperty ( "identifiers" )
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }
@@ -847,7 +847,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param identifiers The list of identifiers of the source.
    */
-  @JsonProperty ( "identifiers" ) @org.codehaus.jackson.annotate.JsonProperty ( "identifiers" )
+  @JsonProperty ( "identifiers" )
   public void setIdentifiers(List<Identifier> identifiers) {
     this.identifiers = identifiers;
   }
@@ -901,7 +901,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return Human-readable descriptions of the source.
    */
   @XmlElement ( name = "description" )
-  @JsonProperty ( "descriptions" ) @org.codehaus.jackson.annotate.JsonProperty ( "descriptions" )
+  @JsonProperty ( "descriptions" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<TextValue> getDescriptions() {
     return descriptions;
@@ -1037,7 +1037,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return The fields that are applicable to the resource being described.
    */
   @XmlElement ( name = "field" )
-  @JsonProperty ( "fields" ) @org.codehaus.jackson.annotate.JsonProperty ( "fields" )
+  @JsonProperty ( "fields" )
   @com.webcohesion.enunciate.metadata.Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -1048,7 +1048,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param fields The fields that are applicable to the resource being described.
    */
-  @JsonProperty ( "fields" ) @org.codehaus.jackson.annotate.JsonProperty ( "fields" )
+  @JsonProperty ( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }
@@ -1123,7 +1123,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    * @return Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
    */
   @XmlElement ( name = "descriptor" )
-  @JsonProperty ( "descriptor" ) @org.codehaus.jackson.annotate.JsonProperty ( "descriptor" )
+  @JsonProperty ( "descriptor" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public ResourceReference getDescriptorRef() {
     return descriptorRef;
@@ -1134,7 +1134,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param descriptorRef Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
    */
-  @JsonProperty ( "descriptor" ) @org.codehaus.jackson.annotate.JsonProperty ( "descriptor" )
+  @JsonProperty ( "descriptor" )
   public void setDescriptorRef(ResourceReference descriptorRef) {
     this.descriptorRef = descriptorRef;
   }

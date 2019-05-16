@@ -19,31 +19,31 @@ public class UniqueCustomKeyedItem implements HasJsonKey {
   private String val2;
 
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @Override
   public boolean isHasUniqueKey() {
     return true;
   }
 
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @XmlTransient
   @Override
   public String getJsonKey() {
     return getKey();
   }
 
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @Override
   public void setJsonKey(String jsonKey) {
     setKey(jsonKey);
   }
 
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public String getKey() {
     return key;
   }
 
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKey(String key) {
     this.key = key;
   }

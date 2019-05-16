@@ -97,7 +97,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    * @return The type of the field value.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public FieldValueType getKnownType() {
     return getType() == null ? null : FieldValueType.fromQNameURI(getType());
   }
@@ -107,7 +107,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    *
    * @param type The type of the field value.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(FieldValueType type) {
     setType(type == null ? null : type.toQNameURI());
   }
@@ -137,7 +137,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    * @return The labels to be used for display purposes.
    */
   @XmlElement (name="label")
-  @JsonProperty ("labels") @org.codehaus.jackson.annotate.JsonProperty ("labels")
+  @JsonProperty ("labels")
   public List<TextValue> getDisplayLabels() {
     return displayLabels;
   }
@@ -147,7 +147,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    *
    * @param displayLabels The labels to be used for display purposes.
    */
-  @JsonProperty ("labels") @org.codehaus.jackson.annotate.JsonProperty ("labels")
+  @JsonProperty ("labels")
   public void setDisplayLabels(List<TextValue> displayLabels) {
     this.displayLabels = displayLabels;
   }
@@ -158,7 +158,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    * @return The labels to be used for entry purposes.
    */
   @XmlElement (name="entryLabel")
-  @JsonProperty ("entryLabels") @org.codehaus.jackson.annotate.JsonProperty ("entryLabels")
+  @JsonProperty ("entryLabels")
   public List<TextValue> getEntryLabels() {
     return entryLabels;
   }
@@ -168,7 +168,7 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
    *
    * @param entryLabels The labels to be used for entry purposes.
    */
-  @JsonProperty ("entryLabels") @org.codehaus.jackson.annotate.JsonProperty ("entryLabels")
+  @JsonProperty ("entryLabels")
   public void setEntryLabels(List<TextValue> entryLabels) {
     this.entryLabels = entryLabels;
   }
