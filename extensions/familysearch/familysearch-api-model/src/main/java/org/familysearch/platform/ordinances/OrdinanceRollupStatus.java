@@ -24,7 +24,7 @@ import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
 
 @XmlQNameEnum(
-    namespace = OrdinanceRollupStatus.ROLLUP_NAMESPACE,
+    namespace = FamilySearchPlatform.NAMESPACE,
     base = XmlQNameEnum.BaseType.URI
 )
 public enum OrdinanceRollupStatus implements ControlledVocabulary {
@@ -53,9 +53,7 @@ public enum OrdinanceRollupStatus implements ControlledVocabulary {
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  static final String ROLLUP_NAMESPACE = FamilySearchPlatform.NAMESPACE + "rollup/";
-
-  private static final EnumURIMap<OrdinanceRollupStatus> URI_MAP = new EnumURIMap<OrdinanceRollupStatus>(OrdinanceRollupStatus.class, ROLLUP_NAMESPACE);
+  private static final EnumURIMap<OrdinanceRollupStatus> URI_MAP = new EnumURIMap<>(OrdinanceRollupStatus.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.

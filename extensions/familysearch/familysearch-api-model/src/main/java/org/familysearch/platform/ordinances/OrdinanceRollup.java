@@ -62,7 +62,7 @@ public class OrdinanceRollup extends Conclusion {
    * @return The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceType getKnownType() {
     return getType() == null ? null : OrdinanceType.fromQNameURI(getType());
   }
@@ -72,7 +72,7 @@ public class OrdinanceRollup extends Conclusion {
    *
    * @param knownType The ordinance type.
    */
-    @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+    @JsonIgnore
   public void setKnownType(OrdinanceType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
@@ -123,7 +123,7 @@ public class OrdinanceRollup extends Conclusion {
    * @return The enum referencing the known ordinance rollupStatus
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceRollupStatus getKnownRollupStatus() {
     return getRollupStatus() == null ? null : OrdinanceRollupStatus.fromQNameURI(getRollupStatus());
   }
@@ -133,7 +133,7 @@ public class OrdinanceRollup extends Conclusion {
    *
    * @param knownRollupStatus The ordinance rollupStatus.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownRollupStatus(OrdinanceRollupStatus knownRollupStatus) {
     setRollupStatus(knownRollupStatus == null ? null : knownRollupStatus.toQNameURI());
   }
