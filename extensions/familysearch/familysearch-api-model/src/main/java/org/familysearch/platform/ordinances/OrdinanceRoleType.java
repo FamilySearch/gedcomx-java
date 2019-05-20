@@ -27,7 +27,6 @@ import org.gedcomx.rt.EnumURIMap;
   base = XmlQNameEnum.BaseType.URI
 )
 public enum OrdinanceRoleType implements ControlledVocabulary {
-  Principal,
   Father,
   Mother,
   Spouse,
