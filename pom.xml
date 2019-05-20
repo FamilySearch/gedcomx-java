@@ -24,7 +24,6 @@
     <hamcrest.version>1.3</hamcrest.version>
     <handy-uri.version>2.1.6</handy-uri.version>
     <jackson.version>2.9.8</jackson.version>
-    <jackson1.version>1.9.13</jackson1.version>
     <jaxb-runtime.version>2.2.11</jaxb-runtime.version>
     <jersey.version>1.19.2</jersey.version>
     <jena-arq.version>3.1.0</jena-arq.version>
