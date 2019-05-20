@@ -35,37 +35,37 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
    * The "sealing to parent" ordinance is not needed when an individual is "born in the covenant".  Parent relationships are checked.
    * <br>Message=This person was born in the covenant and does not need to be sealed to parents.
    */
-  BORN_IN_COVENANT_RULE,
+  BornInCovenantRule,
 
   /**
    * The "sealing to spouse" ordinance requires a spousal relationship between the couple.
    * <br>Message=These people must be linked as spouses before the sealing can be performed.
    */
-  COUPLE_RELATIONSHIP_MISSING_RULE,
+  CoupleRelationshipMissingRule,
 
   /**
    * Baptism, Confirmation, Initiatory, Endowment, and Sealing to Spouse ordinances are not needed if a person died before the age of eight.
    * <br>Message=This person died before age eight and does not need this ordinance.
    */
-  DIED_BEFORE_AGE_EIGHT_RULE,
+  DiedBeforeAgeEightRule,
 
   /**
    * A person's gender must correspond to his or her relationship role as a mother, father, husband, or wife in the family.
    * <br>Message=This person's gender does not correspond to his or her relationship role as a mother, father, husband, or wife in the family.
    */
-  GENDER_MISMATCH_RULE,
+  GenderMismatchRule,
 
   /**
    * A person's given name(s) cannot contain one or more invalid words or be represented by a traditional prefix such as Mr., Miss, Mrs., etc.
    * <br>Message=This person's first names contain one or more invalid words.
    */
-  INVALID_GIVEN_NAME_PIECE_RULE,
+  InvalidGivenNamePieceRule,
 
   /**
    * This person's name contains one or more invalid words.
    * <br>Message=This person's name contains one or more invalid words.
    */
-  INVALID_NAME_RULE,
+  InvalidNameRule,
 
   /**
    * A person's name cannot include descriptors such as Child, Baby, Son, Daughter, Sister, Brother, Aunt, Uncle, etc.
@@ -262,7 +262,7 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  private static final EnumURIMap<OrdinanceStatusReason> URI_MAP = new EnumURIMap<OrdinanceStatusReason>(OrdinanceStatusReason.class, FamilySearchPlatform.NAMESPACE);
+  private static final EnumURIMap<OrdinanceStatusReason> URI_MAP = new EnumURIMap<>(OrdinanceStatusReason.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
