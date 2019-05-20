@@ -62,7 +62,7 @@ public class OrdinanceParticipant {
    * @return The enum referencing the known ordinance role type, or {@link OrdinanceRoleType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceRoleType getKnownRoleType() {
     return getRoleType() == null ? null : OrdinanceRoleType.fromQNameURI(getRoleType());
   }
@@ -72,7 +72,7 @@ public class OrdinanceParticipant {
    *
    * @param knownRoleType The ordinance role type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownRoleType(OrdinanceRoleType knownRoleType) {
     setRoleType(knownRoleType == null ? null : knownRoleType.toQNameURI());
   }

@@ -181,7 +181,7 @@ public class OrdinanceReservation {
    * @return The enum referencing the assigneeType this reservation is assigned to.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public OrdinanceReservationAssigneeType getKnownAssigneeType() {
     return getAssigneeType() == null ? null : OrdinanceReservationAssigneeType.fromQNameURI(getAssigneeType());
   }
@@ -191,7 +191,7 @@ public class OrdinanceReservation {
    *
    * @param knownAssigneeType The enum referencing the assigneeType this reservation is assigned to.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
     setAssigneeType(knownAssigneeType == null ? null : knownAssigneeType.toQNameURI());
   }
@@ -213,13 +213,13 @@ public class OrdinanceReservation {
    * @return The possible assigneeTypes the reservation could be assigned to.
    */
   @XmlElement(name="possibleAssigneeType")
-  @JsonProperty("possibleAssigneeTypes") @org.codehaus.jackson.annotate.JsonProperty("possibleAssigneeTypes")
+  @JsonProperty("possibleAssigneeTypes")
   // Do not include this annotation: @XmlQNameEnumRef(OrdinanceReservationAssigneeType.class)  There is a bug in enunciate for Collection<URI/String>
   public List<URI> getPossibleAssigneeTypes() {
     return possibleAssigneeTypes;
   }
 
-  @JsonProperty("possibleAssigneeTypes") @org.codehaus.jackson.annotate.JsonProperty("possibleAssigneeTypes")
+  @JsonProperty("possibleAssigneeTypes")
   public void setPossibleAssigneeTypes(List<URI> possibleAssigneeTypes) {
     this.possibleAssigneeTypes = possibleAssigneeTypes;
   }

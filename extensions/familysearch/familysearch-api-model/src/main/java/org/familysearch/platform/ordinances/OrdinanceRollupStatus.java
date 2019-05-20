@@ -32,22 +32,22 @@ public enum OrdinanceRollupStatus implements ControlledVocabulary {
   /**
    * This rollup status for the ordinance indicates it can be reserved by the current user.
    */
-  Ready,
+  RolledUpReady,
 
   /**
    * This rollup status for the ordinance indicates it can not be reserved by the current user because more information is needed about the person.
    */
-  NeedMoreInformation,
+  RolledUpNeedMoreInformation,
 
   /**
    * This rollup status for the ordinance indicates it has been reserved.
    */
-  Reserved,
+  RolledUpReserved,
 
   /**
    * This rollup status for the ordinance indicates it has been completed.
    */
-  Completed,
+  RolledUpCompleted,
 
 
   @XmlUnknownQNameEnumValue
