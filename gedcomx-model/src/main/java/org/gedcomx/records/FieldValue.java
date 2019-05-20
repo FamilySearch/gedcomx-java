@@ -189,7 +189,7 @@ public final class FieldValue extends Conclusion {
    * @return The type of the field value.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public FieldValueType getKnownType() {
     return getType() == null ? null : FieldValueType.fromQNameURI(getType());
   }
@@ -199,7 +199,7 @@ public final class FieldValue extends Conclusion {
    *
    * @param type The type of the field value.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(FieldValueType type) {
     setType(type == null ? null : type.toQNameURI());
   }
@@ -346,7 +346,7 @@ public final class FieldValue extends Conclusion {
    * @return The type of the field.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public FieldValueStatusType getKnownStatus() {
     return getType() == null ? null : FieldValueStatusType.fromQNameURI(getType());
   }
@@ -356,7 +356,7 @@ public final class FieldValue extends Conclusion {
    *
    * @param status The field value status type of the field.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownStatus(FieldValueStatusType status) {
     setType(status == null ? null : status.toQNameURI());
   }

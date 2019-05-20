@@ -69,7 +69,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return The author of the entry.
    */
   @XmlElement ( name = "author" )
-  @JsonProperty ( "authors" ) @org.codehaus.jackson.annotate.JsonProperty ( "authors" )
+  @JsonProperty ( "authors" )
   public List<Person> getAuthors() {
     return authors;
   }
@@ -79,7 +79,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    *
    * @param authors The author of the entry.
    */
-  @JsonProperty ( "authors" ) @org.codehaus.jackson.annotate.JsonProperty ( "authors" )
+  @JsonProperty ( "authors" )
   public void setAuthors(List<Person> authors) {
     this.authors = authors;
   }
@@ -90,7 +90,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return information about a category associated with an entry.
    */
   @XmlElement ( name = "category" )
-  @JsonProperty ( "categories" ) @org.codehaus.jackson.annotate.JsonProperty ( "categories" )
+  @JsonProperty ( "categories" )
   public List<Category> getCategories() {
     return categories;
   }
@@ -100,7 +100,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    *
    * @param categories information about a category associated with an entry.
    */
-  @JsonProperty ( "categories" ) @org.codehaus.jackson.annotate.JsonProperty ( "categories" )
+  @JsonProperty ( "categories" )
   public void setCategories(List<Category> categories) {
     this.categories = categories;
   }
@@ -129,7 +129,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return information about a category associated with the entry
    */
   @XmlElement ( name = "contributor" )
-  @JsonProperty ( "contributors" ) @org.codehaus.jackson.annotate.JsonProperty ( "contributors" )
+  @JsonProperty ( "contributors" )
   public List<Person> getContributors() {
     return contributors;
   }
@@ -139,7 +139,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    *
    * @param contributors information about a category associated with the entry
    */
-  @JsonProperty ( "contributors" ) @org.codehaus.jackson.annotate.JsonProperty ( "contributors" )
+  @JsonProperty ( "contributors" )
   public void setContributors(List<Person> contributors) {
     this.contributors = contributors;
   }
@@ -208,7 +208,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    * @return a reference from a entry to a Web resource.
    */
   @XmlElement ( name = "link" )
-  @JsonProperty ( "links" ) @org.codehaus.jackson.annotate.JsonProperty ( "links" )
+  @JsonProperty ( "links" )
   public List<Link> getLinks() {
     return links;
   }
@@ -218,7 +218,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
    *
    * @param links a reference from a entry to a Web resource.
    */
-  @JsonProperty ( "links" ) @org.codehaus.jackson.annotate.JsonProperty ( "links" )
+  @JsonProperty ( "links" )
   public void setLinks(List<Link> links) {
     this.links = links;
   }
@@ -367,7 +367,7 @@ public class Entry extends ExtensibleElement implements SupportsLinks {
   }
 
   @XmlAnyAttribute
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public Map<QName, String> getExtensionAttributes() {
     return extensionAttributes;
   }

@@ -68,7 +68,7 @@ public final class Qualifier {
    * @return The name of the qualifier.
    */
   @XmlAttribute
-  @JsonProperty ( "name" ) @org.codehaus.jackson.annotate.JsonProperty ( "name" )
+  @JsonProperty ( "name" )
   public URI getName() {
     return name;
   }
@@ -78,7 +78,7 @@ public final class Qualifier {
    *
    * @param name The name of the qualifier.
    */
-  @JsonProperty ( "name" ) @org.codehaus.jackson.annotate.JsonProperty ( "name" )
+  @JsonProperty ( "name" )
   public void setName(URI name) {
     this.name = name;
   }
@@ -100,7 +100,7 @@ public final class Qualifier {
    * @param element The element.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setName(ControlledVocabulary element) {
     this.name = element == null ? null : element.toQNameURI();
   }

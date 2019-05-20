@@ -192,7 +192,7 @@ public class ChildAndParentsRelationship extends Subject {
    * @return The fact conclusions for the parent1.
    */
   @XmlElement (name="parent1Fact")
-  @JsonProperty ("parent1Facts") @org.codehaus.jackson.annotate.JsonProperty ("parent1Facts")
+  @JsonProperty ("parent1Facts")
   public List<Fact> getParent1Facts() {
     return parent1Facts;
   }
@@ -202,7 +202,7 @@ public class ChildAndParentsRelationship extends Subject {
    *
    * @param facts The fact conclusions for the parent1.
    */
-  @JsonProperty("parent1Facts") @org.codehaus.jackson.annotate.JsonProperty("parent1Facts")
+  @JsonProperty("parent1Facts")
   public void setParent1Facts(List<Fact> facts) {
     this.parent1Facts = facts;
   }
@@ -238,7 +238,7 @@ public class ChildAndParentsRelationship extends Subject {
    * @return The fact conclusions for the parent2.
    */
   @XmlElement (name="parent2Fact")
-  @JsonProperty ("parent2Facts") @org.codehaus.jackson.annotate.JsonProperty ("parent2Facts")
+  @JsonProperty ("parent2Facts")
   public List<Fact> getParent2Facts() {
     return parent2Facts;
   }
@@ -248,7 +248,7 @@ public class ChildAndParentsRelationship extends Subject {
    *
    * @param facts The fact conclusions for the parent2.
    */
-  @JsonProperty("parent2Facts") @org.codehaus.jackson.annotate.JsonProperty("parent2Facts")
+  @JsonProperty("parent2Facts")
   public void setParent2Facts(List<Fact> facts) {
     this.parent2Facts = facts;
   }
@@ -394,7 +394,7 @@ public class ChildAndParentsRelationship extends Subject {
    * @return Deprecated: The fact conclusions for the father.  Use parent1Facts.
    */
   @XmlElement (name="fatherFact")
-  @JsonProperty ("fatherFacts") @org.codehaus.jackson.annotate.JsonProperty ("fatherFacts")
+  @JsonProperty ("fatherFacts")
   @Deprecated
   public List<Fact> getFatherFacts() {
     return fatherFacts;
@@ -405,7 +405,7 @@ public class ChildAndParentsRelationship extends Subject {
    *
    * @param facts Deprecated: The fact conclusions for the father.  Use parent1Facts.
    */
-  @JsonProperty("fatherFacts") @org.codehaus.jackson.annotate.JsonProperty("fatherFacts")
+  @JsonProperty("fatherFacts")
   @Deprecated
   public void setFatherFacts(List<Fact> facts) {
     this.fatherFacts = facts;
@@ -431,7 +431,7 @@ public class ChildAndParentsRelationship extends Subject {
    * @return Deprecated: The fact conclusions for the mother.  Use parent2Facts.
    */
   @XmlElement (name="motherFact")
-  @JsonProperty ("motherFacts") @org.codehaus.jackson.annotate.JsonProperty ("motherFacts")
+  @JsonProperty ("motherFacts")
   @Deprecated
   public List<Fact> getMotherFacts() {
     return motherFacts;
@@ -442,7 +442,7 @@ public class ChildAndParentsRelationship extends Subject {
    *
    * @param facts Deprecated: The fact conclusions for the mother.  Use parent2Facts.
    */
-  @JsonProperty("motherFacts") @org.codehaus.jackson.annotate.JsonProperty("motherFacts")
+  @JsonProperty("motherFacts")
   @Deprecated
   public void setMotherFacts(List<Fact> facts) {
     this.motherFacts = facts;

@@ -34,7 +34,7 @@ abstract class HasIdentifiersMixin {
    *
    * @return The list of identifiers for the agent.
    */
-  @JsonProperty ("identifiers") @org.codehaus.jackson.annotate.JsonProperty ("identifiers")
+  @JsonProperty ("identifiers")
   public abstract Map<String, List<String>> getIdentifiers();
 
   /**
@@ -42,7 +42,7 @@ abstract class HasIdentifiersMixin {
    *
    * @param identifiers The list of identifiers of the agent.
    */
-  @JsonProperty ("identifiers") @org.codehaus.jackson.annotate.JsonProperty ("identifiers")
+  @JsonProperty ("identifiers")
   public abstract void setIdentifiers(Map<String, List<String>> identifiers);
 
 }

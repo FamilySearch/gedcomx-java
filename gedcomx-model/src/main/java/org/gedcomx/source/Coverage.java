@@ -154,7 +154,7 @@ public class Coverage extends HypermediaEnabledData {
    * @return The type of record being covered in this collection, if any.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public RecordType getKnownRecordType() {
     return getRecordType() == null ? null : RecordType.fromQNameURI(getRecordType());
   }
@@ -164,7 +164,7 @@ public class Coverage extends HypermediaEnabledData {
    *
    * @param type The type of record being covered in this collection, if any.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownRecordType(RecordType type) {
     setRecordType(type == null ? null : type.toQNameURI());
   }

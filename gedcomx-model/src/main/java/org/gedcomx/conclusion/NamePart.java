@@ -120,7 +120,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
    * @return The enum referencing the known name part type, or {@link org.gedcomx.types.NamePartType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public NamePartType getKnownType() {
     return getType() == null ? null : NamePartType.fromQNameURI(getType());
   }
@@ -130,7 +130,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
    *
    * @param knownType The name part type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(NamePartType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
@@ -171,7 +171,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
    * @return The qualifiers associated with this name part.
    */
   @XmlElement (name = "qualifier")
-  @JsonProperty ("qualifiers") @org.codehaus.jackson.annotate.JsonProperty ("qualifiers")
+  @JsonProperty ("qualifiers")
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
@@ -181,7 +181,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
    * Set the qualifiers associated with this name part.
    * @param qualifiers qualifiers to associate with this name part
    */
-  @JsonProperty ("qualifiers") @org.codehaus.jackson.annotate.JsonProperty ("qualifiers")
+  @JsonProperty ("qualifiers")
   public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
   }
@@ -217,7 +217,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement( name = "field" )
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -228,7 +228,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

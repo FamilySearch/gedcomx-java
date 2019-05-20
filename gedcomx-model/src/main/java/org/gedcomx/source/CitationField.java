@@ -53,7 +53,7 @@ public class CitationField implements HasJsonKey {
   }
 
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @Override
   public boolean isHasUniqueKey() {
     return true;
@@ -95,7 +95,7 @@ public class CitationField implements HasJsonKey {
    * @param name The citation field's name.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setNameValue(String name) {
     this.name = name != null ? new URI(name) : null;
   }
@@ -116,7 +116,7 @@ public class CitationField implements HasJsonKey {
    * @return The json key that is used define this link in a map.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @Override
   public String getJsonKey() {
     return getName().toString();
@@ -127,7 +127,7 @@ public class CitationField implements HasJsonKey {
    *
    * @param jsonKey The json key that is used define this link in a map.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   @Override
   public void setJsonKey(String jsonKey) {
     setNameValue(jsonKey);

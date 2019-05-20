@@ -234,7 +234,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @return The enum referencing the known type of the fact, or {@link org.gedcomx.types.FactType#OTHER} if not known.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public org.gedcomx.types.FactType getKnownType() {
     return getType() == null ? null : FactType.fromQNameURI(getType());
   }
@@ -244,7 +244,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    *
    * @param knownType the fact type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(org.gedcomx.types.FactType knownType) {
     setType(knownType == null ? null : knownType.toQNameURI());
   }
@@ -375,7 +375,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @return The qualifiers associated with this fact.
    */
   @XmlElement ( name = "qualifier" )
-  @JsonProperty ( "qualifiers" ) @org.codehaus.jackson.annotate.JsonProperty ( "qualifiers" )
+  @JsonProperty ( "qualifiers" )
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   public List<Qualifier> getQualifiers() {
     return qualifiers;
@@ -386,7 +386,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    *
    * @param qualifiers qualifiers to associate with this fact.
    */
-  @JsonProperty ( "qualifiers" ) @org.codehaus.jackson.annotate.JsonProperty ( "qualifiers" )
+  @JsonProperty ( "qualifiers" )
   public void setQualifiers(List<Qualifier> qualifiers) {
     this.qualifiers = qualifiers;
   }
@@ -420,7 +420,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement ( name = "field" )
-  @JsonProperty ( "fields" ) @org.codehaus.jackson.annotate.JsonProperty ( "fields" )
+  @JsonProperty ( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -431,7 +431,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty ( "fields" ) @org.codehaus.jackson.annotate.JsonProperty ( "fields" )
+  @JsonProperty ( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

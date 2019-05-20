@@ -165,7 +165,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    * @return The long-term, persistent identifier for this subject.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public URI getPersistentId() {
     URI identifier = null;
     if (this.identifiers != null) {
@@ -184,7 +184,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    *
    * @param persistentId A long-term, persistent, globally unique identifier for this subject.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setPersistentId(URI persistentId) {
     if (this.identifiers == null) {
       this.identifiers = new ArrayList<Identifier>();
@@ -210,7 +210,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    * @return The list of identifiers for the subject.
    */
   @XmlElement (name="identifier")
-  @JsonProperty ("identifiers") @org.codehaus.jackson.annotate.JsonProperty ("identifiers")
+  @JsonProperty ("identifiers")
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }
@@ -220,7 +220,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    *
    * @param identifiers The list of identifiers of the subject.
    */
-  @JsonProperty ("identifiers") @org.codehaus.jackson.annotate.JsonProperty ("identifiers")
+  @JsonProperty ("identifiers")
   public void setIdentifiers(List<Identifier> identifiers) {
     this.identifiers = identifiers;
   }

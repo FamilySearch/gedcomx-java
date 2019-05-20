@@ -110,7 +110,7 @@ public class Date extends ExtensibleData implements HasFields {
    * @param formal The formal value.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setFormalDate(GedcomxDate formal) {
     if (formal != null) {
       setFormal(formal.toFormalString());
@@ -146,7 +146,7 @@ public class Date extends ExtensibleData implements HasFields {
    * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
   @XmlElement ( name = "normalized" )
-  @JsonProperty ("normalized") @org.codehaus.jackson.annotate.JsonProperty ("normalized")
+  @JsonProperty ("normalized")
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
   public List<TextValue> getNormalizedExtensions() {
     return normalized;
@@ -159,7 +159,7 @@ public class Date extends ExtensibleData implements HasFields {
    * @param normalized The list of normalized values for the date, provided for display purposes by the application. Normalized values are
    * not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    */
-  @JsonProperty ("normalized") @org.codehaus.jackson.annotate.JsonProperty ("normalized")
+  @JsonProperty ("normalized")
   public void setNormalizedExtensions(List<TextValue> normalized) {
     this.normalized = normalized;
   }
@@ -184,7 +184,7 @@ public class Date extends ExtensibleData implements HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement( name = "field" )
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -195,7 +195,7 @@ public class Date extends ExtensibleData implements HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

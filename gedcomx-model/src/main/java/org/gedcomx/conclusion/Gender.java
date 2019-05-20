@@ -191,7 +191,7 @@ public class Gender extends Conclusion implements HasFields {
    * @return The type of the gender.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public GenderType getKnownType() {
     return getType() == null ? null : GenderType.fromQNameURI(getType());
   }
@@ -201,7 +201,7 @@ public class Gender extends Conclusion implements HasFields {
    *
    * @param type The type of the gender.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownType(GenderType type) {
     setType(type == null ? null : type.toQNameURI());
   }
@@ -212,7 +212,7 @@ public class Gender extends Conclusion implements HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement( name = "field" )
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -223,7 +223,7 @@ public class Gender extends Conclusion implements HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

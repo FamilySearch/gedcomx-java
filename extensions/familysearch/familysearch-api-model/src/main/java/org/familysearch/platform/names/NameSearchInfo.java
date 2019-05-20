@@ -106,7 +106,7 @@ public class NameSearchInfo {
    * @return The enum referencing the known name part type.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public NamePartType getKnownNamePartType() {
     return getNamePartType() == null ? null : NamePartType.fromQNameURI(getNamePartType());
   }
@@ -116,7 +116,7 @@ public class NameSearchInfo {
    *
    * @param knownNamePartType The name part type.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownNamePartType(NamePartType knownNamePartType) {
     setNamePartType(knownNamePartType == null ? null : knownNamePartType.toQNameURI());
   }

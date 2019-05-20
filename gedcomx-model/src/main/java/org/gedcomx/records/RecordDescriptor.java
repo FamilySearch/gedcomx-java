@@ -68,7 +68,7 @@ public class RecordDescriptor extends HypermediaEnabledData {
    * @return Descriptors of the fields that are applicable to this record.
    */
   @XmlElement (name="field")
-  @JsonProperty ("fields") @org.codehaus.jackson.annotate.JsonProperty ("fields")
+  @JsonProperty ("fields")
   public List<FieldDescriptor> getFields() {
     return fields;
   }
@@ -78,7 +78,7 @@ public class RecordDescriptor extends HypermediaEnabledData {
    *
    * @param fields Descriptors of the fields that are applicable to this record.
    */
-  @JsonProperty ("fields") @org.codehaus.jackson.annotate.JsonProperty ("fields")
+  @JsonProperty ("fields")
   public void setFields(List<FieldDescriptor> fields) {
     this.fields = fields;
   }

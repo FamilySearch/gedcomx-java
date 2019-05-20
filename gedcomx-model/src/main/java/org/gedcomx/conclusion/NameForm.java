@@ -131,7 +131,7 @@ public class NameForm extends ExtensibleData implements HasFields {
    * @return The different parts of the name form.
    */
   @XmlElement (name = "part")
-  @JsonProperty ("parts") @org.codehaus.jackson.annotate.JsonProperty ("parts")
+  @JsonProperty ("parts")
   public List<NamePart> getParts() {
     return parts;
   }
@@ -141,7 +141,7 @@ public class NameForm extends ExtensibleData implements HasFields {
    *
    * @param parts The different parts of the name form.
    */
-  @JsonProperty ("parts") @org.codehaus.jackson.annotate.JsonProperty ("parts")
+  @JsonProperty ("parts")
   public void setParts(List<NamePart> parts) {
     this.parts = parts;
   }
@@ -190,7 +190,7 @@ public class NameForm extends ExtensibleData implements HasFields {
    * @return The references to the record fields being used as evidence.
    */
   @XmlElement( name = "field" )
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
   public List<Field> getFields() {
     return fields;
@@ -201,7 +201,7 @@ public class NameForm extends ExtensibleData implements HasFields {
    *
    * @param fields - List of fields
    */
-  @JsonProperty( "fields" ) @org.codehaus.jackson.annotate.JsonProperty( "fields" )
+  @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
   }

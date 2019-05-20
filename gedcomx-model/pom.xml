@@ -25,12 +25,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-core-asl</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
       <groupId>org.gedcomx</groupId>
       <artifactId>gedcomx-date</artifactId>
       <version>${project.version}</version>

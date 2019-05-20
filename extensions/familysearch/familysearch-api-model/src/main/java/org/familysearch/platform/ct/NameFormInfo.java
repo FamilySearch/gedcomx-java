@@ -64,7 +64,7 @@ public class NameFormInfo {
    * @return The enum referencing the known resolution of this name form order.
    */
   @XmlTransient
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public NameFormOrder getKnownOrder() {
     return getOrder() == null ? null : NameFormOrder.fromQNameURI(getOrder());
   }
@@ -74,7 +74,7 @@ public class NameFormInfo {
    *
    * @param nameFormOrder The enum referencing the known resolution of this name form order.
    */
-  @JsonIgnore @org.codehaus.jackson.annotate.JsonIgnore
+  @JsonIgnore
   public void setKnownOrder(NameFormOrder nameFormOrder) {
     setOrder(nameFormOrder == null ? null : nameFormOrder.toQNameURI());
   }

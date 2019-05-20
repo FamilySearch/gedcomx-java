@@ -159,7 +159,7 @@ public class SourceCitation extends HypermediaEnabledData {
    * @return The list of citation fields.
    */
   @XmlElement (name="field")
-  @JsonProperty ("fields") @org.codehaus.jackson.annotate.JsonProperty ("fields")
+  @JsonProperty ("fields")
   @Facet ( GedcomxConstants.FACET_GEDCOMX_CITATION )
   public List<CitationField> getFields() {
     return fields;
@@ -170,7 +170,7 @@ public class SourceCitation extends HypermediaEnabledData {
    *
    * @param fields The list of citation fields.
    */
-  @JsonProperty ("fields") @org.codehaus.jackson.annotate.JsonProperty ("fields")
+  @JsonProperty ("fields")
   public void setFields(List<CitationField> fields) {
     this.fields = fields;
   }
