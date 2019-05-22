@@ -38,8 +38,8 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "ordinances")
 // todo GenericRelationshipTerms ordinances  get rid of ordinanceType and other deprecated fields
 @XmlType( name = "Ordinance", propOrder = {"ordinanceType",
-                                           "type", "status", "statusReasons", "participants", "reservation", "living", "date", "templeCode",
-                                           "spouse", "father", "mother", "assignee"})
+                                           "type", "status", "statusReasons", "participants", "reservation", "date", "templeCode",
+                                           "living", "spouse", "father", "mother", "assignee"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class Ordinance extends Conclusion {
 
@@ -50,7 +50,6 @@ public class Ordinance extends Conclusion {
   private List<OrdinanceParticipant> participants;
   private OrdinanceReservation reservation;
 
-  private Boolean living;
   private Date date;
   private String templeCode;
 
@@ -64,6 +63,9 @@ public class Ordinance extends Conclusion {
   private ResourceReference mother;
   @Deprecated
   private ResourceReference assignee;
+  @Deprecated
+  private Boolean living;
+
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -298,30 +300,6 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * Whether this ordinance was performed during the life of the person.
-   *
-   * @return Whether this ordinance was performed during the life of the person.
-   */
-  @XmlAttribute
-  public Boolean getLiving() {
-    return living;
-  }
-
-  /**
-   * Whether this ordinance was performed during the life of the person.
-   *
-   * @param living Whether this ordinance was performed during the life of the person.
-   */
-  public void setLiving(Boolean living) {
-    this.living = living;
-  }
-
-  public Ordinance living(Boolean living) {
-    setLiving(living);
-    return this;
-  }
-
-  /**
    * The date of this ordinance.
    *
    * @return The date of this ordinance.
@@ -498,5 +476,23 @@ public class Ordinance extends Conclusion {
     return this.assignee != null && this.assignee.getResource() != null && this.assignee.getResource().equals(knownAssignee.toQNameURI());
   }
 
+  /**
+   * Deprecated: Whether this ordinance was performed during the life of the person.
+   *
+   * @return Whether this ordinance was performed during the life of the person.
+   */
+  @XmlAttribute
+  public Boolean getLiving() {
+    return living;
+  }
+
+  /**
+   * Deprecated: Whether this ordinance was performed during the life of the person.
+   *
+   * @param living Whether this ordinance was performed during the life of the person.
+   */
+  public void setLiving(Boolean living) {
+    this.living = living;
+  }
 
 }
