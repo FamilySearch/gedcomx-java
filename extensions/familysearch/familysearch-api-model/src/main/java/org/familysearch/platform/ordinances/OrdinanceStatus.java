@@ -88,7 +88,7 @@ public enum OrdinanceStatus implements ControlledVocabulary {
    */
   NeedPermission,
 
-  // todo GenericRelationshipTerms ordinances cleanup
+  // todo GenericOrdinanceTerms ordinances cleanup
   @Deprecated Cancelled,
   @Deprecated Deleted,
   @Deprecated Invalid,

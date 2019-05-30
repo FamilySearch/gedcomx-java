@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertSame;
 
 @SuppressWarnings ( "unchecked" )
-// todo GenericRelationshipTerms ordinances  This class should be deleted
+// todo GenericOrdinanceTerms ordinances  This class should be deleted
 public class OrdinanceAssigneeTest {
 
   @Test

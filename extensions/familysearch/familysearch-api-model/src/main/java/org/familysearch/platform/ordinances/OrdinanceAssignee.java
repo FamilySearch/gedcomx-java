@@ -29,7 +29,7 @@ import org.gedcomx.rt.EnumURIMap;
 @XmlQNameEnum(
   base = XmlQNameEnum.BaseType.URI
 )
-// todo GenericRelationshipTerms ordinances  This class should be deleted
+// todo GenericOrdinanceTerms ordinances  This class should be deleted
 @Deprecated
 public enum OrdinanceAssignee implements ControlledVocabulary {
 

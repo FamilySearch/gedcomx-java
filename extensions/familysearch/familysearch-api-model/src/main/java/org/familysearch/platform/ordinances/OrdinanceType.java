@@ -65,7 +65,7 @@ public enum OrdinanceType implements ControlledVocabulary {
 
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  // todo GenericRelationshipTerms ordinances cleanup remove these enums
+  // todo GenericOrdinanceTerms ordinances cleanup remove these enums
   @Deprecated
   @XmlQNameEnumValue(
       namespace = "http://lds.org/",

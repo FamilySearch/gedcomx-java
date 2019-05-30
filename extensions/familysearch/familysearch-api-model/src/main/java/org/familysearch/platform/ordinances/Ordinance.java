@@ -36,7 +36,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
-// todo GenericRelationshipTerms ordinances  get rid of ordinanceType and other deprecated fields
+// todo GenericOrdinanceTerms ordinances  get rid of ordinanceType and other deprecated fields
 @XmlType( name = "Ordinance", propOrder = {"ordinanceType",
                                            "type", "status", "statusReasons", "participants", "reservation", "date", "templeCode",
                                            "living", "spouse", "father", "mother", "assignee"})
@@ -54,7 +54,7 @@ public class Ordinance extends Conclusion {
   private String templeCode;
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  // todo GenericRelationshipTerms ordinances cleanup    remove @Deprecated values and methods   (also remove from propOrder above)
+  // todo GenericOrdinanceTerms ordinances cleanup    remove @Deprecated values and methods   (also remove from propOrder above)
   @Deprecated
   private ResourceReference spouse;
   @Deprecated

@@ -97,7 +97,7 @@ import org.gedcomx.types.RelationshipType;
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, PersonInfo.class, SearchInfo.class,
                PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class,
-               // todo GenericRelationshipTerms ordinances  get rid of Reservation class
+               // todo GenericOrdinanceTerms ordinances  get rid of Reservation class
                Reservation.class, Ordinance.class, OrdinanceRollup.class, NameFormInfo.class, AlternatePlaceReference.class, AlternateDate.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilySearchPlatform extends Gedcomx {
@@ -890,7 +890,7 @@ public class FamilySearchPlatform extends Gedcomx {
 
   protected static void fixupPersonReferencesInOrdinances(List<Ordinance> ordinances, String personId) {
     for (Ordinance ordinance : ordinances) {
-      // todo GenericRelationshipTerms ordinances  remove these fixIds when fields go away
+      // todo GenericOrdinanceTerms ordinances  remove these fixIds when fields go away
       fixId(ordinance.getSpouse(), personId);
       fixId(ordinance.getFather(), personId);
       fixId(ordinance.getMother(), personId);

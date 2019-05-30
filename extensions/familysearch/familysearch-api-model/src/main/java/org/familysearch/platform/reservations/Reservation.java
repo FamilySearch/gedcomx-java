@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @JsonElementWrapper (name = "reservations")
 @XmlType ( name = "Reservation", propOrder = {"ordinanceType", "type", "status", "spouse", "father", "mother", "assignee" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-// todo GenericRelationshipTerms ordinances  This class should be deleted
+// todo GenericOrdinanceTerms ordinances  This class should be deleted
 @Deprecated
 public class Reservation extends Conclusion {
 
@@ -51,7 +51,7 @@ public class Reservation extends Conclusion {
   private ResourceReference assignee;
 
   /**
-   * gets the type of ordinance
+   * Deprecated class: gets the type of ordinance
    * @return the type of ordinance
    */
   @XmlAttribute
@@ -61,7 +61,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * sets the type of ordinance
+   * Deprecated class: sets the type of ordinance
    * @param type the type of ordinance
    */
   public void setType(URI type) {
@@ -69,7 +69,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
+   * Deprecated class: The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
    *
    * @return The enum referencing the known ordinance type, or {@link OrdinanceType#OTHER} if not known.
    */
@@ -80,7 +80,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Set the ordinance type from an enumeration of known ordinance types.
+   * Deprecated class: Set the ordinance type from an enumeration of known ordinance types.
    *
    * @param knownType The ordinance type.
    */
@@ -90,7 +90,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build up this ordinance with a ordinance type.
+   * Deprecated class: Build up this ordinance with a ordinance type.
    *
    * @param type The ordinance type.
    * @return this.
@@ -101,7 +101,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build up this ordinance with a ordinance type.
+   * Deprecated class: Build up this ordinance with a ordinance type.
    *
    * @param type The ordinance type.
    * @return this.
@@ -124,7 +124,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * gets the status of this ordinance
+   * Deprecated class: gets the status of this ordinance
    * @return the status of this ordinance
    */
   @XmlAttribute
@@ -134,7 +134,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * sets the status of this ordinance
+   * Deprecated class: sets the status of this ordinance
    * @param status the status of this ordinance
    */
   public void setStatus(URI status) {
@@ -142,7 +142,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The enum referencing the known ordinance status, or {@link OrdinanceStatus#OTHER} if not known.
+   * Deprecated class: The enum referencing the known ordinance status, or {@link OrdinanceStatus#OTHER} if not known.
    *
    * @return The enum referencing the known ordinance status, or {@link OrdinanceStatus#OTHER} if not known.
    */
@@ -153,7 +153,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Set the ordinance status from an enumeration of known ordinance statuses.
+   * Deprecated class: Set the ordinance status from an enumeration of known ordinance statuses.
    *
    * @param knownStatus The ordinance status.
    */
@@ -163,7 +163,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build up this ordinance with a ordinance status.
+   * Deprecated class: Build up this ordinance with a ordinance status.
    *
    * @param status The ordinance status.
    * @return this.
@@ -174,7 +174,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build up this ordinance with a ordinance status.
+   * Deprecated class: Build up this ordinance with a ordinance status.
    *
    * @param status The ordinance status.
    * @return this.
@@ -185,7 +185,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
+   * Deprecated class: The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
    *
    * @return The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
    */
@@ -194,7 +194,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
+   * Deprecated class: The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
    *
    * @param spouse The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
    */
@@ -203,7 +203,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build out this reservation with a spouse.
+   * Deprecated class: Build out this reservation with a spouse.
    *
    * @param spouse The spouse.
    * @return this.
@@ -214,7 +214,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The father associated with the ordinance, if the ordinance type is sealing-to-parents.
+   * Deprecated class: The father associated with the ordinance, if the ordinance type is sealing-to-parents.
    *
    * @return The father associated with the ordinance, if the ordinance type is sealing-to-parents.
    */
@@ -223,7 +223,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The father associated with the ordinance, if the ordinance type is sealing-to-parents.
+   * Deprecated class: The father associated with the ordinance, if the ordinance type is sealing-to-parents.
    *
    * @param father The father associated with the ordinance, if the ordinance type is sealing-to-parents.
    */
@@ -232,7 +232,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build out this reservation with a father.
+   * Deprecated class: Build out this reservation with a father.
    *
    * @param father The father.
    * @return this.
@@ -243,7 +243,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
+   * Deprecated class: The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
    *
    * @return The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
    */
@@ -252,7 +252,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
+   * Deprecated class: The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
    *
    * @param mother The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
    */
@@ -261,7 +261,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build out this reservation with a mother.
+   * Deprecated class: Build out this reservation with a mother.
    *
    * @param mother The mother.
    * @return this.
@@ -272,7 +272,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
+   * Deprecated class: The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
    * is assumed to be the owner of the reservation.
    *
    * @return The user or entity assigned to fulfill the ordinance work for this reservation.
@@ -282,7 +282,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
+   * Deprecated class: The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
    * is assumed to be the owner of the reservation.
    *
    * @param assignee The user or entity assigned to fulfill the ordinance work for this reservation.
@@ -292,7 +292,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Build out this reservation with an assignee.
+   * Deprecated class: Build out this reservation with an assignee.
    *
    * @param assignee The assignee.
    * @return this.
@@ -303,7 +303,7 @@ public class Reservation extends Conclusion {
   }
 
   /**
-   * Whether this reservation is assigned to a specific known ordinance assignee.
+   * Deprecated class: Whether this reservation is assigned to a specific known ordinance assignee.
    *
    * @param knownAssignee The ordinance assignee.
    * @return Whether this reservation is assigned to a specific known ordinance assignee.
