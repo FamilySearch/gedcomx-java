@@ -66,36 +66,42 @@ public enum OrdinanceType implements ControlledVocabulary {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
   // todo GenericOrdinanceTerms ordinances cleanup remove these enums
+  /** deprecated */
   @Deprecated
   @XmlQNameEnumValue(
       namespace = "http://lds.org/",
       localPart = "Baptism"
   )
   Deprecated_Baptism,
+  /** deprecated */
   @Deprecated
   @XmlQNameEnumValue(
       namespace = "http://lds.org/",
       localPart = "Confirmation"
   )
   Deprecated_Confirmation,
+  /** deprecated */
   @Deprecated
   @XmlQNameEnumValue(
       namespace = "http://lds.org/",
       localPart = "Initiatory"
   )
   Deprecated_Initiatory,
+  /** deprecated */
   @Deprecated
   @XmlQNameEnumValue(
       namespace = "http://lds.org/",
       localPart = "Endowment"
   )
   Deprecated_Endowment,
+  /** deprecated */
   @Deprecated
   @XmlQNameEnumValue(
       namespace = "http://lds.org/",
       localPart = "SealingToSpouse"
   )
   Deprecated_SealingToSpouse,
+  /** deprecated */
   @Deprecated
   @XmlQNameEnumValue(
       namespace = "http://lds.org/",

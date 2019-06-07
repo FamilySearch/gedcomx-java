@@ -37,9 +37,11 @@ public enum OrdinanceAssignee implements ControlledVocabulary {
     namespace = "https://www.lds.org/",
     localPart = ""
   )
+  /** deprecated */
   @Deprecated
   LdsChurch,
 
+  /** deprecated */
   @Deprecated
   OTHER;
 

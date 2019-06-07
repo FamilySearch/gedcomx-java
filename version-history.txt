@@ -1,0 +1,16 @@
+  <!--GEDCOM X Version-->
+    <gedcomx.version>2.66.0</gedcomx.version>             <!-- release just prior and without same-sex naming -->
+
+    <gedcomx.version>2.67.0</gedcomx.version>             <!-- release with same-sex naming in both model and sdk -->
+
+    <gedcomx.version>2.75.0</gedcomx.version>             <!-- release with same-sex naming in model only but removed from sdk -->
+
+    <gedcomx.version>2.75.0</gedcomx.version>             <!-- released version   before any work on ordinances -->
+
+    <gedcomx.version>2.77.0</gedcomx.version>             <!-- Reservation and Ordinance separate objects, but same contents -->
+
+    <gedcomx.version>2.88.0</gedcomx.version>             <!-- changes for ordinance enhancements and honor the name changes  -->
+
+
+<!--    <gedcomx.version>2.89.0-SNAPSHOT</gedcomx.version>             &lt;!&ndash; local Version (removed deprecated ordinance fields) &ndash;&gt;-->
+

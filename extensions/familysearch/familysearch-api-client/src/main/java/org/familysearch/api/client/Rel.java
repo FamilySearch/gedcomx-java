@@ -27,7 +27,9 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String COMMENTS = "comments";
   public static final String CURRENT_USER = "current-user";
   public static final String CURRENT_USER_HISTORY = "current-user-history";
+  // todo GenericOrdinanceTerms ordinances  get rid of unused constants
   public static final String CURRENT_USER_RESERVATIONS = "current-user-ordinance-reservations";
+  // todo GenericOrdinanceTerms ordinances  get rid of unused constants
   public static final String TEMPLE_RESERVATIONS = "temple-ordinance-reservations";
   public static final String DISCUSSIONS = "discussions";
   public static final String MESSAGING = "messaging";
@@ -62,10 +64,15 @@ public class Rel extends org.gedcomx.rs.Rel {
   public static final String PLACE_SEARCH = "place-search";
   public static final String PREFERRED_SPOUSE_RELATIONSHIP = "preferred-spouse-relationship";
   public static final String PREFERRED_PARENT_RELATIONSHIP = "preferred-parent-relationship";
+  // todo GenericOrdinanceTerms ordinances  get rid of unused constants
   public static final String RESERVATION = "ordinance-reservation";
+  // todo GenericOrdinanceTerms ordinances  get rid of unused constants
   public static final String RESERVATIONS = "ordinance-reservations";
+  // todo GenericOrdinanceTerms ordinances  get rid of unused constants
   public static final String TEMPLE_CARD_PRINT_SETS = "temple-card-print-sets";
+  // todo GenericOrdinanceTerms ordinances  get rid of unused constants
   public static final String ORDINANCES = "ordinances";
+  // todo GenericOrdinanceTerms ordinances  get rid of unused constants
   public static final String ORDINANCES_STATUS = "ordinances-status";
   public static final String PERSON_MATCH_RESOLUTIONS_QUERY = "person-match-resolutions-query";
 }
