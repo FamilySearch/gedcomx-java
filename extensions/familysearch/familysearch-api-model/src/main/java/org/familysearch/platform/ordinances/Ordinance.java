@@ -20,12 +20,14 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.json.JsonSeeAlso;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 
 import org.gedcomx.common.ResourceReference;
@@ -41,6 +43,11 @@ import org.gedcomx.rt.json.JsonElementWrapper;
                                            "type", "status", "statusReasons", "participants", "reservation", "date", "templeCode",
                                            "living", "spouse", "father", "mother", "assignee"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+//
+// @XmlQNameEnumRef(OrdinanceStatusReason.class)   Cannot be used on getStatusReasons() because of enunciate bug and the OrdinanceStatusReason docs
+//    were not included by enunciate.  In order to get those OrdinanceStatusReason docs we add @XmlSeeAlso and @JsonSeeAlso at the class level.
+@XmlSeeAlso(OrdinanceStatusReason.class)
+@JsonSeeAlso(OrdinanceStatusReason.class)
 public class Ordinance extends Conclusion {
 
   private URI type;
@@ -65,7 +72,6 @@ public class Ordinance extends Conclusion {
   private ResourceReference assignee;
   @Deprecated
   private Boolean living;
-
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
