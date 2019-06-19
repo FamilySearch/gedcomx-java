@@ -26,7 +26,7 @@ import javax.ws.rs.HttpMethod;
 import java.io.InputStream;
 
 /**
- * Class representing a set of LDS ordinance temple cards to be printed.
+ * Class representing a set of The Church of Jesus Christ of Latter-day Saints ordinance temple cards to be printed.
  * User: Randy Wilson
  * Date: 23 February 2016
  */

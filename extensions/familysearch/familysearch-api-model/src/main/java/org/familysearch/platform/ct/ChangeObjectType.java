@@ -338,27 +338,27 @@ public enum ChangeObjectType implements ControlledVocabulary {
   TitleOfNobility,
 
   /**
-   * LDS baptism ordinance.
+   * The Church of Jesus Christ of Latter-day Saints baptism ordinance.
    */
   Baptism,
 
   /**
-   * LDS confirmation ordinance.
+   * The Church of Jesus Christ of Latter-day Saints confirmation ordinance.
    */
   Confirmation,
 
   /**
-   * LDS confirmation ordinance.
+   * The Church of Jesus Christ of Latter-day Saints confirmation ordinance.
    */
   Initiatory,
 
   /**
-   * LDS endowment ordinance.
+   * The Church of Jesus Christ of Latter-day Saints endowment ordinance.
    */
   Endowment,
 
   /**
-   * LDS sealing ordinance.
+   * The Church of Jesus Christ of Latter-day Saints sealing ordinance.
    */
   Sealing,
 
