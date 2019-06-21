@@ -115,7 +115,7 @@ public enum OrdinanceType implements ControlledVocabulary {
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  static final String ORDINANCE_TYPE_NAMESPACE = "http://www.churchofjesuschrist.org/";
+  static final String ORDINANCE_TYPE_NAMESPACE = "http://churchofjesuschrist.org/";
 
   private static final EnumURIMap<OrdinanceType> URI_MAP = new EnumURIMap<OrdinanceType>(OrdinanceType.class, ORDINANCE_TYPE_NAMESPACE);
 

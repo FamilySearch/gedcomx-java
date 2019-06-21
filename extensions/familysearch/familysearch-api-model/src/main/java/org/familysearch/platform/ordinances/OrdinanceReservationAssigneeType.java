@@ -45,7 +45,7 @@ public enum OrdinanceReservationAssigneeType implements ControlledVocabulary {
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  static final String ASSIGNEE_TYPE_NAMESPACE = "http://www.churchofjesuschrist.org/";
+  static final String ASSIGNEE_TYPE_NAMESPACE = "http://churchofjesuschrist.org/";
 
   private static final EnumURIMap<OrdinanceReservationAssigneeType> URI_MAP =
       new EnumURIMap<OrdinanceReservationAssigneeType>(OrdinanceReservationAssigneeType.class, ASSIGNEE_TYPE_NAMESPACE);
