@@ -50,12 +50,6 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   DiedBeforeAgeEightRule,
 
   /**
-   * A person's gender must correspond to his or her relationship role as a mother, father, husband, or wife in the family.
-   * <br>Message=This person's gender does not correspond to his or her relationship role as a mother, father, husband, or wife in the family.
-   */
-  GenderMismatchRule,
-
-  /**
    * A person's given name(s) cannot contain one or more invalid words or be represented by a traditional prefix such as Mr., Miss, Mrs., etc.
    * <br>Message=This person's first names contain one or more invalid words.
    */
