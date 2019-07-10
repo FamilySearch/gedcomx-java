@@ -237,6 +237,8 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   public void visitField(Field field) {
     this.contextStack.push(field);
 
+    visitConclusion(field);
+
     List<FieldValue> values = field.getValues();
     if (values != null) {
       for (FieldValue value : values) {
