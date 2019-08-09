@@ -44,15 +44,16 @@ public class GedcomxOutputStream {
   }
 
     /**
-    * Constructs a GEDCOM X output stream.
-    *
-    * NOTE: This class uses the GedcomXFileJAXBContextFactory to create a JAXB context from which to derive the marshaller that is used to marshal resources into the output stream.
-    * GedcomXFileJAXBContextFactory creates a context that includes some default resource classes.  The classes passed via this constructor will supplement these defaults; they will
-    * not overwrite or replace these defaults.  Please see the documentation for GedcomXFileJAXBContextFactory to review the list of default classes.
-    *
-    * @param gedxOutputStream an output stream to which the GEDCOM X resources will appended
-    * @param classes classes representing resources that will be marshaled (via JAXB) into the GEDCOM X output stream
-    */
+     * Constructs a GEDCOM X output stream.
+     *
+     * NOTE: This class uses the GedcomXFileJAXBContextFactory to create a JAXB context from which to derive the marshaller that is used to marshal resources into the output stream.
+     * GedcomXFileJAXBContextFactory creates a context that includes some default resource classes.  The classes passed via this constructor will supplement these defaults; they will
+     * not overwrite or replace these defaults.  Please see the documentation for GedcomXFileJAXBContextFactory to review the list of default classes.
+     *
+     * @param gedxOutputStream an output stream to which the GEDCOM X resources will appended
+     * @param classes classes representing resources that will be marshaled (via JAXB) into the GEDCOM X output stream
+     * @throws IOException if an I/O error has occurred
+     */
   public GedcomxOutputStream(OutputStream gedxOutputStream, Class<?>... classes) throws IOException {
     this(gedxOutputStream, new JacksonJsonSerialization(classes));
   }
@@ -71,6 +72,7 @@ public class GedcomxOutputStream {
    * Add a resource to the GEDCOM X output stream.
    *
    * @param resource The resource.
+   * @throws IOException if an I/O error has occurred
    */
   public void addResource(Gedcomx resource) throws IOException {
     addResource(resource, new Date());
@@ -81,6 +83,7 @@ public class GedcomxOutputStream {
    *
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
+   * @throws IOException if an I/O error has occurred
    */
   public void addResource(Gedcomx resource, Date lastModified) throws IOException {
     StringBuilder entryName = new StringBuilder("tree");
@@ -97,6 +100,7 @@ public class GedcomxOutputStream {
    * @param entryName The name by which this resource shall be known within the GEDCOM X file.
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
+   * @throws IOException if an I/O error has occurred
    */
   public void addResource(String entryName, Gedcomx resource, Date lastModified) throws IOException {
     addResource(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE, entryName, resource, lastModified, null);
@@ -110,6 +114,7 @@ public class GedcomxOutputStream {
    * @param entryName The name by which this resource shall be known within the GEDCOM X file.
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
+   * @throws IOException if an I/O error has occurred
    */
   public void addResource(String contentType, String entryName, Object resource, Date lastModified) throws IOException {
     addResource(contentType, entryName, resource, lastModified, null);
@@ -123,6 +128,7 @@ public class GedcomxOutputStream {
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
    * @param attributes The attributes of the resource.
+   * @throws IOException if an I/O error has occurred
    */
   public void addResource(String contentType, String entryName, Object resource, Date lastModified, Map<String, String> attributes) throws IOException {
     putNextEntry(contentType, entryName, lastModified, attributes);
@@ -138,6 +144,7 @@ public class GedcomxOutputStream {
    * @param resource The resource.
    * @param lastModified timestamp when the resource was last modified (can be null)
    * @param attributes The attributes of the resource.
+   * @throws IOException if an I/O error has occurred
    */
   public void addResource(String contentType, String entryName, InputStream resource, Date lastModified, Map<String, String> attributes) throws IOException {
     putNextEntry(contentType, entryName, lastModified, attributes);
@@ -182,6 +189,8 @@ public class GedcomxOutputStream {
 
   /**
    * Closes the GEDCOM X output stream as well as the stream being filtered.
+   *
+   * @throws IOException if an I/O error has occurred
    */
   public void close() throws IOException {
     this.gedxOutputStream.putNextEntry(new JarEntry(JarFile.MANIFEST_NAME));

@@ -83,6 +83,8 @@ public class JsonRecordSetWriter {
 
   /**
    * Finish writing the file, including metadata (if set), and the closing tag. Closes the writers and output stream.
+   *
+   * @throws IOException from stream
    */
   public void close() throws IOException {
     if (outputStream != null) {

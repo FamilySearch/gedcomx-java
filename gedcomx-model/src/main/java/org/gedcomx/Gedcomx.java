@@ -212,6 +212,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   /**
    * Find a person in the document by URI.
    *
+   * @param uri the uri
    * @return The person, or null.
    */
   public Person findPerson(URI uri) {
@@ -368,6 +369,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   /**
    * Find a relationship in the document by URI.
    *
+   * @param uri the uri
    * @return The relationship, or null.
    */
   public Relationship findRelationship(URI uri) {
@@ -453,6 +455,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   /**
    * Find a description in the document by URI.
    *
+   * @param uri the uri
    * @return The description, or null.
    */
   public SourceDescription findDescription(URI uri) {
@@ -519,6 +522,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   /**
    * Find a agent in the document by URI.
    *
+   * @param uri the uri
    * @return The agent, or null.
    */
   public Agent findAgent(URI uri) {
@@ -620,6 +624,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   /**
    * Find a place in the document by URI.
    *
+   * @param uri the uri
    * @return The place, or null.
    */
   public PlaceDescription findPlace(URI uri) {

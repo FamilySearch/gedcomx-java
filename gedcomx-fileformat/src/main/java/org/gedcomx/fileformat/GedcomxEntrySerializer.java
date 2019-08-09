@@ -30,6 +30,7 @@ public interface GedcomxEntrySerializer {
    *
    * @param resource the resource.
    * @param out the output stream.
+   * @throws IOException a IOException
    */
   void serialize(Object resource, OutputStream out) throws IOException;
 

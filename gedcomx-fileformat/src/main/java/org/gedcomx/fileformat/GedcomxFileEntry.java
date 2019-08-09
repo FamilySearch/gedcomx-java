@@ -57,6 +57,7 @@ public class GedcomxFileEntry {
    * The content type of this entry.
    *
    * @return The content type of the part.
+   * @throws IOException if an I/O error has occurred
    */
   public String getContentType() throws IOException {
     Attributes attributes = this.jarEntry.getAttributes();
@@ -68,6 +69,7 @@ public class GedcomxFileEntry {
    *
    * @param name The name of the per-entry attribute.
    * @return The value of the per-entry attribute.
+   * @throws IOException if an I/O error has occurred
    */
   public String getAttribute(String name) throws IOException {
     Attributes attributes = this.jarEntry.getAttributes();
@@ -79,7 +81,7 @@ public class GedcomxFileEntry {
    *
    * @return The attributes associated with this entry.
    *
-   * @throws IOException
+   * @throws IOException if an I/O error has occurred
    */
   public Map<String, String> getAttributes() throws IOException {
     Map<String, String> attributesMap = new HashMap<String, String>();

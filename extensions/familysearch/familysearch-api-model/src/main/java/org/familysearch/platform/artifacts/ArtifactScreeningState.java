@@ -22,10 +22,10 @@ import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 /**
- * @deprecated replaced by {@ArtifactDisplayState}
  * Enumeration of known artifact screening states.
  * Note that this is intentionally similar to (but not exactly the same as) org.familysearch.platform.ct.MatchStatus
- * Deprecated class: Use ArtifactDisplayState
+ *
+ * @deprecated replaced by {@link ArtifactDisplayState}
  */
 @Deprecated
 @XmlQNameEnum (

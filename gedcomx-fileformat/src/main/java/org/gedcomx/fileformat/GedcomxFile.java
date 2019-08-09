@@ -44,6 +44,7 @@ public class GedcomxFile {
    * Creates a new <code>GedcomxFile</code> to read from the specified file <code>JarFile</code>.
    *
    * @param jarFile the jar file to be read
+   * @param classes the classes to use for serialization
    * @throws IOException if an I/O error has occurred
    */
   public GedcomxFile(JarFile jarFile, Class<?>... classes) throws IOException {
@@ -55,6 +56,7 @@ public class GedcomxFile {
    *
    * @param name The attribute name.
    * @return The attribute value.
+   * @throws IOException if an I/O error has occurred
    */
   public String getAttribute(String name) throws IOException {
     return this.gedxFile.getManifest().getMainAttributes().getValue(name);
@@ -64,6 +66,7 @@ public class GedcomxFile {
    * Get the attributes that have been associated with this GEDCOM X file.
    *
    * @return The attributes.
+   * @throws IOException if an I/O error has occurred
    */
   public Map<String, String> getAttributes() throws IOException {
     Map<String, String> attributes = new HashMap<String, String>();
@@ -129,6 +132,7 @@ public class GedcomxFile {
    * Get the manifest.
    *
    * @return The manifest.
+   * @throws IOException if an I/O error has occurred
    */
   public Manifest getManifest() throws IOException {
     return gedxFile.getManifest();
@@ -139,6 +143,7 @@ public class GedcomxFile {
    *
    * @param gedxEntry The entry that contains the desired resource.
    * @return The input stream that constitutes the nature of the resource.
+   * @throws IOException if an I/O error has occurred
    */
   public InputStream getResourceStream(GedcomxFileEntry gedxEntry) throws IOException {
     return this.gedxFile.getInputStream(gedxEntry.getJarEntry());
@@ -160,7 +165,7 @@ public class GedcomxFile {
   /**
    * Closes the GEDCOM X file.
    *
-   * @throws IOException
+   * @throws IOException if an I/O error has occurred
    */
   public void close() throws IOException {
     this.gedxFile.close();

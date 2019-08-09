@@ -179,6 +179,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    * Finds the first extension of a specified type in the given name and namespace.
    *
    * @param clazz The type.
+   * @param <E> The type of extension elements.
    * @param name The name of the extension element.
    * @param namespace The namespace of the extension element.
    * @return The extension, or null if none found.
@@ -198,6 +199,7 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
    * Find the extension elements of a specified type in the given name and namespace.
    *
    * @param clazz The type of the extension element.
+   * @param <E> The type of extension elements.
    * @param name The name of the extension element.
    * @param namespace The namespace of the extension element.
    * @return The extensions, possibly empty but not null.

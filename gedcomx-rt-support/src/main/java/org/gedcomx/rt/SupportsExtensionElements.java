@@ -33,6 +33,7 @@ public interface SupportsExtensionElements {
    * Finds the first extension of a specified type.
    *
    * @param clazz The type.
+   * @param <E> The type of extension elements.
    * @return The extension, or null if none found.
    */
   @SuppressWarnings ( {"unchecked"} )
@@ -42,6 +43,7 @@ public interface SupportsExtensionElements {
    * Find the extensions of a specified type.
    *
    * @param clazz The type.
+   * @param <E> The type of extension elements.
    * @return The extensions, possibly empty but not null.
    */
   @SuppressWarnings ( {"unchecked"} )
