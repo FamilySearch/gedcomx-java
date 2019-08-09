@@ -45,6 +45,7 @@ public class ArtifactMetadata {
   private Integer height;
   private Long size;
   private URI screeningState;
+  private URI displayState;
   private Boolean editable;
 
   /**
@@ -180,6 +181,7 @@ public class ArtifactMetadata {
    */
   @XmlAttribute
   @XmlQNameEnumRef(ArtifactScreeningState.class)
+  @Deprecated
   public URI getScreeningState() {
     return screeningState;
   }
@@ -189,6 +191,7 @@ public class ArtifactMetadata {
    *
    * @param screeningState The screening state of the artifact.
    */
+  @Deprecated
   public void setScreeningState(URI screeningState) {
     this.screeningState = screeningState;
   }
@@ -200,6 +203,7 @@ public class ArtifactMetadata {
    */
   @XmlTransient
   @JsonIgnore
+  @Deprecated
   public ArtifactScreeningState getKnownScreeningState() {
     return getScreeningState() == null ? null : ArtifactScreeningState.fromQNameURI(getScreeningState());
   }
@@ -210,9 +214,52 @@ public class ArtifactMetadata {
    * @param screeningState The known screening state of the artifact.
    */
   @JsonIgnore
+  @Deprecated
   public void setKnownScreeningState(ArtifactScreeningState screeningState) {
     setScreeningState(screeningState == null ? null : screeningState.toQNameURI());
   }
+
+  /**
+   * The display state of the artifact.
+   *
+   * @return The display state of the artifact.
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(ArtifactDisplayState.class)
+  public URI getDisplayState() {
+    return displayState;
+  }
+
+  /**
+   * The display state of the artifact.
+   *
+   * @param displayState The display state of the artifact.
+   */
+  public void setDisplayState(URI displayState) {
+    this.displayState = displayState;
+  }
+
+  /**
+   * The known display state of the artifact.
+   *
+   * @return The known display state of the artifact.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public ArtifactDisplayState getKnownDisplayState() {
+    return getDisplayState() == null ? null : ArtifactDisplayState.fromQNameURI(getDisplayState());
+  }
+
+  /**
+   * The known display state of the artifact.
+   *
+   * @param displayState The known display state of the artifact.
+   */
+  @JsonIgnore
+  public void setKnownDisplayState(ArtifactDisplayState displayState) {
+    setDisplayState(displayState == null ? null : displayState.toQNameURI());
+  }
+
 
   /**
    * Whether or not the artifact is editable by the current user.

@@ -16,31 +16,32 @@
 package org.familysearch.platform.artifacts;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
 /**
- * @deprecated replaced by {@ArtifactDisplayState}
- * Enumeration of known artifact screening states.
- * Note that this is intentionally similar to (but not exactly the same as) org.familysearch.platform.ct.MatchStatus
- * Deprecated class: Use ArtifactDisplayState
+ * Enumeration of known artifact display states.
  */
-@Deprecated
-@XmlQNameEnum (
+@XmlQNameEnum(
     base = XmlQNameEnum.BaseType.URI
 )
-public enum ArtifactScreeningState implements ControlledVocabulary {
+public enum ArtifactDisplayState implements ControlledVocabulary {
 
-  Pending,
+  Processing,
 
-  Approved,
+  UploadFailed,
 
-  Restricted;
+  ProcessingFailed,
 
-  private static final EnumURIMap<ArtifactScreeningState> URI_MAP =
-      new EnumURIMap<ArtifactScreeningState>(ArtifactScreeningState.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+  Restricted,
+
+  Approved;
+
+  private static final EnumURIMap<ArtifactDisplayState> URI_MAP =
+      new EnumURIMap<ArtifactDisplayState>(ArtifactDisplayState.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -57,9 +58,8 @@ public enum ArtifactScreeningState implements ControlledVocabulary {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static ArtifactScreeningState fromQNameURI(URI qname) {
+  public static ArtifactDisplayState fromQNameURI(URI qname) {
     return URI_MAP.fromURIValue(qname);
   }
 
 }
-
