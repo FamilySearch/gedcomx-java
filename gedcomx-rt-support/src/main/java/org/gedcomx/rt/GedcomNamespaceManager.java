@@ -115,6 +115,9 @@ public class GedcomNamespaceManager extends NamespacePrefixMapper {
    * @return The known set of namespace-to-prefix mappings.
    */
   public static Map<String, String> getKnownPrefixes() {
+    if (INITIALIZED) {
+      return KNOWN_PREFIXES;    // if already initialized no need to wait for a synchronized method to tell us it is initialized - just return it immediately.
+    }
     init(Thread.currentThread().getContextClassLoader());
     return KNOWN_PREFIXES;
   }
