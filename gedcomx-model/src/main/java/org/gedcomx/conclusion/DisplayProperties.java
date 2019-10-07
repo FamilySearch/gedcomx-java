@@ -51,6 +51,7 @@ public class DisplayProperties extends ExtensibleData {
   private String descendancyNumber;
   private List<FamilyView> familiesAsParent;
   private List<FamilyView> familiesAsChild;
+  private String role;
 
   @Override
   public DisplayProperties id(String id) {
@@ -452,6 +453,34 @@ public class DisplayProperties extends ExtensibleData {
   }
 
   /**
+   * The role of this person in the current display context.
+   *
+   * @return The role of this person in the current display context.
+   */
+  public String getRole() {
+    return role;
+  }
+
+  /**
+   * The role of this person in the current display context.
+   *
+   * @param role The role of this person in the current display context.
+   */
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  /**
+   * Set the role.
+   * @param role The role.
+   * @return this
+   */
+  public DisplayProperties role(String role) {
+    setRole(role);
+    return this;
+  }
+
+  /**
    * Embed a set of display properties.
    *
    * @param data The data to embed.
@@ -476,6 +505,7 @@ public class DisplayProperties extends ExtensibleData {
       this.familiesAsChild = this.familiesAsChild == null ? new ArrayList<FamilyView>() : this.familiesAsChild;
       this.familiesAsChild.addAll(data.familiesAsChild);
     }
+    this.role = this.role == null ? data.role : this.role;
     super.embed(data);
   }
 }
