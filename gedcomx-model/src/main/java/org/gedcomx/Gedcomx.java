@@ -441,9 +441,13 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @return The first source description in the document with the type that is specified..
    */
   public SourceDescription getSourceDescription(URI resourceType) {
+    if (resourceType == null) {
+      return null;
+    }
+
     if (this.sourceDescriptions != null && this.sourceDescriptions.size() > 0) {
       for (SourceDescription sourceDescription : this.sourceDescriptions) {
-        if (sourceDescription.getResourceType().equals(resourceType)) {
+        if (resourceType.equals(sourceDescription.getResourceType())) {
           return sourceDescription;
         }
       }
