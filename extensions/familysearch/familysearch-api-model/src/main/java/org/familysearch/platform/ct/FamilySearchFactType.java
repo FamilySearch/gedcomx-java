@@ -31,42 +31,52 @@ import org.gedcomx.rt.EnumURIMap;
 public enum FamilySearchFactType implements ControlledVocabulary {
 
   /**
-   * Affiliation to something.
+   * Person fact type: Affiliation to something.
    */
   Affiliation,
 
   /**
-   * A child's birth order to parents.
+   * Parent Child fact type: A child's birth order to parents.
    */
   BirthOrder,
 
   /**
-   * Person died before age eight.
+   * Couple fact type: Couple never had children.
+   */
+  CoupleNeverHadChildren,
+
+  /**
+   * Person fact type: Person died before age eight.
    */
   DiedBeforeEight,
 
   /**
-   * Person's "life sketch" summary.
+   * Person fact type: Person's "life sketch" summary.
    */
   LifeSketch,
 
   /**
-   * Person was never married.
+   * Couple fact type: Couple lived together.
    */
-  NeverMarried,
+  LivedTogether,
 
   /**
-   * Person had no children.
+   * Person fact type: Person had no children.
    */
   NoChildren,
 
   /**
-   * Person's title of nobility.
+   * Person fact type: Person has no couple relationship.
+   */
+  NoCoupleRelationships,
+
+  /**
+   * Person fact type: Person's title of nobility.
    */
   TitleOfNobility,
 
   /**
-   * Person's tribe name.
+   * Person fact type: Person's tribe name.
    */
   TribeName,
 
