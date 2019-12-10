@@ -173,18 +173,6 @@ public class FamilySearchStateFactory extends StateFactory {
     return super.newRecordsState(request, response, accessToken);
   }
 
-  public FamilySearchReservationsState newFamilySearchReservationsState() {
-    return new FamilySearchReservationsState(true);
-  }
-
-  public FamilySearchReservationsState newFamilySearchReservationsState(boolean production) {
-    return new FamilySearchReservationsState(production);
-  }
-
-  public FamilySearchReservationsState newFamilySearchReservationsState(URI discoveryUri) {
-    return new FamilySearchReservationsState(discoveryUri);
-  }
-
   protected ChangeHistoryState newChangeHistoryState(ClientRequest request, ClientResponse response, String accessToken) {
     return new ChangeHistoryState(request, response, accessToken, this);
   }

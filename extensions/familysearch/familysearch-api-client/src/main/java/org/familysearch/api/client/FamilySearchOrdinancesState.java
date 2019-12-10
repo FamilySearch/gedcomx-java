@@ -38,18 +38,6 @@ public class FamilySearchOrdinancesState extends FamilySearchCollectionState {
   public static final String URI = "https://api.familysearch.org/platform/collections/ordinances";
   public static final String SANDBOX_URI = "https://api-integ.familysearch.org/platform/collections/ordinances";
 
-  public FamilySearchOrdinancesState() {
-    this(false);
-  }
-
-  public FamilySearchOrdinancesState(boolean sandbox) {
-    this(sandbox ? FamilySearchReferenceEnvironment.SANDBOX : FamilySearchReferenceEnvironment.PRODUCTION);
-  }
-
-  public FamilySearchOrdinancesState(FamilySearchReferenceEnvironment env) {
-    this(env.getOrdinanceReservationsUri());
-  }
-
   public FamilySearchOrdinancesState(java.net.URI uri) {
     this(uri, new FamilyTreeStateFactory());
   }
@@ -148,50 +136,6 @@ public class FamilySearchOrdinancesState extends FamilySearchCollectionState {
   @Override
   public FamilySearchCollectionState readCollection(StateTransitionOption... options) {
     return (FamilySearchCollectionState) super.readCollection();
-  }
-
-  public OrdinanceStatusState readPersonOrdinanceStatus(String personId, StateTransitionOption... options) {
-    Link link = getLink(Rel.ORDINANCES_STATUS);
-    if (link == null || link.getTemplate() == null) {
-      return null;
-    }
-    String template = link.getTemplate();
-
-    String uri;
-    try {
-      uri = UriTemplate.fromTemplate(template).set("person", personId).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
-    }
-    catch (VariableExpansionException e) {
-      throw new GedcomxApplicationException(e);
-    }
-    catch (MalformedUriTemplateException e) {
-      throw new GedcomxApplicationException(e);
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newOrdinanceStatusState(request, invoke(request, options), this.accessToken);
-  }
-
-  public OrdinanceStatusState readFamilyOrdinanceStatus(String fatherId, String motherId, StateTransitionOption... options) {
-    Link link = getLink(Rel.ORDINANCES_STATUS);
-    if (link == null || link.getTemplate() == null) {
-      return null;
-    }
-    String template = link.getTemplate();
-
-    String uri;
-    try {
-      uri = UriTemplate.fromTemplate(template).set("father", fatherId).set("mother", motherId).expand().replace("\"", "%22");   //UriTemplate does not encode DQUOTE: see RFC 6570 (http://tools.ietf.org/html/rfc6570#section-2.1)
-    }
-    catch (VariableExpansionException e) {
-      throw new GedcomxApplicationException(e);
-    }
-    catch (MalformedUriTemplateException e) {
-      throw new GedcomxApplicationException(e);
-    }
-
-    ClientRequest request = RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest()).build(java.net.URI.create(uri), HttpMethod.GET);
-    return ((FamilySearchStateFactory)this.stateFactory).newOrdinanceStatusState(request, invoke(request, options), this.accessToken);
   }
 
 }

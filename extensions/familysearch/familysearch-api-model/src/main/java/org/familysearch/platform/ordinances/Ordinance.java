@@ -38,10 +38,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
-// todo GenericOrdinanceTerms ordinances  get rid of ordinanceType and other deprecated fields
-@XmlType( name = "Ordinance", propOrder = {"ordinanceType",
-                                           "type", "status", "statusReasons", "participants", "reservation", "date", "templeCode",
-                                           "living", "spouse", "father", "mother", "assignee"})
+@XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "participants", "reservation", "date", "templeCode"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 //
 // @XmlQNameEnumRef(OrdinanceStatusReason.class)   Cannot be used on getStatusReasons() because of enunciate bug and the OrdinanceStatusReason docs
@@ -59,21 +56,6 @@ public class Ordinance extends Conclusion {
 
   private Date date;
   private String templeCode;
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  // todo GenericOrdinanceTerms ordinances cleanup    remove @Deprecated values and methods   (also remove from propOrder above)
-  @Deprecated
-  private ResourceReference spouse;
-  @Deprecated
-  private ResourceReference father;
-  @Deprecated
-  private ResourceReference mother;
-  @Deprecated
-  private ResourceReference assignee;
-  @Deprecated
-  private Boolean living;
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   /**
    * Gets the type of ordinance
@@ -350,155 +332,4 @@ public class Ordinance extends Conclusion {
     setTempleCode(templeCode);
     return this;
   }
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  // Methods below are Deprecated
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-
-  @Deprecated
-  @XmlAttribute
-  @XmlQNameEnumRef(OrdinanceType.class)
-  public URI getOrdinanceType() {
-    return null;
-  }
-
-  @Deprecated
-  public void setOrdinanceType(URI ordinanceType) {
-    setType(ordinanceType);
-  }
-
-  /**
-   * Deprecated: The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
-   *
-   * @return The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
-   */
-  @Deprecated
-  public ResourceReference getSpouse() {
-    return spouse;
-  }
-
-  /**
-   * Deprecated: The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
-   *
-   * @param spouse The spouse associated with the ordinance, if the ordinance type is sealing-to-spouse.
-   */
-  @Deprecated
-  public void setSpouse(ResourceReference spouse) {
-    this.spouse = spouse;
-  }
-  @Deprecated
-  public Ordinance spouse(ResourceReference spouse) {
-    setSpouse(spouse);
-    return this;
-  }
-
-  /**
-   * Deprecated: The father associated with the ordinance, if the ordinance type is sealing-to-parents.
-   *
-   * @return The father associated with the ordinance, if the ordinance type is sealing-to-parents.
-   */
-  @Deprecated
-  public ResourceReference getFather() {
-    return father;
-  }
-
-  /**
-   * Deprecated: The father associated with the ordinance, if the ordinance type is sealing-to-parents.
-   *
-   * @param father The father associated with the ordinance, if the ordinance type is sealing-to-parents.
-   */
-  @Deprecated
-  public void setFather(ResourceReference father) {
-    this.father = father;
-  }
-  @Deprecated
-  public Ordinance father(ResourceReference father) {
-    setFather(father);
-    return this;
-  }
-
-  /**
-   * Deprecated: The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
-   *
-   * @return The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
-   */
-  @Deprecated
-  public ResourceReference getMother() {
-    return mother;
-  }
-
-  /**
-   * Deprecated: The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
-   *
-   * @param mother The mother associated with the ordinance, if the ordinance type is sealing-to-parents.
-   */
-  @Deprecated
-  public void setMother(ResourceReference mother) {
-    this.mother = mother;
-  }
-  @Deprecated
-  public Ordinance mother(ResourceReference mother) {
-    setMother(mother);
-    return this;
-  }
-
-  /**
-   * Deprecated: The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
-   * is assumed to be the owner of the reservation.
-   *
-   * @return The user or entity assigned to fulfill the ordinance work for this reservation.
-   */
-  @Deprecated
-  public ResourceReference getAssignee() {
-    return assignee;
-  }
-
-  /**
-   * Deprecated: The user or entity assigned to fulfill the ordinance work for this reservation. If no assignee is provided, the assignee
-   * is assumed to be the owner of the reservation.
-   *
-   * @param assignee The user or entity assigned to fulfill the ordinance work for this reservation.
-   */
-  @Deprecated
-  public void setAssignee(ResourceReference assignee) {
-    this.assignee = assignee;
-  }
-  @Deprecated
-  public Ordinance assignee(ResourceReference assignee) {
-    setAssignee(assignee);
-    return this;
-  }
-
-  /**
-   * Deprecated: Whether this reservation is assigned to a specific known ordinance assignee.
-   *
-   * @param knownAssignee The ordinance assignee.
-   * @return Whether this reservation is assigned to a specific known ordinance assignee.
-   */
-  @Deprecated
-  public boolean isAssignedTo(OrdinanceAssignee knownAssignee) {
-    return this.assignee != null && this.assignee.getResource() != null && this.assignee.getResource().equals(knownAssignee.toQNameURI());
-  }
-
-  /**
-   * Deprecated: Whether this ordinance was performed during the life of the person.
-   *
-   * @return Whether this ordinance was performed during the life of the person.
-   */
-  @XmlAttribute
-  public Boolean getLiving() {
-    return living;
-  }
-
-  /**
-   * Deprecated: Whether this ordinance was performed during the life of the person.
-   *
-   * @param living Whether this ordinance was performed during the life of the person.
-   */
-  public void setLiving(Boolean living) {
-    this.living = living;
-  }
-
 }

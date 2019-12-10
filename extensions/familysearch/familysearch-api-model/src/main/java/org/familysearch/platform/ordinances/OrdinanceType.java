@@ -16,7 +16,6 @@
 package org.familysearch.platform.ordinances;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
-import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumValue;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 
 import org.gedcomx.common.URI;
@@ -62,55 +61,6 @@ public enum OrdinanceType implements ControlledVocabulary {
    * Sealing-to-Parents.
    */
   SealingChildToParents,
-
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  // todo GenericOrdinanceTerms ordinances cleanup remove these enums
-  /** deprecated */
-  @Deprecated
-  @XmlQNameEnumValue(
-      namespace = "http://lds.org/",
-      localPart = "Baptism"
-  )
-  Deprecated_Baptism,
-  /** deprecated */
-  @Deprecated
-  @XmlQNameEnumValue(
-      namespace = "http://lds.org/",
-      localPart = "Confirmation"
-  )
-  Deprecated_Confirmation,
-  /** deprecated */
-  @Deprecated
-  @XmlQNameEnumValue(
-      namespace = "http://lds.org/",
-      localPart = "Initiatory"
-  )
-  Deprecated_Initiatory,
-  /** deprecated */
-  @Deprecated
-  @XmlQNameEnumValue(
-      namespace = "http://lds.org/",
-      localPart = "Endowment"
-  )
-  Deprecated_Endowment,
-  /** deprecated */
-  @Deprecated
-  @XmlQNameEnumValue(
-      namespace = "http://lds.org/",
-      localPart = "SealingToSpouse"
-  )
-  Deprecated_SealingToSpouse,
-  /** deprecated */
-  @Deprecated
-  @XmlQNameEnumValue(
-      namespace = "http://lds.org/",
-      localPart = "SealingChildToParents"
-  )
-  Deprecated_SealingChildToParents,
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
   @XmlUnknownQNameEnumValue
   OTHER;

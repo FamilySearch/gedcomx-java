@@ -531,11 +531,7 @@ public abstract class GedcomxApplicationState<E> {
     return ClientRequest.create()
         .header(HttpHeaders.USER_AGENT, "gedcomx-java-sdk/" + SDK_VERSION)
         // todo GenericRelationshipTerms cleanup    header can go away when old naming has been totally removed
-        .header("X-FS-Feature-Tag", "generic.relationship.terms")
-
-        // todo GenericOrdinanceTerms ordinances cleanup    header can go away when old naming has been totally removed
-        .header("X-FS-Feature-Tag", "generic.ordinance.terms")
-        .header("X-FS-Feature-Tag", "generic.ordinance.terms.override");  // SDK use only
+        .header("X-FS-Feature-Tag", "generic.relationship.terms");
   }
 
   protected ClientRequest.Builder createAuthenticatedRequest() {
