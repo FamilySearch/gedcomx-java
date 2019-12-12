@@ -30,9 +30,9 @@ import org.gedcomx.rt.EnumURIMap;
 public enum OrdinanceRollupStatus implements ControlledVocabulary {
 
   /**
-   * This rollup status for the ordinance indicates it can be reserved by the current user.
+   * This rollup status for the ordinance indicates it has been completed.
    */
-  RolledUpReady,
+  RolledUpCompleted,
 
   /**
    * This rollup status for the ordinance indicates it can not be reserved by the current user because more information is needed about the person.
@@ -40,14 +40,14 @@ public enum OrdinanceRollupStatus implements ControlledVocabulary {
   RolledUpNeedMoreInformation,
 
   /**
+   * This rollup status for the ordinance indicates it can be reserved by the current user.
+   */
+  RolledUpReady,
+
+  /**
    * This rollup status for the ordinance indicates it has been reserved.
    */
   RolledUpReserved,
-
-  /**
-   * This rollup status for the ordinance indicates it has been completed.
-   */
-  RolledUpCompleted,
 
 
   @XmlUnknownQNameEnumValue

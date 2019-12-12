@@ -29,6 +29,36 @@ import org.gedcomx.rt.EnumURIMap;
 public enum OrdinanceStatus implements ControlledVocabulary {
 
   /**
+   * The ordinance has been completed.
+   */
+  Completed,
+
+  /**
+   * The ordinance is currently in progress of the completion process by a different.
+   */
+  InProgressByOther,
+
+  /**
+   * The ordinance is currently in progress of the completion process by the current user and can be resubmitted/printed by the current user.
+   */
+  InProgressBySelf,
+
+  /**
+   * The ordinance can not be reserved by the current user because more information is needed about the person.
+   */
+  NeedMoreInformation,
+
+  /**
+   * The ordinance can not be reserved by the current user without special permission.
+   */
+  NeedPermission,
+
+  /**
+   * The ordinance is not available to be reserved by the current user.
+   */
+  NotAvailable,
+
+  /**
    * The ordinance can not be reserved because it is not needed according to the policies of the Church.
    */
   NotNeeded,
@@ -39,14 +69,9 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   NotNeededBornInCovenant,
 
   /**
-   * The ordinance has been reserved by the current user and can be submitted/printed.
+   * The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time.
    */
-  ReservedBySelf,
-
-  /**
-   * The ordinance has been reserved by a different user.
-   */
-  ReservedByOther,
+  NotReady,
 
   /**
    * The ordinance can be reserved by the current user.
@@ -54,39 +79,14 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   Ready,
 
   /**
-   * The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time.
+   * The ordinance has been reserved by a different user.
    */
-  NotReady,
+  ReservedByOther,
 
   /**
-   * The ordinance has been completed.
+   * The ordinance has been reserved by the current user and can be submitted/printed.
    */
-  Completed,
-
-  /**
-   * The ordinance is not available to be reserved by the current user.
-   */
-  NotAvailable,
-
-  /**
-   * The ordinance can not be reserved by the current user because more information is needed about the person.
-   */
-  NeedMoreInformation,
-
-  /**
-   * The ordinance is currently in progress of the completion process by the current user and can be resubmitted/printed by the current user.
-   */
-  InProgressBySelf,
-
-  /**
-   * The ordinance is currently in progress of the completion process by a different.
-   */
-  InProgressByOther,
-
-  /**
-   * The ordinance can not be reserved by the current user without special permission.
-   */
-  NeedPermission,
+  ReservedBySelf,
 
   @XmlUnknownQNameEnumValue
   OTHER;
