@@ -37,8 +37,14 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** The "sealing to spouse" ordinance requires a spousal relationship between the couple. */
   CoupleRelationshipMissingRule,
 
+  /** The person's death date cannot be before his/her birth date. */
+  DeathBeforeBirthRule,
+
   /** Baptism, Confirmation, Initiatory, Endowment, and Sealing to Spouse ordinances are not needed if a person died before the age of eight. */
   DiedBeforeAgeEightRule,
+
+  /** There's an unstandardizable string in the death or burial date.  Only applied when a person was born recently enough (110 years) that the death date should be findable and standardizable. */
+  DeathDateReformatNeeded,
 
   /** A person's given name(s) cannot contain one or more invalid words or be represented by a traditional prefix such as Mr., Miss, Mrs., etc. */
   InvalidGivenNamePieceRule,
@@ -61,11 +67,11 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** A person who lived before A.D. 1500. */
   MedievalRule,
 
-  /** A person must have a standardized place reference. */
-  MissingStandardizedPlaceRule,
-
   /** A person must have a standardized date reference. */
   MissingStandardizedDateRule,
+
+  /** A person must have a standardized place reference. */
+  MissingStandardizedPlaceRule,
 
   /** A person's surname cannot contain the word "Mister". If the person's surname is Mister, then it should be the only word in the last name. */
   MisterAsOnlySurnameRule,
@@ -75,6 +81,9 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
 
   /** A person's full name (any name form) cannot be more than 255 characters. */
   NameTooLongRule,
+
+  /** This ordinance is for a person born too recently, and the current user is not an immediate relation. */
+  NeedPermission,
 
   /** A person's record needs a given name or surname. */
   NoNameRule,
@@ -88,9 +97,6 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** A person has not been deceased for one year. */
   NotDeadAtLeastOneYearRule,
 
-  /** There's an unstandardizable string in the death or burial date.  Only applied when a person was born recently enough (110 years) that the death date should be findable and standardizable. */
-  DeathDateReformatNeeded,
-
   /** A person must have enough event or relationship information, such as a birth date and place, a death date and place, etc. A person's record must have enough date or place information for the system to be able to determine whether the ordinance is already done. */
   NotMatchableUsingEventsRule,
 
@@ -100,11 +106,11 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** The ordinance must be a valid temple ordinance. The Family Tree cannot be used to reserve ordinances of this type. */
   NotTempleOrdinanceRule,
 
-  /** This is an official completed ordinance. */
-  OfficialCompletedOrdinanceRule,
-
   /** This person is still listed as living. */
   OfficialCompletedOrdinanceForLivingRule,
+
+  /** This is an official completed ordinance. */
+  OfficialCompletedOrdinanceRule,
 
   /** Latin surnames cannot consist on only one letter. */
   OneLatinLetterSurnameRule,
@@ -115,11 +121,11 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** A "sealing to parent" ordinances requires the person to have both child-to-father and child-to-mother relationships. */
   ParentRelationshipMissingRule,
 
-  /** Personal born in covenant rule. distinct from "Born In Covenant" rule because parent relationships are NOT checked. */
-  PersonalBornInCovenantRule,
-
   /** A person's name cannot contain repeated punctuation characters, such as .., --, etc. */
   RepeatingSpecialCharacterNameRule,
+
+  /** The ordinance is reserved. */
+  Reserved,
 
   /** A sealing to spouse must involve a husband and a wife. A sealing to parents must involve a father and a mother. */
   SameSexRule,
@@ -132,12 +138,6 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
 
   /** A person must have a known gender, male or female. */
   UnknownGenderRule,
-
-  /** This ordinance is for a person born too recently, and the current user is not an immediate relation. */
-  NeedPermission,
-
-  /** This person satisfies all qualification rules for ordinances to be performed. */
-  None,
 
   /** This status reason is unknown */
   @XmlUnknownQNameEnumValue
