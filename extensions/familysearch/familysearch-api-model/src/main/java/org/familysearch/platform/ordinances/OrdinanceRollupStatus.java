@@ -29,6 +29,11 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum OrdinanceRollupStatus implements ControlledVocabulary {
 
+  /*
+   Ordinance-Status Rollup Status will have 4 values with priority from highest to lowest READY->RESERVED→NEEDS_MORE_INFORMATION->COMPLETED.
+  */
+
+
   /**
    * This rollup status for the ordinance indicates it has been completed.
    */
