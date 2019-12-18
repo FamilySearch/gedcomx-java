@@ -139,6 +139,15 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** A person must have a known gender, male or female. */
   UnknownGenderRule,
 
+// todo These 2 are deprecated and will be removed when data comes from new upstream service
+  /** Deprecated: Personal born in covenant rule. distinct from "Born In Covenant" rule because parent relationships are NOT checked. */
+  @Deprecated
+  PersonalBornInCovenantRule,
+  /** Deprecated: This person satisfies all qualification rules for ordinances to be performed. */
+  @Deprecated
+  None,
+
+
   /** This status reason is unknown */
   @XmlUnknownQNameEnumValue
   OTHER;
