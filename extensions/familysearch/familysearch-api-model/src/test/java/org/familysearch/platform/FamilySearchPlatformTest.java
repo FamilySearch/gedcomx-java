@@ -13,8 +13,6 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBContext;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -79,14 +77,14 @@ public class FamilySearchPlatformTest {
     assertNull(pcRel.getFacts());
 
     // Now also look up ChildAndParentsRelationship
-    ChildAndParentsRelationship rel = g.findChildAndParentsRelationshipNew(family.getChildren().get(0), family.getParent1(), family.getParent2());
+    ChildAndParentsRelationship rel = g.findChildAndParentsRelationship(family.getChildren().get(0), family.getParent1(), family.getParent2());
     assertEquals("#parent1", rel.getParent1().getResource().toString());
     assertEquals("#parent2", rel.getParent2().getResource().toString());
     assertEquals("#kid1", rel.getChild().getResource().toString());
     assertEquals(FactType.AdoptiveParent, rel.getParent1Facts().get(0).getKnownType());
     assertEquals(FactType.BiologicalParent, rel.getParent2Facts().get(0).getKnownType());
 
-    rel = g.findChildAndParentsRelationshipNew(family.getChildren().get(1), family.getParent1(), family.getParent2());
+    rel = g.findChildAndParentsRelationship(family.getChildren().get(1), family.getParent1(), family.getParent2());
     assertEquals("#parent1", rel.getParent1().getResource().toString());
     assertEquals("#parent2", rel.getParent2().getResource().toString());
     assertEquals("#kid2", rel.getChild().getResource().toString());
@@ -95,7 +93,7 @@ public class FamilySearchPlatformTest {
 
     // Test single-parent family
     FamilyView fam2 = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(1);
-    rel = g.findChildAndParentsRelationshipNew(fam2.getChildren().get(0), fam2.getParent1(), fam2.getParent2());
+    rel = g.findChildAndParentsRelationship(fam2.getChildren().get(0), fam2.getParent1(), fam2.getParent2());
     assertEquals("#parent1", rel.getParent1().getResource().toString());
     assertNull(rel.getParent2());
     assertEquals("#kid3", rel.getChild().getResource().toString());

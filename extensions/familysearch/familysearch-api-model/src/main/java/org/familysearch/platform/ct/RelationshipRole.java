@@ -42,30 +42,6 @@ public enum RelationshipRole implements ControlledVocabulary {
 
   Spouse2,
 
-  // todo GenericRelationshipTerms cleanup    remove @Deprecated values
-  /////////////////////
-  /**
-   * Deprecated: The father in a relationship was changed.  Use Parent1.
-   */
-  @Deprecated
-  Father,
-  /**
-   * Deprecated: The mother in a relationship was changed.  Use Parent2.
-   */
-  @Deprecated
-  Mother,
-  /**
-   * Deprecated: The man in a relationship was changed.  Use Spouse1.
-   */
-  @Deprecated
-  Man,
-  /**
-   * Deprecated: The woman in a relationship was changed.  Use Spouse2.
-   */
-  @Deprecated
-  Woman,
-  /////////////////////
-
   @XmlUnknownQNameEnumValue
   OTHER;
 

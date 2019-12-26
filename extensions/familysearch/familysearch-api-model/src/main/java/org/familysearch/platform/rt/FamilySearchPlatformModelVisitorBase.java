@@ -211,28 +211,6 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
-    // todo GenericRelationshipTerms cleanup    Deprecated - For now need to visit any Facts on deprecated fact fields also -
-    //          The model should never have both old and new naming at the same time.  This should be removed when the deprecated fact fields go away
-    facts = pcr.getFatherFacts();
-    if (facts != null) {
-      for (Fact fact : facts) {
-        if (fact != null) {
-          fact.accept(this);
-        }
-      }
-    }
-    facts = pcr.getMotherFacts();
-    if (facts != null) {
-      for (Fact fact : facts) {
-        if (fact != null) {
-          fact.accept(this);
-        }
-      }
-    }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
     this.contextStack.pop();
   }
 

@@ -40,29 +40,6 @@ public enum ChangeType {
   EDIT_SPOUSE1("Spouse1 Changed", ChangeOperation.Update, ChangeObjectType.Spouse1, ChangeObjectModifier.Couple),
   ADD_SPOUSE2("Spouse2 Added", ChangeOperation.Create, ChangeObjectType.Spouse2, ChangeObjectModifier.Couple),
   EDIT_SPOUSE2("Spouse2 Changed", ChangeOperation.Update, ChangeObjectType.Spouse2, ChangeObjectModifier.Couple),
-  // todo GenericRelationshipTerms cleanup    remove @Deprecated values
-  /////////////////////
-  /**
-   * Deprecated: Use ADD_SPOUSE1.
-   */
-  @Deprecated
-  ADD_MAN("Man Added", ChangeOperation.Create, ChangeObjectType.Man, ChangeObjectModifier.Couple),
-  /**
-   * Deprecated: Use EDIT_SPOUSE1.
-   */
-  @Deprecated
-  EDIT_MAN("Man Changed", ChangeOperation.Update, ChangeObjectType.Man, ChangeObjectModifier.Couple),
-  /**
-   * Deprecated: Use ADD_SPOUSE2.
-   */
-  @Deprecated
-  ADD_WOMAN("Woman Added", ChangeOperation.Create, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
-  /**
-   * Deprecated: Use EDIT_SPOUSE2.
-   */
-  @Deprecated
-  EDIT_WOMAN("Woman Changed", ChangeOperation.Update, ChangeObjectType.Woman, ChangeObjectModifier.Couple),
-  /////////////////////
 
 
   MERGE_COUPLE_RELATIONSHIP("Couple Relationship Merged", ChangeOperation.Merge, ChangeObjectType.Couple, null),
@@ -78,40 +55,6 @@ public enum ChangeType {
   ADD_PARENT2("Parent2 Added", ChangeOperation.Create, ChangeObjectType.Parent2, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_PARENT2("Parent2 Changed", ChangeOperation.Update, ChangeObjectType.Parent2, ChangeObjectModifier.ChildAndParentsRelationship),
   REMOVE_PARENT2("Parent2 Removed", ChangeOperation.Delete, ChangeObjectType.Parent2, ChangeObjectModifier.ChildAndParentsRelationship),
-  // todo GenericRelationshipTerms cleanup    remove @Deprecated values
-  /////////////////////
-  /**
-   * Deprecated: Use ADD_PARENT1.
-   */
-  @Deprecated
-  ADD_FATHER("Father Added", ChangeOperation.Create, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
-  /**
-   * Deprecated: Use EDIT_PARENT1.
-   */
-  @Deprecated
-  EDIT_FATHER("Father Changed", ChangeOperation.Update, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
-  /**
-   * Deprecated: Use REMOVE_PARENT1.
-   */
-  @Deprecated
-  REMOVE_FATHER("Father Removed", ChangeOperation.Delete, ChangeObjectType.Father, ChangeObjectModifier.ChildAndParentsRelationship),
-  /**
-   * Deprecated: Use ADD_PARENT2.
-   */
-  @Deprecated
-  ADD_MOTHER("Mother Added", ChangeOperation.Create, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
-  /**
-   * Deprecated: Use EDIT_PARENT2.
-   */
-  @Deprecated
-  EDIT_MOTHER("Mother Changed", ChangeOperation.Update, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
-  /**
-   * Deprecated: Use REMOVE_PARENT2.
-   */
-  @Deprecated
-  REMOVE_MOTHER("Mother Removed", ChangeOperation.Delete, ChangeObjectType.Mother, ChangeObjectModifier.ChildAndParentsRelationship),
-  /////////////////////
-
 
   ADD_CHILD("Child Added", ChangeOperation.Create, ChangeObjectType.Child, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_CHILD("Child Changed", ChangeOperation.Update, ChangeObjectType.Child, ChangeObjectModifier.ChildAndParentsRelationship),
@@ -119,7 +62,7 @@ public enum ChangeType {
   UNMERGE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Unmerged", ChangeOperation.Unmerge, ChangeObjectType.ChildAndParentsRelationship, null),
   UNTOMBSTONE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Restored", ChangeOperation.Restore, ChangeObjectType.ChildAndParentsRelationship, null),
 
-  /* Todo: Not currently supported
+  /* Not currently supported
   EDIT_PERSON_ACCESS_CONTROL("PersonAccessControl Changed", , ),
   EDIT_COUPLE_RELATIONSHIP_ACCESS_CONTROL("Couple Relationship AccessControl Changed", , ),
   EDIT_PARENT_CHILD_RELATIONSHIP_ACCESS_CONTROL("Parent-Child Relationship AccessControl Changed", , ),

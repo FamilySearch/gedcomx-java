@@ -220,27 +220,12 @@ public class FamilySearchPlatform extends Gedcomx {
     }
   }
 
-  public ChildAndParentsRelationship findChildAndParentsRelationshipNew(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
+  public ChildAndParentsRelationship findChildAndParentsRelationship(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
     if (child != null && getRelationships() != null && (parent1 != null || parent2 != null)) {
       for (ChildAndParentsRelationship relationship : getChildAndParentsRelationships()) {
         if (samePerson(relationship.getChild(), child) &&
             samePerson(relationship.getParent1(), parent1) &&
             samePerson(relationship.getParent2(), parent2)) {
-          return relationship;
-        }
-      }
-    }
-    return null;
-  }
-
-  // todo GenericRelationshipTerms cleanup    remove Deprecated method   may want to rename method findChildAndParentsRelationshipNew() above
-  @Deprecated
-  public ChildAndParentsRelationship findChildAndParentsRelationshipOld(ResourceReference child, ResourceReference parent1, ResourceReference parent2) {
-    if (child != null && getRelationships() != null && (parent1 != null || parent2 != null)) {
-      for (ChildAndParentsRelationship relationship : getChildAndParentsRelationships()) {
-        if (samePerson(relationship.getChild(), child) &&
-            samePerson(relationship.getFather(), parent1) &&
-            samePerson(relationship.getMother(), parent2)) {
           return relationship;
         }
       }
@@ -645,7 +630,7 @@ public class FamilySearchPlatform extends Gedcomx {
     }
   }
 
-  public FamilySearchPlatform addParentChildRelationshipForEachChildAndParentsRelationshipNew() {
+  public FamilySearchPlatform addParentChildRelationshipForEachChildAndParentsRelationship() {
     //for each child-and-parents relationship, add a parent-child relationship.
     List<ChildAndParentsRelationship> parentRelationships = getChildAndParentsRelationships();
     if (parentRelationships != null) {
@@ -717,80 +702,7 @@ public class FamilySearchPlatform extends Gedcomx {
     return this;
   }
 
-  // todo GenericRelationshipTerms cleanup    remove Deprecated method   may want to rename method addParentChildRelationshipForEachChildAndParentsRelationshipNew() above
-  @Deprecated
-  public FamilySearchPlatform addParentChildRelationshipForEachChildAndParentsRelationshipOld() {
-    //for each child-and-parents relationship, add a parent-child relationship.
-    List<ChildAndParentsRelationship> parentRelationships = getChildAndParentsRelationships();
-    if (parentRelationships != null) {
-      for (ChildAndParentsRelationship childAndParentsRelationship : parentRelationships) {
-        String relationshipId = childAndParentsRelationship.getId();
-        if (relationshipId == null) {
-          continue;
-        }
-
-        String childId = childAndParentsRelationship.getChild() != null ? childAndParentsRelationship.getChild().getResourceId() : null;
-        if (childId == null) {
-          continue;
-        }
-
-        String fatherId = childAndParentsRelationship.getFather() != null ? childAndParentsRelationship.getFather().getResourceId() : null;
-        String motherId = childAndParentsRelationship.getMother() != null ? childAndParentsRelationship.getMother().getResourceId() : null;
-
-        Identifier primaryIdentifier = null;
-        if (childAndParentsRelationship.getIdentifiers() != null) {
-          for (Identifier identifier : childAndParentsRelationship.getIdentifiers()) {
-            if (identifier.getKnownType() == IdentifierType.Primary) {
-              primaryIdentifier = identifier;
-              break;
-            }
-          }
-        }
-
-        if (fatherId != null) {
-          Relationship fatherChildRelationship = new Relationship();
-          fatherChildRelationship.setId("F" + relationshipId);
-          fatherChildRelationship.setKnownType(RelationshipType.ParentChild);
-          fatherChildRelationship.setPerson1(childAndParentsRelationship.getFather());
-          fatherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
-          if (primaryIdentifier != null) {
-            fatherChildRelationship.setIdentifiers(new ArrayList<>(1));
-            fatherChildRelationship.getIdentifiers().add(new Identifier());
-            fatherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
-            fatherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
-          }
-          for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
-            fatherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
-          }
-          fatherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
-          addRelationship(fatherChildRelationship);
-        }
-
-        if (motherId != null) {
-          Relationship motherChildRelationship = new Relationship();
-          motherChildRelationship.setId("M" + relationshipId);
-          motherChildRelationship.setKnownType(RelationshipType.ParentChild);
-          motherChildRelationship.setPerson1(childAndParentsRelationship.getMother());
-          motherChildRelationship.setPerson2(childAndParentsRelationship.getChild());
-          if (primaryIdentifier != null) {
-            motherChildRelationship.setIdentifiers(new ArrayList<>(1));
-            motherChildRelationship.getIdentifiers().add(new Identifier());
-            motherChildRelationship.getIdentifiers().get(0).setType(FamilySearchIdentifierType.ChildAndParentsRelationship.toQNameURI(), true);
-            motherChildRelationship.getIdentifiers().get(0).setValue(primaryIdentifier.getValue());
-          }
-          for (Map.Entry<String, Object> transientProperty : childAndParentsRelationship.getTransientProperties().entrySet()) {
-            motherChildRelationship.setTransientProperty(transientProperty.getKey(), transientProperty.getValue());
-          }
-          motherChildRelationship.setSortKey(childAndParentsRelationship.getSortKey());
-          addRelationship(motherChildRelationship);
-        }
-      }
-    }
-    return this;
-  }
-
   @Override
-  // todo GenericRelationshipTerms cleanup    remove this method and rename the fixLocalReferencesNew() below and make it the @Override
   public FamilySearchPlatform fixLocalReferences() {
     List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
     List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
@@ -801,63 +713,10 @@ public class FamilySearchPlatform extends Gedcomx {
       String localId = local.getId();
       if (localId != null) {
         for (ChildAndParentsRelationship capRelationship : childAndParentsRelationships) {
-          // fixId() checks if ResourceReference is null or not so this will work for both old and new naming.  Both namings must not exist at the same time
-          fixId(capRelationship.getParent1(), localId);
-          fixId(capRelationship.getParent2(), localId);
-          /////////////////////
-          fixId(capRelationship.getFather(), localId);      // Both namings must not exist at the same time
-          fixId(capRelationship.getMother(), localId);      // Both namings must not exist at the same time
-          /////////////////////
-
-          fixId(capRelationship.getChild(), localId);
-          fixupSourceReferences(sds, capRelationship);
-        }
-        fixupPersonReferencesInOrdinances(ordinances, localId);
-      }
-    }
-
-    return (FamilySearchPlatform) super.fixLocalReferences();
-  }
-
-  // todo GenericRelationshipTerms cleanup    just rename this method to fixLocalReferences() and make this code the @Override
-  public FamilySearchPlatform fixLocalReferencesNew() {
-    List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
-    List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
-    List<Ordinance> ordinances = getOrdinances(this);
-    List<SourceDescription> sds = getSourceDescriptions() == null ? Collections.emptyList() : getSourceDescriptions();
-
-    for (Person local : locals) {
-      String localId = local.getId();
-      if (localId != null) {
-        for (ChildAndParentsRelationship capRelationship : childAndParentsRelationships) {
           fixId(capRelationship.getParent1(), localId);
           fixId(capRelationship.getParent2(), localId);
           fixId(capRelationship.getChild(), localId);
           fixupSourceReferences(sds, capRelationship);
-        }
-        fixupPersonReferencesInOrdinances(ordinances, localId);
-      }
-    }
-
-    return (FamilySearchPlatform) super.fixLocalReferences();
-  }
-
-  // todo GenericRelationshipTerms cleanup    remove Deprecated method   may want to rename method fixLocalReferencesNew() above
-  @Deprecated
-  public FamilySearchPlatform fixLocalReferencesOld() {
-    List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
-    List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
-    List<Ordinance> ordinances = getOrdinances(this);
-    List<SourceDescription> sds = getSourceDescriptions() == null ? Collections.emptyList() : getSourceDescriptions();
-
-    for (Person local : locals) {
-      String localId = local.getId();
-      if (localId != null) {
-        for (ChildAndParentsRelationship relationship : childAndParentsRelationships) {
-          fixId(relationship.getFather(), localId);
-          fixId(relationship.getMother(), localId);
-          fixId(relationship.getChild(), localId);
-          fixupSourceReferences(sds, relationship);
         }
         fixupPersonReferencesInOrdinances(ordinances, localId);
       }

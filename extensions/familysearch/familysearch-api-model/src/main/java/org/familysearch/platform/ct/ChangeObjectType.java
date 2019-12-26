@@ -70,31 +70,6 @@ public enum ChangeObjectType implements ControlledVocabulary {
    */
   Parent2,
 
-
-  // todo GenericRelationshipTerms cleanup    remove @Deprecated values
-  /////////////////////
-  /**
-   * Deprecated: The man in a couple relationship was changed.  Use Spouse1.
-   */
-  @Deprecated
-  Man,
-  /**
-   * Deprecated: The woman in a couple relationship was changed.  Use Spouse2.
-   */
-  @Deprecated
-  Woman,
-  /**
-   * Deprecated: The father in a couple-child relationship was changed.  Use Parent1.
-   */
-  @Deprecated
-  Father,
-  /**
-   * Deprecated: The mother in a couple-child relationship was changed.  Use Parent2.
-   */
-  @Deprecated
-  Mother,
-  /////////////////////
-
   /**
    * The child in a couple-child relationship was changed.
    */
