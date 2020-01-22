@@ -20,11 +20,11 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.filter.ClientFilter;
 
-public class ExperimentsFilter extends ClientFilter {
+public class ExperimentsJerseyClientFilter extends ClientFilter {
 
   private final String experiments;
 
-  public ExperimentsFilter(String... experiments) {
+  public ExperimentsJerseyClientFilter(String... experiments) {
     StringBuilder experimentsList = new StringBuilder();
     for (int i = 0; i < experiments.length; i++) {
       String experiment = experiments[i];

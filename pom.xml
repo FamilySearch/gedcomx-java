@@ -26,7 +26,7 @@
     <jackson.databind.version>2.10.0</jackson.databind.version>
     <jackson.jaxrs.version>2.10.0</jackson.jaxrs.version>
     <jaxb-runtime.version>2.2.11</jaxb-runtime.version>
-    <jersey.version>1.19.2</jersey.version>
+    <jersey1.version>1.19.4</jersey1.version>
     <jena-arq.version>3.1.0</jena-arq.version>
     <jsr311-api.version>1.1.1</jsr311-api.version>
     <junit.version>4.12</junit.version>
@@ -142,20 +142,20 @@
       <dependency>
         <groupId>com.sun.jersey</groupId>
         <artifactId>jersey-client</artifactId>
-        <version>${jersey.version}</version>
+        <version>${jersey1.version}</version>
       </dependency>
 
       <dependency>
         <groupId>com.sun.jersey</groupId>
         <artifactId>jersey-server</artifactId>
-        <version>${jersey.version}</version>
+        <version>${jersey1.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>com.sun.jersey.contribs</groupId>
         <artifactId>jersey-multipart</artifactId>
-        <version>${jersey.version}</version>
+        <version>${jersey1.version}</version>
       </dependency>
 
       <dependency>
