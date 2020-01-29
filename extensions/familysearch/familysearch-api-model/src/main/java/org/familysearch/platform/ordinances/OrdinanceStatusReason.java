@@ -64,6 +64,9 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** A person has a title but no given name. A male person with a title and surname name must have a given name */
   InvalidTitleGivenMissingRule,
 
+  /** The person's marriage fact date occur's before the person is eight years old */
+  MarriedTooYoungRule,
+
   /** A person who lived before A.D. 1500. */
   MedievalRule,
 
