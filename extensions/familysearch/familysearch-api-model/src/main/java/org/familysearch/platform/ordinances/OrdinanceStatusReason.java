@@ -32,115 +32,115 @@ import org.gedcomx.rt.EnumURIMap;
 public enum OrdinanceStatusReason implements ControlledVocabulary {
 
   /** The "sealing to parent" ordinance is not needed when an individual is "born in the covenant".  Parent relationships are checked. */
-  BornInCovenantRule,
+  BornInCovenant,
 
   /** The "sealing to spouse" ordinance requires a spousal relationship between the couple. */
-  CoupleRelationshipMissingRule,
+  CoupleRelationshipMissing,
 
   /** The person's death date cannot be before his/her birth date. */
-  DeathBeforeBirthRule,
+  DeathBeforeBirth,
 
   /** Baptism, Confirmation, Initiatory, Endowment, and Sealing to Spouse ordinances are not needed if a person died before the age of eight. */
-  DiedBeforeAgeEightRule,
+  DiedBeforeAgeEight,
 
   /** There's an unstandardizable string in the death or burial date.  Only applied when a person was born recently enough (110 years) that the death date should be findable and standardizable. */
   DeathDateReformatNeeded,
 
   /** A person's given name(s) cannot contain one or more invalid words or be represented by a traditional prefix such as Mr., Miss, Mrs., etc. */
-  InvalidGivenNamePieceRule,
+  InvalidGivenNamePiece,
 
   /** This person's name contains one or more invalid words. */
-  InvalidNameRule,
+  InvalidName,
 
   /** A person's name cannot include descriptors such as Child, Baby, Son, Daughter, Sister, Brother, Aunt, Uncle, etc. */
-  InvalidSingleNamePieceRule,
+  InvalidSingleNamePiece,
 
   /** A person's name cannot include invalid characters. */
-  InvalidSpecialCharacterNameRule,
+  InvalidSpecialCharacterName,
 
   /** A person's surname contains invalid words or characters. A person's surname cannot be a descriptor such as nephew, niece, spouse, twin, etc. */
-  InvalidSurnameRule,
+  InvalidSurname,
 
   /** A person has a title but no given name. A male person with a title and surname name must have a given name */
-  InvalidTitleGivenMissingRule,
+  InvalidTitleGivenMissing,
 
   /** The person's marriage fact date occur's before the person is eight years old */
-  MarriedTooYoungRule,
+  MarriedTooYoung,
 
   /** A person who lived before A.D. 1500. */
-  MedievalRule,
+  Medieval,
 
   /** A person must have a standardized date reference. */
-  MissingStandardizedDateRule,
+  MissingStandardizedDate,
 
   /** A person must have a standardized place reference. */
-  MissingStandardizedPlaceRule,
+  MissingStandardizedPlace,
 
   /** A person's surname cannot contain the word "Mister". If the person's surname is Mister, then it should be the only word in the last name. */
-  MisterAsOnlySurnameRule,
+  MisterAsOnlySurname,
 
   /** A person cannot have a name that is only initials. */
-  NameContainsOnlyInitialsRule,
+  NameContainsOnlyInitials,
 
   /** A person's full name (any name form) cannot be more than 255 characters. */
-  NameTooLongRule,
+  NameTooLong,
 
   /** This ordinance is for a person born too recently, and the current user is not an immediate relation. */
   NeedPermission,
 
   /** A person's record needs a given name or surname. */
-  NoNameRule,
+  NoName,
 
   /** A person has been declared not accountable. */
-  NotAccountableRule,
+  NotAccountable,
 
   /** A person's ordinance status is not available. Please contact FamilySearch Support if you are a direct descendant and need more information. */
   NotAvailable,
 
   /** A person has not been deceased for one year. */
-  NotDeadAtLeastOneYearRule,
+  NotDeadAtLeastOneYear,
 
   /** A person must have enough event or relationship information, such as a birth date and place, a death date and place, etc. A person's record must have enough date or place information for the system to be able to determine whether the ordinance is already done. */
-  NotMatchableUsingEventsRule,
+  NotMatchableUsingEvents,
 
   /** A person must have has enough event or relationship information. A person's record must have enough relationship information for the system to be able to determine whether the ordinance is already done. */
-  NotMatchableUsingRelationshipsRule,
+  NotMatchableUsingRelationships,
 
   /** The ordinance must be a valid temple ordinance. The Family Tree cannot be used to reserve ordinances of this type. */
-  NotTempleOrdinanceRule,
+  NotTempleOrdinance,
 
   /** This person is still listed as living. */
-  OfficialCompletedOrdinanceForLivingRule,
+  OfficialCompletedOrdinanceForLiving,
 
   /** This is an official completed ordinance. */
-  OfficialCompletedOrdinanceRule,
+  OfficialCompletedOrdinance,
 
   /** Latin surnames cannot consist on only one letter. */
-  OneLatinLetterSurnameRule,
+  OneLatinLetterSurname,
 
   /** ONE_NAME_PER_SCRIPT_TYPE maps to "one.name.per.script.type" */
-  OneNamePerScriptTypeRule,
+  OneNamePerScriptType,
 
   /** A "sealing to parent" ordinances requires the person to have both child-to-father and child-to-mother relationships. */
-  ParentRelationshipMissingRule,
+  ParentRelationshipMissing,
 
   /** A person's name cannot contain repeated punctuation characters, such as .., --, etc. */
-  RepeatingSpecialCharacterNameRule,
+  RepeatingSpecialCharacterName,
 
   /** The ordinance is reserved. */
   Reserved,
 
   /** A sealing to spouse must involve a husband and a wife. A sealing to parents must involve a father and a mother. */
-  SameSexRule,
+  SameSex,
 
   /** A person cannot be sealed to themselves. */
-  SealingToSelfRule,
+  SealingToSelf,
 
   /** A stillborn (actually dead at birth) person does not need ordinances. */
-  StillbornRule,
+  Stillborn,
 
   /** A person must have a known gender, male or female. */
-  UnknownGenderRule,
+  UnknownGender,
 
 // todo These 2 are deprecated and will be removed when data comes from new upstream service
   /** Deprecated: Personal born in covenant rule. distinct from "Born In Covenant" rule because parent relationships are NOT checked. */
@@ -149,6 +149,41 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** Deprecated: This person satisfies all qualification rules for ordinances to be performed. */
   @Deprecated
   None,
+
+  // These are also deprecated and will be removed  "...Rule" is not the suffix any more
+  BornInCovenantRule,
+  CoupleRelationshipMissingRule,
+  DeathBeforeBirthRule,
+  DiedBeforeAgeEightRule,
+  InvalidGivenNamePieceRule,
+  InvalidNameRule,
+  InvalidSingleNamePieceRule,
+  InvalidSpecialCharacterNameRule,
+  InvalidSurnameRule,
+  InvalidTitleGivenMissingRule,
+  MarriedTooYoungRule,
+  MedievalRule,
+  MissingStandardizedDateRule,
+  MissingStandardizedPlaceRule,
+  MisterAsOnlySurnameRule,
+  NameContainsOnlyInitialsRule,
+  NameTooLongRule,
+  NoNameRule,
+  NotAccountableRule,
+  NotDeadAtLeastOneYearRule,
+  NotMatchableUsingEventsRule,
+  NotMatchableUsingRelationshipsRule,
+  NotTempleOrdinanceRule,
+  OfficialCompletedOrdinanceForLivingRule,
+  OfficialCompletedOrdinanceRule,
+  OneLatinLetterSurnameRule,
+  OneNamePerScriptTypeRule,
+  ParentRelationshipMissingRule,
+  RepeatingSpecialCharacterNameRule,
+  SameSexRule,
+  SealingToSelfRule,
+  StillbornRule,
+  UnknownGenderRule,
 
 
   /** This status reason is unknown */
