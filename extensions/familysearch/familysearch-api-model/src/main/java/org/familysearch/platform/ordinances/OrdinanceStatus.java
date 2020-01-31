@@ -28,17 +28,11 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum OrdinanceStatus implements ControlledVocabulary {
 
+  /** The ordinance is not needed because the person was born in the covenant. */
+  BornInCovenant,
+
   /** The ordinance has been completed. */
   Completed,
-
-  /** The ordinance is currently in progress of the completion process by a different user. */
-  InProgressByOther,
-
-  /** The ordinance has been reserved, shared with or assigned to Church inventory, and is currently in progress of the completion process by a different user. */
-  InProgressByOtherAfterShared,
-
-  /** The ordinance is currently in progress of the completion process by the current user and can be resubmitted/printed by the current user. */
-  InProgressBySelf,
 
   /** The ordinance can not be reserved by the current user because more information is needed about the person. */
   NeedMoreInformation,
@@ -52,11 +46,17 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   /** The ordinance can not be reserved because it is not needed according to the policies of the Church. */
   NotNeeded,
 
-  /** The ordinance can not be reserved because it is not needed because the person was born in the covenant. */
-  NotNeededBornInCovenant,
-
   /** The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time. */
   NotReady,
+
+  /** The ordinance has been printed and is currently in progress of completion by a different user. */
+  PrintedByOther,
+
+  /** The ordinance was reserved, shared with or assigned to Church inventory, and has been printed by a different user. */
+  PrintedByOtherAfterShared,
+
+  /** The ordinance has been printed and is currently in progress of completion by the current user. */
+  PrintedBySelf,
 
   /** The ordinance can be reserved by the current user. */
   Ready,
@@ -64,10 +64,10 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   /** The ordinance has been reserved by a different user. */
   ReservedByOther,
 
-  /** The ordinance has been reserved by a different user and shared with or assigned to Church inventory. */
+  /** The ordinance was reserved by a different user and shared with or assigned to Church inventory. It may be reserved by the current user. */
   ReservedByOtherAndSharedReady,
 
-  /** The ordinance has been reserved by the current user and can be submitted/printed. */
+  /** The ordinance has been reserved by the current user and can be printed. */
   ReservedBySelf,
 
   /** The ordinance has been reserved by the current user and shared with or assigned to Church inventory. */
@@ -75,6 +75,11 @@ public enum OrdinanceStatus implements ControlledVocabulary {
 
   /** The ordinance has been reserved by the current user and is waiting for prerequisite ordinances to be completed. */
   ReservedBySelfAndWaiting,
+
+  // todo the following 3 Ordinance status have been renamed.  These names are deprecated and will be removed.
+  InProgressByOther,
+  InProgressBySelf,
+  NotNeededBornInCovenant,
 
   @XmlUnknownQNameEnumValue
   OTHER;
