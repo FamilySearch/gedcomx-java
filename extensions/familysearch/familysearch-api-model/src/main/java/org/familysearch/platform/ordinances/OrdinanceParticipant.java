@@ -34,8 +34,8 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class OrdinanceParticipant {
 
   private URI roleType;
+  private URI sexType;
   private ResourceReference participant;
-  // should there be a gender or any other info or does roleType imply that?
 
 
   /**
@@ -87,6 +87,54 @@ public class OrdinanceParticipant {
     return this;
   }
 
+  /**
+   * Gets the sex type for this participant in the ordinance
+   * @return the sex type for this participant
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(OrdinanceSexType.class)
+  public URI getSexType() {
+    return sexType;
+  }
+
+  /**
+   * Sets the sex type for this participant in the ordinance
+   * @param sexType the sex type for this participant
+   */
+  public void setSexType(URI sexType) {
+    this.sexType = sexType;
+  }
+
+  /**
+   * The enum referencing the known ordinance sex type, or {@link OrdinanceSexType#OTHER} if not known.
+   *
+   * @return The enum referencing the known ordinance sex type, or {@link OrdinanceSexType#OTHER} if not known.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public OrdinanceSexType getKnownSexType() {
+    return getSexType() == null ? null : OrdinanceSexType.fromQNameURI(getSexType());
+  }
+
+  /**
+   * Set the ordinance sex type from an enumeration of known ordinance sex types.
+   *
+   * @param knownSexType The ordinance sex type.
+   */
+  @JsonIgnore
+  public void setKnownSexType(OrdinanceSexType knownSexType) {
+    setSexType(knownSexType == null ? null : knownSexType.toQNameURI());
+  }
+
+  public OrdinanceParticipant sexType(URI sexType) {
+    setSexType(sexType);
+    return this;
+  }
+
+  public OrdinanceParticipant knownSexType(OrdinanceSexType knownSexType) {
+    setKnownSexType(knownSexType);
+    return this;
+  }
 
   /**
    * Get the participant associated with the ordinance

@@ -38,7 +38,10 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
-@XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "participants", "reservation", "date", "templeCode"})
+@XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "actions", "person", "sexType", "participants", "reservation",
+                                           "templeCode", "completionDate",
+                                           // These field(s) will be removed
+                                           "date", })
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 //
 // @XmlQNameEnumRef(OrdinanceStatusReason.class)   Cannot be used on getStatusReasons() because of enunciate bug and the OrdinanceStatusReason docs
@@ -49,13 +52,19 @@ public class Ordinance extends Conclusion {
 
   private URI type;
   private URI status;
-
   private List<URI> statusReasons;
+  private OrdinanceActions actions;
+
+  private ResourceReference person;
+  private URI sexType;
   private List<OrdinanceParticipant> participants;
   private OrdinanceReservation reservation;
 
-  private Date date;
   private String templeCode;
+  private Date completionDate;
+
+  @Deprecated
+  private Date date;
 
   /**
    * Gets the type of ordinance
@@ -226,6 +235,99 @@ public class Ordinance extends Conclusion {
   }
 
   /**
+   * User specific actions for this ordinance
+   * @return the Actions for this ordinance
+   */
+  @XmlElement(name = "actions")
+  @JsonProperty("actions")
+  public OrdinanceActions getActions() {
+    return actions;
+  }
+
+  @JsonProperty("actions")
+  public void setActions(OrdinanceActions actions) {
+    this.actions = actions;
+  }
+
+  /**
+   * Build out this ordinance with the actions.
+   *
+   * @param actions the ordinance actions.
+   * @return this
+   */
+  public Ordinance actions(OrdinanceActions actions) {
+    setActions(actions);
+    return this;
+  }
+
+  /**
+   * Get the principal person associated with the ordinance
+   *
+   * @return The principal person associated with the ordinance
+   */
+  public ResourceReference getPerson() {
+    return person;
+  }
+
+  /**
+   * Set the principal person associated with the ordinance.
+   *
+   * @param person The principal person associated with the ordinance.
+   */
+  public void setParticipant(ResourceReference person) {
+    this.person = person;
+  }
+
+  /**
+   * Gets the sex type for this principal person in the ordinance
+   * @return the sex type for this principal person
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(OrdinanceSexType.class)
+  public URI getSexType() {
+    return sexType;
+  }
+
+  /**
+   * Sets the sex type for this principal person in the ordinance
+   * @param sexType the sex type for this principal person
+   */
+  public void setSexType(URI sexType) {
+    this.sexType = sexType;
+  }
+
+  /**
+   * The enum referencing the known ordinance sex type, or {@link OrdinanceSexType#OTHER} if not known.
+   *
+   * @return The enum referencing the known ordinance sex type, or {@link OrdinanceSexType#OTHER} if not known.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public OrdinanceSexType getKnownSexType() {
+    return getSexType() == null ? null : OrdinanceSexType.fromQNameURI(getSexType());
+  }
+
+  /**
+   * Set the ordinance sex type from an enumeration of known ordinance sex types.
+   *
+   * @param knownSexType The ordinance sex type.
+   */
+  @JsonIgnore
+  public void setKnownSexType(OrdinanceSexType knownSexType) {
+    setSexType(knownSexType == null ? null : knownSexType.toQNameURI());
+  }
+
+  public Ordinance sexType(URI sexType) {
+    setSexType(sexType);
+    return this;
+  }
+
+  public Ordinance knownSexType(OrdinanceSexType knownSexType) {
+    setKnownSexType(knownSexType);
+    return this;
+  }
+
+  /**
    * The participants for this ordinance.
    *
    * @return The participants for this ordinance.
@@ -288,25 +390,25 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * The date of this ordinance.
+   * The completion date of this ordinance.
    *
-   * @return The date of this ordinance.
+   * @return The completion date of this ordinance.
    */
-  public Date getDate() {
-    return date;
+  public Date getCompletionDate() {
+    return completionDate;
   }
 
   /**
-   * The date of this ordinance.
+   * The completion date of this ordinance.
    *
-   * @param date The date of this ordinance.
+   * @param completionDate The completion date of this ordinance.
    */
-  public void setDate(Date date) {
-    this.date = date;
+  public void setCompletionDate(Date completionDate) {
+    this.completionDate = completionDate;
   }
 
-  public Ordinance date(Date date) {
-    setDate(date);
+  public Ordinance completionDate(Date completionDate) {
+    setDate(completionDate);
     return this;
   }
 
@@ -332,4 +434,35 @@ public class Ordinance extends Conclusion {
     setTempleCode(templeCode);
     return this;
   }
+
+  // =======================================================================================================================================
+  // =======================================================================================================================================
+  // These methods are deprecated and will be removed
+  /**
+   * Deprecated: The date of this ordinance.
+   *
+   * @return The date of this ordinance.
+   */
+  @Deprecated
+  public Date getDate() {
+    return date;
+  }
+
+  /**
+   * Deprecated: The date of this ordinance.
+   *
+   * @param date The date of this ordinance.
+   */
+  @Deprecated
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  @Deprecated
+  public Ordinance date(Date date) {
+    setDate(date);
+    return this;
+  }
+
+
 }

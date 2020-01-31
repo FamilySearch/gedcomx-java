@@ -39,11 +39,20 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class OrdinanceReservation {
 
   private ResourceReference owner;
-  private Date reserved;
-  private Date modified;
-  private Date expired;
+  private Date reserveDate;
+  private Date updateDate;
+  private Date expirationDate;
   private URI assigneeType;
+
+  @Deprecated
+  private Date reserved;
+  @Deprecated
+  private Date modified;
+  @Deprecated
+  private Date expired;
+  @Deprecated
   private List<URI> possibleAssigneeTypes;
+
 
   /**
    * Get the owner associated with the ordinance reservation
@@ -75,74 +84,74 @@ public class OrdinanceReservation {
   }
 
   /**
-   * The reserved timestamp for the ordinance reservation.
+   * The reserve timestamp for the ordinance reservation.
    *
-   * @return The reserved timestamp for the ordinance reservation.
+   * @return The reserve timestamp for the ordinance reservation.
    */
-  public Date getReserved() {
-    return reserved;
+  public Date getReserveDate() {
+    return reserveDate;
   }
 
-  public void setReserved(Date reserved) {
-    this.reserved = reserved;
+  public void setReserveDate(Date reserveDate) {
+    this.reserveDate = reserveDate;
   }
 
   /**
-   * Build up this ordinance reservation with a reserved date.
+   * Build up this ordinance reservation with a reserve date.
    *
-   * @param reserved The reserved date.
+   * @param reserveDate The reserveDate.
    * @return this.
    */
-  public OrdinanceReservation reserved(Date reserved) {
-    this.reserved = reserved;
+  public OrdinanceReservation reserveDate(Date reserveDate) {
+    this.reserveDate = reserveDate;
     return this;
   }
 
   /**
-   * The modified timestamp for the ordinance reservation.
+   * The update timestamp for the ordinance reservation.
    *
-   * @return The modified timestamp for the ordinance reservation.
+   * @return The update timestamp for the ordinance reservation.
    */
-  public Date getModified() {
-    return modified;
+  public Date getUpdateDate() {
+    return updateDate;
   }
 
-  public void setModified(Date modified) {
-    this.modified = modified;
+  public void setUpdateDate(Date updateDate) {
+    this.updateDate = updateDate;
   }
 
   /**
-   * Build up this ordinance reservation with a modified date.
+   * Build up this ordinance reservation with an update date.
    *
-   * @param modified The modified date.
+   * @param updateDate The modified date.
    * @return this.
    */
-  public OrdinanceReservation modified(Date modified) {
-    this.modified = modified;
+  public OrdinanceReservation updateDate(Date updateDate) {
+    this.updateDate = updateDate;
     return this;
   }
 
   /**
-   * The expired timestamp for the ordinance reservation.  This is the timestamp when the ordinance reservation will expire.
+   * The expiration timestamp for the ordinance reservation.  This is the timestamp when this ordinance reservation will expire.
    *
-   * @return The expired timestamp for the ordinance reservation.
+   * @return The expiration timestamp for the ordinance reservation.
    */
-  public Date getExpired() {
-    return expired;
+  public Date getExpirationDate() {
+    return expirationDate;
   }
 
-  public void setExpired(Date expired) {
-    this.expired = expired;
+  public void setExpirationDate(Date expirationDate) {
+    this.expirationDate = expirationDate;
   }
 
   /**
-   * Build up this ordinance reservation with a expired date.
+   * Build up this ordinance reservation with a expiration date.
    *
-   * @param expired The expired date.
+   * @param expirationDate The expiration date.
    * @return this.
    */
-  public OrdinanceReservation expired(Date expired) {
-    this.expired = expired;
+  public OrdinanceReservation expirationDate(Date expirationDate) {
+    this.expirationDate = expirationDate;
     return this;
   }
 
@@ -207,23 +216,110 @@ public class OrdinanceReservation {
     return this;
   }
 
+  // =======================================================================================================================================
+  // =======================================================================================================================================
+  // These methods are deprecated and will be removed
   /**
-   * The possible assigneeTypes the reservation could be assigned to.
+   * Deprecated: The reserved timestamp for the ordinance reservation.
+   *
+   * @return The reserved timestamp for the ordinance reservation.
+   */
+  @Deprecated
+  public Date getReserved() {
+    return reserved;
+  }
+
+  @Deprecated
+  public void setReserved(Date reserved) {
+    this.reserved = reserved;
+  }
+
+  /**
+   * Deprecated: Build up this ordinance reservation with a reserved date.
+   *
+   * @param reserved The reserved date.
+   * @return this.
+   */
+  @Deprecated
+  public OrdinanceReservation reserved(Date reserved) {
+    this.reserved = reserved;
+    return this;
+  }
+
+  /**
+   * Deprecated: The modified timestamp for the ordinance reservation.
+   *
+   * @return The modified timestamp for the ordinance reservation.
+   */
+  @Deprecated
+  public Date getModified() {
+    return modified;
+  }
+
+  @Deprecated
+  public void setModified(Date modified) {
+    this.modified = modified;
+  }
+
+  /**
+   * Deprecated: Build up this ordinance reservation with a modified date.
+   *
+   * @param modified The modified date.
+   * @return this.
+   */
+  @Deprecated
+ public OrdinanceReservation modified(Date modified) {
+    this.modified = modified;
+    return this;
+  }
+
+  /**
+   * Deprecated: The expired timestamp for the ordinance reservation.  This is the timestamp when the ordinance reservation will expire.
+   *
+   * @return The expired timestamp for the ordinance reservation.
+   */
+  @Deprecated
+  public Date getExpired() {
+    return expired;
+  }
+
+  @Deprecated
+  public void setExpired(Date expired) {
+    this.expired = expired;
+  }
+
+  /**
+   * Deprecated: Build up this ordinance reservation with a expired date.
+   *
+   * @param expired The expired date.
+   * @return this.
+   */
+  @Deprecated
+  public OrdinanceReservation expired(Date expired) {
+    this.expired = expired;
+    return this;
+  }
+
+  /**
+   * Deprecated: The possible assigneeTypes the reservation could be assigned to.
    *
    * @return The possible assigneeTypes the reservation could be assigned to.
    */
   @XmlElement(name="possibleAssigneeType")
   @JsonProperty("possibleAssigneeTypes")
   // Do not include this annotation: @XmlQNameEnumRef(OrdinanceReservationAssigneeType.class)  There is a bug in enunciate for Collection<URI/String>
+  @Deprecated
   public List<URI> getPossibleAssigneeTypes() {
     return possibleAssigneeTypes;
   }
 
   @JsonProperty("possibleAssigneeTypes")
+  @Deprecated
   public void setPossibleAssigneeTypes(List<URI> possibleAssigneeTypes) {
     this.possibleAssigneeTypes = possibleAssigneeTypes;
   }
 
+  @Deprecated
   public void addPossibleAssigneeType(URI assigneeType) {
     if (assigneeType != null) {
       if (possibleAssigneeTypes == null) {
@@ -233,22 +329,25 @@ public class OrdinanceReservation {
     }
   }
 
+  @Deprecated
   public void addKnownPossibleAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
     addPossibleAssigneeType(knownAssigneeType == null ? null : knownAssigneeType.toQNameURI());
   }
 
   /**
-   * Build out the possible assigneeTypes the reservation could be assigned to.
+   * Deprecated: Build out the possible assigneeTypes the reservation could be assigned to.
    *
    * @param assigneeType The URI for the possible assigneeType the reservation could be assigned to.
    *
    * @return this.
    */
+  @Deprecated
   public OrdinanceReservation possibleAssigneeType(URI assigneeType) {
     addPossibleAssigneeType(assigneeType);
     return this;
   }
 
+  @Deprecated
   public OrdinanceReservation possibleAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
     addKnownPossibleAssigneeType(knownAssigneeType);
     return this;
