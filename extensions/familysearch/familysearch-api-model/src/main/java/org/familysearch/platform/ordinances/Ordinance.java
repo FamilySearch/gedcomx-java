@@ -274,7 +274,7 @@ public class Ordinance extends Conclusion {
    *
    * @param person The principal person associated with the ordinance.
    */
-  public void setParticipant(ResourceReference person) {
+  public void setPerson(ResourceReference person) {
     this.person = person;
   }
 
@@ -408,7 +408,7 @@ public class Ordinance extends Conclusion {
   }
 
   public Ordinance completionDate(Date completionDate) {
-    setDate(completionDate);
+    setCompletionDate(completionDate);
     return this;
   }
 
