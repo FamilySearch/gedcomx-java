@@ -39,9 +39,9 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class OrdinanceReservation {
 
   private ResourceReference owner;
-  private Date reserveDate;
-  private Date updateDate;
-  private Date expirationDate;
+  private Date reserveDate;                 // a java.util.Date
+  private Date updateDate;                  // a java.util.Date
+  private Date expirationDate;              // a java.util.Date
   private URI assigneeType;
 
   @Deprecated

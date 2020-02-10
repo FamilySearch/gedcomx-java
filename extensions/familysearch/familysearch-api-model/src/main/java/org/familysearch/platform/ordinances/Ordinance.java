@@ -16,6 +16,7 @@
 package org.familysearch.platform.ordinances;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -33,7 +34,6 @@ import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
-import org.gedcomx.conclusion.Date;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement(name = "ordinance")
@@ -61,10 +61,10 @@ public class Ordinance extends Conclusion {
   private OrdinanceReservation reservation;
 
   private String templeCode;
-  private Date completionDate;
+  private Date completionDate;      // a java.util.Date
 
   @Deprecated
-  private Date date;
+  private org.gedcomx.conclusion.Date date;        // a gedcomx conclusion Date
 
   /**
    * Gets the type of ordinance
@@ -444,7 +444,7 @@ public class Ordinance extends Conclusion {
    * @return The date of this ordinance.
    */
   @Deprecated
-  public Date getDate() {
+  public org.gedcomx.conclusion.Date getDate() {
     return date;
   }
 
@@ -454,12 +454,12 @@ public class Ordinance extends Conclusion {
    * @param date The date of this ordinance.
    */
   @Deprecated
-  public void setDate(Date date) {
+  public void setDate(org.gedcomx.conclusion.Date date) {
     this.date = date;
   }
 
   @Deprecated
-  public Ordinance date(Date date) {
+  public Ordinance date(org.gedcomx.conclusion.Date date) {
     setDate(date);
     return this;
   }

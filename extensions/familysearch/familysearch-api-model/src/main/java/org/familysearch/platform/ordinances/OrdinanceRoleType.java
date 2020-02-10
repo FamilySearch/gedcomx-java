@@ -27,9 +27,14 @@ import org.gedcomx.rt.EnumURIMap;
   base = XmlQNameEnum.BaseType.URI
 )
 public enum OrdinanceRoleType implements ControlledVocabulary {
-  Father,
-  Mother,
+  Parent,
   Spouse,
+
+  // todo this will be removed
+  @Deprecated
+  Father,
+  @Deprecated
+  Mother,
 
   @XmlUnknownQNameEnumValue
   OTHER;
