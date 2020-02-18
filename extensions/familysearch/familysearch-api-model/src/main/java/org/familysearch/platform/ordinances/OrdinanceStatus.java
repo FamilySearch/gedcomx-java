@@ -34,47 +34,54 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   /** The ordinance has been completed. */
   Completed,
 
-  /** The ordinance can not be reserved by the current user because more information is needed about the person. */
+  /** The ordinance can not be reserved because more information is needed about the person. */
   NeedMoreInformation,
 
-  /** The ordinance can not be reserved by the current user without special permission. */
+  /** The ordinance can not be reserved without special permission. */
   NeedPermission,
 
-  /** The ordinance is not available to be reserved by the current user. */
+  /** The ordinance is not available to be reserved. */
   NotAvailable,
 
   /** The ordinance can not be reserved because it is not needed according to the policies of the Church. */
   NotNeeded,
 
-  /** The ordinance can not currently be reserved by the current user, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time. */
+  /** The ordinance can not currently be reserved, but it is expected that the ordinance will eventually become <code>Ready</code> after a period of time. */
   NotReady,
 
-  /** The ordinance has been printed and is currently in progress of completion by a different user. */
-  PrintedByOther,
-
-  /** The ordinance was reserved, shared with or assigned to Church inventory, and has been printed by a different user. */
-  PrintedByOtherAfterShared,
-
-  /** The ordinance has been printed and is currently in progress of completion by the current user. */
-  PrintedBySelf,
-
-  /** The ordinance can be reserved by the current user. */
+  /** The ordinance can be reserved. */
   Ready,
 
   /** The ordinance has been reserved by a different user. */
   ReservedByOther,
 
+  /** The ordinance has been reserved and printed by a different user.  It is currently in progress of completion. */
+  ReservedByOtherPrinted,
+
   /** The ordinance was reserved by a different user and shared with or assigned to Church inventory. It may be reserved by the current user. */
-  ReservedByOtherAndSharedReady,
+  ReservedByOtherSharedReady,
+
+  /** The ordinance has been reserved by a different user and is waiting for prerequisite ordinances to be completed. */
+  ReservedByOtherWaiting,
 
   /** The ordinance has been reserved by the current user and can be printed. */
   ReservedBySelf,
 
+  /** The ordinance has been reserved and printed by the current user.  It is currently in progress of completion. */
+  ReservedBySelfPrinted,
+
   /** The ordinance has been reserved by the current user and shared with or assigned to Church inventory. */
-  ReservedBySelfAndShared,
+  ReservedBySelfShared,
+
+  /** The ordinance was reserved, shared with or assigned to Church inventory, and has been reserved and printed by a different user. */
+  ReservedBySelfSharedThenPrintedByOther,
+
+  /** The ordinance was reserved, shared with or assigned to Church inventory, and has been reserved by a different user. */
+  ReservedBySelfSharedThenReservedByOther,
 
   /** The ordinance has been reserved by the current user and is waiting for prerequisite ordinances to be completed. */
-  ReservedBySelfAndWaiting,
+  ReservedBySelfWaiting,
+
 
   // todo the following 3 Ordinance status have been renamed.  These names are deprecated and will be removed.
   InProgressByOther,
