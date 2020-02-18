@@ -76,9 +76,6 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   /** The ordinance was reserved, shared with or assigned to Church inventory, and has been reserved and printed by a different user. */
   ReservedBySelfSharedThenPrintedByOther,
 
-  /** The ordinance was reserved, shared with or assigned to Church inventory, and has been reserved by a different user. */
-  ReservedBySelfSharedThenReservedByOther,
-
   /** The ordinance has been reserved by the current user and is waiting for prerequisite ordinances to be completed. */
   ReservedBySelfWaiting,
 
@@ -91,7 +88,7 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  private static final EnumURIMap<OrdinanceStatus> URI_MAP = new EnumURIMap<OrdinanceStatus>(OrdinanceStatus.class, FamilySearchPlatform.NAMESPACE);
+  private static final EnumURIMap<OrdinanceStatus> URI_MAP = new EnumURIMap<>(OrdinanceStatus.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
