@@ -140,6 +140,23 @@ public class ExampleGedcomxFileData {
     searchedPerson1Child.setGender(gender);
 
     ///////////////////////////////////////////////////////////////////////////////////////
+    // primary's child
+
+    gender = new Gender();
+    gender.setKnownType(GenderType.Intersex);
+
+    name = new Name();
+    name.setNameForms(new ArrayList<NameForm>());
+    name.getNameForms().add(new NameForm());
+    name.getNameForms().get(0).setFullText("Child");
+
+    Person searchedPerson2Child = new Person();
+    searchedPerson2Child.setId("76543");
+    searchedPerson2Child.setNames(new ArrayList<Name>());
+    searchedPerson2Child.getNames().add(name);
+    searchedPerson2Child.setGender(gender);
+
+    ///////////////////////////////////////////////////////////////////////////////////////
     // build relationships
 
     ResourceReference primary1Ref = new ResourceReference();
@@ -156,6 +173,9 @@ public class ExampleGedcomxFileData {
 
     ResourceReference child1Ref = new ResourceReference();
     child1Ref.setResource(new URI("#" + searchedPerson1Child.getId()));
+
+    ResourceReference child2Ref = new ResourceReference();
+    child1Ref.setResource(new URI("#" + searchedPerson2Child.getId()));
 
     Relationship relToFather = new Relationship();
     relToFather.setId("RRRR-F01");
@@ -181,12 +201,18 @@ public class ExampleGedcomxFileData {
     relToChild.setPerson2(child1Ref);
     relToChild.setKnownType(RelationshipType.ParentChild);
 
+    Relationship relToChild2 = new Relationship();
+    relToChild2.setId("RRRR-C02");
+    relToChild2.setPerson1(primary1Ref);
+    relToChild2.setPerson2(child2Ref);
+    relToChild2.setKnownType(RelationshipType.ParentChild);
+
     ///////////////////////////////////////////////////////////////////////////////////////
     // build list of objects
 
     Gedcomx resources = new Gedcomx();
-    resources.setPersons(Arrays.asList(searchedPerson1, searchedPerson1Father, searchedPerson1Mother, searchedPerson1Child));
-    resources.setRelationships(Arrays.asList(relToFather, relToMother, relToSpouse, relToChild));
+    resources.setPersons(Arrays.asList(searchedPerson1, searchedPerson1Father, searchedPerson1Mother, searchedPerson1Child, searchedPerson2Child));
+    resources.setRelationships(Arrays.asList(relToFather, relToMother, relToSpouse, relToChild, relToChild2));
     return resources;
   }
 
