@@ -43,6 +43,11 @@ public enum GenderType implements ControlledVocabulary {
   Female,
 
   /**
+   * Intersex.
+   */
+  Intersex,
+
+  /**
    * Unknown. Note that this should be used strictly as "unknown" and not to
    * indicate a type that is not set or not understood.
    */
