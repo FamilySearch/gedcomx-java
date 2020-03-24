@@ -73,6 +73,10 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     year = Integer.valueOf(num);
 
+    if(year == 0) {
+      throw new GedcomxDateException("Invalid Date: Year 0000 does not exist in Anno Domini (AD) system");
+    }
+
     if(offset == end) {
       return;
     }
