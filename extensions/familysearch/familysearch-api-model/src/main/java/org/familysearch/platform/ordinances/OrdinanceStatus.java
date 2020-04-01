@@ -81,8 +81,11 @@ public enum OrdinanceStatus implements ControlledVocabulary {
 
 
   // todo the following 3 Ordinance status have been renamed.  These names are deprecated and will be removed.
+  @Deprecated
   InProgressByOther,
+  @Deprecated
   InProgressBySelf,
+  @Deprecated
   NotNeededBornInCovenant,
 
   @XmlUnknownQNameEnumValue

@@ -151,38 +151,71 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   None,
 
   // These are also deprecated and will be removed  "...Rule" is not the suffix any more
+  @Deprecated
   BornInCovenantRule,
+  @Deprecated
   CoupleRelationshipMissingRule,
+  @Deprecated
   DeathBeforeBirthRule,
+  @Deprecated
   DiedBeforeAgeEightRule,
+  @Deprecated
   InvalidGivenNamePieceRule,
+  @Deprecated
   InvalidNameRule,
+  @Deprecated
   InvalidSingleNamePieceRule,
+  @Deprecated
   InvalidSpecialCharacterNameRule,
+  @Deprecated
   InvalidSurnameRule,
+  @Deprecated
   InvalidTitleGivenMissingRule,
+  @Deprecated
   MarriedTooYoungRule,
+  @Deprecated
   MedievalRule,
+  @Deprecated
   MissingStandardizedDateRule,
+  @Deprecated
   MissingStandardizedPlaceRule,
+  @Deprecated
   MisterAsOnlySurnameRule,
+  @Deprecated
   NameContainsOnlyInitialsRule,
+  @Deprecated
   NameTooLongRule,
+  @Deprecated
   NoNameRule,
+  @Deprecated
   NotAccountableRule,
+  @Deprecated
   NotDeadAtLeastOneYearRule,
+  @Deprecated
   NotMatchableUsingEventsRule,
+  @Deprecated
   NotMatchableUsingRelationshipsRule,
+  @Deprecated
   NotTempleOrdinanceRule,
+  @Deprecated
   OfficialCompletedOrdinanceForLivingRule,
+  @Deprecated
   OfficialCompletedOrdinanceRule,
+  @Deprecated
   OneLatinLetterSurnameRule,
+  @Deprecated
   OneNamePerScriptTypeRule,
+  @Deprecated
   ParentRelationshipMissingRule,
+  @Deprecated
   RepeatingSpecialCharacterNameRule,
+  @Deprecated
   SameSexRule,
+  @Deprecated
   SealingToSelfRule,
+  @Deprecated
   StillbornRule,
+  @Deprecated
   UnknownGenderRule,
 
 
