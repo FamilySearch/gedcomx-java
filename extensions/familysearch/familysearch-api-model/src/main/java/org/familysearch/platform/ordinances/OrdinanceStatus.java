@@ -52,41 +52,35 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   /** The ordinance can be reserved. */
   Ready,
 
-  /** The ordinance has been reserved by a different user. */
-  ReservedByOther,
+  /** The ordinance has been reserved. */
+  Reserved,
 
-  /** The ordinance has been reserved and printed by a different user.  It is currently in progress of completion. */
-  ReservedByOtherPrinted,
+  /** The ordinance has been reserved and printed.  It is currently in progress of completion. */
+  ReservedPrinted,
 
-  /** The ordinance was reserved by a different user and shared with or assigned to Church inventory. It may be reserved by the current user. */
-  ReservedByOtherSharedReady,
+ /** The ordinance has been reserved and is waiting for prerequisite ordinances to be completed. */
+  ReservedWaiting,
 
-  /** The ordinance has been reserved by a different user and is waiting for prerequisite ordinances to be completed. */
-  ReservedByOtherWaiting,
+  /** The ordinance has been reserved and shared with or assigned to Church inventory. */
+  ReservedShared,
 
-  /** The ordinance has been reserved by the current user and can be printed. */
-  ReservedBySelf,
+  /** The ordinance was reserved and shared with or assigned to Church inventory. A secondary reservation is available. */
+  ReservedSharedReady,
 
-  /** The ordinance has been reserved and printed by the current user.  It is currently in progress of completion. */
-  ReservedBySelfPrinted,
+  /** The ordinance was reserved, shared with or assigned to Church inventory, and has been reserved and printed. */
+  ReservedSharedPrinted,
 
-  /** The ordinance has been reserved by the current user and shared with or assigned to Church inventory. */
-  ReservedBySelfShared,
-
-  /** The ordinance was reserved, shared with or assigned to Church inventory, and has been reserved and printed by a different user. */
-  ReservedBySelfSharedThenPrintedByOther,
-
-  /** The ordinance has been reserved by the current user and is waiting for prerequisite ordinances to be completed. */
-  ReservedBySelfWaiting,
-
-
-  // todo the following 3 Ordinance status have been renamed.  These names are deprecated and will be removed.
+  // todo the following 5 Ordinance status have been renamed.  These names are deprecated and will be removed.
   @Deprecated
   InProgressByOther,
   @Deprecated
   InProgressBySelf,
   @Deprecated
   NotNeededBornInCovenant,
+  @Deprecated
+  ReservedByOther,
+  @Deprecated
+  ReservedBySelf,
 
   @XmlUnknownQNameEnumValue
   OTHER;
