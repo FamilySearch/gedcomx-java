@@ -39,7 +39,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
 @XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "actions", "person", "sexType", "participants", "reservation",
-                                           "templeCode", "completionDate",
+                                           "secondaryReservation", "callerReservation", "templeCode", "completionDate",
                                            // These field(s) will be removed
                                            "date", })
 @JsonInclude ( JsonInclude.Include.NON_NULL )
@@ -59,6 +59,8 @@ public class Ordinance extends Conclusion {
   private URI sexType;
   private List<OrdinanceParticipant> participants;
   private OrdinanceReservation reservation;
+  private OrdinanceReservation secondaryReservation;
+  private OrdinanceReservation callerReservation;
 
   private String templeCode;
   private Date completionDate;      // a java.util.Date
@@ -386,6 +388,58 @@ public class Ordinance extends Conclusion {
    */
   public Ordinance reservation(OrdinanceReservation reservation) {
     setReservation(reservation);
+    return this;
+  }
+
+  /**
+   * Secondary reservation for this ordinance
+   * @return the secondary reservation for this ordinance
+   */
+  @XmlElement(name = "secondaryReservation")
+  @JsonProperty("secondaryReservation")
+  public OrdinanceReservation getSecondaryReservation() {
+    return secondaryReservation;
+  }
+
+  @JsonProperty("secondaryReservation")
+  public void setSecondaryReservation(OrdinanceReservation secondaryReservation) {
+    this.secondaryReservation = secondaryReservation;
+  }
+
+  /**
+   * Build out this ordinance with a secondary reservation.
+   *
+   * @param secondaryReservation the ordinance secondary reservation.
+   * @return this
+   */
+  public Ordinance secondaryReservation(OrdinanceReservation secondaryReservation) {
+    setSecondaryReservation(secondaryReservation);
+    return this;
+  }
+
+  /**
+   * Caller reservation for this ordinance
+   * @return the caller reservation for this ordinance
+   */
+  @XmlElement(name = "callerReservation")
+  @JsonProperty("callerReservation")
+  public OrdinanceReservation getCallerReservation() {
+    return callerReservation;
+  }
+
+  @JsonProperty("callerReservation")
+  public void setCallerReservation(OrdinanceReservation callerReservation) {
+    this.callerReservation = callerReservation;
+  }
+
+  /**
+   * Build out this ordinance with a caller reservation.
+   *
+   * @param callerReservation the ordinance caller reservation.
+   * @return this
+   */
+  public Ordinance callerReservation(OrdinanceReservation callerReservation) {
+    setCallerReservation(callerReservation);
     return this;
   }
 
