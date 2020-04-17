@@ -31,8 +31,10 @@ public enum OrdinanceRoleType implements ControlledVocabulary {
   Spouse,
 
   // todo this will be removed
+  /** Deprecated: */
   @Deprecated
   Father,
+  /** Deprecated: */
   @Deprecated
   Mother,
 

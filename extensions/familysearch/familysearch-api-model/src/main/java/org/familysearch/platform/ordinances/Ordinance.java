@@ -493,7 +493,7 @@ public class Ordinance extends Conclusion {
   // =======================================================================================================================================
   // These methods are deprecated and will be removed
   /**
-   * Deprecated: The date of this ordinance.
+   * Deprecated:
    *
    * @return The date of this ordinance.
    */

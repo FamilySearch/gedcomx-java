@@ -220,7 +220,7 @@ public class OrdinanceReservation {
   // =======================================================================================================================================
   // These methods are deprecated and will be removed
   /**
-   * Deprecated: The reserved timestamp for the ordinance reservation.
+   * Deprecated:
    *
    * @return The reserved timestamp for the ordinance reservation.
    */
@@ -247,7 +247,7 @@ public class OrdinanceReservation {
   }
 
   /**
-   * Deprecated: The modified timestamp for the ordinance reservation.
+   * Deprecated:
    *
    * @return The modified timestamp for the ordinance reservation.
    */
@@ -274,7 +274,7 @@ public class OrdinanceReservation {
   }
 
   /**
-   * Deprecated: The expired timestamp for the ordinance reservation.  This is the timestamp when the ordinance reservation will expire.
+   * Deprecated:
    *
    * @return The expired timestamp for the ordinance reservation.
    */
@@ -301,7 +301,7 @@ public class OrdinanceReservation {
   }
 
   /**
-   * Deprecated: The possible assigneeTypes the reservation could be assigned to.
+   * Deprecated:
    *
    * @return The possible assigneeTypes the reservation could be assigned to.
    */
