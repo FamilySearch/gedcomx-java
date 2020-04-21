@@ -30,7 +30,10 @@ import org.gedcomx.rt.GedcomxConstants;
 )
 public enum RelationshipType implements ControlledVocabulary {
 
+  AncestorDescendant,
   Couple,
+  EnslavedBy,
+  Godparent,
   ParentChild,
   @XmlUnknownQNameEnumValue
   OTHER;
