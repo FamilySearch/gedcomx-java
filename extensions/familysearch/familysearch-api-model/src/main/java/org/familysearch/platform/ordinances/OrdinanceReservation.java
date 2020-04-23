@@ -42,6 +42,7 @@ public class OrdinanceReservation {
   private Date reserveDate;                 // a java.util.Date
   private Date updateDate;                  // a java.util.Date
   private Date expirationDate;              // a java.util.Date
+  private URI claimType;
   private URI assigneeType;
 
   @Deprecated
@@ -152,6 +153,67 @@ public class OrdinanceReservation {
    */
   public OrdinanceReservation expirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
+    return this;
+  }
+
+  /**
+   * Get the claimType indicating how this reservation was reserved.
+   * @return The claimType indicating how this reservation was reserved.
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(OrdinanceReservationClaimType.class)
+  public URI getClaimType() {
+    return claimType;
+  }
+
+  /**
+   * Set the claimType indicating how this reservation was reserved.
+   * @param claimType The claimType indicating how this reservation was reserved.
+   */
+  public void setClaimType(URI claimType) {
+    this.claimType = claimType;
+  }
+
+  /**
+   * Build out this reservation with the claimType indicating how this reservation was reserved.
+   *
+   * @param claimType The claimType indicating how this reservation was reserved.
+   * @return this.
+   */
+  public OrdinanceReservation claimType(URI claimType) {
+    setClaimType(claimType);
+    return this;
+  }
+
+  /**
+   * The enum referencing the claimType indicating how this reservation was reserved.
+   *
+   * @return The enum referencing the claimType indicating how this reservation was reserved.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public OrdinanceReservationClaimType getKnownClaimType() {
+    return getClaimType() == null ? null : OrdinanceReservationClaimType.fromQNameURI(getClaimType());
+  }
+
+  /**
+   * Set the claimType indicating how this reservation was reserved from an enumeration of known ordinance reservation claim types.
+   *
+   * @param knownClaimType The enum referencing the claimType indicating how this reservation was reserved.
+   */
+  @JsonIgnore
+  public void setKnownClaimType(OrdinanceReservationClaimType knownClaimType) {
+    setClaimType(knownClaimType == null ? null : knownClaimType.toQNameURI());
+  }
+
+  /**
+   * Build out this reservation with a known claimType indicating how this reservation was reserved.
+   *
+   * @param knownClaimType The known claimType.
+   * @return this.
+   */
+  public OrdinanceReservation claimType(OrdinanceReservationClaimType knownClaimType) {
+    setKnownClaimType(knownClaimType);
     return this;
   }
 
