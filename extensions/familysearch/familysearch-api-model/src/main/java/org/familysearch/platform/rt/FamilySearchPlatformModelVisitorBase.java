@@ -21,10 +21,6 @@ import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
-import org.familysearch.platform.messages.Message;
-import org.familysearch.platform.messages.MessageThread;
-import org.familysearch.platform.messages.UserMessageThreadSummary;
-import org.familysearch.platform.messages.UserMessageThreadsSummary;
 import org.familysearch.platform.users.User;
 import org.familysearch.platform.vocab.VocabConcept;
 import org.familysearch.platform.vocab.VocabTerm;
@@ -57,31 +53,11 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
     }
 
     this.contextStack.push(fsp);
-    List<MessageThread> messageThreads = fsp.getMessageThreads();
-    if (messageThreads != null) {
-      for (MessageThread messageThread : messageThreads) {
-        if (messageThread != null) {
-          messageThread.accept(this);
-        }
-      }
-    }
-
-    this.contextStack.push(fsp);
     List<VocabConcept> vocabConcepts = fsp.getVocabConcepts();
     if (vocabConcepts != null) {
       for (VocabConcept vocabConcept : vocabConcepts) {
         if (vocabConcept != null) {
           vocabConcept.accept(this);
-        }
-      }
-    }
-
-    this.contextStack.push(fsp);
-    List<UserMessageThreadsSummary> userMessageThreadsSummaries = fsp.getUserMessageThreadsSummaries();
-    if (userMessageThreadsSummaries != null) {
-      for (UserMessageThreadsSummary userMessageThreadsSummary : userMessageThreadsSummaries) {
-        if (userMessageThreadsSummary != null) {
-          userMessageThreadsSummary.accept(this);
         }
       }
     }
@@ -134,15 +110,6 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       for (Discussion discussion : discussions) {
         if (discussion != null) {
           discussion.accept(this);
-        }
-      }
-    }
-
-    List<MessageThread> messageThreads = gx.findExtensionsOfType(MessageThread.class);
-    if (messageThreads != null) {
-      for (MessageThread messageThread : messageThreads) {
-        if (messageThread != null) {
-          messageThread.accept(this);
         }
       }
     }
@@ -240,44 +207,6 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
 
   @Override
   public void visitComment(Comment comment) {
-    //no-op.
-  }
-
-  @Override
-  public void visitMessageThread(MessageThread messageThread) {
-    this.contextStack.push(messageThread);
-    List<Message> messages = messageThread.getMessages();
-    if (messages != null) {
-      for (Message message : messages) {
-        if (message != null) {
-          message.accept(this);
-        }
-      }
-    }
-    this.contextStack.pop();
-  }
-
-  @Override
-  public void visitMessage(Message message) {
-    //no-op.
-  }
-
-  @Override
-  public void visitUserMessageThreadsSummary(UserMessageThreadsSummary userMessageThreadsSummary) {
-    this.contextStack.push(userMessageThreadsSummary);
-    List<UserMessageThreadSummary> userMessageThreadSummaries = userMessageThreadsSummary.getUserMessageThreadSummaries();
-    if (userMessageThreadSummaries != null) {
-      for (UserMessageThreadSummary userMessageThreadSummary : userMessageThreadSummaries) {
-        if (userMessageThreadSummary != null) {
-          userMessageThreadSummary.accept(this);
-        }
-      }
-    }
-    this.contextStack.pop();
-  }
-
-  @Override
-  public void visitUserMessageThreadSummary(UserMessageThreadSummary userMessageThreadSummary) {
     //no-op.
   }
 

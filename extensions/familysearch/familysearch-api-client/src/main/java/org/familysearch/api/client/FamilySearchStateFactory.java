@@ -44,7 +44,6 @@ import org.familysearch.platform.ct.MergeConflict;
 import org.familysearch.platform.ct.PersonInfo;
 import org.familysearch.platform.ct.SearchInfo;
 import org.familysearch.platform.discussions.Discussion;
-import org.familysearch.platform.messages.MessageThread;
 import org.familysearch.platform.names.NameSearchInfo;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.ordinances.OrdinanceRollup;
@@ -71,14 +70,6 @@ public class FamilySearchStateFactory extends StateFactory {
 
   protected DiscussionState newDiscussionState(ClientRequest request, ClientResponse response, String accessToken) {
     return new DiscussionState(request, response, accessToken, this);
-  }
-
-  protected MessageThreadsState newMessageThreadsState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new MessageThreadsState(request, response, accessToken, this);
-  }
-
-  protected MessageThreadState newMessageThreadState(ClientRequest request, ClientResponse response, String accessToken) {
-    return new MessageThreadState(request, response, accessToken, this);
   }
 
   protected UserState newUserState(ClientRequest request, ClientResponse response, String accessToken) {
@@ -209,7 +200,7 @@ public class FamilySearchStateFactory extends StateFactory {
   public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
-                                              ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class, MessageThread.class,
+                                              ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
                                               Error.class, FeedbackInfo.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class,
                                               Merge.class, MergeAnalysis.class, MergeConflict.class, Tag.class, User.class,
                                               Ordinance.class, OrdinanceRollup.class};
