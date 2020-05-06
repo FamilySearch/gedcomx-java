@@ -49,6 +49,7 @@ public class DisplayProperties extends ExtensibleData {
   private String marriagePlace;
   private String ascendancyNumber;
   private String descendancyNumber;
+  private String relationshipDescription;
   private List<FamilyView> familiesAsParent;
   private List<FamilyView> familiesAsChild;
   private String role;
@@ -379,6 +380,35 @@ public class DisplayProperties extends ExtensibleData {
    */
   public DisplayProperties descendancyNumber(String descendancynumber) {
     setDescendancyNumber(descendancynumber);
+    return this;
+  }
+
+  /**
+   * The context-specific relationship description for the person in relation to the root person in the request.
+   *
+   * @return The context-specific relationship description for the person in relation to the root person in the request.
+   */
+  public String getRelationshipDescription() {
+    return relationshipDescription;
+  }
+
+  /**
+   * The context-specific relationship description for the person in relation to the root person in the request.
+   *
+   * @param relationshipDescription The context-specific relationship description for the person in relation to the root person in the request.
+   */
+  public void setRelationshipDescription(String relationshipDescription) {
+    this.relationshipDescription = relationshipDescription;
+  }
+
+  /**
+   * Build up these properties with a relationship description.
+   *
+   * @param relationshipDescription The relationship description.
+   * @return this.
+   */
+  public DisplayProperties relationship(String relationshipDescription) {
+    setRelationshipDescription(relationshipDescription);
     return this;
   }
 
