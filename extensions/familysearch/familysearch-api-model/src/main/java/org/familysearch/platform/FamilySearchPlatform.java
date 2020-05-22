@@ -43,6 +43,7 @@ import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.ordinances.OrdinanceParticipant;
 import org.familysearch.platform.ordinances.OrdinanceRollup;
+import org.familysearch.platform.ordinances.OrdinanceSummary;
 import org.familysearch.platform.places.FeedbackInfo;
 import org.familysearch.platform.places.PlaceDescriptionInfo;
 import org.familysearch.platform.records.AlternateDate;
@@ -94,7 +95,7 @@ import org.gedcomx.types.RelationshipType;
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, PersonInfo.class, SearchInfo.class,
                PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class,
-               Ordinance.class, OrdinanceRollup.class, NameFormInfo.class, AlternatePlaceReference.class, AlternateDate.class} )
+               Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class, NameFormInfo.class, AlternatePlaceReference.class, AlternateDate.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilySearchPlatform extends Gedcomx {
 
