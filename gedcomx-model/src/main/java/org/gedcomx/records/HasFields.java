@@ -16,6 +16,7 @@
 package org.gedcomx.records;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Interface indicating that a class as a list of record Fields.
@@ -26,16 +27,25 @@ import java.util.List;
 public interface HasFields {
 
   /**
+   * Create a stream of fields being used as evidence.
+   *
+   * @return a stream of fields being used as evidence.
+   */
+  default Stream<Field> fields() {
+    return getFields() == null ? Stream.empty() : getFields().stream();
+  }
+
+  /**
    * Get the fields being used as evidence.
    *
    * @return The references to the record fields being used as evidence.
    */
-  public List<Field> getFields();
+  List<Field> getFields();
 
   /**
    * Set the list of fields being used as evidence.
    *
    * @param fields - List of fields
    */
-  public void setFields(List<Field> fields);
+  void setFields(List<Field> fields);
 }

@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -170,6 +171,15 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   }
 
   /**
+   * Create a stream for the sources of this conclusion.
+   *
+   * @return a stream for the sources of this conclusion.
+   */
+  public Stream<SourceReference> sources() {
+    return this.sources == null ? Stream.empty() : this.sources.stream();
+  }
+
+  /**
    * The source references for a conclusion.
    *
    * @return The source references for a conclusion.
@@ -223,6 +233,15 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
       }
       sources.add(source);
     }
+  }
+
+  /**
+   * Create a stream for the notes of this conclusion.
+   *
+   * @return a stream for the notes of this conclusion.
+   */
+  public Stream<Note> notes() {
+    return this.notes == null ? Stream.empty() : this.notes.stream();
   }
 
   /**

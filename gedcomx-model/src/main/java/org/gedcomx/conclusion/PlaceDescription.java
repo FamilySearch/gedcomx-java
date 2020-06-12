@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -158,6 +159,15 @@ public class PlaceDescription extends Subject {
   @Override
   public PlaceDescription sortKey(String sortKey) {
     return (PlaceDescription) super.sortKey(sortKey);
+  }
+
+  /**
+   * Create a stream for the names.
+   *
+   * @return a stream for the names.
+   */
+  public Stream<TextValue> names() {
+    return this.names == null ? Stream.empty() : this.names.stream();
   }
 
   /**

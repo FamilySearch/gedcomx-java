@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.ClientName;
 import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.date.GedcomxDate;
 import org.gedcomx.records.Field;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A concluded genealogical date.
@@ -136,6 +138,15 @@ public class Date extends ExtensibleData implements HasFields {
    */
   public Date formal(GedcomxDate formal) {
     return formal(formal.toFormalString());
+  }
+
+  /**
+   * Create a stream for the normalized value extensions.
+   *
+   * @return a stream for the normalized value extensions.
+   */
+  public Stream<TextValue> normalizedExtensions() {
+    return this.normalized == null ? Stream.empty() : this.normalized.stream();
   }
 
   /**

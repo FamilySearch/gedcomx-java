@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * The <tt>Subject</tt> data type defines the abstract concept of a genealogical <em>subject</em>. A <em>subject</em> is something with a unique and
@@ -205,6 +206,15 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Create a stream for the identifiers.
+   *
+   * @return a stream for the identifiers.
+   */
+  public Stream<Identifier> identifiers() {
+    return this.identifiers == null ? Stream.empty() : this.identifiers.stream();
+  }
+
+  /**
    * The list of identifiers for the subject.
    *
    * @return The list of identifiers for the subject.
@@ -251,6 +261,15 @@ public abstract class Subject extends Conclusion implements Attributable {
   }
 
   /**
+   * Create a stream for the evidences.
+   *
+   * @return a stream for the evidences.
+   */
+  public Stream<EvidenceReference> evidence() {
+    return this.evidence == null ? Stream.empty() : this.evidence.stream();
+  }
+
+  /**
    * References to the evidence being referenced for this subject.
    *
    * @return References to the evidence being referenced.
@@ -291,6 +310,15 @@ public abstract class Subject extends Conclusion implements Attributable {
       }
       evidence.add(evidenceRef);
     }
+  }
+
+  /**
+   * Create a stream for the media.
+   *
+   * @return a stream for the media.
+   */
+  public Stream<SourceReference> media() {
+    return this.media == null ? Stream.empty() : this.media.stream();
   }
 
   /**

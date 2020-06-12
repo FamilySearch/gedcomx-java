@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -149,6 +150,15 @@ public class Person extends Subject implements HasFacts, HasFields {
       throw new IllegalArgumentException("Unable to add person as evidence: no id.");
     }
     return (Person) super.evidence(new EvidenceReference(URI.create("#" + evidence.getId())));
+  }
+
+  /**
+   * Create a stream of persona references for this subject.
+   *
+   * @return a stream of persona references for this subject.
+   */
+  public Stream<EvidenceReference> personaReferences() {
+    return getPersonaReferences() == null ? Stream.empty() : getPersonaReferences().stream();
   }
 
   /**
@@ -331,6 +341,15 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
+   * Create a stream for the names.
+   *
+   * @return a stream for the names.
+   */
+  public Stream<Name> names() {
+    return this.names == null ? Stream.empty() : this.names.stream();
+  }
+
+  /**
    * The name conclusions for the person.
    *
    * @return The name conclusions for the person.
@@ -438,6 +457,15 @@ public class Person extends Subject implements HasFacts, HasFields {
       }
       names.add(name);
     }
+  }
+
+  /**
+   * Create a stream for the facts.
+   *
+   * @return a stream for the facts.
+   */
+  public Stream<Fact> facts() {
+    return this.facts == null ? Stream.empty() : this.facts.stream();
   }
 
   /**

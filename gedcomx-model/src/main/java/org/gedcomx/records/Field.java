@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
 import org.gedcomx.links.Link;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A field of a record.
@@ -132,6 +134,14 @@ public class Field extends Conclusion {
     setType(type == null ? null : type.toQNameURI());
   }
 
+  /**
+   * Create a stream for the values.
+   *
+   * @return a stream for the values.
+   */
+  public Stream<FieldValue> values() {
+    return this.values == null ? Stream.empty() : this.values.stream();
+  }
 
   /**
    * The set of values for the field.

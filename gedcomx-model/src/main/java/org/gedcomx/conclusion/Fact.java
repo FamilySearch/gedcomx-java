@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A conclusion about a fact applicable to a person or relationship.
@@ -367,6 +368,15 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   public Fact value(String value) {
     setValue(value);
     return this;
+  }
+
+  /**
+   * Create a stream for the qualifiers.
+   *
+   * @return a stream for the qualifiers.
+   */
+  public Stream<Qualifier> qualifiers() {
+    return this.qualifiers == null ? Stream.empty() : this.qualifiers.stream();
   }
 
   /**

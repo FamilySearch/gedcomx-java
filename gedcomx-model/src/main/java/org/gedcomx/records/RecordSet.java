@@ -18,6 +18,7 @@ package org.gedcomx.records;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.Gedcomx;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * The GEDCOM X bulk record data formats are used to exchange bulk genealogical data sets, grouped into records.
@@ -143,6 +145,15 @@ public class RecordSet extends HypermediaEnabledData {
   public RecordSet metadata(Gedcomx metadata) {
     setMetadata(metadata);
     return this;
+  }
+
+  /**
+   * Create a stream for the records.
+   *
+   * @return a stream for the records.
+   */
+  public Stream<Gedcomx> records() {
+    return this.records == null ? Stream.empty() : this.records.stream();
   }
 
   /**

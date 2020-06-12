@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -311,6 +312,15 @@ public class Event extends Subject implements HasDateAndPlace {
   public Event place(PlaceReference place) {
     setPlace(place);
     return this;
+  }
+
+  /**
+   * Create a stream for the roles of this event.
+   *
+   * @return a stream for the roles of this event.
+   */
+  public Stream<EventRole> roles() {
+    return this.roles == null ? Stream.empty() : this.roles.stream();
   }
 
   /**

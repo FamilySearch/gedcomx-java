@@ -17,6 +17,7 @@ package org.gedcomx.records;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A descriptor for a common set of records.
@@ -60,6 +62,15 @@ public class RecordDescriptor extends HypermediaEnabledData {
    */
   public void setLang(String lang) {
     this.lang = lang;
+  }
+
+  /**
+   * Create a stream for the fields.
+   *
+   * @return a stream for the fields.
+   */
+  public Stream<FieldDescriptor> fields() {
+    return this.fields == null ? Stream.empty() : this.fields.stream();
   }
 
   /**

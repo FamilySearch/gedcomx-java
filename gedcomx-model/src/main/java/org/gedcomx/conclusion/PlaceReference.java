@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -117,6 +118,15 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   public PlaceReference description(URI ref) {
     setDescriptionRef(ref);
     return this;
+  }
+
+  /**
+   * Create a stream for the normalized value extensions.
+   *
+   * @return a stream for the normalized value extensions.
+   */
+  public Stream<TextValue> normalizedExtensions() {
+    return this.normalized == null ? Stream.empty() : this.normalized.stream();
   }
 
   /**

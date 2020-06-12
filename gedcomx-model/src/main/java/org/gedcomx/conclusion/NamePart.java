@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -163,6 +164,15 @@ public final class NamePart extends ExtensibleData implements HasFields {
   public NamePart value(String value) {
     setValue(value);
     return this;
+  }
+
+  /**
+   * Create a stream for the qualifiers.
+   *
+   * @return a stream for the qualifiers.
+   */
+  public Stream<Qualifier> qualifiers() {
+    return this.qualifiers == null ? Stream.empty() : this.qualifiers.stream();
   }
 
   /**

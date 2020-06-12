@@ -17,6 +17,7 @@ package org.gedcomx.records;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -27,6 +28,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A description of a field in a record.
@@ -92,6 +94,15 @@ public class FieldDescriptor extends HypermediaEnabledData {
   }
 
   /**
+   * Create a stream for the descriptions.
+   *
+   * @return a stream for the descriptions.
+   */
+  public Stream<TextValue> descriptions() {
+    return this.descriptions == null ? Stream.empty() : this.descriptions.stream();
+  }
+
+  /**
    * The description of the field.
    *
    * @return The description of the field.
@@ -143,6 +154,15 @@ public class FieldDescriptor extends HypermediaEnabledData {
       }
       this.descriptions.add(description);
     }
+  }
+
+  /**
+   * Create a stream for the values.
+   *
+   * @return a stream for the values.
+   */
+  public Stream<FieldValueDescriptor> values() {
+    return this.values == null ? Stream.empty() : this.values.stream();
   }
 
   /**

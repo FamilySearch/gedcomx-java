@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * <p>The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation
@@ -220,6 +221,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Create a stream for the persons in this data set.
+   *
+   * @return The stream of persons.
+   */
+  public Stream<Person> persons() {
+    return this.persons == null ? Stream.empty() : this.persons.stream();
+  }
+
+  /**
    * The persons included in this genealogical data set.
    *
    * @return The persons included in this genealogical data set.
@@ -377,6 +387,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Create a stream for the relationships in this data set.
+   *
+   * @return a stream for the relationships in this data set.
+   */
+  public Stream<Relationship> relationships() {
+    return this.relationships == null ? Stream.empty() : this.relationships.stream();
+  }
+
+  /**
    * The relationships included in this genealogical data set.
    *
    * @return The relationships included in this genealogical data set.
@@ -393,7 +412,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param relationships The relationships included in this genealogical data set.
    */
   @JsonProperty ( "relationships" )
-
   public void setRelationships(List<Relationship> relationships) {
     this.relationships = relationships;
   }
@@ -457,6 +475,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Find the description of this record.
+   *
+   * @return The description, or null.
+   */
+  public SourceDescription findDescription() {
+    return findDescription(getDescriptionRef());
+  }
+
+  /**
    * Find a description in the document by URI.
    *
    * @param uri the uri
@@ -464,6 +491,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    */
   public SourceDescription findDescription(URI uri) {
     return findElement(this.sourceDescriptions, uri);
+  }
+
+  /**
+   * Create a stream of the source descriptions in this document.
+   *
+   * @return a stream of the source descriptions in this document.
+   */
+  public Stream<SourceDescription> sourceDescriptions() {
+    return this.sourceDescriptions == null ? Stream.empty() : this.sourceDescriptions.stream();
   }
 
   /**
@@ -513,6 +549,25 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Find a agent in the document by URI.
+   *
+   * @param uri the uri
+   * @return The agent, or null.
+   */
+  public Agent findAgent(URI uri) {
+    return findElement(this.agents, uri);
+  }
+
+  /**
+   * Create a stream of the agents in this data set.
+   *
+   * @return a stream of the agents in this data set.
+   */
+  public Stream<Agent> agents() {
+    return this.agents == null ? Stream.empty() : this.agents.stream();
+  }
+
+  /**
    * The agents included in this genealogical data set.
    *
    * @return The agents included in this genealogical data set.
@@ -521,16 +576,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   @JsonProperty ( "agents" )
   public List<Agent> getAgents() {
     return agents;
-  }
-
-  /**
-   * Find a agent in the document by URI.
-   *
-   * @param uri the uri
-   * @return The agent, or null.
-   */
-  public Agent findAgent(URI uri) {
-    return findElement(this.agents, uri);
   }
 
   /**
@@ -569,6 +614,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Create a stream of the events in this data set.
+   *
+   * @return a stream of the events in this data set.
+   */
+  public Stream<Event> events() {
+    return this.events == null ? Stream.empty() : this.events.stream();
+  }
+
+  /**
    * The events included in this genealogical data set.
    *
    * @return The events included in this genealogical data set.
@@ -585,7 +639,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param events The events included in this genealogical data set.
    */
   @JsonProperty ( "events" )
-
   public void setEvents(List<Event> events) {
     this.events = events;
   }
@@ -615,6 +668,25 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Find a place in the document by URI.
+   *
+   * @param uri the uri
+   * @return The place, or null.
+   */
+  public PlaceDescription findPlace(URI uri) {
+    return findSubject(this.places, uri);
+  }
+
+  /**
+   * Create a stream of the places in this data set.
+   *
+   * @return a stream of the places in this data set.
+   */
+  public Stream<PlaceDescription> places() {
+    return this.places == null ? Stream.empty() : this.places.stream();
+  }
+
+  /**
    * The places included in this genealogical data set.
    *
    * @return The places included in this genealogical data set.
@@ -623,16 +695,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   @JsonProperty ( "places" )
   public List<PlaceDescription> getPlaces() {
     return places;
-  }
-
-  /**
-   * Find a place in the document by URI.
-   *
-   * @param uri the uri
-   * @return The place, or null.
-   */
-  public PlaceDescription findPlace(URI uri) {
-    return findSubject(this.places, uri);
   }
 
   /**
@@ -668,6 +730,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
       }
       places.add(place);
     }
+  }
+
+  /**
+   * Create a stream of the documents in this data set.
+   *
+   * @return a stream of the documents in this data set.
+   */
+  public Stream<Document> documents() {
+    return this.documents == null ? Stream.empty() : this.documents.stream();
   }
 
   /**
@@ -714,6 +785,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
       }
       documents.add(document);
     }
+  }
+
+  /**
+   * Create a stream of the collections in this data set.
+   *
+   * @return a stream of the collections in this data set.
+   */
+  public Stream<Collection> collections() {
+    return this.collections == null ? Stream.empty() : this.collections.stream();
   }
 
   /**
@@ -764,8 +844,17 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Create a stream of the fields in this data set.
+   *
+   * @return a stream of the fields in this data set.
+   */
+  public Stream<Field> fields() {
+    return this.fields == null ? Stream.empty() : this.fields.stream();
+  }
+
+  /**
    * The extracted fields included in this genealogical data set.  Fields that apply to a particular person,
-   *   relationship or value should be included within that person or value, respectively.
+   * relationship or value should be included within that person or value, respectively.
    * Remaining fields that did not have a place within the person or relationship structure can be included here.
    * Also, fields that were extracted but not yet fit into a structure can also be included here.
    *
@@ -814,6 +903,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   }
 
   /**
+   * Create a stream of the record descriptors in this data set.
+   *
+   * @return a stream of the record descriptors in this data set.
+   */
+  public Stream<RecordDescriptor> recordDescriptors() {
+    return this.recordDescriptors == null ? Stream.empty() : this.recordDescriptors.stream();
+  }
+
+  /**
    * The record descriptors included in this genealogical data set.
    *
    * @return The record descriptors included in this genealogical data set.
@@ -831,7 +929,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
    * @param recordDescriptors The record descriptors included in this genealogical data set.
    */
   @JsonProperty ( "recordDescriptors" )
-
   public void setRecordDescriptors(List<RecordDescriptor> recordDescriptors) {
     this.recordDescriptors = recordDescriptors;
   }
@@ -1248,6 +1345,15 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
     if (ref != null && localId.equals(ref.getResourceId())) {
       ref.setResource(org.gedcomx.common.URI.create("#" + localId));
     }
+  }
+
+  /**
+   * Create a stream of all the subjects of this record.
+   *
+   * @return a stream of all the subjects of this record.
+   */
+  public Stream<Subject> subjects() {
+    return Stream.concat(Stream.concat(Stream.concat(persons(), relationships()), places()), events());
   }
 
   public static <S extends Subject> S findSubject(List<S> items, URI ref) {

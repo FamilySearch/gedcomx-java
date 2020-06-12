@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
+import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A collection of genealogical resources.
@@ -130,6 +132,15 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   public Collection title(String title) {
     setTitle(title);
     return this;
+  }
+
+  /**
+   * Create a stream for the identifiers.
+   *
+   * @return a stream for the identifiers.
+   */
+  public Stream<Identifier> identifiers() {
+    return this.identifiers == null ? Stream.empty() : this.identifiers.stream();
   }
 
   /**

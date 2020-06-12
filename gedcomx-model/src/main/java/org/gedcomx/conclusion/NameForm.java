@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A form of a name.
@@ -123,6 +124,15 @@ public class NameForm extends ExtensibleData implements HasFields {
   public NameForm fullText(String fullText) {
     setFullText(fullText);
     return this;
+  }
+
+  /**
+   * Create a stream for the name parts.
+   *
+   * @return a stream for the name parts.
+   */
+  public Stream<NamePart> parts() {
+    return this.parts == null ? Stream.empty() : this.parts.stream();
   }
 
   /**

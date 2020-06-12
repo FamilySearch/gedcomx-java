@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -332,6 +333,15 @@ public class Relationship extends Subject implements HasFacts, HasFields {
     }
     setPerson2(new ResourceReference(URI.create("#" + person2.getId())));
     return this;
+  }
+
+  /**
+   * Create a stream for the facts.
+   *
+   * @return a stream for the facts.
+   */
+  public Stream<Fact> facts() {
+    return this.facts == null ? Stream.empty() : this.facts.stream();
   }
 
   /**

@@ -37,6 +37,7 @@ import org.gedcomx.types.NameType;
 import javax.xml.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -228,6 +229,15 @@ public class Name extends Conclusion {
   public Name date(Date date) {
     setDate(date);
     return this;
+  }
+
+  /**
+   * Create a stream for the name forms of this name.
+   *
+   * @return a stream for the name forms of this name.
+   */
+  public Stream<NameForm> nameForms() {
+    return this.nameForms == null ? Stream.empty() : this.nameForms.stream();
   }
 
   /**

@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -174,6 +175,15 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
       throw new IllegalArgumentException("Cannot reference description: no id.");
     }
     return descriptionRef(URI.create("#" + description.getId())).descriptionId(description.getId());
+  }
+
+  /**
+   * Create a stream for the qualifiers.
+   *
+   * @return a stream for the qualifiers.
+   */
+  public Stream<Qualifier> qualifiers() {
+    return this.qualifiers == null ? Stream.empty() : this.qualifiers.stream();
   }
 
   /**
