@@ -469,16 +469,6 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
-   * Create a stream for the facts.
-   *
-   * @return a stream for the facts.
-   */
-  @Override
-  public Stream<Fact> facts() {
-    return this.facts == null ? Stream.empty() : this.facts.stream();
-  }
-
-  /**
    * The fact conclusions for the person.
    *
    * @return The fact conclusions for the person.

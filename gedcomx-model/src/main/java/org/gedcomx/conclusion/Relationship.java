@@ -15,12 +15,26 @@
  */
 package org.gedcomx.conclusion;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.gedcomx.common.*;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.EvidenceReference;
+import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
@@ -33,12 +47,6 @@ import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.RelationshipType;
-
-import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Stream;
 
 
 /**
@@ -336,19 +344,11 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   }
 
   /**
-   * Create a stream for the facts.
-   *
-   * @return a stream for the facts.
-   */
-  public Stream<Fact> facts() {
-    return this.facts == null ? Stream.empty() : this.facts.stream();
-  }
-
-  /**
    * The fact conclusions for the relationship.
    *
    * @return The fact conclusions for the relationship.
    */
+  @Override
   @XmlElement(name="fact")
   @JsonProperty("facts")
   public List<Fact> getFacts() {
@@ -360,6 +360,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    *
    * @param facts The fact conclusions for the relationship.
    */
+  @Override
   @JsonProperty("facts")
   public void setFacts(List<Fact> facts) {
     this.facts = facts;
@@ -394,6 +395,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    *
    * @return The references to the record fields being used as evidence.
    */
+  @Override
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
@@ -406,6 +408,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
    *
    * @param fields - List of fields
    */
+  @Override
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
