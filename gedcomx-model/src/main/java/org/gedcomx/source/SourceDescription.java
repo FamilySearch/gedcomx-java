@@ -15,6 +15,20 @@
  */
 package org.gedcomx.source;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.XMLConstants;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +36,13 @@ import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.Facets;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.agent.Agent;
-import org.gedcomx.common.*;
+import org.gedcomx.common.Attributable;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.HasNotes;
+import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.TextValue;
+import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -34,10 +54,6 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.ResourceStatusType;
 import org.gedcomx.types.ResourceType;
-
-import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.*;
-import java.util.*;
 
 
 /**
@@ -450,6 +466,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
    */
+  @Override
   @XmlElement ( name = "source" )
   @JsonProperty ( "sources" )
   public List<SourceReference> getSources() {
@@ -461,6 +478,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param sources References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
    */
+  @Override
   @JsonProperty ( "sources" )
   public void setSources(List<SourceReference> sources) {
     this.sources = sources;
@@ -634,6 +652,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return Notes about a source.
    */
+  @Override
   @XmlElement ( name = "note" )
   @JsonProperty ( "notes" )
   public List<Note> getNotes() {
@@ -645,6 +664,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param notes Notes about a source.
    */
+  @Override
   @JsonProperty ( "notes" )
   public void setNotes(List<Note> notes) {
     this.notes = notes;
@@ -668,6 +688,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The attribution metadata for this source description.
    */
+  @Override
   public Attribution getAttribution() {
     return attribution;
   }
@@ -677,6 +698,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param attribution The attribution metadata for this source description.
    */
+  @Override
   public void setAttribution(Attribution attribution) {
     this.attribution = attribution;
   }
@@ -710,7 +732,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   public URI getPersistentId() {
     URI identifier = null;
     if (this.identifiers != null) {
-      for (Identifier id : this.identifiers) {
+      for (final Identifier id : this.identifiers) {
         if (IdentifierType.Persistent.equals(id.getKnownType())) {
           identifier = id.getValue();
           break;
@@ -732,19 +754,29 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
     }
 
     //clear out any other primary ids.
-    Iterator<Identifier> it = this.identifiers.iterator();
+    final Iterator<Identifier> it = this.identifiers.iterator();
     while (it.hasNext()) {
       if (IdentifierType.Persistent.equals(it.next().getKnownType())) {
         it.remove();
       }
     }
 
-    Identifier identifier = new Identifier();
+    final Identifier identifier = new Identifier();
     identifier.setKnownType(IdentifierType.Persistent);
     identifier.setValue(persistentId);
     this.identifiers.add(identifier);
   }
 
+  /**
+   * Build out this source with a persistent ID.
+   *
+   * @param persistentId A long-term, persistent, globally unique identifier for this source.
+   * @return this.
+   */
+  public SourceDescription persistentId(URI persistentId) {
+    this.setPersistentId(persistentId);
+    return this;
+  }
 
   /**
    * The URI that this resource has been replaced by.
@@ -1036,6 +1068,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @return The fields that are applicable to the resource being described.
    */
+  @Override
   @XmlElement ( name = "field" )
   @JsonProperty ( "fields" )
   @com.webcohesion.enunciate.metadata.Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
@@ -1048,6 +1081,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    *
    * @param fields The fields that are applicable to the resource being described.
    */
+  @Override
   @JsonProperty ( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;

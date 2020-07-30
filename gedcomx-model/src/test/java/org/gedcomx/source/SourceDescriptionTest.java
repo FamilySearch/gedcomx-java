@@ -1,23 +1,23 @@
 package org.gedcomx.source;
 
-import org.junit.Test;
-import org.gedcomx.common.URI;
-import org.gedcomx.rt.SerializationUtil;
-import org.gedcomx.types.ResourceStatusType;
-
-import javax.xml.bind.JAXBException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import javax.xml.bind.JAXBException;
+
+import org.gedcomx.common.URI;
+import org.gedcomx.rt.SerializationUtil;
+import org.gedcomx.types.ResourceStatusType;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
- * Class for testing the SourceDescription class.
  * User: Randy Wilson
- * Date: 11/25/2014
- * Time: 2:42 PM
  */
 public class SourceDescriptionTest {
+
 
   @Test
   public void testXml() throws JAXBException, UnsupportedEncodingException {
@@ -31,15 +31,35 @@ public class SourceDescriptionTest {
 
     sd = SerializationUtil.processThroughXml(sd);
 
-    assertEquals("https://company.com/resource/id", sd.getAbout().toString());
-    assertEquals(ResourceStatusType.Deprecated, ResourceStatusType.fromQNameURI(sd.getStatuses().get(0)));
-    assertEquals("http://company.com/custom/resource/status/Forged", sd.getStatuses().get(1).toString());
-    assertEquals("http://company.com/updated/id", sd.getReplacedBy().toString());
-    assertEquals("http://company.com/old/id", sd.getReplaces().get(0).toString());
-    assertEquals("http://company.com/old/id2", sd.getReplaces().get(1).toString());
-    assertEquals("1", sd.getVersion());
-    assertEquals("2", sd.version("2").getVersion());
+    assertThat(sd.getAbout().toString()).isEqualTo("https://company.com/resource/id");
+    assertThat(ResourceStatusType.fromQNameURI(sd.getStatuses().get(0))).isEqualTo(ResourceStatusType.Deprecated);
+    assertThat(sd.getStatuses().get(1).toString()).isEqualTo("http://company.com/custom/resource/status/Forged");
+    assertThat(sd.getReplacedBy().toString()).isEqualTo("http://company.com/updated/id");
+    assertThat(sd.getReplaces().get(0).toString()).isEqualTo("http://company.com/old/id");
+    assertThat(sd.getReplaces().get(1).toString()).isEqualTo("http://company.com/old/id2");
+    assertThat(sd.getVersion()).isEqualTo("1");
+    assertThat(sd.version("2").getVersion()).isEqualTo("2");
+  }
 
+  @Test
+  public void testPersistentIdHelpers() throws Exception {
+    final SourceDescription sd = new SourceDescription();
+
+    sd.setPersistentId(URI.create("urn:pal"));
+    assertThat(sd.getPersistentId().toURI().toString()).isEqualTo("urn:pal");
+
+    sd.getIdentifiers().clear();
+    assertThat(sd.getPersistentId()).isNull();
+
+    sd.setIdentifiers(null);
+    assertThat(sd.getPersistentId()).isNull();
+
+    sd.setPersistentId(URI.create("urn:pal"));
+    assertThat(sd.getPersistentId().toURI().toString()).isEqualTo("urn:pal");
+
+    final SourceDescription ref = sd.persistentId(URI.create("urn:pal"));
+    assertThat(sd.getPersistentId().toURI().toString()).isEqualTo("urn:pal");
+    assertThat(ref).isSameAs(sd);
   }
 
 }

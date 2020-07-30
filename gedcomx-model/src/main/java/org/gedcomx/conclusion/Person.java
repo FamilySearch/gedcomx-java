@@ -15,11 +15,26 @@
  */
 package org.gedcomx.conclusion;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
-import org.gedcomx.common.*;
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.EvidenceReference;
+import org.gedcomx.common.Note;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
@@ -32,12 +47,6 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 import org.gedcomx.types.NameType;
-
-import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Stream;
 
 
 /**
@@ -383,7 +392,7 @@ public class Person extends Subject implements HasFacts, HasFields {
       return null;
     }
 
-    for (Name name : this.names) {
+    for (final Name name : this.names) {
       if (type.equals(name.getKnownType())) {
         return name;
       }
@@ -404,7 +413,7 @@ public class Person extends Subject implements HasFacts, HasFields {
       return null;
     }
 
-    for(Name name : this.names) {
+    for(final Name name : this.names) {
       if(name.getPreferred() != null) {
         if(name.getPreferred()) {
           return name;
@@ -460,19 +469,11 @@ public class Person extends Subject implements HasFacts, HasFields {
   }
 
   /**
-   * Create a stream for the facts.
-   *
-   * @return a stream for the facts.
-   */
-  public Stream<Fact> facts() {
-    return this.facts == null ? Stream.empty() : this.facts.stream();
-  }
-
-  /**
    * The fact conclusions for the person.
    *
    * @return The fact conclusions for the person.
    */
+  @Override
   @XmlElement(name="fact")
   @JsonProperty("facts")
   public List<Fact> getFacts() {
@@ -491,7 +492,7 @@ public class Person extends Subject implements HasFacts, HasFields {
       return null;
     }
 
-    for (Fact fact : this.facts) {
+    for (final Fact fact : this.facts) {
       if (fact.getPrimary() != null && fact.getPrimary()) {
         return fact;
       }
@@ -512,7 +513,7 @@ public class Person extends Subject implements HasFacts, HasFields {
       return null;
     }
 
-    for (Fact fact : this.facts) {
+    for (final Fact fact : this.facts) {
       if (type.equals(fact.getKnownType())) {
         return fact;
       }
@@ -529,9 +530,9 @@ public class Person extends Subject implements HasFacts, HasFields {
    */
   @JsonIgnore
   public List<Fact> getFacts(FactType factType) {
-    ArrayList<Fact> factsToReturn = new ArrayList<Fact>();
+    final ArrayList<Fact> factsToReturn = new ArrayList<Fact>();
     if (facts != null && factType != null) {
-      for (Fact fact : facts) {
+      for (final Fact fact : facts) {
         if (fact.getKnownType() != null && fact.getKnownType().equals(factType)) {
           factsToReturn.add(fact);
         }
@@ -545,6 +546,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param facts The fact conclusions for the person.
    */
+  @Override
   @JsonProperty("facts")
   public void setFacts(List<Fact> facts) {
     this.facts = facts;
@@ -615,7 +617,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    */
   private boolean isReferencedPerson(ResourceReference personReference) {
     if (personReference != null && personReference.getResource() != null) {
-      String uri = personReference.getResource().toString();
+      final String uri = personReference.getResource().toString();
       if (!uri.startsWith("#")) {
         throw new IllegalArgumentException("Must use local references to persons that are included in a GedcomX document.");
       }
@@ -641,6 +643,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @return The references to the record fields being used as evidence.
    */
+  @Override
   @XmlElement( name = "field" )
   @JsonProperty( "fields" )
   @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
@@ -653,6 +656,7 @@ public class Person extends Subject implements HasFacts, HasFields {
    *
    * @param fields - List of fields
    */
+  @Override
   @JsonProperty( "fields" )
   public void setFields(List<Field> fields) {
     this.fields = fields;
@@ -680,6 +684,17 @@ public class Person extends Subject implements HasFacts, HasFields {
       }
       fields.add(field);
     }
+  }
+
+  /**
+   * Build out this person with a persistent ID.
+   *
+   * @param persistentId A long-term, persistent, globally unique identifier for this subject.
+   * @return this.
+   */
+  public Person persistentId(URI persistentId) {
+    this.setPersistentId(persistentId);
+    return this;
   }
 
   /**
