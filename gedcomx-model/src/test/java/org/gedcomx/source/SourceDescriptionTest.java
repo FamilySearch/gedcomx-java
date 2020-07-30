@@ -42,7 +42,7 @@ public class SourceDescriptionTest {
   }
 
   @Test
-  public void testsdPersistentIdHelpers() throws Exception {
+  public void testPersistentIdHelpers() throws Exception {
     final SourceDescription sd = new SourceDescription();
 
     sd.setPersistentId(URI.create("urn:pal"));
