@@ -1,20 +1,25 @@
 package org.gedcomx.conclusion;
 
-import org.gedcomx.common.*;
-import org.gedcomx.source.SourceReference;
-import org.gedcomx.types.*;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.gedcomx.common.Attribution;
+import org.gedcomx.common.ResourceReference;
+import org.gedcomx.common.TextValue;
+import org.gedcomx.common.URI;
+import org.gedcomx.source.SourceReference;
+import org.gedcomx.types.ConfidenceLevel;
+import org.gedcomx.types.FactType;
+import org.gedcomx.types.GenderType;
+import org.gedcomx.types.IdentifierType;
+import org.gedcomx.types.NamePartType;
+import org.gedcomx.types.NameType;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -45,7 +50,7 @@ public class PersonTest {
   @Test
   public void testDisplayProperties() throws Exception {
     Person person = new Person();
-    DisplayProperties display = new DisplayProperties();
+    final DisplayProperties display = new DisplayProperties();
     display.setAscendancyNumber("1");
     display.setBirthDate("2");
     display.setBirthPlace("3");
@@ -57,91 +62,95 @@ public class PersonTest {
     display.setName("9");
     person.setDisplayExtension(display);
     person = processThroughXml(person);
-    assertEquals("1", person.getDisplayExtension().getAscendancyNumber());
-    assertEquals("2", person.getDisplayExtension().getBirthDate());
-    assertEquals("3", person.getDisplayExtension().getBirthPlace());
-    assertEquals("4", person.getDisplayExtension().getDeathDate());
-    assertEquals("5", person.getDisplayExtension().getDeathPlace());
-    assertEquals("6", person.getDisplayExtension().getDescendancyNumber());
-    assertEquals("7", person.getDisplayExtension().getGender());
-    assertEquals("8", person.getDisplayExtension().getLifespan());
-    assertEquals("9", person.getDisplayExtension().getName());
+    assertThat(person.getDisplayExtension().getAscendancyNumber()).isEqualTo("1");
+    assertThat(person.getDisplayExtension().getBirthDate()).isEqualTo("2");
+    assertThat(person.getDisplayExtension().getBirthPlace()).isEqualTo("3");
+    assertThat(person.getDisplayExtension().getDeathDate()).isEqualTo("4");
+    assertThat(person.getDisplayExtension().getDeathPlace()).isEqualTo("5");
+    assertThat(person.getDisplayExtension().getDescendancyNumber()).isEqualTo("6");
+    assertThat(person.getDisplayExtension().getGender()).isEqualTo("7");
+    assertThat(person.getDisplayExtension().getLifespan()).isEqualTo("8");
+    assertThat(person.getDisplayExtension().getName()).isEqualTo("9");
 
   }
 
   @Test
   public void testPersonPersistentIdHelpers() throws Exception {
-    Person person = create();
+    final Person person = create();
     assertPersonEquals(person);
-    assertEquals(2, person.getIdentifiers().size());
-    assertEquals("pal", person.getPersistentId().toURI().toString());
+    assertThat(person.getIdentifiers().size()).isEqualTo(2);
+    assertThat(person.getPersistentId().toURI().toString()).isEqualTo("pal");
 
     person.setPersistentId(URI.create("urn:pal"));
-    assertEquals("urn:pal", person.getPersistentId().toURI().toString());
+    assertThat(person.getPersistentId().toURI().toString()).isEqualTo("urn:pal");
 
     person.getIdentifiers().clear();
-    assertNull(person.getPersistentId());
+    assertThat(person.getPersistentId()).isNull();
 
     person.setIdentifiers(null);
-    assertNull(person.getPersistentId());
+    assertThat(person.getPersistentId()).isNull();
 
     person.setPersistentId(URI.create("urn:pal"));
-    assertEquals("urn:pal", person.getPersistentId().toURI().toString());
+    assertThat(person.getPersistentId().toURI().toString()).isEqualTo("urn:pal");
+
+    final Person ref = person.persistentId(URI.create("urn:pal"));
+    assertThat(person.getPersistentId().toURI().toString()).isEqualTo("urn:pal");
+    assertThat(ref).isSameAs(person);
   }
 
   @Test
   public void testPersonGetFirstNameOfType() throws Exception {
-    Person person = create();
+    final Person person = create();
     assertPersonEquals(person);
-    assertEquals("type=FormalName,nameForms[0]=primary form,pref=true", person.getFirstNameOfType(NameType.FormalName).toString());
-    assertNull(person.getFirstNameOfType(NameType.BirthName));
+    assertThat(person.getFirstNameOfType(NameType.FormalName).toString()).isEqualTo("type=FormalName,nameForms[0]=primary form,pref=true");
+    assertThat(person.getFirstNameOfType(NameType.BirthName)).isNull();
     person.setNames(null);
-    assertNull(person.getFirstNameOfType(NameType.FormalName));
+    assertThat(person.getFirstNameOfType(NameType.FormalName)).isNull();
   }
 
   @Test
   public void testPersonGetPreferredName() throws Exception {
-    Person person = create();
+    final Person person = create();
     assertPersonEquals(person);
-    assertEquals("type=FormalName,nameForms[0]=primary form,pref=true", person.getPreferredName().toString());
+    assertThat(person.getPreferredName().toString()).isEqualTo("type=FormalName,nameForms[0]=primary form,pref=true");
     person.setNames(null);
-    assertNull(person.getPreferredName());
+    assertThat(person.getPreferredName()).isNull();
   }
 
   @Test
   public void testFactHelpers() throws Exception {
-    Fact fact = new Fact();
+    final Fact fact = new Fact();
 
-    Person person = create();
+    final Person person = create();
     assertPersonEquals(person);
     person.addFact(fact);
-    assertEquals(3, person.getFacts().size());
-    assertEquals(1, person.getFacts(FactType.Adoption).size());
-    assertEquals("type=Adoption,value=null,date=Date{original='original date', formal=normalized date},place=PlaceReference{original='original place', descriptionRef='urn:place'}", person.getFacts(FactType.Adoption).get(0).toString());
-    assertEquals("type=Adoption,value=null,date=Date{original='original date', formal=normalized date},place=PlaceReference{original='original place', descriptionRef='urn:place'}", person.getFirstFactOfType(FactType.Adoption).toString());
-    assertEquals(1, person.getFacts(FactType.Occupation).size());
-    assertEquals("type=Occupation,value=fact-value,date=Date{original='original date', formal=formal},place=PlaceReference{original='original place', descriptionRef='urn:place'}", person.getFacts(FactType.Occupation).get(0).toString());
-    assertEquals("type=Occupation,value=fact-value,date=Date{original='original date', formal=formal},place=PlaceReference{original='original place', descriptionRef='urn:place'}", person.getFirstFactOfType(FactType.Occupation).toString());
+    assertThat(person.getFacts().size()).isEqualTo(3);
+    assertThat(person.getFacts(FactType.Adoption).size()).isEqualTo(1);
+    assertThat(person.getFacts(FactType.Adoption).get(0).toString()).isEqualTo("type=Adoption,value=null,date=Date{original='original date', formal=normalized date},place=PlaceReference{original='original place', descriptionRef='urn:place'}");
+    assertThat(person.getFirstFactOfType(FactType.Adoption).toString()).isEqualTo("type=Adoption,value=null,date=Date{original='original date', formal=normalized date},place=PlaceReference{original='original place', descriptionRef='urn:place'}");
+    assertThat(person.getFacts(FactType.Occupation).size()).isEqualTo(1);
+    assertThat(person.getFacts(FactType.Occupation).get(0).toString()).isEqualTo("type=Occupation,value=fact-value,date=Date{original='original date', formal=formal},place=PlaceReference{original='original place', descriptionRef='urn:place'}");
+    assertThat(person.getFirstFactOfType(FactType.Occupation).toString()).isEqualTo("type=Occupation,value=fact-value,date=Date{original='original date', formal=formal},place=PlaceReference{original='original place', descriptionRef='urn:place'}");
 
     person.getFacts().clear();
-    assertNotNull(person.getFacts());
-    assertEquals(0, person.getFacts(FactType.Adoption).size());
-    assertEquals(0, person.getFacts(null).size());
-    assertNull(person.getFirstFactOfType(FactType.Adoption));
+    assertThat(person.getFacts()).isNotNull();
+    assertThat(person.getFacts(FactType.Adoption).size()).isEqualTo(0);
+    assertThat(person.getFacts(null).size()).isEqualTo(0);
+    assertThat(person.getFirstFactOfType(FactType.Adoption)).isNull();
     person.setFacts(null);
-    assertNull(person.getFacts());
-    assertEquals(0, person.getFacts(FactType.Adoption).size());
-    assertNull(person.getFirstFactOfType(FactType.Adoption));
+    assertThat(person.getFacts()).isNull();
+    assertThat(person.getFacts(FactType.Adoption).size()).isEqualTo(0);
+    assertThat(person.getFirstFactOfType(FactType.Adoption)).isNull();
 
     person.addFact(null);
-    assertNull(person.getFacts());
+    assertThat(person.getFacts()).isNull();
   }
 
   static Person create() {
-    Person person = new Person();
+    final Person person = new Person();
     person.setGender(new Gender(GenderType.Male));
 
-    ArrayList<Identifier> identifiers = new ArrayList<Identifier>();
+    final ArrayList<Identifier> identifiers = new ArrayList<Identifier>();
     Identifier identifier = new Identifier();
     identifier.setKnownType(IdentifierType.Deprecated);
     identifier.setValue(URI.create("forward-value"));
@@ -152,7 +161,7 @@ public class PersonTest {
     identifiers.add(identifier);
     person.setIdentifiers(identifiers);
 
-    Fact fact = new Fact();
+    final Fact fact = new Fact();
     fact.setKnownConfidenceLevel(ConfidenceLevel.High);
     fact.setDate(new Date());
     fact.getDate().setOriginal("original date");
@@ -166,7 +175,7 @@ public class PersonTest {
     fact.setValue("fact-value");
     person.addFact(fact);
 
-    Fact event = new Fact();
+    final Fact event = new Fact();
     event.setDate(new Date());
     event.getDate().setOriginal("original date");
     event.getDate().setFormal("normalized date");
@@ -176,16 +185,16 @@ public class PersonTest {
     event.getPlace().setOriginal("original place");
     event.getPlace().setDescriptionRef(URI.create("urn:place"));
     event.setSources(new ArrayList<SourceReference>());
-    SourceReference eventSource = new SourceReference();
+    final SourceReference eventSource = new SourceReference();
     eventSource.setDescriptionRef(URI.create("urn:event-source"));
     eventSource.setAttribution(new Attribution());
     event.getSources().add(eventSource);
 
-    List<Fact> facts = person.getFacts();
+    final List<Fact> facts = person.getFacts();
     facts.add(event);
     person.setFacts(facts);
 
-    Name name = new Name();
+    final Name name = new Name();
     name.setId("name-id");
     name.setPreferred(true);
     name.setKnownType(NameType.FormalName);
@@ -203,13 +212,13 @@ public class PersonTest {
     name.getNameForms().get(1).getParts().get(0).setKnownType(NamePartType.Given);
     name.getNameForms().get(1).getParts().get(0).setValue("alternate name part");
 
-    List<Name> names = new ArrayList<Name>();
+    final List<Name> names = new ArrayList<Name>();
     names.add(name);
     person.setNames(names);
 
-    ArrayList<SourceReference> sources = new ArrayList<SourceReference>();
-    SourceReference attributedSourceReference = new SourceReference();
-    Attribution attribution = new Attribution();
+    final ArrayList<SourceReference> sources = new ArrayList<SourceReference>();
+    final SourceReference attributedSourceReference = new SourceReference();
+    final Attribution attribution = new Attribution();
     attribution.setContributor(new ResourceReference());
     attribution.getContributor().setResource(URI.create("urn:source-reference-attribution"));
     attributedSourceReference.setAttribution(attribution);
@@ -231,65 +240,65 @@ public class PersonTest {
     Fact event;
     Name name;
     SourceReference sr;
-    assertEquals(GenderType.Male, person.getGender().getKnownType());
+    assertThat(person.getGender().getKnownType()).isEqualTo(GenderType.Male);
 
-    assertEquals(2, person.getIdentifiers().size());
-    Identifier identifier1 = person.getIdentifiers().get(0);
-    Identifier identifier2 = person.getIdentifiers().get(1);
-    Identifier deprecatedIdentifier = identifier1.getKnownType() == IdentifierType.Deprecated ? identifier1 : identifier2;
-    Identifier persistentIdentifier = identifier1.getKnownType() == IdentifierType.Persistent ? identifier1 : identifier2;
+    assertThat(person.getIdentifiers().size()).isEqualTo(2);
+    final Identifier identifier1 = person.getIdentifiers().get(0);
+    final Identifier identifier2 = person.getIdentifiers().get(1);
+    final Identifier deprecatedIdentifier = identifier1.getKnownType() == IdentifierType.Deprecated ? identifier1 : identifier2;
+    final Identifier persistentIdentifier = identifier1.getKnownType() == IdentifierType.Persistent ? identifier1 : identifier2;
 
-    assertEquals(IdentifierType.Deprecated, deprecatedIdentifier.getKnownType());
-    assertEquals("forward-value", deprecatedIdentifier.getValue().toString());
-    assertEquals(IdentifierType.Persistent, persistentIdentifier.getKnownType());
-    assertEquals("pal", persistentIdentifier.getValue().toString());
+    assertThat(deprecatedIdentifier.getKnownType()).isEqualTo(IdentifierType.Deprecated);
+    assertThat(deprecatedIdentifier.getValue().toString()).isEqualTo("forward-value");
+    assertThat(persistentIdentifier.getKnownType()).isEqualTo(IdentifierType.Persistent);
+    assertThat(persistentIdentifier.getValue().toString()).isEqualTo("pal");
 
-    assertEquals(2, person.getFacts().size());
+    assertThat(person.getFacts().size()).isEqualTo(2);
     fact = person.getFirstFactOfType(FactType.Occupation);
-    assertEquals(ConfidenceLevel.High, fact.getKnownConfidenceLevel());
-    assertEquals("original date", fact.getDate().getOriginal());
-    assertEquals("formal", fact.getDate().getFormal());
-    assertEquals("normalized date", fact.getDate().getNormalizedExtensions().get(0).getValue());
-    assertEquals("fact-id", fact.getId());
-    assertEquals(FactType.Occupation, fact.getKnownType());
-    assertEquals("original place", fact.getPlace().getOriginal());
-    assertEquals("urn:place", fact.getPlace().getDescriptionRef().toURI().toString());
-    assertEquals("fact-value", fact.getValue());
+    assertThat(fact.getKnownConfidenceLevel()).isEqualTo(ConfidenceLevel.High);
+    assertThat(fact.getDate().getOriginal()).isEqualTo("original date");
+    assertThat(fact.getDate().getFormal()).isEqualTo("formal");
+    assertThat(fact.getDate().getNormalizedExtensions().get(0).getValue()).isEqualTo("normalized date");
+    assertThat(fact.getId()).isEqualTo("fact-id");
+    assertThat(fact.getKnownType()).isEqualTo(FactType.Occupation);
+    assertThat(fact.getPlace().getOriginal()).isEqualTo("original place");
+    assertThat(fact.getPlace().getDescriptionRef().toURI().toString()).isEqualTo("urn:place");
+    assertThat(fact.getValue()).isEqualTo("fact-value");
 
     event = person.getFirstFactOfType(FactType.Adoption);
-    assertEquals("original date", event.getDate().getOriginal());
-    assertEquals("normalized date", event.getDate().getFormal());
-    assertEquals("event-id", event.getId());
-    assertEquals(FactType.Adoption, event.getKnownType());
-    assertEquals("original place", event.getPlace().getOriginal());
-    assertEquals("urn:place", event.getPlace().getDescriptionRef().toURI().toString());
+    assertThat(event.getDate().getOriginal()).isEqualTo("original date");
+    assertThat(event.getDate().getFormal()).isEqualTo("normalized date");
+    assertThat(event.getId()).isEqualTo("event-id");
+    assertThat(event.getKnownType()).isEqualTo(FactType.Adoption);
+    assertThat(event.getPlace().getOriginal()).isEqualTo("original place");
+    assertThat(event.getPlace().getDescriptionRef().toURI().toString()).isEqualTo("urn:place");
 
-    assertEquals(1, person.getNames().size());
+    assertThat(person.getNames().size()).isEqualTo(1);
     name = person.getNames().iterator().next();
-    assertTrue(name.getPreferred());
-    assertEquals(2, name.getNameForms().size());
-    assertEquals("alternate name form", name.getNameForms().get(1).getFullText());
-    assertEquals(1, name.getNameForms().get(1).getParts().size());
-    assertEquals("alternate name part", name.getNameForms().get(1).getParts().get(0).getValue());
-    assertEquals(NamePartType.Given, name.getNameForms().get(1).getParts().get(0).getKnownType());
-    assertEquals("name-id", name.getId());
-    assertEquals(NameType.FormalName, name.getKnownType());
-    assertEquals("primary form", name.getNameForms().get(0).getFullText());
-    assertEquals(1, name.getNameForms().get(0).getParts().size());
-    assertEquals("primary surname", name.getNameForms().get(0).getParts().get(0).getValue());
-    assertEquals(NamePartType.Surname, name.getNameForms().get(0).getParts().get(0).getKnownType());
+    assertThat(name.getPreferred()).isTrue();
+    assertThat(name.getNameForms().size()).isEqualTo(2);
+    assertThat(name.getNameForms().get(1).getFullText()).isEqualTo("alternate name form");
+    assertThat(name.getNameForms().get(1).getParts().size()).isEqualTo(1);
+    assertThat(name.getNameForms().get(1).getParts().get(0).getValue()).isEqualTo("alternate name part");
+    assertThat(name.getNameForms().get(1).getParts().get(0).getKnownType()).isEqualTo(NamePartType.Given);
+    assertThat(name.getId()).isEqualTo("name-id");
+    assertThat(name.getKnownType()).isEqualTo(NameType.FormalName);
+    assertThat(name.getNameForms().get(0).getFullText()).isEqualTo("primary form");
+    assertThat(name.getNameForms().get(0).getParts().size()).isEqualTo(1);
+    assertThat(name.getNameForms().get(0).getParts().get(0).getValue()).isEqualTo("primary surname");
+    assertThat(name.getNameForms().get(0).getParts().get(0).getKnownType()).isEqualTo(NamePartType.Surname);
 
-    assertEquals("pal", person.getPersistentId().toString());
+    assertThat(person.getPersistentId().toString()).isEqualTo("pal");
 
-    assertEquals(1, person.getSources().size());
+    assertThat(person.getSources().size()).isEqualTo(1);
     sr = person.getSources().iterator().next();
-    assertEquals("urn:source-reference-attribution", sr.getAttribution().getContributor().getResource().toString());
-    assertEquals("urn:source-description", sr.getDescriptionRef().toString());
+    assertThat(sr.getAttribution().getContributor().getResource().toString()).isEqualTo("urn:source-reference-attribution");
+    assertThat(sr.getDescriptionRef().toString()).isEqualTo("urn:source-description");
 
-    assertEquals("pid", person.getId());
-    assertEquals("this person existed.", person.getAttribution().getChangeMessage());
+    assertThat(person.getId()).isEqualTo("pid");
+    assertThat(person.getAttribution().getChangeMessage()).isEqualTo("this person existed.");
 
-    assertTrue(person.getLiving());
+    assertThat(person.getLiving()).isTrue();
   }
 
 }

@@ -8,3 +8,6 @@ target
 *.zargo~
 .DS_Store
 *.asc
+.project
+.settings
+*.classpath

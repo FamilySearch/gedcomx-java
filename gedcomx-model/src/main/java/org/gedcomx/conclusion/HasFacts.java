@@ -15,15 +15,18 @@
  */
 package org.gedcomx.conclusion;
 
-import javax.xml.bind.annotation.XmlType;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Conclusion data that has facts.
  *
  * @author Ryan Heaton
  */
-@XmlType ( name = "HasFacts" )
+@XmlType(name = "HasFacts")
 public interface HasFacts {
 
   /**
@@ -39,4 +42,15 @@ public interface HasFacts {
    * @param facts The fact conclusions for the person.
    */
   void setFacts(List<Fact> facts);
+
+  /**
+   * Create a stream of facts.
+   *
+   * @return a stream of facts.
+   */
+  default Stream<Fact> facts() {
+    return Optional.ofNullable(getFacts())
+        .map(List::stream)
+        .orElse(Stream.empty());
+  }
 }
