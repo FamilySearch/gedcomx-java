@@ -30,7 +30,8 @@ import org.gedcomx.rt.EnumURIMap;
 public enum OrdinanceRollupStatus implements ControlledVocabulary {
 
   /*
-   Ordinance-Status Rollup Status will have 4 values with priority from highest to lowest READY->RESERVED→NEEDS_MORE_INFORMATION->COMPLETED.
+   Ordinance-Status Rollup Status will have 5 values with priority
+      from highest to lowest RESERVED_SHARED_READY->READY->RESERVED→NEEDS_MORE_INFORMATION->COMPLETED.
   */
 
 
@@ -53,6 +54,11 @@ public enum OrdinanceRollupStatus implements ControlledVocabulary {
    * This rollup status for the ordinance indicates it has been reserved.
    */
   RolledUpReserved,
+
+  /**
+   * This rollup status for the ordinance indicates it was reserved and shared with or assigned to Church inventory. A secondary reservation is available.
+   */
+  RolledUpReservedSharedReady,
 
 
   @XmlUnknownQNameEnumValue
