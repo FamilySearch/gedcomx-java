@@ -129,7 +129,7 @@ Accessing Repositories
 
 
         - FamilySearch artifactory repository.  You must be vpn'ed in to access this.
-              https://familysearch.jfrog.io/familysearch/fs-maven-dev-virtual
+              https://familysearch.jfrog.io/artifactory/fs-maven-dev-virtual
               http://nexus.a.fsglobal.net/content/groups/dev/org/gedcomx
 
 
