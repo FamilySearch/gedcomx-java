@@ -199,10 +199,12 @@ public abstract class Subject extends Conclusion implements Attributable {
       }
     }
 
-    Identifier identifier = new Identifier();
-    identifier.setKnownType(IdentifierType.Persistent);
-    identifier.setValue(persistentId);
-    this.identifiers.add(identifier);
+    if (persistentId != null) {
+      Identifier identifier = new Identifier();
+      identifier.setKnownType(IdentifierType.Persistent);
+      identifier.setValue(persistentId);
+      this.identifiers.add(identifier);
+    }
   }
 
   /**

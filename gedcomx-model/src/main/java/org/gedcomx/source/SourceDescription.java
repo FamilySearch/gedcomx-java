@@ -761,10 +761,12 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
       }
     }
 
-    final Identifier identifier = new Identifier();
-    identifier.setKnownType(IdentifierType.Persistent);
-    identifier.setValue(persistentId);
-    this.identifiers.add(identifier);
+    if (persistentId != null) {
+      final Identifier identifier = new Identifier();
+      identifier.setKnownType(IdentifierType.Persistent);
+      identifier.setValue(persistentId);
+      this.identifiers.add(identifier);
+    }
   }
 
   /**
