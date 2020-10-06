@@ -761,7 +761,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
       }
     }
 
-    if (persistentId != null) {
+    if (persistentId != null && !"".equals(persistentId.toString())) {
       final Identifier identifier = new Identifier();
       identifier.setKnownType(IdentifierType.Persistent);
       identifier.setValue(persistentId);

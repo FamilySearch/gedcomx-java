@@ -199,7 +199,7 @@ public abstract class Subject extends Conclusion implements Attributable {
       }
     }
 
-    if (persistentId != null) {
+    if (persistentId != null && !"".equals(persistentId.toString())) {
       Identifier identifier = new Identifier();
       identifier.setKnownType(IdentifierType.Persistent);
       identifier.setValue(persistentId);
