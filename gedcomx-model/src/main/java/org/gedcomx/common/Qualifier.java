@@ -15,6 +15,8 @@
  */
 package org.gedcomx.common;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -154,19 +156,13 @@ public final class Qualifier {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
-    Qualifier qualifier = (Qualifier) o;
-
-    if (!name.equals(qualifier.name)) {
-      return false;
-    }
-    return value.equals(qualifier.value);
+    final Qualifier qualifier = (Qualifier) o;
+    return Objects.equals(name, qualifier.name) &&
+        Objects.equals(value, qualifier.value);
   }
 
   @Override
   public int hashCode() {
-    int result = name.hashCode();
-    result = 31 * result + value.hashCode();
-    return result;
+    return Objects.hash(name, value);
   }
 }
