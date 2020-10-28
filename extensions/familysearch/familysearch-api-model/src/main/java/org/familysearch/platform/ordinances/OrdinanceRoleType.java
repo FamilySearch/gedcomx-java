@@ -30,14 +30,6 @@ public enum OrdinanceRoleType implements ControlledVocabulary {
   Parent,
   Spouse,
 
-  // todo this will be removed
-  /** Deprecated: */
-  @Deprecated
-  Father,
-  /** Deprecated: */
-  @Deprecated
-  Mother,
-
   @XmlUnknownQNameEnumValue
   OTHER;
 

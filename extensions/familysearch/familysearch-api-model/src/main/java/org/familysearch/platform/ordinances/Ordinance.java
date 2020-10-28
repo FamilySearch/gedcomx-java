@@ -39,9 +39,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
 @XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "actions", "person", "sexType", "participants", "reservation",
-                                           "secondaryReservation", "callerReservation", "templeCode", "completionDate",
-                                           // These field(s) will be removed
-                                           "date", })
+                                           "secondaryReservation", "callerReservation", "templeCode", "completionDate"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 //
 // @XmlQNameEnumRef(OrdinanceStatusReason.class)   Cannot be used on getStatusReasons() because of enunciate bug and the OrdinanceStatusReason docs
@@ -64,9 +62,6 @@ public class Ordinance extends Conclusion {
 
   private String templeCode;
   private Date completionDate;      // a java.util.Date
-
-  @Deprecated
-  private org.gedcomx.conclusion.Date date;        // a gedcomx conclusion Date
 
   /**
    * Gets the type of ordinance
@@ -488,35 +483,4 @@ public class Ordinance extends Conclusion {
     setTempleCode(templeCode);
     return this;
   }
-
-  // =======================================================================================================================================
-  // =======================================================================================================================================
-  // These methods are deprecated and will be removed
-  /**
-   * Deprecated:
-   *
-   * @return The date of this ordinance.
-   */
-  @Deprecated
-  public org.gedcomx.conclusion.Date getDate() {
-    return date;
-  }
-
-  /**
-   * Deprecated: The date of this ordinance.
-   *
-   * @param date The date of this ordinance.
-   */
-  @Deprecated
-  public void setDate(org.gedcomx.conclusion.Date date) {
-    this.date = date;
-  }
-
-  @Deprecated
-  public Ordinance date(org.gedcomx.conclusion.Date date) {
-    setDate(date);
-    return this;
-  }
-
-
 }

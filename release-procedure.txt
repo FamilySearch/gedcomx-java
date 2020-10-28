@@ -8,8 +8,8 @@ Procedure:  (required setup must be completed first)
 2. mvn -B -Prelease clean release:clean release:prepare -Dtag=$THIS_RELEASE_VERSION -DreleaseVersion=$THIS_RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform
 
     Example:
-        export THIS_RELEASE_VERSION=2.116.0; \
-        export NEXT_SNAPSHOT_VERSION=2.117.0-SNAPSHOT; \
+        export THIS_RELEASE_VERSION=2.121.0; \
+        export NEXT_SNAPSHOT_VERSION=2.122.0-SNAPSHOT; \
         mvn -B -Prelease clean release:clean release:prepare -Dtag=$THIS_RELEASE_VERSION -DreleaseVersion=$THIS_RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform;
 
 
@@ -124,7 +124,9 @@ Accessing Repositories
 
 
         - Maven Central repository.  When its here then FamilySearch's artifactory will be able to pull it.
-              http://central.maven.org/maven2/org/gedcomx/
+              https://repo.maven.apache.org/maven2/org/gedcomx/
+              https://repo1.maven.org/maven2/org/gedcomx
+                                  (http://central.maven.org/maven2/org/gedcomx/ is not working)
               https://search.maven.org/search?q=gedcomx         search.maven.org can take longer to appear
 
 

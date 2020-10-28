@@ -15,17 +15,13 @@
  */
 package org.familysearch.platform.ordinances;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 
 import org.gedcomx.common.ResourceReference;
@@ -44,16 +40,6 @@ public class OrdinanceReservation {
   private Date expirationDate;              // a java.util.Date
   private URI claimType;
   private URI assigneeType;
-
-  @Deprecated
-  private Date reserved;
-  @Deprecated
-  private Date modified;
-  @Deprecated
-  private Date expired;
-  @Deprecated
-  private List<URI> possibleAssigneeTypes;
-
 
   /**
    * Get the owner associated with the ordinance reservation
@@ -277,143 +263,5 @@ public class OrdinanceReservation {
     setKnownAssigneeType(knownAssigneeType);
     return this;
   }
-
-  // =======================================================================================================================================
-  // =======================================================================================================================================
-  // These methods are deprecated and will be removed
-  /**
-   * Deprecated:
-   *
-   * @return The reserved timestamp for the ordinance reservation.
-   */
-  @Deprecated
-  public Date getReserved() {
-    return reserved;
-  }
-
-  @Deprecated
-  public void setReserved(Date reserved) {
-    this.reserved = reserved;
-  }
-
-  /**
-   * Deprecated: Build up this ordinance reservation with a reserved date.
-   *
-   * @param reserved The reserved date.
-   * @return this.
-   */
-  @Deprecated
-  public OrdinanceReservation reserved(Date reserved) {
-    this.reserved = reserved;
-    return this;
-  }
-
-  /**
-   * Deprecated:
-   *
-   * @return The modified timestamp for the ordinance reservation.
-   */
-  @Deprecated
-  public Date getModified() {
-    return modified;
-  }
-
-  @Deprecated
-  public void setModified(Date modified) {
-    this.modified = modified;
-  }
-
-  /**
-   * Deprecated: Build up this ordinance reservation with a modified date.
-   *
-   * @param modified The modified date.
-   * @return this.
-   */
-  @Deprecated
- public OrdinanceReservation modified(Date modified) {
-    this.modified = modified;
-    return this;
-  }
-
-  /**
-   * Deprecated:
-   *
-   * @return The expired timestamp for the ordinance reservation.
-   */
-  @Deprecated
-  public Date getExpired() {
-    return expired;
-  }
-
-  @Deprecated
-  public void setExpired(Date expired) {
-    this.expired = expired;
-  }
-
-  /**
-   * Deprecated: Build up this ordinance reservation with a expired date.
-   *
-   * @param expired The expired date.
-   * @return this.
-   */
-  @Deprecated
-  public OrdinanceReservation expired(Date expired) {
-    this.expired = expired;
-    return this;
-  }
-
-  /**
-   * Deprecated:
-   *
-   * @return The possible assigneeTypes the reservation could be assigned to.
-   */
-  @XmlElement(name="possibleAssigneeType")
-  @JsonProperty("possibleAssigneeTypes")
-  // Do not include this annotation: @XmlQNameEnumRef(OrdinanceReservationAssigneeType.class)  There is a bug in enunciate for Collection<URI/String>
-  @Deprecated
-  public List<URI> getPossibleAssigneeTypes() {
-    return possibleAssigneeTypes;
-  }
-
-  @JsonProperty("possibleAssigneeTypes")
-  @Deprecated
-  public void setPossibleAssigneeTypes(List<URI> possibleAssigneeTypes) {
-    this.possibleAssigneeTypes = possibleAssigneeTypes;
-  }
-
-  @Deprecated
-  public void addPossibleAssigneeType(URI assigneeType) {
-    if (assigneeType != null) {
-      if (possibleAssigneeTypes == null) {
-        possibleAssigneeTypes = new ArrayList<>();
-      }
-      possibleAssigneeTypes.add(assigneeType);
-    }
-  }
-
-  @Deprecated
-  public void addKnownPossibleAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
-    addPossibleAssigneeType(knownAssigneeType == null ? null : knownAssigneeType.toQNameURI());
-  }
-
-  /**
-   * Deprecated: Build out the possible assigneeTypes the reservation could be assigned to.
-   *
-   * @param assigneeType The URI for the possible assigneeType the reservation could be assigned to.
-   *
-   * @return this.
-   */
-  @Deprecated
-  public OrdinanceReservation possibleAssigneeType(URI assigneeType) {
-    addPossibleAssigneeType(assigneeType);
-    return this;
-  }
-
-  @Deprecated
-  public OrdinanceReservation possibleAssigneeType(OrdinanceReservationAssigneeType knownAssigneeType) {
-    addKnownPossibleAssigneeType(knownAssigneeType);
-    return this;
-  }
-
 
 }

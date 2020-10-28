@@ -70,23 +70,6 @@ public enum OrdinanceStatus implements ControlledVocabulary {
   /** The ordinance was reserved, shared with or assigned to Church inventory, and has been reserved and printed. */
   ReservedSharedPrinted,
 
-  // todo the following 5 Ordinance status have been renamed.  These names are deprecated and will be removed.
-  /** Deprecated: */
-  @Deprecated
-  InProgressByOther,
-  /** Deprecated: */
-  @Deprecated
-  InProgressBySelf,
-  /** Deprecated: */
-  @Deprecated
-  NotNeededBornInCovenant,
-  /** Deprecated: */
-  @Deprecated
-  ReservedByOther,
-  /** Deprecated: */
-  @Deprecated
-  ReservedBySelf,
-
   @XmlUnknownQNameEnumValue
   OTHER;
 
