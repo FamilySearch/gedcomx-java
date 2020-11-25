@@ -31,7 +31,7 @@ import org.gedcomx.rt.GedcomNamespaceManager;
  *
  * @author Ryan Heaton
  */
-public class GedcomJacksonModule extends Module {
+public class GedcomJacksonModule extends com.fasterxml.jackson.databind.Module {
 
   /**
    * Creates an object mapper given the specified context classes.

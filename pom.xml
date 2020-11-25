@@ -26,7 +26,9 @@
     <handy-uri.version>2.1.6</handy-uri.version>
     <jackson.databind.version>2.10.0</jackson.databind.version>
     <jackson.jaxrs.version>2.10.0</jackson.jaxrs.version>
-    <jaxb-runtime.version>2.2.11</jaxb-runtime.version>
+    <jaxb.version>2.3.1</jaxb.version>
+    <jaxb-core.version>2.3.0.1</jaxb-core.version>
+    <jaxb-impl.version>2.3.2</jaxb-impl.version>
     <jersey1.version>1.19.4</jersey1.version>
     <jena-arq.version>3.1.0</jena-arq.version>
     <jsr311-api.version>1.1.1</jsr311-api.version>
@@ -141,9 +143,21 @@
       </dependency>
 
       <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-runtime</artifactId>
-        <version>${jaxb-runtime.version}</version>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>${jaxb.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-core</artifactId>
+        <version>${jaxb-core.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-impl</artifactId>
+        <version>${jaxb-impl.version}</version>
       </dependency>
 
       <dependency>
