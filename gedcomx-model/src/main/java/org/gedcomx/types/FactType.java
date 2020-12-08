@@ -36,6 +36,7 @@ import java.util.Set;
 )
 public enum FactType implements ControlledVocabulary {
 
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // facts generally applicable within the scope of a person.
 
   /**
@@ -59,7 +60,6 @@ public enum FactType implements ControlledVocabulary {
   /**
    * A fact of a person's apprenticeship.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Apprenticeship,
 
   /**
@@ -355,7 +355,7 @@ public enum FactType implements ControlledVocabulary {
   Obituary,
 
   /**
-   * A fact of a person's occupation or employment.
+   * A fact of a person's occupation.
    */
   Occupation,
 
@@ -443,6 +443,7 @@ public enum FactType implements ControlledVocabulary {
    */
   Yahrzeit,
 
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // facts generally applicable within the scope of a couple.
 
   /**
@@ -525,6 +526,7 @@ public enum FactType implements ControlledVocabulary {
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   Separation,
 
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // facts generally applicable within the scope of a parent-child relationship.
 
   /**
@@ -626,7 +628,7 @@ public enum FactType implements ControlledVocabulary {
       PERSON_FACT_TYPES.add(type);
       return type;
     }
-    
+
     public static final FactType Adoption = include(FactType.Adoption);
     public static final FactType AdultChristening = include(FactType.AdultChristening);
     public static final FactType Amnesty = include(FactType.Amnesty);
@@ -701,7 +703,7 @@ public enum FactType implements ControlledVocabulary {
 
     /**
      * Whether the given fact type is applicable to a person.
-     * 
+     *
      * @param type The fact type.
      * @return Whether the given fact type is applicable to a person.
      */
@@ -719,7 +721,7 @@ public enum FactType implements ControlledVocabulary {
       COUPLE_FACT_TYPES.add(type);
       return type;
     }
-    
+
     public static final FactType Annulment = include(FactType.Annulment);
     public static final FactType CommonLawMarriage = include(FactType.CommonLawMarriage);
     public static final FactType CivilUnion = include(FactType.CivilUnion);
@@ -737,7 +739,7 @@ public enum FactType implements ControlledVocabulary {
 
     /**
      * Whether the given fact type is applicable to a couple.
-     * 
+     *
      * @param type The fact type.
      * @return Whether the given fact type is applicable to a couple.
      */
@@ -766,7 +768,7 @@ public enum FactType implements ControlledVocabulary {
 
     /**
      * Whether the given fact type is applicable to a parent-child relationship.
-     * 
+     *
      * @param type The fact type.
      * @return Whether the given fact type is applicable to a parent-child relationship.
      */
