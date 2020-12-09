@@ -30,20 +30,13 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum FamilySearchFactType implements ControlledVocabulary {
 
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // FamilySearch facts generally applicable within the scope of a person.
+
   /**
    * Person fact type: Affiliation to something.
    */
   Affiliation,
-
-  /**
-   * Parent Child fact type: A child's birth order to parents.
-   */
-  BirthOrder,
-
-  /**
-   * Couple fact type: Couple never had children.
-   */
-  CoupleNeverHadChildren,
 
   /**
    * Person fact type: Person died before age eight.
@@ -54,11 +47,6 @@ public enum FamilySearchFactType implements ControlledVocabulary {
    * Person fact type: Person's "life sketch" summary.
    */
   LifeSketch,
-
-  /**
-   * Couple fact type: Couple lived together.
-   */
-  LivedTogether,
 
   /**
    * Person fact type: Person had no children.
@@ -81,9 +69,31 @@ public enum FamilySearchFactType implements ControlledVocabulary {
   TribeName,
 
   // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // FamilySearch facts generally applicable within the scope of a couple.
+
+  /**
+   * Couple fact type: Couple never had children.
+   */
+  CoupleNeverHadChildren,
+
+  /**
+   * Couple fact type: Couple lived together.
+   */
+  LivedTogether,
+
+
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // FamilySearch facts generally applicable within the scope of a parent-child relationship.
+
+  /**
+   * Parent Child fact type: A child's birth order to parents.
+   */
+  BirthOrder,
+
+
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // FamilySearch facts generally applicable within the scope of an association.
-  // association fact types
-  // Apprenticeship,       // exists as a core Gedcomx FactType
+  // Apprenticeship,       // exists as a core Gedcomx FactType http://gedcomx.org/Apprenticeship
   /**
    * A fact of a person's association.
    */
