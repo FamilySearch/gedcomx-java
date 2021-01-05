@@ -133,6 +133,10 @@ public class EnumURIMap<K extends Enum<K>> extends EnumMap<K, String> {
       }
     }
 
+    if (token.contains("#")) {
+      //try it without the URI fragment to see if there is a primary resource this URI refers to
+      return fromURIValue(URI.create(token.substring(0, token.indexOf("#"))));
+    }
     //still not found; return the unknown value.
     return unknownValue;
   }
