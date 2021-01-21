@@ -16,15 +16,18 @@
 package org.familysearch.platform.ordinances;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
+import org.gedcomx.conclusion.DisplayProperties;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 //@XmlRootElement(name = "participant")   // not a root element or something that is added as an extension element
@@ -36,6 +39,7 @@ public class OrdinanceParticipant {
   private URI roleType;
   private URI sexType;
   private ResourceReference participant;
+  private DisplayProperties displayProperties;    // used for completed ordinances which may contain some static information
 
 
   /**
@@ -164,5 +168,39 @@ public class OrdinanceParticipant {
     setParticipant(participant);
     return this;
   }
+
+  /**
+   * Display properties for the ordinance participant.
+   *
+   * @return Display properties for the ordinance participant.
+   */
+  @XmlElement(name = "display")
+  @JsonProperty("display")
+  public DisplayProperties getDisplayProperties() {
+    return displayProperties;
+  }
+
+  /**
+   * Display properties for the ordinance participant.
+   *
+   * @param displayProperties Display properties for the ordinance participant.
+   */
+  @JsonProperty("display")
+  public void setDisplayProperties(DisplayProperties displayProperties) {
+    this.displayProperties = displayProperties;
+  }
+
+  /**
+   * Build out this person with a display exension.
+   *
+   * @param displayProperties the display.
+   * @return this
+   */
+  public OrdinanceParticipant displayProperties(DisplayProperties displayProperties) {
+    setDisplayProperties(displayProperties);
+    return this;
+  }
+
+
 
 }

@@ -34,12 +34,13 @@ import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
+import org.gedcomx.date.GedcomxDate;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
 @XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "actions", "person", "sexType", "participants", "reservation",
-                                           "secondaryReservation", "callerReservation", "templeCode", "completionDate"})
+                                           "secondaryReservation", "callerReservation", "templeCode", "completeDate", "completionDate"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 //
 // @XmlQNameEnumRef(OrdinanceStatusReason.class)   Cannot be used on getStatusReasons() because of enunciate bug and the OrdinanceStatusReason docs
@@ -61,7 +62,10 @@ public class Ordinance extends Conclusion {
   private OrdinanceReservation callerReservation;
 
   private String templeCode;
-  private Date completionDate;      // a java.util.Date
+  private GedcomxDate completeDate;   // a org.gedcomx.date.GedcomxDate  (generally GedcomxDateSimple)
+
+  @Deprecated
+  private Date completionDate;        // a java.util.Date
 
   /**
    * Gets the type of ordinance
@@ -439,29 +443,6 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * The completion date of this ordinance.
-   *
-   * @return The completion date of this ordinance.
-   */
-  public Date getCompletionDate() {
-    return completionDate;
-  }
-
-  /**
-   * The completion date of this ordinance.
-   *
-   * @param completionDate The completion date of this ordinance.
-   */
-  public void setCompletionDate(Date completionDate) {
-    this.completionDate = completionDate;
-  }
-
-  public Ordinance completionDate(Date completionDate) {
-    setCompletionDate(completionDate);
-    return this;
-  }
-
-  /**
    * The code for the temple at which the ordinance was performed.
    *
    * @return The code for the temple at which the ordinance was performed.
@@ -481,6 +462,55 @@ public class Ordinance extends Conclusion {
 
   public Ordinance templeCode(String templeCode) {
     setTempleCode(templeCode);
+    return this;
+  }
+
+  /**
+   * The complete date of this ordinance.
+   *
+   * @return The complete date of this ordinance.
+   */
+  public GedcomxDate getCompleteDate() {
+    return completeDate;
+  }
+
+  /**
+   * The complete date of this ordinance.
+   *
+   * @param completeDate The complete date of this ordinance.
+   */
+  public void setCompleteDate(GedcomxDate completeDate) {
+    this.completeDate = completeDate;
+  }
+
+  public Ordinance completeDate(GedcomxDate completeDate) {
+    setCompleteDate(completeDate);
+    return this;
+  }
+
+  /**
+   * The completion date of this ordinance.
+   *
+   * @return The completion date of this ordinance.
+   */
+  @Deprecated
+  public Date getCompletionDate() {
+    return completionDate;
+  }
+
+  /**
+   * The completion date of this ordinance.
+   *
+   * @param completionDate The completion date of this ordinance.
+   */
+  @Deprecated
+  public void setCompletionDate(Date completionDate) {
+    this.completionDate = completionDate;
+  }
+
+  @Deprecated
+  public Ordinance completionDate(Date completionDate) {
+    setCompletionDate(completionDate);
     return this;
   }
 }
