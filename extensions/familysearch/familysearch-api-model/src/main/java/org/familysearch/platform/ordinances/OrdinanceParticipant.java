@@ -36,6 +36,7 @@ public class OrdinanceParticipant {
   private URI roleType;
   private URI sexType;
   private ResourceReference participant;
+  private String fullName;            // used for completed ordinances which may contain some static information
 
 
   /**
@@ -162,6 +163,29 @@ public class OrdinanceParticipant {
    */
   public OrdinanceParticipant participant(ResourceReference participant) {
     setParticipant(participant);
+    return this;
+  }
+
+  /**
+   * The full name of the person, generally in the native name form.
+   *
+   * @return The full name of the person, generally in the native name form.
+   */
+  public String getFullName() {
+    return fullName;
+  }
+
+  /**
+   * The full name of the person, generally in the native name form.
+   *
+   * @param fullName The full name of the person, generally in the native name form.
+   */
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public OrdinanceParticipant fullName(String fullName) {
+    setFullName(fullName);
     return this;
   }
 

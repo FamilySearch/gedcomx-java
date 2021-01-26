@@ -16,7 +16,6 @@
 package org.familysearch.platform.ordinances;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,12 +33,13 @@ import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
+import org.gedcomx.conclusion.Date;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
 @XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "actions", "person", "sexType", "participants", "reservation",
-                                           "secondaryReservation", "callerReservation", "templeCode", "completionDate"})
+                                           "secondaryReservation", "callerReservation", "templeCode", "completeDate", "fullName", "completionDate"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 //
 // @XmlQNameEnumRef(OrdinanceStatusReason.class)   Cannot be used on getStatusReasons() because of enunciate bug and the OrdinanceStatusReason docs
@@ -61,7 +61,12 @@ public class Ordinance extends Conclusion {
   private OrdinanceReservation callerReservation;
 
   private String templeCode;
-  private Date completionDate;      // a java.util.Date
+  private Date completeDate;
+  private String fullName;            // used for completed ordinances which may contain some static information
+
+  @Deprecated
+  private java.util.Date completionDate;
+
 
   /**
    * Gets the type of ordinance
@@ -439,29 +444,6 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * The completion date of this ordinance.
-   *
-   * @return The completion date of this ordinance.
-   */
-  public Date getCompletionDate() {
-    return completionDate;
-  }
-
-  /**
-   * The completion date of this ordinance.
-   *
-   * @param completionDate The completion date of this ordinance.
-   */
-  public void setCompletionDate(Date completionDate) {
-    this.completionDate = completionDate;
-  }
-
-  public Ordinance completionDate(Date completionDate) {
-    setCompletionDate(completionDate);
-    return this;
-  }
-
-  /**
    * The code for the temple at which the ordinance was performed.
    *
    * @return The code for the temple at which the ordinance was performed.
@@ -481,6 +463,78 @@ public class Ordinance extends Conclusion {
 
   public Ordinance templeCode(String templeCode) {
     setTempleCode(templeCode);
+    return this;
+  }
+
+  /**
+   * The complete date of this ordinance.
+   *
+   * @return The complete date of this ordinance.
+   */
+  public Date getCompleteDate() {
+    return completeDate;
+  }
+
+  /**
+   * The complete date of this ordinance.
+   *
+   * @param completeDate The complete date of this ordinance.
+   */
+  public void setCompleteDate(Date completeDate) {
+    this.completeDate = completeDate;
+  }
+
+  public Ordinance completeDate(Date completeDate) {
+    setCompleteDate(completeDate);
+    return this;
+  }
+
+  /**
+   * The full name of the person, generally in the native name form.
+   *
+   * @return The full name of the person, generally in the native name form.
+   */
+  public String getFullName() {
+    return fullName;
+  }
+
+  /**
+   * The full name of the person, generally in the native name form.
+   *
+   * @param fullName The full name of the person, generally in the native name form.
+   */
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public Ordinance fullName(String fullName) {
+    setFullName(fullName);
+    return this;
+  }
+
+  /**
+   * The completion date of this ordinance.
+   *
+   * @return The completion date of this ordinance.
+   */
+  @Deprecated
+  public java.util.Date getCompletionDate() {
+    return completionDate;
+  }
+
+  /**
+   * The completion date of this ordinance.
+   *
+   * @param completionDate The completion date of this ordinance.
+   */
+  @Deprecated
+  public void setCompletionDate(java.util.Date completionDate) {
+    this.completionDate = completionDate;
+  }
+
+  @Deprecated
+  public Ordinance completionDate(java.util.Date completionDate) {
+    setCompletionDate(completionDate);
     return this;
   }
 }
