@@ -16,18 +16,15 @@
 package org.familysearch.platform.ordinances;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.gedcomx.conclusion.DisplayProperties;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 //@XmlRootElement(name = "participant")   // not a root element or something that is added as an extension element
@@ -39,7 +36,7 @@ public class OrdinanceParticipant {
   private URI roleType;
   private URI sexType;
   private ResourceReference participant;
-  private DisplayProperties displayProperties;    // used for completed ordinances which may contain some static information
+  private String fullName;            // used for completed ordinances which may contain some static information
 
 
   /**
@@ -170,37 +167,26 @@ public class OrdinanceParticipant {
   }
 
   /**
-   * Display properties for the ordinance participant.
+   * The full name of the person, generally in the native name form.
    *
-   * @return Display properties for the ordinance participant.
+   * @return The full name of the person, generally in the native name form.
    */
-  @XmlElement(name = "display")
-  @JsonProperty("display")
-  public DisplayProperties getDisplayProperties() {
-    return displayProperties;
+  public String getFullName() {
+    return fullName;
   }
 
   /**
-   * Display properties for the ordinance participant.
+   * The full name of the person, generally in the native name form.
    *
-   * @param displayProperties Display properties for the ordinance participant.
+   * @param fullName The full name of the person, generally in the native name form.
    */
-  @JsonProperty("display")
-  public void setDisplayProperties(DisplayProperties displayProperties) {
-    this.displayProperties = displayProperties;
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
   }
 
-  /**
-   * Build out this person with a display exension.
-   *
-   * @param displayProperties the display.
-   * @return this
-   */
-  public OrdinanceParticipant displayProperties(DisplayProperties displayProperties) {
-    setDisplayProperties(displayProperties);
+  public OrdinanceParticipant fullName(String fullName) {
+    setFullName(fullName);
     return this;
   }
-
-
 
 }

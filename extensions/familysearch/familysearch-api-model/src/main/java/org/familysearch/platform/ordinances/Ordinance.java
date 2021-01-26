@@ -16,7 +16,6 @@
 package org.familysearch.platform.ordinances;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,13 +33,13 @@ import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Conclusion;
-import org.gedcomx.date.GedcomxDate;
+import org.gedcomx.conclusion.Date;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 @XmlRootElement(name = "ordinance")
 @JsonElementWrapper(name = "ordinances")
 @XmlType( name = "Ordinance", propOrder = {"type", "status", "statusReasons", "actions", "person", "sexType", "participants", "reservation",
-                                           "secondaryReservation", "callerReservation", "templeCode", "completeDate", "completionDate"})
+                                           "secondaryReservation", "callerReservation", "templeCode", "completeDate", "fullName", "completionDate"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 //
 // @XmlQNameEnumRef(OrdinanceStatusReason.class)   Cannot be used on getStatusReasons() because of enunciate bug and the OrdinanceStatusReason docs
@@ -62,10 +61,12 @@ public class Ordinance extends Conclusion {
   private OrdinanceReservation callerReservation;
 
   private String templeCode;
-  private GedcomxDate completeDate;   // a org.gedcomx.date.GedcomxDate  (generally GedcomxDateSimple)
+  private Date completeDate;
+  private String fullName;            // used for completed ordinances which may contain some static information
 
   @Deprecated
-  private Date completionDate;        // a java.util.Date
+  private java.util.Date completionDate;
+
 
   /**
    * Gets the type of ordinance
@@ -470,7 +471,7 @@ public class Ordinance extends Conclusion {
    *
    * @return The complete date of this ordinance.
    */
-  public GedcomxDate getCompleteDate() {
+  public Date getCompleteDate() {
     return completeDate;
   }
 
@@ -479,12 +480,35 @@ public class Ordinance extends Conclusion {
    *
    * @param completeDate The complete date of this ordinance.
    */
-  public void setCompleteDate(GedcomxDate completeDate) {
+  public void setCompleteDate(Date completeDate) {
     this.completeDate = completeDate;
   }
 
-  public Ordinance completeDate(GedcomxDate completeDate) {
+  public Ordinance completeDate(Date completeDate) {
     setCompleteDate(completeDate);
+    return this;
+  }
+
+  /**
+   * The full name of the person, generally in the native name form.
+   *
+   * @return The full name of the person, generally in the native name form.
+   */
+  public String getFullName() {
+    return fullName;
+  }
+
+  /**
+   * The full name of the person, generally in the native name form.
+   *
+   * @param fullName The full name of the person, generally in the native name form.
+   */
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public Ordinance fullName(String fullName) {
+    setFullName(fullName);
     return this;
   }
 
@@ -494,7 +518,7 @@ public class Ordinance extends Conclusion {
    * @return The completion date of this ordinance.
    */
   @Deprecated
-  public Date getCompletionDate() {
+  public java.util.Date getCompletionDate() {
     return completionDate;
   }
 
@@ -504,12 +528,12 @@ public class Ordinance extends Conclusion {
    * @param completionDate The completion date of this ordinance.
    */
   @Deprecated
-  public void setCompletionDate(Date completionDate) {
+  public void setCompletionDate(java.util.Date completionDate) {
     this.completionDate = completionDate;
   }
 
   @Deprecated
-  public Ordinance completionDate(Date completionDate) {
+  public Ordinance completionDate(java.util.Date completionDate) {
     setCompletionDate(completionDate);
     return this;
   }
