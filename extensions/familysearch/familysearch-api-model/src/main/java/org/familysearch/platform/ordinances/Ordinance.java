@@ -513,9 +513,9 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * The completion date of this ordinance.
+   * Deprecated: The completion date of this ordinance.
    *
-   * @return The completion date of this ordinance.
+   * @return Deprecated: The completion date of this ordinance.
    */
   @Deprecated
   public java.util.Date getCompletionDate() {
@@ -523,9 +523,9 @@ public class Ordinance extends Conclusion {
   }
 
   /**
-   * The completion date of this ordinance.
+   * Deprecated: The completion date of this ordinance.
    *
-   * @param completionDate The completion date of this ordinance.
+   * @param completionDate Deprecated: The completion date of this ordinance.
    */
   @Deprecated
   public void setCompletionDate(java.util.Date completionDate) {
