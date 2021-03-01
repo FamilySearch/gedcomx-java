@@ -177,6 +177,11 @@ public enum FactType implements ControlledVocabulary {
   Emigration,
 
   /**
+   * A fact of a person's enslavement.
+   */
+  Enslavement,
+
+  /**
    * A fact of a person's ethnicity or race.
    */
   Ethnicity,

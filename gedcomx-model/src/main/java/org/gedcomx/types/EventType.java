@@ -133,6 +133,11 @@ public enum EventType implements ControlledVocabulary {
   Emigration,
 
   /**
+   * An enslavement event.
+   */
+  Enslavement,
+
+  /**
    * An excommunication event from a church.
    */
   Excommunication,
