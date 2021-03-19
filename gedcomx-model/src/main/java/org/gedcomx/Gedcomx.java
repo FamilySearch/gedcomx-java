@@ -1269,7 +1269,7 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
       URI persistentId = person.getPersistentId();
       if (persistentId != null) {
         personDescription.setPersistentId(persistentId);
-        citation.append("(PID ").append(persistentId).append(")");
+        citation.append(" (PID ").append(persistentId).append(" )");
       }
       citation.append("; contributed by various users.");
       personDescription.addCitation(new SourceCitation().lang("en").value(citation.toString()));
