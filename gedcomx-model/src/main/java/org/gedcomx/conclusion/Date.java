@@ -20,15 +20,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.ClientName;
 import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.TextValue;
+import org.gedcomx.common.URI;
 import org.gedcomx.date.GedcomxDate;
 import org.gedcomx.records.Field;
 import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
+import org.gedcomx.types.ConfidenceLevel;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -46,6 +50,7 @@ public class Date extends ExtensibleData implements HasFields {
 
   private String original;
   private String formal;
+  private URI confidence;
   private List<TextValue> normalized;
   private List<Field> fields;
 
@@ -138,6 +143,69 @@ public class Date extends ExtensibleData implements HasFields {
    */
   public Date formal(GedcomxDate formal) {
     return formal(formal.toFormalString());
+  }
+
+  /**
+   * The level of confidence the contributor has about the data.
+   *
+   * @return The level of confidence the contributor has about the data.
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(ConfidenceLevel.class)
+  public URI getConfidence() {
+    return confidence;
+  }
+
+  /**
+   * The level of confidence the contributor has about the data.
+   *
+   * @param confidence The level of confidence the contributor has about the data.
+   */
+  public void setConfidence(URI confidence) {
+    this.confidence = confidence;
+  }
+
+  /**
+   * Build up this conclusion with a confidence level.
+   *
+   * @param confidence The confidence level.
+   * @return this.
+   */
+  public Date confidence(URI confidence) {
+    setConfidence(confidence);
+    return this;
+  }
+
+  /**
+   * Build up this conclusion with a confidence level.
+   *
+   * @param confidence The confidence level.
+   * @return this.
+   */
+  public Date confidence(ConfidenceLevel confidence) {
+    setKnownConfidenceLevel(confidence);
+    return this;
+  }
+
+  /**
+   * The value of a the known confidence level, or {@link org.gedcomx.types.ConfidenceLevel#OTHER} if not known.
+   *
+   * @return The value of a the known confidence level, or {@link org.gedcomx.types.ConfidenceLevel#OTHER} if not known.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public ConfidenceLevel getKnownConfidenceLevel() {
+    return getConfidence() == null ? null : ConfidenceLevel.fromQNameURI(getConfidence());
+  }
+
+  /**
+   * Set the confidence level from a known enumeration of confidence levels.
+   *
+   * @param level The known level.
+   */
+  @JsonIgnore
+  public void setKnownConfidenceLevel(ConfidenceLevel level) {
+    setConfidence(level == null ? null : level.toQNameURI());
   }
 
   /**

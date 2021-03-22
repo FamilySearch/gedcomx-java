@@ -15,9 +15,11 @@
  */
 package org.gedcomx.conclusion;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
@@ -26,9 +28,11 @@ import org.gedcomx.records.HasFields;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
+import org.gedcomx.types.ConfidenceLevel;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +48,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
 
   private String original;
   private URI descriptionRef;
+  private URI confidence;
   private List<Field> fields;
   private List<TextValue> normalized;
 
@@ -118,6 +123,69 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   public PlaceReference description(URI ref) {
     setDescriptionRef(ref);
     return this;
+  }
+
+  /**
+   * The level of confidence the contributor has about the data.
+   *
+   * @return The level of confidence the contributor has about the data.
+   */
+  @XmlAttribute
+  @XmlQNameEnumRef(ConfidenceLevel.class)
+  public URI getConfidence() {
+    return confidence;
+  }
+
+  /**
+   * The level of confidence the contributor has about the data.
+   *
+   * @param confidence The level of confidence the contributor has about the data.
+   */
+  public void setConfidence(URI confidence) {
+    this.confidence = confidence;
+  }
+
+  /**
+   * Build up this conclusion with a confidence level.
+   *
+   * @param confidence The confidence level.
+   * @return this.
+   */
+  public PlaceReference confidence(URI confidence) {
+    setConfidence(confidence);
+    return this;
+  }
+
+  /**
+   * Build up this conclusion with a confidence level.
+   *
+   * @param confidence The confidence level.
+   * @return this.
+   */
+  public PlaceReference confidence(ConfidenceLevel confidence) {
+    setKnownConfidenceLevel(confidence);
+    return this;
+  }
+
+  /**
+   * The value of a the known confidence level, or {@link org.gedcomx.types.ConfidenceLevel#OTHER} if not known.
+   *
+   * @return The value of a the known confidence level, or {@link org.gedcomx.types.ConfidenceLevel#OTHER} if not known.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public ConfidenceLevel getKnownConfidenceLevel() {
+    return getConfidence() == null ? null : ConfidenceLevel.fromQNameURI(getConfidence());
+  }
+
+  /**
+   * Set the confidence level from a known enumeration of confidence levels.
+   *
+   * @param level The known level.
+   */
+  @JsonIgnore
+  public void setKnownConfidenceLevel(ConfidenceLevel level) {
+    setConfidence(level == null ? null : level.toQNameURI());
   }
 
   /**
