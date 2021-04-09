@@ -28,7 +28,7 @@
     <jackson.jaxrs.version>2.10.0</jackson.jaxrs.version>
     <glassfish-jaxb-runtime.version>2.3.3</glassfish-jaxb-runtime.version>
     <jersey1.version>1.19.4</jersey1.version>
-    <jena-arq.version>3.1.0</jena-arq.version>
+    <jena-arq.version>3.17.0</jena-arq.version>
     <jsr311-api.version>1.1.1</jsr311-api.version>
     <junit.version>4.13.1</junit.version>
     <junit-jupiter.version>5.6.2</junit-jupiter.version>
