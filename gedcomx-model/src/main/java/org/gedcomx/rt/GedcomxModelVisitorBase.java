@@ -216,6 +216,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
+
+    List<Field> fields = sourceDescription.getFields();
+    if (fields != null) {
+      for (Field field : fields) {
+        if (field != null) {
+          field.accept(this);
+        }
+      }
+    }
+
     this.contextStack.pop();
   }
 
