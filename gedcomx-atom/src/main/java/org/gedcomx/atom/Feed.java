@@ -21,7 +21,6 @@ import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.records.Field;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.MediaTypeDefinition;
 import org.gedcomx.rt.Model;
@@ -58,7 +57,7 @@ import java.util.List;
   }
 )
 @XmlRootElement
-@XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries", "facets"} )
+@XmlType ( name = "Feed", propOrder = {"authors", "contributors", "generator", "icon", "id", "results", "index", "links", "logo", "rights", "subtitle", "title", "updated", "entries"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings ( "gedcomx:no_id" )
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RS )
@@ -78,7 +77,6 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   private String title;
   private Date updated;
   private List<Entry> entries;
-  private List<Field> facets; //todo: facets need to be nested?
 
   /**
    * The author of the feed.
@@ -418,27 +416,6 @@ public class Feed extends ExtensibleElement implements SupportsLinks {
   @JsonProperty ( "entries" )
   public void setEntries(List<Entry> entries) {
     this.entries = entries;
-  }
-
-  /**
-   * The list of facets for the feed, used for convenience in browsing and filtering.
-   *
-   * @return The list of facets for the feed, used for convenience in browsing and filtering.
-   */
-  @XmlElement ( name = "facet" )
-  @JsonProperty ( "facets" )
-  public List<Field> getFacets() {
-    return facets;
-  }
-
-  /**
-   * The list of facets for the feed, used for convenience in browsing and filtering.
-   *
-   * @param facets The list of facets for the feed, used for convenience in browsing and filtering.
-   */
-  @JsonProperty ( "facets" )
-  public void setFacets(List<Field> facets) {
-    this.facets = facets;
   }
 
   /**

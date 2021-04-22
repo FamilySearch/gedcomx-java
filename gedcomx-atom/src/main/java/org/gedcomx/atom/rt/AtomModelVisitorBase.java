@@ -62,15 +62,6 @@ public class AtomModelVisitorBase extends GedcomxModelVisitorBase implements Ato
       }
     }
 
-    List<Field> facets = feed.getFacets();
-    if (facets != null) {
-      for (Field facet : facets) {
-        if (facet != null) {
-          facet.accept(this);
-        }
-      }
-    }
-
     this.contextStack.pop();
   }
 
