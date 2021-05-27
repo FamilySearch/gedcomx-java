@@ -286,7 +286,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
     if (person1.getId() == null) {
       throw new IllegalStateException("Cannot reference person1: no id.");
     }
-    setPerson1(new ResourceReference(URI.create("#" + person1.getId())));
+    setPerson1(new ResourceReference(URI.create("#" + person1.getId()), person1.getId()));
     return this;
   }
 
@@ -339,7 +339,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
     if (person2.getId() == null) {
       throw new IllegalStateException("Cannot reference person2: no id.");
     }
-    setPerson2(new ResourceReference(URI.create("#" + person2.getId())));
+    setPerson2(new ResourceReference(URI.create("#" + person2.getId()), person2.getId()));
     return this;
   }
 
