@@ -28,6 +28,7 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum OrdinanceReservationClaimType implements ControlledVocabulary {
   Default,
+  FamilyGroup,
   InstantName,
   SharedReady,
 
