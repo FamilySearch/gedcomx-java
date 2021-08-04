@@ -17,6 +17,7 @@ package org.gedcomx.records;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.rs.TypeHint;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.Qualifier;
@@ -27,6 +28,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.util.JsonIdentifiers;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -150,6 +152,7 @@ public class Collection extends HypermediaEnabledData implements Attributable {
    */
   @XmlElement(name="identifier")
   @JsonProperty("identifiers")
+  @TypeHint(JsonIdentifiers.class)
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }

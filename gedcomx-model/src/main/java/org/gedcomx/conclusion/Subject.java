@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.rs.TypeHint;
 import org.gedcomx.common.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -26,6 +27,7 @@ import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.IdentifierType;
+import org.gedcomx.util.JsonIdentifiers;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -223,6 +225,7 @@ public abstract class Subject extends Conclusion implements Attributable {
    */
   @XmlElement (name="identifier")
   @JsonProperty ("identifiers")
+  @TypeHint (JsonIdentifiers.class)
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }

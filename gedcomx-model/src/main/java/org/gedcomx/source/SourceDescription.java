@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.Facets;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import com.webcohesion.enunciate.metadata.rs.TypeHint;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attributable;
 import org.gedcomx.common.Attribution;
@@ -54,6 +55,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.ResourceStatusType;
 import org.gedcomx.types.ResourceType;
+import org.gedcomx.util.JsonIdentifiers;
 
 
 /**
@@ -872,6 +874,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   @XmlElement ( name = "identifier" )
   @JsonProperty ( "identifiers" )
+  @TypeHint(JsonIdentifiers.class)
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }

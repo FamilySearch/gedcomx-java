@@ -18,6 +18,7 @@ package org.gedcomx.agent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webcohesion.enunciate.metadata.rs.TypeHint;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
@@ -26,6 +27,7 @@ import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
+import org.gedcomx.util.JsonIdentifiers;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -150,6 +152,7 @@ public class Agent extends HypermediaEnabledData {
    */
   @XmlElement (name="identifier")
   @JsonProperty ("identifiers")
+  @TypeHint(JsonIdentifiers.class)
   public List<Identifier> getIdentifiers() {
     return identifiers;
   }
