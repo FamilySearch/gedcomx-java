@@ -225,6 +225,11 @@ public enum RecordType implements ControlledVocabulary {
   Naturalization,
 
   /**
+   * A newspaper article or record.
+   */
+  Newspaper,
+
+  /**
    * A   Obituary record
    */
   Obituary,
