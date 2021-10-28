@@ -244,6 +244,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+          	<parallel>classes</parallel>
+          	<useUnlimitedThreads>true</useUnlimitedThreads>
+          </configuration>
+
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -350,6 +355,11 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
+          <configuration>
+          	<parallel>classes</parallel>
+          	<useUnlimitedThreads>true</useUnlimitedThreads>
+          </configuration>
+
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
