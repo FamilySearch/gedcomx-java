@@ -42,6 +42,7 @@ public class MatchInfo {
   private Boolean addsPerson110YearRule;
   private Boolean addsFact;
   private Boolean addsDateOrPlace;
+  private Boolean hasFourOrMorePeople;
 
   public MatchInfo() {
   }
@@ -154,6 +155,23 @@ public class MatchInfo {
    */
   public void setAddsDateOrPlace(Boolean addsDateOrPlace) {
     this.addsDateOrPlace = addsDateOrPlace;
+  }
+
+  /**
+   * tells if the destination has four or more people in the immediate family
+   * @return true if the destination has four or more people in the immediate family
+   */
+  @XmlAttribute
+  public Boolean getHasFourOrMorePeople() {
+    return hasFourOrMorePeople;
+  }
+
+  /**
+   * sets whether the destination has four or more people in the immediate family
+   * @param hasFourOrMorePeople whether the destination has four or more people in the immediate family
+   */
+  public void setHasFourOrMorePeople(Boolean hasFourOrMorePeople) {
+    this.hasFourOrMorePeople = hasFourOrMorePeople;
   }
 
   /**

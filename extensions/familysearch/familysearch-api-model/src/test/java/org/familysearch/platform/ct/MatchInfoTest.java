@@ -20,6 +20,7 @@ public class MatchInfoTest {
     assertNull(matchInfo.getAddsPerson110YearRule());
     assertNull(matchInfo.getAddsFact());
     assertNull(matchInfo.getAddsDateOrPlace());
+    assertNull(matchInfo.getHasFourOrMorePeople());
 
     matchInfo.setKnownCollection(MatchCollection.tree);
     matchInfo.setKnownStatus(MatchStatus.Accepted);
@@ -27,6 +28,7 @@ public class MatchInfoTest {
     matchInfo.setAddsPerson110YearRule(true);
     matchInfo.setAddsFact(true);
     matchInfo.setAddsDateOrPlace(true);
+    matchInfo.setHasFourOrMorePeople(true);
 
     assertEquals(MatchCollection.tree.toQNameURI(), matchInfo.getCollection());
     assertEquals(MatchStatus.Accepted.toQNameURI(), matchInfo.getStatus());
@@ -34,6 +36,7 @@ public class MatchInfoTest {
     assertTrue(matchInfo.getAddsPerson110YearRule());
     assertTrue(matchInfo.getAddsFact());
     assertTrue(matchInfo.getAddsDateOrPlace());
+    assertTrue(matchInfo.getHasFourOrMorePeople());
   }
 
 }
