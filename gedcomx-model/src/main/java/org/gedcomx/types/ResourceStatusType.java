@@ -37,6 +37,7 @@ public enum ResourceStatusType implements ControlledVocabulary {
   Duplicate,  // Duplicate of another resource (like a film that has a picture of the same page twice), and therefore can be ignored.
   Blank,      // Blank (like an image of a blank page in a book, or a black 'filler' image).
   NoData,     // Not blank, but no extractable or relevant data (like an image of a table of contents).
+  NeedsReview,// Record is awaiting human review before being used further.
   Unreadable, // Resource appears to contain data, but it is unreadable (like a terribly underexposed page).
   Published,  // Resource has been published
   Unpublished,// Resource is in an unpublished state (i.e., has never been published, or was later unpublished.)
