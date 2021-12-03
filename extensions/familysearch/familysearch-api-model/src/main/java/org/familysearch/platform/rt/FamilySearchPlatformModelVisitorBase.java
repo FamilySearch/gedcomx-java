@@ -25,6 +25,7 @@ import org.familysearch.platform.users.User;
 import org.familysearch.platform.vocab.VocabConcept;
 import org.familysearch.platform.vocab.VocabTerm;
 
+import org.familysearch.platform.vocab.VocabTranslation;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
@@ -231,6 +232,11 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
 
   @Override
   public void visitVocabTerm(VocabTerm vocabTerm) {
+    //no-op.
+  }
+
+  @Override
+  public void visitVocabTranslation(VocabTranslation vocabTranslation) {
     //no-op.
   }
 }

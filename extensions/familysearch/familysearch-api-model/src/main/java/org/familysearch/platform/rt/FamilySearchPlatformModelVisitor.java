@@ -24,6 +24,7 @@ import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.users.User;
 import org.familysearch.platform.vocab.VocabConcept;
 import org.familysearch.platform.vocab.VocabTerm;
+import org.familysearch.platform.vocab.VocabTranslation;
 
 import org.gedcomx.rt.GedcomxModelVisitor;
 
@@ -48,5 +49,7 @@ public interface FamilySearchPlatformModelVisitor extends GedcomxModelVisitor {
   void visitVocabConcept(VocabConcept vocabConcept);
 
   void visitVocabTerm(VocabTerm vocabTerm);
+
+  void visitVocabTranslation(VocabTranslation vocabTranslation);
 
 }

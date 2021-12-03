@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -39,6 +40,7 @@ public class VocabConcept extends HypermediaEnabledData {
   private URI gedcomxUri;
   private List<VocabTerm> vocabTerms;
   private List<VocabConceptAttribute> attributes;
+  private List<TextValue> definitions;
 
   /**
    * Get the vocabulary concept description.
@@ -194,6 +196,35 @@ public class VocabConcept extends HypermediaEnabledData {
    */
   public VocabConcept attributes(final List<VocabConceptAttribute> attributes) {
     this.setAttributes(attributes);
+    return this;
+  }
+
+  /**
+   * Get the definitions associated with this vocabulary concept.
+   *
+   * @return The definitions associated with this vocabulary concept.
+   */
+  public List<TextValue> getDefinitions() {
+    return definitions;
+  }
+
+  /**
+   * Set the definitions associated with this vocabulary concept.
+   *
+   * @param definitions The definitions associated with this vocabulary concept.
+   */
+  public void setDefinitions(List<TextValue> definitions) {
+    this.definitions = definitions;
+  }
+
+  /**
+   * Build out this vocabulary concept by applying the given list of definitions.
+   *
+   * @param definitions The definitions to apply to this vocabulary concept.
+   * @return this.
+   */
+  public VocabConcept definitions(final List<TextValue> definitions) {
+    this.setDefinitions(definitions);
     return this;
   }
 

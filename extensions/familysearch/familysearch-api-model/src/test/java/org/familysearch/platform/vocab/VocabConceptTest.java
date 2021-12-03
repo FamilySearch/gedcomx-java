@@ -87,6 +87,23 @@ public class VocabConceptTest {
   }
 
   @Test
+  public void testDefinitions() {
+    final TextValue definition = new TextValue("testDefinitionEn").lang("en");
+    List<TextValue> testDefinitions = Collections.singletonList(definition);
+
+    // Test using setter
+    VocabConcept classUnderTest = new VocabConcept();
+    classUnderTest.setDefinitions(testDefinitions);
+
+    assertEquals(classUnderTest.getDefinitions(), testDefinitions);
+
+    // Test using builder pattern method
+    classUnderTest = new VocabConcept().definitions(testDefinitions);
+
+    assertEquals(classUnderTest.getDefinitions(), testDefinitions);
+  }
+
+  @Test
   public void testAttributes() {
     final VocabConceptAttribute testVocabConceptAttribute = new VocabConceptAttribute()
         .id("testId")
