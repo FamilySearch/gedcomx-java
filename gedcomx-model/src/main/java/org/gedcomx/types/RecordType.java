@@ -285,6 +285,11 @@ public enum RecordType implements ControlledVocabulary {
   VoterRegistration,
 
   /**
+   * A will.
+   */
+  Will,
+
+  /**
    * Custom
    */
   @XmlUnknownQNameEnumValue
