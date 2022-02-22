@@ -47,6 +47,7 @@
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
     <pgp-maven-plugin.version>1.1</pgp-maven-plugin.version>
+  	<closeTestReports>true</closeTestReports>
   </properties>
 
   <modules>
@@ -247,6 +248,7 @@
           <configuration>
           	<parallel>classes</parallel>
           	<useUnlimitedThreads>true</useUnlimitedThreads>
+        	<disableXmlReport>${closeTestReports}</disableXmlReport>
           </configuration>
 
       </plugin>
