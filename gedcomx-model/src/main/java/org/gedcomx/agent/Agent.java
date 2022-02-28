@@ -58,6 +58,7 @@ public class Agent extends HypermediaEnabledData {
   private List<ResourceReference> emails;
   private List<ResourceReference> phones;
   private List<Address> addresses;
+  private ResourceReference person;
 
   @Override
   public Agent id(String id) {
@@ -483,6 +484,42 @@ public class Agent extends HypermediaEnabledData {
     this.addresses.add(address);
   }
 
+  /**
+   * The person that describes this agent.
+   *
+   * @return The person.
+   */
+  public ResourceReference getPerson() {
+    return person;
+  }
+
+  /**
+   * The person that describes this agent.
+   *
+   * @param person The person.
+   */
+  public void setPerson(ResourceReference person) {
+    this.person = person;
+  }
+
+  /**
+   * Build up this agent with a person.
+   * @param person The person of the agent.
+   * @return this.
+   */
+  public Agent person(ResourceReference person) {
+    this.person = person;
+    return this;
+  }
+
+  /**
+   * Build up this agent with a person.
+   * @param person The person of the agent.
+   * @return this.
+   */
+  public Agent person(URI person) {
+    return person(new ResourceReference(person));
+  }
 
   /**
    * Accept a visitor.
@@ -531,6 +568,7 @@ public class Agent extends HypermediaEnabledData {
 
     this.homepage = this.homepage == null ? agent.homepage : this.homepage;
     this.openid = this.openid == null ? agent.openid : this.openid;
+    this.person = this.person == null ? agent.person : this.person;
 
     super.embed(agent);
   }
