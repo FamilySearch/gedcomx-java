@@ -62,7 +62,7 @@ import org.gedcomx.util.JsonIdentifiers;
  * Represents a description of a source.
  */
 @XmlRootElement
-@XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "publisher", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
+@XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "publisher", "authors", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, HasFields, ReferencesSources {
@@ -73,6 +73,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   private URI about;
   private ResourceReference mediator;
   private ResourceReference publisher;
+  private List<URI> authors;
   private List<SourceReference> sources;
   private ResourceReference analysis;
   private SourceReference componentOf;
@@ -461,6 +462,51 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @JsonIgnore
   public void setPublisherURI(URI publisher) {
     this.publisher = publisher != null ? new ResourceReference(publisher) : null;
+  }
+
+  /**
+   * The authors for this source.
+   *
+   * @return The authors for this source.
+   */
+  @XmlElement ( name = "authors" )
+  @JsonProperty ( "authors" )
+  public List<URI> getAuthors() {
+    return authors;
+  }
+
+  /**
+   * The authors for this source.
+   *
+   * @param authors The authors for this source.
+   */
+  @JsonProperty ( "authors" )
+  public void setAuthors(List<URI> authors) {
+    this.authors = authors;
+  }
+
+  /**
+   * Build out this source description with a authors.
+   * @param authors The authors.
+   * @return this.
+   */
+  public SourceDescription authors(URI authors) {
+    addAuthors(authors);
+    return this;
+  }
+
+  /**
+   * Add a authors.
+   *
+   * @param authors The authors to be added.
+   */
+  public void addAuthors(URI authors) {
+    if (authors != null) {
+      if (this.authors == null) {
+        this.authors = new LinkedList<URI>();
+      }
+      this.authors.add(authors);
+    }
   }
 
   /**
@@ -1233,6 +1279,10 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
     this.about = this.about == null ? description.about : this.about;
     this.mediator = this.mediator == null ? description.mediator : this.mediator;
 
+    if (description.authors != null) {
+      this.authors = this.authors == null ? new ArrayList<URI>() : this.authors;
+      this.authors.addAll(description.authors);
+    }
     if (description.sources != null) {
       this.sources = this.sources == null ? new ArrayList<SourceReference>() : this.sources;
       this.sources.addAll(description.sources);
