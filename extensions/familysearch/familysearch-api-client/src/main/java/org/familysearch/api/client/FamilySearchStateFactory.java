@@ -49,6 +49,7 @@ import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.ordinances.OrdinanceRollup;
 import org.familysearch.platform.ordinances.OrdinanceSummary;
 import org.familysearch.platform.places.FeedbackInfo;
+import org.familysearch.platform.records.FieldInfo;
 import org.familysearch.platform.users.User;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rs.client.GedcomxApplicationState;
@@ -202,7 +203,7 @@ public class FamilySearchStateFactory extends StateFactory {
     DefaultClientConfig config = new DefaultClientConfig();
     Class<?>[] extensionClasses = new Class[]{FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
                                               ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
-                                              Error.class, FeedbackInfo.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class,
+                                              Error.class, FeedbackInfo.class, FieldInfo.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class,
                                               Merge.class, MergeAnalysis.class, MergeConflict.class, Tag.class, User.class,
                                               Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class};
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
