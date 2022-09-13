@@ -4,12 +4,20 @@ Procedure:  (required setup must be completed first)
 
 1. Make sure the project builds and you have checked in all of your changes.
 
+*********************************************************************************
+********************* NOTE:  MAKE SURE YOU ARE USING Java 8 *********************
+*********************************************************************************
+
 
 2. mvn -B -Prelease clean release:clean release:prepare -Dtag=$THIS_RELEASE_VERSION -DreleaseVersion=$THIS_RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform
 
+*********************************************************************************
+********************* NOTE:  MAKE SURE YOU ARE USING Java 8 *********************
+*********************************************************************************
+
     Example:
-        export THIS_RELEASE_VERSION=2.143.0; \
-        export NEXT_SNAPSHOT_VERSION=2.144.0-SNAPSHOT; \
+        export THIS_RELEASE_VERSION=2.146.0; \
+        export NEXT_SNAPSHOT_VERSION=2.147.0-SNAPSHOT; \
         mvn -B -Prelease clean release:clean release:prepare -Dtag=$THIS_RELEASE_VERSION -DreleaseVersion=$THIS_RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform;
 
 
