@@ -31,14 +31,44 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @XmlType( name = "PersonInfo" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
 public class PersonInfo {
+  private Boolean canUserEdit = false;
+  private Boolean visibleToAll = true;
+  @Deprecated
   private Boolean readOnly = false;
+  @Deprecated
   private Boolean privateSpaceRestricted = false;
 
   public PersonInfo() {
   }
 
-  public PersonInfo(Boolean readOnly) {
-    this.readOnly = readOnly;
+  /**
+   * Get if this person is editable by the current user.
+   *
+   * @return True if this person is editable by the current user; false otherwise.
+   */
+  @XmlAttribute
+  public Boolean getCanUserEdit() {
+    return canUserEdit;
+  }
+
+  /**
+   * Set if this person is editable by the current user.
+   *
+   * @param canUserEdit True if this person is editable by the current user; false otherwise.
+   */
+  public void setCanUserEdit(final Boolean canUserEdit) {
+    this.canUserEdit = canUserEdit;
+  }
+
+  /**
+   * Build out this person with a can user edit state.
+   *
+   * @param canUserEdit True if this person is editable by the current user; false otherwise..
+   * @return this.
+   */
+  public PersonInfo canUserEdit(final Boolean canUserEdit) {
+    this.canUserEdit = canUserEdit;
+    return this;
   }
 
   /**
@@ -46,6 +76,7 @@ public class PersonInfo {
    *
    * @return True if this person is readOnly; false otherwise.
    */
+  @Deprecated
   @XmlAttribute
   public Boolean isReadOnly() {
     return readOnly;
@@ -56,6 +87,7 @@ public class PersonInfo {
    *
    * @param readOnly True if this person is readOnly; false otherwise.
    */
+  @Deprecated
   public void setReadOnly(Boolean readOnly) {
     this.readOnly = readOnly;
   }
@@ -66,8 +98,39 @@ public class PersonInfo {
    * @param readOnly The read only state for this person.
    * @return this.
    */
+  @Deprecated
   public PersonInfo readOnly(final Boolean readOnly) {
     this.readOnly = readOnly;
+    return this;
+  }
+
+  /**
+   * Get if this person is visible to all FamilySearch users.
+   *
+   * @return True if this person is visible to all FamilySearch users; false otherwise.
+   */
+  @XmlAttribute
+  public Boolean isVisibleToAll() {
+    return visibleToAll;
+  }
+
+  /**
+   * Set if this person is visible to all FamilySearch users.
+   *
+   * @param visibleToAll True if this person is visible to all FamilySearch users; false otherwise.
+   */
+  public void setVisibleToAll(final Boolean visibleToAll) {
+    this.visibleToAll = visibleToAll;
+  }
+
+  /**
+   * Build out this person with a visible to all FamilySearch users state.
+   *
+   * @param visibleToAll The private space restricted state for this person.
+   * @return this.
+   */
+  public PersonInfo visibleToAll(final Boolean visibleToAll) {
+    this.visibleToAll = visibleToAll;
     return this;
   }
 
@@ -76,6 +139,7 @@ public class PersonInfo {
    *
    * @return True if this person is a private space restricted person; false otherwise.
    */
+  @Deprecated
   @XmlAttribute
   public Boolean isPrivateSpaceRestricted() {
     return privateSpaceRestricted;
@@ -86,6 +150,7 @@ public class PersonInfo {
    *
    * @param privateSpaceRestricted True if this person is a private space restricted person; false otherwise.
    */
+  @Deprecated
   public void setPrivateSpaceRestricted(Boolean privateSpaceRestricted) {
     this.privateSpaceRestricted = privateSpaceRestricted;
   }
@@ -96,9 +161,9 @@ public class PersonInfo {
    * @param privateSpaceRestricted The private space restricted state for this person.
    * @return this.
    */
+  @Deprecated
   public PersonInfo privateSpaceRestricted(final Boolean privateSpaceRestricted) {
     this.privateSpaceRestricted = privateSpaceRestricted;
     return this;
   }
-
 }
