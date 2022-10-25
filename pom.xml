@@ -35,7 +35,7 @@
     <junit-platform.version>1.6.2</junit-platform.version>
 
     <mockito.version>1.10.19</mockito.version>
-    <woodstox-core.version>5.0.3</woodstox-core.version>
+    <woodstox-core.version>5.4.0</woodstox-core.version>
 
     <!-- Plugin versions -->
     <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
