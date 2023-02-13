@@ -19,6 +19,7 @@ import org.familysearch.api.client.ft.FamilySearchFamilyTree;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
+import org.gedcomx.rt.Rel;
 
 import javax.ws.rs.core.UriBuilder;
 

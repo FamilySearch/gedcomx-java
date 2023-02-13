@@ -18,8 +18,8 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.ChangeHistoryState;
-import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.gedcomx.common.EvidenceReference;
@@ -321,8 +321,8 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public SourceDescriptionState readSourceDescription(SourceReference sourceReference, StateTransitionOption... options) {
-    Link link = sourceReference.getLink(org.gedcomx.rs.Rel.DESCRIPTION);
-    link = link == null ? sourceReference.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    Link link = sourceReference.getLink(Rel.DESCRIPTION);
+    link = link == null ? sourceReference.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException("Source description cannot be read: missing link.");
     }
@@ -475,7 +475,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public ChangeHistoryState readChangeHistory(StateTransitionOption... options) {
-    Link link = getLink(org.familysearch.api.client.Rel.CHANGE_HISTORY);
+    Link link = getLink(Rel.CHANGE_HISTORY);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -527,7 +527,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public ChildAndParentsRelationshipState deleteParent1(StateTransitionOption... options) {
-    Link link = getLink(org.familysearch.api.client.Rel.PARENT1_ROLE);
+    Link link = getLink(Rel.PARENT1_ROLE);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -564,7 +564,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public ChildAndParentsRelationshipState deleteParent2(StateTransitionOption... options) {
-    Link link = getLink(org.familysearch.api.client.Rel.PARENT2_ROLE);
+    Link link = getLink(Rel.PARENT2_ROLE);
     if (link == null || link.getHref() == null) {
       return null;
     }
@@ -574,7 +574,7 @@ public class ChildAndParentsRelationshipState extends GedcomxApplicationState<Fa
   }
 
   public ChildAndParentsRelationshipState restore(StateTransitionOption... options) {
-    Link link = getLink(org.familysearch.api.client.Rel.RESTORE);
+    Link link = getLink(Rel.RESTORE);
     if (link == null || link.getHref() == null) {
       return null;
     }

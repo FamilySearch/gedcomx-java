@@ -26,7 +26,7 @@ import org.gedcomx.conclusion.Fact;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceReference;
 
 import javax.ws.rs.HttpMethod;

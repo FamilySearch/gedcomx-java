@@ -21,7 +21,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.PlaceDescription;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.Rel;
 
 import javax.ws.rs.HttpMethod;
 import java.util.List;

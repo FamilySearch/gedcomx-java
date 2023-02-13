@@ -21,6 +21,7 @@ import com.damnhandy.uri.template.VariableExpansionException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.rt.Rel;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;

@@ -21,10 +21,10 @@ import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rt.Rel;
 
 import javax.ws.rs.HttpMethod;
 import java.util.List;

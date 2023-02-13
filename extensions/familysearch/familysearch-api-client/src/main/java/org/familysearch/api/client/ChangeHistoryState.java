@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.ft.FamilyTreeStateFactory;
 import org.familysearch.api.client.util.ChangeHistoryPage;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.links.Link;
@@ -110,7 +111,7 @@ public class ChangeHistoryState extends GedcomxApplicationState<Feed> {
   }
 
   public ChangeHistoryState restoreChange(Entry change, StateTransitionOption... options) {
-    Link link = change.getLink(org.familysearch.api.client.Rel.RESTORE);
+    Link link = change.getLink(Rel.RESTORE);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException("Unrestorable change: " + change.getId());
     }

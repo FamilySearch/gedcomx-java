@@ -31,8 +31,8 @@ import com.sun.jersey.api.client.ClientResponse;
 
 import org.familysearch.api.client.DiscussionState;
 import org.familysearch.api.client.FamilySearchPersonState;
-import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
 import org.gedcomx.Gedcomx;
@@ -501,8 +501,8 @@ public class FamilyTreePersonState extends FamilySearchPersonState {
   }
 
   public ChildAndParentsRelationshipState readChildAndParentsRelationship(ChildAndParentsRelationship relationship, StateTransitionOption... options) {
-    Link link = relationship.getLink(org.gedcomx.rs.Rel.RELATIONSHIP);
-    link = link == null ? relationship.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    Link link = relationship.getLink(Rel.RELATIONSHIP);
+    link = link == null ? relationship.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
       return null;
     }

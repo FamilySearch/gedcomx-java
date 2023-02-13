@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client.util;
+package org.familysearch.api.rt.util;
 
-import org.gedcomx.rs.client.util.BaseSearchQueryBuilder;
+import org.gedcomx.rt.util.BaseSearchQueryBuilder;
 
 public class PlaceSearchQueryBuilder extends BaseSearchQueryBuilder {
 

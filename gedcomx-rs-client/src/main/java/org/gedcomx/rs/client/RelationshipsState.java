@@ -22,7 +22,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.Rel;
 import org.gedcomx.types.RelationshipType;
 
 import javax.ws.rs.HttpMethod;

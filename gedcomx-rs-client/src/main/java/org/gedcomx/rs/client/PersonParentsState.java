@@ -23,7 +23,7 @@ import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.Rel;
 import org.gedcomx.types.GenderType;
 
 import javax.ws.rs.HttpMethod;

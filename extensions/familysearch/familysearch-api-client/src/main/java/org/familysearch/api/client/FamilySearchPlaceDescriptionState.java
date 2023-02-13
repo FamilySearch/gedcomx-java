@@ -17,6 +17,7 @@ package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
+import org.familysearch.api.rt.Rel;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.PlaceDescriptionState;

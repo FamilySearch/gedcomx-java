@@ -22,6 +22,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.discussions.Discussion;
 
@@ -34,8 +35,8 @@ import org.gedcomx.records.Collection;
 import org.gedcomx.rs.client.CollectionState;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.StateTransitionOption;
-import org.gedcomx.rs.client.util.PersonSearchQueryBuilder;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.rt.util.PersonSearchQueryBuilder;
 import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;

@@ -18,6 +18,7 @@ package org.familysearch.api.client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;

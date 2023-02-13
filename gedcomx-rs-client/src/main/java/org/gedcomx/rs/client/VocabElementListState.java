@@ -22,8 +22,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.apache.jena.rdf.model.*;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
-import org.gedcomx.rs.client.util.VocabConstants;
+import org.gedcomx.rt.Rel;
+import org.gedcomx.rt.VocabConstants;
 import org.gedcomx.vocab.VocabElement;
 import org.gedcomx.vocab.VocabElementList;
 

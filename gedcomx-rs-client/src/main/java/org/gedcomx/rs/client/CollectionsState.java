@@ -21,11 +21,10 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.records.Collection;
-import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;
-import java.net.URI;
 import java.util.List;
 
 /**

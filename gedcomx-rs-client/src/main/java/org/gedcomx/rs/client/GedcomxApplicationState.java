@@ -31,10 +31,10 @@ import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
 import org.gedcomx.rs.client.util.EmbeddedLinkLoader;
 import org.gedcomx.rs.client.util.HttpWarning;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceDescription;
 
 import javax.ws.rs.HttpMethod;

@@ -18,6 +18,7 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.*;
+import org.familysearch.api.rt.Rel;
 import org.gedcomx.rs.client.SourceDescriptionsState;
 
 import java.net.URI;

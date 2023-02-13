@@ -17,9 +17,10 @@ package org.familysearch.api.client;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
-import org.familysearch.api.client.ft.FamilyTreePersonMergeState;
+
 import org.familysearch.api.client.util.FamilySearchOptions;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.ct.MatchStatus;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.AtomModel;
@@ -103,7 +104,7 @@ public class PersonMatchResultsState extends PersonSearchResultsState {
   }
 
   public PersonState readPerson(StateTransitionOption... options) {
-    Link link = getLink(org.gedcomx.rs.Rel.PERSON);
+    Link link = getLink(Rel.PERSON);
     if (link == null || link.getHref() == null) {
       return null;
     }

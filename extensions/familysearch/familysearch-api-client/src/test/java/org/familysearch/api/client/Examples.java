@@ -11,7 +11,7 @@ import org.gedcomx.common.EvidenceReference;
 import org.gedcomx.common.Note;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.rs.client.*;
-import org.gedcomx.rs.client.util.PersonSearchQueryBuilder;
+import org.gedcomx.rt.util.PersonSearchQueryBuilder;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;

@@ -19,6 +19,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.artifacts.ArtifactType;
@@ -178,7 +179,7 @@ public class FamilySearchPersonState extends PersonState {
 
   @Override
   protected ClientRequest.Builder createRequestForEmbeddedResource(String rel) {
-    if (org.gedcomx.rs.Rel.DISCUSSION_REFERENCES.equals(rel)) {
+    if (Rel.DISCUSSION_REFERENCES.equals(rel)) {
       return RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest());
     }
     else {
@@ -207,7 +208,7 @@ public class FamilySearchPersonState extends PersonState {
   }
 
   public FamilySearchPersonState loadDiscussionReferences(StateTransitionOption... options) {
-    return (FamilySearchPersonState) super.loadEmbeddedResources(new String[]{org.gedcomx.rs.Rel.DISCUSSION_REFERENCES}, options);
+    return (FamilySearchPersonState) super.loadEmbeddedResources(new String[]{Rel.DISCUSSION_REFERENCES}, options);
   }
 
   @Override
@@ -432,7 +433,7 @@ public class FamilySearchPersonState extends PersonState {
 
   public FamilySearchPersonState updateDiscussionReference(Person person, StateTransitionOption... options) {
     URI target = getSelfUri();
-    Link discussionsLink = getLink(org.gedcomx.rs.Rel.DISCUSSION_REFERENCES);
+    Link discussionsLink = getLink(Rel.DISCUSSION_REFERENCES);
     if (discussionsLink != null && discussionsLink.getHref() != null) {
       target = discussionsLink.getHref().toURI();
     }
@@ -445,7 +446,7 @@ public class FamilySearchPersonState extends PersonState {
 
   public FamilySearchPersonState deleteDiscussionReference(DiscussionReference reference, StateTransitionOption... options) {
     Link link = reference.getLink(Rel.DISCUSSION_REFERENCE);
-    link = link == null ? reference.getLink(org.gedcomx.rs.Rel.SELF) : link;
+    link = link == null ? reference.getLink(Rel.SELF) : link;
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException("Discussion reference cannot be deleted: missing link.");
     }

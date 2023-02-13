@@ -22,7 +22,7 @@ import org.gedcomx.atom.Feed;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.Rel;
 
 import javax.ws.rs.HttpMethod;
 

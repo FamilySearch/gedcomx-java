@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.familysearch.api.client;
+package org.familysearch.api.rt;
 
 /**
  * @author Ryan Heaton
  */
-public class Rel extends org.gedcomx.rs.Rel {
+public class Rel extends org.gedcomx.rt.Rel {
 
   public static final String ARTIFACTS = "artifacts";
   public static final String ARTIFACTS_DGS_FOLDER = "folder";

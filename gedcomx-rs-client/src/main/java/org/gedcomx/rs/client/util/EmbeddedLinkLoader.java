@@ -19,7 +19,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
-import org.gedcomx.rs.Rel;
+import org.gedcomx.rt.Rel;
 
 import java.util.*;
 

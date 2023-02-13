@@ -26,8 +26,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rs.client.PersonsState;
 import org.gedcomx.rs.client.StateTransitionOption;
+import org.gedcomx.rt.Rel;
 
-import org.familysearch.api.client.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 

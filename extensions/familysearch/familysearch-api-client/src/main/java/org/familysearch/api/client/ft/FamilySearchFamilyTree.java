@@ -40,7 +40,6 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rs.client.PersonState;
-import org.gedcomx.rs.client.PersonsState;
 import org.gedcomx.rs.client.RelationshipState;
 import org.gedcomx.rs.client.RelationshipsState;
 import org.gedcomx.rs.client.SourceDescriptionsState;
@@ -52,10 +51,10 @@ import org.gedcomx.types.RelationshipType;
 import org.familysearch.api.client.FamilySearchCollectionState;
 import org.familysearch.api.client.FamilySearchReferenceEnvironment;
 import org.familysearch.api.client.PersonMatchResolutionsState;
-import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.UserState;
 import org.familysearch.api.client.util.FamilySearchOptions;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 
@@ -210,7 +209,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   }
 
   public ChildAndParentsRelationshipState addChildAndParentsRelationship(ChildAndParentsRelationship chap, StateTransitionOption... options) {
-    Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
+    Link link = getLink(Rel.RELATIONSHIPS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
     }
@@ -223,7 +222,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   }
 
   public RelationshipsState addChildAndParentsRelationships(List<ChildAndParentsRelationship> chaps, StateTransitionOption... options) {
-    Link link = getLink(org.gedcomx.rs.Rel.RELATIONSHIPS);
+    Link link = getLink(Rel.RELATIONSHIPS);
     if (link == null || link.getHref() == null) {
       throw new GedcomxApplicationException(String.format("FamilySearch Family Tree at %s didn't provide a 'relationships' link.", getUri()));
     }
@@ -415,7 +414,7 @@ public class FamilySearchFamilyTree extends FamilySearchCollectionState {
   }
 
   public SourceDescriptionsState queryAttachedReferences(java.net.URI source, StateTransitionOption... options) {
-    Link link = getLink(org.gedcomx.rs.Rel.SOURCE_REFERENCES_QUERY);
+    Link link = getLink(Rel.SOURCE_REFERENCES_QUERY);
     if (link == null || link.getTemplate() == null) {
       return null;
     }

@@ -20,6 +20,7 @@
   </properties>
 
   <modules>
+    <module>familysearch-api-rt-support</module>
     <module>familysearch-api-model</module>
     <module>familysearch-api-client</module>
   </modules>

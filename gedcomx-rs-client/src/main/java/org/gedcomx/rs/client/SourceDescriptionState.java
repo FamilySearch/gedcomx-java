@@ -21,12 +21,10 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 import org.gedcomx.Gedcomx;
-import org.gedcomx.common.TextValue;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.links.Link;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
-import org.gedcomx.source.SourceCitation;
+import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceDescription;
 
 import javax.activation.DataSource;

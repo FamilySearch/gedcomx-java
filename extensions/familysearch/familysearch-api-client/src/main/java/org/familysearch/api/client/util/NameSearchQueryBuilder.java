@@ -15,7 +15,7 @@
  */
 package org.familysearch.api.client.util;
 
-import org.gedcomx.rs.client.util.BaseSearchQueryBuilder;
+import org.gedcomx.rt.util.BaseSearchQueryBuilder;
 
 public class NameSearchQueryBuilder extends BaseSearchQueryBuilder {
 

@@ -20,8 +20,8 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.links.SupportsLinks;
-import org.gedcomx.rs.Rel;
 import org.gedcomx.rt.GedcomxConstants;
+import org.gedcomx.rt.Rel;
 
 import javax.ws.rs.HttpMethod;
 import java.net.URI;

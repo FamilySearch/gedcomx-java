@@ -18,8 +18,8 @@ package org.familysearch.api.client.ft;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import org.familysearch.api.client.ChangeHistoryState;
-import org.familysearch.api.client.Rel;
 import org.familysearch.api.client.util.RequestUtil;
+import org.familysearch.api.rt.Rel;
 import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.EvidenceReference;
@@ -117,7 +117,7 @@ public class FamilyTreeRelationshipState extends RelationshipState implements Pr
 
   @Override
   protected ClientRequest.Builder createRequestForEmbeddedResource(String rel) {
-    if (org.gedcomx.rs.Rel.DISCUSSION_REFERENCES.equals(rel)) {
+    if (Rel.DISCUSSION_REFERENCES.equals(rel)) {
       return RequestUtil.applyFamilySearchConneg(createAuthenticatedRequest());
     }
     else {
@@ -146,7 +146,7 @@ public class FamilyTreeRelationshipState extends RelationshipState implements Pr
   }
 
   public FamilyTreeRelationshipState loadDiscussionReferences(StateTransitionOption... options) {
-    return (FamilyTreeRelationshipState) super.loadEmbeddedResources(new String[]{org.gedcomx.rs.Rel.DISCUSSION_REFERENCES}, options);
+    return (FamilyTreeRelationshipState) super.loadEmbeddedResources(new String[]{Rel.DISCUSSION_REFERENCES}, options);
   }
 
   @Override
