@@ -19,33 +19,30 @@
     <skip.pgp>true</skip.pgp>
 
     <!-- Dependency versions -->
-    <assertj.version>3.16.1</assertj.version>
-    <commons-codec.version>1.10</commons-codec.version>
-    <enunciate.version>2.7.0</enunciate.version>
+    <assertj.version>3.24.2</assertj.version>
+    <commons-codec.version>1.15</commons-codec.version>
+    <enunciate.version>2.14.0</enunciate.version>
     <hamcrest.version>2.2</hamcrest.version>
-    <handy-uri.version>2.1.6</handy-uri.version>
-    <jackson.databind.version>2.13.4.1</jackson.databind.version>
-    <jackson.jaxrs.version>2.10.0</jackson.jaxrs.version>
-    <glassfish-jaxb-runtime.version>2.3.3</glassfish-jaxb-runtime.version>
+    <handy-uri.version>2.1.8</handy-uri.version>
+    <jackson.databind.version>2.14.2</jackson.databind.version>
+    <jackson.jaxrs.version>2.14.2</jackson.jaxrs.version>
+    <glassfish-jaxb-runtime.version>2.3.6</glassfish-jaxb-runtime.version>
     <jersey1.version>1.19.4</jersey1.version>
     <jena-arq.version>3.17.0</jena-arq.version>
     <jsr311-api.version>1.1.1</jsr311-api.version>
-    <junit.version>4.13.1</junit.version>
-    <junit-jupiter.version>5.6.2</junit-jupiter.version>
-    <junit-platform.version>1.6.2</junit-platform.version>
-
-    <mockito.version>1.10.19</mockito.version>
-    <woodstox-core.version>5.4.0</woodstox-core.version>
+    <junit.version>4.13.2</junit.version>
+    <junit-jupiter.version>5.9.2</junit-jupiter.version>
+    <woodstox-core.version>6.5.0</woodstox-core.version>
 
     <!-- Plugin versions -->
-    <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
-    <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+    <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+    <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
     <maven-license-plugin.version>1.4.0</maven-license-plugin.version>
     <maven-release-plugin-plugin.version>2.5.3</maven-release-plugin-plugin.version>
-    <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
-    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-    <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+    <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
+    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
     <pgp-maven-plugin.version>1.1</pgp-maven-plugin.version>
   </properties>
 
@@ -66,7 +63,6 @@
 
     <!--extension modules-->
     <module>extensions/familysearch</module>
-
   </modules>
 
   <dependencies>
@@ -86,11 +82,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
       <scope>test</scope>
@@ -98,11 +89,6 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-library</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -205,11 +191,6 @@
         <version>${assertj.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.junit.platform</groupId>
-        <artifactId>junit-platform-launcher</artifactId>
-        <version>${junit-platform.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.hamcrest</groupId>
         <artifactId>hamcrest-core</artifactId>
         <version>${hamcrest.version}</version>
@@ -221,12 +202,6 @@
         <version>${hamcrest.version}</version>
         <scope>test</scope>
       </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>${mockito.version}</version>
-      </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -403,7 +378,7 @@
   <licenses>
     <license>
       <name>Th Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
 
