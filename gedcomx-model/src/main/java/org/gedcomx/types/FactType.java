@@ -106,6 +106,11 @@ public enum FactType implements ControlledVocabulary {
   Blessing,
 
   /**
+   * A fact of a person's branch within an extended clan.
+   */
+  Branch,
+
+  /**
    * A fact of the burial of person's body after death.
    */
   Burial,
