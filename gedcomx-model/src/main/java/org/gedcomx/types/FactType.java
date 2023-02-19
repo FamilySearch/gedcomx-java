@@ -650,6 +650,7 @@ public enum FactType implements ControlledVocabulary {
     public static final FactType Christening = include(FactType.Christening);
     public static final FactType Circumcision = include(FactType.Circumcision);
     public static final FactType Clan = include(FactType.Clan);
+    public static final FactType Branch = include(FactType.Branch);
     public static final FactType Confirmation = include(FactType.Confirmation);
     public static final FactType Court = include(FactType.Court);
     public static final FactType Cremation = include(FactType.Cremation);
