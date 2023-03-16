@@ -33,6 +33,8 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class PersonInfo {
   private Boolean canUserEdit = false;
   private Boolean visibleToAll = true;
+  // The treeId attribute is prototype only and may change.
+  private String treeId;
   @Deprecated
   private Boolean readOnly = false;
   @Deprecated
@@ -63,7 +65,7 @@ public class PersonInfo {
   /**
    * Build out this person with a can user edit state.
    *
-   * @param canUserEdit True if this person is editable by the current user; false otherwise..
+   * @param canUserEdit True if this person is editable by the current user; false otherwise.
    * @return this.
    */
   public PersonInfo canUserEdit(final Boolean canUserEdit) {
@@ -164,6 +166,36 @@ public class PersonInfo {
   @Deprecated
   public PersonInfo privateSpaceRestricted(final Boolean privateSpaceRestricted) {
     this.privateSpaceRestricted = privateSpaceRestricted;
+    return this;
+  }
+
+  /**
+   * Get the tree id for this person. This attribute is prototype only and may change.
+   *
+   * @return The tree id for this person.
+   */
+  @XmlAttribute
+  public String getTreeId() {
+    return treeId;
+  }
+
+  /**
+   * Set the tree id for this person. This attribute is prototype only and may change.
+   *
+   * @param treeId The tree id for this person.
+   */
+  public void setTreeId(final String treeId) {
+    this.treeId = treeId;
+  }
+
+  /**
+   * Build out this person with a tree id. This attribute is prototype only and may change.
+   *
+   * @param treeId The tree id for this person.
+   * @return this.
+   */
+  public PersonInfo treeId(final String treeId) {
+    this.treeId = treeId;
     return this;
   }
 }
