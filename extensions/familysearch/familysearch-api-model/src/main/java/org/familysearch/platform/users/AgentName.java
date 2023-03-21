@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 
 @JsonInclude ( JsonInclude.Include.NON_NULL )

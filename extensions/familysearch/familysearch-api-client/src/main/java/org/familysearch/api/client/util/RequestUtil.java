@@ -18,7 +18,7 @@ package org.familysearch.api.client.util;
 import com.sun.jersey.api.client.ClientRequest;
 import org.familysearch.platform.FamilySearchPlatform;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import org.gedcomx.atom.AtomModel;
 import org.gedcomx.rt.GedcomxConstants;

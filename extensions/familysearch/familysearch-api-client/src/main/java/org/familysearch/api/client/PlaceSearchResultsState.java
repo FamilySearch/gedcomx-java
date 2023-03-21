@@ -27,7 +27,7 @@ import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rt.Rel;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 
 public class PlaceSearchResultsState extends GedcomxApplicationState<Feed> {
 

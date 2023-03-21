@@ -35,8 +35,8 @@ import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.types.IdentifierType;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.UriBuilder;
 import java.net.URI;
 
 /**

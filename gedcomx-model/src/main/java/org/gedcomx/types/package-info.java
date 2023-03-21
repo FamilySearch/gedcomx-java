@@ -26,5 +26,5 @@ package org.gedcomx.types;
 //todo: figure out all the valid types
 import org.gedcomx.rt.GedcomxConstants;
 
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;

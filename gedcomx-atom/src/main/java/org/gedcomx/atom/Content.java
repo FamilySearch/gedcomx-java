@@ -21,9 +21,9 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.atom.rt.AtomModelVisitor;
 import org.gedcomx.rt.GedcomxConstants;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 
 /**

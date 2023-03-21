@@ -34,7 +34,7 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.NamePartType;
 import org.gedcomx.types.NameType;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;

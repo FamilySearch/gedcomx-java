@@ -20,8 +20,8 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 
-import javax.xml.bind.annotation.XmlType;
-import java.util.ArrayList;
+import jakarta.xml.bind.annotation.XmlType;
+
 import java.util.Date;
 
 /**

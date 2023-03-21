@@ -27,7 +27,7 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.types.RelationshipType;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.util.Arrays;
 import java.util.List;
 

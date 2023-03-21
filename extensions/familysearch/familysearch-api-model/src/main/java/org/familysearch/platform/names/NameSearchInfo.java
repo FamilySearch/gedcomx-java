@@ -16,17 +16,16 @@
 package org.familysearch.platform.names;
 
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 
 import org.gedcomx.common.URI;
-import org.gedcomx.conclusion.NamePart;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.NamePartType;
 

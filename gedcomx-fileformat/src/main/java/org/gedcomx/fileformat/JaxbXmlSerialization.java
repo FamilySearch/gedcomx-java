@@ -17,12 +17,11 @@ package org.gedcomx.fileformat;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomNamespaceManager;
-import org.gedcomx.rt.GedcomxConstants;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -48,7 +47,7 @@ public class JaxbXmlSerialization implements GedcomxEntrySerializer, GedcomxEntr
       JAXBContext context = newContext(classes);
       this.unmarshaller = context.createUnmarshaller();
       this.marshaller = context.createMarshaller();
-      this.marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new GedcomNamespaceManager(Gedcomx.class));
+      this.marshaller.setProperty("org.glassfish.jaxb.namespacePrefixMapper", new GedcomNamespaceManager(Gedcomx.class));
       if (pretty) {
         this.marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
       }

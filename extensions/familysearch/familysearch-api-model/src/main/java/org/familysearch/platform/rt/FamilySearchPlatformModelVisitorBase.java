@@ -30,7 +30,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 /**

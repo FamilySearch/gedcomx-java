@@ -33,8 +33,8 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.*;
 import org.gedcomx.source.SourceReference;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.net.URI;
 
 public class GenealogiesPersonState extends FamilySearchPersonState {

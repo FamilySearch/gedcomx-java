@@ -24,7 +24,7 @@ import org.gedcomx.records.Collection;
 import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceDescription;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.util.List;
 
 /**

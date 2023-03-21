@@ -17,7 +17,7 @@ package org.gedcomx.rt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 /**
  * @author Ryan Heaton

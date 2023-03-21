@@ -29,7 +29,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.search.ResultConfidence;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.Date;

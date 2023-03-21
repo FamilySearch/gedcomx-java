@@ -15,7 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * Enumeration of change actions.

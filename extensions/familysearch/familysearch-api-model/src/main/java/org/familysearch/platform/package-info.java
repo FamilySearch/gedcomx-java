@@ -20,4 +20,4 @@
 @XmlAccessorOrder ( XmlAccessOrder.ALPHABETICAL )
 package org.familysearch.platform;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;

@@ -29,10 +29,10 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.util.JsonIdentifiers;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;

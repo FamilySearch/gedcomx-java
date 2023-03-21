@@ -19,12 +19,12 @@ import org.familysearch.platform.FamilySearchPlatform;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.Provider;
+import jakarta.ws.rs.ext.Providers;
 import javax.xml.namespace.QName;
 
 /**

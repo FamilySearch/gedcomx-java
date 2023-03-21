@@ -17,7 +17,7 @@ package org.familysearch.platform;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.Date;
 
 /**

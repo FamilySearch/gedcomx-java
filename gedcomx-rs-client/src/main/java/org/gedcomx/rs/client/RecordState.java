@@ -23,7 +23,7 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.Rel;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.net.URI;
 
 /**

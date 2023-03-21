@@ -22,7 +22,7 @@ import org.gedcomx.atom.Feed;
 import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 import java.util.*;
 
 /**

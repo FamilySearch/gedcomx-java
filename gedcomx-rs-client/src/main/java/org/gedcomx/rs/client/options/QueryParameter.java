@@ -18,7 +18,7 @@ package org.gedcomx.rs.client.options;
 import com.sun.jersey.api.client.ClientRequest;
 import org.gedcomx.rs.client.StateTransitionOption;
 
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 /**
  * @author Ryan Heaton

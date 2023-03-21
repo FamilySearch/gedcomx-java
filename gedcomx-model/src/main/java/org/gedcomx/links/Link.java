@@ -24,7 +24,7 @@ import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;

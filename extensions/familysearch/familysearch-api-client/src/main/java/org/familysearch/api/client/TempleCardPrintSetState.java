@@ -22,7 +22,7 @@ import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.StateFactory;
 import org.gedcomx.rs.client.StateTransitionOption;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.io.InputStream;
 
 /**

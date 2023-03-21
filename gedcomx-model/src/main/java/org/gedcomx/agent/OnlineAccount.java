@@ -18,7 +18,7 @@ package org.gedcomx.agent;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * An online account for a web application.

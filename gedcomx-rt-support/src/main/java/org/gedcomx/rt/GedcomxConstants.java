@@ -15,7 +15,7 @@
  */
 package org.gedcomx.rt;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Ryan Heaton

@@ -28,7 +28,7 @@ import org.gedcomx.rt.json.GedcomJsonProvider;
 import org.gedcomx.rt.json.GedcomxAtomJsonProvider;
 import org.gedcomx.rt.xml.GedcomxXmlProvider;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.net.URI;
 import java.util.List;
 

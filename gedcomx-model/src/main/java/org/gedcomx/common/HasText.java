@@ -15,7 +15,7 @@
  */
 package org.gedcomx.common;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 
 /**

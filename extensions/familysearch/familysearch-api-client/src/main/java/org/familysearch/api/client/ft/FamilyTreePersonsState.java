@@ -17,8 +17,8 @@ package org.familysearch.api.client.ft;
 
 import java.net.URI;
 import java.util.List;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;

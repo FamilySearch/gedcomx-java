@@ -21,7 +21,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.GedcomxApplicationException;
 import org.gedcomx.rt.Rel;
 
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 /**
  * Convenience client for accessing the FamilySearch API.

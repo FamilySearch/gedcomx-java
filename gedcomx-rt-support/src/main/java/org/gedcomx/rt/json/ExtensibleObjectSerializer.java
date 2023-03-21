@@ -27,7 +27,7 @@ import org.gedcomx.rt.SupportsExtensionElements;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.util.ArrayList;

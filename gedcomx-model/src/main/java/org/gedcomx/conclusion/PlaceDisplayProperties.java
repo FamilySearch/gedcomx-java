@@ -20,7 +20,7 @@ import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 
 /**

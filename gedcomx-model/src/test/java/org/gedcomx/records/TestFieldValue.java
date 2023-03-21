@@ -3,7 +3,7 @@ package org.gedcomx.records;
 import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.FieldValueStatusType;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;

@@ -22,7 +22,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

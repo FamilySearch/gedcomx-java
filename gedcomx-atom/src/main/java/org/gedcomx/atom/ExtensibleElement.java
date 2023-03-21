@@ -21,9 +21,9 @@ import org.gedcomx.common.HasTransientProperties;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.SupportsExtensionElements;
 
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.*;
 
 /**

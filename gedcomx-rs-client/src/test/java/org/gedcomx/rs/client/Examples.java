@@ -10,8 +10,8 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import java.net.URI;
 import java.util.List;
 

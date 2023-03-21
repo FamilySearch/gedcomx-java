@@ -33,9 +33,9 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.FieldValueStatusType;
 import org.gedcomx.types.FieldValueType;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
