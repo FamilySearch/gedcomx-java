@@ -25,7 +25,7 @@ import org.gedcomx.conclusion.Person;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.types.NamePartType;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;

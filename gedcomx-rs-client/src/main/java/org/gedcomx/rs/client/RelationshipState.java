@@ -29,7 +29,7 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceReference;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.net.URI;
 import java.util.Arrays;
 

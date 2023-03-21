@@ -24,12 +24,5 @@
       <artifactId>gedcomx-model</artifactId>
       <version>${project.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-server</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
-
 </project>

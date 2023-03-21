@@ -20,10 +20,9 @@ import org.gedcomx.atom.Content;
 import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.atom.Person;
-import org.gedcomx.records.Field;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 /**

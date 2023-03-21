@@ -18,8 +18,8 @@ package org.gedcomx.common;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.gedcomx.rt.SupportsExtensionElements;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.*;
 import java.util.*;
 
 /**

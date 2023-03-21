@@ -8,7 +8,7 @@ import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 

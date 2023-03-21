@@ -7,7 +7,7 @@ import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.search.ResultConfidence;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.Date;

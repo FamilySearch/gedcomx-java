@@ -17,7 +17,7 @@ package org.gedcomx.conclusion;
 
 import org.gedcomx.rt.RDFSubClassOf;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 
 /**

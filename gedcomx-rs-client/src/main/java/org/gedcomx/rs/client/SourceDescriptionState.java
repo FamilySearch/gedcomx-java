@@ -27,9 +27,9 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceDescription;
 
-import javax.activation.DataSource;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
+import jakarta.activation.DataSource;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;

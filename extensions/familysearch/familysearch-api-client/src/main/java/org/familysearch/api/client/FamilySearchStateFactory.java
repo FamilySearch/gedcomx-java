@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 import java.util.List;
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.sun.jersey.api.client.Client;

@@ -3,7 +3,7 @@ package org.gedcomx.source;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.SerializationUtil;

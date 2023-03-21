@@ -1,6 +1,6 @@
 package org.gedcomx.test;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Ryan Heaton

@@ -19,8 +19,8 @@ import org.gedcomx.types.GenderType;
 import org.gedcomx.types.NamePartType;
 import org.gedcomx.types.NameType;
 
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import java.util.List;
 
 import static org.familysearch.api.client.util.FamilySearchOptions.reason;

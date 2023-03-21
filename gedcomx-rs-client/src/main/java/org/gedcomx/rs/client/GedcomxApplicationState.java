@@ -37,11 +37,11 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.Rel;
 import org.gedcomx.source.SourceDescription;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.EntityTag;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.EntityTag;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;

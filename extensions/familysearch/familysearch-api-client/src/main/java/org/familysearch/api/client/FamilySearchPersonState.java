@@ -34,9 +34,9 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 
-import javax.activation.DataSource;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.activation.DataSource;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;

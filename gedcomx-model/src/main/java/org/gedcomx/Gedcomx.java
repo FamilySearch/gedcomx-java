@@ -42,7 +42,7 @@ import org.gedcomx.types.RelationshipType;
 import org.gedcomx.types.ResourceType;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;

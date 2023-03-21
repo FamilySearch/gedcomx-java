@@ -18,8 +18,8 @@ package org.gedcomx.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gedcomx.rt.SerializationProcessListener;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**

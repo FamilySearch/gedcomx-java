@@ -22,12 +22,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.w3c.dom.Document;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchema;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -105,7 +105,7 @@ public class SerializationUtil {
       }
       el = new JAXBElement(new QName(ns, instanceClass.getSimpleName()), instanceClass, reference);
     }
-    marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new GedcomNamespaceManager(instanceClass));
+    marshaller.setProperty("org.glassfish.jaxb.namespacePrefixMapper", new GedcomNamespaceManager(instanceClass));
     marshaller.marshal(el, out);
   }
 

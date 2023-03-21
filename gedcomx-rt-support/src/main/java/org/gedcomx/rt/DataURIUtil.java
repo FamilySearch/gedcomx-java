@@ -17,7 +17,7 @@ package org.gedcomx.rt;
 
 import org.apache.commons.codec.binary.Base64;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;

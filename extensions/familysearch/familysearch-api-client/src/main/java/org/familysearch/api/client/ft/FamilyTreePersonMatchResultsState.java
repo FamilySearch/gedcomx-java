@@ -25,7 +25,7 @@ import org.gedcomx.atom.Entry;
 import org.gedcomx.links.Link;
 import org.gedcomx.rs.client.StateTransitionOption;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 
 public class FamilyTreePersonMatchResultsState extends PersonMatchResultsState {
 

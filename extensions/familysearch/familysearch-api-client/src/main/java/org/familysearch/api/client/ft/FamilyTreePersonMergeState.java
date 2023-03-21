@@ -29,7 +29,7 @@ import org.gedcomx.rs.client.GedcomxApplicationState;
 import org.gedcomx.rs.client.PersonState;
 import org.gedcomx.rs.client.StateTransitionOption;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 
 /**
  * @author Ryan Heaton

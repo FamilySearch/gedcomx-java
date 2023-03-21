@@ -27,7 +27,7 @@ import org.gedcomx.rs.client.SourceDescriptionState;
 import org.gedcomx.rs.client.StateTransitionOption;
 import org.gedcomx.source.SourceDescription;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 
 /**
  * @author Ryan Heaton

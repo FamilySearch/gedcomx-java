@@ -2,7 +2,7 @@ package org.gedcomx.util;
 
 import org.gedcomx.Gedcomx;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import java.util.Locale;
 
 import org.junit.Test;

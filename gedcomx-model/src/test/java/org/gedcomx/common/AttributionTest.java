@@ -3,7 +3,7 @@ package org.gedcomx.common;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import java.util.Date;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;

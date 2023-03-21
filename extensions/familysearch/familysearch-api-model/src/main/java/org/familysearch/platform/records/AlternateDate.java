@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * An ordinance reservation.

@@ -4,7 +4,7 @@ import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import java.util.ArrayList;
 import java.util.List;
 

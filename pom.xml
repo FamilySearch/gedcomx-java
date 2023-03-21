@@ -12,7 +12,7 @@
 
   <properties>
     <!-- Various settings -->
-    <java.compiler.version>1.8</java.compiler.version>
+    <java.compiler.version>17</java.compiler.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <root.basedir>${project.basedir}</root.basedir>
     <skip.javadoc>true</skip.javadoc>
@@ -23,13 +23,11 @@
     <commons-codec.version>1.15</commons-codec.version>
     <enunciate.version>2.14.0</enunciate.version>
     <hamcrest.version>2.2</hamcrest.version>
-    <handy-uri.version>2.1.8</handy-uri.version>
     <jackson.databind.version>2.14.2</jackson.databind.version>
     <jackson.jaxrs.version>2.14.2</jackson.jaxrs.version>
-    <glassfish-jaxb-runtime.version>2.3.6</glassfish-jaxb-runtime.version>
-    <jersey1.version>1.19.4</jersey1.version>
-    <jena-arq.version>3.17.0</jena-arq.version>
-    <jsr311-api.version>1.1.1</jsr311-api.version>
+    <jakarta.ws.rs-api.version>3.1.0</jakarta.ws.rs-api.version>
+    <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
+    <glassfish-jaxb-runtime.version>4.0.2</glassfish-jaxb-runtime.version>
     <junit.version>4.13.2</junit.version>
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
     <woodstox-core.version>6.5.0</woodstox-core.version>
@@ -54,12 +52,8 @@
     <!--gedcomx-core modules-->
     <module>gedcomx-date</module>
     <module>gedcomx-model</module>
-    <module>gedcomx-fileformat</module>
-
-    <!--gedcomx-rs modules-->
     <module>gedcomx-atom</module>
-    <module>gedcomx-rs-rt-support</module>
-    <module>gedcomx-rs-client</module>
+    <module>gedcomx-fileformat</module>
 
     <!--extension modules-->
     <module>extensions/familysearch</module>
@@ -84,11 +78,6 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-library</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -127,52 +116,26 @@
       </dependency>
 
       <dependency>
+        <groupId>jakarta.ws.rs</groupId>
+        <artifactId>jakarta.ws.rs-api</artifactId>
+        <version>${jakarta.ws.rs-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>${jakarta.xml.bind-api.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-runtime</artifactId>
         <version>${glassfish-jaxb-runtime.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>javax.ws.rs</groupId>
-        <artifactId>jsr311-api</artifactId>
-        <version>${jsr311-api.version}</version>
-      </dependency>
-
-      <dependency>
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
         <version>${commons-codec.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.sun.jersey</groupId>
-        <artifactId>jersey-client</artifactId>
-        <version>${jersey1.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.sun.jersey</groupId>
-        <artifactId>jersey-server</artifactId>
-        <version>${jersey1.version}</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>com.sun.jersey.contribs</groupId>
-        <artifactId>jersey-multipart</artifactId>
-        <version>${jersey1.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.damnhandy</groupId>
-        <artifactId>handy-uri-templates</artifactId>
-        <version>${handy-uri.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.jena</groupId>
-        <artifactId>jena-arq</artifactId>
-        <version>${jena-arq.version}</version>
       </dependency>
 
       <dependency>
@@ -193,12 +156,6 @@
       <dependency>
         <groupId>org.hamcrest</groupId>
         <artifactId>hamcrest-core</artifactId>
-        <version>${hamcrest.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-library</artifactId>
         <version>${hamcrest.version}</version>
         <scope>test</scope>
       </dependency>

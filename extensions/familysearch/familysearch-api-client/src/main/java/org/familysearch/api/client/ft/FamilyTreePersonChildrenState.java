@@ -26,7 +26,7 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rs.client.PersonChildrenState;
 import org.gedcomx.rs.client.StateTransitionOption;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.util.List;
 
 /**

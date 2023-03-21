@@ -17,7 +17,7 @@ package org.gedcomx.agent;
 
 import org.gedcomx.common.ExtensibleData;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 
 /**

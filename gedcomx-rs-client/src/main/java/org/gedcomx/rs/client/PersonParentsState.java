@@ -26,7 +26,7 @@ import org.gedcomx.links.SupportsLinks;
 import org.gedcomx.rt.Rel;
 import org.gedcomx.types.GenderType;
 
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 import java.util.List;
 
 /**

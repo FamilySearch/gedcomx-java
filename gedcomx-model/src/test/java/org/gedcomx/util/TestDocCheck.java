@@ -7,7 +7,7 @@ import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.records.FieldValue;
 import org.gedcomx.source.SourceReference;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;

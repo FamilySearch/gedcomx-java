@@ -15,8 +15,8 @@
  */
 package org.gedcomx.common;
 
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Adapts a URI to a string.
