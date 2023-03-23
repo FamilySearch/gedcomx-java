@@ -33,12 +33,8 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class PersonInfo {
   private Boolean canUserEdit = false;
   private Boolean visibleToAll = true;
-  // The treeId attribute is prototype only and may change.
+  // The treeId attribute is prototype only and may be removed or changed at any time
   private String treeId;
-  @Deprecated
-  private Boolean readOnly = false;
-  @Deprecated
-  private Boolean privateSpaceRestricted = false;
 
   public PersonInfo() {
   }
@@ -74,39 +70,6 @@ public class PersonInfo {
   }
 
   /**
-   * Set if this person is a readOnly person.
-   *
-   * @return True if this person is readOnly; false otherwise.
-   */
-  @Deprecated
-  @XmlAttribute
-  public Boolean isReadOnly() {
-    return readOnly;
-  }
-
-  /**
-   * Get if this person is a readOnly person.
-   *
-   * @param readOnly True if this person is readOnly; false otherwise.
-   */
-  @Deprecated
-  public void setReadOnly(Boolean readOnly) {
-    this.readOnly = readOnly;
-  }
-
-  /**
-   * Build out this person with a read only state.
-   *
-   * @param readOnly The read only state for this person.
-   * @return this.
-   */
-  @Deprecated
-  public PersonInfo readOnly(final Boolean readOnly) {
-    this.readOnly = readOnly;
-    return this;
-  }
-
-  /**
    * Get if this person is visible to all FamilySearch users.
    *
    * @return True if this person is visible to all FamilySearch users; false otherwise.
@@ -137,40 +100,7 @@ public class PersonInfo {
   }
 
   /**
-   * Get if this person is a private space restricted person.
-   *
-   * @return True if this person is a private space restricted person; false otherwise.
-   */
-  @Deprecated
-  @XmlAttribute
-  public Boolean isPrivateSpaceRestricted() {
-    return privateSpaceRestricted;
-  }
-
-  /**
-   * Set if this person is a private space restricted person.
-   *
-   * @param privateSpaceRestricted True if this person is a private space restricted person; false otherwise.
-   */
-  @Deprecated
-  public void setPrivateSpaceRestricted(Boolean privateSpaceRestricted) {
-    this.privateSpaceRestricted = privateSpaceRestricted;
-  }
-
-  /**
-   * Build out this person with a private space restricted state.
-   *
-   * @param privateSpaceRestricted The private space restricted state for this person.
-   * @return this.
-   */
-  @Deprecated
-  public PersonInfo privateSpaceRestricted(final Boolean privateSpaceRestricted) {
-    this.privateSpaceRestricted = privateSpaceRestricted;
-    return this;
-  }
-
-  /**
-   * Get the tree id for this person. This attribute is prototype only and may change.
+   * Get the tree id for this person. This attribute is prototype only and may be removed or changed at any time.
    *
    * @return The tree id for this person.
    */
@@ -180,7 +110,7 @@ public class PersonInfo {
   }
 
   /**
-   * Set the tree id for this person. This attribute is prototype only and may change.
+   * Set the tree id for this person. This attribute is prototype only and may be removed or changed at any time.
    *
    * @param treeId The tree id for this person.
    */
@@ -189,7 +119,7 @@ public class PersonInfo {
   }
 
   /**
-   * Build out this person with a tree id. This attribute is prototype only and may change.
+   * Build out this person with a tree id. This attribute is prototype only and may be removed or changed at any time.
    *
    * @param treeId The tree id for this person.
    * @return this.
