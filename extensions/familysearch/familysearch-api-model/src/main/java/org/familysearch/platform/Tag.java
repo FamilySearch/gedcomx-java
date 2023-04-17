@@ -36,12 +36,19 @@ import java.io.Serializable;
 public class Tag implements Serializable {
 
   private URI resource;
+  private String conclusionId;
 
   public Tag() {
   }
 
   public Tag(ControlledVocabulary value) {
     this.resource = value == null ? null : value.toQNameURI();
+    this.conclusionId = null;
+  }
+
+  public Tag(String conclusionId) {
+    this.resource = null;
+    this.conclusionId = conclusionId;
   }
 
   /**
@@ -62,4 +69,19 @@ public class Tag implements Serializable {
   public void setResource(URI resource) {
     this.resource = resource;
   }
+
+  /**
+   * The conclusionId associated with this tag.
+   *
+   * @return The conclusionId associated with this tag.
+   */
+  @XmlAttribute
+  public String getConclusionId() { return conclusionId; }
+
+  /**
+   * The conclusionId to associate with this tag.
+   *
+   * @param conclusionId The conclusionId to associate with this tag.
+   */
+  public void setConclusionId(String conclusionId) { this.conclusionId = conclusionId; }
 }
