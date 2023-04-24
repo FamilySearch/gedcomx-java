@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.Attribution;
+import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.*;
@@ -104,6 +105,26 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   private List<Collection> collections;
   private List<Field> fields;
   private List<RecordDescriptor> recordDescriptors;
+
+  @Override
+  public Gedcomx id(String id) {
+    return (Gedcomx) super.id(id);
+  }
+
+  @Override
+  public Gedcomx extensionElement(Object element) {
+    return (Gedcomx) super.extensionElement(element);
+  }
+
+  @Override
+  public Gedcomx link(Link link) {
+    return (Gedcomx) super.link(link);
+  }
+
+  @Override
+  public Gedcomx link(String rel, URI href) {
+    return (Gedcomx) super.link(rel, href);
+  }
 
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
