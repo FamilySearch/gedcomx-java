@@ -37,6 +37,7 @@ import org.familysearch.platform.artifacts.ArtifactMetadata;
 import org.familysearch.platform.ct.ChangeInfo;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
+import org.familysearch.platform.ct.Group;
 import org.familysearch.platform.ct.MatchInfo;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
@@ -99,7 +100,7 @@ public class FamilySearchStateFactory extends StateFactory {
    * Create a new places state with the given URI
    *
    * @param discoveryUri the discovery URI for places
-   * @return a new places state created with with the given URI
+   * @return a new places state created with the given URI
    */
   public FamilySearchPlaces newPlacesState(URI discoveryUri) {
     return newPlacesState(discoveryUri, loadDefaultClient());
@@ -110,7 +111,7 @@ public class FamilySearchStateFactory extends StateFactory {
    *
    * @param discoveryUri the discovery URI for places
    * @param client the client that will use the new places state
-   * @return a new places state created with with the given URI
+   * @return a new places state created with the given URI
    */
   public FamilySearchPlaces newPlacesState(URI discoveryUri, Client client) {
     return newPlacesState(discoveryUri, client, HttpMethod.GET);
@@ -122,7 +123,7 @@ public class FamilySearchStateFactory extends StateFactory {
    * @param discoveryUri the discovery URI for places
    * @param client the client that will use the new places state
    * @param method the HTTP method to call
-   * @return a new places state created with with the given URI
+   * @return a new places state created with the given URI
    */
   public FamilySearchPlaces newPlacesState(URI discoveryUri, Client client, String method) {
     ClientRequest request = ClientRequest.create().accept(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE).build(discoveryUri, method);
@@ -201,11 +202,11 @@ public class FamilySearchStateFactory extends StateFactory {
   @Override
   public Client loadDefaultClient() {
     DefaultClientConfig config = new DefaultClientConfig();
-    Class<?>[] extensionClasses = new Class[]{FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class,
-                                              ChildAndParentsRelationship.class, Discussion.class, DiscussionReference.class,
-                                              Error.class, FeedbackInfo.class, FieldInfo.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class,
-                                              Merge.class, MergeAnalysis.class, MergeConflict.class, Tag.class, User.class,
-                                              Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class};
+    Class<?>[] extensionClasses = new Class[]{FamilySearchPlatform.class, ArtifactMetadata.class, ChangeInfo.class, ChildAndParentsRelationship.class,
+                                              Discussion.class, DiscussionReference.class, Error.class, FeedbackInfo.class, FieldInfo.class,
+                                              Group.class, MatchInfo.class, NameSearchInfo.class, PersonInfo.class, SearchInfo.class, Merge.class,
+                                              MergeAnalysis.class, MergeConflict.class, Tag.class, User.class, Ordinance.class, OrdinanceRollup.class,
+                                              OrdinanceSummary.class};
     config.getSingletons().add( new FamilySearchPlatformJsonProvider(extensionClasses) );
     config.getSingletons().add( new GedcomxAtomJsonProvider(extensionClasses) );
     config.getSingletons().add( new JacksonJsonProvider() );
