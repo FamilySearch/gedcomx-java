@@ -33,6 +33,7 @@ import org.familysearch.platform.ct.ChangeInfo;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
 import org.familysearch.platform.ct.FamilySearchIdentifierType;
+import org.familysearch.platform.ct.Group;
 import org.familysearch.platform.ct.MatchInfo;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
@@ -91,11 +92,11 @@ import org.gedcomx.types.RelationshipType;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper ( name = "familysearch" )
-@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "users", "merges",
+@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "groups", "users", "merges",
     "mergeAnalyses", "features", "vocabConcepts" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, FieldInfo.class, PersonInfo.class, SearchInfo.class,
-               PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class,
+               PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Group.class,
                Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class, NameFormInfo.class, AlternatePlaceReference.class, AlternateDate.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilySearchPlatform extends Gedcomx {
@@ -109,6 +110,7 @@ public class FamilySearchPlatform extends Gedcomx {
   private List<Merge> merges;
   private List<ChildAndParentsRelationship> childAndParentsRelationships;
   private List<Discussion> discussions;
+  private List<Group> groups;
   private List<User> users;
   private List<Feature> features;
   private List<VocabConcept> vocabConcepts;
@@ -285,6 +287,52 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   public FamilySearchPlatform discussion(Discussion discussion) {
     addDiscussion(discussion);
+    return this;
+  }
+
+  /**
+   * The groups included in this data set.
+   *
+   * @return The groups included in this data set.
+   */
+  @XmlElement ( name = "group" )
+  @JsonProperty ( "groups" )
+  public List<Group> getGroups() {
+    return groups;
+  }
+
+  /**
+   * The groups included in this data set.
+   *
+   * @param groups The groups included in this data set.
+   */
+  @JsonProperty ( "groups" )
+  public void setGroups(List<Group> groups) {
+    this.groups = groups;
+  }
+
+  /**
+   * Add a group to the data set.
+   *
+   * @param group The group to be added.
+   */
+  public void addGroup(Group group) {
+    if (group != null) {
+      if (groups == null) {
+        groups = new LinkedList<Group>();
+      }
+      groups.add(group);
+    }
+  }
+
+  /**
+   * Build out this document with a group.
+   *
+   * @param group The group to be added.
+   * @return this.
+   */
+  public FamilySearchPlatform group(Group group) {
+    addGroup(group);
     return this;
   }
 
@@ -469,7 +517,7 @@ public class FamilySearchPlatform extends Gedcomx {
       }
     }
 
-    List<VocabConcept> localVocabConcepts = ((FamilySearchPlatform) gedcomx).getVocabConcepts();
+  List<VocabConcept> localVocabConcepts = ((FamilySearchPlatform) gedcomx).getVocabConcepts();
     if (localVocabConcepts != null) {
       for (VocabConcept vocabConcept : localVocabConcepts) {
         boolean found = false;
