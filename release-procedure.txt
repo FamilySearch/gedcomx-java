@@ -2,17 +2,31 @@
 =============================================================================================================================================
 Procedure:  (required setup must be completed first)
 
-1. Make sure the project builds and you have checked in all of your changes.
+1. IMPORTANT NOTE: There are currently 2 release lines for gedcomx-java.
+   a. The 2.x.x release line is for those projects still using Java 8. The code for this release is contained in the v2.x.x branch.
+      i. To pull and track this branch locally use the following commands:
+          1. git checkout -b v2.x.x origin/v2.x.x
+          2. git branch --set-upstream-to=origin/v2.x.x v2.x.x (this command may not be required)
+   b. The 3.x.x release line is for those projects using Java 11 and higher. The code for this release is in the master branch.
+   c. We are currently keeping both release lines in sync. The normal release procedure is as follows:
+      i.    Check changes into the master branch, build it, and then release it as specified starting in step 2 below.
+      ii.   Switch to the v2.x.x branch
+            1. git checkout v2.x.x
+      iii.  Cherry-pick the change(s) from the master branch to the v2.x.x branch
+            1. git cherry-pick <commitId>
+            2. Build and release the 2.x.x branch as specified starting in step 2 below.
 
-    *********************************************************************************
-    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 *********************
-    *********************************************************************************
+2. Make sure the project builds and you have checked in all of your changes.
 
-2. mvn -B -Prelease clean release:clean release:prepare -Dtag=$THIS_RELEASE_VERSION -DreleaseVersion=$THIS_RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform
+    ************************************************************************************************************************************************
+    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 for the 2.x.x release line, Java 11 for the 3.x.x release line *********************
+    ************************************************************************************************************************************************
 
-    *********************************************************************************
-    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 *********************
-    *********************************************************************************
+3. mvn -B -Prelease clean release:clean release:prepare -Dtag=$THIS_RELEASE_VERSION -DreleaseVersion=$THIS_RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform
+
+    ************************************************************************************************************************************************
+    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 for the 2.x.x release line, Java 11 for the 3.x.x release line *********************
+    ************************************************************************************************************************************************
 
     Example:
         export THIS_RELEASE_VERSION=2.146.0; \
@@ -33,8 +47,8 @@ Procedure:  (required setup must be completed first)
         release:perform   Perform a release from SCM.   (Checkout from SCM URL, Run predefined Maven goals to release project i.e deploy site-deploy)
 
 
-3. Optional   If you now run 'git status' it may tell you that "Your branch is ahead of 'origin/master' by 2 commits". However your changes should actually
-              be pushed to the master repository.  You can verify that at  https://github.com/FamilySearch/gedcomx-java/commits/master
+4. Optional   If you now run 'git status' it may tell you that "Your branch is ahead of 'origin/master' by 2 commits". However, your changes should actually
+              be pushed to the master repository.  You can verify that at https://github.com/FamilySearch/gedcomx-java/commits/master
 
         The maven release plugin runs 'git push git@github.com:FamilySearch/gedcomx-java.git refs/heads/master:refs/heads/master', but for some reason the
         local git tools show that local changes still need to be pushed to master.  You can fix this by running 'git fetch' or 'git pull' or even 'git push'
@@ -47,7 +61,8 @@ Procedure:  (required setup must be completed first)
 NOTES:  After you release you will have artifacts in your local repository with the new version, but that does not mean they have been sync'ed
         to maven central. You may delete these from your local .m2 repository if you wish.  If they are not on maven central anyone trying to
         use those versions, including FamilySearch build servers, will fail. When you successfully released, your components were published to
-        maven central, possibly within 10 minutes, probably within 2 hours, but could be longer.  Updates to search.maven.org can take longer.
+        maven central.  The new components could possibly on maven central within 10 minutes, probably within 2 hours, but it could be longer.
+        Updates to search.maven.org can take longer.
                 See
 
 
