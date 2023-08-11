@@ -1,6 +1,10 @@
 package org.gedcomx.date;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
+
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
@@ -733,6 +737,71 @@ public class UtilTest {
     assertThat(date.day).isEqualTo(null);
     assertThat(date.month).isEqualTo(null);
     assertThat(date.year).isEqualTo(2000);
+  }
+
+
+  @Test
+  public void testJavaDateToGedcomxDateSimpleEpoch() {
+    Date javaEpochDate = new Date(0L);
+    GedcomxDateSimple gedcomxDate = GedcomxDateUtil.javaDateToGedcomxDateSimple(javaEpochDate);
+    Assertions.assertThat(gedcomxDate).isNotNull();
+    Assertions.assertThat(gedcomxDate.toFormalString()).isEqualTo("+1970-01-01T00:00:00Z");
+  }
+
+  @Test
+  public void testJavaDateToGedcomxDateSimpleJustAfterEpoch() {
+    Date javaJustAfterEpochDate = new Date(1L);
+    GedcomxDateSimple gedcomxDate = GedcomxDateUtil.javaDateToGedcomxDateSimple(javaJustAfterEpochDate);
+    Assertions.assertThat(gedcomxDate).isNotNull();
+    Assertions.assertThat(gedcomxDate.toFormalString()).isEqualTo("+1970-01-01T00:00:00Z");
+  }
+
+  @Test
+  public void testJavaDateToGedcomxDateSimpleJustBeforeEpoch() {
+    Date javaJustBeforeEpochDate = new Date(-1L);
+    GedcomxDateSimple gedcomxDate = GedcomxDateUtil.javaDateToGedcomxDateSimple(javaJustBeforeEpochDate);
+    Assertions.assertThat(gedcomxDate).isNotNull();
+    Assertions.assertThat(gedcomxDate.toFormalString()).isEqualTo("+1969-12-31T23:59:59Z");
+  }
+
+  @Test
+  public void testJavaDateToGedcomxDateSimpleBCEDate() {
+    Date javaBCEDate = new Date(-62451363600000L);
+    GedcomxDateSimple gedcomxDate = GedcomxDateUtil.javaDateToGedcomxDateSimple(javaBCEDate);
+    Assertions.assertThat(gedcomxDate).isNotNull();
+    Assertions.assertThat(gedcomxDate.toFormalString()).isEqualTo("-0010-12-30T07:00:00Z");
+  }
+
+  @Test
+  public void testJavaDateToGedcomxDateSimpleNullDate() {
+    Assertions.assertThatExceptionOfType(GedcomxDateException.class)
+            .isThrownBy(() -> GedcomxDateUtil.javaDateToGedcomxDateSimple(null))
+            .withMessage("javaDate cannot be null");
+  }
+
+  @Test
+  public void testJavaDatesToGedcomxDateRange() {
+    Date javaEpochDate = new Date(0L);
+    Date javaEpochDatePlusOne = Date.from(javaEpochDate.toInstant().plus(1, ChronoUnit.DAYS));
+    GedcomxDateRange gedcomxDate = GedcomxDateUtil.javaDatesToGedcomxDateRange(javaEpochDate, javaEpochDatePlusOne);
+    Assertions.assertThat(gedcomxDate).isNotNull();
+    Assertions.assertThat(gedcomxDate.toFormalString()).isEqualTo("+1970-01-01T00:00:00Z/P1D");
+  }
+
+  @Test
+  public void testJavaDatesToGedcomxDateRangeNoFromDate() {
+    Date javaEpochDate = new Date(0L);
+    Assertions.assertThatExceptionOfType(GedcomxDateException.class)
+            .isThrownBy(() -> GedcomxDateUtil.javaDatesToGedcomxDateRange(null, javaEpochDate))
+            .withMessage("fromDate cannot be null");
+  }
+
+  @Test
+  public void testJavaDatesToGedcomxDateRangeNoToDate() {
+    Date javaEpochDate = new Date(0L);
+    GedcomxDateRange gedcomxDate = GedcomxDateUtil.javaDatesToGedcomxDateRange(javaEpochDate, null);
+    Assertions.assertThat(gedcomxDate).isNotNull();
+    Assertions.assertThat(gedcomxDate.toFormalString()).isEqualTo("+1970-01-01T00:00:00Z/");
   }
 
 }
