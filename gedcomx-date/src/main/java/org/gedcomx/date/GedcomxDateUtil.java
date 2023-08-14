@@ -15,6 +15,10 @@
  */
 package org.gedcomx.date;
 
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
+
 /**
  * Static utility functions for handling GedcomX Dates
  * @author John Clark.
@@ -470,5 +474,42 @@ public class GedcomxDateUtil {
         }
       }
     }
+  }
+
+  /**
+   * Converts a java.util.Date to a GedcomxDate object.  The returned GedcomxDate
+   * will always be represented as UTC since java.util.Date does not
+   * have locale information and is defaulted to represent UTC.
+   * @param javaDate The java.util.Date object to convert.
+   * @return a GedcomxDate representing the CE javaDate.
+   */
+  public static GedcomxDateSimple javaDateToGedcomxDateSimple(java.util.Date javaDate) {
+    String formattedDate = Optional.ofNullable(javaDate)
+            .map(date -> date.toInstant().truncatedTo(ChronoUnit.SECONDS))
+            .map(DateTimeFormatter.ISO_INSTANT::format)
+            .map(formattedString -> formattedString.startsWith("-") ? formattedString : "+" + formattedString)
+            .orElseThrow(() -> new GedcomxDateException("javaDate cannot be null"));
+    return new GedcomxDateSimple(formattedDate);
+  }
+
+  /**
+   * Converts two java.util.Date objects to a GedcomxDateRange object.  If toDate
+   * is null then the GedcomxDateRange will be an open-ended range.  The fromDate
+   * and toDate will both be UTC since that is what a java.util.Date object represents.
+   * @param fromDate the start of the range.  This cannot be null.
+   * @param toDate the end of the range.  This may be null.
+   * @return a GedcomxDateRange that represents the range between the fromDate and toDate
+   * @throws GedcomxDateException if fromDate is null.
+   */
+  public static GedcomxDateRange javaDatesToGedcomxDateRange(java.util.Date fromDate, java.util.Date toDate) {
+    String fromDateFormalString = Optional.ofNullable(fromDate)
+            .map(GedcomxDateUtil::javaDateToGedcomxDateSimple)
+            .map(GedcomxDate::toFormalString)
+            .orElseThrow(() -> new GedcomxDateException("fromDate cannot be null"));
+    String toDateFormalString = Optional.ofNullable(toDate)
+            .map(GedcomxDateUtil::javaDateToGedcomxDateSimple)
+            .map(GedcomxDate::toFormalString)
+            .orElse("");
+    return new GedcomxDateRange(fromDateFormalString+"/"+toDateFormalString);
   }
 }
