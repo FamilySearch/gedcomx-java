@@ -489,7 +489,13 @@ public class GedcomxDateSimple extends GedcomxDate {
 
   /**
    * Compares this GedcomxDateSimple object with either another GedcomxDateSimple object
-   * or a GedcomxDateApproximate object.
+   * or a GedcomxDateApproximate object.  Comparison is achieved by using an ISO 8601 date
+   * format using the populated temporal fields in this object amd the fields in the other
+   * object.  If a field is null it defaults to a "0th" value.  So in the case of the simplest
+   * date of only a year field value it would default to January 1 at midnight UTC of the
+   * given year.  ISO 8601 conversion occurs for both <code>this</code> and <code>other</code>.
+   * In other words, if there is missing field information it will reflect as the earliest
+   * possible ISO 8601 representation of the object to use in comparison.
    * @param other the object to be compared.
    * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object
    * @throws ClassCastException if other is not of type GedcomxDateSimple or GedcomxDateApproximate
