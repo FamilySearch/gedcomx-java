@@ -15,8 +15,11 @@
  */
 package org.gedcomx.date;
 
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Optional;
 import java.util.TimeZone;
 
 /**
@@ -482,5 +485,56 @@ public class GedcomxDateSimple extends GedcomxDate {
    */
   public Integer getTzMinutes() {
     return tzMinutes;
+  }
+
+  /**
+   * Compares this GedcomxDateSimple object with either another GedcomxDateSimple object
+   * or a GedcomxDateApproximate object.  Comparison is achieved by using an ISO 8601 date
+   * format using the populated temporal fields in this object amd the fields in the other
+   * object.  If a field is null it defaults to a "0th" value.  So in the case of the simplest
+   * date of only a year field value it would default to January 1 at midnight UTC of the
+   * given year.  ISO 8601 conversion occurs for both <code>this</code> and <code>other</code>.
+   * In other words, if there is missing field information it will reflect as the earliest
+   * possible ISO 8601 representation of the object to use in comparison.
+   * @param other the object to be compared.
+   * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object
+   * @throws ClassCastException if other is not of type GedcomxDateSimple or GedcomxDateApproximate
+   * @throws NullPointerException if other is null
+   */
+  @Override
+  public int compareTo(GedcomxDate other) {
+    if (other == null) {
+      throw new NullPointerException();
+    }
+    GedcomxDateSimple o;
+    if (other instanceof GedcomxDateSimple) {
+      o = (GedcomxDateSimple) other;
+    } else if (other instanceof GedcomxDateApproximate) {
+      o = ((GedcomxDateApproximate) other).getSimpleDate();
+    } else {
+      throw new ClassCastException("other is not an instance of either GedcomxDateSimple or GedcomxDateApproximate");
+    }
+    String isoFormat = "%d-%02d-%02dT%02d:%02d:%02d%+03d:%02d";
+    String isoThisDate = String.format(isoFormat,
+            this.getYear(),
+            Optional.ofNullable(this.getMonth()).orElse(1),
+            Optional.ofNullable(this.getDay()).orElse(1),
+            Optional.ofNullable(this.getHours()).orElse(0),
+            Optional.ofNullable(this.getMinutes()).orElse(0),
+            Optional.ofNullable(this.getSeconds()).orElse(0),
+            Optional.ofNullable(this.getTzHours()).orElse(0),
+            Optional.ofNullable(this.getTzMinutes()).orElse(0));
+    String isoOtherDate = String.format(isoFormat,
+            o.getYear(),
+            Optional.ofNullable(o.getMonth()).orElse(1),
+            Optional.ofNullable(o.getDay()).orElse(1),
+            Optional.ofNullable(o.getHours()).orElse(0),
+            Optional.ofNullable(o.getMinutes()).orElse(0),
+            Optional.ofNullable(o.getSeconds()).orElse(0),
+            Optional.ofNullable(o.getTzHours()).orElse(0),
+            Optional.ofNullable(o.getTzMinutes()).orElse(0));
+    Instant thisInstant = DateTimeFormatter.ISO_INSTANT.parse(isoThisDate, Instant::from);
+    Instant otherInstant = DateTimeFormatter.ISO_INSTANT.parse(isoOtherDate, Instant::from);
+    return thisInstant.compareTo(otherInstant);
   }
 }
