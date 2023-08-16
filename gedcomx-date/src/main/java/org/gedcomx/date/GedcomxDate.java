@@ -19,7 +19,7 @@ package org.gedcomx.date;
  * A Formal Gedcomx Date
  * @author John Clark.
  */
-public abstract class GedcomxDate {
+public abstract class GedcomxDate implements Comparable<GedcomxDate> {
 
   /**
    * Return the type of date
@@ -38,5 +38,17 @@ public abstract class GedcomxDate {
    * @return The formal string
    */
   public abstract String toFormalString();
+
+  /**
+   * This method MAY not be implemented for each subclass.  Specific behavior should be documented
+   * in each subclass implementation.
+   * @param o the object to be compared.
+   * @return If implemented - a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object
+   * @throws UnsupportedOperationException if the sublcass does not support this method.
+   */
+  @Override
+  public int compareTo(GedcomxDate o) {
+    throw new UnsupportedOperationException();
+  }
 
 }

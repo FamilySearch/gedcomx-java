@@ -135,4 +135,15 @@ public class GedcomxDateApproximate extends GedcomxDate {
   public Integer getTzMinutes() {
     return simpleDate.getTzMinutes();
   }
+
+  /**
+   * Calls the <code>compareTo</code> method on the simple date that this GedcomxDateApproximate contains.
+   * See {@link GedcomxDateSimple#compareTo(GedcomxDate)} for more information
+   * @param other the object to be compared.
+   * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object
+   */
+  @Override
+  public int compareTo(GedcomxDate other) {
+    return this.simpleDate.compareTo(other);
+  }
 }

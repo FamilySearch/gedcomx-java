@@ -611,4 +611,163 @@ public class SimpleTest {
     }
   }
 
+  @Test
+  public void testCompareTo() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T10:00:00Z");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-02T10:00:00Z");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYear() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1001");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYearMonth() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-02");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYearMonthDay() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-02");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYearMonthDayHour() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T09");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYearMonthDayHourMinute() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:12");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYearMonthDayHourMinuteSeconds() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10:00");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:10:01");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYearMonthDayHourMinuteSecondsTzHours() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10:00+00");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:09:01-01");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToPartialDateYearMonthDayHourMinuteSecondsTzHoursTzMinutes() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10:00-01:00");
+    GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:09:31-01:30");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToBCEYear() {
+    GedcomxDateSimple before = new GedcomxDateSimple("-1001");
+    GedcomxDateSimple after = new GedcomxDateSimple("-1000");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testCompareToApproximateYear() {
+    GedcomxDateSimple before = new GedcomxDateSimple("+1000");
+    GedcomxDateApproximate after = new GedcomxDateApproximate("A+1001");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testBaseClassCompareToApproximateYear() {
+    GedcomxDate before = GedcomxDateUtil.parse("+1000");
+    GedcomxDate after = GedcomxDateUtil.parse("A+1001");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
+
+  @Test
+  public void testBaseClassCompareToClassCastException() {
+    GedcomxDate before = GedcomxDateUtil.parse("+1000");
+    GedcomxDate after = GedcomxDateUtil.parse("A+1001/+1002");
+    org.assertj.core.api.Assertions.assertThatExceptionOfType(ClassCastException.class)
+            .isThrownBy(() -> before.compareTo(after))
+            .withMessage("other is not an instance of either GedcomxDateSimple or GedcomxDateApproximate");
+  }
+
+  @Test
+  public void testBaseClassCompareToNullPointerException() {
+    GedcomxDate before = GedcomxDateUtil.parse("+1000");
+    org.assertj.core.api.Assertions.assertThatExceptionOfType(NullPointerException.class)
+            .isThrownBy(() -> before.compareTo(null));
+  }
 }
