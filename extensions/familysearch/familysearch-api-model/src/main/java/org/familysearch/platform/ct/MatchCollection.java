@@ -33,7 +33,7 @@ import org.gedcomx.rt.EnumURIMap;
 public enum MatchCollection implements ControlledVocabulary {
 
   /**
-   * The FamilySearch Family Tree.
+   * The FamilySearch Public Family Tree.
    */
   tree,
 
@@ -47,6 +47,12 @@ public enum MatchCollection implements ControlledVocabulary {
    */
   @XmlQNameEnumValue ( localPart = "trees" )
   lls,
+
+  /**
+   * The FamilySearch Researcher Trees.
+   */
+  @XmlQNameEnumValue ( localPart = "researcherTrees" )
+  rts,
 
   /**
    * The FamilySearch Temple System.
