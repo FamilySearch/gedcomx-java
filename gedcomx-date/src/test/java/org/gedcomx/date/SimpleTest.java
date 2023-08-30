@@ -771,4 +771,16 @@ public class SimpleTest {
     org.assertj.core.api.Assertions.assertThatExceptionOfType(NullPointerException.class)
             .isThrownBy(() -> before.compareTo(null));
   }
+
+  @Test
+  public void testBaseClassCompareToSingleDigitYear() {
+    GedcomxDate before = GedcomxDateUtil.parse("-0001");
+    GedcomxDate after = GedcomxDateUtil.parse("+0001");
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
+            .isLessThan(0);
+    org.assertj.core.api.Assertions.assertThat(after.compareTo(before))
+            .isGreaterThan(0);
+    org.assertj.core.api.Assertions.assertThat(before.compareTo(before))
+            .isEqualTo(0);
+  }
 }
