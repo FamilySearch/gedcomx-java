@@ -514,7 +514,9 @@ public class GedcomxDateSimple extends GedcomxDate {
     } else {
       throw new ClassCastException("other is not an instance of either GedcomxDateSimple or GedcomxDateApproximate");
     }
-    String isoFormat = "%d-%02d-%02dT%02d:%02d:%02d%+03d:%02d";
+    final String space = " ";
+    final String emptyString = "";
+    String isoFormat = "% 05d-%02d-%02dT%02d:%02d:%02d%+03d:%02d";
     String isoThisDate = String.format(isoFormat,
             this.getYear(),
             Optional.ofNullable(this.getMonth()).orElse(1),
@@ -523,7 +525,7 @@ public class GedcomxDateSimple extends GedcomxDate {
             Optional.ofNullable(this.getMinutes()).orElse(0),
             Optional.ofNullable(this.getSeconds()).orElse(0),
             Optional.ofNullable(this.getTzHours()).orElse(0),
-            Optional.ofNullable(this.getTzMinutes()).orElse(0));
+            Optional.ofNullable(this.getTzMinutes()).orElse(0)).replace(space, emptyString);
     String isoOtherDate = String.format(isoFormat,
             o.getYear(),
             Optional.ofNullable(o.getMonth()).orElse(1),
@@ -532,7 +534,7 @@ public class GedcomxDateSimple extends GedcomxDate {
             Optional.ofNullable(o.getMinutes()).orElse(0),
             Optional.ofNullable(o.getSeconds()).orElse(0),
             Optional.ofNullable(o.getTzHours()).orElse(0),
-            Optional.ofNullable(o.getTzMinutes()).orElse(0));
+            Optional.ofNullable(o.getTzMinutes()).orElse(0)).replace(space, emptyString);
     Instant thisInstant = DateTimeFormatter.ISO_INSTANT.parse(isoThisDate, Instant::from);
     Instant otherInstant = DateTimeFormatter.ISO_INSTANT.parse(isoOtherDate, Instant::from);
     return thisInstant.compareTo(otherInstant);
