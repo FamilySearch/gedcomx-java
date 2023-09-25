@@ -61,23 +61,18 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnYearZero() {
-    try {
-      new GedcomxDateSimple("+0000");
-      fail("GedcomxDateException expected because the year 0000 is invalid");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Year 0000 does not exist in Anno Domini (AD) system");
-    }
+  public void successOnPositiveYearZero() {
+    GedcomxDateSimple date = new GedcomxDateSimple("+0000");
+    assertThat(date.getYear())
+            .as("The Gedcomx Date specification requires that the year before 1 CE or 1 AD is represented as 0")
+            .isEqualTo(0);
   }
-
   @Test
-  public void errorOnNegativeYearZero() {
-    try {
-      new GedcomxDateSimple("-0000");
-      fail("GedcomxDateException expected because the year -0000 is invalid");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Year 0000 does not exist in Anno Domini (AD) system");
-    }
+  public void successOnNegativeYearZero() {
+    GedcomxDateSimple date = new GedcomxDateSimple("-0000");
+    assertThat(date.getYear())
+            .as("The Gedcomx Date specification requires that the year before 1 CE or 1 AD is represented as 0")
+            .isEqualTo(0);
   }
 
   @Test
