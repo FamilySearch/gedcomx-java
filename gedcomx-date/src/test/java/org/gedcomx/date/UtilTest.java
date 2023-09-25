@@ -804,4 +804,9 @@ public class UtilTest {
     Assertions.assertThat(gedcomxDate.toFormalString()).isEqualTo("+1970-01-01T00:00:00Z/");
   }
 
+  @Test
+  public void testParsingZeroYear() {
+    String yearZero = "+0000";
+    Assertions.assertThatNoException().isThrownBy(() -> GedcomxDateUtil.parse(yearZero));
+  }
 }
