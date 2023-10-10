@@ -95,6 +95,14 @@ public class UtilTest {
     assertThat(date.toFormalString()).isEqualTo("+1788-07-07/P24D");
   }
 
+  @Test
+  public void secondPartOfRangeLosesGranularityForMonthAndDay(){
+    GedcomxDate date = GedcomxDateUtil.parse("+1788-07-07/+1788");
+    assertThat(date).isInstanceOf(GedcomxDateRange.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+    assertThat(date.toFormalString()).isEqualTo("+1788-07-07/P5M24D");
+  }
+
   /**
    * getDuration
    */
