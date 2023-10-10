@@ -25,6 +25,9 @@ import java.util.Optional;
  */
 public class GedcomxDateUtil {
 
+  private GedcomxDateUtil(){
+  }
+
   /**
    * Parse a String representation of a Formal GedcomX Date
    * @param date The GedcomX Date
@@ -32,7 +35,7 @@ public class GedcomxDateUtil {
    */
   public static GedcomxDate parse(String date) {
 
-    if(date == null || date.equals("")) {
+    if(date == null || date.isEmpty()) {
       throw new GedcomxDateException("Invalid Date");
     }
 
@@ -61,6 +64,11 @@ public class GedcomxDateUtil {
 
     Date start = new Date(startDate, true);
     Date end = new Date(endDate, true);
+
+    if(end.year-start.year < 0) {
+      throw new GedcomxDateException("Start Date=" + startDate.toFormalString() + " must be less than End Date=" + endDate.toFormalString());
+    }
+
     boolean hasTime = false;
     StringBuilder duration = new StringBuilder();
 
@@ -135,8 +143,8 @@ public class GedcomxDateUtil {
 
     String finalDuration = duration.toString();
 
-    if(end.year-start.year < 0 || duration.toString().equals("")) {
-      throw new GedcomxDateException("Start Date must be less than End Date");
+    if(duration.toString().isEmpty()) {
+      throw new GedcomxDateException("Start Date=" + startDate.toFormalString() + " must be less than End Date=" + endDate.toFormalString());
     }
 
     return new GedcomxDateDuration("P"+finalDuration);
@@ -351,35 +359,39 @@ public class GedcomxDateUtil {
       start.month = 1;
     }
     if(start.month != null && end.month == null) {
-      end.month = 1;
+      end.month = 12;
     }
 
     if(start.day == null && end.day != null) {
       start.day = 1;
     }
     if(start.day != null && end.day == null) {
-      end.day = 1;
+      if(end.month != null && end.year !=null ) {
+        end.day = daysInMonth(start.month, start.year);
+      } else {
+        end.day = start.day;
+      }
     }
 
     if(start.hours == null && end.hours != null) {
       start.hours = 0;
     }
     if(start.hours != null && end.hours == null) {
-      end.hours = 0;
+      end.hours = 23;
     }
 
     if(start.minutes == null && end.minutes != null) {
       start.minutes = 0;
     }
     if(start.minutes != null && end.minutes == null) {
-      end.minutes = 0;
+      end.minutes = 59;
     }
 
     if(start.seconds == null && end.seconds != null) {
       start.seconds = 0;
     }
     if(start.seconds != null && end.seconds == null) {
-      end.seconds = 0;
+      end.seconds = 59;
     }
   }
 
