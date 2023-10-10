@@ -79,6 +79,30 @@ public class UtilTest {
     assertThat(date.getType()).isEqualTo(GedcomxDateType.SIMPLE);
   }
 
+  @Test
+  public void secondPartOfRangeLosesGranularityForMonth(){
+    GedcomxDate date = GedcomxDateUtil.parse("+1788-07/+1788");
+    assertThat(date).isInstanceOf(GedcomxDateRange.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+    assertThat(date.toFormalString()).isEqualTo("+1788-07/P5M");
+  }
+
+  @Test
+  public void secondPartOfRangeLosesGranularityForDay(){
+    GedcomxDate date = GedcomxDateUtil.parse("+1788-07-07/+1788-07");
+    assertThat(date).isInstanceOf(GedcomxDateRange.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+    assertThat(date.toFormalString()).isEqualTo("+1788-07-07/P24D");
+  }
+
+  @Test
+  public void secondPartOfRangeLosesGranularityForMonthAndDay(){
+    GedcomxDate date = GedcomxDateUtil.parse("+1788-07-07/+1788");
+    assertThat(date).isInstanceOf(GedcomxDateRange.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+    assertThat(date.toFormalString()).isEqualTo("+1788-07-07/P5M24D");
+  }
+
   /**
    * getDuration
    */
@@ -195,7 +219,7 @@ public class UtilTest {
               new GedcomxDateSimple("+0999-01-01T00:00:00"));
       fail("GedcomxDateException expected because start > end");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start Date must be less than End Date");
+      assertThat(e.getMessage()).isEqualTo("Start Date=+1000-01-01T00:00:00-06:00 must be less than End Date=+0999-01-01T00:00:00-06:00");
     }
   }
 
@@ -207,7 +231,7 @@ public class UtilTest {
               new GedcomxDateSimple("+1899-05-10"));
       fail("GedcomxDateException expected because start > end");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start Date must be less than End Date");
+      assertThat(e.getMessage()).isEqualTo("Start Date=+1900-07-03 must be less than End Date=+1899-05-10");
     }
   }
 
@@ -218,11 +242,11 @@ public class UtilTest {
             new GedcomxDateSimple("+1000"));
 
     assertThat(duration.getYears()).isEqualTo(1);
-    assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(null);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getMonths()).isEqualTo(11);
+    assertThat(duration.getDays()).isEqualTo(30);
+    assertThat(duration.getHours()).isEqualTo(23);
+    assertThat(duration.getMinutes()).isEqualTo(59);
+    assertThat(duration.getSeconds()).isEqualTo(59);
   }
 
   @Test
@@ -537,7 +561,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.month).isEqualTo(1);
+    assertThat(end.month).isEqualTo(12);
   }
 
   @Test
@@ -559,7 +583,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.day).isEqualTo(1);
+    assertThat(end.day).isEqualTo(5);
   }
 
   @Test
@@ -581,7 +605,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.hours).isEqualTo(0);
+    assertThat(end.hours).isEqualTo(23);
   }
 
   @Test
@@ -603,7 +627,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.minutes).isEqualTo(0);
+    assertThat(end.minutes).isEqualTo(59);
   }
 
   @Test
@@ -625,7 +649,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.seconds).isEqualTo(0);
+    assertThat(end.seconds).isEqualTo(59);
   }
 
   @Test
