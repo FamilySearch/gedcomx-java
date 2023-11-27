@@ -16,7 +16,7 @@ Procedure:  (required setup must be completed first)
             1. git cherry-pick <commitId>
             2. Build and release the 2.x.x branch as specified starting in step 2 below.
 
-2. Make sure the project builds and you have checked in all of your changes.
+2. Make sure that the project builds and that you have checked in all of your changes.
 
     ************************************************************************************************************************************************
     ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 for the 2.x.x release line, Java 11 for the 3.x.x release line *********************
@@ -58,10 +58,10 @@ Procedure:  (required setup must be completed first)
 
 
 
-NOTES:  After you release you will have artifacts in your local repository with the new version, but that does not mean they have been sync'ed
-        to maven central. You may delete these from your local .m2 repository if you wish.  If they are not on maven central anyone trying to
+NOTES:  After you release you will have artifacts in your local repository with the new version, but that does not mean they have been published
+        to maven central. You may delete these from your local .m2 repository if you wish. If they are not on maven central anyone trying to
         use those versions, including FamilySearch build servers, will fail. When you successfully released, your components were published to
-        maven central.  The new components could possibly on maven central within 10 minutes, probably within 2 hours, but it could be longer.
+        maven central. The new components could possibly on maven central within 10 minutes, probably within 2 hours, but it could be longer.
         Updates to search.maven.org can take longer.
                 See
 
@@ -167,7 +167,4 @@ NOTES:  After Central Sync is activated, your future promotion will be synced au
           See https://stackoverflow.com/questions/23235892/how-long-does-sonatype-staging-take-to-sync-my-artifacts-with-maven-central?rq=1
         Upon release, your component will be published to Central: this typically occurs within 10 minutes, though updates to search can take up to two hours.
           See https://central.sonatype.org/pages/ossrh-guide.html#releasing-to-central
-        My conclusion is somewhere between 10 minutes and 2 hours to get to maven central.  I've seen it be from about 30 mins to 2 hours so far.
-
-
-
+        My conclusion is somewhere between 10 minutes and 2 hours to get to maven central. I've seen it be from about 30 minutes to 2 hours so far.
