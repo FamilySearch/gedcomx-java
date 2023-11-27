@@ -165,6 +165,9 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** A person must have a known gender, male or female. */
   UnknownGender,
 
+  /** The person is in a tree that does not allow ordinances to be performed. */
+  UnsupportedTree,
+
   /** This status reason is unknown */
   @XmlUnknownQNameEnumValue
   OTHER;
