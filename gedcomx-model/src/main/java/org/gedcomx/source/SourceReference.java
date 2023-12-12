@@ -32,6 +32,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 
@@ -237,5 +238,25 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitSourceReference(this);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final SourceReference that = (SourceReference) o;
+    return Objects.equals(attribution, that.attribution) &&
+           Objects.equals(descriptionId, that.descriptionId) &&
+           Objects.equals(descriptionRef, that.descriptionRef) &&
+           Objects.equals(qualifiers, that.qualifiers);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(attribution, descriptionId, descriptionRef, qualifiers);
   }
 }

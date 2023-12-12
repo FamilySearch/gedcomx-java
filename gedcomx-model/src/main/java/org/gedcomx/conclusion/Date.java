@@ -37,6 +37,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -315,5 +316,26 @@ public class Date extends ExtensibleData implements HasFields {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitDate(this);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Date that = (Date) o;
+    return Objects.equals(confidence, that.confidence) &&
+           Objects.equals(fields, that.fields) &&
+           Objects.equals(formal, that.formal) &&
+           Objects.equals(normalized, that.normalized) &&
+           Objects.equals(original, that.original);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(confidence, fields, formal, normalized, original);
   }
 }

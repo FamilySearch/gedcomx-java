@@ -34,6 +34,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -202,5 +203,23 @@ public class Field extends Conclusion {
     }
 
     return "";
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Field that = (Field) o;
+    return Objects.equals(type, that.type) &&
+           Objects.equals(values, that.values);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, values);
   }
 }

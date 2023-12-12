@@ -25,12 +25,13 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
-import javax.xml.XMLConstants;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
+import javax.xml.XMLConstants;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -206,5 +207,25 @@ public class SourceCitation extends HypermediaEnabledData {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitSourceCitation(this);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final SourceCitation that = (SourceCitation) o;
+    return Objects.equals(citationTemplate, that.citationTemplate) &&
+           Objects.equals(fields, that.fields) &&
+           Objects.equals(lang, that.lang) &&
+           Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(citationTemplate, fields, lang, value);
   }
 }

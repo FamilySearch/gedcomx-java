@@ -30,6 +30,7 @@ import org.gedcomx.types.RecordType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 /**
  * A description of the coverage of a resource.
@@ -169,4 +170,22 @@ public class Coverage extends HypermediaEnabledData {
     setRecordType(type == null ? null : type.toQNameURI());
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Coverage that = (Coverage) o;
+    return Objects.equals(recordType, that.recordType) &&
+           Objects.equals(spatial, that.spatial) &&
+           Objects.equals(temporal, that.temporal);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(recordType, spatial, temporal);
+  }
 }

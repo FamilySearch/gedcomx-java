@@ -21,11 +21,12 @@ import com.webcohesion.enunciate.metadata.Facets;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.XMLConstants;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
+import javax.xml.XMLConstants;
+import java.util.Objects;
 
 /**
  * A generic reference to a resource.
@@ -132,5 +133,23 @@ public final class ResourceReference {
   @Override
   public String toString() {
     return (resource == null) ? "" : resource.toString();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final ResourceReference that = (ResourceReference) o;
+    return Objects.equals(resource, that.resource) &&
+           Objects.equals(resourceId, that.resourceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(resource, resourceId);
   }
 }

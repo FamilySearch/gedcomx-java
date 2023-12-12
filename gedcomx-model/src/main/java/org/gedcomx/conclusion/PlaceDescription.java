@@ -32,6 +32,7 @@ import jakarta.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 
@@ -503,5 +504,30 @@ public class PlaceDescription extends Subject {
       this.display.embed(place.display);
     }
     super.embed(place);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final PlaceDescription that = (PlaceDescription) o;
+    return Objects.equals(display, that.display) &&
+           Objects.equals(jurisdiction, that.jurisdiction) &&
+           Objects.equals(latitude, that.latitude) &&
+           Objects.equals(longitude, that.longitude) &&
+           Objects.equals(names, that.names) &&
+           Objects.equals(place, that.place) &&
+           Objects.equals(spatialDescription, that.spatialDescription) &&
+           Objects.equals(temporalDescription, that.temporalDescription) &&
+           Objects.equals(type, that.type);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(display, jurisdiction, latitude, longitude, names, place, spatialDescription, temporalDescription, type);
   }
 }

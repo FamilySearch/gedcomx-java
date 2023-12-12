@@ -23,10 +23,11 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
-import javax.xml.XMLConstants;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import javax.xml.XMLConstants;
+import java.util.Objects;
 
 
 /**
@@ -214,5 +215,25 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitNote(this);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Note note = (Note) o;
+    return Objects.equals(attribution, note.attribution) &&
+           Objects.equals(lang, note.lang) &&
+           Objects.equals(subject, note.subject) &&
+           Objects.equals(text, note.text);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(attribution, lang, subject, text);
   }
 }
