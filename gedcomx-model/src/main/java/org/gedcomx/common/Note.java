@@ -225,11 +225,11 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    final Note note = (Note) o;
-    return Objects.equals(attribution, note.attribution) &&
-           Objects.equals(lang, note.lang) &&
-           Objects.equals(subject, note.subject) &&
-           Objects.equals(text, note.text);
+    final Note that = (Note) o;
+    return Objects.equals(attribution, that.attribution) &&
+           Objects.equals(lang, that.lang) &&
+           Objects.equals(subject, that.subject) &&
+           Objects.equals(text, that.text);
   }
 
   @Override
