@@ -26,6 +26,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -296,5 +297,27 @@ public class Attribution extends ExtensibleData {
   @Override
   public String toString() {
     return (contributor == null) ? "" : contributor.toString();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Attribution that = (Attribution) o;
+    return Objects.equals(changeMessage, that.changeMessage) &&
+           Objects.equals(changeMessageResource, that.changeMessageResource) &&
+           Objects.equals(contributor, that.contributor) &&
+           Objects.equals(created, that.created) &&
+           Objects.equals(creator, that.creator) &&
+           Objects.equals(modified, that.modified);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(changeMessage, changeMessageResource, contributor, created, creator, modified);
   }
 }

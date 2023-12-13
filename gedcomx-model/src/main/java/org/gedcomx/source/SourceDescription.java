@@ -15,20 +15,6 @@
  */
 package org.gedcomx.source;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.xml.XMLConstants;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlSchemaType;
-import jakarta.xml.bind.annotation.XmlTransient;
-import jakarta.xml.bind.annotation.XmlType;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,13 +23,7 @@ import com.webcohesion.enunciate.metadata.Facets;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import com.webcohesion.enunciate.metadata.rs.TypeHint;
 import org.gedcomx.agent.Agent;
-import org.gedcomx.common.Attributable;
-import org.gedcomx.common.Attribution;
-import org.gedcomx.common.HasNotes;
-import org.gedcomx.common.Note;
-import org.gedcomx.common.ResourceReference;
-import org.gedcomx.common.TextValue;
-import org.gedcomx.common.URI;
+import org.gedcomx.common.*;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -57,6 +37,9 @@ import org.gedcomx.types.ResourceStatusType;
 import org.gedcomx.types.ResourceType;
 import org.gedcomx.util.JsonIdentifiers;
 
+import jakarta.xml.bind.annotation.*;
+import javax.xml.XMLConstants;
+import java.util.*;
 
 /**
  * Represents a description of a source.
@@ -1336,5 +1319,53 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @Override
   public String toString() {
     return getId() + ": " + this.resourceType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final SourceDescription that = (SourceDescription) o;
+    return Objects.equals(about, that.about) &&
+           Objects.equals(analysis, that.analysis) &&
+           Objects.equals(attribution, that.attribution) &&
+           Objects.equals(authors, that.authors) &&
+           Objects.equals(citations, that.citations) &&
+           Objects.equals(componentOf, that.componentOf) &&
+           Objects.equals(coverage, that.coverage) &&
+           Objects.equals(created, that.created) &&
+           Objects.equals(descriptions, that.descriptions) &&
+           Objects.equals(descriptorRef, that.descriptorRef) &&
+           Objects.equals(fields, that.fields) &&
+           Objects.equals(identifiers, that.identifiers) &&
+           Objects.equals(lang, that.lang) &&
+           Objects.equals(mediaType, that.mediaType) &&
+           Objects.equals(mediator, that.mediator) &&
+           Objects.equals(modified, that.modified) &&
+           Objects.equals(notes, that.notes) &&
+           Objects.equals(publisher, that.publisher) &&
+           Objects.equals(replacedBy, that.replacedBy) &&
+           Objects.equals(replaces, that.replaces) &&
+           Objects.equals(repository, that.repository) &&
+           Objects.equals(resourceType, that.resourceType) &&
+           Objects.equals(rights, that.rights) &&
+           Objects.equals(sortKey, that.sortKey) &&
+           Objects.equals(sources, that.sources) &&
+           Objects.equals(statuses, that.statuses) &&
+           Objects.equals(titleLabel, that.titleLabel) &&
+           Objects.equals(titles, that.titles) &&
+           Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(about, analysis, attribution, authors, citations, componentOf, coverage, created, descriptions,
+                        descriptorRef, fields, identifiers, lang, mediaType, mediator, modified, notes, publisher,
+                        replacedBy, replaces, repository, resourceType, rights, sortKey, sources, statuses,
+                        titleLabel, titles, version);
   }
 }
