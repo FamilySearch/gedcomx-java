@@ -168,7 +168,7 @@ public class Group {
 
   /**
    * Set the id of the tree associated with the group.
-   * @deprecated Replaced by setTreeIds(Set<String> treeIds)
+   * @deprecated Replaced by setTreeIds()
    *
    * @param treeId The id of the tree associated with the group.
    */
@@ -179,7 +179,7 @@ public class Group {
 
   /**
    * Build out this group with a tree id.
-   * @deprecated Replaced by treeIds(Set<String> treeIds)
+   * @deprecated Replaced by treeIds()
    *
    * @param treeId The group tree id.
    * @return this.
