@@ -40,6 +40,7 @@ import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.ct.NameFormInfo;
 import org.familysearch.platform.ct.PersonInfo;
 import org.familysearch.platform.ct.SearchInfo;
+import org.familysearch.platform.ct.Tree;
 import org.familysearch.platform.discussions.Discussion;
 import org.familysearch.platform.ordinances.Ordinance;
 import org.familysearch.platform.ordinances.OrdinanceParticipant;
@@ -92,11 +93,11 @@ import org.gedcomx.types.RelationshipType;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper ( name = "familysearch" )
-@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "groups", "users", "merges",
+@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "groups", "trees", "users", "merges",
     "mergeAnalyses", "features", "vocabConcepts" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, FieldInfo.class, PersonInfo.class, SearchInfo.class,
-               PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Group.class,
+               PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Group.class, Tree.class,
                Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class, NameFormInfo.class, AlternatePlaceReference.class, AlternateDate.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 public class FamilySearchPlatform extends Gedcomx {
@@ -111,6 +112,7 @@ public class FamilySearchPlatform extends Gedcomx {
   private List<ChildAndParentsRelationship> childAndParentsRelationships;
   private List<Discussion> discussions;
   private List<Group> groups;
+  private List<Tree> trees;
   private List<User> users;
   private List<Feature> features;
   private List<VocabConcept> vocabConcepts;
@@ -333,6 +335,52 @@ public class FamilySearchPlatform extends Gedcomx {
    */
   public FamilySearchPlatform group(Group group) {
     addGroup(group);
+    return this;
+  }
+
+  /**
+   * The trees included in this data set.
+   *
+   * @return The trees included in this data set.
+   */
+  @XmlElement ( name = "tree" )
+  @JsonProperty ( "trees" )
+  public List<Tree> getTrees() {
+    return trees;
+  }
+
+  /**
+   * The trees included in this data set.
+   *
+   * @param trees The trees included in this data set.
+   */
+  @JsonProperty ( "trees" )
+  public void setTrees(List<Tree> trees) {
+    this.trees = trees;
+  }
+
+  /**
+   * Add a tree to the data set.
+   *
+   * @param tree The tree to be added.
+   */
+  public void addTree(Tree tree) {
+    if (tree != null) {
+      if (trees == null) {
+        trees = new LinkedList<Tree>();
+      }
+      trees.add(tree);
+    }
+  }
+
+  /**
+   * Build out this document with a tree.
+   *
+   * @param tree The tree to be added.
+   * @return this.
+   */
+  public FamilySearchPlatform tree(Tree tree) {
+    addTree(tree);
     return this;
   }
 
