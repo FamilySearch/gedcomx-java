@@ -15,6 +15,11 @@
  */
 package org.familysearch.platform.ct;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -33,6 +38,7 @@ public class Group {
   private String description;
   private String codeOfConduct;
   private String treeId;
+  private Set<String> treeIds;
 
   /**
    * Get the group id.
@@ -152,6 +158,7 @@ public class Group {
 
   /**
    * Get the id of the tree associated with the group.
+   * @deprecated Replaced by getTreeIds()
    *
    * @return The id of the tree associated with the group.
    */
@@ -161,21 +168,54 @@ public class Group {
 
   /**
    * Set the id of the tree associated with the group.
+   * @deprecated Replaced by setTreeIds(Set<String> treeIds)
    *
    * @param treeId The id of the tree associated with the group.
    */
   public void setTreeId(String treeId) {
     this.treeId = treeId;
+    Set<String> treeIds = new TreeSet<>(Collections.singletonList(treeId));
   }
 
   /**
    * Build out this group with a tree id.
+   * @deprecated Replaced by treeIds(Set<String> treeIds)
    *
    * @param treeId The group tree id.
    * @return this.
    */
   public Group treeId(String treeId) {
     setTreeId(treeId);
+    return this;
+  }
+
+  /**
+   * Get the ids of the trees associated with the group.
+   *
+   * @return The ids of the trees associated with the group.
+   */
+  public Set<String> getTreeIds() {
+    return treeIds;
+  }
+
+  /**
+   * Set the ids of the trees associated with the group.
+   *
+   * @param treeIds The ids of the trees associated with the group.
+   */
+  public void setTreeIds(Set<String> treeIds) {
+    this.treeIds = treeIds;
+    this.treeId = treeIds.iterator().next();
+  }
+
+  /**
+   * Build out this group with trees ids.
+   *
+   * @param treeIds The group's trees ids.
+   * @return this.
+   */
+  public Group treeIds(Set<String> treeIds) {
+    setTreeIds(treeIds);
     return this;
   }
 }
