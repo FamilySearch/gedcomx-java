@@ -31,7 +31,7 @@ public class Tree {
   private String name;
   private String description;
   private String startingPersonId;
-  private Boolean initializing;
+  private Boolean hidden;
 
   /**
    * Get the tree id.
@@ -150,31 +150,31 @@ public class Tree {
   }
 
   /**
-   * Get whether the tree is in the initializing state.
+   * Get whether the tree is in the hidden state.
    *
-   * @return The initializing state of the tree.
+   * @return The hidden state of the tree.
    */
-  public Boolean getInitializing() {
-    return initializing;
+  public Boolean isHidden() {
+    return hidden;
   }
 
   /**
-   * Set the initializing state of the tree.
+   * Set the hidden state of the tree.
    *
-   * @param initializing The initializing state of the tree.
+   * @param hidden The initializing state of the tree.
    */
-  public void setInitializing(Boolean initializing) {
-    this.initializing = initializing;
+  public void setHidden(Boolean hidden) {
+    this.hidden = hidden;
   }
 
   /**
-   * Build out this tree with the initializing state of the tree.
+   * Build out this tree with the hidden state of the tree.
    *
-   * @param initializing The initializing state of the tree.
+   * @param hidden The hidden state of the tree.
    * @return this.
    */
-  public Tree initializing(Boolean initializing) {
-    setInitializing(initializing);
+  public Tree setTreeHidden(Boolean hidden) {
+    setHidden(hidden);
     return this;
   }
 }
