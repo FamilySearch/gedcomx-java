@@ -28,6 +28,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonInclude( JsonInclude.Include.NON_NULL )
 public class Tree {
   private String id;
+  private String groupId;
   private String name;
   private String description;
   private String startingPersonId;
@@ -59,6 +60,35 @@ public class Tree {
    */
   public Tree id(String id) {
     setId(id);
+    return this;
+  }
+
+  /**
+   * Get the id of the group this tree belongs to.
+   *
+   * @return The id of the group this tree belongs to.
+   */
+  public String getGroupId() {
+    return groupId;
+  }
+
+  /**
+   * Set the id of the group this tree belongs to.
+   *
+   * @param groupdId The id of the group this tree belongs to.
+   */
+  public void setGroupId(String groupdId) {
+    this.groupId = groupdId;
+  }
+
+  /**
+   * Build out this tree with the id of the group this tree belongs to.
+   *
+   * @param groupId The id of the group this tree belongs to.
+   * @return this.
+   */
+  public Tree groupId(String groupId) {
+    setGroupId(groupId);
     return this;
   }
 
@@ -173,7 +203,7 @@ public class Tree {
    * @param hidden The hidden state of the tree.
    * @return this.
    */
-  public Tree setTreeHidden(Boolean hidden) {
+  public Tree hidden(Boolean hidden) {
     setHidden(hidden);
     return this;
   }
