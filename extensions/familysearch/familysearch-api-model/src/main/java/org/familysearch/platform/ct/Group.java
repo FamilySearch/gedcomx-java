@@ -37,7 +37,6 @@ public class Group {
   private String name;
   private String description;
   private String codeOfConduct;
-  private String treeId;
   private Set<String> treeIds;
 
   /**
@@ -157,39 +156,6 @@ public class Group {
   }
 
   /**
-   * Get the id of the tree associated with the group.
-   * @deprecated Replaced by getTreeIds()
-   *
-   * @return The id of the tree associated with the group.
-   */
-  public String getTreeId() {
-    return treeId;
-  }
-
-  /**
-   * Set the id of the tree associated with the group.
-   * @deprecated Replaced by setTreeIds()
-   *
-   * @param treeId The id of the tree associated with the group.
-   */
-  public void setTreeId(String treeId) {
-    this.treeId = treeId;
-    Set<String> treeIds = new TreeSet<>(Collections.singletonList(treeId));
-  }
-
-  /**
-   * Build out this group with a tree id.
-   * @deprecated Replaced by treeIds()
-   *
-   * @param treeId The group tree id.
-   * @return this.
-   */
-  public Group treeId(String treeId) {
-    setTreeId(treeId);
-    return this;
-  }
-
-  /**
    * Get the ids of the trees associated with the group.
    *
    * @return The ids of the trees associated with the group.
@@ -205,7 +171,6 @@ public class Group {
    */
   public void setTreeIds(Set<String> treeIds) {
     this.treeIds = treeIds;
-    this.treeId = treeIds.iterator().next();
   }
 
   /**
