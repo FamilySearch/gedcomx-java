@@ -15,6 +15,8 @@
  */
 package org.familysearch.platform.ct;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -28,7 +30,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonInclude( JsonInclude.Include.NON_NULL )
 public class Tree {
   private String id;
-  private String groupId;
+  private List<String> groupIds;
   private String name;
   private String description;
   private String startingPersonId;
@@ -64,31 +66,31 @@ public class Tree {
   }
 
   /**
-   * Get the id of the group this tree belongs to.
+   * Get the ids of the groups this tree belongs to.
    *
-   * @return The id of the group this tree belongs to.
+   * @return The ids of the groups this tree belongs to.
    */
-  public String getGroupId() {
-    return groupId;
+  public List<String> getGroupIds() {
+    return groupIds;
   }
 
   /**
-   * Set the id of the group this tree belongs to.
+   * Set the ids of the groups this tree belongs to.
    *
-   * @param groupdId The id of the group this tree belongs to.
+   * @param groupIds The ids of the groups this tree belongs to.
    */
-  public void setGroupId(String groupdId) {
-    this.groupId = groupdId;
+  public void setGroupIds(List<String> groupIds) {
+    this.groupIds = groupIds;
   }
 
   /**
-   * Build out this tree with the id of the group this tree belongs to.
+   * Build out this tree with the ids of the groups this tree belongs to.
    *
-   * @param groupId The id of the group this tree belongs to.
+   * @param groupIds The ids of the groups this tree belongs to.
    * @return this.
    */
-  public Tree groupId(String groupId) {
-    setGroupId(groupId);
+  public Tree groupIds(List<String> groupIds) {
+    setGroupIds(groupIds);
     return this;
   }
 
