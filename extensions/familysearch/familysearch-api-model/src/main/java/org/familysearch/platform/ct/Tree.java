@@ -34,7 +34,10 @@ public class Tree {
   private String name;
   private String description;
   private String startingPersonId;
-  private Boolean hidden;
+  private Boolean isHidden;
+  private Boolean isPrivate;
+  private Boolean isAutoPublicEnabled;
+
 
   /**
    * Get the tree id.
@@ -182,31 +185,90 @@ public class Tree {
   }
 
   /**
-   * Get whether the tree is in the hidden state.
+   * Get the hidden state of the tree.
    *
    * @return The hidden state of the tree.
    */
-  public Boolean isHidden() {
-    return hidden;
+  public Boolean getIsHidden() {
+    return isHidden;
   }
 
   /**
    * Set the hidden state of the tree.
    *
-   * @param hidden The initializing state of the tree.
+   * @param isHidden The hidden state of the tree.
    */
-  public void setHidden(Boolean hidden) {
-    this.hidden = hidden;
+  public void setIsHidden(Boolean isHidden) {
+    this.isHidden = isHidden;
   }
 
   /**
    * Build out this tree with the hidden state of the tree.
    *
-   * @param hidden The hidden state of the tree.
+   * @param isHidden The hidden state of the tree.
    * @return this.
    */
-  public Tree hidden(Boolean hidden) {
-    setHidden(hidden);
+  public Tree isHidden(Boolean isHidden) {
+    setIsHidden(isHidden);
     return this;
   }
+
+  /**
+   * Get the private state of the tree.
+   *
+   * @return The private state of the tree.
+   */
+  public Boolean getIsPrivate(){
+    return isPrivate;
+  }
+
+  /**
+   * Set the private state of the tree.
+   *
+   * @param isPrivate The private state of the tree.
+   */
+  public void setIsPrivate(Boolean isPrivate){
+    this.isPrivate = isPrivate;
+  }
+
+  /**
+   * Build out this tree with the private state of the tree.
+   *
+   * @param isPrivate The private state of the tree.
+   * @return this.
+   */
+  public Tree isPrivate(Boolean isPrivate) {
+    setIsPrivate(isPrivate);
+    return this;
+  }
+
+  /**
+   * Get the auto public enabled state of the tree.
+   *
+   * @return The auto public enabled state of the tree.
+   */
+  public Boolean getIsAutoPublicEnabled(){
+    return isAutoPublicEnabled;
+  }
+
+  /**
+   * Set auto public enabled state of the tree.
+   *
+   * @param isAutoPublicEnabled The auto public enabled state of the tree.
+   */
+  public void setIsAutoPublicEnabled(Boolean isAutoPublicEnabled){
+    this.isAutoPublicEnabled = isAutoPublicEnabled;
+  }
+
+  /**
+   * Build out this tree with the auto public enabled state of the tree.
+   *
+   * @param isAutoPublicEnabled The auto public enabled state of the tree.
+   * @return this.
+   */
+  public Tree isAutoPublicEnabled(Boolean isAutoPublicEnabled) {
+    setIsAutoPublicEnabled(isAutoPublicEnabled);
+    return this;
+  }
+
 }
