@@ -10,7 +10,7 @@
   <parent>
     <groupId>org.gedcomx</groupId>
     <artifactId>gedcomx-parent</artifactId>
-    <version>3.17.0</version>
+    <version>3.18.0</version>
     <relativePath>../..</relativePath>
   </parent>
 
@@ -22,4 +22,8 @@
     <module>familysearch-api-rt-support</module>
     <module>familysearch-api-model</module>
   </modules>
+
+  <scm>
+    <tag>3.18.0</tag>
+  </scm>
 </project>
