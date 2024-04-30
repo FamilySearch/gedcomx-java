@@ -323,7 +323,7 @@ public enum ChangeObjectType implements ControlledVocabulary {
   Confirmation,
 
   /**
-   * The Church of Jesus Christ of Latter-day Saints confirmation ordinance.
+   * The Church of Jesus Christ of Latter-day Saints initiatory ordinance.
    */
   Initiatory,
 
