@@ -38,6 +38,8 @@ public class Tree {
   // Can't use 'private' since it is a keyword in Java
   private Boolean isPrivate;
   private Boolean autoPublicAccepted;
+  private ThirdPartyAccess ownerAccess;
+  private ThirdPartyAccess groupAccess;
 
 
   /**
@@ -270,6 +272,58 @@ public class Tree {
    */
   public Tree autoPublicAccepted(Boolean autoPublicAccepted) {
     setAutoPublicAccepted(autoPublicAccepted);
+    return this;
+  }
+
+  /**
+   * Get the owner third party access state of the tree.
+   *
+   * @return The owner access state of the tree.
+   */
+  public ThirdPartyAccess getOwnerAccess() { return this.ownerAccess; }
+
+
+  /**
+   * Set owner third party access state of the tree.
+   *
+   * @param ownerAccess The owner third party access state of the tree.
+   */
+  public void setOwnerAccess(ThirdPartyAccess ownerAccess) { this.ownerAccess = ownerAccess;  }
+
+  /**
+   * Build out this tree with the owner third party access state of the tree.
+   *
+   * @param ownerAccess The owner third party access state of the tree.
+   * @return this.
+   */
+  public Tree ownerAccess(ThirdPartyAccess ownerAccess) {
+    setOwnerAccess(ownerAccess);
+    return this;
+  }
+
+  /**
+   * Get the group third party access state of the tree.
+   *
+   * @return The group access state of the tree.
+   */
+  public ThirdPartyAccess getGroupAccess() { return this.groupAccess; }
+
+
+  /**
+   * Set group third party access state of the tree.
+   *
+   * @param groupAccess The group third party access state of the tree.
+   */
+  public void setGroupAccess(ThirdPartyAccess groupAccess) { this.groupAccess = groupAccess;  }
+
+  /**
+   * Build out this tree with the group third party access state of the tree.
+   *
+   * @param groupAccess The group third party access state of the tree.
+   * @return this.
+   */
+  public Tree groupAccess(ThirdPartyAccess groupAccess) {
+    setGroupAccess(groupAccess);
     return this;
   }
 }
