@@ -86,7 +86,7 @@
     <connection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</connection>
     <developerConnection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</developerConnection>
     <url>https://github.com/FamilySearch/gedcomx-java</url>
-    <tag>3.17.0</tag>
+    <tag>3.18.0</tag>
   </scm>
 
   <dependencyManagement>
