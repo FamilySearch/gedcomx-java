@@ -28,7 +28,6 @@ import org.gedcomx.rt.EnumURIMap;
  *
  * @author Erik Wilford
  */
-
 @XmlQNameEnum(
     base = XmlQNameEnum.BaseType.URI
 )
@@ -42,7 +41,7 @@ public enum ThirdPartyAccess implements ControlledVocabulary {
   /**
    * Indicates only the third-party application associated with the tree is allowed to read/write to the tree
    */
-  USE_WHITELIST,
+  USE_ALLOW_LIST,
 
   /**
    * Disallows all third-party access to the tree.
@@ -55,7 +54,7 @@ public enum ThirdPartyAccess implements ControlledVocabulary {
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  private static final EnumURIMap<ThirdPartyAccess> URI_MAP = new EnumURIMap<ThirdPartyAccess>(ThirdPartyAccess.class, FamilySearchPlatform.NAMESPACE);
+  private static final EnumURIMap<ThirdPartyAccess> URI_MAP = new EnumURIMap<>(ThirdPartyAccess.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
