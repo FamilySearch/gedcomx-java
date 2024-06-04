@@ -33,6 +33,7 @@ public enum ChangeType {
   ADD_PERSON_NOT_A_MATCH("Set Person Not a Match", ChangeOperation.Create, ChangeObjectType.NotAMatch, ChangeObjectModifier.Person),
   REMOVE_PERSON_NOT_A_MATCH("Remove Person Not a Match", ChangeOperation.Delete, ChangeObjectType.NotAMatch, ChangeObjectModifier.Person),
   CREATE_COUPLE_RELATIONSHIP("Couple Relationship Created", ChangeOperation.Create, ChangeObjectType.Couple, null),
+  UPDATE_COUPLE_RELATIONSHIP("Couple Relationship Updated", ChangeOperation.Update, ChangeObjectType.Couple, null),
   DELETE_COUPLE_RELATIONSHIP("Couple Relationship Removed", ChangeOperation.Delete, ChangeObjectType.Couple, null),
 
 
@@ -46,6 +47,7 @@ public enum ChangeType {
   UNMERGE_COUPLE_RELATIONSHIP("Couple Relationship Unmerged", ChangeOperation.Unmerge, ChangeObjectType.Couple, null),
   UNTOMBSTONE_COUPLE_RELATIONSHIP("Couple Relationship Restored", ChangeOperation.Restore, ChangeObjectType.Couple, null),
   CREATE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Created", ChangeOperation.Create, ChangeObjectType.ChildAndParentsRelationship, null),
+  UPDATE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Updated", ChangeOperation.Update, ChangeObjectType.ChildAndParentsRelationship, null),
   DELETE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Removed", ChangeOperation.Delete, ChangeObjectType.ChildAndParentsRelationship, null),
 
 
