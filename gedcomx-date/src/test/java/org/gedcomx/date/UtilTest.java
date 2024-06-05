@@ -2,12 +2,17 @@ package org.gedcomx.date;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.stream.Stream;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author John Clark.
@@ -20,22 +25,14 @@ public class UtilTest {
 
   @Test
   public void errorOnParseNullDate() {
-    try {
-      GedcomxDateUtil.parse(null);
-      fail("GedcomxDateException expected because date is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date");
-    }
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.parse(null));
+    assertThat(e.getMessage()).isEqualTo("Invalid Date");
   }
 
   @Test
   public void errorOnParseInvalidDate() {
-    try {
-      GedcomxDateUtil.parse("");
-      fail("GedcomxDateException expected because date is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date");
-    }
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.parse(""));
+    assertThat(e.getMessage()).isEqualTo("Invalid Date");
   }
 
   @Test
@@ -79,28 +76,19 @@ public class UtilTest {
     assertThat(date.getType()).isEqualTo(GedcomxDateType.SIMPLE);
   }
 
-  @Test
-  public void secondPartOfRangeLosesGranularityForMonth(){
-    GedcomxDate date = GedcomxDateUtil.parse("+1788-07/+1788");
-    assertThat(date).isInstanceOf(GedcomxDateRange.class);
-    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
-    assertThat(date.toFormalString()).isEqualTo("+1788-07/P5M");
+  static Stream<Arguments> dropGranularityForMonth() {
+    return Stream.of(Arguments.of("+1788-07/P5M", "+1788-07/+1788"),
+                     Arguments.of("+1788-07-07/P24D", "+1788-07-07/+1788-07"),
+                     Arguments.of("+1788-07-07/P5M24D", "+1788-07-07/+1788"));
   }
 
-  @Test
-  public void secondPartOfRangeLosesGranularityForDay(){
-    GedcomxDate date = GedcomxDateUtil.parse("+1788-07-07/+1788-07");
+  @ParameterizedTest
+  @MethodSource
+  void dropGranularityForMonth(String expected, String dateStr) {
+    GedcomxDate date = GedcomxDateUtil.parse(dateStr);
     assertThat(date).isInstanceOf(GedcomxDateRange.class);
     assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
-    assertThat(date.toFormalString()).isEqualTo("+1788-07-07/P24D");
-  }
-
-  @Test
-  public void secondPartOfRangeLosesGranularityForMonthAndDay(){
-    GedcomxDate date = GedcomxDateUtil.parse("+1788-07-07/+1788");
-    assertThat(date).isInstanceOf(GedcomxDateRange.class);
-    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
-    assertThat(date.toFormalString()).isEqualTo("+1788-07-07/P5M24D");
+    assertThat(date.toFormalString()).isEqualTo(expected);
   }
 
   /**
@@ -109,22 +97,16 @@ public class UtilTest {
 
   @Test
   public void errorOnInvalidStart() {
-    try {
-      GedcomxDateUtil.getDuration(null, new GedcomxDateSimple("+1000"));
-      fail("GedcomxDateException expected because start is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
-    }
+    var date = new GedcomxDateSimple("+1000");
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.getDuration(null, date));
+    assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
   }
 
   @Test
   public void errorOnInvalidEnd() {
-    try {
-      GedcomxDateUtil.getDuration(new GedcomxDateSimple("+1000"), null);
-      fail("GedcomxDateException expected because end is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
-    }
+    var date = new GedcomxDateSimple("+1000");
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.getDuration(date, null));
+    assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
   }
 
   @Test
@@ -303,22 +285,16 @@ public class UtilTest {
 
   @Test
   public void errorOnInvalidAddDurationStartDate() {
-    try {
-      GedcomxDateUtil.addDuration(null, new GedcomxDateDuration("P1Y"));
-      fail("GedcomxDateException expected because start date is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Start Date");
-    }
+    var duration = new GedcomxDateDuration("P1Y");
+    var e= assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.addDuration(null, duration));
+    assertThat(e.getMessage()).isEqualTo("Invalid Start Date");
   }
 
   @Test
   public void errorOnInvalidAddDurationDuration() {
-    try {
-      GedcomxDateUtil.addDuration(new GedcomxDateSimple("+1000"), null);
-      fail("GedcomxDateException expected because duration is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration");
-    }
+    var date = new GedcomxDateSimple("+1000");
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.addDuration(date, null));
+    assertThat(e.getMessage()).isEqualTo("Invalid Duration");
   }
 
   @Test
@@ -467,14 +443,10 @@ public class UtilTest {
 
   @Test
   public void errorOnToManyYears() {
-    try {
-      GedcomxDateSimple simple = GedcomxDateUtil.addDuration(
-              new GedcomxDateSimple("+9999"),
-              new GedcomxDateDuration("P1Y"));
-      fail("GedcomxDateException expected because years exceed 9999");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("New date out of range");
-    }
+    var date = new GedcomxDateSimple("+9999");
+    var duration = new GedcomxDateDuration("P1Y");
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.addDuration( date, duration));
+    assertThat(e.getMessage()).isEqualTo("New date out of range");
   }
 
   /**
@@ -483,22 +455,15 @@ public class UtilTest {
 
   @Test
   public void errorOnInvalidDuration() {
-    try {
-      GedcomxDateUtil.multiplyDuration(null, 1);
-      fail("GedcomxDateException expected because duration is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration");
-    }
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.multiplyDuration(null, 1));
+    assertThat(e.getMessage()).isEqualTo("Invalid Duration");
   }
 
   @Test
   public void errorOnInvalidMultiplier() {
-    try {
-      GedcomxDateUtil.multiplyDuration(new GedcomxDateDuration("P100Y"), 0);
-      fail("GedcomxDateException expected because multiplier is 0");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Multiplier");
-    }
+    var duration = new GedcomxDateDuration("P100Y");
+    var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.multiplyDuration(duration, 0));
+    assertThat(e.getMessage()).isEqualTo("Invalid Multiplier");
   }
 
   @Test
@@ -526,7 +491,7 @@ public class UtilTest {
       GedcomxDateUtil.daysInMonth(13, 2000);
       fail("GedcomxDateException expected because 13 is not a month");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Unknown Month");
+      assertThat(e.getMessage()).isEqualTo("Unknown Month=13");
     }
   }
 

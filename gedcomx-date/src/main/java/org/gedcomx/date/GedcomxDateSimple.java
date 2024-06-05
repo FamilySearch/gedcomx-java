@@ -18,7 +18,6 @@ package org.gedcomx.date;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.TimeZone;
 
@@ -46,6 +45,29 @@ public class GedcomxDateSimple extends GedcomxDate {
   }
 
   /**
+   * Instantiate a new Simple date based off of raw values. This constructor is package protected as
+   * these values are not validated.
+   * @param year The year
+   * @param month The month
+   * @param day The day
+   * @param hours The hours
+   * @param minutes The minutes
+   * @param seconds The seconds
+   * @param tzHours The timezone hours
+   * @param tzMinutes The timezone minutes
+   */
+  GedcomxDateSimple(Integer year, Integer month, Integer day, Integer hours, Integer minutes, Integer seconds, Integer tzHours, Integer tzMinutes) {
+    this.year = year;
+    this.month = month;
+    this.day = day;
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
+    this.tzHours = tzHours;
+    this.tzMinutes = tzMinutes;
+  }
+
+  /**
    * Parse the date portion of the formal string
    * @param date The date string
    */
@@ -58,7 +80,7 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     int end = date.length();
     int offset = 0;
-    String num;
+    StringBuilder num;
 
     // Must start with a + or -
     if(date.charAt(offset) != '+' && date.charAt(offset) != '-') {
@@ -66,15 +88,15 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = date.charAt(0) == '-' ? "-" : "";
+    num = new StringBuilder(date.charAt(0) == '-' ? "-" : "");
     for(int i=0;i<4;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed Year");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    year = Integer.valueOf(num);
+    year = Integer.valueOf(num.toString());
 
     if(offset == end) {
       return;
@@ -96,15 +118,15 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = "";
+    num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed Month");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    month = Integer.valueOf(num);
+    month = Integer.valueOf(num.toString());
 
     if(month < 1 || month > 12) {
       throw new GedcomxDateException("Invalid Date: Month must be between 1 and 12");
@@ -130,15 +152,15 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = "";
+    num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed Day");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    day = Integer.valueOf(num);
+    day = Integer.valueOf(num.toString());
 
     if(day < 1) {
       throw new GedcomxDateException("Invalid Date: Day 0 does not exist");
@@ -169,13 +191,13 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     int offset = 0;
     int end = date.length();
-    String num;
+    StringBuilder num;
     boolean flag24 = false;
 
     // Always initialize the Timezone to the local offset.
     // It may be overridden if set
     TimeZone tz = TimeZone.getDefault();
-    Calendar cal = GregorianCalendar.getInstance(tz);
+    Calendar cal = Calendar.getInstance(tz);
     int offsetInMillis = tz.getOffset(cal.getTimeInMillis());
     tzHours = offsetInMillis / 3600000;
     tzMinutes = (offsetInMillis / 60000) % 60;
@@ -185,15 +207,15 @@ public class GedcomxDateSimple extends GedcomxDate {
       throw new GedcomxDateException("Invalid Date: Hours must be 2 digits");
     }
 
-    num = "";
+    num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed Hours");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    hours = Integer.valueOf(num);
+    hours = Integer.valueOf(num.toString());
 
     if(hours > 24) {
       throw new GedcomxDateException("Invalid Date: Hours must be between 0 and 24");
@@ -222,15 +244,15 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = "";
+    num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed Minutes");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    minutes = Integer.valueOf(num);
+    minutes = Integer.valueOf(num.toString());
 
     if(minutes > 59) {
       throw new GedcomxDateException("Invalid Date: Minutes must be between 0 and 59");
@@ -259,15 +281,15 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = "";
+    num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed Seconds");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    seconds = Integer.valueOf(num);
+    seconds = Integer.valueOf(num.toString());
 
     if(seconds > 59) {
       throw new GedcomxDateException("Invalid Date: Seconds must be between 0 and 59");
@@ -277,9 +299,7 @@ public class GedcomxDateSimple extends GedcomxDate {
       throw new GedcomxDateException("Invalid Date: Hours of 24 requires 00 Seconds");
     }
 
-    if(offset == end) {
-      return;
-    } else {
+    if(offset != end) {
       parseTimezone(date.substring(offset)); // Don't remove the character when calling
     }
 
@@ -292,7 +312,7 @@ public class GedcomxDateSimple extends GedcomxDate {
   private void parseTimezone(String date) {
     int offset = 0;
     int end = date.length();
-    String num;
+    StringBuilder num;
 
     // If Z we're done
     if(date.charAt(offset) == 'Z') {
@@ -315,15 +335,15 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = date.charAt(0) == '-' ? "-" : "";
+    num = new StringBuilder(date.charAt(0) == '-' ? "-" : "");
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed tzHours");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    tzHours = Integer.valueOf(num);
+    tzHours = Integer.valueOf(num.toString());
     // Set tzMinutes to clear out default local tz offset
     tzMinutes = 0;
 
@@ -340,19 +360,17 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     offset++;
-    num = "";
+    num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
         throw new GedcomxDateException("Invalid Date: Malformed tzMinutes");
       }
-      num += date.charAt(offset++);
+      num.append(date.charAt(offset++));
     }
 
-    tzMinutes = Integer.valueOf(num);
+    tzMinutes = Integer.valueOf(num.toString());
 
-    if(offset == end) {
-      return;
-    } else {
+    if(offset != end) {
       throw new GedcomxDateException("Invalid Date: Malformed Timezone - No characters allowed after tzSeconds");
     }
 

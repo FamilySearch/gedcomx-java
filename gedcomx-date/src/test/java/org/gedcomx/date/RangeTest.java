@@ -1,12 +1,15 @@
 package org.gedcomx.date;
 
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Stream;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * @author John Clark.
@@ -153,6 +156,13 @@ public class RangeTest {
     assertThat(duration.getSeconds()).isEqualTo(null);
   }
 
+  @Test
+  public void addDurationOutToEndOfYear() {
+    GedcomxDateRange range = assertDoesNotThrow(() -> new GedcomxDateRange("+1866-01-01T00:00:00Z/P3Y11M30DT23H59M59S"));
+    assertThat(range.getStart().compareTo(new GedcomxDateSimple(1866, 1, 1, 0, 0, 0, 0, 0))).isEqualTo(0);
+    assertThat(range.getEnd().compareTo(new GedcomxDateSimple(1869, 12, 31, 23, 59, 59, null, null))).isEqualTo(0);
+  }
+
   /**
    * Other Methods
    */
@@ -174,13 +184,20 @@ public class RangeTest {
     assertThat(range.isApproximate()).isEqualTo(false);
   }
 
-  @Test
-  public void toFormalString() {
-    List<String> tests = Arrays.asList("+1000/P1000Y9M", "A+1000/P1000Y9M", "/+1000");
-    for(String test: tests) {
-      GedcomxDateRange range = new GedcomxDateRange(test);
-      assertThat(range.toFormalString()).isEqualTo(test);
-    }
+
+  static Stream<Arguments> toFormalString() {
+    return Stream.of(
+      Arguments.of("+1000/P1000Y9M"),
+      Arguments.of("A+1000/P1000Y9M"),
+      Arguments.of( "/+1000")
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void toFormalString(String rangeString) {
+    GedcomxDateRange range = new GedcomxDateRange(rangeString);
+    assertThat(range.toFormalString()).isEqualTo(rangeString);
   }
 
 }
