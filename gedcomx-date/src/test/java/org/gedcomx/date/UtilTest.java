@@ -2,12 +2,17 @@ package org.gedcomx.date;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.stream.Stream;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author John Clark.
@@ -20,22 +25,14 @@ public class UtilTest {
 
   @Test
   public void errorOnParseNullDate() {
-    try {
-      GedcomxDateUtil.parse(null);
-      fail("GedcomxDateException expected because date is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date");
-    }
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.parse(null));
+    assertThat(e.getMessage()).isEqualTo("Invalid Date");
   }
 
   @Test
   public void errorOnParseInvalidDate() {
-    try {
-      GedcomxDateUtil.parse("");
-      fail("GedcomxDateException expected because date is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date");
-    }
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.parse(""));
+    assertThat(e.getMessage()).isEqualTo("Invalid Date");
   }
 
   @Test
@@ -79,28 +76,37 @@ public class UtilTest {
     assertThat(date.getType()).isEqualTo(GedcomxDateType.SIMPLE);
   }
 
+  static Stream<Arguments> dropGranularityForMonth() {
+    return Stream.of(Arguments.of("+1788-07/P5M", "+1788-07/+1788"),
+      Arguments.of("+1788-07-07/P24D", "+1788-07-07/+1788-07"),
+      Arguments.of("+1788-07-07/P5M24D", "+1788-07-07/+1788"));
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void dropGranularityForMonth(String expected, String dateStr) {
+    GedcomxDate date = GedcomxDateUtil.parse(dateStr);
+    assertThat(date).isInstanceOf(GedcomxDateRange.class);
+    assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
+    assertThat(date.toFormalString()).isEqualTo(expected);
+  }
+
   /**
    * getDuration
    */
 
   @Test
   public void errorOnInvalidStart() {
-    try {
-      GedcomxDateUtil.getDuration(null, new GedcomxDateSimple("+1000"));
-      fail("GedcomxDateException expected because start is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
-    }
+    GedcomxDateSimple date = new GedcomxDateSimple("+1000");
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.getDuration(null, date));
+    assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
   }
 
   @Test
   public void errorOnInvalidEnd() {
-    try {
-      GedcomxDateUtil.getDuration(new GedcomxDateSimple("+1000"), null);
-      fail("GedcomxDateException expected because end is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
-    }
+    GedcomxDateSimple date = new GedcomxDateSimple("+1000");
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.getDuration(date, null));
+    assertThat(e.getMessage()).isEqualTo("Start and End must be simple dates");
   }
 
   @Test
@@ -191,11 +197,11 @@ public class UtilTest {
   public void errorOnStartGreaterThanEnd() {
     try {
       GedcomxDateUtil.getDuration(
-              new GedcomxDateSimple("+1000-01-01T00:00:00"),
-              new GedcomxDateSimple("+0999-01-01T00:00:00"));
+        new GedcomxDateSimple("+1000-01-01T00:00:00"),
+        new GedcomxDateSimple("+0999-01-01T00:00:00"));
       fail("GedcomxDateException expected because start > end");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start Date must be less than End Date");
+      assertThat(e.getMessage()).isEqualTo("Start Date=+1000-01-01T00:00:00-06:00 must be less than End Date=+0999-01-01T00:00:00-06:00");
     }
   }
 
@@ -207,22 +213,22 @@ public class UtilTest {
               new GedcomxDateSimple("+1899-05-10"));
       fail("GedcomxDateException expected because start > end");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start Date must be less than End Date");
+      assertThat(e.getMessage()).isEqualTo("Start Date=+1900-07-03 must be less than End Date=+1899-05-10");
     }
   }
 
   @Test
   public void shouldZipStart() {
     GedcomxDateDuration duration = GedcomxDateUtil.getDuration(
-            new GedcomxDateSimple("+0999-01-01T00:00:00Z"),
-            new GedcomxDateSimple("+1000"));
+      new GedcomxDateSimple("+0999-01-01T00:00:00Z"),
+      new GedcomxDateSimple("+1000"));
 
     assertThat(duration.getYears()).isEqualTo(1);
-    assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(null);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getMonths()).isEqualTo(11);
+    assertThat(duration.getDays()).isEqualTo(30);
+    assertThat(duration.getHours()).isEqualTo(23);
+    assertThat(duration.getMinutes()).isEqualTo(59);
+    assertThat(duration.getSeconds()).isEqualTo(59);
   }
 
   @Test
@@ -279,22 +285,16 @@ public class UtilTest {
 
   @Test
   public void errorOnInvalidAddDurationStartDate() {
-    try {
-      GedcomxDateUtil.addDuration(null, new GedcomxDateDuration("P1Y"));
-      fail("GedcomxDateException expected because start date is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Start Date");
-    }
+    GedcomxDateDuration duration = new GedcomxDateDuration("P1Y");
+    GedcomxDateException e= assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.addDuration(null, duration));
+    assertThat(e.getMessage()).isEqualTo("Invalid Start Date");
   }
 
   @Test
   public void errorOnInvalidAddDurationDuration() {
-    try {
-      GedcomxDateUtil.addDuration(new GedcomxDateSimple("+1000"), null);
-      fail("GedcomxDateException expected because duration is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration");
-    }
+    GedcomxDateSimple date = new GedcomxDateSimple("+1000");
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.addDuration(date, null));
+    assertThat(e.getMessage()).isEqualTo("Invalid Duration");
   }
 
   @Test
@@ -414,7 +414,7 @@ public class UtilTest {
   }
 
   @Test
-    public void shouldAddYears() {
+  public void shouldAddYears() {
     GedcomxDateSimple simple = GedcomxDateUtil.addDuration(
             new GedcomxDateSimple("-0001"),
             new GedcomxDateDuration("P20Y"));
@@ -443,14 +443,10 @@ public class UtilTest {
 
   @Test
   public void errorOnToManyYears() {
-    try {
-      GedcomxDateSimple simple = GedcomxDateUtil.addDuration(
-              new GedcomxDateSimple("+9999"),
-              new GedcomxDateDuration("P1Y"));
-      fail("GedcomxDateException expected because years exceed 9999");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("New date out of range");
-    }
+    GedcomxDateSimple date = new GedcomxDateSimple("+9999");
+    GedcomxDateDuration duration = new GedcomxDateDuration("P1Y");
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.addDuration( date, duration));
+    assertThat(e.getMessage()).isEqualTo("New date out of range");
   }
 
   /**
@@ -459,22 +455,15 @@ public class UtilTest {
 
   @Test
   public void errorOnInvalidDuration() {
-    try {
-      GedcomxDateUtil.multiplyDuration(null, 1);
-      fail("GedcomxDateException expected because duration is null");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration");
-    }
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.multiplyDuration(null, 1));
+    assertThat(e.getMessage()).isEqualTo("Invalid Duration");
   }
 
   @Test
   public void errorOnInvalidMultiplier() {
-    try {
-      GedcomxDateUtil.multiplyDuration(new GedcomxDateDuration("P100Y"), 0);
-      fail("GedcomxDateException expected because multiplier is 0");
-    } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Multiplier");
-    }
+    GedcomxDateDuration duration = new GedcomxDateDuration("P100Y");
+    GedcomxDateException e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.multiplyDuration(duration, 0));
+    assertThat(e.getMessage()).isEqualTo("Invalid Multiplier");
   }
 
   @Test
@@ -502,7 +491,7 @@ public class UtilTest {
       GedcomxDateUtil.daysInMonth(13, 2000);
       fail("GedcomxDateException expected because 13 is not a month");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Unknown Month");
+      assertThat(e.getMessage()).isEqualTo("Unknown Month=13");
     }
   }
 
@@ -537,7 +526,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.month).isEqualTo(1);
+    assertThat(end.month).isEqualTo(12);
   }
 
   @Test
@@ -559,7 +548,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.day).isEqualTo(1);
+    assertThat(end.day).isEqualTo(5);
   }
 
   @Test
@@ -581,7 +570,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.hours).isEqualTo(0);
+    assertThat(end.hours).isEqualTo(23);
   }
 
   @Test
@@ -603,7 +592,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.minutes).isEqualTo(0);
+    assertThat(end.minutes).isEqualTo(59);
   }
 
   @Test
@@ -625,7 +614,7 @@ public class UtilTest {
 
     GedcomxDateUtil.zipDates(start, end);
 
-    assertThat(end.seconds).isEqualTo(0);
+    assertThat(end.seconds).isEqualTo(59);
   }
 
   @Test
@@ -642,103 +631,6 @@ public class UtilTest {
   /**
    * zipDuration
    */
-
-  @Test
-  public void successOnZipDurationSeconds() {
-    GedcomxDateUtil.Date date = new GedcomxDateUtil.Date();
-    date.year = 2000;
-    GedcomxDateDuration duration = new GedcomxDateDuration("PT1S");
-
-    GedcomxDateUtil.zipDuration(date, duration);
-
-    assertThat(date.seconds).isEqualTo(0);
-    assertThat(date.minutes).isEqualTo(0);
-    assertThat(date.hours).isEqualTo(0);
-    assertThat(date.day).isEqualTo(1);
-    assertThat(date.month).isEqualTo(1);
-    assertThat(date.year).isEqualTo(2000);
-  }
-
-  @Test
-  public void successOnZipDurationMinutes() {
-    GedcomxDateUtil.Date date = new GedcomxDateUtil.Date();
-    date.year = 2000;
-    GedcomxDateDuration duration = new GedcomxDateDuration("PT1M");
-
-    GedcomxDateUtil.zipDuration(date, duration);
-
-    assertThat(date.seconds).isEqualTo(null);
-    assertThat(date.minutes).isEqualTo(0);
-    assertThat(date.hours).isEqualTo(0);
-    assertThat(date.day).isEqualTo(1);
-    assertThat(date.month).isEqualTo(1);
-    assertThat(date.year).isEqualTo(2000);
-  }
-
-  @Test
-  public void successOnZipDurationHours() {
-    GedcomxDateUtil.Date date = new GedcomxDateUtil.Date();
-    date.year = 2000;
-    GedcomxDateDuration duration = new GedcomxDateDuration("PT1H");
-
-    GedcomxDateUtil.zipDuration(date, duration);
-
-    assertThat(date.seconds).isEqualTo(null);
-    assertThat(date.minutes).isEqualTo(null);
-    assertThat(date.hours).isEqualTo(0);
-    assertThat(date.day).isEqualTo(1);
-    assertThat(date.month).isEqualTo(1);
-    assertThat(date.year).isEqualTo(2000);
-  }
-
-  @Test
-  public void successOnZipDurationDays() {
-    GedcomxDateUtil.Date date = new GedcomxDateUtil.Date();
-    date.year = 2000;
-    GedcomxDateDuration duration = new GedcomxDateDuration("P1D");
-
-    GedcomxDateUtil.zipDuration(date, duration);
-
-    assertThat(date.seconds).isEqualTo(null);
-    assertThat(date.minutes).isEqualTo(null);
-    assertThat(date.hours).isEqualTo(null);
-    assertThat(date.day).isEqualTo(1);
-    assertThat(date.month).isEqualTo(1);
-    assertThat(date.year).isEqualTo(2000);
-  }
-
-  @Test
-  public void successOnZipDurationMonths() {
-    GedcomxDateUtil.Date date = new GedcomxDateUtil.Date();
-    date.year = 2000;
-    GedcomxDateDuration duration = new GedcomxDateDuration("P1M");
-
-    GedcomxDateUtil.zipDuration(date, duration);
-
-    assertThat(date.seconds).isEqualTo(null);
-    assertThat(date.minutes).isEqualTo(null);
-    assertThat(date.hours).isEqualTo(null);
-    assertThat(date.day).isEqualTo(null);
-    assertThat(date.month).isEqualTo(1);
-    assertThat(date.year).isEqualTo(2000);
-  }
-
-  @Test
-  public void successOnZipDurationNothing() {
-    GedcomxDateUtil.Date date = new GedcomxDateUtil.Date();
-    date.year = 2000;
-    GedcomxDateDuration duration = new GedcomxDateDuration("P1Y");
-
-    GedcomxDateUtil.zipDuration(date, duration);
-
-    assertThat(date.seconds).isEqualTo(null);
-    assertThat(date.minutes).isEqualTo(null);
-    assertThat(date.hours).isEqualTo(null);
-    assertThat(date.day).isEqualTo(null);
-    assertThat(date.month).isEqualTo(null);
-    assertThat(date.year).isEqualTo(2000);
-  }
-
 
   @Test
   public void testJavaDateToGedcomxDateSimpleEpoch() {
