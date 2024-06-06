@@ -370,65 +370,6 @@ public class GedcomxDateUtil {
   }
 
   /**
-   * Ensures that date has its properties initialized based on what the duration has.
-   * For example, if date does not have minutes and duration does, this will
-   * initialize minutes in the date.
-   * @param date The start date
-   * @param duration The duration
-   */
-  protected static void zipDuration(Date date, GedcomxDateDuration duration) {
-    boolean seconds = false;
-    boolean minutes = false;
-    boolean hours = false;
-    boolean days = false;
-    boolean months = false;
-
-    if(duration.getSeconds() != null) {
-      seconds = true;
-      minutes = true;
-      hours = true;
-      days = true;
-      months = true;
-    } else if(duration.getMinutes() != null) {
-      minutes = true;
-      hours = true;
-      days = true;
-      months = true;
-    } else if(duration.getHours() != null) {
-      hours = true;
-      days = true;
-      months = true;
-    } else if(duration.getDays() != null) {
-      days = true;
-      months = true;
-    } else if(duration.getMonths() != null) {
-      months = true;
-    } else {
-      return;
-    }
-
-    if(seconds && date.seconds == null) {
-      date.seconds = 0;
-    }
-
-    if(minutes && date.minutes == null) {
-      date.minutes = 0;
-    }
-
-    if(hours && date.hours == null) {
-      date.hours = 0;
-    }
-
-    if(days && date.day == null) {
-      date.day = 1;
-    }
-
-    if(months && date.month == null) {
-      date.month = 1;
-    }
-  }
-
-  /**
    * A simplified representation of a date.
    * Used as a bag-o-properties when performing caluclations
    */
