@@ -45,6 +45,9 @@
   </properties>
 
   <modules>
+    <!-- bom -->
+    <module>gedcomx-bom</module>
+
     <!--utility modules-->
     <module>gedcomx-rt-support</module>
     <module>gedcomx-test-support</module>
