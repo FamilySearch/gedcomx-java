@@ -138,7 +138,7 @@ public class ChangeInfo {
   }
 
   /**
-   * An optional modifier for the object to which the operation applies. For example, if the object is a <tt>Fact</tt>, a
+   * An optional modifier for the object to which the operation applies. For example, if the object is a <code>Fact</code>, a
    * modifier could be applied to indicate that fact applies to a person, couple, or child-and-parents relationship.
    *
    * @return An optional modifier for the object to which the operation applies.
@@ -150,7 +150,7 @@ public class ChangeInfo {
   }
 
   /**
-   * An optional modifier for the object to which the operation applies. For example, if the object is a <tt>Fact</tt>, a
+   * An optional modifier for the object to which the operation applies. For example, if the object is a <code>Fact</code>, a
    * modifier could be applied to indicate that fact applies to a person, couple, or child-and-parents relationship.
    *
    * @param objectModifier An optional modifier for the object to which the operation applies.

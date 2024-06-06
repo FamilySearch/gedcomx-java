@@ -29,8 +29,8 @@ import org.gedcomx.rt.Rel;
 
 /**
  *
- * @author: Family History Department
- * @author: wilfordej
+ * @author Family History Department
+ * @author wilfordej
  **/
 public class RecordMatchResultsState extends PersonSearchResultsState {
   protected RecordMatchResultsState(ClientRequest request, ClientResponse response, String accessToken, FamilySearchStateFactory stateFactory) {
