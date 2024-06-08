@@ -38,6 +38,14 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
 
   private List<Link> links;
 
+  protected HypermediaEnabledData() {
+  }
+
+  protected HypermediaEnabledData(HypermediaEnabledData copy) {
+    super(copy);
+    this.links = copy.links;
+  }
+
   /**
    * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
    *

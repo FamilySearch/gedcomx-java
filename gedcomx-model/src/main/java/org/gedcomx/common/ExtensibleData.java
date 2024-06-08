@@ -34,6 +34,15 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
   protected List<Object> extensionElements;
   protected final Map<String, Object> transientProperties = new TreeMap<String, Object>();
 
+  protected ExtensibleData() {
+  }
+
+  protected ExtensibleData(ExtensibleData copy) {
+    this.id = copy.id;
+    this.extensionElements = copy.extensionElements;
+    this.transientProperties.putAll(copy.transientProperties);
+  }
+
   /**
    * A local, context-specific id for the data.
    *

@@ -65,6 +65,21 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   }
 
   /**
+   * Copy a fact.
+   * 
+   * @param copy The copy.
+   */
+  public Fact(Fact copy) {
+    this.type = copy.type;
+    this.date = copy.date;
+    this.place = copy.place;
+    this.value = copy.value;
+    this.qualifiers = copy.qualifiers;
+    this.fields = copy.fields;
+    this.primary = copy.primary;
+  }
+
+  /**
    * Create a fact with the passed in type and values.
    *
    * @param factType the fact type.

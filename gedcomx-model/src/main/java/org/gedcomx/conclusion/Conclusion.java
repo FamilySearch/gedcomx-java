@@ -56,6 +56,19 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   private ResourceReference analysis;
   private String sortKey;
 
+  protected Conclusion() {
+  }
+
+  protected Conclusion(Conclusion copy) {
+    this.lang = copy.lang;
+    this.confidence = copy.confidence;
+    this.sources = copy.sources;
+    this.notes = copy.notes;
+    this.attribution = copy.attribution;
+    this.analysis = copy.analysis;
+    this.sortKey = copy.sortKey;
+  }
+
   @Override
   public Conclusion id(String id) {
     return (Conclusion) super.id(id);
