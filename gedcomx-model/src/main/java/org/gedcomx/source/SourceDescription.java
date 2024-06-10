@@ -84,6 +84,41 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
    */
   private List<URI> statuses;
 
+  public SourceDescription() {
+  }
+
+  public SourceDescription(SourceDescription copy) {
+    this.lang = copy.lang;
+    this.citations = copy.citations == null ? null : new ArrayList<>(copy.citations.stream().map(SourceCitation::new).toList());
+    this.mediaType = copy.mediaType;
+    this.about = copy.about;
+    this.mediator = copy.mediator == null ? null : new ResourceReference(copy.mediator);
+    this.publisher = copy.publisher == null ? null : new ResourceReference(copy.publisher);
+    this.authors = copy.authors == null ? null : new ArrayList<>(copy.authors);
+    this.sources = copy.sources == null ? null : new ArrayList<>(copy.sources.stream().map(SourceReference::new).toList());
+    this.analysis = copy.analysis == null ? null : new ResourceReference(copy.analysis);
+    this.componentOf = copy.componentOf == null ? null : new SourceReference(copy.componentOf);
+    this.titles = copy.titles == null ? null : new ArrayList<>(copy.titles.stream().map(TextValue::new).toList());
+    this.titleLabel = copy.titleLabel == null ? null : new TextValue(copy.titleLabel);
+    this.notes = copy.notes == null ? null : new ArrayList<>(copy.notes.stream().map(Note::new).toList());
+    this.attribution = copy.attribution == null ? null : new Attribution(copy.attribution);
+    this.resourceType = copy.resourceType;
+    this.rights = copy.rights == null ? null : new ArrayList<>(copy.rights);
+    this.sortKey = copy.sortKey;
+    this.descriptions = copy.descriptions == null ? null : new ArrayList<>(copy.descriptions.stream().map(TextValue::new).toList());
+    this.identifiers = copy.identifiers == null ? null : new ArrayList<>(copy.identifiers.stream().map(Identifier::new).toList());
+    this.created = copy.created;
+    this.modified = copy.modified;
+    this.coverage = copy.coverage == null ? null : new ArrayList<>(copy.coverage.stream().map(Coverage::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
+    this.repository = copy.repository == null ? null : new ResourceReference(copy.repository);
+    this.descriptorRef = copy.descriptorRef == null ? null : new ResourceReference(copy.descriptorRef);
+    this.replacedBy = copy.replacedBy;
+    this.replaces = copy.replaces = copy.replaces == null ? null : new ArrayList<>(copy.replaces);
+    this.version = copy.version;
+    this.statuses = copy.statuses == null ? null : new ArrayList<>(copy.statuses);
+  }
+
   /**
    * The language of this genealogical data set. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>.
    * Note that some language-enabled elements MAY override the language.

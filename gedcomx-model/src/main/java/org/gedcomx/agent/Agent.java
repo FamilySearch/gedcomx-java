@@ -33,6 +33,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +61,22 @@ public class Agent extends HypermediaEnabledData {
   private List<ResourceReference> phones;
   private List<Address> addresses;
   private ResourceReference person;
+
+  public Agent() {
+  }
+
+  public Agent(Agent copy) {
+    super(copy);
+    this.names = copy.names == null ? null : new ArrayList<>(copy.names.stream().map(TextValue::new).toList());
+    this.identifiers = copy.identifiers == null ? null : new ArrayList<>(copy.identifiers.stream().map(Identifier::new).toList());
+    this.homepage = copy.homepage == null ? null : new ResourceReference(copy.homepage);
+    this.openid = copy.openid == null ? null : new ResourceReference(copy.openid);
+    this.accounts = copy.accounts == null ? null : new ArrayList<>(copy.accounts.stream().map(OnlineAccount::new).toList());
+    this.emails = copy.emails == null ? null : new ArrayList<>(copy.emails.stream().map(ResourceReference::new).toList());
+    this.phones = copy.phones == null ? null : new ArrayList<>(copy.phones.stream().map(ResourceReference::new).toList());
+    this.addresses = copy.addresses == null ? null : new ArrayList<>(copy.addresses.stream().map(Address::new).toList());
+    this.person = copy.person == null ? null : new ResourceReference(copy.person);
+  }
 
   @Override
   public Agent id(String id) {

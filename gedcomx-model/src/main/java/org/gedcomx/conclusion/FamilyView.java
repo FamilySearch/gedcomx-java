@@ -48,6 +48,16 @@ public class FamilyView extends HypermediaEnabledData {
   private ResourceReference parent2; // Second parent
   private List<ResourceReference> children; // List of children
 
+  public FamilyView() {
+  }
+
+  public FamilyView(FamilyView copy) {
+    super(copy);
+    this.parent1 = copy.parent1 == null ? null : new ResourceReference(copy.parent1);
+    this.parent2 = copy.parent2 == null ? null : new ResourceReference(copy.parent2);
+    this.children = copy.children == null ? null : new ArrayList<>(copy.children.stream().map(ResourceReference::new).toList());
+  }
+
   /**
    * A reference to a parent in the family. The name "parent1" is used only to distinguish it from
    * the other parent in this family and implies neither order nor role.

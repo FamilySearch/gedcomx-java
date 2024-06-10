@@ -41,6 +41,7 @@ public final class Identifier implements HasJsonKey {
 
   private boolean hasUniqueKey = false;
   private URI value;
+  
   /**
    * @see org.gedcomx.types.IdentifierType
    */
@@ -57,6 +58,12 @@ public final class Identifier implements HasJsonKey {
   public Identifier(URI value, IdentifierType knownType) {
     this.value = value;
     setKnownType( knownType );
+  }
+
+  public Identifier(Identifier copy) {
+    this.value = copy.value;
+    this.type = copy.type;
+    this.hasUniqueKey = copy.hasUniqueKey;
   }
 
   /**

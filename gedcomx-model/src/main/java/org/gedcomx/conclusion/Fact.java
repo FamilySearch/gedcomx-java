@@ -70,12 +70,13 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
    * @param copy The copy.
    */
   public Fact(Fact copy) {
+    super(copy);
     this.type = copy.type;
-    this.date = copy.date;
-    this.place = copy.place;
+    this.date = copy.date == null ? null : new Date(copy.date);
+    this.place = copy.place == null ? null : new PlaceReference(copy.place);
     this.value = copy.value;
-    this.qualifiers = copy.qualifiers;
-    this.fields = copy.fields;
+    this.qualifiers = copy.qualifiers == null ? null : new ArrayList<>(copy.qualifiers.stream().map(Qualifier::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
     this.primary = copy.primary;
   }
 

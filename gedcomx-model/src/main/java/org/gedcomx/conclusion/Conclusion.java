@@ -60,12 +60,13 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   }
 
   protected Conclusion(Conclusion copy) {
+    super(copy);
     this.lang = copy.lang;
     this.confidence = copy.confidence;
-    this.sources = copy.sources;
-    this.notes = copy.notes;
-    this.attribution = copy.attribution;
-    this.analysis = copy.analysis;
+    this.sources = copy.sources == null ? null : new ArrayList<>(copy.sources.stream().map(SourceReference::new).toList());
+    this.notes = copy.notes == null ? null : new ArrayList<>(copy.notes.stream().map(Note::new).toList());
+    this.attribution = copy.attribution == null ? null : new Attribution(copy.attribution);
+    this.analysis = copy.analysis == null ? null : new ResourceReference(copy.analysis);
     this.sortKey = copy.sortKey;
   }
 

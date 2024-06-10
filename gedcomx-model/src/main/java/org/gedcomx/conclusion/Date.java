@@ -35,6 +35,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -53,6 +55,18 @@ public class Date extends ExtensibleData implements HasFields {
   private URI confidence;
   private List<TextValue> normalized;
   private List<Field> fields;
+
+  public Date() {
+  }
+
+  public Date(Date copy) {
+    super(copy);
+    this.original = copy.original;
+    this.formal = copy.formal;
+    this.confidence = copy.confidence;
+    this.normalized = copy.normalized == null ? null : new ArrayList<>(copy.normalized.stream().map(TextValue::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
+  }
 
   @Override
   public Date id(String id) {

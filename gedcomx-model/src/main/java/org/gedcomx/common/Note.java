@@ -46,6 +46,17 @@ public class Note extends HypermediaEnabledData implements Attributable, HasText
   private String text;
   private Attribution attribution;
 
+  public Note() {
+  }
+
+  public Note(Note copy) {
+    super(copy);
+    this.lang = copy.lang;
+    this.subject = copy.subject;
+    this.text = copy.text;
+    this.attribution = copy.attribution == null ? null : new Attribution(copy.attribution);
+  }
+
   @Override
   public Note id(String id) {
     return (Note) super.id(id);

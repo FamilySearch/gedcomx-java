@@ -48,6 +48,19 @@ public class Attribution extends ExtensibleData {
   private String changeMessage;
   private URI changeMessageResource;
 
+  public Attribution() {
+  }
+
+  public Attribution(Attribution copy) {
+    super(copy);
+    this.contributor = copy.contributor == null ? null : new ResourceReference(copy.contributor);
+    this.creator = copy.creator == null ? null : new ResourceReference(copy.creator);
+    this.modified = copy.modified;
+    this.created = copy.created;
+    this.changeMessage = copy.changeMessage;
+    this.changeMessageResource = copy.changeMessageResource;
+  }
+
   @Override
   public Attribution id(String id) {
     return (Attribution) super.id(id);

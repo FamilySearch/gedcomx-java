@@ -57,7 +57,12 @@ public final class ResourceReference {
     this.resource = resource;
     this.resourceId = resourceId;
   }
-
+  
+  public ResourceReference(ResourceReference copy) {
+    this.resource = copy.resource;
+    this.resourceId = copy.resourceId;
+  }
+  
   /**
    * The resource id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.
    *

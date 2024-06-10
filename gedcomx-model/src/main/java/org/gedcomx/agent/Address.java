@@ -40,6 +40,24 @@ public class Address extends ExtensibleData {
   private String street6;
   private String value;
 
+  public Address() {
+  }
+
+  public Address(Address copy) {
+    super(copy);
+    this.city = copy.city;
+    this.country = copy.country;
+    this.postalCode = copy.postalCode;
+    this.stateOrProvince = copy.stateOrProvince;
+    this.street = copy.street;
+    this.street2 = copy.street2;
+    this.street3 = copy.street3;
+    this.street4 = copy.street4;
+    this.street5 = copy.street5;
+    this.street6 = copy.street6;
+    this.value = copy.value;
+  }
+
   @Override
   public Address id(String id) {
     return (Address) super.id(id);

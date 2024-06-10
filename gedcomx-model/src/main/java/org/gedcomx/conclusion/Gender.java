@@ -36,6 +36,8 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.GenderType;
 
 import jakarta.xml.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,6 +68,12 @@ public class Gender extends Conclusion implements HasFields {
    */
   public Gender(GenderType type) {
     setKnownType(type);
+  }
+
+  public Gender(Gender copy) {
+    super(copy);
+    this.type = copy.type;
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
   }
 
   @Override

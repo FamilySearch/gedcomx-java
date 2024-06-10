@@ -82,6 +82,13 @@ public class Event extends Subject implements HasDateAndPlace {
     setPlace(place);
   }
 
+  public Event(Event copy) {
+    super(copy);
+    this.type = copy.type;
+    this.date = copy.date == null ? null : new Date(copy.date);
+    this.roles = copy.roles == null ? null : new ArrayList<>(copy.roles.stream().map(EventRole::new).toList());
+  }
+
   @Override
   public Event id(String id) {
     return (Event) super.id(id);

@@ -35,6 +35,8 @@ import org.gedcomx.types.NamePartType;
 import org.gedcomx.types.NameType;
 
 import jakarta.xml.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -64,6 +66,14 @@ public class Name extends Conclusion {
 
   public Name(String fullText, NamePart... parts) {
     addNameForm(new NameForm(fullText, parts));
+  }
+
+  public Name(Name copy) {
+    super(copy);
+    this.type = copy.type;
+    this.date = copy.date == null ? null : new Date(copy.date);
+    this.nameForms = copy.nameForms == null ? null : new ArrayList<>(copy.nameForms.stream().map(NameForm::new).toList());
+    this.preferred = copy.preferred;
   }
 
   @Override

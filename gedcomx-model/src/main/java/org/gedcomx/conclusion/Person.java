@@ -69,6 +69,21 @@ public class Person extends Subject implements HasFacts, HasFields {
   private List<Field> fields; // person-specific fields, such as used in an extracted historical record.
   private DisplayProperties display;
 
+  public Person() {
+  }
+
+  public Person(Person copy) {
+    super(copy);
+    this.isPrivate = copy.isPrivate;
+    this.living = copy.living;
+    this.principal = copy.principal;
+    this.gender = copy.gender == null ? null : new Gender(copy.gender);
+    this.names = copy.names == null ? null : new ArrayList<>(copy.names.stream().map(Name::new).toList());
+    this.facts = copy.facts == null ? null : new ArrayList<>(copy.facts.stream().map(Fact::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
+    this.display = copy.display == null ? null : new DisplayProperties(copy.display);
+  }
+
   @Override
   public Person id(String id) {
     return (Person) super.id(id);

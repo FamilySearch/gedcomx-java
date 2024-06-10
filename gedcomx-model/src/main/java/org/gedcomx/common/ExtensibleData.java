@@ -39,8 +39,9 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
 
   protected ExtensibleData(ExtensibleData copy) {
     this.id = copy.id;
-    this.extensionElements = copy.extensionElements;
-    this.transientProperties.putAll(copy.transientProperties);
+    this.extensionElements = copy.extensionElements == null ? null : new ArrayList<>(copy.extensionElements);
+    //transient properties are transient and won't get copied.
+    ///this.transientProperties.putAll(copy.transientProperties);
   }
 
   /**

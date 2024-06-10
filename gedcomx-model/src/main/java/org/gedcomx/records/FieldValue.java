@@ -67,6 +67,16 @@ public final class FieldValue extends Conclusion {
     this.text = text;
   }
 
+  public FieldValue(FieldValue copy) {
+    super(copy);
+    this.type = copy.type;
+    this.labelId = copy.labelId;
+    this.text = copy.text;
+    this.datatype = copy.datatype;
+    this.resource = copy.resource;
+    this.status = copy.status;
+  }
+
   @Override
   public FieldValue id(String id) {
     return (FieldValue) super.id(id);

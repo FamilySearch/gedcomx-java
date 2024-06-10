@@ -51,6 +51,11 @@ public class CitationField implements HasJsonKey {
     setNameValue(name);
     setValue(value);
   }
+  
+  public CitationField(CitationField copy) {
+    this.name = copy.name;
+    this.value = copy.value;
+  }
 
   @XmlTransient
   @JsonIgnore

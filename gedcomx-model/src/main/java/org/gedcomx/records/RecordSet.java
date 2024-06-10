@@ -66,6 +66,16 @@ public class RecordSet extends HypermediaEnabledData {
   private Gedcomx metadata;
   private List<Gedcomx> records;
 
+  public RecordSet() {
+  }
+
+  public RecordSet(RecordSet copy) {
+    super(copy);
+    this.lang = copy.lang;
+    this.metadata = copy.metadata == null ? null : new Gedcomx(copy.metadata);
+    this.records = copy.records == null ? null : new ArrayList<>(copy.records.stream().map(Gedcomx::new).toList());
+  }
+
   @Override
   public RecordSet id(String id) {
     return (RecordSet) super.id(id);

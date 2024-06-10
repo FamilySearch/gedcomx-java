@@ -43,7 +43,7 @@ public abstract class HypermediaEnabledData extends ExtensibleData implements Su
 
   protected HypermediaEnabledData(HypermediaEnabledData copy) {
     super(copy);
-    this.links = copy.links;
+    this.links = copy.links == null ? null : new ArrayList<>(copy.links);
   }
 
   /**

@@ -63,6 +63,11 @@ public final class Qualifier {
   public Qualifier(ControlledVocabulary name) {
     setName(name);
   }
+  
+  public Qualifier(Qualifier copy) {
+    this.name = copy.name;
+    this.value = copy.value;
+  }
 
   /**
    * The name of the qualifier. The name should be an element of a constrained vocabulary and is used to determine meaning of the qualifier.

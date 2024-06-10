@@ -32,6 +32,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -51,6 +53,15 @@ public class Field extends Conclusion {
    */
   private URI type;
   private List<FieldValue> values;
+
+  public Field() {
+  }
+
+  public Field(Field copy) {
+    super(copy);
+    this.type = copy.type;
+    this.values = copy.values == null ? null : new ArrayList<>(copy.values.stream().map(FieldValue::new).toList());
+  }
 
   @Override
   public Field id(String id) {

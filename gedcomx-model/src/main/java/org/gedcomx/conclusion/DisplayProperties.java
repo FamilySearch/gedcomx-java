@@ -54,6 +54,28 @@ public class DisplayProperties extends ExtensibleData {
   private List<FamilyView> familiesAsChild;
   private String role;
 
+  public DisplayProperties() {
+  }
+
+  public DisplayProperties(DisplayProperties copy) {
+    super(copy);
+    this.name = copy.name;
+    this.gender = copy.gender;
+    this.lifespan = copy.lifespan;
+    this.birthDate = copy.birthDate;
+    this.birthPlace = copy.birthPlace;
+    this.deathDate = copy.deathDate;
+    this.deathPlace = copy.deathPlace;
+    this.marriageDate = copy.marriageDate;
+    this.marriagePlace = copy.marriagePlace;
+    this.ascendancyNumber = copy.ascendancyNumber;
+    this.descendancyNumber = copy.descendancyNumber;
+    this.relationshipDescription = copy.relationshipDescription;
+    this.familiesAsParent = copy.familiesAsParent == null ? null : new ArrayList<>(copy.familiesAsParent.stream().map(FamilyView::new).toList());
+    this.familiesAsChild = copy.familiesAsChild == null ? null : new ArrayList<>(copy.familiesAsChild.stream().map(FamilyView::new).toList());
+    this.role = copy.role;
+  }
+
   @Override
   public DisplayProperties id(String id) {
     return (DisplayProperties) super.id(id);

@@ -29,6 +29,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 import javax.xml.XMLConstants;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -45,6 +46,17 @@ public class SourceCitation extends HypermediaEnabledData {
   private String value;
   private ResourceReference citationTemplate;
   private List<CitationField> fields;
+
+  public SourceCitation() {
+  }
+
+  public SourceCitation(SourceCitation copy) {
+    super(copy);
+    this.lang = copy.lang;
+    this.value = copy.value;
+    this.citationTemplate = copy.citationTemplate == null ? null : new ResourceReference(copy.citationTemplate);
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(CitationField::new).toList());
+  }
 
   @Override
   public SourceCitation id(String id) {

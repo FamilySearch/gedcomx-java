@@ -106,6 +106,26 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   private List<Field> fields;
   private List<RecordDescriptor> recordDescriptors;
 
+  public Gedcomx() {
+  }
+
+  public Gedcomx(Gedcomx copy) {
+    super(copy);
+    this.lang = copy.lang;
+    this.descriptionRef = copy.descriptionRef;
+    this.attribution = copy.attribution == null ? null : new Attribution(copy.attribution);
+    this.persons = copy.persons == null ? null : new ArrayList<>(copy.persons.stream().map(Person::new).toList());
+    this.relationships = copy.relationships == null ? null : new ArrayList<>(copy.relationships.stream().map(Relationship::new).toList());
+    this.sourceDescriptions = copy.sourceDescriptions == null ? null : new ArrayList<>(copy.sourceDescriptions.stream().map(SourceDescription::new).toList());
+    this.agents = copy.agents == null ? null : new ArrayList<>(copy.agents.stream().map(Agent::new).toList());
+    this.events = copy.events == null ? null : new ArrayList<>(copy.events.stream().map(Event::new).toList());
+    this.places = copy.places == null ? null : new ArrayList<>(copy.places.stream().map(PlaceDescription::new).toList());
+    this.documents = copy.documents == null ? null : new ArrayList<>(copy.documents.stream().map(Document::new).toList());
+    this.collections = copy.collections == null ? null : new ArrayList<>(copy.collections.stream().map(Collection::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
+    this.recordDescriptors = copy.recordDescriptors == null ? null : new ArrayList<>(copy.recordDescriptors.stream().map(RecordDescriptor::new).toList());
+  }
+
   @Override
   public Gedcomx id(String id) {
     return (Gedcomx) super.id(id);

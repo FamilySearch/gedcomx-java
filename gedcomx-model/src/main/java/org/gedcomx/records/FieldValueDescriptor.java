@@ -29,6 +29,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,6 +53,23 @@ public class FieldValueDescriptor extends HypermediaEnabledData {
   private Boolean entryRequired; // whether some kind of entry is required when entering data for editing.
   private Boolean editable; //whether the field value is editable (as opposed to composed from other values by the system).
   private String parentLabelId; //the label id of the "parent" field value. E.g. The parent of a "given name" field value might be the "name" field value.
+
+  public FieldValueDescriptor() {
+  }
+
+  public FieldValueDescriptor(FieldValueDescriptor copy) {
+    super(copy);
+    this.labelId = copy.labelId;
+    this.type = copy.type;
+    this.optional = copy.optional;
+    this.displayLabels = copy.displayLabels == null ? null : new ArrayList<>(copy.displayLabels.stream().map(TextValue::new).toList());
+    this.entryLabels = copy.entryLabels == null ? null : new ArrayList<>(copy.entryLabels.stream().map(TextValue::new).toList());
+    this.displaySortKey = copy.displaySortKey;
+    this.entrySortKey = copy.entrySortKey;
+    this.entryRequired = copy.entryRequired;
+    this.editable = copy.editable;
+    this.parentLabelId = copy.parentLabelId;
+  }
 
   /**
    * The id of the label applicable to the field value.

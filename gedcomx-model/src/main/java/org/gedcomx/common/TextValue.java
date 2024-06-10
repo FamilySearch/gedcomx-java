@@ -42,6 +42,11 @@ public class TextValue {
     this.value = value;
   }
 
+  public TextValue(TextValue copy) {
+    this.lang = copy.lang;
+    this.value = copy.value;
+  }
+
   /**
    * The language of the text value. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *

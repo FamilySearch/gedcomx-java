@@ -50,6 +50,16 @@ public class EventRole extends Conclusion {
   private URI type;
   private String details;
 
+  public EventRole() {
+  }
+
+  public EventRole(EventRole copy) {
+    super(copy);
+    this.person = copy.person == null ? null : new ResourceReference(copy.person);
+    this.type = copy.type;
+    this.details = copy.details;
+  }
+
   @Override
   public EventRole id(String id) {
     return (EventRole) super.id(id);

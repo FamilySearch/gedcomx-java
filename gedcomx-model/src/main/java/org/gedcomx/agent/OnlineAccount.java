@@ -31,6 +31,15 @@ public class OnlineAccount extends ExtensibleData {
   private ResourceReference serviceHomepage;
   private String accountName;
 
+  public OnlineAccount() {
+  }
+
+  public OnlineAccount(OnlineAccount copy) {
+    super(copy);
+    this.serviceHomepage = copy.serviceHomepage == null ? null : new ResourceReference(copy.serviceHomepage);
+    this.accountName = copy.accountName;
+  }
+
   @Override
   public OnlineAccount id(String id) {
     return (OnlineAccount) super.id(id);

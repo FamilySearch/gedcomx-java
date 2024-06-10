@@ -50,6 +50,16 @@ public class Coverage extends HypermediaEnabledData {
    */
   private URI recordType;
 
+  public Coverage() {
+  }
+
+  public Coverage(Coverage copy) {
+    super(copy);
+    this.spatial = copy.spatial == null ? null : new PlaceReference(copy.spatial);
+    this.temporal = copy.temporal == null ? null : new Date(copy.temporal);
+    this.recordType = copy.recordType;
+  }
+
   /**
    * Spatial coverage.
    *

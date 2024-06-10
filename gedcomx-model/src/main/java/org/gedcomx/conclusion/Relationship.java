@@ -69,6 +69,18 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   private List<Fact> facts;
   private List<Field> fields;
 
+  public Relationship() {
+  }
+
+  public Relationship(Relationship copy) {
+    super(copy);
+    this.type = copy.type;
+    this.person1 = copy.person1 == null ? null : new ResourceReference(copy.person1);
+    this.person2 = copy.person2 == null ? null : new ResourceReference(copy.person2);
+    this.facts = copy.facts == null ? null : new ArrayList<>(copy.facts.stream().map(Fact::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
+  }
+
   @Override
   public Relationship id(String id) {
     return (Relationship) super.id(id);

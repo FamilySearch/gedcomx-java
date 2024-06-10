@@ -33,6 +33,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -61,6 +63,14 @@ public final class NamePart extends ExtensibleData implements HasFields {
   public NamePart(NamePartType type, String text) {
     setKnownType(type);
     setValue(text);
+  }
+
+  public NamePart(NamePart copy) {
+    super(copy);
+    this.type = copy.type;
+    this.value = copy.value;
+    this.qualifiers = copy.qualifiers == null ? null : new ArrayList<>(copy.qualifiers.stream().map(Qualifier::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
   }
 
   @Override

@@ -58,6 +58,19 @@ public class Collection extends HypermediaEnabledData implements Attributable {
   private Integer size;
   private Attribution attribution;
 
+  public Collection() {
+  }
+
+  public Collection(Collection copy) {
+    super(copy);
+    this.lang = copy.lang;
+    this.identifiers = copy.identifiers == null ? null : new ArrayList<>(copy.identifiers.stream().map(Identifier::new).toList());
+    this.content = copy.content == null ? null : new ArrayList<>(copy.content.stream().map(CollectionContent::new).toList());
+    this.title = copy.title;
+    this.size = copy.size;
+    this.attribution = copy.attribution == null ? null : new Attribution(copy.attribution);
+  }
+
   @Override
   public Collection id(String id) {
     return (Collection) super.id(id);

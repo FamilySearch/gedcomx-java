@@ -45,6 +45,15 @@ public class RecordDescriptor extends HypermediaEnabledData {
   private String lang;
   private List<FieldDescriptor> fields;
 
+  public RecordDescriptor() {
+  }
+
+  public RecordDescriptor(RecordDescriptor copy) {
+    super(copy);
+    this.lang = copy.lang;
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(FieldDescriptor::new).toList());
+  }
+
   /**
    * The language of this record description. See <a href="http://www.w3.org/International/articles/language-tags/">http://www.w3.org/International/articles/language-tags/</a>
    *

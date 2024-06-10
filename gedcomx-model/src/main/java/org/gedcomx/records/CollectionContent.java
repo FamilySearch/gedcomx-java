@@ -44,6 +44,16 @@ public class CollectionContent extends HypermediaEnabledData {
   private Integer count;
   private Float completeness;
 
+  public CollectionContent() {
+  }
+
+  public CollectionContent(CollectionContent copy) {
+    super(copy);
+    this.resourceType = copy.resourceType;
+    this.count = copy.count;
+    this.completeness = copy.completeness;
+  }
+
   @Override
   public CollectionContent id(String id) {
     return (CollectionContent) super.id(id);

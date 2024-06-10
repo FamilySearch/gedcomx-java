@@ -52,6 +52,17 @@ public class SourceReference extends HypermediaEnabledData implements Attributab
   private Attribution attribution;
   private List<Qualifier> qualifiers;
 
+  public SourceReference() {
+  }
+
+  public SourceReference(SourceReference copy) {
+    super(copy);
+    this.descriptionRef = copy.descriptionRef;
+    this.descriptionId = copy.descriptionId;
+    this.attribution = copy.attribution == null ? null : new Attribution(copy.attribution);
+    this.qualifiers = copy.qualifiers == null ? null : new ArrayList<>(copy.qualifiers.stream().map(Qualifier::new).toList());
+  }
+
   @Override
   public SourceReference id(String id) {
     return (SourceReference) super.id(id);

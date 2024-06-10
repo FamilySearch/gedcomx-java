@@ -56,6 +56,17 @@ public abstract class Subject extends Conclusion implements Attributable {
   private List<SourceReference> media;
   private List<EvidenceReference> evidence;
 
+  public Subject() {
+  }
+
+  public Subject(Subject copy) {
+    super(copy);
+    this.extracted = copy.extracted;
+    this.identifiers = copy.identifiers == null ? null : new ArrayList<>(copy.identifiers.stream().map(Identifier::new).toList());
+    this.media = copy.media == null ? null : new ArrayList<>(copy.media.stream().map(SourceReference::new).toList());
+    this.evidence = copy.evidence == null ? null : new ArrayList<>(copy.evidence.stream().map(EvidenceReference::new).toList());
+  }
+
   @Override
   public Subject id(String id) {
     return (Subject) super.id(id);

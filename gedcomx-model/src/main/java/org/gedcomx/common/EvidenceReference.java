@@ -56,6 +56,13 @@ public final class EvidenceReference extends HypermediaEnabledData implements At
     this.resourceId = resourceId;
   }
 
+  public EvidenceReference(EvidenceReference copy) {
+    super(copy);
+    this.resource = copy.resource;
+    this.resourceId = copy.resourceId;
+    this.attribution = copy.attribution == null ? null : new Attribution(copy.attribution);
+  }
+
   @Override
   public EvidenceReference link(Link link) {
     return (EvidenceReference) super.link(link);

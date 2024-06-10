@@ -26,6 +26,8 @@ import org.gedcomx.rt.GedcomxConstants;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -43,6 +45,16 @@ public class FieldDescriptor extends HypermediaEnabledData {
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
   private List<TextValue> descriptions; // localized description of this field ("Relationship of the person to the head of household").
   private List<FieldValueDescriptor> values; // localized display labels for the field values
+
+  public FieldDescriptor() {
+  }
+
+  public FieldDescriptor(FieldDescriptor copy) {
+    super(copy);
+    this.originalLabel = copy.originalLabel;
+    this.descriptions = copy.descriptions == null ? null : new ArrayList<>(copy.descriptions.stream().map(TextValue::new).toList());
+    this.values = copy.values == null ? null : new ArrayList<>(copy.values.stream().map(FieldValueDescriptor::new).toList());
+  }
 
   @Override
   public FieldDescriptor id(String id) {

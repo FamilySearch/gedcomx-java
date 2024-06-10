@@ -29,6 +29,8 @@ import javax.xml.XMLConstants;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -55,6 +57,14 @@ public class NameForm extends ExtensibleData implements HasFields {
     for (NamePart part : parts) {
       addPart(part);
     }
+  }
+
+  public NameForm(NameForm copy) {
+    super(copy);
+    this.lang = copy.lang;
+    this.fullText = copy.fullText;
+    this.parts = copy.parts == null ? null : new ArrayList<>(copy.parts.stream().map(NamePart::new).toList());
+    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
   }
 
   @Override

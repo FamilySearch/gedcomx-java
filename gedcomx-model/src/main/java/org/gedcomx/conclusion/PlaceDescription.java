@@ -55,6 +55,22 @@ public class PlaceDescription extends Subject {
   private ResourceReference jurisdiction;
   private PlaceDisplayProperties display;
 
+  public PlaceDescription() {
+  }
+
+  public PlaceDescription(PlaceDescription copy) {
+    super(copy);
+    this.names = copy.names == null ? null : new ArrayList<>(copy.names.stream().map(TextValue::new).toList());
+    this.type = copy.type;
+    this.temporalDescription = copy.temporalDescription == null ? null : new Date(copy.temporalDescription);
+    this.latitude = copy.latitude;
+    this.longitude = copy.longitude;
+    this.place = copy.place == null ? null : new ResourceReference(copy.place);
+    this.spatialDescription = copy.spatialDescription == null ? null : new ResourceReference(copy.spatialDescription);
+    this.jurisdiction = copy.jurisdiction == null ? null : new ResourceReference(copy.jurisdiction);
+    this.display = copy.display == null ? null : new PlaceDisplayProperties(copy.display);
+  }
+
   @Override
   public PlaceDescription id(String id) {
     return (PlaceDescription) super.id(id);

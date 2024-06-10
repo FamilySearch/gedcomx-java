@@ -53,6 +53,17 @@ public class Document extends Conclusion implements HasText, Attributable {
   private String textType;
   private String text;
 
+  public Document() {
+  }
+
+  public Document(Document copy) {
+    super(copy);
+    this.extracted = copy.extracted;
+    this.type = copy.type;
+    this.textType = copy.textType;
+    this.text = copy.text;
+  }
+
   @Override
   public Document id(String id) {
     return (Document) super.id(id);

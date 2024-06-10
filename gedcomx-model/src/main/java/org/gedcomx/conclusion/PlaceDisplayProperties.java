@@ -38,6 +38,16 @@ public class PlaceDisplayProperties extends ExtensibleData {
   private String fullName;
   private String type;
 
+  public PlaceDisplayProperties() {
+  }
+
+  public PlaceDisplayProperties(PlaceDisplayProperties copy) {
+    super(copy);
+    this.name = copy.name;
+    this.fullName = copy.fullName;
+    this.type = copy.type;
+  }
+
   @Override
   public PlaceDisplayProperties id(String id) {
     return (PlaceDisplayProperties) super.id(id);

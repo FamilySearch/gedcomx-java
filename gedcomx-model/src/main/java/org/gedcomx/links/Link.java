@@ -62,12 +62,26 @@ public class Link implements HasJsonKey {
   private Integer offset;
   private Integer results;
 
+  public Link() {
+  }
+
   public Link(String rel, URI href) {
     this.rel = rel;
     this.href = href;
   }
-
-  public Link() {
+  
+  public Link(Link copy) {
+    this.rel = copy.rel;
+    this.href = copy.href;
+    this.template = copy.template;
+    this.type = copy.type;
+    this.accept = copy.accept;
+    this.allow = copy.allow;
+    this.hreflang = copy.hreflang;
+    this.title = copy.title;
+    this.count = copy.count;
+    this.offset = copy.offset;
+    this.results = copy.results;
   }
 
   @XmlTransient
