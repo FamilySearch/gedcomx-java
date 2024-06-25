@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author John Clark.
  */
-public class UtilTest {
+class UtilTest {
 
   /**
    * Parse
@@ -57,7 +57,8 @@ public class UtilTest {
 
     assertThat(date).isInstanceOf(GedcomxDateRange.class);
     assertThat(date.getType()).isEqualTo(GedcomxDateType.RANGE);
-    assertThat(((GedcomxDateRange)date).getDuration().getDays()).isEqualTo(1);
+    // All of the 31st and all of the 1st
+    assertThat(((GedcomxDateRange)date).getDuration().getDays()).isEqualTo(2);
   }
 
   @Test
@@ -77,9 +78,13 @@ public class UtilTest {
   }
 
   static Stream<Arguments> dropGranularityForMonth() {
-    return Stream.of(Arguments.of("+1788-07/P5M", "+1788-07/+1788"),
-      Arguments.of("+1788-07-07/P24D", "+1788-07-07/+1788-07"),
-      Arguments.of("+1788-07-07/P5M24D", "+1788-07-07/+1788"));
+    return Stream.of(
+      // All of July->All of December = 6M
+      Arguments.of("+1788-07/P6M", "+1788-07/+1788"),
+      // July 22th->July 31st = 10D counting the 22nd and the 31st
+      Arguments.of("+1788-07-22/P10D", "+1788-07-22/+1788-07"),
+      // July 22th 1788 -> All of December = 10D counting the 22nd and the 31st and the 5 remaining months
+      Arguments.of("+1788-07-22/P5M10D", "+1788-07-22/+1788"));
   }
 
   @ParameterizedTest
@@ -223,12 +228,13 @@ public class UtilTest {
       new GedcomxDateSimple("+0999-01-01T00:00:00Z"),
       new GedcomxDateSimple("+1000"));
 
-    assertThat(duration.getYears()).isEqualTo(1);
-    assertThat(duration.getMonths()).isEqualTo(11);
-    assertThat(duration.getDays()).isEqualTo(30);
-    assertThat(duration.getHours()).isEqualTo(23);
-    assertThat(duration.getMinutes()).isEqualTo(59);
-    assertThat(duration.getSeconds()).isEqualTo(59);
+    // this is now consistent with the formalString being 2Y
+    assertEquals(2,duration.getYears());
+    assertNull(duration.getMonths());
+    assertNull(duration.getDays());
+    assertNull(duration.getHours());
+    assertNull(duration.getMinutes());
+    assertNull(duration.getSeconds());
   }
 
   @Test
@@ -237,12 +243,13 @@ public class UtilTest {
             new GedcomxDateSimple("+0999"),
             new GedcomxDateSimple("+1000-01-01T00:00:00Z"));
 
-    assertThat(duration.getYears()).isEqualTo(1);
-    assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(null);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    // this is now consistent with the formalString being 1Y
+    assertEquals(1, duration.getYears());
+    assertNull(duration.getMonths());
+    assertNull(duration.getDays());
+    assertNull(duration.getHours());
+    assertNull(duration.getMinutes());
+    assertNull(duration.getSeconds());
   }
 
   @Test
@@ -253,7 +260,8 @@ public class UtilTest {
 
     assertThat(duration.getYears()).isEqualTo(3);
     assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(1);
+    // All of the 31st and all of the 1st.
+    assertThat(duration.getDays()).isEqualTo(2);
     assertThat(duration.getHours()).isEqualTo(null);
     assertThat(duration.getMinutes()).isEqualTo(null);
     assertThat(duration.getSeconds()).isEqualTo(null);
@@ -491,146 +499,9 @@ public class UtilTest {
       GedcomxDateUtil.daysInMonth(13, 2000);
       fail("GedcomxDateException expected because 13 is not a month");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Unknown Month=13");
+      assertThat(e.getMessage()).isEqualTo("Invalid value for MonthOfYear (valid values 1 - 12): 13");
     }
   }
-
-  @Test
-  public void successOnValidStuff() {
-
-    assertThat(GedcomxDateUtil.daysInMonth(1, 2001)).isEqualTo(31);
-    assertThat(GedcomxDateUtil.daysInMonth(2, 2001)).isEqualTo(28);
-    assertThat(GedcomxDateUtil.daysInMonth(3, 2001)).isEqualTo(31);
-    assertThat(GedcomxDateUtil.daysInMonth(4, 2001)).isEqualTo(30);
-    assertThat(GedcomxDateUtil.daysInMonth(5, 2001)).isEqualTo(31);
-    assertThat(GedcomxDateUtil.daysInMonth(6, 2001)).isEqualTo(30);
-    assertThat(GedcomxDateUtil.daysInMonth(7, 2001)).isEqualTo(31);
-    assertThat(GedcomxDateUtil.daysInMonth(8, 2001)).isEqualTo(31);
-    assertThat(GedcomxDateUtil.daysInMonth(9, 2001)).isEqualTo(30);
-    assertThat(GedcomxDateUtil.daysInMonth(10, 2001)).isEqualTo(31);
-    assertThat(GedcomxDateUtil.daysInMonth(11, 2001)).isEqualTo(30);
-    assertThat(GedcomxDateUtil.daysInMonth(12, 2001)).isEqualTo(31);
-
-    // Test each branch of the leapyear calculation
-    assertThat(GedcomxDateUtil.daysInMonth(2, 2003)).isEqualTo(28);
-    assertThat(GedcomxDateUtil.daysInMonth(2, 2004)).isEqualTo(29);
-    assertThat(GedcomxDateUtil.daysInMonth(2, 1900)).isEqualTo(28);
-    assertThat(GedcomxDateUtil.daysInMonth(2, 2000)).isEqualTo(29);
-  }
-
-  @Test
-  public void successOnZipStartMonth() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    start.month = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(end.month).isEqualTo(12);
-  }
-
-  @Test
-  public void successOnZipEndMonth() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    end.month = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(start.month).isEqualTo(1);
-  }
-
-  @Test
-  public void successOnZipStartDay() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    start.day = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(end.day).isEqualTo(5);
-  }
-
-  @Test
-  public void successOnZipEndDay() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    end.day = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(start.day).isEqualTo(1);
-  }
-
-  @Test
-  public void successOnZipStartHour() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    start.hours = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(end.hours).isEqualTo(23);
-  }
-
-  @Test
-  public void successOnZipEndHour() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    end.hours = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(start.hours).isEqualTo(0);
-  }
-
-  @Test
-  public void successOnZipStartMinute() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    start.minutes = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(end.minutes).isEqualTo(59);
-  }
-
-  @Test
-  public void successOnZipEndMinute() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    end.minutes = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(start.minutes).isEqualTo(0);
-  }
-
-  @Test
-  public void successOnZipStartSecond() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    start.seconds = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(end.seconds).isEqualTo(59);
-  }
-
-  @Test
-  public void successOnZipEndSecond() {
-    GedcomxDateUtil.Date start = new GedcomxDateUtil.Date();
-    GedcomxDateUtil.Date end = new GedcomxDateUtil.Date();
-    end.seconds = 5;
-
-    GedcomxDateUtil.zipDates(start, end);
-
-    assertThat(start.seconds).isEqualTo(0);
-  }
-
-  /**
-   * zipDuration
-   */
 
   @Test
   public void testJavaDateToGedcomxDateSimpleEpoch() {
@@ -700,5 +571,28 @@ public class UtilTest {
   public void testParsingZeroYear() {
     String yearZero = "+0000";
     Assertions.assertThatNoException().isThrownBy(() -> GedcomxDateUtil.parse(yearZero));
+  }
+
+  static Stream<Arguments> testEqualStartAndEndDate(){
+    return Stream.of(
+      Arguments.of("+1000/P1Y", GedcomxDateType.RANGE, "+1000/+1000"),
+      Arguments.of("+1000-01-01/P1D", GedcomxDateType.RANGE, "+1000-01-01/+1000-01-01"),
+      Arguments.of("+1000-01-01/P1Y", GedcomxDateType.RANGE, "+1000-01-01/+1000"),
+      // All of January, and All of Feb 1.
+      Arguments.of("+1000/P1M1D", GedcomxDateType.RANGE, "+1000/+1000-02-01"),
+      // All of 1000 and all of 1001
+      Arguments.of("+1000/P2Y", GedcomxDateType.RANGE, "+1000/+1001"),
+      Arguments.of("/+1000", GedcomxDateType.RANGE, "/+1000"),
+      Arguments.of("+1000/", GedcomxDateType.RANGE, "+1000/")
+    );
+
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void testEqualStartAndEndDate(String expectString, GedcomxDateType expectedType, String input){
+    GedcomxDate result = assertDoesNotThrow(()->GedcomxDateUtil.parse(input));
+    assertEquals(expectString, result.toFormalString());
+    assertEquals(expectedType, result.getType() );
   }
 }

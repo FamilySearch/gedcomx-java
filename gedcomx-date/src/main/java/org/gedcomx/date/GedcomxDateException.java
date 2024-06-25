@@ -29,4 +29,8 @@ public class GedcomxDateException extends RuntimeException {
     super(msg);
   }
 
+  public GedcomxDateException(String msg, Throwable cause) {
+    super(msg, cause);
+  }
+
 }
