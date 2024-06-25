@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 /**
  * @author John Clark.
  */
-public class RangeTest {
+class RangeTest {
 
   @Test
   public void errorOnBlankString() {
@@ -150,7 +150,8 @@ public class RangeTest {
 
     assertThat(duration.getYears()).isEqualTo(1000);
     assertThat(duration.getMonths()).isEqualTo(9);
-    assertThat(duration.getDays()).isEqualTo(null);
+    // The entire day of 10-1 is included in the range
+    assertThat(duration.getDays()).isEqualTo(1);
     assertThat(duration.getHours()).isEqualTo(null);
     assertThat(duration.getMinutes()).isEqualTo(null);
     assertThat(duration.getSeconds()).isEqualTo(null);
