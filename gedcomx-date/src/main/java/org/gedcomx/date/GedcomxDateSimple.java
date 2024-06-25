@@ -16,6 +16,7 @@
 package org.gedcomx.date;
 
 import java.time.Instant;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Optional;
@@ -166,7 +167,7 @@ public class GedcomxDateSimple extends GedcomxDate {
       throw new GedcomxDateException("Invalid Date: Day 0 does not exist");
     }
 
-    int daysInMonth = GedcomxDateUtil.daysInMonth(month, year);
+    int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
     if(day > daysInMonth) {
       throw new GedcomxDateException("Invalid Date: There are only "+daysInMonth+" days in Month "+month+" year "+year);
     }

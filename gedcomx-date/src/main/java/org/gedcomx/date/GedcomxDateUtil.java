@@ -15,7 +15,7 @@
  */
 package org.gedcomx.date;
 
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -43,15 +43,18 @@ public class GedcomxDateUtil {
       throw new GedcomxDateException("Invalid Date");
     }
 
+    GedcomxDate retVal;
+    // This order is critical because the date types are not mutually exclusive
     if(date.charAt(0) == 'R') {
-      return new GedcomxDateRecurring(date);
+      retVal = new GedcomxDateRecurring(date);
     } else if(date.contains("/")) {
-      return new GedcomxDateRange(date);
+      retVal = new GedcomxDateRange(date);
     } else if(date.charAt(0) == 'A') {
-      return new GedcomxDateApproximate(date);
+      retVal = new GedcomxDateApproximate(date);
     } else {
-      return new GedcomxDateSimple(date);
+      retVal = new GedcomxDateSimple(date);
     }
+    return retVal;
   }
 
   /**
@@ -62,96 +65,97 @@ public class GedcomxDateUtil {
    */
   public static GedcomxDateDuration getDuration(GedcomxDateSimple startDate, GedcomxDateSimple endDate) {
 
-    if(startDate == null || endDate == null) {
+    if (startDate == null || endDate == null) {
       throw new GedcomxDateException("Start and End must be simple dates");
     }
 
-    Date start = new Date(startDate, true);
-    Date end = new Date(endDate, true);
+    LocalDateTime start = getMinLocalDateTime(startDate);
+    LocalDateTime end = getMaxLocalDateTime(endDate);
 
-    if(end.year-start.year < 0) {
-      throw new GedcomxDateException("Start Date=" + startDate.toFormalString() + " must be less than End Date=" + endDate.toFormalString());
+    Period p = Period.between(start.toLocalDate(), end.toLocalDate());
+    Duration d = Duration.between(start.toLocalTime(), end.toLocalTime());
+
+    // If the time is negative, we need to roll up the day that we date from the date portion
+    // if the date is zero or negative, the exception below will be triggered.
+    if (d.isNegative()) {
+      p = p.minusDays(1);
+      d = d.plusDays(1);
     }
 
-    boolean hasTime = false;
-    StringBuilder duration = new StringBuilder();
-
-    zipDates(start, end);
-
-    // Build the duration backwards so we can grab the correct diff
-    // Also we need to roll everything up so we don't generate an invalid max year
-    if(end.seconds != null) {
-      while(end.seconds-start.seconds < 0) {
-        end.minutes -= 1;
-        end.seconds += 60;
-      }
-      if(end.seconds-start.seconds > 0) {
-        hasTime = true;
-        duration.insert(0,'S').insert(0,String.format("%02d", end.seconds - start.seconds));
-      }
+    if(p.isNegative() || (p.isZero() && d.isNegative())) {
+      throw new GedcomxDateException(String.format("Start Date=%s must be less than End Date=%s", startDate.toFormalString(), endDate.toFormalString()));
     }
 
-    if(end.minutes != null) {
-      while(end.minutes-start.minutes < 0) {
-        end.hours -= 1;
-        end.minutes += 60;
-      }
-      if(end.minutes-start.minutes > 0) {
-        hasTime = true;
-        duration.insert(0,'M').insert(0,String.format("%02d", end.minutes-start.minutes));
-      }
+    String finalDuration = createDurationStringFromJavaTimeParts(p, d);
+
+    if("P".equals(finalDuration)) {
+      throw new GedcomxDateException("The start and end are equal yielding no duration.");
     }
 
-    if(end.hours != null) {
-      while(end.hours-start.hours < 0) {
-        end.day -= 1;
-        end.hours += 24;
-      }
-      if(end.hours-start.hours > 0) {
-        hasTime = true;
-        duration.insert(0,'H').insert(0,String.format("%02d", end.hours-start.hours));
-      }
-    }
+    return new GedcomxDateDuration(finalDuration);
 
-    if(hasTime) {
-      duration.insert(0,'T');
-    }
+  }
 
-    if(end.day != null) {
-      while(end.day-start.day < 0) {
-        end.day += daysInMonth(end.month == 1 ? 12 : end.month - 1, end.year);
-        end.month -= 1;
-        if(end.month < 1) {
-          end.year -= 1;
-          end.month += 12;
-        }
+  private static String createDurationStringFromJavaTimeParts(Period p, Duration d) {
+    StringBuilder duration = new StringBuilder("P");
+    if(!p.isZero()){
+      if (p.getYears() > 0) {
+        duration.append(p.getYears()).append('Y');
       }
-      if(end.day-start.day > 0) {
-        duration.insert(0,'D').insert(0,String.format("%02d", end.day-start.day));
+      if (p.getMonths() > 0) {
+        duration.append(p.getMonths()).append('M');
+      }
+      if (p.getDays() > 0) {
+        duration.append(p.getDays()).append('D');
       }
     }
-
-    if(end.month != null) {
-      while(end.month-start.month < 0) {
-        end.year -= 1;
-        end.month += 12;
+    if(!d.isZero()) {
+      duration.append('T');
+      if (d.toHours() > 0) {
+        duration.append(d.toHours()).append('H');
       }
-      if(end.month-start.month > 0) {
-        duration.insert(0,'M').insert(0,String.format("%02d", end.month-start.month));
+      if ((d.toMinutes() % 60) > 0) {
+        duration.append(d.toMinutes() % 60).append('M');
+      }
+      if (((d.toMillis() / 1000) % 60) > 0) {
+        duration.append((d.toMillis() / 1000) % 60).append('S');
       }
     }
+    return duration.toString();
+  }
 
-    if(end.year-start.year > 0) {
-      duration.insert(0,'Y').insert(0,String.format("%04d", end.year-start.year));
+  private static LocalDateTime getMinLocalDateTime(GedcomxDateSimple startDate) {
+    return LocalDateTime.of(
+      isNull(startDate.getYear()) ? -9999 : startDate.getYear(),
+      isNull(startDate.getMonth()) ? 1 : startDate.getMonth(),
+      isNull(startDate.getDay()) ? 1 : startDate.getDay(),
+      isNull(startDate.getHours()) ? 0 : startDate.getHours(),
+      isNull(startDate.getMinutes()) ? 0 : startDate.getMinutes(),
+      isNull(startDate.getSeconds()) ? 0 : startDate.getSeconds());
+  }
+
+  private static LocalDateTime getMaxLocalDateTime(GedcomxDateSimple endDate) {
+
+    // pull these out to calculate the day as needed.
+    int endYear = isNull(endDate.getYear()) ? 9999 : endDate.getYear();
+    int endMonth = isNull(endDate.getMonth()) ? 12 : endDate.getMonth();
+
+    LocalDateTime end = LocalDateTime.of(
+      endYear,
+      endMonth,
+      isNull(endDate.getDay()) ? YearMonth.of(endYear, endMonth).lengthOfMonth() : endDate.getDay(),
+      isNull(endDate.getHours()) ? 23 : endDate.getHours(),
+      isNull(endDate.getMinutes()) ? 59 : endDate.getMinutes(),
+      isNull(endDate.getSeconds()) ? 59 : endDate.getSeconds());
+
+    // Add one second to the last second to trigger a roll up across the entire end time
+    // to cause the durations to come out as P1Y instead of P11M30D23H59M59S. (It is off by one second, but looks much better
+    // and preserves the previous behavior.)
+    //
+    if(end.getSecond()==59){
+      end = end.plusSeconds(1);
     }
-
-    String finalDuration = duration.toString();
-
-    if(end.year-start.year < 0 || duration.toString().isEmpty()) {
-      throw new GedcomxDateException("Start Date must be less than End Date");
-    }
-
-    return new GedcomxDateDuration("P"+finalDuration);
+    return end;
   }
 
   /**
@@ -173,12 +177,7 @@ public class GedcomxDateUtil {
     // start with the start date, LocalDateTimes, don't support null values
     // fill in the blanks with 0's and reset the empties when building the gedcomx date
     // to return
-    LocalDateTime endLocalDateTime = LocalDateTime.of(
-        startDate.getYear(), isNull(startDate.getMonth()) ? 1 : startDate.getMonth(),
-        isNull(startDate.getDay()) ? 1 : startDate.getDay(),
-        isNull(startDate.getHours()) ? 0 : startDate.getHours(),
-        isNull(startDate.getMinutes()) ? 0 : startDate.getMinutes(),
-        isNull(startDate.getSeconds()) ? 0 : startDate.getSeconds())
+    LocalDateTime endLocalDateTime = getMinLocalDateTime(startDate)
       // apply the duration to get the end date.
       .plusSeconds(isNull(duration.getSeconds()) ? 0 : duration.getSeconds())
       .plusMinutes(isNull(duration.getMinutes()) ? 0 : duration.getMinutes())
@@ -192,7 +191,7 @@ public class GedcomxDateUtil {
     }
 
     return buildGedcomxDateFromLocalTimeDate(startDate, duration, endLocalDateTime);
-  }
+ }
 
   /**
    * Helper method to build an end GedcomxDateSimple from a GedcomxSimple, GedcomxDateDuration and LocalDateTime,
@@ -287,120 +286,14 @@ public class GedcomxDateUtil {
    * @param month The month
    * @param year The year
    * @return The number of days in the month
+   * @deprecated this method is just a pass through to java.time.YearMonth.lengthOfMonth
    */
+  @Deprecated
   public static int daysInMonth(Integer month, Integer year) {
-    switch(month) {
-      case 1:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 10:
-      case 12:
-        return 31;
-      case 4:
-      case 6:
-      case 9:
-      case 11:
-        return 30;
-      case 2:
-        boolean leapYear;
-        if(year % 4 != 0) {
-          leapYear = false;
-        } else if(year % 100 != 0) {
-          leapYear = true;
-        } else
-          leapYear = year % 400 == 0;
-        if(leapYear) {
-          return 29;
-        } else {
-          return 28;
-        }
-      default:
-        throw new GedcomxDateException("Unknown Month=" + month);
-    }
-  }
-
-  /**
-   * Ensures that both start and end have values where the other has values.
-   * For example, if start has minutes but end does not, this function
-   * will initialize minutes in end.
-   * @param start The start date
-   * @param end The end date
-   */
-  protected static void zipDates(Date start, Date end) {
-    if(start.month == null && end.month != null) {
-      start.month = 1;
-    }
-    if(start.month != null && end.month == null) {
-      end.month = 12;
-    }
-
-    if(start.day == null && end.day != null) {
-      start.day = 1;
-    }
-    if(start.day != null && end.day == null) {
-      if(end.month != null && end.year !=null ) {
-        end.day = daysInMonth(start.month, start.year);
-      } else {
-        end.day = start.day;
-      }
-    }
-
-    if(start.hours == null && end.hours != null) {
-      start.hours = 0;
-    }
-    if(start.hours != null && end.hours == null) {
-      end.hours = 23;
-    }
-
-    if(start.minutes == null && end.minutes != null) {
-      start.minutes = 0;
-    }
-    if(start.minutes != null && end.minutes == null) {
-      end.minutes = 59;
-    }
-
-    if(start.seconds == null && end.seconds != null) {
-      start.seconds = 0;
-    }
-    if(start.seconds != null && end.seconds == null) {
-      end.seconds = 59;
-    }
-  }
-
-
-  /**
-   * A simplified representation of a date.
-   * Used as a bag-o-properties when performing caluclations
-   */
-  protected static class Date {
-    public Integer year = null;
-    public Integer month = null;
-    public Integer day = null;
-    public Integer hours = null;
-    public Integer minutes = null;
-    public Integer seconds = null;
-
-    public Date() {}
-
-    public Date(GedcomxDateSimple simple, boolean adjustTimezone) {
-      year = simple.getYear();
-      month = simple.getMonth();
-      day = simple.getDay();
-      hours = simple.getHours();
-      minutes = simple.getMinutes();
-      seconds = simple.getSeconds();
-
-      if(adjustTimezone) {
-        if(hours != null && simple.getTzHours() != null) {
-          hours += simple.getTzHours();
-        }
-
-        if(minutes != null && simple.getTzMinutes() != null) {
-          minutes += simple.getTzMinutes();
-        }
-      }
+    try {
+      return YearMonth.of(year, month).lengthOfMonth();
+    } catch (DateTimeException e) {
+      throw new GedcomxDateException(e.getMessage(), e);
     }
   }
 
