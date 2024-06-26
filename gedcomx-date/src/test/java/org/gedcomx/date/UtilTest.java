@@ -582,6 +582,7 @@ class UtilTest {
       Arguments.of("+1000/P1M1D", GedcomxDateType.RANGE, "+1000/+1000-02-01"),
       // All of 1000 and all of 1001
       Arguments.of("+1000/P2Y", GedcomxDateType.RANGE, "+1000/+1001"),
+      Arguments.of("A+1000/P1Y", GedcomxDateType.RANGE, "A+1000/+1000"),
       Arguments.of("/+1000", GedcomxDateType.RANGE, "/+1000"),
       Arguments.of("+1000/", GedcomxDateType.RANGE, "+1000/")
     );
