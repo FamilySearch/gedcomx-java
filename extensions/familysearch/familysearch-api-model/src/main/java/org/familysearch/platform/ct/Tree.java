@@ -37,7 +37,6 @@ public class Tree {
   private Boolean hidden;
   // Can't use 'private' since it is a keyword in Java
   private Boolean isPrivate;
-  private Boolean autoPublicAccepted;
   private ThirdPartyAccess ownerAccess;
   private ThirdPartyAccess groupAccess;
 
@@ -243,35 +242,6 @@ public class Tree {
    */
   public Tree isPrivate(Boolean isPrivate) {
     setPrivate(isPrivate);
-    return this;
-  }
-
-  /**
-   * Get the auto public accepted state of the tree.
-   *
-   * @return The auto public accepted state of the tree.
-   */
-  public Boolean getAutoPublicAccepted(){
-    return autoPublicAccepted;
-  }
-
-  /**
-   * Set auto public accepted state of the tree.
-   *
-   * @param autoPublicAccepted The auto public accepted state of the tree.
-   */
-  public void setAutoPublicAccepted(Boolean autoPublicAccepted){
-    this.autoPublicAccepted = autoPublicAccepted;
-  }
-
-  /**
-   * Build out this tree with the auto public accepted state of the tree.
-   *
-   * @param autoPublicAccepted The auto public accepted state of the tree.
-   * @return this.
-   */
-  public Tree autoPublicAccepted(Boolean autoPublicAccepted) {
-    setAutoPublicAccepted(autoPublicAccepted);
     return this;
   }
 
