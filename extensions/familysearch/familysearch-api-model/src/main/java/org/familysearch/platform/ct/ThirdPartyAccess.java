@@ -36,17 +36,17 @@ public enum ThirdPartyAccess implements ControlledVocabulary {
   /**
    * Indicates access to the tree from any third-party application for owner/group members
    */
-  ANY_APP,
+  AnyApps,
 
   /**
    * Indicates only the third-party applications associated with the same company are allowed to read/write to the tree
    */
-  COMPANY_APPS,
+  CompanyApps,
 
   /**
    * Disallows all third-party access to the tree.
    */
-  NONE,
+  None,
 
   /**
    * Custom
