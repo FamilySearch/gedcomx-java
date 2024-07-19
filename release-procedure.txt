@@ -7,7 +7,7 @@ Procedure:  (required setup must be completed first)
       i. To pull and track this branch locally use the following commands:
           1. git checkout -b v2.x.x origin/v2.x.x
           2. git branch --set-upstream-to=origin/v2.x.x v2.x.x (this command may not be required)
-   b. The 3.x.x release line is for those projects using Java 11 and higher. The code for this release is in the master branch.
+   b. The 3.x.x release line is for those projects using Java 17 and higher. The code for this release is in the master branch.
    c. We are currently keeping both release lines in sync. The normal release procedure follows:
 
 2. Check changes into the master branch, build it, and then release it as specified in steps 6 through 8 below.
@@ -21,13 +21,13 @@ Procedure:  (required setup must be completed first)
 6. Make sure that the project builds and that you have checked in all of your changes.
 
     ************************************************************************************************************************************************
-    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 for the 2.x.x release line, Java 11 for the 3.x.x release line *********************
+    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 for the 2.x.x release line, Java 17 for the 3.x.x release line *********************
     ************************************************************************************************************************************************
 
 7. mvn -B -Prelease clean release:clean release:prepare -Dtag=$THIS_RELEASE_VERSION -DreleaseVersion=$THIS_RELEASE_VERSION -DdevelopmentVersion=$NEXT_SNAPSHOT_VERSION release:perform
 
     ************************************************************************************************************************************************
-    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 for the 2.x.x release line, Java 11 for the 3.x.x release line *********************
+    ********************* NOTE:  MAKE SURE YOU ARE USING Java 8 for the 2.x.x release line, Java 17 for the 3.x.x release line *********************
     ************************************************************************************************************************************************
 
     Example:
