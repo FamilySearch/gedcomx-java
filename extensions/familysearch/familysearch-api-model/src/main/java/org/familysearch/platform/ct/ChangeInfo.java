@@ -42,9 +42,28 @@ public class ChangeInfo {
   private URI objectModifier;
   private String reason;
   private ResourceReference parent;
-  private ResourceReference resulting;
   private ResourceReference original;
+  private ResourceReference previous;
   private ResourceReference removed;
+  private ResourceReference resulting;
+
+  public enum ChangeValueType {
+    ORIGINAL(".original"),
+    PREVIOUS(".previous"),
+    REMOVED(".removed"),
+    RESULTING(".resulting");
+
+    private final String suffix;
+
+    ChangeValueType(String suffix) {
+      this.suffix = suffix;
+    }
+
+    public String getSuffix() {
+      return this.suffix;
+    }
+  }
+
 
   public ChangeInfo() {
   }
@@ -215,6 +234,75 @@ public class ChangeInfo {
    */
   public void setParent(ResourceReference parent) {
     this.parent = parent;
+  }
+
+  /**
+   * Get the appropriate subject based on the given {@code ChangeValueType}.
+   *
+   * @return The subject associated with the given {@code ChangeValueType}.
+   */
+  public ResourceReference getSubject(ChangeValueType changeValueType) {
+    if (changeValueType.equals(ChangeValueType.PREVIOUS)) {
+      return getPrevious();
+    }
+    else if (changeValueType.equals(ChangeValueType.RESULTING)) {
+      return getResulting();
+    }
+    else if (changeValueType.equals(ChangeValueType.ORIGINAL)) {
+      return getOriginal();
+    }
+    else if (changeValueType.equals(ChangeValueType.REMOVED)) {
+      return getRemoved();
+    }
+    else {
+      throw new IllegalArgumentException("Unknown ChangeValueType: " + changeValueType);
+    }
+  }
+
+  /**
+   * Set the appropriate subject based on the given {@code ChangeValueType}. The appropriate suffix will be added if the {@code ResourceReference} does not
+   * already contain a suffix.
+   *
+   * @param resourceReference The subject to be set.
+   */
+  public void setSubject(ResourceReference resourceReference, ChangeValueType changeValueType) {
+    ResourceReference localResourceReference = resourceReference;
+    if (!resourceReference.getResource().toString().endsWith(changeValueType.getSuffix())) {
+      localResourceReference.setResource(new URI(resourceReference.getResource() + changeValueType.getSuffix()));
+    }
+    if (changeValueType.equals(ChangeValueType.PREVIOUS)) {
+      setPrevious(localResourceReference);
+    }
+    else if (changeValueType.equals(ChangeValueType.RESULTING)) {
+      setResulting(localResourceReference);
+    }
+    else if (changeValueType.equals(ChangeValueType.ORIGINAL)) {
+      setOriginal(localResourceReference);
+    }
+    else if (changeValueType.equals(ChangeValueType.REMOVED)) {
+      setRemoved(localResourceReference);
+    }
+    else {
+      throw new IllegalArgumentException("Unknown ChangeValueType: " + changeValueType);
+    }
+  }
+  
+  /**
+   * The subject representing the previous value(s) that existed before the change.
+   *
+   * @return The subject representing the previous value(s) that existed before the change.
+   */
+  public ResourceReference getPrevious() {
+    return previous;
+  }
+
+  /**
+   * The subject representing the previous value(s) that existed before the change.
+   *
+   * @param previous The subject representing the previous value(s) that existed before the change.
+   */
+  public void setPrevious(ResourceReference previous) {
+    this.previous = previous;
   }
 
   /**
