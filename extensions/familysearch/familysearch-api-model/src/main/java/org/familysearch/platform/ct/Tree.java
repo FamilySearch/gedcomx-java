@@ -37,7 +37,7 @@ public class Tree {
   private Boolean hidden;
   // Can't use 'private' since it is a keyword in Java
   private Boolean isPrivate;
-  private Boolean autoPublicAccepted;
+  private String collectionId;
   private ThirdPartyAccess ownerAccess;
   private ThirdPartyAccess groupAccess;
 
@@ -247,31 +247,31 @@ public class Tree {
   }
 
   /**
-   * Get the auto public accepted state of the tree.
+   * Get the id of the collection the tree belongs to.
    *
-   * @return The auto public accepted state of the tree.
+   * @return The id of the collection the tree belongs to.
    */
-  public Boolean getAutoPublicAccepted(){
-    return autoPublicAccepted;
+  public String getCollectionId(){
+    return collectionId;
   }
 
   /**
-   * Set auto public accepted state of the tree.
+   * Set the id the collection the tree belongs to.
    *
-   * @param autoPublicAccepted The auto public accepted state of the tree.
+   * @param collectionId The id the collection the tree belongs to.
    */
-  public void setAutoPublicAccepted(Boolean autoPublicAccepted){
-    this.autoPublicAccepted = autoPublicAccepted;
+  public void setCollectionId(String collectionId){
+    this.collectionId = collectionId;
   }
 
   /**
-   * Build out this tree with the auto public accepted state of the tree.
+   * Build out this tree with the collection the tree belongs to.
    *
-   * @param autoPublicAccepted The auto public accepted state of the tree.
+   * @param collectionId The collection the tree belongs to.
    * @return this.
    */
-  public Tree autoPublicAccepted(Boolean autoPublicAccepted) {
-    setAutoPublicAccepted(autoPublicAccepted);
+  public Tree collectionId(String collectionId) {
+    setCollectionId(collectionId);
     return this;
   }
 
@@ -284,7 +284,8 @@ public class Tree {
 
 
   /**
-   * Set owner third party access state of the tree.
+   * Set owner third party access state of the tree. Group owner access cannot be set to None and must have the same or less restricted access than the group
+   * member access.
    *
    * @param ownerAccess The owner third party access state of the tree.
    */
