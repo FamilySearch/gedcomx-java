@@ -37,6 +37,7 @@ public class Tree {
   private Boolean hidden;
   // Can't use 'private' since it is a keyword in Java
   private Boolean isPrivate;
+  private String collectionId;
   private ThirdPartyAccess ownerAccess;
   private ThirdPartyAccess groupAccess;
 
@@ -246,6 +247,35 @@ public class Tree {
   }
 
   /**
+   * Get the id of the collection the tree belongs to.
+   *
+   * @return The id of the collection the tree belongs to.
+   */
+  public String getCollectionId(){
+    return collectionId;
+  }
+
+  /**
+   * Set the id the collection the tree belongs to.
+   *
+   * @param collectionId The id the collection the tree belongs to.
+   */
+  public void setCollectionId(String collectionId){
+    this.collectionId = collectionId;
+  }
+
+  /**
+   * Build out this tree with the collection the tree belongs to.
+   *
+   * @param collectionId The collection the tree belongs to.
+   * @return this.
+   */
+  public Tree collectionId(String collectionId) {
+    setCollectionId(collectionId);
+    return this;
+  }
+
+  /**
    * Get the owner third party access state of the tree.
    *
    * @return The owner access state of the tree.
@@ -254,7 +284,8 @@ public class Tree {
 
 
   /**
-   * Set owner third party access state of the tree.
+   * Set owner third party access state of the tree. Group owner access cannot be set to None and must have the same or less restricted access than the group
+   * member access.
    *
    * @param ownerAccess The owner third party access state of the tree.
    */

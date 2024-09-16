@@ -34,17 +34,18 @@ import org.gedcomx.rt.EnumURIMap;
 public enum ThirdPartyAccess implements ControlledVocabulary {
 
   /**
-   * Allows the owner or group members to access the tree from any third-party application.
+   * Allows the group owner or group members to access the tree from any third-party application. Group owner access cannot be more restrictive than group
+   * member access.
    */
   AnyApps,
 
   /**
-   * Restricts the owner or group members to access tree only from applications owned by the company that owns the application that created the tree.
+   * Restricts the group owner or group members to access tree only from applications owned by the company that owns the application that created the tree.
    */
   CompanyApps,
 
   /**
-   * Disallows the owner or group members access to the tree from all third-party applications.
+   * Disallows the group members access to the tree from all third-party applications. Owner access cannot be set to None.
    */
   None,
 

@@ -85,14 +85,14 @@ SETUP - required before releasing the project
 1. Setting up an account to publish to the Central Repository. You will need to create a Sonatype Jira account login at the Central Repository.
 
       A.  Go to https://issues.sonatype.org/secure/Signup!default.jspa
-              You can use any email but it may make it easier if you use name@familysearch.org
+              You can use any email, but it may make it easier if you use name@familysearch.org
 
       B.  Get your sonatype username added as a member of the org.gedcomx group
               Talk to someone who has done it.  https://issues.sonatype.org/browse/OSSRH-45141
 
       C. Add your ossrh user token to your local maven settings.xml
 
-            - Go to https://oss.sonatype.org/ and Log in in the top right
+            - Go to https://oss.sonatype.org/ and Log in the top right
             - Select Profile in the top right drop down
             - Select User Token (instead of Summary) in the tab drop down
             - Click Access User Token (type your password again)
