@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>gedcomx-bom</artifactId>
-  <version>3.35.0-SNAPSHOT</version>
+  <version>3.35.0</version>
   <name>GEDCOM X - BOM</name>
   <description>Bill of materials to make sure a consistent set of versions is used for GEDCOMX modules</description>
   <url>https://github.com/FamilySearch/gedcomx-java/gedcomx-bom</url>
@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.gedcomx</groupId>
     <artifactId>gedcomx-parent</artifactId>
-    <version>3.35.0-SNAPSHOT</version>
+    <version>3.35.0</version>
   </parent>
 
   <properties>
