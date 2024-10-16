@@ -76,7 +76,7 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     // There is a minimum length of 5 characters
     if(date.length() < 5) {
-      throw new GedcomxDateException("Invalid Date: Must have at least [+-]YYYY");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Must have at least [+-]YYYY");
     }
 
     int end = date.length();
@@ -85,14 +85,14 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     // Must start with a + or -
     if(date.charAt(offset) != '+' && date.charAt(offset) != '-') {
-      throw new GedcomxDateException("Invalid Date: Must begin with + or -");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Must begin with + or -");
     }
 
     offset++;
     num = new StringBuilder(date.charAt(0) == '-' ? "-" : "");
     for(int i=0;i<4;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed Year");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Year");
       }
       num.append(date.charAt(offset++));
     }
@@ -111,18 +111,18 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     // Month
     if(date.charAt(offset) != '-') {
-      throw new GedcomxDateException("Invalid Date: Invalid Year-Month Separator");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Invalid Year-Month Separator");
     }
 
     if(end-offset < 3) {
-      throw new GedcomxDateException("Invalid Date: Month must be 2 digits");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Month must be 2 digits");
     }
 
     offset++;
     num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed Month");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Month");
       }
       num.append(date.charAt(offset++));
     }
@@ -130,7 +130,7 @@ public class GedcomxDateSimple extends GedcomxDate {
     month = Integer.valueOf(num.toString());
 
     if(month < 1 || month > 12) {
-      throw new GedcomxDateException("Invalid Date: Month must be between 1 and 12");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Month must be between 1 and 12");
     }
 
     if(offset == end) {
@@ -145,18 +145,18 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     // Day
     if(date.charAt(offset) != '-') {
-      throw new GedcomxDateException("Invalid Date: Invalid Month-Day Separator");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Invalid Month-Day Separator");
     }
 
     if(end-offset < 3) {
-      throw new GedcomxDateException("Invalid Date: Day must be 2 digits");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Day must be 2 digits");
     }
 
     offset++;
     num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed Day");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Day");
       }
       num.append(date.charAt(offset++));
     }
@@ -164,12 +164,12 @@ public class GedcomxDateSimple extends GedcomxDate {
     day = Integer.valueOf(num.toString());
 
     if(day < 1) {
-      throw new GedcomxDateException("Invalid Date: Day 0 does not exist");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Day 0 does not exist");
     }
 
     int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
     if(day > daysInMonth) {
-      throw new GedcomxDateException("Invalid Date: There are only "+daysInMonth+" days in Month "+month+" year "+year);
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": There are only "+daysInMonth+" days in Month "+month+" year "+year);
     }
 
     if(offset == end) {
@@ -179,7 +179,7 @@ public class GedcomxDateSimple extends GedcomxDate {
     if(date.charAt(offset) == 'T') {
       parseTime(date.substring(offset+1));
     } else {
-      throw new GedcomxDateException("Invalid Date: +YYYY-MM-DD must have T before time");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": +YYYY-MM-DD must have T before time");
     }
 
   }
@@ -205,13 +205,13 @@ public class GedcomxDateSimple extends GedcomxDate {
 
     // You must at least have hours
     if(end < 2) {
-      throw new GedcomxDateException("Invalid Date: Hours must be 2 digits");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Hours must be 2 digits");
     }
 
     num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed Hours");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Hours");
       }
       num.append(date.charAt(offset++));
     }
@@ -219,7 +219,7 @@ public class GedcomxDateSimple extends GedcomxDate {
     hours = Integer.valueOf(num.toString());
 
     if(hours > 24) {
-      throw new GedcomxDateException("Invalid Date: Hours must be between 0 and 24");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Hours must be between 0 and 24");
     }
 
     if(hours == 24) {
@@ -237,18 +237,18 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     if(date.charAt(offset) != ':') {
-      throw new GedcomxDateException("Invalid Date: Invalid Hour-Minute Separator");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Invalid Hour-Minute Separator");
     }
 
     if(end-offset < 3) {
-      throw new GedcomxDateException("Invalid Date: Minutes must be 2 digits");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Minutes must be 2 digits");
     }
 
     offset++;
     num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed Minutes");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Minutes");
       }
       num.append(date.charAt(offset++));
     }
@@ -256,11 +256,11 @@ public class GedcomxDateSimple extends GedcomxDate {
     minutes = Integer.valueOf(num.toString());
 
     if(minutes > 59) {
-      throw new GedcomxDateException("Invalid Date: Minutes must be between 0 and 59");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Minutes must be between 0 and 59");
     }
 
     if(flag24 && minutes != 0) {
-      throw new GedcomxDateException("Invalid Date: Hours of 24 requires 00 Minutes");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Hours of 24 requires 00 Minutes");
     }
 
     if(offset == end) {
@@ -274,18 +274,18 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     if(date.charAt(offset) != ':') {
-      throw new GedcomxDateException("Invalid Date: Invalid Minute-Second Separator");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Invalid Minute-Second Separator");
     }
 
     if(end-offset < 3) {
-      throw new GedcomxDateException("Invalid Date: Seconds must be 2 digits");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Seconds must be 2 digits");
     }
 
     offset++;
     num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed Seconds");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Seconds");
       }
       num.append(date.charAt(offset++));
     }
@@ -293,11 +293,11 @@ public class GedcomxDateSimple extends GedcomxDate {
     seconds = Integer.valueOf(num.toString());
 
     if(seconds > 59) {
-      throw new GedcomxDateException("Invalid Date: Seconds must be between 0 and 59");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Seconds must be between 0 and 59");
     }
 
     if(flag24 && seconds != 0) {
-      throw new GedcomxDateException("Invalid Date: Hours of 24 requires 00 Seconds");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Hours of 24 requires 00 Seconds");
     }
 
     if(offset != end) {
@@ -322,24 +322,24 @@ public class GedcomxDateSimple extends GedcomxDate {
         tzMinutes = 0;
         return;
       } else {
-        throw new GedcomxDateException("Invalid Date: Malformed Timezone - No Characters allowed after Z");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Timezone - No Characters allowed after Z");
       }
     }
 
     if(end-offset < 3) {
-      throw new GedcomxDateException("Invalid Date: Malformed Timezone - tzHours must be [+-] followed by 2 digits");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Timezone - tzHours must be [+-] followed by 2 digits");
     }
 
     // Must start with a + or -
     if(date.charAt(offset) != '+' && date.charAt(offset) != '-') {
-      throw new GedcomxDateException("Invalid Date: TimeZone Hours must begin with + or -");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\"\"" + date + "\": TimeZone Hours must begin with + or -");
     }
 
     offset++;
     num = new StringBuilder(date.charAt(0) == '-' ? "-" : "");
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed tzHours");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed tzHours");
       }
       num.append(date.charAt(offset++));
     }
@@ -353,18 +353,18 @@ public class GedcomxDateSimple extends GedcomxDate {
     }
 
     if(date.charAt(offset) != ':') {
-      throw new GedcomxDateException("Invalid Date: Invalid tzHour-tzMinute Separator");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Invalid tzHour-tzMinute Separator");
     }
 
     if(end-offset < 3) {
-      throw new GedcomxDateException("Invalid Date: tzSecond must be 2 digits");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": tzSecond must be 2 digits");
     }
 
     offset++;
     num = new StringBuilder();
     for(int i=0;i<2;i++) {
       if(!Character.isDigit(date.charAt(offset))) {
-        throw new GedcomxDateException("Invalid Date: Malformed tzMinutes");
+        throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed tzMinutes");
       }
       num.append(date.charAt(offset++));
     }
@@ -372,7 +372,7 @@ public class GedcomxDateSimple extends GedcomxDate {
     tzMinutes = Integer.valueOf(num.toString());
 
     if(offset != end) {
-      throw new GedcomxDateException("Invalid Date: Malformed Timezone - No characters allowed after tzSeconds");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\": Malformed Timezone - No characters allowed after tzSeconds");
     }
 
   }

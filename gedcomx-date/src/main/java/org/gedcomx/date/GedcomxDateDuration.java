@@ -41,20 +41,20 @@ public class GedcomxDateDuration extends GedcomxDate {
 
     // Durations must start with P
     if(str == null || str.length() < 1 || str.charAt(0) != 'P') {
-      throw new GedcomxDateException("Invalid Duration: Must start with P");
+      throw new GedcomxDateException("Invalid Duration \"" + str + "\": Must start with P");
     }
 
     String duration = str.substring(1);
 
     if(duration.length() < 1) {
-      throw new GedcomxDateException("Invalid Duration: You must have a duration value");
+      throw new GedcomxDateException("Invalid Duration \"" + str + "\": You must have a duration value");
     }
 
     // 5.3.2 allows for NON normalized durations
     // We assume that if there is a space, it is non-normalized
     if(duration.contains(" ")) {
       // When we implement non normalized durations we can call parseNonNormalizedDuration(duration)
-      throw new GedcomxDateException("Invalid Duration: Non normalized durations are not implemented yet");
+      throw new GedcomxDateException("Invalid Duration \"" + str + "\": Non normalized durations are not implemented yet");
     } else {
       parseNormalizedDuration(duration);
     }
@@ -82,13 +82,13 @@ public class GedcomxDateDuration extends GedcomxDate {
       switch(character) {
         case 'Y':
           if(currentNum.length() < 1) {
-            throw new GedcomxDateException("Invalid Duration: Invalid years");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Invalid years");
           }
           if(seen.contains("Y")) {
-            throw new GedcomxDateException("Invalid Duration: Duplicate years");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Duplicate years");
           }
           if(!valid.contains("Y")) {
-            throw new GedcomxDateException("Invalid Duration: Years out of order");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Years out of order");
           }
           this.years = Integer.valueOf(currentNum);
           seen.add("Y");
@@ -98,13 +98,13 @@ public class GedcomxDateDuration extends GedcomxDate {
         case 'M':
           if(inTime) {
             if(currentNum.length() < 1) {
-              throw new GedcomxDateException("Invalid Duration: Invalid minutes");
+              throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Invalid minutes");
             }
             if(seen.contains("Mi")) {
-              throw new GedcomxDateException("Invalid Duration: Duplicate minutes");
+              throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Duplicate minutes");
             }
             if(!valid.contains("Mi")) {
-              throw new GedcomxDateException("Invalid Duration: Minutes out of order");
+              throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Minutes out of order");
             }
             this.minutes = Integer.valueOf(currentNum);
             seen.add("Mi");
@@ -112,13 +112,13 @@ public class GedcomxDateDuration extends GedcomxDate {
             currentNum = "";
           } else {
             if(currentNum.length() < 1) {
-              throw new GedcomxDateException("Invalid Duration: Invalid months");
+              throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Invalid months");
             }
             if(seen.contains("Mo")) {
-              throw new GedcomxDateException("Invalid Duration: Duplicate months");
+              throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Duplicate months");
             }
             if(!valid.contains("Mo")) {
-              throw new GedcomxDateException("Invalid Duration: Months out of order");
+              throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Months out of order");
             }
             this.months = Integer.valueOf(currentNum);
             seen.add("Mo");
@@ -128,13 +128,13 @@ public class GedcomxDateDuration extends GedcomxDate {
           break;
         case 'D':
           if(currentNum.length() < 1) {
-            throw new GedcomxDateException("Invalid Duration: Invalid days");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Invalid days");
           }
           if(seen.contains("D")) {
-            throw new GedcomxDateException("Invalid Duration: Duplicate days");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Duplicate days");
           }
           if(!valid.contains("D")) {
-            throw new GedcomxDateException("Invalid Duration: Days out of order");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Days out of order");
           }
           this.days = Integer.valueOf(currentNum);
           seen.add("D");
@@ -143,16 +143,16 @@ public class GedcomxDateDuration extends GedcomxDate {
           break;
         case 'H':
           if(!inTime) {
-            throw new GedcomxDateException("Invalid Duration: Missing T before hours");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Missing T before hours");
           }
           if(currentNum.length() < 1) {
-            throw new GedcomxDateException("Invalid Duration: Invalid hours");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Invalid hours");
           }
           if(seen.contains("H")) {
-            throw new GedcomxDateException("Invalid Duration: Duplicate hours");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Duplicate hours");
           }
           if(!valid.contains("H")) {
-            throw new GedcomxDateException("Invalid Duration: Hours out of order");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Hours out of order");
           }
           this.hours = Integer.valueOf(currentNum);
           seen.add("H");
@@ -161,13 +161,13 @@ public class GedcomxDateDuration extends GedcomxDate {
           break;
         case 'S':
           if(!inTime) {
-            throw new GedcomxDateException("Invalid Duration: Missing T before seconds");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Missing T before seconds");
           }
           if(currentNum.length() < 1) {
-            throw new GedcomxDateException("Invalid Duration: Invalid seconds");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Invalid seconds");
           }
           if(seen.contains("S")) {
-            throw new GedcomxDateException("Invalid Duration: Duplicate seconds");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Duplicate seconds");
           }
           // You cannot have seconds out of order because it's last
           this.seconds = Integer.valueOf(currentNum);
@@ -177,20 +177,20 @@ public class GedcomxDateDuration extends GedcomxDate {
           break;
         case 'T':
           if(seen.contains("T")) {
-            throw new GedcomxDateException("Invalid Duration: Duplicate T");
+            throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Duplicate T");
           }
           inTime = true;
           seen.add("T");
           valid = valid.subList(valid.indexOf("T")+1,valid.size());
           break;
         default:
-          throw new GedcomxDateException("Invalid Duration: Unknown letter "+character);
+          throw new GedcomxDateException("Invalid Duration \"" + duration + "\": Unknown letter " + character);
       }
     }
 
     // If there is any leftover we have an invalid duration
     if(!currentNum.equals("")) {
-      throw new GedcomxDateException("Invalid Duration: No letter after "+currentNum);
+      throw new GedcomxDateException("Invalid Duration \"" + duration + "\": No letter after "+currentNum);
     }
 
   }

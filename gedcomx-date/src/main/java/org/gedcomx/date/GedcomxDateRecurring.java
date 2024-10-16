@@ -32,22 +32,22 @@ public class GedcomxDateRecurring extends GedcomxDate {
   public GedcomxDateRecurring(String date) {
 
     if(date == null || date.length() < 3) {
-      throw new GedcomxDateException("Invalid Recurring Date");
+      throw new GedcomxDateException("Invalid Recurring Date \"" + date + "\"");
     }
 
     if(date.charAt(0) != 'R') {
-      throw new GedcomxDateException("Invalid Recurring Date: Must start with R");
+      throw new GedcomxDateException("Invalid Recurring Date \"" + date + "\": Must start with R");
     }
 
     String[] parts = date.split("/");
 
     if(parts.length != 3) {
-      throw new GedcomxDateException("Invalid Recurring Date: Must contain 3 parts");
+      throw new GedcomxDateException("Invalid Recurring Date \"" + date + "\": Must contain 3 parts");
     }
 
     // We must have a start and end
     if(parts[1].equals("") || parts[2].equals("")) {
-      throw new GedcomxDateException("Invalid Recurring Date: Range must have a start and an end");
+      throw new GedcomxDateException("Invalid Recurring Date \"" + date + "\": Range must have a start and an end");
     }
 
     String countNum = parts[0].substring(1);
@@ -56,7 +56,7 @@ public class GedcomxDateRecurring extends GedcomxDate {
     if(countNumChars.length > 0) {
       for (char c : countNumChars) {
         if (!Character.isDigit(c)) {
-          throw new GedcomxDateException("Invalid Recurring Date: Malformed Count");
+          throw new GedcomxDateException("Invalid Recurring Date \"" + date + "\": Malformed Count");
         }
       }
       count = Integer.valueOf(countNum);

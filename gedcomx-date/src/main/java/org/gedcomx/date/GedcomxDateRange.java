@@ -33,7 +33,7 @@ public class GedcomxDateRange extends GedcomxDate {
   public GedcomxDateRange(String date) {
 
     if(date == null || date.length() < 1) {
-      throw new GedcomxDateException("Invalid Range");
+      throw new GedcomxDateException("Invalid Range: " + date);
     }
 
     String range = date;
@@ -46,7 +46,7 @@ public class GedcomxDateRange extends GedcomxDate {
 
     // / is required
     if(!date.contains("/")) {
-      throw new GedcomxDateException("Invalid Range: / is required");
+      throw new GedcomxDateException("Invalid Range \"" + date + "\": / is required");
     }
 
     /**
@@ -59,7 +59,7 @@ public class GedcomxDateRange extends GedcomxDate {
     String[] parts = range.split("/");
 
     if(parts.length < 1 || parts.length > 2) {
-      throw new GedcomxDateException("Invalid Range: One or two parts are required");
+      throw new GedcomxDateException("Invalid Range \"" + date + "\": One or two parts are required");
     }
 
     if(!parts[0].equals("")) {
@@ -73,7 +73,7 @@ public class GedcomxDateRange extends GedcomxDate {
     if(parts.length == 2) {
       if (parts[1].charAt(0) == 'P') {
         if(start == null) {
-          throw new GedcomxDateException("Invalid Range: A range may not end with a duration if missing a start date");
+          throw new GedcomxDateException("Invalid Range \"" + date + "\": A range may not end with a duration if missing a start date");
         }
         try {
           duration = new GedcomxDateDuration(parts[1]);

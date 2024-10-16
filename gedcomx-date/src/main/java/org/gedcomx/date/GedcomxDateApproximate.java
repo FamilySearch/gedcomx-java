@@ -30,7 +30,7 @@ public class GedcomxDateApproximate extends GedcomxDate {
   public GedcomxDateApproximate(String date) {
 
     if(date == null || date.length() < 1 || date.charAt(0) != 'A') {
-      throw new GedcomxDateException("Invalid Approximate Date: Must start with A");
+      throw new GedcomxDateException("Invalid Approximate Date \"" + date + "\": Must start with A");
     }
 
     simpleDate = new GedcomxDateSimple(date.substring(1));

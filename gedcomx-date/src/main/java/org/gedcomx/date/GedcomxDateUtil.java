@@ -40,7 +40,7 @@ public class GedcomxDateUtil {
   public static GedcomxDate parse(String date) {
 
     if(date == null || date.isEmpty()) {
-      throw new GedcomxDateException("Invalid Date");
+      throw new GedcomxDateException("Invalid Date \"" + date + "\"");
     }
 
     GedcomxDate retVal;
