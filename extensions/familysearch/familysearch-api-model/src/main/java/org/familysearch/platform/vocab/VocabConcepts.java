@@ -18,8 +18,8 @@ package org.familysearch.platform.vocab;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.gedcomx.rt.json.JsonElementWrapper;
 
