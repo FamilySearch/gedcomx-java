@@ -33,6 +33,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class PersonInfo {
   private Boolean canUserEdit = false;
   private Boolean visibleToAll = true;
+  private Boolean visibleToAllWhenUsingFamilySearchApps = true;
   // The treeId attribute is prototype only and may be removed or changed at any time
   private String treeId;
 
@@ -70,9 +71,9 @@ public class PersonInfo {
   }
 
   /**
-   * Get if this person is visible to all FamilySearch users.
+   * Get if this person is visible to all sessions authenticated from any client.
    *
-   * @return True if this person is visible to all FamilySearch users; false otherwise.
+   * @return True if this person is visible to all sessions authenticated from any client; false otherwise.
    */
   @XmlAttribute
   public Boolean isVisibleToAll() {
@@ -80,22 +81,53 @@ public class PersonInfo {
   }
 
   /**
-   * Set if this person is visible to all FamilySearch users.
+   * Set if this person is visible to all sessions authenticated from any client.
    *
-   * @param visibleToAll True if this person is visible to all FamilySearch users; false otherwise.
+   * @param visibleToAll True if this person is visible to all sessions authenticated from any client; false or null otherwise
    */
   public void setVisibleToAll(final Boolean visibleToAll) {
     this.visibleToAll = visibleToAll;
   }
 
   /**
-   * Build out this person with a visible to all FamilySearch users state.
-   *
-   * @param visibleToAll The private space restricted state for this person.
+   * Build out this person with visible to all sessions authenticated from any client state.
+    *
+   * @param visibleToAll True if this person is visible to all sessions authenticated from any client; false otherwise.
    * @return this.
    */
   public PersonInfo visibleToAll(final Boolean visibleToAll) {
     this.visibleToAll = visibleToAll;
+    return this;
+  }
+
+  /**
+   * Get if this person is only visible to sessions authenticated from a FamilySearch client.
+   *
+   * @return True if this person is only visible to sessions authenticated from a FamilySearch client; false otherwise.
+   */
+  @XmlAttribute
+  public Boolean isVisibleToAllWhenUsingFamilySearchApps() {
+    return visibleToAllWhenUsingFamilySearchApps;
+  }
+
+  /**
+   * Set if this person is only visible to sessions authenticated from a FamilySearch client.
+   *
+   * @param visibleToAllWhenUsingFamilySearchApps True if this person is only visible to sessions authenticated from a FamilySearch client; false or null
+   * otherwise.
+   */
+  public void setVisibleToAllWhenUsingFamilySearchApps(final Boolean visibleToAllWhenUsingFamilySearchApps) {
+    this.visibleToAllWhenUsingFamilySearchApps = visibleToAllWhenUsingFamilySearchApps;
+  }
+
+  /**
+   * Build out this person with only visible to sessions authenticated from a FamilySearch client state.
+   *
+   * @param visibleToAllWhenUsingFamilySearchApps True if this person is only visible to sessions authenticated from a FamilySearch client; false otherwise.
+   * @return this.
+   */
+  public PersonInfo visibleToAllWhenUsingFamilySearchApps(final Boolean visibleToAllWhenUsingFamilySearchApps) {
+    this.visibleToAllWhenUsingFamilySearchApps = visibleToAllWhenUsingFamilySearchApps;
     return this;
   }
 
