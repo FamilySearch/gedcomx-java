@@ -46,6 +46,11 @@ public enum OrdinanceRollupStatus implements ControlledVocabulary {
   RolledUpNeedMoreInformation,
 
   /**
+   * This rollup status for the ordinance indicates it is not available.
+   */
+  RolledUpNotAvailable,
+
+  /**
    * This rollup status for the ordinance indicates it can be reserved by the current user.
    */
   RolledUpReady,
