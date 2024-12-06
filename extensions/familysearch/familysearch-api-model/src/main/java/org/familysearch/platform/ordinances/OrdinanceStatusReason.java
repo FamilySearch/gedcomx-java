@@ -120,6 +120,9 @@ public enum OrdinanceStatusReason implements ControlledVocabulary {
   /** A person must have has enough event or relationship information. A person's record must have enough relationship information for the system to be able to determine whether the ordinance is already done. */
   NotMatchableUsingRelationships,
 
+  /** A member must be related to a person to reserve ordinances for that person. */
+  NotRelatedToMember,
+
   /** The ordinance must be a valid temple ordinance. The Family Tree cannot be used to reserve ordinances of this type. */
   NotTempleOrdinance,
 
