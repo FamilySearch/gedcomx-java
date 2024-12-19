@@ -49,10 +49,9 @@ public enum MatchCollection implements ControlledVocabulary {
   lls,
 
   /**
-   * The FamilySearch Researcher Trees.
+   * The FamilySearch CETs.
    */
-  @XmlQNameEnumValue ( localPart = "researcherTrees" )
-  rts,
+  cet,
 
   /**
    * The FamilySearch Temple System.
