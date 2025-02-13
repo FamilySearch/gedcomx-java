@@ -21,7 +21,6 @@ import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
 
 import jakarta.xml.bind.annotation.XmlType;
-import java.util.Objects;
 
 
 /**
@@ -155,24 +154,5 @@ public class PlaceDisplayProperties extends ExtensibleData {
     this.fullName = this.fullName == null ? data.fullName : this.fullName;
     this.type = this.type == null ? data.type : this.type;
     super.embed(data);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    final PlaceDisplayProperties that = (PlaceDisplayProperties) o;
-    return Objects.equals(fullName, that.fullName) &&
-           Objects.equals(name, that.name) &&
-           Objects.equals(type, that.type);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(fullName, name, type);
   }
 }

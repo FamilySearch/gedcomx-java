@@ -28,7 +28,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
-import java.util.Objects;
 
 /**
  * An identifier for a resource.
@@ -200,22 +199,4 @@ public final class Identifier implements HasJsonKey {
     return (value == null) ? "" : value.toString();
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    final Identifier that = (Identifier) o;
-    return hasUniqueKey == that.hasUniqueKey &&
-           Objects.equals(type, that.type) &&
-           Objects.equals(value, that.value);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(hasUniqueKey, type, value);
-  }
 }
