@@ -26,6 +26,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -45,11 +46,19 @@ import java.util.stream.Stream;
 @JsonElementWrapper ( name = "sourceReferences" )
 @XmlType ( name = "SourceReference" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An attributable reference to a description of a source.")
 public class SourceReference extends HypermediaEnabledData implements Attributable {
 
+  @Schema(description = "A reference to a description of the source being referenced.")
   private URI descriptionRef;
+
+  @Schema(description = "Id of the source being referenced.")
   private String descriptionId;
+
+  @Schema(description = "The attribution metadata for this source reference.")
   private Attribution attribution;
+
+  @Schema(description = "The qualifiers associated with this source reference.")
   private List<Qualifier> qualifiers;
 
   public SourceReference() {

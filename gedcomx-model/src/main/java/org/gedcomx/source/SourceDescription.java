@@ -37,6 +37,7 @@ import org.gedcomx.types.ResourceStatusType;
 import org.gedcomx.types.ResourceType;
 import org.gedcomx.util.JsonIdentifiers;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.*;
 import javax.xml.XMLConstants;
 import java.util.*;
@@ -48,40 +49,97 @@ import java.util.*;
 @XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "publisher", "authors", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Represents a description of a source.")
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, HasFields, ReferencesSources {
 
+  @Schema(description = "The language of this genealogical data set. See http://www.w3.org/International/articles/language-tags/. Note that some language-enabled elements MAY override the language.")
   private String lang;
+
+  @Schema(description = "The preferred bibliographic citation for this source.")
   private List<SourceCitation> citations;
+
+  @Schema(description = "Hint about the media (MIME) type of the resource being described.")
   private String mediaType;
+
+  @Schema(description = "The URI (if applicable) of the actual source.")
   private URI about;
+
+  @Schema(description = "A reference to the entity that mediates access to the described source.")
   private ResourceReference mediator;
+
+  @Schema(description = "A reference to the entity responsible for making the described source available.")
   private ResourceReference publisher;
+
+  @Schema(description = "The authors for this source.")
   private List<URI> authors;
+
+  @Schema(description = "References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).")
   private List<SourceReference> sources;
+
+  @Schema(description = "A reference to the analysis document explaining the analysis that went into this description of the source.")
   private ResourceReference analysis;
+
+  @Schema(description = "A reference to the source that contains this source.")
   private SourceReference componentOf;
+
+  @Schema(description = "A list of titles for this source.")
   private List<TextValue> titles;
+
+  @Schema(description = "A label for the title of this description.")
   private TextValue titleLabel;
+
+  @Schema(description = "Notes about a source.")
   private List<Note> notes;
+
+  @Schema(description = "The attribution metadata for this source description.")
   private Attribution attribution;
+
+  @Schema(description = "The type of the resource being described.")
   private URI resourceType;
+
+  @Schema(description = "The rights for this source.")
   private List<URI> rights;
+
+  @Schema(description = "A sort key for this source description.")
   private String sortKey;
+
+  @Schema(description = "A list of descriptions for this source.")
   private List<TextValue> descriptions;
+
+  @Schema(description = "The identifiers for this source.")
   private List<Identifier> identifiers;
+
+  @Schema(description = "The date this source description was created.")
   private Date created;
+
+  @Schema(description = "The date this source description was last modified.")
   private Date modified;
+
+  @Schema(description = "A description of the coverage of a resource.")
   private List<Coverage> coverage;
+
+  @Schema(description = "The fields of the source citation.")
   private List<Field> fields;
+
+  @Schema(description = "A reference to the repository that holds this source.")
   private ResourceReference repository;
+
+  @Schema(description = "A reference to the source description that this source description replaces.")
   private ResourceReference descriptorRef;
+
+  @Schema(description = "A reference to the source description that replaces this source description.")
   private URI replacedBy;
+
+  @Schema(description = "A reference to the source description that this source description replaces.")
   private List<URI> replaces;
+
+  @Schema(description = "The version of this source description.")
   private String version;
 
   /**
    * @see ResourceStatusType
    */
+  @Schema(description = "The status of this source description.")
   private List<URI> statuses;
 
   public SourceDescription() {
