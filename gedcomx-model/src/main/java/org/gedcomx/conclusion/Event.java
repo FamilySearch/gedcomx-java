@@ -30,6 +30,7 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.EventType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -47,11 +48,19 @@ import java.util.stream.Stream;
 @XmlType ( name = "Event", propOrder = { "date", "place", "roles" } )
 @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A historical event.")
 public class Event extends Subject implements HasDateAndPlace {
 
+  @Schema(description = "The type of the event.")
   private URI type;
+
+  @Schema(description = "The date of this event.")
   private Date date;
+
+  @Schema(description = "The place of this event.")
   private PlaceReference place;
+
+  @Schema(description = "The roles played in this event.")
   private List<EventRole> roles;
 
   /**
