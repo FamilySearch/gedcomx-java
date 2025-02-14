@@ -38,7 +38,6 @@ import jakarta.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 
@@ -322,26 +321,5 @@ public class PlaceReference extends ExtensibleData implements HasFields {
    */
   public void accept(GedcomxModelVisitor visitor) {
     visitor.visitPlaceReference(this);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    final PlaceReference that = (PlaceReference) o;
-    return Objects.equals(confidence, that.confidence) &&
-           Objects.equals(descriptionRef, that.descriptionRef) &&
-           Objects.equals(fields, that.fields) &&
-           Objects.equals(normalized, that.normalized) &&
-           Objects.equals(original, that.original);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(confidence, descriptionRef, fields, normalized, original);
   }
 }

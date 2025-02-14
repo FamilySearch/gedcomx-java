@@ -36,7 +36,6 @@ import org.gedcomx.types.FieldValueType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
-import java.util.Objects;
 
 
 /**
@@ -387,27 +386,5 @@ public final class FieldValue extends Conclusion {
   @Override
   public String toString() {
     return labelId + ": " + text;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    final FieldValue that = (FieldValue) o;
-    return Objects.equals(datatype, that.datatype) &&
-           Objects.equals(labelId, that.labelId) &&
-           Objects.equals(resource, that.resource) &&
-           Objects.equals(status, that.status) &&
-           Objects.equals(text, that.text) &&
-           Objects.equals(type, that.type);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(datatype, labelId, resource, status, text, type);
   }
 }
