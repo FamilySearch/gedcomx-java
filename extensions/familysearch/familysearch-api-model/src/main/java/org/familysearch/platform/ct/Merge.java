@@ -21,6 +21,7 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -34,9 +35,13 @@ import java.util.List;
 @JsonElementWrapper ( name = "merge" )
 @XmlType ( name = "Merge", propOrder = {"resourcesToDelete", "resourcesToCopy"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The Merge")
 public class Merge {
 
+  @Schema(description = "List of resources to remove from the survivor person.")
   private List<ResourceReference> resourcesToDelete;
+
+  @Schema(description = "List of resources to copy from the duplicate person to survivor person.")
   private List<ResourceReference> resourcesToCopy;
 
   /**

@@ -18,6 +18,7 @@ package org.familysearch.platform.ct;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -35,16 +36,34 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "changeInfo" )
 @XmlType ( name = "ChangeInfo" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Information about a change.")
 public class ChangeInfo {
 
+  @Schema(description = "The operation of the change.")
   private URI operation;
+
+  @Schema(description = "The type of the object to which the operation applies.")
   private URI objectType;
+
+  @Schema(description = "An optional modifier for the object to which the operation applies.")
   private URI objectModifier;
+
+  @Schema(description = "The reason for the change.")
   private String reason;
+
+  @Schema(description = "The parent change that triggered, caused, or included this change.")
   private ResourceReference parent;
+
+  @Schema(description = "The subject representing the original value(s) that existed before the change.")
   private ResourceReference original;
+
+  @Schema(description = "The subject representing the previous value(s) that existed before the change.")
   private ResourceReference previous;
+
+  @Schema(description = "The subject representing the removed value(s) that existed before the change.")
   private ResourceReference removed;
+
+  @Schema(description = "The subject representing the result of the change.")
   private ResourceReference resulting;
 
   public enum ChangeValueType {

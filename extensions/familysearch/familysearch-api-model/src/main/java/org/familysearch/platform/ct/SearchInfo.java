@@ -19,6 +19,7 @@ package org.familysearch.platform.ct;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -29,9 +30,13 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "searchInfo" )
 @XmlType ( name = "SearchInfo" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Information about a search.")
 public class SearchInfo {
 
+  @Schema(description = "The total number of hits.")
   private Integer totalHits;
+
+  @Schema(description = "The number of close hits.")
   private Integer closeHits;
 
   /**
