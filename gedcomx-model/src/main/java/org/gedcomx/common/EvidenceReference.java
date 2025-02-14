@@ -17,6 +17,7 @@ package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.Facet;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -38,10 +39,16 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "EvidenceReference" )
 @JsonElementWrapper ( name = "evidence" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A reference to a resource that is being used as evidence.")
 public final class EvidenceReference extends HypermediaEnabledData implements Attributable {
 
+  @Schema(description = "The URI to the resource being referenced as evidence.")
   private URI resource;
+
+  @Schema(description = "The resource id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.")
   private String resourceId;
+
+  @Schema(description = "Attribution metadata for evidence reference.")
   private Attribution attribution;
 
   public EvidenceReference() {

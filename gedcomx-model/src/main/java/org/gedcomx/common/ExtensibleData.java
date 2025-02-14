@@ -16,6 +16,7 @@
 package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.rt.SupportsExtensionElements;
 
 import jakarta.xml.bind.JAXBElement;
@@ -28,10 +29,16 @@ import java.util.*;
  * @author Ryan Heaton
  */
 @XmlType( name = "ExtensibleData" )
+@Schema(description = "A set of data that supports extension elements.")
 public abstract class ExtensibleData implements SupportsExtensionElements, HasTransientProperties {
 
+  @Schema(description = "A local, context-specific id for the data.")
   private String id;
+
+  @Schema(description = "Custom extension elements for a conclusion.")
   protected List<Object> extensionElements;
+
+  @Schema(description = "Transient properties that are not to be serialized.")
   protected final Map<String, Object> transientProperties = new TreeMap<String, Object>();
 
   protected ExtensibleData() {

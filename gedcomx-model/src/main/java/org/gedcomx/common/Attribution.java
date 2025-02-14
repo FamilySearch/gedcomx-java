@@ -17,6 +17,8 @@ package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.Facet;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.agent.Agent;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.RDFRange;
@@ -39,13 +41,25 @@ import java.util.Objects;
 @XmlType ( name = "Attribution", propOrder = { "contributor", "modified", "changeMessage", "changeMessageResource", "creator", "created" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
+@Schema(description = "Attribution for genealogical information. Attribution is used to model who is contributing/modifying information, when they contributed it, and why they are making the contribution/modification.")
 public class Attribution extends ExtensibleData {
 
+  @Schema(description = "Reference to the contributor of the attributed data.")
   private ResourceReference contributor;
+
+  @Schema(description = "Reference to the creator of the attributed data. The creator might be different from the contributor if the attributed data has been modified since it was created.")
   private ResourceReference creator;
+
+  @Schema(description = "The modified timestamp for the attributed data.")
   private Date modified;
+
+  @Schema(description = "The created timestamp for the attributed data.")
   private Date created;
+
+  @Schema(description = "The \"change message\" for the attributed data provided by the contributor.")
   private String changeMessage;
+
+  @Schema(description = "A reference to the change message for the attributed data provided by the contributor.")
   private URI changeMessageResource;
 
   public Attribution() {
