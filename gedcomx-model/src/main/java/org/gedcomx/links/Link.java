@@ -24,6 +24,8 @@ import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.*;
 import java.util.Arrays;
 import java.util.Set;
@@ -42,6 +44,7 @@ import java.util.TreeSet;
 @SuppressWarnings("gedcomx:no_id")
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A hypermedia link, used to drive the state of a hypermedia-enabled genealogical data application.")
 public class Link implements HasJsonKey {
 
   /**
@@ -50,16 +53,37 @@ public class Link implements HasJsonKey {
    */
   public static final Set<String> NON_UNIQUE_RELS = new TreeSet<String>(Arrays.asList("alternate", "bookmark", "related", "item"));
 
+  @Schema(description = "The Relationship.")
   private String rel;
+
+  @Schema(description = "The target IRI of the link.")
   private URI href;
+
+  @Schema(description = "A URI template per RFC 6570, used to link to a range of URIs, such as for the purpose of linking to a query.")
   private String template;
+
+  @Schema(description = "Metadata about the available media type(s) of the resource being linked to.")
   private String type;
+
+  @Schema(description = "Metadata about the available media type(s) of the resource being linked to.")
   private String accept;
+
+  @Schema(description = "Metadata about the allowable methods that can be used to transition to the resource being linked.")
   private String allow;
+
+  @Schema(description = "The language of the resource being linked to.")
   private String hreflang;
+
+  @Schema(description = "Human-readable information about the link.")
   private String title;
+
+  @Schema(description = "The number of elements in the page, if this link refers to a page of resources.")
   private Integer count;
+
+  @Schema(description = "The index of the offset of the page, if this link refers to a page of resources.")
   private Integer offset;
+
+  @Schema(description = "The total number of results in the page to which this links, if this link refers to a page of resources.")
   private Integer results;
 
   public Link() {

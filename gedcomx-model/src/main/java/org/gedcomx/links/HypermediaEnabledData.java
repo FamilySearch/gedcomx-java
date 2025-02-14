@@ -18,6 +18,7 @@ package org.gedcomx.links;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
@@ -28,14 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An data type that supports hypermedia controls (i.e. links).
+ * A data type that supports hypermedia controls (i.e. links).
  *
  * @author Ryan Heaton
  */
 @XmlType ( name = "HypermediaEnabledData" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A data type that supports hypermedia controls (i.e. links).")
 public abstract class HypermediaEnabledData extends ExtensibleData implements SupportsLinks {
 
+  @Schema(description = "The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private List<Link> links;
 
   protected HypermediaEnabledData() {
