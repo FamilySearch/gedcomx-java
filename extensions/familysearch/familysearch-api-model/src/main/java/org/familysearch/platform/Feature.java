@@ -17,6 +17,7 @@ package org.familysearch.platform;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Date;
 
@@ -27,11 +28,19 @@ import java.util.Date;
  */
 @XmlType ( name = "FeatureSet", propOrder = {"name", "description", "enabled", "activationDate"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A description of a FamilySearch feature.")
 public class Feature {
 
+  @Schema(description = "The name of the feature.")
   private String name;
+
+  @Schema(description = "A description of the feature.")
   private String description;
+
+  @Schema(description = "Whether the feature is enabled for the current request.")
   private Boolean enabled;
+
+  @Schema(description = "The date that this feature is scheduled to activate permanently.")
   private Date activationDate;
 
   /**

@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
@@ -100,6 +102,9 @@ import org.gedcomx.types.RelationshipType;
                PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Group.class, Tree.class,
                Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class, NameFormInfo.class, AlternatePlaceReference.class, AlternateDate.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The FamilySearch data types define serialization formats that are specific to the FamilySearch developer platform. These data formats " +
+    "are extensions of the [GEDCOM X](http://gedcomx.org) media types and provide concepts and data types that are specific to FamilySearch and therefore " +
+    "haven't been adopted into a formal, more general specification.")
 public class FamilySearchPlatform extends Gedcomx {
 
   public static final String PROJECT_ID = "fs-platform";
@@ -107,14 +112,31 @@ public class FamilySearchPlatform extends Gedcomx {
   public static final String XML_MEDIA_TYPE = "application/x-fs-v1+xml";
   public static final String JSON_MEDIA_TYPE = "application/x-fs-v1+json";
 
+  @Schema(description = "The merge analysis results for this data set.")
   private List<MergeAnalysis> mergeAnalyses;
+
+  @Schema(description = "The merges for this data set.")
   private List<Merge> merges;
+
+  @Schema(description = "The child-and-parents relationships.")
   private List<ChildAndParentsRelationship> childAndParentsRelationships;
+
+  @Schema(description = "The discussions included in this data set.")
   private List<Discussion> discussions;
+
+  @Schema(description = "The groups included in this data set.")
   private List<Group> groups;
+
+  @Schema(description = "The trees included in this data set.")
   private List<Tree> trees;
+
+  @Schema(description = "The users included in this data set.")
   private List<User> users;
+
+  @Schema(description = "The set of features defined in the platform API.")
   private List<Feature> features;
+
+  @Schema(description = "The vocabulary concepts included in this data set.")
   private List<VocabConcept> vocabConcepts;
 
   /**
