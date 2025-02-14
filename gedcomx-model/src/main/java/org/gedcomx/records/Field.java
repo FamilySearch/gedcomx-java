@@ -28,6 +28,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.FieldType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -46,12 +47,16 @@ import java.util.stream.Stream;
 @JsonElementWrapper ( name = "fields" )
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A field of a record.")
 public class Field extends Conclusion {
 
   /**
    * @see org.gedcomx.types.FieldType
    */
+  @Schema(description = "The type of the field.")
   private URI type;
+
+  @Schema(description = "The set of values for the field.")
   private List<FieldValue> values;
 
   public Field() {

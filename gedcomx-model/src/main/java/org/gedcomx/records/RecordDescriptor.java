@@ -24,6 +24,8 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -40,9 +42,13 @@ import java.util.stream.Stream;
 @JsonElementWrapper ( name = "recordDescriptors" )
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A descriptor for a common set of records.")
 public class RecordDescriptor extends HypermediaEnabledData {
 
+  @Schema(description = "The language of this record description.")
   private String lang;
+
+  @Schema(description = "Descriptors of the fields that are applicable to this record.")
   private List<FieldDescriptor> fields;
 
   public RecordDescriptor() {
