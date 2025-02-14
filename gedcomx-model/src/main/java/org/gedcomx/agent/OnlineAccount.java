@@ -15,6 +15,7 @@
  */
 package org.gedcomx.agent;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.ResourceReference;
 
@@ -26,9 +27,13 @@ import jakarta.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlType( name = "OnlineAccount" )
+@Schema(description = "An online account for a web application.")
 public class OnlineAccount extends ExtensibleData {
 
+  @Schema(description = "The homepage of the service that provides this account.")
   private ResourceReference serviceHomepage;
+
+  @Schema(description = "The name associated the holder of this account with the account.")
   private String accountName;
 
   public OnlineAccount() {
