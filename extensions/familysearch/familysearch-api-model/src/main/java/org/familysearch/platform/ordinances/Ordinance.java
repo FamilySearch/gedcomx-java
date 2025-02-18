@@ -17,6 +17,8 @@ package org.familysearch.platform.ordinances;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -46,22 +48,46 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 //    were not included by enunciate.  In order to get those OrdinanceStatusReason docs we add @XmlSeeAlso and @JsonSeeAlso at the class level.
 @XmlSeeAlso(OrdinanceStatusReason.class)
 @JsonSeeAlso(OrdinanceStatusReason.class)
+@Schema(description = "The Ordinance.")
 public class Ordinance extends Conclusion {
 
+  @Schema(description = "The type of ordinance.")
   private URI type;
+
+  @Schema(description = "The status of the ordinance.")
   private URI status;
+
+  @Schema(description = "Additional information regarding the ordinance status.")
   private List<URI> statusReasons;
+
+  @Schema(description = "User specific actions for this ordinance.")
   private OrdinanceActions actions;
 
+  @Schema(description = "The principal person associated with the ordinance.")
   private ResourceReference person;
+
+  @Schema(description = "The sex of the principal person in the ordinance.")
   private URI sexType;
+
+  @Schema(description = "The participants for this ordinance.")
   private List<OrdinanceParticipant> participants;
+
+  @Schema(description = "Reservation for this ordinance.")
   private OrdinanceReservation reservation;
+
+  @Schema(description = "Secondary reservation for this ordinance.")
   private OrdinanceReservation secondaryReservation;
+
+  @Schema(description = "Caller reservation for this ordinance.")
   private OrdinanceReservation callerReservation;
 
+  @Schema(description = "The code for the temple at which the ordinance was performed.")
   private String templeCode;
+
+  @Schema(description = "The complete date of this ordinance.")
   private Date completeDate;
+
+  @Schema(description = "The full name of the person, generally in the native name form.")
   private String fullName;            // used for completed ordinances which may contain some static information
 
   @Deprecated

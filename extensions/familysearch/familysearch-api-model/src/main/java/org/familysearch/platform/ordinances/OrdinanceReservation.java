@@ -16,6 +16,8 @@
 package org.familysearch.platform.ordinances;
 
 import java.util.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -32,13 +34,25 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "reservation")
 @XmlType( name = "OrdinanceReservation" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The Ordinance Reservation")
 public class OrdinanceReservation {
 
+  @Schema(description = "The owner associated with the ordinance reservation.")
   private ResourceReference owner;
+
+  @Schema(description = "The reserve timestamp for the ordinance reservation.")
   private Date reserveDate;                 // a java.util.Date
+
+  @Schema(description = "The update timestamp for the ordinance reservation.")
   private Date updateDate;                  // a java.util.Date
+
+  @Schema(description = "The expiration timestamp for the ordinance reservation.")
   private Date expirationDate;              // a java.util.Date
+
+  @Schema(description = "The claim type indicating how this reservation was reserved.")
   private URI claimType;
+
+  @Schema(description = "The assignee type this reservation is assigned to.")
   private URI assigneeType;
 
   /**

@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ordinances;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -31,11 +32,19 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "participants")
 @XmlType( name = "OrdinanceParticipant" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The Ordinance Participant")
 public class OrdinanceParticipant {
 
+  @Schema(description = "The role type for this participant in the ordinance.")
   private URI roleType;
+
+  @Schema(description = "The sex type for this participant in the ordinance.")
   private URI sexType;
+
+  @Schema(description = "The participant associated with the ordinance.")
   private ResourceReference participant;
+
+  @Schema(description = "The full name of the person, generally in the native name form.")
   private String fullName;            // used for completed ordinances which may contain some static information
 
 
