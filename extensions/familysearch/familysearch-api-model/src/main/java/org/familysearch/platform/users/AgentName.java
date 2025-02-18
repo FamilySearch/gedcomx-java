@@ -19,11 +19,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 
 
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A name of an agent.")
 public class AgentName extends TextValue {
+
+  @Schema(description = "The type of the name.")
   private URI type;
 
   public AgentName() {

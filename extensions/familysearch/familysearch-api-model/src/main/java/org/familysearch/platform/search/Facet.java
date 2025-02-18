@@ -18,6 +18,7 @@ package org.familysearch.platform.search;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
@@ -29,11 +30,22 @@ import static java.util.Objects.isNull;
 @JsonElementWrapper(name="facets")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @XmlType( name = "Facet" )
+@Schema(description = "A facet in a search result.")
 public class Facet {
+
+  @Schema(description = "The localized name of this facet.")
   private String displayName;
+
+  @Schema(description = "The localized count of this facet.")
   private String displayCount;
+
+  @Schema(description = "The API parameters used to filter and count at this facet level.")
   private String params;
+
+  @Schema(description = "The numeric count of this facet.")
   private long count;
+
+  @Schema(description = "The facets nested inside this facet.")
   private List<Facet> facets;
 
   /**
