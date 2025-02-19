@@ -56,7 +56,7 @@ public class Link implements HasJsonKey {
   @Schema(description = "The Relationship.")
   private String rel;
 
-  @Schema(description = "The target IRI of the link.")
+  @Schema(description = "The target URI of the link.")
   private URI href;
 
   @Schema(description = "A URI template per RFC 6570, used to link to a range of URIs, such as for the purpose of linking to a query.")
@@ -74,7 +74,7 @@ public class Link implements HasJsonKey {
   @Schema(description = "The language of the resource being linked to.")
   private String hreflang;
 
-  @Schema(description = "Human-readable information about the link.")
+  @Schema(description = "The title for the link.")
   private String title;
 
   @Schema(description = "The number of elements in the page, if this link refers to a page of resources.")
