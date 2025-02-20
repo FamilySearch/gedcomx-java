@@ -63,7 +63,6 @@ public final class NamePart extends ExtensibleData implements HasFields {
   @Schema(description = "The qualifiers associated with this name part.")
   private List<Qualifier> qualifiers;
 
-  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
 
   public NamePart() {

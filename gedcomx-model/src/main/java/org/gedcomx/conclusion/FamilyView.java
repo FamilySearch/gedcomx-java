@@ -43,19 +43,19 @@ import java.util.List;
 @JsonElementWrapper( name = "families" )
 @XmlType( name = "FamilyView", propOrder = { "parent1", "parent2", "children"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "A family view, meaning up to two parents and a list of children who have those parents in common.\n" +
-    " Relationships carry the canonical information for this view, and the relationships must be used\n" +
-    " to get Facts (lineage types, marriages, etc.) about the relationships covered by a Family.\n" +
-    " The Family data type provides a convenient way to see the typical family views without having to do\n" +
-    " the calculations to derive them. There should only be one family for each unique set of parents,\n" +
+@Schema(description = "A family view, meaning up to two parents and a list of children who have those parents in common." +
+    " Relationships carry the canonical information for this view, and the relationships must be used" +
+    " to get Facts (lineage types, marriages, etc.) about the relationships covered by a Family." +
+    " The Family data type provides a convenient way to see the typical family views without having to do" +
+    " the calculations to derive them. There should only be one family for each unique set of parents," +
     " and only one for each single-parent family with a particular parent.")
 public class FamilyView extends HypermediaEnabledData {
 
-  @Schema(description = "A reference to a parent in the family. The name \"parent1\" is used only to distinguish it from\n" +
+  @Schema(description = "A reference to a parent in the family. The name \"parent1\" is used only to distinguish it from" +
       " the other parent in this family and implies neither order nor role.")
   private ResourceReference parent1; // First parent
 
-  @Schema(description = "A reference to a parent in the family. The name \"parent2\" is used only to distinguish it from\n" +
+  @Schema(description = "A reference to a parent in the family. The name \"parent2\" is used only to distinguish it from" +
       " the other parent in this family and implies neither order nor role.")
   private ResourceReference parent2; // Second parent
 

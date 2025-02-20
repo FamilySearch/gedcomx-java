@@ -59,7 +59,6 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   @Schema(description = "The level of confidence the contributor has about the data.")
   private URI confidence;
 
-  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
 
   @Schema(description = "The list of normalized values for the place, provided for display purposes by the application. " +

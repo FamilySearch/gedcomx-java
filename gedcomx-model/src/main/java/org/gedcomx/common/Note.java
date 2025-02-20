@@ -43,7 +43,7 @@ import java.util.Objects;
 @Schema(description = "A note about a genealogical resource (e.g. conclusion or source).")
 public class Note extends HypermediaEnabledData implements Attributable, HasText {
 
-  @Schema(description = "The language of the note.")
+  @Schema(description = "The language of the note. See http://www.w3.org/International/articles/language-tags/")
   private String lang;
 
   @Schema(description = "The subject of the note. This is a short title describing the contents of the note text.")

@@ -20,15 +20,27 @@ import org.gedcomx.common.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Representation of a list of VocabElement objects
  */
+@Schema(description = "Representation of a list of VocabElement objects")
 public class VocabElementList {
 
+  @Schema(description = "The title of the list of elements.")
   private String title;
+
+  @Schema(description = "The description of the list of elements.")
   private String description;
+
+  @Schema(description = "The URI of the list of elements.")
   private URI uri;
+
+  @Schema(description = "The id of the list of elements.")
   private String id;
+
+  @Schema(description = "The list of elements.")
   private List<VocabElement> elements = new ArrayList<VocabElement>();
 
   public String getId() {
