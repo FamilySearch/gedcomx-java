@@ -22,6 +22,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.HasJsonKey;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -34,9 +35,13 @@ import jakarta.xml.bind.annotation.XmlValue;
 @XmlType ( name = "CitationField" )
 @Facet ( GedcomxConstants.FACET_GEDCOMX_CITATION )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Represents a citation field -- its name and value.")
 public class CitationField implements HasJsonKey {
 
+  @Schema(description = "The citation field's name.")
   private URI name;
+
+  @Schema(description = "The citation field's value.")
   private String value;
 
   public CitationField() {

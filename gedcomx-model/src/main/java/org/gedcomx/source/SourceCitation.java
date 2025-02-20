@@ -25,6 +25,7 @@ import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -40,11 +41,19 @@ import java.util.Objects;
  */
 @XmlType ( name = "SourceCitation" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Represents a source citation.")
 public class SourceCitation extends HypermediaEnabledData {
 
+  @Schema(description = "The language of the citation. See http://www.w3.org/International/articles/language-tags/")
   private String lang;
+
+  @Schema(description = "A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.")
   private String value;
+
+  @Schema(description = "A reference to the citation template for this citation.")
   private ResourceReference citationTemplate;
+
+  @Schema(description = "The list of citation fields.")
   private List<CitationField> fields;
 
   public SourceCitation() {
