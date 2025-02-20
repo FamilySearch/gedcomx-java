@@ -18,6 +18,7 @@ package org.familysearch.platform.ct;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -28,19 +29,39 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper( name = "tree" )
 @XmlType( name = "Tree" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
+@Schema(description = "The Tree")
 public class Tree {
-  private String id;
-  private List<String> groupIds;
-  private String name;
-  private String description;
-  private String startingPersonId;
-  private Boolean hidden;
-  // Can't use 'private' since it is a keyword in Java
-  private Boolean isPrivate;
-  private String collectionId;
-  private ThirdPartyAccess ownerAccess;
-  private ThirdPartyAccess groupAccess;
 
+  @Schema(description = "The tree id.")
+  private String id;
+
+  @Schema(description = "The ids of the groups this tree belongs to.")
+  private List<String> groupIds;
+
+  @Schema(description = "The tree name.")
+  private String name;
+
+  @Schema(description = "The tree description.")
+  private String description;
+
+  @Schema(description = "The tree starting person id.")
+  private String startingPersonId;
+
+  @Schema(description = "The hidden state of the tree.")
+  private Boolean hidden;
+
+  // Can't use 'private' since it is a keyword in Java
+  @Schema(description = "The private state of the tree.")
+  private Boolean isPrivate;
+
+  @Schema(description = "The id of the collection the tree belongs to.")
+  private String collectionId;
+
+  @Schema(description = "The owner third party access state of the tree.")
+  private ThirdPartyAccess ownerAccess;
+
+  @Schema(description = "The group third party access state of the tree.")
+  private ThirdPartyAccess groupAccess;
 
   /**
    * Get the tree id.

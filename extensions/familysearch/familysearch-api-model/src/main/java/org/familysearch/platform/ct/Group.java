@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -32,11 +33,22 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper( name = "group" )
 @XmlType( name = "Group" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
+@Schema(description = "The Group")
 public class Group {
+
+  @Schema(description = "The group id.")
   private String id;
+
+  @Schema(description = "The group name.")
   private String name;
+
+  @Schema(description = "The group description.")
   private String description;
+
+  @Schema(description = "The group code of conduct.")
   private String codeOfConduct;
+
+  @Schema(description = "The ids of the trees associated with the group.")
   private Set<String> treeIds;
 
   /**

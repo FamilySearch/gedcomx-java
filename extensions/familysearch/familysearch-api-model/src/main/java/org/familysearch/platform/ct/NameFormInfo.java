@@ -20,6 +20,7 @@ import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -31,8 +32,10 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlRootElement
 @JsonElementWrapper ( name = "nameFormInfo" )
 @XmlType ( name = "NameFormInfo" )
+@Schema(description = "Information about a name form.")
 public class NameFormInfo {
 
+  @Schema(description = "The ordering of the name form.")
   private URI order;
 
   public NameFormInfo() {

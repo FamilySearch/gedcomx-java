@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -30,11 +31,20 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper( name = "personInfo" )
 @XmlType( name = "PersonInfo" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
+@Schema(description = "Extra information about a person.")
 public class PersonInfo {
+
+  @Schema(description = "True if this person is editable by the current user; false otherwise.")
   private Boolean canUserEdit = false;
+
+  @Schema(description = "True if this person is visible to all sessions authenticated from any client; false otherwise.")
   private Boolean visibleToAll = true;
+
+  @Schema(description = "True if this person is only visible to sessions authenticated from a FamilySearch client; false otherwise.")
   private Boolean visibleToAllWhenUsingFamilySearchApps = true;
+
   // The treeId attribute is prototype only and may be removed or changed at any time
+  @Schema(description = "The tree id for this person.")
   private String treeId;
 
   public PersonInfo() {
