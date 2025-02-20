@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ordinances;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -29,10 +30,16 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "ordinanceSummaries")
 @XmlType(name = "OrdinanceSummary", propOrder = {"notSharedReservationCount", "notSharedReservationLimit", "sharedReservationCount"})
 @JsonInclude (JsonInclude.Include.NON_NULL)
+@Schema(description = "The Ordinance Summary")
 public class OrdinanceSummary {
 
+  @Schema(description = "The current number of reservations which have not been shared that a user has on their reservation list.")
   private Integer notSharedReservationCount;
+
+  @Schema(description = "The maximum number of reservations which have not been shared that a user is allowed to have on their reservation list.")
   private Integer notSharedReservationLimit;
+
+  @Schema(description = "The current number of shared reservations for a user.")
   private Integer sharedReservationCount;
 
   /**
