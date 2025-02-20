@@ -65,7 +65,6 @@ public class Date extends ExtensibleData implements HasFields {
       "GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private List<TextValue> normalized;
 
-  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
 
   public Date() {

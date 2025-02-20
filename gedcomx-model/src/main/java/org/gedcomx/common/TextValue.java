@@ -34,7 +34,7 @@ import jakarta.xml.bind.annotation.XmlValue;
 @Schema(description = "An element representing a text value that may be in a specific language.")
 public class TextValue {
 
-  @Schema(description = "The language of the text value.")
+  @Schema(description = "The language of the text value. See http://www.w3.org/International/articles/language-tags/")
   private String lang;
 
   @Schema(description = "The text value.")

@@ -53,7 +53,7 @@ public class Link implements HasJsonKey {
    */
   public static final Set<String> NON_UNIQUE_RELS = new TreeSet<String>(Arrays.asList("alternate", "bookmark", "related", "item"));
 
-  @Schema(description = "The Relationship.")
+  @Schema(description = "The link relationship.")
   private String rel;
 
   @Schema(description = "The target URI of the link.")
@@ -62,19 +62,23 @@ public class Link implements HasJsonKey {
   @Schema(description = "A URI template per RFC 6570, used to link to a range of URIs, such as for the purpose of linking to a query.")
   private String template;
 
-  @Schema(description = "Metadata about the available media type(s) of the resource being linked to.")
+  @Schema(description = "Metadata about the available media type(s) of the resource being linked to. The value of the \"type\" attribute is as " +
+      "defined by the HTTP specification, RFC 2616, Section 3.7. Note that this attribute can be considered an \"Update Control (CU)\" per Amundsen, M. (2011). Hypermedia APIs with HTML5 and Node. O'Reilly.")
   private String type;
 
-  @Schema(description = "Metadata about the available media type(s) of the resource being linked to.")
+  @Schema(description = "Metadata about the available media type(s) of the resource being linked to update (i.e. change the state of) the resource being " +
+      "linked to. The value of the \"accept\" attribute is as defined by the HTTP specification, RFC 2616, Section 3.7. Note that this attribute can be considered an \"Read Control (CR)\" per Amundsen, M. (2011). Hypermedia APIs with HTML5 and Node. O'Reilly.")
   private String accept;
 
-  @Schema(description = "Metadata about the allowable methods that can be used to transition to the resource being linked.")
+  @Schema(description = "Metadata about the allowable methods that can be used to transition to the resource being linked. The value of the \"allow\" " +
+      "attribute is as defined by the HTTP specification, RFC 2616, Section 14.7. Note that this attribute can be considered an \"Method Control (CM)\" per Amundsen, M. (2011). Hypermedia APIs with HTML5 and Node. O'Reilly.")
   private String allow;
 
-  @Schema(description = "The language of the resource being linked to.")
+  @Schema(description = "The language of the resource being linked to. Note that this attribute can be considered an \"Update Control (CU)\" per Amundsen, " +
+      "M. (2011). Hypermedia APIs with HTML5 and Node. O'Reilly.")
   private String hreflang;
 
-  @Schema(description = "The title for the link.")
+  @Schema(description = "Human-readable information about the link.")
   private String title;
 
   @Schema(description = "The number of elements in the page, if this link refers to a page of resources.")

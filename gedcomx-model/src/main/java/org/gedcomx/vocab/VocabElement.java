@@ -21,22 +21,41 @@ import org.gedcomx.common.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Representation of a vocabulary element
  */
+@Schema(description = "Representation of a vocabulary element")
 public class VocabElement implements Comparable<VocabElement> {
 
+  @Schema(description = "The id of the element.")
   private String id;
+
+  @Schema(description = "The URI of the element.")
   private URI uri;
+
+  @Schema(description = "The subclass of the element.")
   private URI subclass;
+
+  @Schema(description = "The type of the element.")
   private URI type;
+
+  @Schema(description = "The sort name of the element.")
   private transient String sortName;
+
+  @Schema(description = "The labels of the element.")
   private List<TextValue> labels = new ArrayList<TextValue>();
+
+  @Schema(description = "The descriptions of the element.")
   private List<TextValue> descriptions = new ArrayList<TextValue>();
 
   // This is only present (OPTIONALLY) when used as an "Entries in a List" object
+  @Schema(description = "The sublist of the element.")
   private URI sublist;
+
   // This is only present (OPTIONALLY) when used as an "Entries in a List" object
+  @Schema(description = "The position of the element in the list.")
   private transient Integer position;
 
   public String getId() {

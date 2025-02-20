@@ -55,7 +55,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @Schema(description = "The language of this genealogical data set. See http://www.w3.org/International/articles/language-tags/. Note that some language-enabled elements MAY override the language.")
   private String lang;
 
-  @Schema(description = "The preferred bibliographic citation for this source.")
+  @Schema(description = "The bibliographic citation for this source.")
   private List<SourceCitation> citations;
 
   @Schema(description = "Hint about the media (MIME) type of the resource being described.")
@@ -100,40 +100,31 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @Schema(description = "The rights for this source.")
   private List<URI> rights;
 
-  @Schema(description = "A sort key for this source description.")
   private String sortKey;
 
   @Schema(description = "A list of descriptions for this source.")
   private List<TextValue> descriptions;
 
-  @Schema(description = "The identifiers for this source.")
+  @Schema(description = "The list of identifiers for the agent.")
   private List<Identifier> identifiers;
 
-  @Schema(description = "The date this source description was created.")
   private Date created;
 
-  @Schema(description = "The date this source description was last modified.")
   private Date modified;
 
-  @Schema(description = "A description of the coverage of a resource.")
   private List<Coverage> coverage;
 
-  @Schema(description = "The fields of the source citation.")
   private List<Field> fields;
 
-  @Schema(description = "A reference to the repository that holds this source.")
   private ResourceReference repository;
 
-  @Schema(description = "A reference to the source description that this source description replaces.")
   private ResourceReference descriptorRef;
 
-  @Schema(description = "A reference to the source description that replaces this source description.")
   private URI replacedBy;
 
-  @Schema(description = "A reference to the source description that this source description replaces.")
   private List<URI> replaces;
 
-  @Schema(description = "The version of this source description.")
+  @Schema(description = "Gets the version of this resource")
   private String version;
 
   /**

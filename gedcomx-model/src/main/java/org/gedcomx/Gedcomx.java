@@ -92,11 +92,11 @@ import java.util.stream.Stream;
 @JsonElementWrapper ( name = "gedcomx" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @XmlType ( name = "Gedcomx", propOrder = {"attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors"} )
-@Schema(name = "The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation is provided by the formal specification documents:\n" +
-    "\n" +
-    "*   [The GEDCOM X Conceptual Model, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md)\n" +
-    "*   [The GEDCOM X JSON Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/json-format-specification.md)\n" +
-    "*   [The GEDCOM X XML Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md)")
+@Schema(name = "The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation is provided by the formal specification documents:" +
+    " [The GEDCOM X Conceptual Model, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md)" +
+    " [The GEDCOM X JSON Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/json-format-specification.md)" +
+    " [The GEDCOM X XML Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md)" +
+    "This documentation is provided as a non-normative reference guide.")
 public class Gedcomx extends HypermediaEnabledData implements HasFields {
 
   @Schema(description = "The language of this genealogical data set. See http://www.w3.org/International/articles/language-tags/. " +
@@ -133,10 +133,6 @@ public class Gedcomx extends HypermediaEnabledData implements HasFields {
   @Schema(description = "The collections included in this genealogical data set.")
   private List<Collection> collections;
 
-  @Schema(description = "The extracted fields included in this genealogical data set.  Fields that apply to a particular person,\n" +
-      " * relationship or value should be included within that person or value, respectively.\n" +
-      " * Remaining fields that did not have a place within the person or relationship structure can be included here.\n" +
-      " * Also, fields that were extracted but not yet fit into a structure can also be included here.")
   private List<Field> fields;
 
   @Schema(description = "The record descriptors included in this genealogical data set.")
