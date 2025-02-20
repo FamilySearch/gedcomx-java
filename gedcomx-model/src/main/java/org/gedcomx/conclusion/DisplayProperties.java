@@ -21,6 +21,7 @@ import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
@@ -36,22 +37,55 @@ import java.util.List;
 @XmlType (name = "DisplayProperties")
 @Facet (GedcomxConstants.FACET_GEDCOMX_RS)
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(title = "DisplayProperties", description = "A set of display properties for the convenience of quick display, such as for a Web-based application. " +
+    "All display properties are provided in the default locale for the current application context and are NOT considered canonical for the purposes of data exchange.")
 public class DisplayProperties extends ExtensibleData {
 
+  @Schema(description = "The displayable name of the person.")
   private String name;
+
+  @Schema(description = "The displayable label for the gender of the person.")
   private String gender;
+
+  @Schema(description = "The displayable label for the lifespan of the person.")
   private String lifespan;
+
+  @Schema(description = "The displayable label for the birth date of the person.")
   private String birthDate;
+
+  @Schema(description = "The displayable label for the birth place of the person.")
   private String birthPlace;
+
+  @Schema(description = "The displayable label for the death date of the person.")
   private String deathDate;
+
+  @Schema(description = "The displayable label for the death place of the person.")
   private String deathPlace;
+
+  @Schema(description = "The displayable label for the marriage date of the person.")
   private String marriageDate;
+
+  @Schema(description = "The displayable label for the marriage place of the person.")
   private String marriagePlace;
+
+  @Schema(description = "The context-specific ascendancy number for the person in relation to the other persons in the request. " +
+      "The ancestry number is defined using the Ahnentafel numbering system.")
   private String ascendancyNumber;
+
+  @Schema(description = "The context-specific descendancy number for the person in relation to the other persons in the request. " +
+      "The descendancy number is defined using the d'Aboville numbering system.")
   private String descendancyNumber;
+
+  @Schema(description = "The context-specific relationship description for the person in relation to the root person in the request.")
   private String relationshipDescription;
+
+  @Schema(description = "The family views where this person is a parent.")
   private List<FamilyView> familiesAsParent;
+
+  @Schema(description = "The family views where this person is a child.")
   private List<FamilyView> familiesAsChild;
+
+  @Schema(description = "The role of this person in the current display context.")
   private String role;
 
   public DisplayProperties() {

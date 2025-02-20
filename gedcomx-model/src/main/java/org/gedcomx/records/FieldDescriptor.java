@@ -24,6 +24,7 @@ import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -40,10 +41,16 @@ import java.util.stream.Stream;
 @XmlType ( name = "FieldDescriptor", propOrder = { "originalLabel", "descriptions", "values"})
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A description of a field in a record.")
 public class FieldDescriptor extends HypermediaEnabledData {
 
+  @Schema(description = "The original label for the field, as stated on the original record.")
   private String originalLabel; // what the original form said, e.g,. "Nombre:"
+
+  @Schema(description = "Localized description of this field.")
   private List<TextValue> descriptions; // localized description of this field ("Relationship of the person to the head of household").
+
+  @Schema(description = "Localized display labels for the field values.")
   private List<FieldValueDescriptor> values; // localized display labels for the field values
 
   public FieldDescriptor() {

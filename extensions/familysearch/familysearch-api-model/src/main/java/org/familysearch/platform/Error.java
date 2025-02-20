@@ -18,6 +18,7 @@ package org.familysearch.platform;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -31,11 +32,19 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "Error" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
+@Schema(description = "A common representation of an error on the FamilySearch platform.")
 public class Error {
 
+  @Schema(description = "The error code. Intepreted per RFC 2616, Section 10 (HTTP Status Code Definitions).")
   private Integer code;
+
+  @Schema(description = "A text label associated with the error code.")
   private String label;
+
+  @Schema(description = "A message associated with the error.")
   private String message;
+
+  @Schema(description = "The back-end stack trace associated with the error, useful for debugging.")
   private String stacktrace;
 
   /**

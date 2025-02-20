@@ -18,6 +18,7 @@ package org.gedcomx.common;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.Facets;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -36,9 +37,13 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "ResourceReference" )
 @JsonElementWrapper ( name = "resourceReference" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A generic reference to a resource.")
 public final class ResourceReference {
 
+  @Schema(description = "The URI to the resource being referenced.")
   private URI resource;
+
+  @Schema(description = "The resource id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.")
   private String resourceId;
 
   public ResourceReference() {

@@ -20,6 +20,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -33,9 +34,13 @@ import java.io.Serializable;
 @XmlType( name = "Tag" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
+@Schema(description = "A tag in the FamilySearch system.")
 public class Tag implements Serializable {
 
+  @Schema(description = "A reference to the value of the tag.")
   private URI resource;
+
+  @Schema(description = "The conclusionId associated with this tag.")
   private String conclusionId;
 
   public Tag() {

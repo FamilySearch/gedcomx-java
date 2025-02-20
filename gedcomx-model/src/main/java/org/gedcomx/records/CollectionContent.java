@@ -24,6 +24,7 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.ResourceType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -38,10 +39,17 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "CollectionContent" )
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A description of the content of a collection by resource type.")
 public class CollectionContent extends HypermediaEnabledData {
 
+  @Schema(description = "The type of resource being covered in this collection.")
   private URI resourceType;
+
+  @Schema(description = "The count of the items applicable to this content aspect.")
   private Integer count;
+
+  @Schema(description = "A completeness factor for this content; i.e. what percentage of the total number of items in the collection is included in " +
+      "this content aspect. The completeness factor is a value between 0 and 1.")
   private Float completeness;
 
   public CollectionContent() {

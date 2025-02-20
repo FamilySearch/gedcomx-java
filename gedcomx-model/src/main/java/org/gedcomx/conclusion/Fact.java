@@ -32,6 +32,7 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.FactType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,17 +46,32 @@ import java.util.stream.Stream;
 @XmlRootElement
 @JsonElementWrapper ( name = "facts" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A conclusion about a fact applicable to a person or relationship.")
 public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
 
   /**
    * @see org.gedcomx.types.FactType
    */
+  @Schema(description = "The type of the fact.")
   private URI type;
+
+  @Schema(description = "The date of applicability of this fact.")
   private Date date;
+
+  @Schema(description = "The place of applicability of this fact.")
   private PlaceReference place;
+
+  @Schema(description = "The value as supplied by the user.")
   private String value;
+
+  @Schema(description = "The qualifiers associated with this fact.")
   private List<Qualifier> qualifiers;
+
+  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
+
+  @Schema(description = "Indicator of whether this fact is the \"primary\" fact of the record from which the subject was extracted. " +
+      "Applicable only to extracted persons/relationships. The meaning of this flag outside the scope of an extracted subject is undefined.")
   private Boolean primary;
 
   /**

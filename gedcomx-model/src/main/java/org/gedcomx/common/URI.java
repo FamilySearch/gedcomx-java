@@ -19,6 +19,7 @@ package org.gedcomx.common;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
@@ -28,8 +29,10 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlJavaTypeAdapter(URIAdapter.class)
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A wrapper object for a URI.")
 public final class URI {
 
+  @Schema(description = "The URI value.")
   private final String value;
 
   public URI(java.net.URI value) {

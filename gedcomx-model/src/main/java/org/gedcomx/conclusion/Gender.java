@@ -35,6 +35,7 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.GenderType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -50,9 +51,13 @@ import java.util.List;
 @XmlRootElement
 @JsonElementWrapper ( name = "genders" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A gender conclusion.")
 public class Gender extends Conclusion implements HasFields {
 
+  @Schema(description = "The type")
   private URI type;
+
+  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
 
   /**
