@@ -20,6 +20,7 @@ import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.common.*;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
@@ -46,14 +47,28 @@ import java.util.stream.Stream;
  */
 @XmlType ( name = "Conclusion", propOrder = { "attribution", "sources", "analysis", "notes" })
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A genealogical conclusion.")
 public abstract class Conclusion extends HypermediaEnabledData implements Attributable, ReferencesSources, HasNotes {
 
+  @Schema(description = "The language of the conclusion. See [http://www.w3.org/International/articles/language-tags/](http://www.w3.org/International/articles/language-tags/)")
   private String lang;
+
+  @Schema(description = "The level of confidence the contributor has about the data.")
   private URI confidence;
+
+  @Schema(description = "The source references for a conclusion.")
   private List<SourceReference> sources;
+
+  @Schema(description = "Notes about a person.")
   private List<Note> notes;
+
+  @Schema(description = "Attribution metadata for a conclusion.")
   private Attribution attribution;
+
+  @Schema(description = "A reference to the analysis document explaining the analysis that went into this conclusion.")
   private ResourceReference analysis;
+
+  @Schema(description = "A sort key in relation to other facts for display purposes.")
   private String sortKey;
 
   protected Conclusion() {

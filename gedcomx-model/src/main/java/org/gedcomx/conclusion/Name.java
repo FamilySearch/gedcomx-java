@@ -34,6 +34,7 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.NamePartType;
 import org.gedcomx.types.NameType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -51,14 +52,22 @@ import java.util.stream.Stream;
 @XmlRootElement
 @JsonElementWrapper ( name = "names" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A name conclusion.")
 public class Name extends Conclusion {
 
   /**
    * @see org.gedcomx.types.NameType
    */
+  @Schema(description = "The type of the name.")
   private URI type;
+
+  @Schema(description = "The date the name was first applied or adopted.")
   private Date date;
+
+  @Schema(description = "Alternate forms of the name, such as the romanized form of a non-latin name.")
   private List<NameForm> nameForms;
+
+  @Schema(description = "Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.")
   private Boolean preferred;
 
   public Name() {

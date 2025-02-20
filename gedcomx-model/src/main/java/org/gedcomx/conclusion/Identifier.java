@@ -24,6 +24,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.types.IdentifierType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -36,9 +37,13 @@ import jakarta.xml.bind.annotation.XmlValue;
  */
 @XmlType ( name = "Identifier" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An identifier for a resource.")
 public final class Identifier implements HasJsonKey {
 
+  @Schema(description = "Whether the type of this identifier implies that the value is unique among all other identifiers of the same type.")
   private boolean hasUniqueKey = false;
+
+  @Schema(description = "The id value.")
   private URI value;
   
   /**
