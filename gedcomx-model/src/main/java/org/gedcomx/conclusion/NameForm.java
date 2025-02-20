@@ -56,7 +56,6 @@ public class NameForm extends ExtensibleData implements HasFields {
   @Schema(description = "The different parts of the name form.")
   private List<NamePart> parts;
 
-  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
 
   public NameForm() {

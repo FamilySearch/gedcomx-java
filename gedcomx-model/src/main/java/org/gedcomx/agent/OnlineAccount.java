@@ -33,7 +33,7 @@ public class OnlineAccount extends ExtensibleData {
   @Schema(description = "The homepage of the service that provides this account.")
   private ResourceReference serviceHomepage;
 
-  @Schema(description = "The name associated with this account.")
+  @Schema(description = "The name associated the holder of this account with the account.")
   private String accountName;
 
   public OnlineAccount() {

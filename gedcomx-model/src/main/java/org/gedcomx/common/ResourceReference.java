@@ -40,7 +40,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @Schema(description = "A generic reference to a resource.")
 public final class ResourceReference {
 
-  @Schema(description = "The URI to the resource being referenced.")
+  @Schema(description = "The URI to the resource. For more information, see Architecture of the World Wide Web, Volume One, Section 2")
   private URI resource;
 
   @Schema(description = "The resource id of the resource being referenced. Used as an extension attribute when resolving the resource is inconvenient.")

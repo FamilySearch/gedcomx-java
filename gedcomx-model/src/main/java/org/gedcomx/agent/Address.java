@@ -28,7 +28,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Address" )
-@Schema(description = "An address.")
+@Schema(description = "An Address.")
 public class Address extends ExtensibleData {
 
   @Schema(description = "The city.")

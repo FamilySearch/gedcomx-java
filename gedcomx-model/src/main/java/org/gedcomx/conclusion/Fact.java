@@ -67,7 +67,6 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   @Schema(description = "The qualifiers associated with this fact.")
   private List<Qualifier> qualifiers;
 
-  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
 
   @Schema(description = "Indicator of whether this fact is the \"primary\" fact of the record from which the subject was extracted. " +

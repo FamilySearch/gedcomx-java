@@ -79,7 +79,6 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   @Schema(description = "The fact conclusions for the relationship.")
   private List<Fact> facts;
 
-  @Schema(description = "The references to the record fields being used as evidence.")
   private List<Field> fields;
 
   public Relationship() {

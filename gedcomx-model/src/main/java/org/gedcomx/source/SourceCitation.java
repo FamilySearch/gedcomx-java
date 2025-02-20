@@ -47,7 +47,7 @@ public class SourceCitation extends HypermediaEnabledData {
   @Schema(description = "The language of the citation. See http://www.w3.org/International/articles/language-tags/")
   private String lang;
 
-  @Schema(description = "A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.")
+  @Schema(description = "A rendering (as a string) of a source citation. This rendering should be the most complete rendering available.")
   private String value;
 
   @Schema(description = "A reference to the citation template for this citation.")

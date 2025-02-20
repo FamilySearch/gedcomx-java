@@ -38,7 +38,6 @@ public abstract class ExtensibleData implements SupportsExtensionElements, HasTr
   @Schema(description = "Custom extension elements for a conclusion.")
   protected List<Object> extensionElements;
 
-  @Schema(description = "Transient properties that are not to be serialized.")
   protected final Map<String, Object> transientProperties = new TreeMap<String, Object>();
 
   protected ExtensibleData() {

@@ -50,8 +50,7 @@ import java.util.List;
 @XmlType ( name = "Agent" )
 @JsonElementWrapper ( name = "agents" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "An agent, e.g. person, organization, or group. In genealogical research, an agent often takes the role of a contributor." +
-    "\n@see [foaf:Agent](http://xmlns.com/foaf/spec/#term_Agent)")
+@Schema(description = "An agent, e.g. person, organization, or group. In genealogical research, an agent often takes the role of a contributor.")
 public class Agent extends HypermediaEnabledData {
 
   @Schema(description = "The list of names for the agent.")
