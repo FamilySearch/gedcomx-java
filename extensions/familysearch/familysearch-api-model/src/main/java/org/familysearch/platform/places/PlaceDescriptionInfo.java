@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.places;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -25,10 +26,16 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @XmlType ( name = "PlaceDescriptionInfo", propOrder = { "zoomLevel", "relatedType", "relatedSubType" } )
 @JsonElementWrapper( name = "placeDescriptionInfo" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
+@Schema(description = "Information about a place description.")
 public class PlaceDescriptionInfo {
 
+  @Schema(description = "The zoom level for this place description.")
   private Integer zoomLevel;
+
+  @Schema(description = "The type of this related place description.")
   private String relatedType;
+
+  @Schema(description = "The sub-type of this related place description.")
   private String relatedSubType;
 
   /**

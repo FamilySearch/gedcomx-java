@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,6 +29,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @JsonElementWrapper ( name = "altDates" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An alternate date.")
 public class AlternateDate extends Date {
 
 }
