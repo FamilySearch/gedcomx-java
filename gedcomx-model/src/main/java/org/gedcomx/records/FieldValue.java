@@ -33,6 +33,7 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.FieldValueStatusType;
 import org.gedcomx.types.FieldValueType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -44,19 +45,30 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "FieldValue" )
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An element representing a value in a record field.")
 public final class FieldValue extends Conclusion {
 
   /**
    * @see FieldValueType
    */
+  @Schema(description = "The type of the field value.")
   private URI type;
+
+  @Schema(description = "The id of the label applicable to this field value.")
   private String labelId;
+
+  @Schema(description = "The text value.")
   private String text;
+
+  @Schema(description = "The datatype of the text value of the field.")
   private URI datatype;
+
+  @Schema(description = "URI that resolves to the value of the field.")
   private URI resource;
   /**
    * @see FieldValueStatusType
    */
+  @Schema(description = "The status of this FieldValue.")
   private URI status;
 
   public FieldValue() {

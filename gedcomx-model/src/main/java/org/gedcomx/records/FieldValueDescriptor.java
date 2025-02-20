@@ -25,6 +25,7 @@ import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.types.FieldValueType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -41,17 +42,37 @@ import java.util.List;
 @XmlType ( name = "FieldValueDescriptor" )
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A way a field is to be displayed to a user.")
 public class FieldValueDescriptor extends HypermediaEnabledData {
 
+  @Schema(description = "The id of the label applicable to the field value.")
   private String labelId;
+
+  @Schema(description = "The type of the field value.")
   private URI type;
+
+  @Schema(description = "Whether the treatment of the field value is optional. Used to determine whether it should be displayed even if the value is empty.")
   private Boolean optional;
+
+  @Schema(description = "The labels to be used for display purposes.")
   private List<TextValue> displayLabels;
+
+  @Schema(description = "The labels to be used for entry purposes.")
   private List<TextValue> entryLabels;
+
+  @Schema(description = "A sort key for sorting this field value relative to other field values according to how they should be displayed for viewing.")
   private String displaySortKey; // a sort key for sorting the field values by how they should be displayed for viewing
+
+  @Schema(description = "A sort key for sorting this field value relative to other field values according to how they should be entered for editing.")
   private String entrySortKey; // a sort key for sorting the field values by how they should be entered for editing
+
+  @Schema(description = "Whether some kind of entry is required when entering data for editing.")
   private Boolean entryRequired; // whether some kind of entry is required when entering data for editing.
+
+  @Schema(description = "Whether the field value is editable. Some field values might be composed from other field values or otherwise calculated by the system.")
   private Boolean editable; //whether the field value is editable (as opposed to composed from other values by the system).
+
+  @Schema(description = "The id of the label for the \"parent\" field value. For example, the parent field value of a \"given name\" field value might be the \"name\" field value.")
   private String parentLabelId; //the label id of the "parent" field value. E.g. The parent of a "given name" field value might be the "name" field value.
 
   public FieldValueDescriptor() {

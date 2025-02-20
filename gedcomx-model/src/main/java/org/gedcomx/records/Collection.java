@@ -30,6 +30,8 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.util.JsonIdentifiers;
 
 import javax.xml.XMLConstants;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -49,13 +51,25 @@ import java.util.stream.Stream;
 @XmlType ( name = "Collection", propOrder = { "identifiers", "title", "size", "content", "attribution" })
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A collection of genealogical resources.")
 public class Collection extends HypermediaEnabledData implements Attributable {
 
+  @Schema(description = "The language of this description of the collection.")
   private String lang;
+
+  @Schema(description = "The list of identifiers for the source.")
   private List<Identifier> identifiers;
+
+  @Schema(description = "Descriptions of the content of this collection.")
   private List<CollectionContent> content;
+
+  @Schema(description = "A title for the collection.")
   private String title;
+
+  @Schema(description = "The size of the collection, in terms of the number of items in this collection.")
   private Integer size;
+
+  @Schema(description = "Attribution metadata for this collection.")
   private Attribution attribution;
 
   public Collection() {
