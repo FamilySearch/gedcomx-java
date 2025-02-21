@@ -30,6 +30,7 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.rt.RDFRange;
 import org.gedcomx.types.ConfidenceLevel;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -46,12 +47,22 @@ import java.util.stream.Stream;
  */
 @XmlType ( name = "PlaceReference", propOrder = { "original", "normalizedExtensions", "fields" })
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A reference to genealogical place.")
 public class PlaceReference extends ExtensibleData implements HasFields {
 
+  @Schema(description = "The original value as supplied by the user.")
   private String original;
+
+  @Schema(description = "A reference to a description of the place being referenced.")
   private URI descriptionRef;
+
+  @Schema(description = "The level of confidence the contributor has about the data.")
   private URI confidence;
+
   private List<Field> fields;
+
+  @Schema(description = "The list of normalized values for the place, provided for display purposes by the application. " +
+      "Normalized values are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private List<TextValue> normalized;
 
   public PlaceReference() {

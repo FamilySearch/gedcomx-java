@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -58,15 +59,32 @@ import org.gedcomx.types.NameType;
 @JsonElementWrapper (name = "persons")
 @XmlType ( name = "Person", propOrder = { "private", "living", "principal", "gender", "names", "facts", "fields", "displayExtension" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A person.")
 public class Person extends Subject implements HasFacts, HasFields {
 
+  @Schema(description = "Whether this person has been designated for limited distribution or display.")
   private Boolean isPrivate;
+
+  @Schema(description = "Living status of the person as treated by the system. The value of this property is intended to be based on a system-specific " +
+      "calculation and therefore has limited portability. Conclusions about the living status of a person can be modeled with a fact.")
   private Boolean living;
+
+  @Schema(description = "Indicator of whether this person is the 'principal' person extracted from the record. Applicable only to extracted persons. " +
+      "The meaning of this flag outside the scope of an extracted person is undefined.")
   private Boolean principal;
+
+  @Schema(description = "The gender conclusion for the person.")
   private Gender gender;
+
+  @Schema(description = "The name conclusions for the person.")
   private List<Name> names;
+
+  @Schema(description = "The fact conclusions for the person.")
   private List<Fact> facts;
+
   private List<Field> fields; // person-specific fields, such as used in an extracted historical record.
+
+  @Schema(description = "Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private DisplayProperties display;
 
   public Person() {

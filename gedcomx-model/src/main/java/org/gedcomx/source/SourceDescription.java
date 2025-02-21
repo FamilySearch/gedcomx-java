@@ -57,6 +57,10 @@ import org.gedcomx.types.ResourceStatusType;
 import org.gedcomx.types.ResourceType;
 import org.gedcomx.util.JsonIdentifiers;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.xml.bind.annotation.*;
+import javax.xml.XMLConstants;
+import java.util.*;
 
 /**
  * Represents a description of a source.
@@ -65,40 +69,88 @@ import org.gedcomx.util.JsonIdentifiers;
 @XmlType ( name = "SourceDescription", propOrder = {"citations", "mediator", "publisher", "authors", "sources", "analysis", "componentOf", "titles", "titleLabel", "notes", "attribution", "descriptions", "identifiers", "created", "modified", "coverage", "rights", "fields", "repository", "descriptorRef", "replacedBy", "replaces", "statuses"} )
 @JsonElementWrapper ( name = "sourceDescriptions" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Represents a description of a source.")
 public class SourceDescription extends HypermediaEnabledData implements Attributable, HasNotes, HasFields, ReferencesSources {
 
+  @Schema(description = "The language of this genealogical data set. See http://www.w3.org/International/articles/language-tags/. Note that some language-enabled elements MAY override the language.")
   private String lang;
+
+  @Schema(description = "The bibliographic citation for this source.")
   private List<SourceCitation> citations;
+
+  @Schema(description = "Hint about the media (MIME) type of the resource being described.")
   private String mediaType;
+
+  @Schema(description = "The URI (if applicable) of the actual source.")
   private URI about;
+
+  @Schema(description = "A reference to the entity that mediates access to the described source.")
   private ResourceReference mediator;
+
+  @Schema(description = "A reference to the entity responsible for making the described source available.")
   private ResourceReference publisher;
+
+  @Schema(description = "The authors for this source.")
   private List<URI> authors;
+
+  @Schema(description = "References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).")
   private List<SourceReference> sources;
+
+  @Schema(description = "A reference to the analysis document explaining the analysis that went into this description of the source.")
   private ResourceReference analysis;
+
+  @Schema(description = "A reference to the source that contains this source.")
   private SourceReference componentOf;
+
+  @Schema(description = "A list of titles for this source.")
   private List<TextValue> titles;
+
+  @Schema(description = "A label for the title of this description.")
   private TextValue titleLabel;
+
+  @Schema(description = "Notes about a source.")
   private List<Note> notes;
+
+  @Schema(description = "The attribution metadata for this source description.")
   private Attribution attribution;
+
+  @Schema(description = "The type of the resource being described.")
   private URI resourceType;
+
+  @Schema(description = "The rights for this source.")
   private List<URI> rights;
+
   private String sortKey;
+
+  @Schema(description = "A list of descriptions for this source.")
   private List<TextValue> descriptions;
+
+  @Schema(description = "The list of identifiers for the agent.")
   private List<Identifier> identifiers;
+
   private Date created;
+
   private Date modified;
+
   private List<Coverage> coverage;
+
   private List<Field> fields;
+
   private ResourceReference repository;
+
   private ResourceReference descriptorRef;
+
   private URI replacedBy;
+
   private List<URI> replaces;
+
+  @Schema(description = "Gets the version of this resource")
   private String version;
 
   /**
    * @see ResourceStatusType
    */
+  @Schema(description = "The status of this source description.")
   private List<URI> statuses;
 
   public SourceDescription() {
@@ -1371,5 +1423,53 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @Override
   public String toString() {
     return getId() + ": " + this.resourceType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final SourceDescription that = (SourceDescription) o;
+    return Objects.equals(about, that.about) &&
+           Objects.equals(analysis, that.analysis) &&
+           Objects.equals(attribution, that.attribution) &&
+           Objects.equals(authors, that.authors) &&
+           Objects.equals(citations, that.citations) &&
+           Objects.equals(componentOf, that.componentOf) &&
+           Objects.equals(coverage, that.coverage) &&
+           Objects.equals(created, that.created) &&
+           Objects.equals(descriptions, that.descriptions) &&
+           Objects.equals(descriptorRef, that.descriptorRef) &&
+           Objects.equals(fields, that.fields) &&
+           Objects.equals(identifiers, that.identifiers) &&
+           Objects.equals(lang, that.lang) &&
+           Objects.equals(mediaType, that.mediaType) &&
+           Objects.equals(mediator, that.mediator) &&
+           Objects.equals(modified, that.modified) &&
+           Objects.equals(notes, that.notes) &&
+           Objects.equals(publisher, that.publisher) &&
+           Objects.equals(replacedBy, that.replacedBy) &&
+           Objects.equals(replaces, that.replaces) &&
+           Objects.equals(repository, that.repository) &&
+           Objects.equals(resourceType, that.resourceType) &&
+           Objects.equals(rights, that.rights) &&
+           Objects.equals(sortKey, that.sortKey) &&
+           Objects.equals(sources, that.sources) &&
+           Objects.equals(statuses, that.statuses) &&
+           Objects.equals(titleLabel, that.titleLabel) &&
+           Objects.equals(titles, that.titles) &&
+           Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(about, analysis, attribution, authors, citations, componentOf, coverage, created, descriptions,
+                        descriptorRef, fields, identifiers, lang, mediaType, mediator, modified, notes, publisher,
+                        replacedBy, replaces, repository, resourceType, rights, sortKey, sources, statuses,
+                        titleLabel, titles, version);
   }
 }

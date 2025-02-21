@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -38,9 +39,13 @@ import jakarta.xml.bind.annotation.XmlValue;
 @JsonElementWrapper(name = "qualifiers")
 @XmlType( name = "Qualifier" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A data qualifier. Qualifiers are used to \"qualify\" certain data elements to provide additional context, information, or details.")
 public final class Qualifier {
 
+  @Schema(description = "The name of the qualifier. The name should be an element of a constrained vocabulary and is used to determine meaning of the qualifier.")
   private URI name;
+
+  @Schema(description = "The value of the qualifier. Some qualifiers may not have values, indicating that the qualifier is to be treated more like a \"tag\".")
   private String value;
 
   public Qualifier() {

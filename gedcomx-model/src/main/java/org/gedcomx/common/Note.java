@@ -17,6 +17,7 @@ package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.Facet;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomxConstants;
@@ -39,11 +40,19 @@ import java.util.Objects;
 @JsonElementWrapper ( name = "notes" )
 @XmlType ( name = "Note", propOrder = {"subject", "text", "attribution"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A note about a genealogical resource (e.g. conclusion or source).")
 public class Note extends HypermediaEnabledData implements Attributable, HasText {
 
+  @Schema(description = "The language of the note. See http://www.w3.org/International/articles/language-tags/")
   private String lang;
+
+  @Schema(description = "The subject of the note. This is a short title describing the contents of the note text.")
   private String subject;
+
+  @Schema(description = "The text of the note.")
   private String text;
+
+  @Schema(description = "Attribution metadata for a note.")
   private Attribution attribution;
 
   public Note() {

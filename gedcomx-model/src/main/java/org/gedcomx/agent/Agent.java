@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.rs.TypeHint;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
@@ -34,7 +35,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,16 +50,34 @@ import java.util.List;
 @XmlType ( name = "Agent" )
 @JsonElementWrapper ( name = "agents" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An agent, e.g. person, organization, or group. In genealogical research, an agent often takes the role of a contributor.")
 public class Agent extends HypermediaEnabledData {
 
+  @Schema(description = "The list of names for the agent.")
   private List<TextValue> names;
+
+  @Schema(description = "The list of identifiers for the agent.")
   private List<Identifier> identifiers;
+
+  @Schema(description = "The homepage of the person or organization. Note this is different from the homepage of the service where the person or organization has an account.")
   private ResourceReference homepage;
+
+  @Schema(description = "The openid of the person or organization.")
   private ResourceReference openid;
+
+  @Schema(description = "The accounts that belong to this person or organization.")
   private List<OnlineAccount> accounts;
+
+  @Schema(description = "The emails that belong to this person or organization.")
   private List<ResourceReference> emails;
+
+  @Schema(description = "The phones that belong to this person or organization.")
   private List<ResourceReference> phones;
+
+  @Schema(description = "The addresses that belong to this person or organization.")
   private List<Address> addresses;
+
+  @Schema(description = "The person that describes this agent.")
   private ResourceReference person;
 
   public Agent() {

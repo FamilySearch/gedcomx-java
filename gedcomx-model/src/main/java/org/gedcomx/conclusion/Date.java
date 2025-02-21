@@ -31,6 +31,7 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.ConfidenceLevel;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -47,12 +48,22 @@ import java.util.stream.Stream;
 @ClientName ("DateInfo")
 @XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fields"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A concluded genealogical date.")
 public class Date extends ExtensibleData implements HasFields {
 
+  @Schema(description = "The original text as supplied by the user.")
   private String original;
+
+  @Schema(description = "The standardized and/or normalized formal value.")
   private String formal;
+
+  @Schema(description = "The level of confidence the contributor has about the data.")
   private URI confidence;
+
+  @Schema(description = "The list of normalized values for the date, provided for display purposes by the application. Normalized values are not specified by " +
+      "GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private List<TextValue> normalized;
+
   private List<Field> fields;
 
   public Date() {

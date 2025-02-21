@@ -29,6 +29,7 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.DocumentType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -43,14 +44,22 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "Document", propOrder = { "text" })
 @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An abstract document that contains derived (conclusionary) text -- for example, a transcription or researcher analysis.")
 public class Document extends Conclusion implements HasText, Attributable {
   
   public static final String TEXT_TYPE_PLAIN = "plain";
   public static final String TEXT_TYPE_XHTML = "xhtml";
 
+  @Schema(description = "Whether this document has been identified as \"extracted\", meaning it captures information extracted from a single source.")
   private Boolean extracted;
+
+  @Schema(description = "The type of the document.")
   private URI type;
+
+  @Schema(description = "The text type of the document.")
   private String textType;
+
+  @Schema(description = "The document text.")
   private String text;
 
   public Document() {

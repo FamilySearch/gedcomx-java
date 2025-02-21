@@ -26,6 +26,8 @@ import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.NamePartType;
 
 import javax.xml.XMLConstants;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -42,11 +44,18 @@ import java.util.stream.Stream;
  */
 @XmlType ( name = "NameForm", propOrder = { "fullText", "parts", "fields"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A form of a name.")
 public class NameForm extends ExtensibleData implements HasFields {
 
+  @Schema(description = "The language of the conclusion. See http://www.w3.org/International/articles/language-tags/")
   private String lang;
+
+  @Schema(description = "The full text of the name form.")
   private String fullText;
+
+  @Schema(description = "The different parts of the name form.")
   private List<NamePart> parts;
+
   private List<Field> fields;
 
   public NameForm() {

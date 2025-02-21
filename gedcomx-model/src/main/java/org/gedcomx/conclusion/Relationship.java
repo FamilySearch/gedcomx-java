@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -58,15 +59,26 @@ import org.gedcomx.types.RelationshipType;
 @JsonElementWrapper ( name = "relationships" )
 @XmlType ( name = "Relationship", propOrder = { "person1", "person2", "facts", "fields" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = " A relationship between two or more persons.")
 public class Relationship extends Subject implements HasFacts, HasFields {
 
   /**
    * @see org.gedcomx.types.RelationshipType
    */
+  @Schema(description = "The type of this relationship.")
   private URI type;
+
+  @Schema(description = "A reference to a person in the relationship. The name \"person1\" is used only to distinguish it from the other person in this " +
+      "relationship and implies neither order nor role. When the relationship type implies direction, it goes from \"person1\" to \"person2\".")
   private ResourceReference person1;
+
+  @Schema(description = "A reference to a person in the relationship. The name \"person2\" is used only to distinguish it from the other person in this " +
+      "relationship and implies neither order nor role. When the relationship type implies direction, it goes from \"person1\" to \"person2\".")
   private ResourceReference person2;
+
+  @Schema(description = "The fact conclusions for the relationship.")
   private List<Fact> facts;
+
   private List<Field> fields;
 
   public Relationship() {

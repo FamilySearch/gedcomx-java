@@ -32,6 +32,7 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.EventRoleType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -44,10 +45,16 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "EventRole", propOrder = { "person", "details" } )
 @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A role that a specific person plays in an event.")
 public class EventRole extends Conclusion {
 
+  @Schema(description = "Reference to the person playing the role in the event.")
   private ResourceReference person;
+
+  @Schema(description = "The role type.")
   private URI type;
+
+  @Schema(description = "Details about the role of the person in the event.")
   private String details;
 
   public EventRole() {

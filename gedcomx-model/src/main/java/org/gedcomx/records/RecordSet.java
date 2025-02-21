@@ -27,6 +27,8 @@ import org.gedcomx.rt.Model;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -60,10 +62,17 @@ import java.util.stream.Stream;
 @XmlType ( name = "RecordSet", propOrder = { "metadata", "records" })
 @com.webcohesion.enunciate.metadata.Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The GEDCOM X bulk record data formats are used to exchange bulk genealogical data sets, grouped into records.")
 public class RecordSet extends HypermediaEnabledData {
 
+  @Schema(description = "The language of this genealogical data set. See http://www.w3.org/International/articles/language-tags/. " +
+      "Note that some language-enabled elements MAY override the language.")
   private String lang;
+
+  @Schema(description = "Metadata about this record set; shared among all records in the set.")
   private Gedcomx metadata;
+
+  @Schema(description = "The records included in this genealogical data set.")
   private List<Gedcomx> records;
 
   public RecordSet() {

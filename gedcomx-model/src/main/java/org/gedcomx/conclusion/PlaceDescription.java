@@ -26,6 +26,7 @@ import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.ConfidenceLevel;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -42,16 +43,36 @@ import java.util.stream.Stream;
  */
 @XmlType ( name = "PlaceDescription", propOrder = { "names", "temporalDescription", "latitude", "longitude", "spatialDescription", "place", "jurisdiction", "displayExtension" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A PlaceDescription is used to describe the details of a place in terms of its name and possibly its type, time period, and/or a " +
+    "geospatial description -- a description of a place as a snapshot in time.")
 public class PlaceDescription extends Subject {
 
+  @Schema(description = "An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) " +
+      "names for this place that are applicable to this description of this place. The list MUST include at least one value. It is RECOMMENDED that instances include a single name and any equivalents from other cultural contexts; name variants should more typically be described in separate PlaceDescription instances. The list is assumed to be given in order of preference, with the most preferred value in the first position in the list.")
   private List<TextValue> names;
+
+  @Schema(description = "An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).")
   private URI type;
+
+  @Schema(description = "A description of the time period to which this place description is relevant.")
   private Date temporalDescription;
+
+  @Schema(description = "Degrees north or south of the Equator (0.0 degrees). Values range from −90.0 degrees (south) to 90.0 degrees (north).")
   private Double latitude;
+
+  @Schema(description = "Angular distance in degrees, relative to the Prime Meridian. Values range from −180.0 degrees (west of the Meridian) to 180.0 degrees (east of the Meridian).")
   private Double longitude;
+
+  @Schema(description = "A reference to the place being described.")
   private ResourceReference place;
+
+  @Schema(description = "A reference to a geospatial description of this place. It is RECOMMENDED that this description resolve to a KML document.")
   private ResourceReference spatialDescription;
+
+  @Schema(description = "A reference to a description of the jurisdiction this place.")
   private ResourceReference jurisdiction;
+
+  @Schema(description = "Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private PlaceDisplayProperties display;
 
   public PlaceDescription() {

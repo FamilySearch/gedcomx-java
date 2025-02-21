@@ -29,6 +29,7 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.GedcomxModelVisitor;
 import org.gedcomx.types.NamePartType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -47,14 +48,21 @@ import java.util.stream.Stream;
  */
 @XmlType ( name = "NamePart" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A part of a name.")
 public final class NamePart extends ExtensibleData implements HasFields {
 
   /**
    * @see org.gedcomx.types.NamePartType
    */
+  @Schema(description = "The type of the name part.")
   private URI type;
+
+  @Schema(description = "The value of the name part.")
   private String value;
+
+  @Schema(description = "The qualifiers associated with this name part.")
   private List<Qualifier> qualifiers;
+
   private List<Field> fields;
 
   public NamePart() {

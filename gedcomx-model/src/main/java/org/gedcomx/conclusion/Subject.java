@@ -29,6 +29,7 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.util.JsonIdentifiers;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -49,11 +50,19 @@ import java.util.stream.Stream;
  */
 @XmlType ( name = "Subject", propOrder = { "evidence", "media", "identifiers" })
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The `Subject` data type defines the abstract concept of a genealogical _subject_. A _subject_ is something with a unique and intrinsic identity, e.g., a person, a location on the surface of the earth. We identify that _subject_ in time and space using various supporting _conclusions_, e.g. for a person: things like name, birth date, age, address, etc. We aggregate these supporting _conclusions_ to form an apparently-unique identity by which we can distinguish our _subject_ from all other possible _subjects_.")
 public abstract class Subject extends Conclusion implements Attributable {
 
+  @Schema(description = "Whether this subject has been identified as 'extracted', meaning it captures information extracted from a single source.")
   private Boolean extracted;
+
+  @Schema(description = "The list of identifiers for the subject.")
   private List<Identifier> identifiers;
+
+  @Schema(description = "References to multimedia resources associated with this subject.")
   private List<SourceReference> media;
+
+  @Schema(description = "References to the evidence being referenced for this subject.")
   private List<EvidenceReference> evidence;
 
   public Subject() {

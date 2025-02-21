@@ -19,6 +19,7 @@ import org.gedcomx.rt.RDFDomain;
 import org.gedcomx.rt.RDFRange;
 import org.gedcomx.rt.RDFSubPropertyOf;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import java.util.List;
  * @author Ryan Heaton
  */
 @XmlType ( name = "ReferencesSources" )
+@Schema(description = "Conclusion data that references sources.")
 public interface ReferencesSources {
 
   /**

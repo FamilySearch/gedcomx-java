@@ -20,6 +20,7 @@ import com.webcohesion.enunciate.metadata.Facet;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.rt.GedcomxConstants;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -31,10 +32,17 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "PlaceDisplayProperties" )
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A set of display properties for places for the convenience of quick display, such as for a Web-based application. " +
+    "All display properties are provided in the default locale for the current application context and are NOT considered canonical for the purposes of data exchange.")
 public class PlaceDisplayProperties extends ExtensibleData {
 
+  @Schema(description = "The displayable name of the place.")
   private String name;
+
+  @Schema(description = "The displayable full name of the place.")
   private String fullName;
+
+  @Schema(description = "The displayable type of the place.")
   private String type;
 
   public PlaceDisplayProperties() {

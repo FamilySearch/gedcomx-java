@@ -17,6 +17,7 @@ package org.gedcomx.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.webcohesion.enunciate.metadata.Facet;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.rt.GedcomxConstants;
 
 import javax.xml.XMLConstants;
@@ -30,9 +31,13 @@ import jakarta.xml.bind.annotation.XmlValue;
  */
 @XmlType ( name = "TextValue" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An element representing a text value that may be in a specific language.")
 public class TextValue {
 
+  @Schema(description = "The language of the text value. See http://www.w3.org/International/articles/language-tags/")
   private String lang;
+
+  @Schema(description = "The text value.")
   private String value;
 
   public TextValue() {

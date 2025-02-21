@@ -27,6 +27,7 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 import org.gedcomx.types.RecordType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -40,13 +41,18 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "coverage" )
 @XmlType ( name = "Coverage" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A description of the coverage of a resource.")
 public class Coverage extends HypermediaEnabledData {
 
+  @Schema(description = "Spatial coverage.")
   private PlaceReference spatial;
+
+  @Schema(description = "Temporal coverage.")
   private Date temporal;
   /**
    * @see org.gedcomx.types.RecordType
    */
+  @Schema(description = "The type of record being covered, if any.")
   private URI recordType;
 
   public Coverage() {

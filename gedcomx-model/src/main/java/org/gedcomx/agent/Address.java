@@ -15,6 +15,8 @@
  */
 package org.gedcomx.agent;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.ExtensibleData;
 
 import jakarta.xml.bind.annotation.XmlType;
@@ -26,18 +28,40 @@ import jakarta.xml.bind.annotation.XmlType;
  * @author Ryan Heaton
  */
 @XmlType ( name = "Address" )
+@Schema(description = "An Address.")
 public class Address extends ExtensibleData {
 
+  @Schema(description = "The city.")
   private String city;
+
+  @Schema(description = "The country.")
   private String country;
+
+  @Schema(description = "The postal code.")
   private String postalCode;
+
+  @Schema(description = "The state or province.")
   private String stateOrProvince;
+
+  @Schema(description = "The street.")
   private String street;
+
+  @Schema(description = "Additional street information.")
   private String street2;
+
+  @Schema(description = "Additional street information.")
   private String street3;
+
+  @Schema(description = "Additional street information.")
   private String street4;
+
+  @Schema(description = "Additional street information.")
   private String street5;
+
+  @Schema(description = "Additional street information.")
   private String street6;
+
+  @Schema(description = "The value of the property, if it can be expressed as a string.")
   private String value;
 
   public Address() {
