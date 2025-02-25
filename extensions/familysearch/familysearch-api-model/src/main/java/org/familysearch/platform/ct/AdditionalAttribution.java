@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ct;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,5 +28,6 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @XmlRootElement
 @JsonElementWrapper (name = "additionalAttribution")
 @JsonInclude( JsonInclude.Include.NON_NULL )
+@Schema(description = "Extension element for capturing additional attributions on an already-attributed object.")
 public class AdditionalAttribution extends Attribution {
 }

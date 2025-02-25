@@ -18,6 +18,7 @@ package org.familysearch.platform;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -31,26 +32,34 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "Error" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
+@Schema(description = "A common representation of an error on the FamilySearch platform.")
 public class Error {
 
+  @Schema(description = "The error code. Interpreted per [RFC 9110, Section 15 (Status Codes)](https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes).")
   private Integer code;
+
+  @Schema(description = "A text label associated with the error code.")
   private String label;
+
+  @Schema(description = "A message associated with the error.")
   private String message;
+
+  @Schema(description = "The back-end stack trace associated with the error, useful for debugging.")
   private String stacktrace;
 
   /**
-   * The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    *
-   * @return The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * @return The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    */
   public Integer getCode() {
     return code;
   }
 
   /**
-   * The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    *
-   * @param code The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * @param code The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    */
   public void setCode(Integer code) {
     this.code = code;

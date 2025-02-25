@@ -17,6 +17,7 @@ package org.familysearch.platform.vocab;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -32,11 +33,22 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 @JsonElementWrapper(name = "vocabTerms")
 @XmlType(name = "VocabTerm")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Schema(description = "A vocabulary term.")
 public class VocabTerm extends HypermediaEnabledData {
+
+  @Schema(description = "The vocabulary term type.")
   private URI typeUri;
+
+  @Schema(description = "The URI of the vocabulary concept this vocabulary term is associated with.")
   private URI conceptUri;
+
+  @Schema(description = "The URI of the sublist this vocabulary term is associated with.")
   private URI sublistUri;
+
+  @Schema(description = "The position of this vocabulary term within it's associated sublist.")
   private Integer sublistPosition;
+
+  @Schema(description = "The values of the vocabulary term.")
   private List<TextValue> values;
 
   /**

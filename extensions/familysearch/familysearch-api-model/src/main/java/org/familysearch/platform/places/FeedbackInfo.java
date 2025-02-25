@@ -21,6 +21,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -32,11 +33,19 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "feedbackInfo" )
 @XmlType ( name = "FeedbackInfo" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Information about a place feedback submission.")
 public class FeedbackInfo {
 
+  @Schema(description = "The resolution of the feedback.")
   private URI resolution;
+
+  @Schema(description = "The status of the feedback.")
   private URI status;
+
+  @Schema(description = "A reference to the place that was created based on this feedback, if any.")
   private ResourceReference place;
+
+  @Schema(description = "Additional details about the resolution.")
   private String details;
 
   /**

@@ -21,6 +21,7 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -34,14 +35,23 @@ import java.util.List;
 @JsonElementWrapper ( name = "mergeAnalysis" )
 @XmlType ( name = "MergeAnalysis", propOrder = {"survivorResources", "duplicateResources", "conflictingResources", "survivor", "duplicate"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A merge analysis.")
 public class MergeAnalysis {
 
+  @Schema(description = "List of survivor resources.")
   private List<ResourceReference> survivorResources;
-  private List<ResourceReference> duplicateResources;
-  private List<MergeConflict> conflictingResources;
-  private ResourceReference survivor;
-  private ResourceReference duplicate;
 
+  @Schema(description = "List of duplicate resources.")
+  private List<ResourceReference> duplicateResources;
+
+  @Schema(description = "List of resources that are in conflict.")
+  private List<MergeConflict> conflictingResources;
+
+  @Schema(description = "The surviving person.")
+  private ResourceReference survivor;
+
+  @Schema(description = "The duplicate person.")
+  private ResourceReference duplicate;
 
   @XmlElement (name="survivorResource")
   @JsonProperty ("survivorResources")

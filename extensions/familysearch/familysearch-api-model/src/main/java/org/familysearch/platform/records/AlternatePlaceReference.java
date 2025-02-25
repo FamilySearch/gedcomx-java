@@ -19,15 +19,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.gedcomx.conclusion.PlaceReference;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * An ordinance reservation.
+ * An alternate place reference.
  *
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "altPlaces" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An alternate place reference.")
 public class AlternatePlaceReference extends PlaceReference {
 
 }

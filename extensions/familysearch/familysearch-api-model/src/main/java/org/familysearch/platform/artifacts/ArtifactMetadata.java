@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.gedcomx.common.Qualifier;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
@@ -37,15 +38,31 @@ import java.util.List;
 @JsonElementWrapper(name = "artifactMetadata")
 @XmlType(name = "ArtifactMetadata")
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "FamilySearch-specific metadata about an artifact.")
 public class ArtifactMetadata {
 
+  @Schema(description = "The original filename of the memories item.")
   private String filename;
+
+  @Schema(description = "The qualifiers associated with this artifact.")
   private List<Qualifier> qualifiers;
+
+  @Schema(description = "The width of the artifact (presumably an image).")
   private Integer width;
+
+  @Schema(description = "The height of the artifact (presumably an image).")
   private Integer height;
+
+  @Schema(description = "The size of the artifact.")
   private Long size;
+
+  @Schema(description = "The screening state of the artifact.")
   private URI screeningState;
+
+  @Schema(description = "The display state of the artifact.")
   private URI displayState;
+
+  @Schema(description = "Whether or not the artifact is editable by the current user.")
   private Boolean editable;
 
   /**

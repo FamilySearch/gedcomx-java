@@ -22,6 +22,7 @@ import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -34,14 +35,28 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "matchInfo" )
 @XmlType ( name = "MatchInfo" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Information about a match.")
 public class MatchInfo {
 
+  @Schema(description = "The collection in which this match was found.")
   private URI collection;
+
+  @Schema(description = "The way this match has been resolved.")
   private URI status;
+
+  @Schema(description = "True if the match would add a person to the target system; false otherwise.")
   private Boolean addsPerson;
+
+  @Schema(description = "True if the match would add a person to the target system who passes the 110-year rule; false otherwise.")
   private Boolean addsPerson110YearRule;
+
+  @Schema(description = "True if the match would add a vital fact to the target system; false otherwise.")
   private Boolean addsFact;
+
+  @Schema(description = "True if the match would add a date or place to an existing vital fact; false otherwise.")
   private Boolean addsDateOrPlace;
+
+  @Schema(description = "True if the destination has four or more people in the immediate family; false otherwise.")
   private Boolean hasFourOrMorePeople;
 
   public MatchInfo() {

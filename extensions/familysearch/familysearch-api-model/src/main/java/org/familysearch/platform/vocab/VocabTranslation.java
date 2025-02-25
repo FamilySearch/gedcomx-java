@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.vocab;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -28,7 +29,10 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "vocabTranslations")
 @XmlType(name = "VocabTranslation")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Schema(description = "A vocabulary translation.")
 public class VocabTranslation extends HypermediaEnabledData {
+
+  @Schema(description = "The translation of the vocabulary term.")
   private TextValue translation;
 
   public VocabTranslation() {
