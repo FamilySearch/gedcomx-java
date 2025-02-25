@@ -35,8 +35,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @Schema(description = "A common representation of an error on the FamilySearch platform.")
 public class Error {
 
-  // TODO: Fix links to RFC 2616 and RFC 2616, Section 10 (HTTP Status Code Definitions)
-  @Schema(description = "The error code. Interpreted per RFC 2616, Section 10 (HTTP Status Code Definitions).")
+  @Schema(description = "The error code. Interpreted per [RFC 9110, Section 15 (Status Codes)](https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes).")
   private Integer code;
 
   @Schema(description = "A text label associated with the error code.")
@@ -49,18 +48,18 @@ public class Error {
   private String stacktrace;
 
   /**
-   * The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    *
-   * @return The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * @return The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    */
   public Integer getCode() {
     return code;
   }
 
   /**
-   * The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    *
-   * @param code The error code. Intepreted per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616, Section 10 (HTTP Status Code Definitions)</a>.
+   * @param code The error code. Interpreted per <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes">RFC 9110, Section 15 (Status Codes)</a>.
    */
   public void setCode(Integer code) {
     this.code = code;
