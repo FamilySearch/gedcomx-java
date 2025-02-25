@@ -45,7 +45,7 @@ public class ChangeInfo {
   @Schema(description = "The type of the object to which the operation applies.")
   private URI objectType;
 
-  @Schema(description = "An optional modifier for the object to which the operation applies.")
+  @Schema(description = "An optional modifier for the object to which the operation applies. For example, if the object is a Fact, a modifier could be applied to indicate that fact applies to a person, couple, or child-and-parents relationship.")
   private URI objectModifier;
 
   @Schema(description = "The reason for the change.")

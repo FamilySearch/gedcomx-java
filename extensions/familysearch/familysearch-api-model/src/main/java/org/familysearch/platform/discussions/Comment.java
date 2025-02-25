@@ -30,7 +30,7 @@ import java.util.Date;
 @XmlType ( name = "Comment", propOrder = { "text", "created", "contributor" } )
 @SuppressWarnings("gedcomx:no_id")
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "An data type that supports hypermedia controls (i.e. links).")
+@Schema(description = "A comment.")
 public class Comment extends HypermediaEnabledData {
 
   @Schema(description = "The text of the comment.")

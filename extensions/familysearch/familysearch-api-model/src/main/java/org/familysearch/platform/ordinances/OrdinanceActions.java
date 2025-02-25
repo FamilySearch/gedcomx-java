@@ -31,20 +31,20 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 public class OrdinanceActions {
 
   // These have default values so they will always appear as either "true" or "false"
-  @Schema(description = "If this ordinance is reservable.")
+  @Schema(description = "True if this ordinance is reservable; false otherwise.")
   private Boolean reservable = false;
 
-  @Schema(description = "If this ordinance is unReservable.")
+  @Schema(description = "True if this ordinance is unReservable; false otherwise.")
   private Boolean unReservable = false;
 
-  @Schema(description = "If this ordinance is shareable.")
+  @Schema(description = "True if this ordinance is shareable; false otherwise.")
   private Boolean shareable = false;
 
-  @Schema(description = "If this ordinance is unShareable.")
+  @Schema(description = "True if this ordinance is unShareable; false otherwise.")
   private Boolean unShareable = false;
 
   // The private Boolean transferable is not supported yet
-  @Schema(description = "If this ordinance is transferable.")
+  @Schema(description = "True if this ordinance is transferable; false otherwise.")
   private Boolean printable = false;
 
 

@@ -35,7 +35,7 @@ import java.util.List;
 @JsonElementWrapper ( name = "merge" )
 @XmlType ( name = "Merge", propOrder = {"resourcesToDelete", "resourcesToCopy"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Merge")
+@Schema(description = "A merge.")
 public class Merge {
 
   @Schema(description = "List of resources to remove from the survivor person.")

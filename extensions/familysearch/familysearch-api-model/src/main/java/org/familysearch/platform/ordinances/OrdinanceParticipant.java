@@ -32,7 +32,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "participants")
 @XmlType( name = "OrdinanceParticipant" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Ordinance Participant")
+@Schema(description = "The ordinance participant.")
 public class OrdinanceParticipant {
 
   @Schema(description = "The role type for this participant in the ordinance.")

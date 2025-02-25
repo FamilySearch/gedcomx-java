@@ -34,7 +34,7 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 @JsonElementWrapper(name = "vocabConcepts")
 @XmlType(name = "VocabConcept")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Schema(description = "An data type that supports hypermedia controls (i.e. links).")
+@Schema(description = "A vocabulary concept.")
 public class VocabConcept extends HypermediaEnabledData {
 
   @Schema(description = "The vocabulary concept description.")

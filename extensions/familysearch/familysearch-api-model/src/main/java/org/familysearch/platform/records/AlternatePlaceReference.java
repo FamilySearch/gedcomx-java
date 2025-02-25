@@ -23,13 +23,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * An ordinance reservation.
+ * An alternate place reference.
  *
  */
 @XmlRootElement
 @JsonElementWrapper ( name = "altPlaces" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "An ordinance reservation.")
+@Schema(description = "An alternate place reference.")
 public class AlternatePlaceReference extends PlaceReference {
 
 }

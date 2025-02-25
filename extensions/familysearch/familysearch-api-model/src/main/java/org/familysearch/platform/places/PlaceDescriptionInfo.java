@@ -29,13 +29,13 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @Schema(description = "Information about a place description.")
 public class PlaceDescriptionInfo {
 
-  @Schema(description = "The zoom level for this place description.")
+  @Schema(description = "The zoom level of this place description.")
   private Integer zoomLevel;
 
-  @Schema(description = "The type of this related place description.")
+  @Schema(description = "The type of this related place description. This attribute is only relevant \"related place descriptions.\"")
   private String relatedType;
 
-  @Schema(description = "The sub-type of this related place description.")
+  @Schema(description = "The sub-type of this related place description. This attribute is only relevant \"related place descriptions.\"")
   private String relatedSubType;
 
   /**

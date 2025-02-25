@@ -44,19 +44,19 @@ public class MatchInfo {
   @Schema(description = "The way this match has been resolved.")
   private URI status;
 
-  @Schema(description = "tells if the match would add a person to the target system")
+  @Schema(description = "True if the match would add a person to the target system; false otherwise.")
   private Boolean addsPerson;
 
-  @Schema(description = "tells if the match would add a person to the target system who passes the 110-year rule")
+  @Schema(description = "True if the match would add a person to the target system who passes the 110-year rule; false otherwise.")
   private Boolean addsPerson110YearRule;
 
-  @Schema(description = "tells if the match would add a vital fact to the target system")
+  @Schema(description = "True if the match would add a vital fact to the target system; false otherwise.")
   private Boolean addsFact;
 
-  @Schema(description = "tells if the match would add a date or place to an existing vital fact")
+  @Schema(description = "True if the match would add a date or place to an existing vital fact; false otherwise.")
   private Boolean addsDateOrPlace;
 
-  @Schema(description = "tells if the destination has four or more people in the immediate family")
+  @Schema(description = "True if the destination has four or more people in the immediate family; false otherwise.")
   private Boolean hasFourOrMorePeople;
 
   public MatchInfo() {

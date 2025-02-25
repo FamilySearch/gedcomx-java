@@ -18,6 +18,7 @@ package org.familysearch.platform.places;
 /**
  * @author Ryan Heaton
  */
+// TODO: Travis - This class is not used in the current version of the FamilySearch API.  It is not clear if it is still needed.
 public class PlaceAttribute {
 
   private String attributeId;

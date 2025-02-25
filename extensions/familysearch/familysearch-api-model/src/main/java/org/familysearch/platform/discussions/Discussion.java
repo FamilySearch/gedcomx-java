@@ -38,7 +38,7 @@ import java.util.List;
 @JsonElementWrapper (name = "discussions")
 @XmlType ( name = "Discussion", propOrder = { "title", "details", "created", "contributor", "modified", "numberOfComments", "comments" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "A Discussion.")
+@Schema(description = "A discussion.")
 public class Discussion extends HypermediaEnabledData {
 
   @Schema(description = "The one-line summary or \"subject\" of the discussion.")
@@ -47,13 +47,13 @@ public class Discussion extends HypermediaEnabledData {
   @Schema(description = "The detailed text of the discussion.")
   private String details;
 
-  @Schema(description = "The date the discussion was created.")
+  @Schema(description = "The contributor who submitted this discussion.")
   private ResourceReference contributor;
 
   @Schema(description = "The date the discussion was created.")
   private Date created;
 
-  @Schema(description = "The date of last modification.")
+  @Schema(description = "Last date of any change to comments or discussion details.")
   private Date modified;    // last date of any change to comments or discussion details
 
   @Schema(description = "The number of comments associated with this discussion.")

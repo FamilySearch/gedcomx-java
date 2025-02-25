@@ -41,13 +41,13 @@ public class FieldInfo implements Serializable {
   @Schema(description = "The display label for the field.")
   private String displayLabel;
 
-  @Schema(description = "Whether the field is standard.")
+  @Schema(description = "True if the field is standard; false otherwise.")
   private boolean standard;
 
-  @Schema(description = "Whether the field is editable.")
+  @Schema(description = "True if the field is editable; false otherwise.")
   private boolean editable;
 
-  @Schema(description = "Whether the field is displayable.")
+  @Schema(description = "True if the field is displayable; false otherwise.")
   private boolean displayable;
 
   @Schema(description = "The element types for the field.")

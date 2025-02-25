@@ -33,7 +33,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "feedbackInfo" )
 @XmlType ( name = "FeedbackInfo" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "Information about a a feedback submission about a place.")
+@Schema(description = "Information about a place feedback submission.")
 public class FeedbackInfo {
 
   @Schema(description = "The resolution of the feedback.")
@@ -45,7 +45,7 @@ public class FeedbackInfo {
   @Schema(description = "A reference to the place that was created based on this feedback, if any.")
   private ResourceReference place;
 
-  @Schema(description = "Some additional details about the resolution.")
+  @Schema(description = "Additional details about the resolution.")
   private String details;
 
   /**

@@ -52,10 +52,10 @@ public class ChildAndParentsRelationship extends Subject {
   @Schema(description = "The child in the relationship.")
   private ResourceReference child;
 
-  @Schema(description = "The fact conclusions for the parent1.")
+  @Schema(description = "The fact conclusions for parent1.")
   private List<Fact> parent1Facts;
 
-  @Schema(description = "The fact conclusions for the parent2.")
+  @Schema(description = "The fact conclusions for parent2.")
   private List<Fact> parent2Facts;
 
   /**

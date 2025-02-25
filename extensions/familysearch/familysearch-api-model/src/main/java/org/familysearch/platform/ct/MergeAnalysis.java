@@ -35,13 +35,13 @@ import java.util.List;
 @JsonElementWrapper ( name = "mergeAnalysis" )
 @XmlType ( name = "MergeAnalysis", propOrder = {"survivorResources", "duplicateResources", "conflictingResources", "survivor", "duplicate"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Merge Analysis")
+@Schema(description = "A merge analysis.")
 public class MergeAnalysis {
 
-  @Schema(description = "List of resources to remove from the survivor person.")
+  @Schema(description = "List of survivor resources.")
   private List<ResourceReference> survivorResources;
 
-  @Schema(description = "List of resources to copy from the duplicate person to survivor person.")
+  @Schema(description = "List of duplicate resources.")
   private List<ResourceReference> duplicateResources;
 
   @Schema(description = "List of resources that are in conflict.")

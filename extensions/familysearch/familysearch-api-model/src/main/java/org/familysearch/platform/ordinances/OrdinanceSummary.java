@@ -30,7 +30,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "ordinanceSummaries")
 @XmlType(name = "OrdinanceSummary", propOrder = {"notSharedReservationCount", "notSharedReservationLimit", "sharedReservationCount"})
 @JsonInclude (JsonInclude.Include.NON_NULL)
-@Schema(description = "Summary information regarding Ordinances.")
+@Schema(description = "Summary information regarding a user's ordinance.")
 public class OrdinanceSummary {
 
   @Schema(description = "The current number of reservations which have not been shared that a user has on their reservation list.")

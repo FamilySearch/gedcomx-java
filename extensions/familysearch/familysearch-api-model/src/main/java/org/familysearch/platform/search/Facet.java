@@ -30,7 +30,7 @@ import static java.util.Objects.isNull;
 @JsonElementWrapper(name="facets")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @XmlType( name = "Facet" )
-@Schema(description = "A facet in a search result.")
+@Schema(description = "A facet.")
 public class Facet {
 
   @Schema(description = "The localized name of this facet.")

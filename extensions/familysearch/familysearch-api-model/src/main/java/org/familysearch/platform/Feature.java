@@ -37,10 +37,10 @@ public class Feature {
   @Schema(description = "A description of the feature.")
   private String description;
 
-  @Schema(description = "Whether the feature is enabled for the current request.")
+  @Schema(description = "True if the feature is enabled for the current request: false otherwise.")
   private Boolean enabled;
 
-  @Schema(description = "The date that this feature is scheduled to activate permanently.")
+  @Schema(description = "The date that this feature is scheduled to be enabled permanently.")
   private Date activationDate;
 
   /**

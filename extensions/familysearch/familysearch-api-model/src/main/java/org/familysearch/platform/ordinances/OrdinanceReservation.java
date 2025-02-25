@@ -34,13 +34,13 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "reservation")
 @XmlType( name = "OrdinanceReservation" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Ordinance Reservation")
+@Schema(description = "An ordinance reservation.")
 public class OrdinanceReservation {
 
   @Schema(description = "The owner associated with the ordinance reservation.")
   private ResourceReference owner;
 
-  @Schema(description = "The reserve timestamp for the ordinance reservation.")
+  @Schema(description = "The reservation timestamp for the ordinance reservation.")
   private Date reserveDate;                 // a java.util.Date
 
   @Schema(description = "The update timestamp for the ordinance reservation.")

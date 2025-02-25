@@ -29,7 +29,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper( name = "tree" )
 @XmlType( name = "Tree" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Tree")
+@Schema(description = "A tree.")
 public class Tree {
 
   @Schema(description = "The tree id.")
