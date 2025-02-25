@@ -34,13 +34,13 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @Schema(description = "Extra information about a person.")
 public class PersonInfo {
 
-  @Schema(description = "True if this person is editable by the current user; false otherwise.")
+  @Schema(description = "The person is editable by the current user.")
   private Boolean canUserEdit = false;
 
-  @Schema(description = "True if this person is visible to all sessions authenticated from any client; false otherwise.")
+  @Schema(description = "The person is visible to all sessions authenticated from any client.")
   private Boolean visibleToAll = true;
 
-  @Schema(description = "True if this person is only visible to sessions authenticated from a FamilySearch client; false otherwise.")
+  @Schema(description = "The person is only visible to sessions authenticated from a FamilySearch client.")
   private Boolean visibleToAllWhenUsingFamilySearchApps = true;
 
   // The treeId attribute is prototype only and may be removed or changed at any time

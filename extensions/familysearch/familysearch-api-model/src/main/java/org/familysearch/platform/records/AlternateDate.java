@@ -29,7 +29,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @JsonElementWrapper ( name = "altDates" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "An alternate date.")
+@Schema(description = "An ordinance reservation.")
 public class AlternateDate extends Date {
 
 }

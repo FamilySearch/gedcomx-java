@@ -31,7 +31,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "User" )
 @JsonElementWrapper ( name = "users" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Family Tree User Service User")
+@Schema(description = "Family Tree User Service User")
 public class User extends HypermediaEnabledData {
 
   @Schema(description = "The contact name of the user.")

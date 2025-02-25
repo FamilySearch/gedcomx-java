@@ -37,11 +37,10 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper (name = "discussion-references")
 @XmlType ( name = "DiscussionReference" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Discussion Reference")
+@Schema(description = "An data type that supports hypermedia controls (i.e. links).")
 public final class DiscussionReference extends HypermediaEnabledData {
 
-  @Schema(description = "The URI to the resource. For more information, " +
-      "see <a href=\"http://www.w3.org/TR/webarch/#identification\">Architecture of the World Wide Web, Volume One, Section 2</a>")
+  @Schema(description = "The URI to the resource. For more information, see Architecture of the World Wide Web, Volume One, Section 2")
   private URI resource;
 
   @Schema(description = "The attribution metadata for this discussion reference.")

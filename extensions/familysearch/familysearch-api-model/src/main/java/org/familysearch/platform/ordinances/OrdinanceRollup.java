@@ -33,7 +33,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "ordinanceRollups")
 @XmlType( name = "OrdinanceRollup", propOrder = {"type", "rollupStatus"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The Ordinance Rollup data")
+@Schema(description = "A genealogical conclusion.")
 public class OrdinanceRollup extends Conclusion {
 
   @Schema(description = "The type of ordinance")

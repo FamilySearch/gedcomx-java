@@ -33,10 +33,10 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 @JsonElementWrapper(name = "vocabTerms")
 @XmlType(name = "VocabTerm")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Schema(description = "A term in a vocabulary.")
+@Schema(description = "An data type that supports hypermedia controls (i.e. links).")
 public class VocabTerm extends HypermediaEnabledData {
 
-  @Schema(description = "The type of the vocabulary term.")
+  @Schema(description = "The vocabulary term type.")
   private URI typeUri;
 
   @Schema(description = "The URI of the vocabulary concept this vocabulary term is associated with.")

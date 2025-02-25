@@ -33,7 +33,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "feedbackInfo" )
 @XmlType ( name = "FeedbackInfo" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "Feedback information about a place.")
+@Schema(description = "Information about a a feedback submission about a place.")
 public class FeedbackInfo {
 
   @Schema(description = "The resolution of the feedback.")

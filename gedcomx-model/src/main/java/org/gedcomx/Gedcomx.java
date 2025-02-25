@@ -92,10 +92,12 @@ import java.util.stream.Stream;
 @JsonElementWrapper ( name = "gedcomx" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @XmlType ( name = "Gedcomx", propOrder = {"attribution", "persons", "relationships", "sourceDescriptions", "agents", "events", "places", "documents", "collections", "fields", "recordDescriptors"} )
-@Schema(name = "The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation is provided by the formal specification documents:" +
-    " [The GEDCOM X Conceptual Model, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md)" +
-    " [The GEDCOM X JSON Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/json-format-specification.md)" +
-    " [The GEDCOM X XML Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md)" +
+@Schema(description = "The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation is provided by the formal specification documents:\n" +
+    "\n" +
+    "*   [The GEDCOM X Conceptual Model, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md)\n" +
+    "*   [The GEDCOM X JSON Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/json-format-specification.md)\n" +
+    "*   [The GEDCOM X XML Format, Version 1.0](https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md)\n" +
+    "\n" +
     "This documentation is provided as a non-normative reference guide.")
 public class Gedcomx extends HypermediaEnabledData implements HasFields {
 

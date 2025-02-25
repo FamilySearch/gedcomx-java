@@ -29,7 +29,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @JsonElementWrapper ( name = "altPlaces" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "An alternate place reference.")
+@Schema(description = "An ordinance reservation.")
 public class AlternatePlaceReference extends PlaceReference {
 
 }

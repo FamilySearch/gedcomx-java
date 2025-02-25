@@ -32,10 +32,10 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "Error" )
 @JsonInclude( JsonInclude.Include.NON_NULL )
 @SuppressWarnings("gedcomx:no_id")
-@Schema(description = "A common representation of an error on the FamilySearch platform.")
+@Schema(description = "The error code. Interpreted per RFC 2616, Section 10 (HTTP Status Code Definitions).")
 public class Error {
 
-  @Schema(description = "The error code. Intepreted per RFC 2616, Section 10 (HTTP Status Code Definitions).")
+  @Schema(description = "The error code. Interpreted per RFC 2616, Section 10 (HTTP Status Code Definitions).")
   private Integer code;
 
   @Schema(description = "A text label associated with the error code.")

@@ -44,7 +44,7 @@ import java.util.TreeSet;
 @SuppressWarnings("gedcomx:no_id")
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "A hypermedia link, used to drive the state of a hypermedia-enabled genealogical data application.")
+@Schema(description = "Data representation of a node - transfer object.")
 public class Link implements HasJsonKey {
 
   /**

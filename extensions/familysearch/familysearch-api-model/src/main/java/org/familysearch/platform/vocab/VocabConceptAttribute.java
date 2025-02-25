@@ -29,13 +29,13 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @Schema(description = "A vocabulary concept attribute.")
 public class VocabConceptAttribute {
 
-  @Schema(description = "The id of the attribute.")
+  @Schema(description = "The vocabulary concept attribute id.")
   private String id;
 
-  @Schema(description = "The name of the attribute.")
+  @Schema(description = "The vocabulary concept attribute name.")
   private String name;
 
-  @Schema(description = "The value of the attribute.")
+  @Schema(description = "The vocabulary concept attribute value.")
   private String value;
 
   /**

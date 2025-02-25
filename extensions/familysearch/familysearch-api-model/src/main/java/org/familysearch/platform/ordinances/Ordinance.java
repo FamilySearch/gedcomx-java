@@ -48,7 +48,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 //    were not included by enunciate.  In order to get those OrdinanceStatusReason docs we add @XmlSeeAlso and @JsonSeeAlso at the class level.
 @XmlSeeAlso(OrdinanceStatusReason.class)
 @JsonSeeAlso(OrdinanceStatusReason.class)
-@Schema(description = "The Ordinance.")
+@Schema(description = "A genealogical conclusion.")
 public class Ordinance extends Conclusion {
 
   @Schema(description = "The type of ordinance.")
@@ -66,7 +66,7 @@ public class Ordinance extends Conclusion {
   @Schema(description = "The principal person associated with the ordinance.")
   private ResourceReference person;
 
-  @Schema(description = "The sex of the principal person in the ordinance.")
+  @Schema(description = "The sex type of the principal person in the ordinance.")
   private URI sexType;
 
   @Schema(description = "The participants for this ordinance.")

@@ -34,13 +34,13 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 @JsonElementWrapper(name = "vocabConcepts")
 @XmlType(name = "VocabConcept")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Schema(description = "A concept in a vocabulary.")
+@Schema(description = "An data type that supports hypermedia controls (i.e. links).")
 public class VocabConcept extends HypermediaEnabledData {
 
-  @Schema(description = "The description of the concept.")
+  @Schema(description = "The vocabulary concept description.")
   private String description;
 
-  @Schema(description = "A note about the concept.")
+  @Schema(description = "The vocabulary concept note.")
   private String note;
 
   @Schema(description = "The Gedcomx URI associated with the concept.")

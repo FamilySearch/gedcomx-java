@@ -32,7 +32,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "mergeConflict" )
 @XmlType ( name = "MergeConflict", propOrder = {"survivorResource", "duplicateResource"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "The MergeConflict")
+@Schema(description = "The Merge Conflict")
 public class MergeConflict {
 
   @Schema(description = "The survivor resource.")

@@ -29,7 +29,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "vocabTranslations")
 @XmlType(name = "VocabTranslation")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Schema(description = "A translation of a vocabulary term.")
+@Schema(description = "An data type that supports hypermedia controls (i.e. links).")
 public class VocabTranslation extends HypermediaEnabledData {
 
   @Schema(description = "The translation of the vocabulary term.")

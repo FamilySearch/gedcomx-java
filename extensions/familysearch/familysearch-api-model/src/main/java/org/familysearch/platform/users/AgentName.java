@@ -24,7 +24,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 
 @JsonInclude ( JsonInclude.Include.NON_NULL )
-@Schema(description = "A name of an agent.")
+@Schema(description = "An element representing a text value that may be in a specific language.")
 public class AgentName extends TextValue {
 
   @Schema(description = "The type of the name.")
