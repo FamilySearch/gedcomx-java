@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ordinances;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -26,14 +27,24 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "actions")
 @XmlType( name = "OrdinanceActions" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The actions that can be performed on an ordinance.")
 public class OrdinanceActions {
 
   // These have default values so they will always appear as either "true" or "false"
+  @Schema(description = "True if this ordinance is reservable; false otherwise.")
   private Boolean reservable = false;
+
+  @Schema(description = "True if this ordinance is unReservable; false otherwise.")
   private Boolean unReservable = false;
+
+  @Schema(description = "True if this ordinance is shareable; false otherwise.")
   private Boolean shareable = false;
+
+  @Schema(description = "True if this ordinance is unShareable; false otherwise.")
   private Boolean unShareable = false;
+
   // The private Boolean transferable is not supported yet
+  @Schema(description = "True if this ordinance is transferable; false otherwise.")
   private Boolean printable = false;
 
 

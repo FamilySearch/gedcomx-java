@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.vocab;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -25,10 +26,16 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "vocabConceptAttributes")
 @XmlType(name = "VocabConceptAttribute", propOrder = {"id", "name", "value" })
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Schema(description = "A vocabulary concept attribute.")
 public class VocabConceptAttribute {
 
+  @Schema(description = "The vocabulary concept attribute id.")
   private String id;
+
+  @Schema(description = "The vocabulary concept attribute name.")
   private String name;
+
+  @Schema(description = "The vocabulary concept attribute value.")
   private String value;
 
   /**

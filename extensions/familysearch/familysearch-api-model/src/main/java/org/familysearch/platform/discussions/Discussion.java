@@ -22,6 +22,7 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -37,14 +38,28 @@ import java.util.List;
 @JsonElementWrapper (name = "discussions")
 @XmlType ( name = "Discussion", propOrder = { "title", "details", "created", "contributor", "modified", "numberOfComments", "comments" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A discussion.")
 public class Discussion extends HypermediaEnabledData {
 
+  @Schema(description = "The one-line summary or \"subject\" of the discussion.")
   private String title;
+
+  @Schema(description = "The detailed text of the discussion.")
   private String details;
+
+  @Schema(description = "The contributor who submitted this discussion.")
   private ResourceReference contributor;
+
+  @Schema(description = "The date the discussion was created.")
   private Date created;
+
+  @Schema(description = "Last date of any change to comments or discussion details.")
   private Date modified;    // last date of any change to comments or discussion details
+
+  @Schema(description = "The number of comments associated with this discussion.")
   private Integer numberOfComments;
+
+  @Schema(description = "The comments on this discussion.")
   private List<Comment> comments;
 
   //TODO: need to add a URI to point to the specific resource (eg person) that the discussion is about

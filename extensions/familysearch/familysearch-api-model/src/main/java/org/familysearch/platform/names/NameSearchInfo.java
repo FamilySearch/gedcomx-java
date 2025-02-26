@@ -16,6 +16,7 @@
 package org.familysearch.platform.names;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -36,11 +37,19 @@ import org.gedcomx.types.NamePartType;
 @JsonElementWrapper ( name = "namesSearchInfo" )
 @XmlType ( name = "NamesSearchInfo" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Information about a Names search result.")
 public class NameSearchInfo {
 
+  @Schema(description = "The text of the search result.")
   private String text;
+
+  @Schema(description = "The name id of the search result.")
   private String nameId;          // future: if the link to the resource is required use a ResourceReference and this field could be deprecated
+
+  @Schema(description = "The name part type for the text of the search result.")
   private URI namePartType;
+
+  @Schema(description = "The weight of the search result.")
   private Integer weight;
 
   /**

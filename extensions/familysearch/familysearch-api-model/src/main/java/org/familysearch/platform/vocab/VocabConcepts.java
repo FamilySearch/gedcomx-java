@@ -18,6 +18,7 @@ package org.familysearch.platform.vocab;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -27,8 +28,10 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "vocabConcepts")
 @XmlType(name = "VocabConcepts")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Schema(description = "A list of vocabulary concepts.")
 public class VocabConcepts {
 
+  @Schema(description = "The list of vocabulary concepts.")
   private List<VocabConcept> vocabConcepts;
 
   /**

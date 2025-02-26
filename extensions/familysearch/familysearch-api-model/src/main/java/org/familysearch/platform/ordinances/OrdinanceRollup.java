@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.ordinances;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -32,9 +33,13 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @JsonElementWrapper(name = "ordinanceRollups")
 @XmlType( name = "OrdinanceRollup", propOrder = {"type", "rollupStatus"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "An ordinance rollup conclusion.")
 public class OrdinanceRollup extends Conclusion {
 
+  @Schema(description = "The type of ordinance.")
   private URI type;
+
+  @Schema(description = "The rollup status of this ordinance.")
   private URI rollupStatus;
 
 

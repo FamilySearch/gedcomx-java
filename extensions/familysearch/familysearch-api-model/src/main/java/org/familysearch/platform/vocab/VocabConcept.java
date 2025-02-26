@@ -18,6 +18,7 @@ package org.familysearch.platform.vocab;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -33,13 +34,25 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 @JsonElementWrapper(name = "vocabConcepts")
 @XmlType(name = "VocabConcept")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Schema(description = "A vocabulary concept.")
 public class VocabConcept extends HypermediaEnabledData {
 
+  @Schema(description = "The vocabulary concept description.")
   private String description;
+
+  @Schema(description = "The vocabulary concept note.")
   private String note;
+
+  @Schema(description = "The Gedcomx URI associated with the concept.")
   private URI gedcomxUri;
+
+  @Schema(description = "The terms associated with the concept.")
   private List<VocabTerm> vocabTerms;
+
+  @Schema(description = "The attributes associated with the concept.")
   private List<VocabConceptAttribute> attributes;
+
+  @Schema(description = "The definitions associated with the concept.")
   private List<TextValue> definitions;
 
   /**

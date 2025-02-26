@@ -24,6 +24,8 @@ import org.gedcomx.rt.GedcomxConstants;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
 import javax.xml.XMLConstants;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlSchemaType;
@@ -35,10 +37,16 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper (name = "discussion-references")
 @XmlType ( name = "DiscussionReference" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A discussion reference")
 public final class DiscussionReference extends HypermediaEnabledData {
 
+  @Schema(description = "The URI to the resource.")
   private URI resource;
+
+  @Schema(description = "The attribution metadata for this discussion reference.")
   private Attribution attribution;
+
+  @Schema(description = "The id of the discussion being referenced.")
   private String resourceId;
 
   public DiscussionReference() {

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -31,8 +32,13 @@ import jakarta.xml.bind.annotation.XmlType;
 @JsonElementWrapper ( name = "mergeConflict" )
 @XmlType ( name = "MergeConflict", propOrder = {"survivorResource", "duplicateResource"} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A merge conflict.")
 public class MergeConflict {
+
+  @Schema(description = "The surviving person.")
   private ResourceReference survivorResource;
+
+  @Schema(description = "The duplicate person.")
   private ResourceReference duplicateResource;
 
   public MergeConflict() {

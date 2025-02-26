@@ -20,6 +20,7 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.links.HypermediaEnabledData;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -30,24 +31,58 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType ( name = "User" )
 @JsonElementWrapper ( name = "users" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "Family Tree User Service User")
 public class User extends HypermediaEnabledData {
 
+  @Schema(description = "The contact name of the user.")
   private String contactName;
+
+  @Schema(description = "The helper access pin of the user.")
   private String helperAccessPin;
+
+  @Schema(description = "The full name of the user.")
   private String fullName;
+
+  @Schema(description = "The given name of the user.")
   private String givenName;
+
+  @Schema(description = "The family name of the user.")
   private String familyName;
+
+  @Schema(description = "The email of the user.")
   private String email;
+
+  @Schema(description = "The alternate email of the user.")
   private String alternateEmail;
+
+  @Schema(description = "The country of the user.")
   private String country;
+
+  @Schema(description = "The gender of the user.")
   private String gender;
+
+  @Schema(description = "The birth date of the user.")
   private String birthDate;
+
+  @Schema(description = "The phone number of the user.")
   private String phoneNumber;
+
+  @Schema(description = "The mobile phone number of the user.")
   private String mobilePhoneNumber;
+
+  @Schema(description = "The mailing address of the user.")
   private String mailingAddress;
+
+  @Schema(description = "The preferred language of the user.")
   private String preferredLanguage;
+
+  @Schema(description = "The display name of the user.")
   private String displayName;
+
+  @Schema(description = "The person id of the user.")
   private String personId;
+
+  @Schema(description = "The tree user id of the user.")
   private String treeUserId;
 
   public String getContactName() {

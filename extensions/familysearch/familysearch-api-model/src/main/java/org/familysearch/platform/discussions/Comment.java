@@ -20,6 +20,7 @@ import org.familysearch.platform.rt.FamilySearchPlatformModelVisitor;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.links.HypermediaEnabledData;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlType;
 
 import java.util.Date;
@@ -29,10 +30,16 @@ import java.util.Date;
 @XmlType ( name = "Comment", propOrder = { "text", "created", "contributor" } )
 @SuppressWarnings("gedcomx:no_id")
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "A comment.")
 public class Comment extends HypermediaEnabledData {
 
+  @Schema(description = "The text of the comment.")
   private String text;
+
+  @Schema(description = "The contributor who submitted this comment.")
   private ResourceReference contributor;
+
+  @Schema(description = "The date the comment was created.")
   private Date created;
 
   public Comment() {

@@ -25,6 +25,7 @@ import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Subject;
 import org.gedcomx.rt.json.JsonElementWrapper;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -39,12 +40,22 @@ import java.util.List;
 @JsonElementWrapper( name = "child-and-parents-relationships" )
 @XmlType ( name = "ChildAndParentsRelationship", propOrder = { "parent1", "parent2", "child", "parent1Facts", "parent2Facts" } )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
+@Schema(description = "The FamilySearch-proprietary model for a relationship between a child and a pair of parents.")
 public class ChildAndParentsRelationship extends Subject {
 
+  @Schema(description = "The parent1 of the child.")
   private ResourceReference parent1;
+
+  @Schema(description = "The parent2 of the child.")
   private ResourceReference parent2;
+
+  @Schema(description = "The child in the relationship.")
   private ResourceReference child;
+
+  @Schema(description = "The fact conclusions for parent1.")
   private List<Fact> parent1Facts;
+
+  @Schema(description = "The fact conclusions for parent2.")
   private List<Fact> parent2Facts;
 
   /**
