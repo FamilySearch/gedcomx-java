@@ -30,20 +30,13 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum FamilySearchFactType implements ControlledVocabulary {
 
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // FamilySearch facts generally applicable within the scope of a person.
+
   /**
    * Person fact type: Affiliation to something.
    */
   Affiliation,
-
-  /**
-   * Parent Child fact type: A child's birth order to parents.
-   */
-  BirthOrder,
-
-  /**
-   * Couple fact type: Couple never had children.
-   */
-  CoupleNeverHadChildren,
 
   /**
    * Person fact type: Person died before age eight.
@@ -54,11 +47,6 @@ public enum FamilySearchFactType implements ControlledVocabulary {
    * Person fact type: Person's "life sketch" summary.
    */
   LifeSketch,
-
-  /**
-   * Couple fact type: Couple lived together.
-   */
-  LivedTogether,
 
   /**
    * Person fact type: Person had no children.
@@ -79,6 +67,74 @@ public enum FamilySearchFactType implements ControlledVocabulary {
    * Person fact type: Person's tribe name.
    */
   TribeName,
+
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // FamilySearch facts generally applicable within the scope of a couple.
+
+  /**
+   * Couple fact type: Couple never had children.
+   */
+  CoupleNeverHadChildren,
+
+  /**
+   * Couple fact type: Couple lived together.
+   */
+  LivedTogether,
+
+
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // FamilySearch facts generally applicable within the scope of a parent-child relationship.
+
+  /**
+   * Parent Child fact type: A child's birth order to parents.
+   */
+  BirthOrder,
+
+
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // FamilySearch facts generally applicable within the scope of an association.
+  // Apprenticeship,       // exists as a core Gedcomx FactType http://gedcomx.org/Apprenticeship
+  /**
+   * A fact of a person's association.
+   */
+  Association,
+  /**
+   * A fact of a person's emancipation.
+   */
+  Emancipation,
+  /**
+   * A fact of a person's employment relationship.
+   */
+  Employment,
+  /**
+   * A fact of a person's enslavement.
+   */
+  Enslavement,
+  /**
+   * A fact of a person's friendship.
+   */
+  Friendship,   // may be Friend when sevice does actual work
+  /**
+   * A fact about the generational relationship between persons.
+   */
+  Generation,
+  /**
+   * A fact about the godparenthood relationship between persons.
+   */
+  Godparenthood,
+  /**
+   * A fact about a household relationship between persons.
+   */
+  Household,
+  /**
+   * A fact about a neighborhood relationship between persons.
+   */
+  Neighborhood,
+  /**
+   * A fact about a relative relationship between persons.
+   */
+  Relative,
+
 
   @XmlUnknownQNameEnumValue
   OTHER;
