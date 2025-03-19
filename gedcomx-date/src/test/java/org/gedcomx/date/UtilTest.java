@@ -1,6 +1,7 @@
 package org.gedcomx.date;
 
-import org.assertj.core.api.Assertions;
+import java.time.*;
+import org.assertj.core.api.*;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author John Clark.
  */
-class UtilTest {
+public class UtilTest {
 
   /**
    * Parse
@@ -26,13 +27,13 @@ class UtilTest {
   @Test
   public void errorOnParseNullDate() {
     var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.parse(null));
-    assertThat(e.getMessage()).isEqualTo("Invalid Date");
+    assertThat(e.getMessage()).isEqualTo("Invalid Date \"null\"");
   }
 
   @Test
   public void errorOnParseInvalidDate() {
     var e = assertThrows(GedcomxDateException.class, ()->GedcomxDateUtil.parse(""));
-    assertThat(e.getMessage()).isEqualTo("Invalid Date");
+    assertThat(e.getMessage()).isEqualTo("Invalid Date \"\"");
   }
 
   @Test
@@ -537,9 +538,47 @@ class UtilTest {
 
   @Test
   public void testJavaDateToGedcomxDateSimpleNullDate() {
-    Assertions.assertThatExceptionOfType(GedcomxDateException.class)
-            .isThrownBy(() -> GedcomxDateUtil.javaDateToGedcomxDateSimple(null))
+    assertThatThrowsExceptionWhenJavaDateToGedcomxDateSimple(null)
             .withMessage("javaDate cannot be null");
+  }
+
+  /**
+   * The earliest representable date is January 1, 10000 BCE. (-9999)
+   * The latest representable date is December 31, 9999 CE.
+   * See https://github.com/FamilySearch/gedcomx/blob/master/specifications/date-format-specification.md#calendaring-system
+   */
+  @Test
+  public void testJavaDateToGedcomxDateSimpleEdgeCases() {
+    assertThatThrowsExceptionWhenJavaDateToGedcomxDateSimple(javaUtilDateWithYear(-75_000))
+        .withMessage("Year must be between -9999 and +9999 inclusive"); // the Toba supervolcano in Indonesia erupted
+    assertThatThrowsExceptionWhenJavaDateToGedcomxDateSimple(javaUtilDateWithYear(-10_000))
+        .withMessage("Year must be between -9999 and +9999 inclusive");
+
+    Assertions.assertThat(GedcomxDateUtil.javaDateToGedcomxDateSimple(javaUtilDateWithYear(-9999)).toFormalString())
+        .isEqualTo("-9999-01-01T00:00:00Z");
+    Assertions.assertThat(GedcomxDateUtil.javaDateToGedcomxDateSimple(javaUtilDateWithYear(-1)).toFormalString())
+        .isEqualTo("-0001-01-01T00:00:00Z");
+    Assertions.assertThat(GedcomxDateUtil.javaDateToGedcomxDateSimple(javaUtilDateWithYear(0)).toFormalString())
+        .isEqualTo("+0000-01-01T00:00:00Z");
+    Assertions.assertThat(GedcomxDateUtil.javaDateToGedcomxDateSimple(javaUtilDateWithYear(1)).toFormalString())
+        .isEqualTo("+0001-01-01T00:00:00Z");
+    Assertions.assertThat(GedcomxDateUtil.javaDateToGedcomxDateSimple(javaUtilDateWithYear(9999)).toFormalString())
+        .isEqualTo("+9999-01-01T00:00:00Z");
+
+    assertThatThrowsExceptionWhenJavaDateToGedcomxDateSimple(javaUtilDateWithYear(10_000))
+        .withMessage("Year must be between -9999 and +9999 inclusive");
+    assertThatThrowsExceptionWhenJavaDateToGedcomxDateSimple(javaUtilDateWithYear(802_701))
+        .withMessage("Year must be between -9999 and +9999 inclusive"); // H.G. Wells' The Time Machine
+  }
+
+  private static Date javaUtilDateWithYear(int year) {
+    return Date.from(OffsetDateTime.parse("1970-01-01T00:00:00.0Z").withYear(year).toInstant());
+  }
+
+  private static ThrowableAssertAlternative<GedcomxDateException> assertThatThrowsExceptionWhenJavaDateToGedcomxDateSimple(Date javaDate) {
+    return Assertions.assertThatExceptionOfType(GedcomxDateException.class)
+        .describedAs(String.format("Expected exception when converting javaDate %s to Gedcomx date", javaDate))
+        .isThrownBy(() -> GedcomxDateUtil.javaDateToGedcomxDateSimple(javaDate));
   }
 
   @Test
