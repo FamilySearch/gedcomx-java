@@ -299,14 +299,28 @@ public class GedcomxDateUtil {
 
   /**
    * Converts a java.util.Date to a GedcomxDate object.  The returned GedcomxDate
-   * will always be represented as UTC since java.util.Date does not
-   * have locale information and is defaulted to represent UTC.
+   * will always be represented in UTC since java.util.Date does not
+   * have locale information.
+   *
+   * <p>The earliest representable date is January 1, 10000 BCE. (-9999)
+   * The latest representable date is December 31, 9999 CE.
+   * See <a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/date-format-specification.md#calendaring-system">GEDCOM X Date Format Specification Calendaring System</a></a>
+   *
    * @param javaDate The java.util.Date object to convert.
-   * @return a GedcomxDate representing the CE javaDate.
+   * @return a GedcomxDate representing the javaDate.
    */
   public static GedcomxDateSimple javaDateToGedcomxDateSimple(java.util.Date javaDate) {
-    String formattedDate = Optional.ofNullable(javaDate)
-            .map(date -> date.toInstant().truncatedTo(ChronoUnit.SECONDS))
+    Optional.ofNullable(javaDate)
+        .orElseThrow(() -> new GedcomxDateException("javaDate cannot be null"));
+
+    Optional<Instant> instant = Optional.of(javaDate).map(date -> date.toInstant().truncatedTo(ChronoUnit.SECONDS));
+    instant.filter(instantDate -> {
+          int year = instantDate.atOffset(ZoneOffset.UTC).getYear();
+          return year >= -9999 && year <= 9999;
+        })
+        .orElseThrow(() -> new GedcomxDateException("Year must be between -9999 and +9999 inclusive"));
+
+    String formattedDate = instant
             .map(DateTimeFormatter.ISO_INSTANT::format)
             .map(formattedString -> formattedString.startsWith("-") ? formattedString : "+" + formattedString)
             .orElseThrow(() -> new GedcomxDateException("javaDate cannot be null"));
