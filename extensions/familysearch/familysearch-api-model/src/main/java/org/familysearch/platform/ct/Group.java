@@ -15,16 +15,13 @@
  */
 package org.familysearch.platform.ct;
 
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import org.gedcomx.rt.json.JsonElementWrapper;
 
@@ -50,6 +47,10 @@ public class Group {
 
   @Schema(description = "The ids of the trees associated with the group.")
   private Set<String> treeIds;
+
+  @Schema(description = "The members of the group.")
+  private List<GroupMember> members;
+
 
   /**
    * Get the group id.
@@ -193,6 +194,35 @@ public class Group {
    */
   public Group treeIds(Set<String> treeIds) {
     setTreeIds(treeIds);
+    return this;
+  }
+
+  /**
+   * Get the members of the group.
+   *
+   * @return The members of the group.
+   */
+  public List<GroupMember> getMembers() {
+    return members;
+  }
+
+  /**
+   * Set the members of the group.
+   *
+   * @param members The members of the group.
+   */
+  public void setMembers(List<GroupMember> members) {
+    this.members = members;
+  }
+
+  /**
+   * Build out this group with members.
+   *
+   * @param members The group's members.
+   * @return this.
+   */
+  public Group members(List<GroupMember> members) {
+    setMembers(members);
     return this;
   }
 }
