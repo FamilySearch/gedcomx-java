@@ -304,7 +304,7 @@ public class GedcomxDateUtil {
    *
    * <p>The earliest representable date is January 1, 10000 BCE. (-9999)
    * The latest representable date is December 31, 9999 CE.
-   * See <a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/date-format-specification.md#calendaring-system">GEDCOM X Date Format Specification Calendaring System</a></a>
+   * See <a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/date-format-specification.md#calendaring-system">GEDCOM X Date Format Specification Calendaring System</a>
    *
    * @param javaDate The java.util.Date object to convert.
    * @return a GedcomxDate representing the javaDate.
