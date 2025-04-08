@@ -23,19 +23,12 @@ public class GedcomxDateException extends RuntimeException {
 
   /**
    * Creates a new runtime exception
-   *
    * @param msg The message to send
    */
   public GedcomxDateException(String msg) {
     super(msg);
   }
 
-  /**
-   * Creates a new Gedcomx date exception with a message and cause
-   *
-   * @param msg The message for the exception.
-   * @param cause The cause of the exception.
-   */
   public GedcomxDateException(String msg, Throwable cause) {
     super(msg, cause);
   }
