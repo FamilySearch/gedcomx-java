@@ -17,6 +17,8 @@ package org.gedcomx.types;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -30,11 +32,13 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "GenderType")
 public enum GenderType implements ControlledVocabulary {
 
   /**
    * Male.
    */
+  @Schema(name = "http://gedcomx.org/Male",description = "Male", implementation = URI.class)
   Male,
 
   /**

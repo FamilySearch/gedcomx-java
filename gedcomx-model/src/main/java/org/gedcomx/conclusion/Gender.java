@@ -36,6 +36,7 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.GenderType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import jakarta.xml.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ import java.util.List;
 @Schema(description = "A gender conclusion.")
 public class Gender extends Conclusion implements HasFields {
 
-  @Schema(description = "The URI that identifies the type of Gender.")
+  @Schema(description = "The URI that identifies the type of Gender.", implementation = GenderType.class, enumAsRef = true)
   private URI type;
 
   private List<Field> fields;
