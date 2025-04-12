@@ -1,17 +1,13 @@
 /**
  * Copyright Intellectual Reserve, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package org.gedcomx.types;
 
@@ -30,32 +26,35 @@ import org.gedcomx.rt.GedcomxConstants;
  *
  * @author Ryan Heaton
  */
-@XmlQNameEnum (
-  base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum(
+    base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "GenderType")
+@Schema(description = "GenderType", allowableValues = {"http://gedcomx.org/Male", "http://gedcomx.org/Female", "http://gedcomx.org/Intersex", "http://gedcomx.org/Unknown"})
 public enum GenderType implements ControlledVocabulary {
 
   /**
    * Male.
    */
-  @Schema(name = "http://gedcomx.org/Male",description = "Male", implementation = URI.class)
+  @Hidden
   Male,
 
   /**
    * Female.
    */
+  @Hidden
   Female,
 
   /**
    * Intersex.
    */
+  @Hidden
   Intersex,
 
   /**
    * Unknown. Note that this should be used strictly as "unknown" and not to
    * indicate a type that is not set or not understood.
    */
+  @Hidden
   Unknown,
 
   /**
