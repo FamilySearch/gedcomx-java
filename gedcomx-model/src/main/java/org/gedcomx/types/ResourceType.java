@@ -17,6 +17,9 @@ package org.gedcomx.types;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -28,34 +31,45 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "ResourceType", allowableValues = {"http://gedcomx.org/Record",
+                                                        "http://gedcomx.org/Collection",
+                                                        "http://gedcomx.org/DigitalArtifact",
+                                                        "http://gedcomx.org/PhysicalArtifact",
+                                                        "http://gedcomx.org/Person"})
 public enum ResourceType implements ControlledVocabulary {
 
   /**
    * A historical record.
    */
+  @Hidden
   Record,
 
   /**
    * A collection.
    */
+  @Hidden
   Collection,
 
   /**
    * A digital artifact, such as a digital image or video.
    */
+  @Hidden
   DigitalArtifact,
 
   /**
    * A physical artifact.
    */
+  @Hidden
   PhysicalArtifact,
 
   /**
    * A person.
    */
+  @Hidden
   Person,
 
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<ResourceType> URI_MAP = new EnumURIMap<ResourceType>(ResourceType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

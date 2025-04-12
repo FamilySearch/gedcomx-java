@@ -18,6 +18,9 @@ package org.gedcomx.types;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -29,53 +32,71 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "NameType", allowableValues = {"http://gedcomx.org/BirthName",
+                                                     "http://gedcomx.org/DeathName",
+                                                     "http://gedcomx.org/MarriedName",
+                                                     "http://gedcomx.org/AlsoKnownAs",
+                                                     "http://gedcomx.org/Nickname",
+                                                     "http://gedcomx.org/AdoptiveName",
+                                                     "http://gedcomx.org/FormalName",
+                                                     "http://gedcomx.org/ReligiousName"})
+
 public enum NameType implements ControlledVocabulary {
 
   /**
    * Name given at birth.
    */
+  @Hidden
   BirthName,
 
   /**
    * Name used at the time of death.
    */
+  @Hidden
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
   DeathName,
 
   /**
    * Name accepted at marriage.
    */
+  @Hidden
   MarriedName,
 
   /**
    * "Also known as" name.
    */
+  @Hidden
   AlsoKnownAs,
 
   /**
    * Nickname.
    */
+  @Hidden
   Nickname,
 
   /**
    * Name given at adoption.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   AdoptiveName,
 
   /**
    * A formal name, usually given to distinguish it from a name more commonly used.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   FormalName,
 
   /**
    * A name given at a religious rite or ceremony.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   ReligiousName,
 
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<NameType> URI_MAP = new EnumURIMap<NameType>(NameType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

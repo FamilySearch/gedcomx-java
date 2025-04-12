@@ -17,6 +17,9 @@ package org.gedcomx.types;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -28,13 +31,22 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "NamePartType", allowableValues = {"http://gedcomx.org/Prefix",
+                                                         "http://gedcomx.org/Suffix",
+                                                        "http://gedcomx.org/Given",
+                                                        "http://gedcomx.org/Surname"})
 public enum NamePartType implements ControlledVocabulary {
 
+  @Hidden
   Prefix,
+  @Hidden
   Suffix,
+  @Hidden
   Given,
+  @Hidden
   Surname,
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<NamePartType> URI_MAP = new EnumURIMap<NamePartType>(NamePartType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

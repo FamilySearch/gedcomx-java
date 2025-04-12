@@ -18,6 +18,9 @@ package org.gedcomx.types;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -28,33 +31,42 @@ import org.gedcomx.rt.GedcomxConstants;
  *
  * @author Ryan Heaton
  */
-@XmlQNameEnum (
-  base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum(
+    base = XmlQNameEnum.BaseType.URI
 )
-@Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+@Schema(description = "DocumentType", allowableValues = {"http://gedcomx.org/Abstract",
+                                                         "http://gedcomx.org/Translation",
+                                                         "http://gedcomx.org/Transcription",
+                                                         "http://gedcomx.org/Analysis"})
 public enum DocumentType implements ControlledVocabulary {
 
   /**
    * The document is an abstract of a record or document.
    */
+  @Hidden
   Abstract,
 
   /**
    * The document is a translation of a record or document.
    */
+  @Hidden
   Translation,
 
   /**
    * The document is a transcription (full or partial) of a record or document.
    */
+  @Hidden
   Transcription,
 
   /**
    * The document is an analysis done by a researcher, often used as a genealogical proof statement.
    */
+  @Hidden
   Analysis,
 
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<DocumentType> URI_MAP = new EnumURIMap<DocumentType>(DocumentType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

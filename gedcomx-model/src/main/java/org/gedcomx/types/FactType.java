@@ -23,6 +23,8 @@ import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
 import org.gedcomx.rt.GedcomxConstants;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -34,6 +36,32 @@ import java.util.Set;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "FactType", allowableValues = {"http://gedcomx.org/Adoption", "http://gedcomx.org/AdultChristening",
+                                                     "http://gedcomx.org/Amnesty", "http://gedcomx.org/Apprenticeship", "http://gedcomx.org/Arrest", "http://gedcomx.org/Award",
+                                                     "http://gedcomx.org/Baptism", "http://gedcomx.org/BarMitzvah", "http://gedcomx.org/BatMitzvah", "http://gedcomx.org/Birth",
+                                                     "http://gedcomx.org/BirthNotice", "http://gedcomx.org/Blessing", "http://gedcomx.org/Branch", "http://gedcomx.org/Burial",
+                                                     "http://gedcomx.org/Caste", "http://gedcomx.org/Census", "http://gedcomx.org/Christening", "http://gedcomx.org/Circumcision",
+                                                     "http://gedcomx.org/Clan", "http://gedcomx.org/Confirmation", "http://gedcomx.org/Court", "http://gedcomx.org/Cremation",
+                                                     "http://gedcomx.org/Death", "http://gedcomx.org/Education", "http://gedcomx.org/EducationEnrollment", "http://gedcomx.org/Emigration",
+                                                     "http://gedcomx.org/Enslavement", "http://gedcomx.org/Ethnicity", "http://gedcomx.org/Excommunication", "http://gedcomx.org/FirstCommunion",
+                                                     "http://gedcomx.org/Funeral", "http://gedcomx.org/GenderChange", "http://gedcomx.org/Graduation", "http://gedcomx.org/Heimat",
+                                                     "http://gedcomx.org/Immigration", "http://gedcomx.org/Imprisonment", "http://gedcomx.org/Inquest", "http://gedcomx.org/LandTransaction",
+                                                     "http://gedcomx.org/Language", "http://gedcomx.org/Living", "http://gedcomx.org/MaritalStatus", "http://gedcomx.org/Medical",
+                                                     "http://gedcomx.org/MilitaryAward", "http://gedcomx.org/MilitaryDischarge", "http://gedcomx.org/MilitaryDraftRegistration",
+                                                     "http://gedcomx.org/MilitaryInduction", "http://gedcomx.org/MilitaryService", "http://gedcomx.org/Mission",
+                                                     "http://gedcomx.org/MoveFrom", "http://gedcomx.org/MoveTo", "http://gedcomx.org/MultipleBirth", "http://gedcomx.org/NationalId",
+                                                     "http://gedcomx.org/Nationality", "http://gedcomx.org/Naturalization", "http://gedcomx.org/NumberOfMarriages",
+                                                     "http://gedcomx.org/Obituary", "http://gedcomx.org/Occupation", "http://gedcomx.org/Ordination", "http://gedcomx.org/Pardon",
+                                                     "http://gedcomx.org/PhysicalDescription", "http://gedcomx.org/Probate", "http://gedcomx.org/Property", "http://gedcomx.org/Race",
+                                                     "http://gedcomx.org/Religion", "http://gedcomx.org/Residence", "http://gedcomx.org/Retirement", "http://gedcomx.org/Stillbirth",
+                                                     "http://gedcomx.org/TaxAssessment", "http://gedcomx.org/Tribe", "http://gedcomx.org/Will", "http://gedcomx.org/Visit",
+                                                     "http://gedcomx.org/Yahrzeit", "http://gedcomx.org/Annulment", "http://gedcomx.org/CommonLawMarriage", "http://gedcomx.org/CivilUnion",
+                                                     "http://gedcomx.org/Divorce", "http://gedcomx.org/DivorceFiling", "http://gedcomx.org/DomesticPartnership", "http://gedcomx.org/Engagement",
+                                                     "http://gedcomx.org/Marriage", "http://gedcomx.org/MarriageBanns", "http://gedcomx.org/MarriageContract", "http://gedcomx.org/MarriageLicense",
+                                                     "http://gedcomx.org/MarriageNotice", "http://gedcomx.org/NumberOfChildren", "http://gedcomx.org/Separation", "http://gedcomx.org/AdoptiveParent",
+                                                     "http://gedcomx.org/BiologicalParent", "http://gedcomx.org/FosterParent", "http://gedcomx.org/GuardianParent", "http://gedcomx.org/StepParent",
+                                                     "http://gedcomx.org/SociologicalParent", "http://gedcomx.org/SurrogateParent"})
+
 public enum FactType implements ControlledVocabulary {
 
   // facts generally applicable within the scope of a person.
@@ -42,183 +70,217 @@ public enum FactType implements ControlledVocabulary {
    * A fact of a person's adoption. In the context of a parent-child relationship, it describes a fact of the adoption of a child by a parent.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+
+  @Hidden
   Adoption,
 
   /**
    * A fact of a person's christening as an adult.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   AdultChristening,
 
   /**
    * A fact of a person's amnesty.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Amnesty,
 
   /**
    * A fact of a person's apprenticeship.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Apprenticeship,
 
   /**
    * A fact of a person's arrest.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Arrest,
 
   /**
    * A fact of a person's award (medal, honor).
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Award,
 
   /**
    * A fact of a person's baptism.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Baptism,
 
   /**
    * A fact of a person's bar mitzvah.
    */
+  @Hidden
   BarMitzvah,
 
   /**
    * A fact of a person's bat mitzvah.
    */
+  @Hidden
   BatMitzvah,
 
   /**
    * A fact of a person's birth.
    */
+  @Hidden
   Birth,
 
   /**
    * A fact of a person's birth notice, such as posted in a newspaper or other publishing medium.
    */
+  @Hidden
   BirthNotice,
 
   /**
    * A fact of an official blessing received by a person, such as at the hands of a clergy member or at another religious rite.
    */
+  @Hidden
   Blessing,
 
   /**
    * A fact of a person's branch within an extended clan.
    */
+  @Hidden
   Branch,
 
   /**
    * A fact of the burial of person's body after death.
    */
+  @Hidden
   Burial,
 
   /**
    * A fact of a person's caste.
    */
+  @Hidden
   Caste,
 
   /**
    * A fact of a person's participation in a census.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Census,
 
   /**
    * A fact of a person's christening *at birth*. Note: use `AdultChristening` for the christening as an adult.
    */
+  @Hidden
   Christening,
 
   /**
    * A fact of a person's circumcision.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Circumcision,
 
   /**
    * A fact of a person's clan.
    */
+  @Hidden
   Clan,
 
   /**
    * A fact of a person's confirmation (or other rite of initiation) in a church or religion.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Confirmation,
 
   /**
    * A fact of the appearance of a person in a court proceeding.
    */
+  @Hidden
   Court,
 
   /**
    * A fact of the cremation of person's body after death.
    */
+  @Hidden
   Cremation,
 
   /**
    * A fact of the death of a person.
    */
+  @Hidden
   Death,
 
   /**
    * A fact of an education of a person.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Education,
 
   /**
    * A fact of a person's enrollment in an educational program or institution.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   EducationEnrollment,
 
   /**
    * A fact of the emigration of a person.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Emigration,
 
   /**
    * A fact of a person's enslavement.
    */
+  @Hidden
   Enslavement,
 
   /**
    * A fact of a person's ethnicity or race.
    */
+  @Hidden
   Ethnicity,
 
   /**
    * A fact of a person's excommunication from a church.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Excommunication,
 
   /**
    * A fact of a person's first communion in a church.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   FirstCommunion,
 
   /**
    * A fact of a person's funeral.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Funeral,
 
   /**
    * A fact of a person's gender change.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   GenderChange,
 
   /**
    * A fact of a person's graduation from a scholastic institution.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Graduation,
 
   /**
@@ -227,18 +289,21 @@ public enum FactType implements ControlledVocabulary {
    * In English, "heimat" may be described using terms like "ancestral home", "homeland", or "place of origin".
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Heimat,
 
   /**
    * A fact of a person's immigration.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Immigration,
 
   /**
    * A fact of a person's imprisonment.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Imprisonment,
 
   /**
@@ -246,18 +311,21 @@ public enum FactType implements ControlledVocabulary {
    * some instances lead to a murder investigation. Most people that die have a death certificate wherein a doctor indicates
    * the cause of death and often indicates when the decedent was last seen by that physician; these require no inquest.
    */
+  @Hidden
   Inquest,
 
   /**
    * A fact of a land transaction enacted by a person.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   LandTransaction,
 
   /**
    * A fact of a language spoken by a person.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Language,
 
   /**
@@ -265,187 +333,220 @@ public enum FactType implements ControlledVocabulary {
    * in an adult's life where he was most productive, perhaps as a writer or member of the state assembly. It does not reflect the person's birth and death dates.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Living,
 
   /**
    * A fact of a person's marital status.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MaritalStatus,
 
   /**
    * A fact of a person's medical record, such as for an illness or hospital stay.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Medical,
 
   /**
    * A fact of a person's military award.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MilitaryAward,
 
   /**
    * A fact of a person's military discharge.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MilitaryDischarge,
 
   /**
    * A fact of a person's registration for a military draft.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MilitaryDraftRegistration,
 
   /**
    * A fact of a person's military induction.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MilitaryInduction,
 
   /**
    * A fact of a person's militray service.
    */
+  @Hidden
   MilitaryService,
 
   /**
    * A fact of a person's church mission.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Mission,
 
   /**
    * A fact of a person's move (i.e. change of residence) from a location.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MoveFrom,
 
   /**
    * A fact of a person's move (i.e. change of residence) to a new location.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MoveTo,
 
   /**
    * A fact that a person was born as part of a multiple birth (e.g. twin, triplet, etc.)
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MultipleBirth,
 
   /**
    * A fact of a person's national id (e.g. social security number).
    */
+  @Hidden
   NationalId,
 
   /**
    * A fact of a person's nationality.
    */
+  @Hidden
   Nationality,
 
   /**
    * A fact of a person's naturalization (i.e. acquisition of citizenship and nationality).
    */
+  @Hidden
   Naturalization,
 
   /**
    * A fact of a person's number of marriages.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   NumberOfMarriages,
 
   /**
    * A fact of a person's obituary.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Obituary,
 
   /**
    * A fact of a person's occupation or employment.
    */
+  @Hidden
   Occupation,
 
   /**
    * A fact of a person's ordination to a stewardship in a church.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Ordination,
 
   /**
    * A fact of a person's legal pardon.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Pardon,
 
   /**
    * A fact of a person's physical description.
    */
+  @Hidden
   PhysicalDescription,
 
   /**
    * A fact of a receipt of probate of a person's property.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Probate,
 
   /**
    * A fact of a person's property or possessions.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Property,
 
   /**
    * A fact of the declaration of a person's race, presumably in a historical document.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Race,
 
   /**
    * A fact of a person's religion.
    */
+  @Hidden
   Religion,
 
   /**
    * A fact of a person's residence.
    */
+  @Hidden
   Residence,
 
   /**
    * A fact of a person's retirement.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Retirement,
 
   /**
    * A fact of a person's stillbirth.
    */
+  @Hidden
   Stillbirth,
 
   /**
    * A fact of a person's tax assessment.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   TaxAssessment,
 
   /**
    * A fact of a person's tribe.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Tribe,
 
   /**
    * A fact of a person's will.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Will,
 
   /**
    * A fact of a person's visit to a place different from the person's residence.
    */
+  @Hidden
   Visit,
 
   /**
    * A fact of a person's _yahrzeit_ date.  A person's yahzeit is the anniversary of their death as measured by the Hebrew calendar.
    */
+  @Hidden
   Yahrzeit,
 
   // facts generally applicable within the scope of a couple.
@@ -453,81 +554,95 @@ public enum FactType implements ControlledVocabulary {
   /**
    * The fact of an annulment of a marriage.
    */
+  @Hidden
   Annulment,
 
   /**
    * The fact of a marriage by common law.
    */
+  @Hidden
   CommonLawMarriage,
 
   /**
    * The fact of a civil union.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   CivilUnion,
 
   /**
    * The fact of a divorce of a couple.
    */
+  @Hidden
   Divorce,
 
   /**
    * The fact of a filing for divorce.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   DivorceFiling,
 
   /**
    * The fact of a domestic partnership.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   DomesticPartnership,
 
   /**
    * The fact of an engagement to be married.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Engagement,
 
   /**
    * The fact of a marriage.
    */
+  @Hidden
   Marriage,
 
   /**
    * The fact of a marriage banns.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MarriageBanns,
 
   /**
    * The fact of a marriage contract.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MarriageContract,
 
   /**
    * The fact of a marriage license.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MarriageLicense,
 
   /**
    * The fact of a marriage notice.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   MarriageNotice,
 
   /**
    * A fact of the number of children of a person or relationship.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   NumberOfChildren,
 
   /**
    * A fact of a couple's separation.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   Separation,
 
   // facts generally applicable within the scope of a parent-child relationship.
@@ -535,41 +650,49 @@ public enum FactType implements ControlledVocabulary {
   /**
    * A fact about an adoptive relationship between a parent an a child.
    */
+  @Hidden
   AdoptiveParent,
 
   /**
    * A fact the biological relationship between a parent and a child.
    */
+  @Hidden
   BiologicalParent,
 
   /**
    * A fact about a foster relationship between a foster parent and a child.
    */
+  @Hidden
   FosterParent,
 
   /**
    * A fact about a legal guardianship between a parent and a child.
    */
+  @Hidden
   GuardianParent,
 
   /**
    * A fact about the step relationship between a parent and a child.
    */
+  @Hidden
   StepParent,
 
   /**
    * A fact about a sociological relationship between a parent and a child, but not definable in typical legal or biological terms.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   SociologicalParent,
 
   /**
    * A fact about a pregnancy surrogate relationship between a parent and a child.
    */
   @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+  @Hidden
   SurrogateParent,
 
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   public final static Set<FactType> BIRTHLIKE_FACT_TYPES = Collections.unmodifiableSet(EnumSet.of(Baptism, Birth, BirthNotice, Christening, Blessing, Circumcision, Adoption));

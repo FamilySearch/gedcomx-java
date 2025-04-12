@@ -53,7 +53,7 @@ public abstract class Conclusion extends HypermediaEnabledData implements Attrib
   @Schema(description = "The language of the conclusion. See [http://www.w3.org/International/articles/language-tags/](http://www.w3.org/International/articles/language-tags/)")
   private String lang;
 
-  @Schema(description = "The level of confidence the contributor has about the data.")
+  @Schema(description = "The level of confidence the contributor has about the data.", implementation = ConfidenceLevel.class, enumAsRef = true)
   private URI confidence;
 
   @Schema(description = "The source references for a conclusion.")
