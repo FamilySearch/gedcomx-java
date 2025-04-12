@@ -17,6 +17,7 @@ package org.gedcomx.types;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import org.gedcomx.common.URI;
@@ -61,6 +62,7 @@ public enum GenderType implements ControlledVocabulary {
    * Custom
    */
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<GenderType> URI_MAP = new EnumURIMap<GenderType>(GenderType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

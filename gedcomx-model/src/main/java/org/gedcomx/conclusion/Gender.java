@@ -36,7 +36,6 @@ import org.gedcomx.types.ConfidenceLevel;
 import org.gedcomx.types.GenderType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import jakarta.xml.bind.annotation.*;
 
 import java.util.ArrayList;
