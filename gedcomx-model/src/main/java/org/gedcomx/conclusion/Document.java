@@ -53,7 +53,7 @@ public class Document extends Conclusion implements HasText, Attributable {
   @Schema(description = "Whether this document has been identified as \"extracted\", meaning it captures information extracted from a single source.")
   private Boolean extracted;
 
-  @Schema(description = "The URI that identifies the type of Document.", implementation = Document.class, enumAsRef = true)
+  @Schema(description = "The URI that identifies the type of Document.", implementation = DocumentType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The text type of the document.")

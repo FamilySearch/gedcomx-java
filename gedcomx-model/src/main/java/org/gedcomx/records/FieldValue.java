@@ -51,7 +51,7 @@ public final class FieldValue extends Conclusion {
   /**
    * @see FieldValueType
    */
-  @Schema(description = "The type of the field value.")
+  @Schema(description = "The type of the field value.", implementation = FieldValueType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The id of the label applicable to this field value.")
@@ -65,10 +65,11 @@ public final class FieldValue extends Conclusion {
 
   @Schema(description = "URI that resolves to the value of the field.")
   private URI resource;
+
   /**
    * @see FieldValueStatusType
    */
-  @Schema(description = "The status of this FieldValue.")
+  @Schema(description = "The status of this FieldValue.", implementation = FieldValueStatusType.class, enumAsRef = true)
   private URI status;
 
   public FieldValue() {

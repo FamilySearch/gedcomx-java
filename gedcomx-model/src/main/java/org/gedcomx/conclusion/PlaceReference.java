@@ -56,7 +56,7 @@ public class PlaceReference extends ExtensibleData implements HasFields {
   @Schema(description = "A reference to a description of the place being referenced.")
   private URI descriptionRef;
 
-  @Schema(description = "The level of confidence the contributor has about the data.")
+  @Schema(description = "The level of confidence the contributor has about the data.", implementation = ConfidenceLevel.class, enumAsRef = true)
   private URI confidence;
 
   private List<Field> fields;

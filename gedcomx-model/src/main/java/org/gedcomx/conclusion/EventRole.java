@@ -51,7 +51,7 @@ public class EventRole extends Conclusion {
   @Schema(description = "Reference to the person playing the role in the event.")
   private ResourceReference person;
 
-  @Schema(description = "The URI that identifies the type of EventRole.", implementation = EventRole.class, enumAsRef = true)
+  @Schema(description = "The URI that identifies the type of EventRole.", implementation = EventRoleType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "Details about the role of the person in the event.")
