@@ -57,7 +57,7 @@ public enum FactQualifierType implements ControlledVocabulary {
   Religion,
 
   @XmlUnknownQNameEnumValue
-  @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<FactQualifierType> URI_MAP = new EnumURIMap<FactQualifierType>(FactQualifierType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

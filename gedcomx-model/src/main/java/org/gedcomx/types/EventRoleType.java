@@ -50,7 +50,7 @@ public enum EventRoleType implements ControlledVocabulary {
   Witness,
 
   @XmlUnknownQNameEnumValue
-  @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<EventRoleType> URI_MAP = new EnumURIMap<EventRoleType>(EventRoleType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

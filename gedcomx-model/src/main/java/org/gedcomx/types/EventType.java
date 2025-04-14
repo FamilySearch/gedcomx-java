@@ -255,7 +255,7 @@ public enum EventType implements ControlledVocabulary {
 
 
   @XmlUnknownQNameEnumValue
-  @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<EventType> URI_MAP = new EnumURIMap<EventType>(EventType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

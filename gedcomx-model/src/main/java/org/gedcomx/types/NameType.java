@@ -89,7 +89,7 @@ public enum NameType implements ControlledVocabulary {
   ReligiousName,
 
   @XmlUnknownQNameEnumValue
-  @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<NameType> URI_MAP = new EnumURIMap<NameType>(NameType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

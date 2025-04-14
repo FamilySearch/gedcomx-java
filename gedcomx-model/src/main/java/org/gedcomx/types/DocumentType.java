@@ -64,7 +64,7 @@ public enum DocumentType implements ControlledVocabulary {
   Analysis,
 
   @XmlUnknownQNameEnumValue
-  @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<DocumentType> URI_MAP = new EnumURIMap<DocumentType>(DocumentType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

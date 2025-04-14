@@ -57,7 +57,7 @@ public enum ConfidenceLevel implements ControlledVocabulary {
   Low,
 
   @XmlUnknownQNameEnumValue
-  @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<ConfidenceLevel> URI_MAP = new EnumURIMap<ConfidenceLevel>(ConfidenceLevel.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

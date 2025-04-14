@@ -121,7 +121,7 @@ public enum FacetType implements ControlledVocabulary {
    * Custom
    */
   @XmlUnknownQNameEnumValue
-  @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<FacetType> URI_MAP = new EnumURIMap<FacetType>(FacetType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
