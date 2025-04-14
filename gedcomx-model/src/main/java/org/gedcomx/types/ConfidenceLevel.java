@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -34,31 +35,29 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "ConfidenceLevel", allowableValues = {"http://gedcomx.org/High",
-                                                            "http://gedcomx.org/Medium",
-                                                            "http://gedcomx.org/Low"})
+@Schema(description = "ConfidenceLevel")
 public enum ConfidenceLevel implements ControlledVocabulary {
 
   /**
    * High of confidence.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/High")
   High,
 
   /**
    * Medium of confidence.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Medium")
   Medium,
 
   /**
    * Low of confidence.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Low")
   Low,
 
   @XmlUnknownQNameEnumValue
-  @Hidden
+  @JsonProperty
   OTHER;
 
   private static final EnumURIMap<ConfidenceLevel> URI_MAP = new EnumURIMap<ConfidenceLevel>(ConfidenceLevel.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

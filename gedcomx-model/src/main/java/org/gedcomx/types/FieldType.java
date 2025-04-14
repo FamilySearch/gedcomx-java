@@ -1,20 +1,17 @@
 /**
  * Copyright Intellectual Reserve, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -31,248 +28,176 @@ import org.gedcomx.rt.GedcomxConstants;
  *
  * @author Ryan Heaton
  */
-@XmlQNameEnum (
-  base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum(
+    base = XmlQNameEnum.BaseType.URI
 )
-@Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
-@Schema(description = "FieldType", allowableValues = {"http://gedcomx.org/Age",
-                                                      "http://gedcomx.org/Date",
-                                                      "http://gedcomx.org/Place",
-                                                      "http://gedcomx.org/Gender",
-                                                      "http://gedcomx.org/Name",
-                                                      "http://gedcomx.org/Role",
-                                                      "http://gedcomx.org/Years",
-                                                      "http://gedcomx.org/Months",
-                                                      "http://gedcomx.org/Days",
-                                                      "http://gedcomx.org/Hours",
-                                                      "http://gedcomx.org/Minutes",
-                                                      "http://gedcomx.org/Year",
-                                                      "http://gedcomx.org/Month",
-                                                      "http://gedcomx.org/Day",
-                                                      "http://gedcomx.org/Hour",
-                                                      "http://gedcomx.org/Minute",
-                                                      "http://gedcomx.org/Address",
-                                                      "http://gedcomx.org/Cemetery",
-                                                      "http://gedcomx.org/City",
-                                                      "http://gedcomx.org/Church",
-                                                      "http://gedcomx.org/County",
-                                                      "http://gedcomx.org/Country",
-                                                      "http://gedcomx.org/District",
-                                                      "http://gedcomx.org/Hospital",
-                                                      "http://gedcomx.org/Island",
-                                                      "http://gedcomx.org/MilitaryBase",
-                                                      "http://gedcomx.org/Mortuary",
-                                                      "http://gedcomx.org/Parish",
-                                                      "http://gedcomx.org/PlotNumber",
-                                                      "http://gedcomx.org/PostOffice",
-                                                      "http://gedcomx.org/PostalCode",
-                                                      "http://gedcomx.org/Prison",
-                                                      "http://gedcomx.org/Province",
-                                                      "http://gedcomx.org/Section",
-                                                      "http://gedcomx.org/Ship",
-                                                      "http://gedcomx.org/State",
-                                                      "http://gedcomx.org/Territory",
-                                                      "http://gedcomx.org/Town",
-                                                      "http://gedcomx.org/Township",
-                                                      "http://gedcomx.org/Ward",
-                                                      "http://gedcomx.org/Prefix",
-                                                      "http://gedcomx.org/Suffix",
-                                                      "http://gedcomx.org/Given",
-                                                      "http://gedcomx.org/Surname",
-                                                      "http://gedcomx.org/Abusua",
-                                                      "http://gedcomx.org/BatchNumber",
-                                                      "http://gedcomx.org/Caste",
-                                                      "http://gedcomx.org/Clan",
-                                                      "http://gedcomx.org/CommonLawMarriage",
-                                                      "http://gedcomx.org/Education",
-                                                      "http://gedcomx.org/Ethnicity",
-                                                      "http://gedcomx.org/FatherBirthPlace",
-                                                      "http://gedcomx.org/NeverHadChildren",
-                                                      "http://gedcomx.org/NeverMarried",
-                                                      "http://gedcomx.org/NumberOfChildren",
-                                                      "http://gedcomx.org/NumberOfMarriages",
-                                                      "http://gedcomx.org/Household",
-                                                      "http://gedcomx.org/IsHeadOfHousehold",
-                                                      "http://gedcomx.org/MaritalStatus",
-                                                      "http://gedcomx.org/MotherBirthPlace",
-                                                      "http://gedcomx.org/MultipleBirth",
-                                                      "http://gedcomx.org/NameSake",
-                                                      "http://gedcomx.org/NationalId",
-                                                      "http://gedcomx.org/Nationality",
-                                                      "http://gedcomx.org/Occupation",
-                                                      "http://gedcomx.org/PhysicalDescription",
-                                                      "http://gedcomx.org/Property",
-                                                      "http://gedcomx.org/Race",
-                                                      "http://gedcomx.org/Religion",
-                                                      "http://gedcomx.org/RelationshipToHead",
-                                                      "http://gedcomx.org/Stillbirth",
-                                                      "http://gedcomx.org/TitleOfNobility",
-                                                      "http://gedcomx.org/Tribe"})
-
+@Facet(GedcomxConstants.FACET_GEDCOMX_RECORD)
+@Schema(description = "FieldType")
 public enum FieldType implements ControlledVocabulary {
 
   //high-level fields
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Age")
   Age,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Date")
   Date,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Place")
   Place,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Gender")
   Gender,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Name")
   Name,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Role")
   Role,
 
   //age fields
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Years")
   Years,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Months")
   Months,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Days")
   Days,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Hours")
   Hours,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Minutes")
   Minutes,
 
   //date fields
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Year")
   Year,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Month")
   Month,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Day")
   Day,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Hour")
   Hour,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Minute")
   Minute,
 
   //place fields
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Address")
   Address,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Cemetery")
   Cemetery,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/City")
   City,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Church")
   Church,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/County")
   County,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Country")
   Country,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/District")
   District,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Hospital")
   Hospital,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Island")
   Island,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/MilitaryBase")
   MilitaryBase,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Mortuary")
   Mortuary,
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Parish")
   Parish,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/PlotNumber")
   PlotNumber,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/PostOffice")
   PostOffice,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/PostalCode")
   PostalCode,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Prison")
   Prison,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Province")
   Province,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Section")
   Section,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Ship")
   Ship,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/State")
   State,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Territory")
   Territory,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Town")
   Town,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Township")
   Township,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Ward")
   Ward,
 
   //name types
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Prefix")
   Prefix,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Suffix")
   Suffix,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Given")
   Given,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Surname")
   Surname,
 
   //characteristic fields
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Abusua")
   Abusua,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/BatchNumber")
   BatchNumber,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Caste")
   Caste,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Clan")
   Clan,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/CommonLawMarriage")
   CommonLawMarriage,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Education")
   Education,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Ethnicity")
   Ethnicity,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/FatherBirthPlace")
   FatherBirthPlace,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/NeverHadChildren")
   NeverHadChildren,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/NeverMarried")
   NeverMarried,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/NumberOfChildren")
   NumberOfChildren,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/NumberOfMarriages")
   NumberOfMarriages,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Household")
   Household,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/IsHeadOfHousehold")
   IsHeadOfHousehold,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MaritalStatus")
   MaritalStatus,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MotherBirthPlace")
   MotherBirthPlace,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MultipleBirth")
   MultipleBirth,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/NameSake")
   NameSake,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/NationalId")
   NationalId,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Nationality")
   Nationality,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Occupation")
   Occupation,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/PhysicalDescription")
   PhysicalDescription,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Property")
   Property,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Race")
   Race,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Religion")
   Religion,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/RelationshipToHead")
   RelationshipToHead,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Stillbirth")
   Stillbirth,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/TitleOfNobility")
   TitleOfNobility,
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Tribe")
   Tribe,
 
   /**
    * Custom
    */
-  @XmlUnknownQNameEnumValue@Hidden
+  @XmlUnknownQNameEnumValue @JsonProperty
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<FieldType> URI_MAP = new EnumURIMap<FieldType>(FieldType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

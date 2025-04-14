@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -35,38 +36,35 @@ import org.gedcomx.rt.GedcomxConstants;
     base = XmlQNameEnum.BaseType.URI
 )
 @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
-@Schema(description = "DocumentType", allowableValues = {"http://gedcomx.org/Abstract",
-                                                         "http://gedcomx.org/Translation",
-                                                         "http://gedcomx.org/Transcription",
-                                                         "http://gedcomx.org/Analysis"})
+@Schema(description = "DocumentType")
 public enum DocumentType implements ControlledVocabulary {
 
   /**
    * The document is an abstract of a record or document.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Abstract")
   Abstract,
 
   /**
    * The document is a translation of a record or document.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Translation")
   Translation,
 
   /**
    * The document is a transcription (full or partial) of a record or document.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Transcription")
   Transcription,
 
   /**
    * The document is an analysis done by a researcher, often used as a genealogical proof statement.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Analysis")
   Analysis,
 
   @XmlUnknownQNameEnumValue
-  @Hidden
+  @JsonProperty
   OTHER;
 
   private static final EnumURIMap<DocumentType> URI_MAP = new EnumURIMap<DocumentType>(DocumentType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -33,33 +34,32 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum(
     base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "GenderType", allowableValues = {"http://gedcomx.org/Male",
-                                                       "http://gedcomx.org/Female",
-                                                       "http://gedcomx.org/Unknown"})
+@Schema(description = "GenderType")
 public enum GenderType implements ControlledVocabulary {
 
   /**
    * Male.
    */
-  @Hidden
+  @JsonProperty(value = "http://gencomx.org/Male")
   Male,
 
   /**
    * Female.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Female")
   Female,
 
   /**
    * Intersex.
    */
+  @JsonProperty(value = "http://gedcomx.org/Intersex")
   @Hidden
   Intersex,
 
   /**
    * Unknown. Note that this should be used strictly as "unknown" and not to indicate a type that is not set or not understood.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Unknown")
   Unknown,
 
   /**

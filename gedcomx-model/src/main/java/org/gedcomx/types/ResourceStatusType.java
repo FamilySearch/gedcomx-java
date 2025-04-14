@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -34,34 +35,34 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum(
         base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "ResourceStatusType", allowableValues = {"http://gedcomx.org/Deleted",
-                                                                "http://gedcomx.org/Deprecated",
-                                                                "http://gedcomx.org/Duplicate",
-                                                                "http://gedcomx.org/Blank",
-                                                                "http://gedcomx.org/NoData",
-                                                                "http://gedcomx.org/NeedsReview",
-                                                                "http://gedcomx.org/Unreadable",
-                                                                "http://gedcomx.org/Published",
-                                                                "http://gedcomx.org/Unpublished"})
+@Schema(description = "ResourceStatusType")
 public enum ResourceStatusType implements ControlledVocabulary {
 
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Deleted")
   Deleted,    // (May be 'replacedBy' another resource, as in the case of a merge).
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Deprecated")
   Deprecated, // Still available, but no longer the latest or best version. Often 'replacedBy' another resource.
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Duplicate")
   Duplicate,  // Duplicate of another resource (like a film that has a picture of the same page twice), and therefore can be ignored.
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Blank")
   Blank,      // Blank (like an image of a blank page in a book, or a black 'filler' image).
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/NoData")
   NoData,     // Not blank, but no extractable or relevant data (like an image of a table of contents).
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/NeedsReview")
   NeedsReview,// Record is awaiting human review before being used further.
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Unreadable")
   Unreadable, // Resource appears to contain data, but it is unreadable (like a terribly underexposed page).
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Published")
   Published,  // Resource has been published
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Unpublished")
   Unpublished,// Resource is in an unpublished state (i.e., has never been published, or was later unpublished.)
 
   /**

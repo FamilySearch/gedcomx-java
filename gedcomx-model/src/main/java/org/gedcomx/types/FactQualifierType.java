@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -34,31 +35,29 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-@Schema(description = "FactQualifierType", allowableValues = {"http://gedcomx.org/Age",
-                                                              "http://gedcomx.org/Cause",
-                                                              "http://gedcomx.org/Religion"})
+@Schema(description = "FactQualifierType")
 public enum FactQualifierType implements ControlledVocabulary {
 
   /**
    * The age of a person at the event described by the fact.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Age")
   Age,
 
   /**
    * The cause of a specific fact, such as the cause of death.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Cause")
   Cause,
 
   /**
    * The religion associated with a religious event such as a baptism or excommunication.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Religion")
   Religion,
 
   @XmlUnknownQNameEnumValue
-  @Hidden
+  @JsonProperty
   OTHER;
 
   private static final EnumURIMap<FactQualifierType> URI_MAP = new EnumURIMap<FactQualifierType>(FactQualifierType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

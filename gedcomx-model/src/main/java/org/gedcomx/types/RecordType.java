@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -35,365 +36,314 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
-@Schema(description = "RecordType", allowableValues = {"http://gedcomx.org/Admission",
-                                                       "http://gedcomx.org/Adoption",
-                                                       "http://gedcomx.org/Affidavit",
-                                                       "http://gedcomx.org/Application",
-                                                       "http://gedcomx.org/Arrival",
-                                                       "http://gedcomx.org/Bank",
-                                                       "http://gedcomx.org/Baptism",
-                                                       "http://gedcomx.org/Birth",
-                                                       "http://gedcomx.org/Burial",
-                                                       "http://gedcomx.org/Business",
-                                                       "http://gedcomx.org/Cemetery",
-                                                       "http://gedcomx.org/Census",
-                                                       "http://gedcomx.org/Christening",
-                                                       "http://gedcomx.org/CompiledGenealogy",
-                                                       "http://gedcomx.org/Confirmation",
-                                                       "http://gedcomx.org/Correspondence",
-                                                       "http://gedcomx.org/Death",
-                                                       "http://gedcomx.org/Departure",
-                                                       "http://gedcomx.org/Divorce",
-                                                       "http://gedcomx.org/Duplicate",
-                                                       "http://gedcomx.org/Draft",
-                                                       "http://gedcomx.org/Estate",
-                                                       "http://gedcomx.org/Index",
-                                                       "http://gedcomx.org/IntendedMarriage",
-                                                       "http://gedcomx.org/Land",
-                                                       "http://gedcomx.org/Legal",
-                                                       "http://gedcomx.org/Marriage",
-                                                       "http://gedcomx.org/MarriageAffidavit",
-                                                       "http://gedcomx.org/MarriageAmendment",
-                                                       "http://gedcomx.org/MarriageBanns",
-                                                       "http://gedcomx.org/MarriageConsent",
-                                                       "http://gedcomx.org/MarriageDuplicate",
-                                                       "http://gedcomx.org/MarriageLicense",
-                                                       "http://gedcomx.org/MarriageReturns",
-                                                       "http://gedcomx.org/Membership",
-                                                       "http://gedcomx.org/Migration",
-                                                       "http://gedcomx.org/Military",
-                                                       "http://gedcomx.org/Naturalization",
-                                                       "http://gedcomx.org/Newspaper",
-                                                       "http://gedcomx.org/Obituary",
-                                                       "http://gedcomx.org/Passenger",
-                                                       "http://gedcomx.org/Pension",
-                                                       "http://gedcomx.org/Probate",
-                                                       "http://gedcomx.org/RelatedDocument",
-                                                       "http://gedcomx.org/ReligiousCreeds",
-                                                       "http://gedcomx.org/Residence",
-                                                       "http://gedcomx.org/Roll",
-                                                       "http://gedcomx.org/Tax",
-                                                       "http://gedcomx.org/Vital",
-                                                       "http://gedcomx.org/VoterRegistration",
-                                                       "http://gedcomx.org/Will"})
+@Schema(description = "RecordType")
 
 public enum RecordType implements ControlledVocabulary {
 
   /**
    * A record of a person's admission to an institution, society, or other association.
    */
-  @Hidden
-
+  @JsonProperty(value = "http://gedcomx.org/Admission")
   Admission,
 
   /**
    * A record of an adoption.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Adoption")
   Adoption,
 
   /**
    * An affidavit.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Affidavit")
   Affidavit,
 
   /**
    * A person's application to an institution, society or other association.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Application")
   Application,
 
   /**
    * A record of a person's arrival at a certain place.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Arrival")
   Arrival,
 
   /**
    * A bank record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Bank")
   Bank,
 
   /**
    * A record of a person's baptism.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Baptism")
   Baptism,
 
   /**
    * A record of a birth.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Birth")
   Birth,
 
   /**
    * A record of a person's burial or interment.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Burial")
   Burial,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Business")
   Business,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Cemetery")
   Cemetery,
 
   /**
    * A census record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Census")
   Census,
 
   /**
    * A record of a person's christening.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Christening")
   Christening,
 
   /**
    * A Compiled Genealogy
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/CompiledGenealogy")
   CompiledGenealogy,
 
   /**
    * A record of a person's confirmation.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Confirmation")
   Confirmation,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Correspondence")
   Correspondence,
 
   /**
    * A death record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Death")
   Death,
 
   /**
    * A record of a person's departure from a certain place.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Departure")
   Departure,
 
   /**
    * A divorce record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Divorce")
   Divorce,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Duplicate")
   Duplicate,
 
   /**
    * A draft record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Draft")
   Draft,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Estate")
   Estate,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Index")
   Index,
 
   /**
    * todo: document this type. what's the difference between this an MarrigeBanns?
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/IntendedMarriage")
   IntendedMarriage,
 
   /**
    * A land record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Land")
   Land,
 
   /**
    * A legal record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Legal")
   Legal,
 
   /**
    * A marriage record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Marriage")
   Marriage,
 
   /**
    * A marriage affadavit. todo: is this distinguishment necessary? why not just use Marriage?
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MarriageAffidavit")
   MarriageAffidavit,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MarriageAmendment")
   MarriageAmendment,
 
   /**
    * A record of a person's banns of marriage.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MarriageBanns")
   MarriageBanns,
 
   /**
    * todo: document this type. why not just use marriage banns?
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MarriageConsent")
   MarriageConsent,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MarriageDuplicate")
   MarriageDuplicate,
 
   /**
    * A marriage license. todo: is this distinguishment necessary? why not just use Marriage?
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MarriageLicense")
   MarriageLicense,
 
   /**
    * todo: document this type. is this distinguishment necessary? why not just use Marriage?
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MarriageReturns")
   MarriageReturns,
 
   /**
    * todo: document this type. is this distinguishment necessary?
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Membership")
   Membership,
 
   /**
    * A migration record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Migration")
   Migration,
 
   /**
    * A military record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Military")
   Military,
 
   /**
    * A naturalization record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Naturalization")
   Naturalization,
 
   /**
    * A newspaper article or record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Newspaper")
   Newspaper,
 
   /**
    * A   Obituary record
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Obituary")
   Obituary,
 
   /**
    * A passenger record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Passenger")
   Passenger,
 
   /**
    * A pension record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Pension")
   Pension,
 
   /**
    * A probate record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Probate")
   Probate,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/RelatedDocument")
   RelatedDocument,
 
   /**
    * todo: document this type.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/ReligiousCreeds")
   ReligiousCreeds,
 
   /**
    * A Residence record
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Residence")
   Residence,
 
   /**
    * A roll.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Roll")
   Roll,
 
   /**
    * A tax record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Tax")
   Tax,
 
   /**
    * A vital record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Vital")
   Vital,
 
   /**
    * A voter registration record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/VoterRegistration")
   VoterRegistration,
 
   /**
    * A will.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Will")
   Will,
 
   /**

@@ -1,20 +1,17 @@
 /**
  * Copyright Intellectual Reserve, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -29,269 +26,232 @@ import org.gedcomx.rt.GedcomxConstants;
 /**
  * Enumeration of standard event types.
  */
-@XmlQNameEnum (
-  base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum(
+    base = XmlQNameEnum.BaseType.URI
 )
-@Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-@Schema(description = "EventType", allowableValues = {"http://gedcomx.org/Adoption",
-                                                      "http://gedcomx.org/AdultChristening",
-                                                      "http://gedcomx.org/Annulment",
-                                                      "http://gedcomx.org/Baptism",
-                                                      "http://gedcomx.org/BarMitzvah",
-                                                      "http://gedcomx.org/BatMitzvah",
-                                                      "http://gedcomx.org/Birth",
-                                                      "http://gedcomx.org/Blessing",
-                                                      "http://gedcomx.org/Burial",
-                                                      "http://gedcomx.org/Census",
-                                                      "http://gedcomx.org/Christening",
-                                                      "http://gedcomx.org/Circumcision",
-                                                      "http://gedcomx.org/Confirmation",
-                                                      "http://gedcomx.org/Cremation",
-                                                      "http://gedcomx.org/Death",
-                                                      "http://gedcomx.org/Divorce",
-                                                      "http://gedcomx.org/DivorceFiling",
-                                                      "http://gedcomx.org/Education",
-                                                      "http://gedcomx.org/Engagement",
-                                                      "http://gedcomx.org/Emigration",
-                                                      "http://gedcomx.org/Enslavement",
-                                                      "http://gedcomx.org/Excommunication",
-                                                      "http://gedcomx.org/FirstCommunion",
-                                                      "http://gedcomx.org/Funeral",
-                                                      "http://gedcomx.org/Immigration",
-                                                      "http://gedcomx.org/Inquest",
-                                                      "http://gedcomx.org/LandTransaction",
-                                                      "http://gedcomx.org/Marriage",
-                                                      "http://gedcomx.org/MilitaryAward",
-                                                      "http://gedcomx.org/MilitaryDischarge",
-                                                      "http://gedcomx.org/Mission",
-                                                      "http://gedcomx.org/MoveFrom",
-                                                      "http://gedcomx.org/MoveTo",
-                                                      "http://gedcomx.org/Naturalization",
-                                                      "http://gedcomx.org/Ordination",
-                                                      "http://gedcomx.org/Retirement"})
+@Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+@Schema(description = "EventType")
 public enum EventType implements ControlledVocabulary {
 
   /**
    * An adoption event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Adoption")
   Adoption,
 
   /**
    * An adult christening event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/AdultChristening")
   AdultChristening,
 
   /**
    * An annulment event of a marriage.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Annulment")
   Annulment,
 
   /**
    * A baptism event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Baptism")
   Baptism,
 
   /**
    * A bar mitzvah event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/BarMitzvah")
   BarMitzvah,
 
   /**
    * A bat mitzvah event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/BatMitzvah")
   BatMitzvah,
 
   /**
    * A birth event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Birth")
   Birth,
 
   /**
    * A an official blessing event, such as at the hands of a clergy member or at another religious rite.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Blessing")
   Blessing,
 
   /**
    * A burial event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Burial")
   Burial,
 
   /**
    * A census event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Census")
   Census,
 
   /**
    * A christening event *at birth*. Note: use `AdultChristening` for a christening event as an adult.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Christening")
   Christening,
 
   /**
    * A circumcision event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Circumcision")
   Circumcision,
 
   /**
    * A confirmation event (or other rite of initiation) in a church or religion.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Confirmation")
   Confirmation,
 
   /**
    * A cremation event after death.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Cremation")
   Cremation,
 
   /**
    * A death event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Death")
   Death,
 
   /**
    * A divorce event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Divorce")
   Divorce,
 
   /**
    * A divorce filing event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/DivorceFiling")
   DivorceFiling,
 
   /**
    * A education or an educational achievement event (e.g. diploma, graduation, scholarship, etc.).
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Education")
   Education,
 
   /**
    * An engagement to be married event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Engagement")
   Engagement,
 
   /**
    * An emigration event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Emigration")
   Emigration,
 
   /**
    * An enslavement event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Enslavement")
   Enslavement,
 
   /**
    * An excommunication event from a church.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Excommunication")
   Excommunication,
 
   /**
    * A first communion event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/FirstCommunion")
   FirstCommunion,
 
   /**
    * A funeral event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Funeral")
   Funeral,
 
   /**
    * An immigration event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Immigration")
   Immigration,
 
   /**
-   * A legal inquest. Inquests usually only occur when there’s something suspicious about the death. Inquests might in
-   * some instances lead to a murder investigation. Most people that die have a death certificate wherein a doctor indicates
-   * the cause of death and often indicates when the decedent was last seen by that physician; these require no inquest.
+   * A legal inquest. Inquests usually only occur when there's something suspicious about the death.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Inquest")
   Inquest,
 
   /**
    * A land transaction event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/LandTransaction")
   LandTransaction,
 
   /**
    * A marriage event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Marriage")
   Marriage,
 
   /**
    * A military award event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/MilitaryAward")
   MilitaryAward,
 
   /**
    * A military discharge event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/MilitaryDischarge")
   MilitaryDischarge,
 
   /**
    * A mission event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Mission")
   Mission,
 
   /**
    * An event of a move (i.e. change of residence) from a location.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/MoveFrom")
   MoveFrom,
 
   /**
    * An event of a move (i.e. change of residence) to a location.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/MoveTo")
   MoveTo,
 
   /**
    * A naturalization event (i.e. acquisition of citizenship and nationality).
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Naturalization")
   Naturalization,
 
   /**
    * An ordination event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Ordination")
   Ordination,
 
   /**
    * A retirement event.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Retirement")
   Retirement,
 
 
   @XmlUnknownQNameEnumValue
-  @Hidden
+  @JsonProperty
   OTHER;
 
   private static final EnumURIMap<EventType> URI_MAP = new EnumURIMap<EventType>(EventType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

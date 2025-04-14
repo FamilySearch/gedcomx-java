@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -37,8 +38,7 @@ import org.gedcomx.rt.GedcomxConstants;
         base = XmlQNameEnum.BaseType.URI
 )
 @Facet( GedcomxConstants.FACET_GEDCOMX_RECORD )
-@Schema(description = "FieldValueStatusType", allowableValues = {"http://gedcomx.org/Blank",
-                                                                 "http://gedcomx.org/Unreadable"})
+@Schema(description = "FieldValueStatusType")
 public enum FieldValueStatusType implements ControlledVocabulary {
   /**
    * "Intentionally left blank:
@@ -46,11 +46,11 @@ public enum FieldValueStatusType implements ControlledVocabulary {
    * - For an Interpreted field value, it means that the Original value was bogus or meaningless, so
    *   the field should be treated as if blank.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Blank")
   Blank,
-  @Hidden
-  Unreadable, // The field couldn't be read.
 
+  @JsonProperty(value = "http://gedcomx.org/Uncertain")
+  Unreadable, // The field couldn't be read.
 
   /**
    * Custom

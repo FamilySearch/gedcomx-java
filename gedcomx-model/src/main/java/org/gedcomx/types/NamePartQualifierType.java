@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -34,106 +35,92 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-@Schema(description = "NamePartQualifierType", allowableValues = {"http://gedcomx.org/Title",
-                                                                  "http://gedcomx.org/Primary",
-                                                                  "http://gedcomx.org/Secondary",
-                                                                  "http://gedcomx.org/Middle",
-                                                                  "http://gedcomx.org/Familiar",
-                                                                  "http://gedcomx.org/Religious",
-                                                                  "http://gedcomx.org/Family",
-                                                                  "http://gedcomx.org/Maiden",
-                                                                  "http://gedcomx.org/Patronymic",
-                                                                  "http://gedcomx.org/Matronymic",
-                                                                  "http://gedcomx.org/Geographic",
-                                                                  "http://gedcomx.org/Occupational",
-                                                                  "http://gedcomx.org/Characteristic",
-                                                                  "http://gedcomx.org/Postnom",
-                                                                  "http://gedcomx.org/Particle"})
+@Schema(description = "NamePartQualifierType")
 public enum NamePartQualifierType implements ControlledVocabulary {
 
   /**
    * A designation for honorifics (e.g. Dr., Rev., His Majesty, Haji), ranks (e.g. Colonel, General, Knight, Esquire), positions (e.g. Count, Chief, Father,
    * King) or other titles (e.g., PhD, MD)
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Title")
   Title,
 
   /**
    * A designation for the name of most prominent in importance among the names of that type (e.g., the primary given name).
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Primary")
   Primary,
 
   /**
    * A designation for a name that is not primary in its importance among the names of that type (e.g., a secondary given name).
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Secondary")
   Secondary,
 
   /**
    * A designation useful for cultures that designate a middle name that is distinct from a given name and a surname.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Middle")
   Middle,
 
   /**
    * A designation for one's familiar name.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Familiar")
   Familiar,
 
   /**
    * A designation for a name given for religious purposes.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Religious")
   Religious,
 
   /**
    * A name that associates a person with a group, such as a clan, tribe, or patriarchal hierarchy.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Family")
   Family,
 
   /**
    * A designation given by women to their original surname after they adopt a new surname upon marriage.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Maiden")
   Maiden,
 
   /**
    * A name derived from a paternal ancestor.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Patronymic")
   Patronymic,
 
   /**
    * A name derived from a maternal ancestor.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Matronymic")
   Matronymic,
 
   /**
    * A name derived from associated geography.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Geographic")
   Geographic,
 
   /**
    * A name derived from one's occupation.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Occupational")
   Occupational,
 
   /**
    * A name derived from a characteristic.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Characteristic")
   Characteristic,
 
   /**
    * A name mandedated by law populations from Congo Free State / Belgian Congo / Congo / Democratic Republic of Congo (formerly Zaire).
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Postnom")
   Postnom,
 
   /**
@@ -141,7 +128,7 @@ public enum NamePartQualifierType implements ControlledVocabulary {
    * twin, spouse, infant, unknown), comparators (e.g. Junior, Senior, younger, little), ordinals (e.g. III, eighth), and conjunctions (e.g. and, or, nee, ou,
    * y, o, ne, &amp;).
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Particle")
   Particle,
 
   @XmlUnknownQNameEnumValue

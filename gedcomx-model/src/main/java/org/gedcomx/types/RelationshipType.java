@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -31,24 +32,24 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
 base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "RelationshipType", allowableValues = {"http://gedcomx.org/AncestorDescendant",
-                                                             "http://gedcomx.org/Couple",
-                                                             "http://gedcomx.org/EnslavedBy",
-                                                             "http://gedcomx.org/Godparent",
-                                                             "http://gedcomx.org/ParentChild"})
+@Schema(description = "RelationshipType")
 public enum RelationshipType implements ControlledVocabulary {
 
-
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/AncestorDescendant")
   AncestorDescendant,
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Couple")
   Couple,
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/EnslavedBy")
   EnslavedBy,
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/Godparent")
   Godparent,
-  @Hidden
+
+  @JsonProperty(value = "http://gedcomx.org/ParentChild")
   ParentChild,
+
   @XmlUnknownQNameEnumValue
   @Hidden
   OTHER;

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -31,41 +32,37 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "ResourceType", allowableValues = {"http://gedcomx.org/Record",
-                                                        "http://gedcomx.org/Collection",
-                                                        "http://gedcomx.org/DigitalArtifact",
-                                                        "http://gedcomx.org/PhysicalArtifact",
-                                                        "http://gedcomx.org/Person"})
+@Schema(description = "ResourceType")
 public enum ResourceType implements ControlledVocabulary {
 
   /**
    * A historical record.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Record")
   Record,
 
   /**
    * A collection.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Collection")
   Collection,
 
   /**
    * A digital artifact, such as a digital image or video.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/DigitalArtifact")
   DigitalArtifact,
 
   /**
    * A physical artifact.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/PhysicalArtifact")
   PhysicalArtifact,
 
   /**
    * A person.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Person")
   Person,
 
   @XmlUnknownQNameEnumValue

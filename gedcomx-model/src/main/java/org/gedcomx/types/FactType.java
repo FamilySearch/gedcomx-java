@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -36,251 +37,224 @@ import java.util.Set;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "FactType", allowableValues = {"http://gedcomx.org/Adoption", "http://gedcomx.org/AdultChristening",
-                                                     "http://gedcomx.org/Amnesty", "http://gedcomx.org/Apprenticeship", "http://gedcomx.org/Arrest", "http://gedcomx.org/Award",
-                                                     "http://gedcomx.org/Baptism", "http://gedcomx.org/BarMitzvah", "http://gedcomx.org/BatMitzvah", "http://gedcomx.org/Birth",
-                                                     "http://gedcomx.org/BirthNotice", "http://gedcomx.org/Blessing", "http://gedcomx.org/Branch", "http://gedcomx.org/Burial",
-                                                     "http://gedcomx.org/Caste", "http://gedcomx.org/Census", "http://gedcomx.org/Christening", "http://gedcomx.org/Circumcision",
-                                                     "http://gedcomx.org/Clan", "http://gedcomx.org/Confirmation", "http://gedcomx.org/Court", "http://gedcomx.org/Cremation",
-                                                     "http://gedcomx.org/Death", "http://gedcomx.org/Education", "http://gedcomx.org/EducationEnrollment", "http://gedcomx.org/Emigration",
-                                                     "http://gedcomx.org/Enslavement", "http://gedcomx.org/Ethnicity", "http://gedcomx.org/Excommunication", "http://gedcomx.org/FirstCommunion",
-                                                     "http://gedcomx.org/Funeral", "http://gedcomx.org/GenderChange", "http://gedcomx.org/Graduation", "http://gedcomx.org/Heimat",
-                                                     "http://gedcomx.org/Immigration", "http://gedcomx.org/Imprisonment", "http://gedcomx.org/Inquest", "http://gedcomx.org/LandTransaction",
-                                                     "http://gedcomx.org/Language", "http://gedcomx.org/Living", "http://gedcomx.org/MaritalStatus", "http://gedcomx.org/Medical",
-                                                     "http://gedcomx.org/MilitaryAward", "http://gedcomx.org/MilitaryDischarge", "http://gedcomx.org/MilitaryDraftRegistration",
-                                                     "http://gedcomx.org/MilitaryInduction", "http://gedcomx.org/MilitaryService", "http://gedcomx.org/Mission",
-                                                     "http://gedcomx.org/MoveFrom", "http://gedcomx.org/MoveTo", "http://gedcomx.org/MultipleBirth", "http://gedcomx.org/NationalId",
-                                                     "http://gedcomx.org/Nationality", "http://gedcomx.org/Naturalization", "http://gedcomx.org/NumberOfMarriages",
-                                                     "http://gedcomx.org/Obituary", "http://gedcomx.org/Occupation", "http://gedcomx.org/Ordination", "http://gedcomx.org/Pardon",
-                                                     "http://gedcomx.org/PhysicalDescription", "http://gedcomx.org/Probate", "http://gedcomx.org/Property", "http://gedcomx.org/Race",
-                                                     "http://gedcomx.org/Religion", "http://gedcomx.org/Residence", "http://gedcomx.org/Retirement", "http://gedcomx.org/Stillbirth",
-                                                     "http://gedcomx.org/TaxAssessment", "http://gedcomx.org/Tribe", "http://gedcomx.org/Will", "http://gedcomx.org/Visit",
-                                                     "http://gedcomx.org/Yahrzeit", "http://gedcomx.org/Annulment", "http://gedcomx.org/CommonLawMarriage", "http://gedcomx.org/CivilUnion",
-                                                     "http://gedcomx.org/Divorce", "http://gedcomx.org/DivorceFiling", "http://gedcomx.org/DomesticPartnership", "http://gedcomx.org/Engagement",
-                                                     "http://gedcomx.org/Marriage", "http://gedcomx.org/MarriageBanns", "http://gedcomx.org/MarriageContract", "http://gedcomx.org/MarriageLicense",
-                                                     "http://gedcomx.org/MarriageNotice", "http://gedcomx.org/NumberOfChildren", "http://gedcomx.org/Separation", "http://gedcomx.org/AdoptiveParent",
-                                                     "http://gedcomx.org/BiologicalParent", "http://gedcomx.org/FosterParent", "http://gedcomx.org/GuardianParent", "http://gedcomx.org/StepParent",
-                                                     "http://gedcomx.org/SociologicalParent", "http://gedcomx.org/SurrogateParent"})
-
+@Schema(description = "FactType")
 public enum FactType implements ControlledVocabulary {
 
   // facts generally applicable within the scope of a person.
-
   /**
    * A fact of a person's adoption. In the context of a parent-child relationship, it describes a fact of the adoption of a child by a parent.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Adoption")
   Adoption,
 
   /**
    * A fact of a person's christening as an adult.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/AdultChristening")
   AdultChristening,
 
   /**
    * A fact of a person's amnesty.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Amnesty")
   Amnesty,
 
   /**
    * A fact of a person's apprenticeship.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Apprenticeship")
   Apprenticeship,
 
   /**
    * A fact of a person's arrest.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Arrest")
   Arrest,
 
   /**
    * A fact of a person's award (medal, honor).
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Award")
   Award,
 
   /**
    * A fact of a person's baptism.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Baptism")
   Baptism,
 
   /**
    * A fact of a person's bar mitzvah.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/BarMitzvah")
   BarMitzvah,
 
   /**
    * A fact of a person's bat mitzvah.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/BatMitzvah")
   BatMitzvah,
 
   /**
    * A fact of a person's birth.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Birth")
   Birth,
 
   /**
    * A fact of a person's birth notice, such as posted in a newspaper or other publishing medium.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/BirthNotice")
   BirthNotice,
 
   /**
    * A fact of an official blessing received by a person, such as at the hands of a clergy member or at another religious rite.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Blessing")
   Blessing,
 
   /**
    * A fact of a person's branch within an extended clan.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Branch")
   Branch,
 
   /**
-   * A fact of the burial of person's body after death.
+   * A fact of a person's burial after death.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Burial")
   Burial,
 
   /**
    * A fact of a person's caste.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Caste")
   Caste,
 
   /**
    * A fact of a person's participation in a census.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Census")
   Census,
 
   /**
    * A fact of a person's christening *at birth*. Note: use `AdultChristening` for the christening as an adult.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Christening")
   Christening,
 
   /**
    * A fact of a person's circumcision.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Circumcision")
   Circumcision,
 
   /**
    * A fact of a person's clan.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Clan")
   Clan,
 
   /**
    * A fact of a person's confirmation (or other rite of initiation) in a church or religion.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Confirmation")
   Confirmation,
 
   /**
    * A fact of the appearance of a person in a court proceeding.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Court")
   Court,
 
   /**
    * A fact of the cremation of person's body after death.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Cremation")
   Cremation,
 
   /**
    * A fact of the death of a person.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Death")
   Death,
 
   /**
    * A fact of an education of a person.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Education")
   Education,
 
   /**
    * A fact of a person's enrollment in an educational program or institution.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/EducationEnrollment")
   EducationEnrollment,
 
   /**
    * A fact of the emigration of a person.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Emigration")
   Emigration,
 
   /**
    * A fact of a person's enslavement.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Enslavement")
   Enslavement,
 
   /**
    * A fact of a person's ethnicity or race.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Ethnicity")
   Ethnicity,
 
   /**
    * A fact of a person's excommunication from a church.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Excommunication")
   Excommunication,
 
   /**
    * A fact of a person's first communion in a church.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/FirstCommunion")
   FirstCommunion,
 
   /**
    * A fact of a person's funeral.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Funeral")
   Funeral,
 
   /**
    * A fact of a person's gender change.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/GenderChange")
   GenderChange,
 
   /**
    * A fact of a person's graduation from a scholastic institution.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Graduation")
   Graduation,
 
   /**
@@ -288,407 +262,407 @@ public enum FactType implements ControlledVocabulary {
    * Distinct heimaten are often useful as indicators that two persons of the same name are not likely to be closely related genealogically.
    * In English, "heimat" may be described using terms like "ancestral home", "homeland", or "place of origin".
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Heimat")
   Heimat,
 
   /**
    * A fact of a person's immigration.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Immigration")
   Immigration,
 
   /**
    * A fact of a person's imprisonment.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Imprisonment")
   Imprisonment,
 
   /**
-   * A legal inquest. Inquests usually only occur when there’s something suspicious about the death. Inquests might in
+   * A legal inquest. Inquests usually only occur when there's something suspicious about the death. Inquests might in
    * some instances lead to a murder investigation. Most people that die have a death certificate wherein a doctor indicates
    * the cause of death and often indicates when the decedent was last seen by that physician; these require no inquest.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Inquest")
   Inquest,
 
   /**
    * A fact of a land transaction enacted by a person.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/LandTransaction")
   LandTransaction,
 
   /**
    * A fact of a language spoken by a person.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Language")
   Language,
 
   /**
    * A fact of a record of a person's living for a specific period. This is designed to include "flourish", defined to mean the time period
    * in an adult's life where he was most productive, perhaps as a writer or member of the state assembly. It does not reflect the person's birth and death dates.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Living")
   Living,
 
   /**
    * A fact of a person's marital status.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MaritalStatus")
   MaritalStatus,
 
   /**
    * A fact of a person's medical record, such as for an illness or hospital stay.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Medical")
   Medical,
 
   /**
    * A fact of a person's military award.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MilitaryAward")
   MilitaryAward,
 
   /**
    * A fact of a person's military discharge.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MilitaryDischarge")
   MilitaryDischarge,
 
   /**
    * A fact of a person's registration for a military draft.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MilitaryDraftRegistration")
   MilitaryDraftRegistration,
 
   /**
    * A fact of a person's military induction.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MilitaryInduction")
   MilitaryInduction,
 
   /**
    * A fact of a person's militray service.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/MilitaryService")
   MilitaryService,
 
   /**
    * A fact of a person's church mission.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Mission")
   Mission,
 
   /**
    * A fact of a person's move (i.e. change of residence) from a location.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MoveFrom")
   MoveFrom,
 
   /**
    * A fact of a person's move (i.e. change of residence) to a new location.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MoveTo")
   MoveTo,
 
   /**
    * A fact that a person was born as part of a multiple birth (e.g. twin, triplet, etc.)
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MultipleBirth")
   MultipleBirth,
 
   /**
    * A fact of a person's national id (e.g. social security number).
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/NationalId")
   NationalId,
 
   /**
    * A fact of a person's nationality.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Nationality")
   Nationality,
 
   /**
    * A fact of a person's naturalization (i.e. acquisition of citizenship and nationality).
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Naturalization")
   Naturalization,
 
   /**
    * A fact of a person's number of marriages.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/NumberOfMarriages")
   NumberOfMarriages,
 
   /**
    * A fact of a person's obituary.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Obituary")
   Obituary,
 
   /**
    * A fact of a person's occupation or employment.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Occupation")
   Occupation,
 
   /**
    * A fact of a person's ordination to a stewardship in a church.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Ordination")
   Ordination,
 
   /**
    * A fact of a person's legal pardon.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Pardon")
   Pardon,
 
   /**
    * A fact of a person's physical description.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/PhysicalDescription")
   PhysicalDescription,
 
   /**
    * A fact of a receipt of probate of a person's property.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Probate")
   Probate,
 
   /**
    * A fact of a person's property or possessions.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Property")
   Property,
 
   /**
    * A fact of the declaration of a person's race, presumably in a historical document.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Race")
   Race,
 
   /**
    * A fact of a person's religion.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Religion")
   Religion,
 
   /**
    * A fact of a person's residence.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Residence")
   Residence,
 
   /**
    * A fact of a person's retirement.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Retirement")
   Retirement,
 
   /**
    * A fact of a person's stillbirth.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Stillbirth")
   Stillbirth,
 
   /**
    * A fact of a person's tax assessment.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/TaxAssessment")
   TaxAssessment,
 
   /**
    * A fact of a person's tribe.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Tribe")
   Tribe,
 
   /**
    * A fact of a person's will.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Will")
   Will,
 
   /**
    * A fact of a person's visit to a place different from the person's residence.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Visit")
   Visit,
 
   /**
    * A fact of a person's _yahrzeit_ date.  A person's yahzeit is the anniversary of their death as measured by the Hebrew calendar.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Yahrzeit")
   Yahrzeit,
 
-  // facts generally applicable within the scope of a couple.
+// facts generally applicable within the scope of a couple.
 
   /**
    * The fact of an annulment of a marriage.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Annulment")
   Annulment,
 
   /**
    * The fact of a marriage by common law.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/CommonLawMarriage")
   CommonLawMarriage,
 
   /**
    * The fact of a civil union.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/CivilUnion")
   CivilUnion,
 
   /**
    * The fact of a divorce of a couple.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Divorce")
   Divorce,
 
   /**
    * The fact of a filing for divorce.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/DivorceFiling")
   DivorceFiling,
 
   /**
    * The fact of a domestic partnership.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/DomesticPartnership")
   DomesticPartnership,
 
   /**
    * The fact of an engagement to be married.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Engagement")
   Engagement,
 
   /**
    * The fact of a marriage.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/Marriage")
   Marriage,
 
   /**
    * The fact of a marriage banns.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MarriageBanns")
   MarriageBanns,
 
   /**
    * The fact of a marriage contract.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MarriageContract")
   MarriageContract,
 
   /**
    * The fact of a marriage license.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MarriageLicense")
   MarriageLicense,
 
   /**
    * The fact of a marriage notice.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/MarriageNotice")
   MarriageNotice,
 
   /**
    * A fact of the number of children of a person or relationship.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/NumberOfChildren")
   NumberOfChildren,
 
   /**
    * A fact of a couple's separation.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/Separation")
   Separation,
 
-  // facts generally applicable within the scope of a parent-child relationship.
+// facts generally applicable within the scope of a parent-child relationship.
 
   /**
    * A fact about an adoptive relationship between a parent an a child.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/AdoptiveParent")
   AdoptiveParent,
 
   /**
    * A fact the biological relationship between a parent and a child.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/BiologicalParent")
   BiologicalParent,
 
   /**
    * A fact about a foster relationship between a foster parent and a child.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/FosterParent")
   FosterParent,
 
   /**
    * A fact about a legal guardianship between a parent and a child.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/GuardianParent")
   GuardianParent,
 
   /**
    * A fact about the step relationship between a parent and a child.
    */
-  @Hidden
+  @JsonProperty(value = "http://gedcomx.org/StepParent")
   StepParent,
 
   /**
    * A fact about a sociological relationship between a parent and a child, but not definable in typical legal or biological terms.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/SociologicalParent")
   SociologicalParent,
 
   /**
    * A fact about a pregnancy surrogate relationship between a parent and a child.
    */
-  @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
-  @Hidden
+  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
+  @JsonProperty(value = "http://gedcomx.org/SurrogateParent")
   SurrogateParent,
 
   @XmlUnknownQNameEnumValue

@@ -15,6 +15,7 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -35,104 +36,92 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
-@Schema(description = "FacetType", allowableValues = {"http://gedcomx.org/Year",
-                                                      "http://gedcomx.org/State",
-                                                      "http://gedcomx.org/Province",
-                                                      "http://gedcomx.org/Country",
-                                                      "http://gedcomx.org/City",
-                                                      "http://gedcomx.org/Parish",
-                                                      "http://gedcomx.org/Township",
-                                                      "http://gedcomx.org/Page",
-                                                      "http://gedcomx.org/Volume",
-                                                      "http://gedcomx.org/Date",
-                                                      "http://gedcomx.org/Place",
-                                                      "http://gedcomx.org/Name",
-                                                      "http://gedcomx.org/Gender"})
+@Schema(description = "FacetType")
 public enum FacetType implements ControlledVocabulary {
 
   /**
    * A year.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Year")
   Year,
 
   /**
    * A (geographic) state.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/State")
   State,
 
   /**
    * A province.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Province")
   Province,
 
   /**
    * A country.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Country")
   Country,
 
   /**
    * A city.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/City")
   City,
 
   /**
    * A parish
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Parish")
   Parish,
 
   /**
    * A township.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Township")
   Township,
 
   /**
    * A page.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Page")
   Page,
 
   /**
    * A volume.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Volume")
   Volume,
 
   /**
    * A date.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Date")
   Date,
 
   /**
    * A place.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Place")
   Place,
 
   /**
    * A name.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Name")
   Name,
 
   /**
    * A gender.
    */
-  @Hidden
+  @JsonProperty("http://gedcomx.org/Gender")
   Gender,
 
   /**
    * Custom
    */
   @XmlUnknownQNameEnumValue
-  @Hidden
+  @JsonProperty
   OTHER;
 
   private static final EnumURIMap<FacetType> URI_MAP = new EnumURIMap<FacetType>(FacetType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
