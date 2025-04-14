@@ -31,6 +31,19 @@ public class FamilySearchFactTypeTest {
     testType("http://familysearch.org/v1/TitleOfNobility", FamilySearchFactType.TitleOfNobility);
     testType("http://familysearch.org/v1/TribeName", FamilySearchFactType.TribeName);
 
+    // association fact types
+    //testType("http://familysearch.org/v1/Apprenticeship", FamilySearchFactType.Apprenticeship); // exists as a core Gedcomx FactType
+    testType("http://familysearch.org/v1/Association", FamilySearchFactType.Association);
+    testType("http://familysearch.org/v1/Emancipation", FamilySearchFactType.Emancipation);
+    testType("http://familysearch.org/v1/Employment", FamilySearchFactType.Employment);
+    testType("http://familysearch.org/v1/Enslavement", FamilySearchFactType.Enslavement);
+    testType("http://familysearch.org/v1/Friendship", FamilySearchFactType.Friendship);
+    testType("http://familysearch.org/v1/Generation", FamilySearchFactType.Generation);
+    testType("http://familysearch.org/v1/Godparenthood", FamilySearchFactType.Godparenthood);
+    testType("http://familysearch.org/v1/Household", FamilySearchFactType.Household);
+    testType("http://familysearch.org/v1/Neighborhood", FamilySearchFactType.Neighborhood);
+    testType("http://familysearch.org/v1/Relative", FamilySearchFactType.Relative);
+
     // make sure all are tested
     for (FamilySearchFactType type : FamilySearchFactType.values()) {
       if ((!typesTested.contains(type)) && (!FamilySearchFactType.OTHER.equals(type))) {
