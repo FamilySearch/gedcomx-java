@@ -40,7 +40,6 @@ import org.gedcomx.rt.GedcomxConstants;
                                                      "http://gedcomx.org/AdoptiveName",
                                                      "http://gedcomx.org/FormalName",
                                                      "http://gedcomx.org/ReligiousName"})
-
 public enum NameType implements ControlledVocabulary {
 
   /**

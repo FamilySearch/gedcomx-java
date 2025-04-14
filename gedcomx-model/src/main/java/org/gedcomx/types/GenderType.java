@@ -35,7 +35,6 @@ import org.gedcomx.rt.GedcomxConstants;
 )
 @Schema(description = "GenderType", allowableValues = {"http://gedcomx.org/Male",
                                                        "http://gedcomx.org/Female",
-                                                       "http://gedcomx.org/Intersex",
                                                        "http://gedcomx.org/Unknown"})
 public enum GenderType implements ControlledVocabulary {
 
