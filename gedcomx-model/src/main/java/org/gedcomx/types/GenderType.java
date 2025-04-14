@@ -57,7 +57,8 @@ public enum GenderType implements ControlledVocabulary {
   Intersex,
 
   /**
-   * Unknown. Note that this should be used strictly as "unknown" and not to indicate a type that is not set or not understood.
+   * Unknown. Note that this should be used strictly as "unknown" and not to
+   * indicate a type that is not set or not understood.
    */
   @JsonProperty(value = "http://gedcomx.org/Unknown")
   Unknown,

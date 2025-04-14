@@ -188,7 +188,9 @@ public enum EventType implements ControlledVocabulary {
   Immigration,
 
   /**
-   * A legal inquest. Inquests usually only occur when there's something suspicious about the death.
+   * A legal inquest. Inquests usually only occur when there’s something suspicious about the death. Inquests might in
+   * some instances lead to a murder investigation. Most people that die have a death certificate wherein a doctor indicates
+   * the cause of death and often indicates when the decedent was last seen by that physician; these require no inquest.
    */
   @JsonProperty("http://gedcomx.org/Inquest")
   Inquest,
