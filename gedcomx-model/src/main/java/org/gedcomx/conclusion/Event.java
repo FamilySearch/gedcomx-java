@@ -51,7 +51,7 @@ import java.util.stream.Stream;
 @Schema(description = "A historical event.")
 public class Event extends Subject implements HasDateAndPlace {
 
-  @Schema(description = "The type of the event.")
+  @Schema(description = "The type of the event.", implementation = EventType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The date of this event.")

@@ -15,8 +15,12 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -28,14 +32,26 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "RelationshipType")
 public enum RelationshipType implements ControlledVocabulary {
 
+  @JsonProperty(value = "http://gedcomx.org/AncestorDescendant")
   AncestorDescendant,
+
+  @JsonProperty(value = "http://gedcomx.org/Couple")
   Couple,
+
+  @JsonProperty(value = "http://gedcomx.org/EnslavedBy")
   EnslavedBy,
+
+  @JsonProperty(value = "http://gedcomx.org/Godparent")
   Godparent,
+
+  @JsonProperty(value = "http://gedcomx.org/ParentChild")
   ParentChild,
+
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<RelationshipType> URI_MAP = new EnumURIMap<RelationshipType>(RelationshipType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

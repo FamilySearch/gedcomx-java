@@ -58,8 +58,6 @@ import org.gedcomx.types.ResourceType;
 import org.gedcomx.util.JsonIdentifiers;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.xml.bind.annotation.*;
-import javax.xml.XMLConstants;
 import java.util.*;
 
 /**
@@ -114,7 +112,7 @@ public class SourceDescription extends HypermediaEnabledData implements Attribut
   @Schema(description = "The attribution metadata for this source description.")
   private Attribution attribution;
 
-  @Schema(description = "The type of the resource being described.")
+  @Schema(description = "The type of the resource being described.", implementation = ResourceType.class, enumAsRef = true)
   private URI resourceType;
 
   @Schema(description = "The rights for this source.")

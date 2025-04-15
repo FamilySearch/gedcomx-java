@@ -15,9 +15,13 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -31,6 +35,7 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@Schema(description = "NamePartQualifierType")
 public enum NamePartQualifierType implements ControlledVocabulary {
 
   /**
@@ -38,71 +43,85 @@ public enum NamePartQualifierType implements ControlledVocabulary {
    * ranks (e.g. Colonel, General, Knight, Esquire),
    * positions (e.g. Count, Chief, Father, King) or other titles (e.g., PhD, MD)
    */
+  @JsonProperty(value = "http://gedcomx.org/Title")
   Title,
 
   /**
    * A designation for the name of most prominent in importance among the names of that type (e.g., the primary given name).
    */
+  @JsonProperty(value = "http://gedcomx.org/Primary")
   Primary,
 
   /**
    * A designation for a name that is not primary in its importance among the names of that type (e.g., a secondary given name).
    */
+  @JsonProperty(value = "http://gedcomx.org/Secondary")
   Secondary,
 
   /**
    * A designation useful for cultures that designate a middle name that is distinct from a given name and a surname.
    */
+  @JsonProperty(value = "http://gedcomx.org/Middle")
   Middle,
 
   /**
    * A designation for one's familiar name.
    */
+  @JsonProperty(value = "http://gedcomx.org/Familiar")
   Familiar,
 
   /**
    * A designation for a name given for religious purposes.
    */
+  @JsonProperty(value = "http://gedcomx.org/Religious")
   Religious,
 
   /**
    * A name that associates a person with a group, such as a clan, tribe, or patriarchal hierarchy.
    */
+  @JsonProperty(value = "http://gedcomx.org/Family")
   Family,
 
   /**
    * A designation given by women to their original surname after they adopt a new surname upon marriage.
    */
+  @JsonProperty(value = "http://gedcomx.org/Maiden")
   Maiden,
 
   /**
    * A name derived from a paternal ancestor.
    */
+  @JsonProperty(value = "http://gedcomx.org/Patronymic")
   Patronymic,
 
   /**
    * A name derived from a maternal ancestor.
    */
+  @JsonProperty(value = "http://gedcomx.org/Matronymic")
   Matronymic,
 
   /**
    * A name derived from associated geography.
    */
+  @JsonProperty(value = "http://gedcomx.org/Geographic")
   Geographic,
 
   /**
    * A name derived from one's occupation.
    */
+  @JsonProperty(value = "http://gedcomx.org/Occupational")
   Occupational,
 
   /**
    * A name derived from a characteristic.
    */
+  @JsonProperty(value = "http://gedcomx.org/Characteristic")
   Characteristic,
 
   /**
    * A name mandedated by law populations from Congo Free State / Belgian Congo / Congo / Democratic Republic of Congo (formerly Zaire).
    */
+  @JsonProperty(value = "http://gedcomx.org/Postnom")
   Postnom,
 
   /**
@@ -112,9 +131,11 @@ public enum NamePartQualifierType implements ControlledVocabulary {
    * comparators (e.g. Junior, Senior, younger, little), ordinals (e.g. III, eighth),
    * and conjunctions (e.g. and, or, nee, ou, y, o, ne, &amp;).
    */
+  @JsonProperty(value = "http://gedcomx.org/Particle")
   Particle,
 
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<NamePartQualifierType> URI_MAP = new EnumURIMap<NamePartQualifierType>(NamePartQualifierType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

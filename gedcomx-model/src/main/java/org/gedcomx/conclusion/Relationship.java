@@ -65,7 +65,7 @@ public class Relationship extends Subject implements HasFacts, HasFields {
   /**
    * @see org.gedcomx.types.RelationshipType
    */
-  @Schema(description = "The type of this relationship.")
+  @Schema(description = "The type of this relationship.", implementation = RelationshipType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "A reference to a person in the relationship. The name \"person1\" is used only to distinguish it from the other person in this " +

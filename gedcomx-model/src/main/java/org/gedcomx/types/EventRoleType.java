@@ -15,9 +15,13 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -30,13 +34,23 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_FS_FT_UNSUPPORTED )
+@Schema(description = "EventRoleType")
 public enum EventRoleType implements ControlledVocabulary {
 
+  @JsonProperty("http://gedcomx.org/Principal")
   Principal,
+
+  @JsonProperty("http://gedcomx.org/Participant")
   Participant,
+
+  @JsonProperty("http://gedcomx.org/Official")
   Official,
+
+  @JsonProperty("http://gedcomx.org/Witness")
   Witness,
+
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<EventRoleType> URI_MAP = new EnumURIMap<EventRoleType>(EventRoleType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

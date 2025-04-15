@@ -52,7 +52,7 @@ public class Coverage extends HypermediaEnabledData {
   /**
    * @see org.gedcomx.types.RecordType
    */
-  @Schema(description = "The type of record being covered, if any.")
+  @Schema(description = "The type of record being covered, if any.", implementation = RecordType.class, enumAsRef = true)
   private URI recordType;
 
   public Coverage() {

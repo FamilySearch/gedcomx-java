@@ -49,6 +49,7 @@ public final class Identifier implements HasJsonKey {
   /**
    * @see org.gedcomx.types.IdentifierType
    */
+  @Schema(description = "The URI that identifies the type of IdentifierType.", implementation = IdentifierType.class, enumAsRef = true)
   private URI type;
 
   public Identifier() {

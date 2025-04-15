@@ -54,7 +54,7 @@ import java.util.List;
 @Schema(description = "A gender conclusion.")
 public class Gender extends Conclusion implements HasFields {
 
-  @Schema(description = "The URI that identifies the type of Gender.")
+  @Schema(description = "The URI that identifies the type of Gender.", implementation = GenderType.class, enumAsRef = true)
   private URI type;
 
   private List<Field> fields;

@@ -46,7 +46,7 @@ public class NameSearchInfo {
   @Schema(description = "The name id of the search result.")
   private String nameId;          // future: if the link to the resource is required use a ResourceReference and this field could be deprecated
 
-  @Schema(description = "The name part type for the text of the search result.")
+  @Schema(description = "The name part type for the text of the search result.", implementation = NamePartType.class, enumAsRef = true)
   private URI namePartType;
 
   @Schema(description = "The weight of the search result.")

@@ -58,7 +58,7 @@ public class Name extends Conclusion {
   /**
    * @see org.gedcomx.types.NameType
    */
-  @Schema(description = "The type of the name.")
+  @Schema(description = "The type of the name.", implementation = NameType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The date the name was first applied or adopted.")

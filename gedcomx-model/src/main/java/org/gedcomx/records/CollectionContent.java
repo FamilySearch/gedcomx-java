@@ -42,7 +42,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @Schema(description = "A description of the content of a collection by resource type.")
 public class CollectionContent extends HypermediaEnabledData {
 
-  @Schema(description = "The type of resource being covered in this collection.")
+  @Schema(description = "The type of resource being covered in this collection.", implementation = ResourceType.class, enumAsRef = true)
   private URI resourceType;
 
   @Schema(description = "The count of the items applicable to this content aspect.")

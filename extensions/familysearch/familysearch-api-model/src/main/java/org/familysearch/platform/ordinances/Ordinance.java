@@ -51,7 +51,7 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @Schema(description = "An ordinance conclusion.")
 public class Ordinance extends Conclusion {
 
-  @Schema(description = "The type of ordinance.")
+  @Schema(description = "The type of ordinance.", implementation = Ordinance.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The status of the ordinance.")

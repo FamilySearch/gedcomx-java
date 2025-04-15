@@ -15,8 +15,12 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -30,11 +34,13 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "IdentifierType")
 public enum IdentifierType implements ControlledVocabulary {
 
   /**
    * The primary identifier for the resource.
    */
+  @JsonProperty(value = "http://gedcomx.org/Primary")
   Primary,
 
   /**
@@ -45,6 +51,7 @@ public enum IdentifierType implements ControlledVocabulary {
    * (working) person conclusion identifies the evidence used to support the conclusion by including
    * each evidence identifier in the list of identifiers for the person.
    */
+  @JsonProperty(value = "http://gedcomx.org/Evidence")
   Evidence,
 
   /**
@@ -52,6 +59,7 @@ public enum IdentifierType implements ControlledVocabulary {
    * identifier is commonly used as the result of a merge when what was once a primary
    * identifier for a person is no longer primary.
    */
+  @JsonProperty(value = "http://gedcomx.org/Deprecated")
   Deprecated,
 
   /**
@@ -59,9 +67,11 @@ public enum IdentifierType implements ControlledVocabulary {
    * that provide persistent identifiers are claiming that links to the resource using the identifier
    * won't break.
    */
+  @JsonProperty(value = "http://gedcomx.org/Persistent")
   Persistent,
 
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<IdentifierType> URI_MAP = new EnumURIMap<IdentifierType>(IdentifierType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

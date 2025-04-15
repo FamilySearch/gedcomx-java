@@ -57,7 +57,7 @@ public class Date extends ExtensibleData implements HasFields {
   @Schema(description = "The standardized and/or normalized formal value.")
   private String formal;
 
-  @Schema(description = "The level of confidence the contributor has about the data.")
+  @Schema(description = "The level of confidence the contributor has about the data.", implementation = ConfidenceLevel.class, enumAsRef = true)
   private URI confidence;
 
   @Schema(description = "The list of normalized values for the date, provided for display purposes by the application. Normalized values are not specified by " +

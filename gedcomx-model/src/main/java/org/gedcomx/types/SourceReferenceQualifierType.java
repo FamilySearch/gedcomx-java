@@ -15,8 +15,12 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -29,11 +33,13 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
+@Schema(description = "SourceReferenceQualifierType")
 public enum SourceReferenceQualifierType implements ControlledVocabulary {
 
   /**
    * A region of text in a digital document, in the form of `a,b` where `a` is the start character and `b` is the end character.
    */
+  @JsonProperty(value = "http://gedcomx.org/CharacterRegion")
   CharacterRegion,
 
   /**
@@ -44,15 +50,18 @@ public enum SourceReferenceQualifierType implements ControlledVocabulary {
    * X axis of the image in pixels, `y` is the point on the Y axis in pixels, `w` is the width of the rectangle in pixels, and `h` in the
    * height of the rectangle in pixels.
    */
+  @JsonProperty(value = "http://gedcomx.org/RectangleRegion")
   RectangleRegion,
 
   /**
    * A region of time of an audio or video recording, in the form of `a,b` where `a` is the starting point in milliseconds
    * and `b` is the ending point in milliseconds.
    */
+  @JsonProperty(value = "http://gedcomx.org/TimeRegion")
   TimeRegion,
 
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<SourceReferenceQualifierType> URI_MAP = new EnumURIMap<SourceReferenceQualifierType>(SourceReferenceQualifierType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

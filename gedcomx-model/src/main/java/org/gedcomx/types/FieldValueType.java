@@ -15,9 +15,13 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -32,22 +36,26 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
+@Schema(description = "FieldValueType")
 public enum FieldValueType implements ControlledVocabulary {
 
   /**
    * The field value is original, extracted directly from the record. What you see is what you get, including misspellings and other errors in the record.
    */
+  @JsonProperty(value = "http://gedcomx.org/Original")
   Original,
 
   /**
    * The field value is interpreted, meaning a user or other automated process applied some reasoning to interpret the value.
    */
+  @JsonProperty(value = "http://gedcomx.org/Interpreted")
   Interpreted,
 
   /**
    * Custom
    */
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<FieldValueType> URI_MAP = new EnumURIMap<FieldValueType>(FieldValueType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);

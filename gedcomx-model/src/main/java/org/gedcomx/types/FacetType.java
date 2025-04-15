@@ -15,9 +15,13 @@
  */
 package org.gedcomx.types;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.Facet;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.ControlledVocabulary;
 import org.gedcomx.rt.EnumURIMap;
@@ -32,77 +36,92 @@ import org.gedcomx.rt.GedcomxConstants;
   base = XmlQNameEnum.BaseType.URI
 )
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
+@Schema(description = "FacetType")
 public enum FacetType implements ControlledVocabulary {
 
   /**
    * A year.
    */
+  @JsonProperty("http://gedcomx.org/Year")
   Year,
 
   /**
    * A (geographic) state.
    */
+  @JsonProperty("http://gedcomx.org/State")
   State,
 
   /**
    * A province.
    */
+  @JsonProperty("http://gedcomx.org/Province")
   Province,
 
   /**
    * A country.
    */
+  @JsonProperty("http://gedcomx.org/Country")
   Country,
 
   /**
    * A city.
    */
+  @JsonProperty("http://gedcomx.org/City")
   City,
 
   /**
    * A parish
    */
+  @JsonProperty("http://gedcomx.org/Parish")
   Parish,
 
   /**
    * A township.
    */
+  @JsonProperty("http://gedcomx.org/Township")
   Township,
 
   /**
    * A page.
    */
+  @JsonProperty("http://gedcomx.org/Page")
   Page,
 
   /**
    * A volume.
    */
+  @JsonProperty("http://gedcomx.org/Volume")
   Volume,
 
   /**
    * A date.
    */
+  @JsonProperty("http://gedcomx.org/Date")
   Date,
 
   /**
    * A place.
    */
+  @JsonProperty("http://gedcomx.org/Place")
   Place,
 
   /**
    * A name.
    */
+  @JsonProperty("http://gedcomx.org/Name")
   Name,
 
   /**
    * A gender.
    */
+  @JsonProperty("http://gedcomx.org/Gender")
   Gender,
 
   /**
    * Custom
    */
   @XmlUnknownQNameEnumValue
+  @Hidden
   OTHER;
 
   private static final EnumURIMap<FacetType> URI_MAP = new EnumURIMap<FacetType>(FacetType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
