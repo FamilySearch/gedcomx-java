@@ -31,8 +31,8 @@ import org.gedcomx.rt.GedcomxConstants;
  *
  * @author Ryan Heaton
  */
-@XmlQNameEnum(
-    base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum (
+  base = XmlQNameEnum.BaseType.URI
 )
 @Schema(description = "GenderType")
 public enum GenderType implements ControlledVocabulary {

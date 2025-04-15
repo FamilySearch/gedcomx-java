@@ -41,6 +41,7 @@ import java.util.Set;
 public enum FactType implements ControlledVocabulary {
 
   // facts generally applicable within the scope of a person.
+
   /**
    * A fact of a person's adoption. In the context of a parent-child relationship, it describes a fact of the adoption of a child by a parent.
    */
@@ -523,7 +524,7 @@ public enum FactType implements ControlledVocabulary {
   @JsonProperty(value = "http://gedcomx.org/Yahrzeit")
   Yahrzeit,
 
-// facts generally applicable within the scope of a couple.
+  // facts generally applicable within the scope of a couple.
 
   /**
    * The fact of an annulment of a marriage.
@@ -619,7 +620,7 @@ public enum FactType implements ControlledVocabulary {
   @JsonProperty(value = "http://gedcomx.org/Separation")
   Separation,
 
-// facts generally applicable within the scope of a parent-child relationship.
+  // facts generally applicable within the scope of a parent-child relationship.
 
   /**
    * A fact about an adoptive relationship between a parent an a child.

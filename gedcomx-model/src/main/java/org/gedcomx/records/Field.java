@@ -52,7 +52,7 @@ public class Field extends Conclusion {
   /**
    * @see org.gedcomx.types.FieldType
    */
-  @Schema(description = "The field type", implementation = FieldType.class, enumAsRef = true)
+  @Schema(description = "The type of the field.", implementation = FieldType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The set of values for the field.")

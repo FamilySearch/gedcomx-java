@@ -30,7 +30,7 @@ import org.gedcomx.rt.GedcomxConstants;
  * Enumeration of standard relationship types.
  */
 @XmlQNameEnum (
-base = XmlQNameEnum.BaseType.URI
+  base = XmlQNameEnum.BaseType.URI
 )
 @Schema(description = "RelationshipType")
 public enum RelationshipType implements ControlledVocabulary {

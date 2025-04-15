@@ -37,7 +37,6 @@ import org.gedcomx.rt.GedcomxConstants;
 )
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RECORD )
 @Schema(description = "RecordType")
-
 public enum RecordType implements ControlledVocabulary {
 
   /**

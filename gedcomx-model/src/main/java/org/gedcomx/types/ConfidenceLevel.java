@@ -34,23 +34,23 @@ import org.gedcomx.rt.GedcomxConstants;
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-@Schema(description = "ConfidenceLevel")
+@Schema()
 public enum ConfidenceLevel implements ControlledVocabulary {
 
   /**
-   * High of confidence.
+   * High confidence.
    */
   @JsonProperty("http://gedcomx.org/High")
   High,
 
   /**
-   * Medium of confidence.
+   * Medium confidence.
    */
   @JsonProperty("http://gedcomx.org/Medium")
   Medium,
 
   /**
-   * Low of confidence.
+   * Low confidence.
    */
   @JsonProperty("http://gedcomx.org/Low")
   Low,

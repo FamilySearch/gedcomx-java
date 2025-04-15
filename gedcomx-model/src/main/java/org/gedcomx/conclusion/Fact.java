@@ -52,7 +52,7 @@ public class Fact extends Conclusion implements HasDateAndPlace, HasFields {
   /**
    * @see org.gedcomx.types.FactType
    */
-  @Schema(description = "The URI that identifies the type of Fact.", implementation = FactType.class, enumAsRef = true)
+  @Schema(description = "The type of the fact.", implementation = FactType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The date of applicability of this fact.")

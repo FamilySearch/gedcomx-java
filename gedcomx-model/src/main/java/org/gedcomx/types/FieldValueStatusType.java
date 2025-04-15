@@ -49,7 +49,7 @@ public enum FieldValueStatusType implements ControlledVocabulary {
   @JsonProperty(value = "http://gedcomx.org/Blank")
   Blank,
 
-  @JsonProperty(value = "http://gedcomx.org/Uncertain")
+  @JsonProperty(value = "http://gedcomx.org/Unreadable")
   Unreadable, // The field couldn't be read.
 
   /**

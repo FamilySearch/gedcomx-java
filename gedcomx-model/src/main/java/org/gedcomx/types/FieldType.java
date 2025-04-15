@@ -32,75 +32,75 @@ import org.gedcomx.rt.GedcomxConstants;
  *
  * @author Ryan Heaton
  */
-@XmlQNameEnum(
-    base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum (
+  base = XmlQNameEnum.BaseType.URI
 )
 @Facet(GedcomxConstants.FACET_GEDCOMX_RECORD)
 @Schema(description = "FieldType")
 public enum FieldType implements ControlledVocabulary {
 
   //high-level fields
-  @JsonProperty("http://gedcomx.org/Age")
+  @JsonProperty(value = "http://gedcomx.org/Age")
   Age,
-  @JsonProperty("http://gedcomx.org/Date")
+  @JsonProperty(value = "http://gedcomx.org/Date")
   Date,
-  @JsonProperty("http://gedcomx.org/Place")
+  @JsonProperty(value = "http://gedcomx.org/Place")
   Place,
-  @JsonProperty("http://gedcomx.org/Gender")
+  @JsonProperty(value = "http://gedcomx.org/Gender")
   Gender,
-  @JsonProperty("http://gedcomx.org/Name")
+  @JsonProperty(value = "http://gedcomx.org/Name")
   Name,
-  @JsonProperty("http://gedcomx.org/Role")
+  @JsonProperty(value = "http://gedcomx.org/Role")
   Role,
 
   //age fields
-  @JsonProperty("http://gedcomx.org/Years")
+  @JsonProperty(value = "http://gedcomx.org/Years")
   Years,
-  @JsonProperty("http://gedcomx.org/Months")
+  @JsonProperty(value = "http://gedcomx.org/Months")
   Months,
-  @JsonProperty("http://gedcomx.org/Days")
+  @JsonProperty(value = "http://gedcomx.org/Days")
   Days,
-  @JsonProperty("http://gedcomx.org/Hours")
+  @JsonProperty(value = "http://gedcomx.org/Hours")
   Hours,
-  @JsonProperty("http://gedcomx.org/Minutes")
+  @JsonProperty(value = "http://gedcomx.org/Minutes")
   Minutes,
 
   //date fields
-  @JsonProperty("http://gedcomx.org/Year")
+  @JsonProperty(value = "http://gedcomx.org/Year")
   Year,
-  @JsonProperty("http://gedcomx.org/Month")
+  @JsonProperty(value = "http://gedcomx.org/Month")
   Month,
-  @JsonProperty("http://gedcomx.org/Day")
+  @JsonProperty(value = "http://gedcomx.org/Day")
   Day,
-  @JsonProperty("http://gedcomx.org/Hour")
+  @JsonProperty(value = "http://gedcomx.org/Hour")
   Hour,
-  @JsonProperty("http://gedcomx.org/Minute")
+  @JsonProperty(value = "http://gedcomx.org/Minute")
   Minute,
 
   //place fields
-  @JsonProperty("http://gedcomx.org/Address")
+  @JsonProperty(value = "http://gedcomx.org/Address")
   Address,
-  @JsonProperty("http://gedcomx.org/Cemetery")
+  @JsonProperty(value = "http://gedcomx.org/Cemetery")
   Cemetery,
-  @JsonProperty("http://gedcomx.org/City")
+  @JsonProperty(value = "http://gedcomx.org/City")
   City,
-  @JsonProperty("http://gedcomx.org/Church")
+  @JsonProperty(value = "http://gedcomx.org/Church")
   Church,
-  @JsonProperty("http://gedcomx.org/County")
+  @JsonProperty(value = "http://gedcomx.org/County")
   County,
-  @JsonProperty("http://gedcomx.org/Country")
+  @JsonProperty(value = "http://gedcomx.org/Country")
   Country,
-  @JsonProperty("http://gedcomx.org/District")
+  @JsonProperty(value = "http://gedcomx.org/District")
   District,
-  @JsonProperty("http://gedcomx.org/Hospital")
+  @JsonProperty(value = "http://gedcomx.org/Hospital")
   Hospital,
-  @JsonProperty("http://gedcomx.org/Island")
+  @JsonProperty(value = "http://gedcomx.org/Island")
   Island,
-  @JsonProperty("http://gedcomx.org/MilitaryBase")
+  @JsonProperty(value = "http://gedcomx.org/MilitaryBase")
   MilitaryBase,
-  @JsonProperty("http://gedcomx.org/Mortuary")
+  @JsonProperty(value = "http://gedcomx.org/Mortuary")
   Mortuary,
-  @JsonProperty("http://gedcomx.org/Parish")
+  @JsonProperty(value = "http://gedcomx.org/Parish")
   Parish,
   @JsonProperty(value = "http://gedcomx.org/PlotNumber")
   PlotNumber,
@@ -200,7 +200,7 @@ public enum FieldType implements ControlledVocabulary {
   /**
    * Custom
    */
-  @XmlUnknownQNameEnumValue @JsonProperty
+  @XmlUnknownQNameEnumValue
   @Hidden
   OTHER;
 

@@ -27,7 +27,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 @Schema(description = "An element representing a text value that may be in a specific language.")
 public class AgentName extends TextValue {
 
-  @Schema(description = "The URI that identifies the type of AgentName.", implementation = AgentName.class, enumAsRef = true)
+  @Schema(description = "The type of the name.")
   private URI type;
 
   public AgentName() {

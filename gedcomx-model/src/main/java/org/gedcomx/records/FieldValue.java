@@ -51,7 +51,6 @@ public final class FieldValue extends Conclusion {
   /**
    * @see FieldValueType
    */
-  // TODO: Travis - What do we need to do with the 3 URI's
   @Schema(description = "The type of the field value.", implementation = FieldValueType.class, enumAsRef = true)
   private URI type;
 

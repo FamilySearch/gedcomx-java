@@ -32,8 +32,8 @@ import org.gedcomx.rt.GedcomxConstants;
  *
  * @author Ryan Heaton
  */
-@XmlQNameEnum(
-    base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum (
+  base = XmlQNameEnum.BaseType.URI
 )
 @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
 @Schema(description = "DocumentType")

@@ -30,8 +30,8 @@ import org.gedcomx.rt.GedcomxConstants;
 /**
  * Enumeration of standard event types.
  */
-@XmlQNameEnum(
-    base = XmlQNameEnum.BaseType.URI
+@XmlQNameEnum (
+  base = XmlQNameEnum.BaseType.URI
 )
 @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
 @Schema(description = "EventType")

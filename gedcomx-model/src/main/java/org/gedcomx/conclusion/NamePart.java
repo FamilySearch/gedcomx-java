@@ -54,7 +54,7 @@ public final class NamePart extends ExtensibleData implements HasFields {
   /**
    * @see org.gedcomx.types.NamePartType
    */
-  @Schema(description = "The URI that identifies the type of NamePartType.", implementation = NamePartType.class, enumAsRef = true)
+  @Schema(description = "The type of the name part.", implementation = NamePartType.class, enumAsRef = true)
   private URI type;
 
   @Schema(description = "The value of the name part.")
