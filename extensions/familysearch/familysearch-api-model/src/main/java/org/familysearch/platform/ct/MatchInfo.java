@@ -59,6 +59,57 @@ public class MatchInfo {
   @Schema(description = "True if the destination has four or more people in the immediate family; false otherwise.")
   private Boolean hasFourOrMorePeople;
 
+  @Schema(description = "True if the match would add a father to the target system who passes the 110-year rule; false otherwise.")
+  private Boolean addsFather110YearRule;
+
+  @Schema(description = "True if the match would add a mother to the target system who passes the 110-year rule; false otherwise.")
+  private Boolean addsMother110YearRule;
+
+  @Schema(description = "True if the match would add a parent of unknown gender to the target system who passes the 110-year rule; false otherwise.")
+  private Boolean addsParentUnknownGender110YearRule;
+
+  @Schema(description = "True if the match would add a spouse to the target system who passes the 110-year rule; false otherwise.")
+  private Boolean addsSpouse110YearRule;
+
+  @Schema(description = "True if the match would add a son to the target system who passes the 110-year rule; false otherwise.")
+  private Boolean addsSon110YearRule;
+
+  @Schema(description = "True if the match would add a daughter to the target system who passes the 110-year rule; false otherwise.")
+  private Boolean addsDaughter110YearRule;
+
+  @Schema(description = "True if the match would add a child of unknown gender to the target system who passes the 110-year rule; false otherwise.")
+  private Boolean addsChildUnknownGender110YearRule;
+
+  @Schema(description = "True if the match would add a birth fact to the target system; false otherwise.")
+  private Boolean addsBirth;
+
+  @Schema(description = "True if the match would add a christening fact to the target system; false otherwise.")
+  private Boolean addsChristening;
+
+  @Schema(description = "True if the match would add a death fact to the target system; false otherwise.")
+  private Boolean addsDeath;
+
+  @Schema(description = "True if the match would add a burial fact to the target system; false otherwise.")
+  private Boolean addsBurial;
+
+  @Schema(description = "True if the match would add a marriage fact to the target system; false otherwise.")
+  private Boolean addsMarriage;
+
+  @Schema(description = "True if the match would add a non-vital fact to the target system; false otherwise.")
+  private Boolean addsOtherFact;
+
+  @Schema(description = "True if the match would add a date an existing vital fact; false otherwise.")
+  private Boolean addsDate;
+
+  @Schema(description = "True if the match would add a place an existing vital fact; false otherwise.")
+  private Boolean addsPlace;
+
+  @Schema(description = "True if the match would improve a date an existing vital fact; false otherwise.")
+  private Boolean improvesDate;
+
+  @Schema(description = "True if the match would improve a place an existing vital fact; false otherwise.")
+  private Boolean improvesPlace;
+
   public MatchInfo() {
   }
 
@@ -115,7 +166,7 @@ public class MatchInfo {
 
   /**
    * sets whether the match would add a person to the target system
-   * @param addsPerson whether or not the match would add a person to the target system
+   * @param addsPerson whether the match would add a person to the target system
    */
   public void setAddsPerson(Boolean addsPerson) {
     this.addsPerson = addsPerson;
@@ -132,7 +183,7 @@ public class MatchInfo {
 
   /**
    * sets whether the match would add a person to the target system who passes the 110-year rule
-   * @param addsPerson110YearRule whether or not the match would add a person to the target system who passes the 110-year rule
+   * @param addsPerson110YearRule whether the match would add a person to the target system who passes the 110-year rule
    */
   public void setAddsPerson110YearRule(Boolean addsPerson110YearRule) {
     this.addsPerson110YearRule = addsPerson110YearRule;
@@ -149,7 +200,7 @@ public class MatchInfo {
 
   /**
    * sets whether the match would add a vital fact to the target system
-   * @param addsFact whether or not the match would add a vital fact to the target system
+   * @param addsFact whether the match would add a vital fact to the target system
    */
   public void setAddsFact(Boolean addsFact) {
     this.addsFact = addsFact;
@@ -187,6 +238,278 @@ public class MatchInfo {
    */
   public void setHasFourOrMorePeople(Boolean hasFourOrMorePeople) {
     this.hasFourOrMorePeople = hasFourOrMorePeople;
+  }
+
+  /**
+   * tells if the match would add a father to the target system who passes the 110-year rule
+   * @return true if the match would add a father to the target system who passes the 110-year rule
+   */
+  public Boolean getAddsFather110YearRule() {
+    return addsFather110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a father to the target system who passes the 110-year rule
+   * @param addsFather110YearRule whether the match would add a father to the target system who passes the 110-year rule
+   */
+  public void setAddsFather110YearRule(Boolean addsFather110YearRule) {
+    this.addsFather110YearRule = addsFather110YearRule;
+  }
+
+  /**
+   * tells if the match would add a mother to the target system who passes the 110-year rule
+   * @return true if the match would add a mother to the target system who passes the 110-year rule
+   */
+  public Boolean getAddsMother110YearRule() {
+    return addsMother110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a mother to the target system who passes the 110-year rule
+   * @param addsMother110YearRule whether the match would add a mother to the target system who passes the 110-year rule
+   */
+  public void setAddsMother110YearRule(Boolean addsMother110YearRule) {
+    this.addsMother110YearRule = addsMother110YearRule;
+  }
+
+  /**
+   * tells if the match would add a parent of unknown gender to the target system who passes the 110-year rule
+   * @return true if the match would add a parent of unknown gender to the target system who passes the 110-year rule
+   */
+  public Boolean getAddsParentUnknownGender110YearRule() {
+    return addsParentUnknownGender110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a parent of unknown gender to the target system who passes the 110-year rule
+   * @param addsParentUnknownGender110YearRule true if the match would add a parent of unknown gender to the target system who passes the 110-year rule
+   */
+  public void setAddsParentUnknownGender110YearRule(Boolean addsParentUnknownGender110YearRule) {
+    this.addsParentUnknownGender110YearRule = addsParentUnknownGender110YearRule;
+  }
+
+  /**
+   * tells if the match would add a spouse to the target system who passes the 110-year rule
+   * @return true if the match would add a spouse to the target system who passes the 110-year rule
+   */
+  public Boolean getAddsSpouse110YearRule() {
+    return addsSpouse110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a spouse to the target system who passes the 110-year rule
+   * @param addsSpouse110YearRule whether the match would add a spouse to the target system who passes the 110-year rule
+   */
+  public void setAddsSpouse110YearRule(Boolean addsSpouse110YearRule) {
+    this.addsSpouse110YearRule = addsSpouse110YearRule;
+  }
+
+  /**
+   * tells if the match would add a son to the target system who passes the 110-year rule
+   * @return true if the match would add a son to the target system who passes the 110-year rule
+   */
+  public Boolean getAddsSon110YearRule() {
+    return addsSon110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a son to the target system who passes the 110-year rule
+   * @param addsSon110YearRule whether the match would add a son to the target system who passes the 110-year rule
+   */
+  public void setAddsSon110YearRule(Boolean addsSon110YearRule) {
+    this.addsSon110YearRule = addsSon110YearRule;
+  }
+
+  /**
+   * tells if the match would add a daughter to the target system who passes the 110-year rule
+   * @return true if the match would add a daughter to the target system who passes the 110-year rule
+   */
+  public Boolean getAddsDaughter110YearRule() {
+    return addsDaughter110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a daughter to the target system who passes the 110-year rule
+   * @param addsDaughter110YearRule whether the match would add a daughter to the target system who passes the 110-year rule
+   */
+  public void setAddsDaughter110YearRule(Boolean addsDaughter110YearRule) {
+    this.addsDaughter110YearRule = addsDaughter110YearRule;
+  }
+
+  /**
+   * tells if the match would add a child of unknown gender to the target system who passes the 110-year rule
+   * @return true if the match would add a child of unknown gender to the target system who passes the 110-year rule
+   */
+  public Boolean getAddsChildUnknownGender110YearRule() {
+    return addsChildUnknownGender110YearRule;
+  }
+
+  /**
+   * sets whether the match would add a child of unknown gender to the target system who passes the 110-year rule
+   * @param addsChildUnknownGender110YearRule whether the match would add a daughter to the target system who passes the 110-year rule
+   */
+  public void setAddsChildUnknownGender110YearRule(Boolean addsChildUnknownGender110YearRule) {
+    this.addsChildUnknownGender110YearRule = addsChildUnknownGender110YearRule;
+  }
+
+  /**
+   * tells if the match would add a birth fact to the target system
+   * @return true if the match would add a birth fact to the target system
+   */
+  public Boolean getAddsBirth() {
+    return addsBirth;
+  }
+
+  /**
+   * sets whether the match would add a birth fact to the target system
+   * @param addsBirth whether the match would add a birth fact to the target system
+   */
+  public void setAddsBirth(Boolean addsBirth) {
+    this.addsBirth = addsBirth;
+  }
+
+  /**
+   * tells if the match would add a christening fact to the target system
+   * @return true if the match would add a christening fact to the target system
+   */
+  public Boolean getAddsChristening() {
+    return addsChristening;
+  }
+
+  /**
+   * sets whether the match would add a christening fact to the target system
+   * @param addsChristening whether the match would add a christening fact to the target system
+   */
+  public void setAddsChristening(Boolean addsChristening) {
+    this.addsChristening = addsChristening;
+  }
+
+  /**
+   * tells if the match would add a death fact to the target system
+   * @return true if the match would add a death fact to the target system
+   */
+  public Boolean getAddsDeath() {
+    return addsDeath;
+  }
+
+  /**
+   * sets whether the match would add a death fact to the target system
+   * @param addsDeath whether the match would add a death fact to the target system
+   */
+  public void setAddsDeath(Boolean addsDeath) {
+    this.addsDeath = addsDeath;
+  }
+
+  /**
+   * tells if the match would add a burial fact to the target system
+   * @return true if the match would add a burial fact to the target system
+   */
+  public Boolean getAddsBurial() {
+    return addsBurial;
+  }
+
+  /**
+   * sets whether the match would add a burial fact to the target system
+   * @param addsBurial whether the match would add a burial fact to the target system
+   */
+  public void setAddsBurial(Boolean addsBurial) {
+    this.addsBurial = addsBurial;
+  }
+
+  /**
+   * tells if the match would add a marriage fact to the target system
+   * @return true if the match would add a marriage fact to the target system
+   */
+  public Boolean getAddsMarriage() {
+    return addsMarriage;
+  }
+
+  /**
+   * sets whether the match would add a marriage fact to the target system
+   * @param addsMarriage whether the match would add a marriage fact to the target system
+   */
+  public void setAddsMarriage(Boolean addsMarriage) {
+    this.addsMarriage = addsMarriage;
+  }
+
+  /**
+   * tells if the match would add a non-vital fact to the target system
+   * @return true if the match would add a non-vital fact to the target system
+   */
+  public Boolean getAddsOtherFact() {
+    return addsOtherFact;
+  }
+
+  /**
+   * sets whether the match would add a non-vital fact to the target system
+   * @param addsOtherFact whether the match would add a non-vital fact to the target system
+   */
+  public void setAddsOtherFact(Boolean addsOtherFact) {
+    this.addsOtherFact = addsOtherFact;
+  }
+
+  /**
+   * tells if the match would add a date to an existing vital fact
+   * @return true if the match would add a date to an existing vital fact
+   */
+  public Boolean getAddsDate() {
+    return addsDate;
+  }
+
+  /**
+   * sets whether the match would add a date to an existing vital fact
+   * @param addsDate whether the match would add a date to an existing vital fact
+   */
+  public void setAddsDate(Boolean addsDate) {
+    this.addsDate = addsDate;
+  }
+
+  /**
+   * tells if the match would add a place to an existing vital fact
+   * @return true if the match would add a place to an existing vital fact
+   */
+  public Boolean getAddsPlace() {
+    return addsPlace;
+  }
+
+  /**
+   * sets whether the match would add a place to an existing vital fact
+   * @param addsPlace whether the match would add a place to an existing vital fact
+   */
+  public void setAddsPlace(Boolean addsPlace) {
+    this.addsPlace = addsPlace;
+  }
+
+  /**
+   * tells if the match would improve a date an existing vital fact
+   * @return true if the match would improve a date an existing vital fact
+   */
+  public Boolean getImprovesDate() {
+    return improvesDate;
+  }
+
+  /**
+   * sets whether the match would improve a date an existing vital fact
+   * @param improvesDate whether the match would improve a date an existing vital fact
+   */
+  public void setImprovesDate(Boolean improvesDate) {
+    this.improvesDate = improvesDate;
+  }
+
+  /**
+   * tells if the match would improve a place an existing vital fact
+   * @return true if the match would improve a place an existing vital fact
+   */
+  public Boolean getImprovesPlace() {
+    return improvesPlace;
+  }
+
+  /**
+   * sets whether the match would improve a place an existing vital fact
+   * @param improvesPlace whether the match would improve a place an existing vital fact
+   */
+  public void setImprovesPlace(Boolean improvesPlace) {
+    this.improvesPlace = improvesPlace;
   }
 
   /**
