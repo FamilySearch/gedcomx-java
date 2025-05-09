@@ -40,7 +40,7 @@ public enum GenderType implements ControlledVocabulary {
   /**
    * Male.
    */
-  @JsonProperty(value = "http://gencomx.org/Male")
+  @JsonProperty(value = "http://gedcomx.org/Male")
   Male,
 
   /**
