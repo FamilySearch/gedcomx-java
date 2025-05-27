@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumRef;
+
+import org.gedcomx.common.HasTransientProperties;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.json.HasJsonKey;
 import org.gedcomx.types.IdentifierType;
@@ -30,6 +32,10 @@ import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * An identifier for a resource.
  *
@@ -38,14 +44,15 @@ import jakarta.xml.bind.annotation.XmlValue;
 @XmlType ( name = "Identifier" )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @Schema(description = "An identifier for a resource.")
-public final class Identifier implements HasJsonKey {
+public final class Identifier implements HasJsonKey, HasTransientProperties {
 
   @Schema(description = "Whether the type of this identifier implies that the value is unique among all other identifiers of the same type.")
   private boolean hasUniqueKey = false;
 
   @Schema(description = "The id value.")
   private URI value;
-  
+  private final Map<String, Object> transientProperties = new TreeMap<>();
+
   /**
    * @see org.gedcomx.types.IdentifierType
    */
@@ -195,6 +202,40 @@ public final class Identifier implements HasJsonKey {
   @Override
   public void setJsonKey(String jsonKey) {
     this.type = new URI(jsonKey);
+  }
+
+  /**
+   * Get the transient properties.
+   *
+   * @return the transient properties.
+   */
+  @JsonIgnore
+  @XmlTransient
+  @Override
+  public Map<String, Object> getTransientProperties() {
+    return Collections.unmodifiableMap(transientProperties);
+  }
+
+  /**
+   * Get a transient (non-serialized) property.
+   *
+   * @param name The name of the property.
+   * @return The property.
+   */
+  @Override
+  public Object getTransientProperty(String name) {
+    return this.transientProperties.get(name);
+  }
+
+  /**
+   * Set a transient (non-serialized) property.
+   *
+   * @param name the name of the property.
+   * @param value the property value.
+   */
+  @Override
+  public void setTransientProperty(String name, Object value) {
+    this.transientProperties.put(name, value);
   }
 
   /**
