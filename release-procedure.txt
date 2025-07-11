@@ -1,8 +1,8 @@
 =============================================================================================================================================
 =============================================================================================================================================
-Procedure:  (required setup must be completed first)
+GedcomX Release Procedure: (The 'SETUP - required before releasing the project' section below must be completed to be able to release GedcomX)
 
-1. IMPORTANT NOTE: There are currently 2 release lines for gedcomx-java.
+1. IMPORTANT NOTE: There are currently 2 release lines for gedcomx-java; WE ARE NO LONGER MAINTAINING OR PUBLISHING THE 2.x.x RELEASE LINE.
    a. The 2.x.x release line is for those projects still using Java 8. The code for this release is contained in the v2.x.x branch.
       i. To pull and track this branch locally use the following commands:
           1. git checkout -b v2.x.x origin/v2.x.x
@@ -71,7 +71,7 @@ NOTES:  After you release you will have artifacts in your local repository with 
 
 
         If you try to use the artifact before it is available in maven central, you will need to wait an additional 15 minutes before it will be
-        available on the FamilySearch artifactory repository. The FamilySearch artifactory repository keeps a 15 minute cache (or at least
+        available on the FamilySearch artifactory repository. The FamilySearch artifactory repository keeps a 15-minute cache (or at least
         nexus did) before retrying to download from maven central again. You may be able to work around this using mvn -U ...
 
         To see what would be changed, you could run:      mvn release:prepare -DdryRun=true
@@ -82,20 +82,17 @@ NOTES:  After you release you will have artifacts in your local repository with 
 SETUP - required before releasing the project
 
 
-1. Setting up an account to publish to the Central Repository. You will need to create a Sonatype Jira account login at the Central Repository.
+1. Setting up an account to publish to the Central Repository. You will need to create a Sonatype account login at the Central Repository.
 
-      A.  Go to https://issues.sonatype.org/secure/Signup!default.jspa
-              You can use any email, but it may make it easier if you use name@familysearch.org
+      A.  Follow the instructions at https://central.sonatype.org/register/central-portal/ to create an account.
+          You can use any email address, but it may make it easier if you use name@familysearch.org
 
       B.  Get your sonatype username added as a member of the org.gedcomx group
-              Talk to someone who has done it.  https://issues.sonatype.org/browse/OSSRH-45141
+          We haven't done this since OSSRH was retired; we will figure it out when we need to add another user.
 
-      C. Add your ossrh user token to your local maven settings.xml
+      C. Add your sonatype user token to your local maven settings.xml by following the instructions at
+          https://central.sonatype.org/publish/generate-portal-token/ to generate a user token and add it to your settings.xml file.
 
-            - Go to https://oss.sonatype.org/ and Log in the top right
-            - Select Profile in the top right drop down
-            - Select User Token (instead of Summary) in the tab drop down
-            - Click Access User Token (type your password again)
             - Cut and past the settings to the <servers> section of your Maven settings.xml - change "${server}" to "ossrh"
                 The final should look something like this:
                         ...
@@ -120,9 +117,9 @@ SETUP - required before releasing the project
 Documentation from Sonatype
 
 
-https://central.sonatype.org/pages/ossrh-guide.html
+https://central.sonatype.org/pages/ossrh-guide.html (OSSRH has been retired; this has instructions for migrating)
 
-https://oss.sonatype.org/
+https://central.sonatype.org/
 
 
 Accessing Repositories
@@ -130,18 +127,8 @@ Accessing Repositories
     The following repositories allow you to access your components in OSSRH directly. Users will simply get your components directly via the
     Central Repository, but for committers and other collaborators on your project this list might be useful.
 
-        Repository URL for snapshot deployment and download access  (gedcomx does not publish snapshot builds)
-            https://oss.sonatype.org/content/repositories/snapshots/
-            https://oss.sonatype.org/content/repositories/snapshots/org/gedcomx/
-
-        Repository URL for release deployment, no download access!  (THIS DOES NOT SEEM TO WORK?)
-            https://oss.sonatype.org/service/local/staging/deploy/maven2/
-            https://oss.sonatype.org/service/local/staging/deploy/maven2/org/gedcomx/
-
         General public repository group at sonatype that contains snapshots and releases
-            https://oss.sonatype.org/content/groups/public/
             https://oss.sonatype.org/content/groups/public/org/gedcomx
-
 
         - Repository URL for staged/released artifacts at Sonatype, this repository is synced to the Maven Central Repository.
           You may look here to verify the project has been successfully staged/released at Sonatype (see notes below)
@@ -150,15 +137,13 @@ Accessing Repositories
 
 
         - Maven Central repository.  When its here then FamilySearch's artifactory will be able to pull it.
+              https://search.maven.org/search?q=gedcomx
               https://repo1.maven.org/maven2/org/gedcomx
-                                  (http://central.maven.org/maven2/org/gedcomx/ is not working)
-                                  (https://repo.maven.apache.org/maven2/org/gedcomx/ is not working)
-              https://search.maven.org/search?q=gedcomx         search.maven.org can take longer to appear
+              https://repo.maven.apache.org/maven2/org/gedcomx
 
 
         - FamilySearch artifactory repository.  You must be vpn'ed in to access this.
-              https://familysearch.jfrog.io/artifactory/fs-maven-dev-virtual
-              http://nexus.a.fsglobal.net/content/groups/dev/org/gedcomx
+              https://familysearch.jfrog.io/ui/packages/gav:%2F%2Forg.gedcomx:gedcomx-model?name=gedcomx-model&type=packages
 
 
 NOTES:  After Central Sync is activated, your future promotion will be synced automatically. The sync process runs roughly every 2 hours.
