@@ -64,34 +64,13 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testConstructorWithTreePerson() {
-    ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
-    TreePersonReference ref = new TreePersonReference(treePerson);
-
-    assertEquals(treePerson, ref.getTreePerson());
-    assertNull(ref.getTree());
-    assertNull(ref.getAttribution());
-  }
-
-  @Test
-  public void testConstructorWithTreePersonAndTree() {
-    ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
-    ResourceReference tree = new ResourceReference(URI.create("http://example.com/tree/456"));
-    TreePersonReference ref = new TreePersonReference(treePerson, tree);
-
-    assertEquals(treePerson, ref.getTreePerson());
-    assertEquals(tree, ref.getTree());
-    assertNull(ref.getAttribution());
-  }
-
-  @Test
   public void testGettersAndSetters() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference tree = new ResourceReference(URI.create("http://example.com/tree/456"));
     Attribution attribution = new Attribution();
     attribution.setContributor(new ResourceReference(URI.create("http://example.com/contributor/789")));
 
-    TreePersonReference ref = new TreePersonReference(treePerson);
+    TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
 
     // Test initial state
     assertEquals(treePerson, ref.getTreePerson());
@@ -113,22 +92,9 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentTreePersonMethod() {
-    ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/tree/123"));
-    ResourceReference newTreePerson = new ResourceReference(URI.create("http://example.com/person/456"));
-
-    TreePersonReference ref = new TreePersonReference(treePerson);
-    TreePersonReference result = ref.treePerson(newTreePerson);
-
-    // Should return the same instance for method chaining
-    assertSame(ref, result);
-    assertEquals(newTreePerson, ref.getTreePerson());
-  }
-
-  @Test
   public void testFluentTreePersonMethodWithNullReference() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
-    TreePersonReference ref = new TreePersonReference(treePerson);
+    TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
 
     TreePersonReference result = ref.treePerson(null);
 
@@ -142,7 +108,7 @@ public class TreePersonReferenceTest {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference emptyRef = new ResourceReference();
 
-    TreePersonReference ref = new TreePersonReference(treePerson);
+    TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
     TreePersonReference result = ref.treePerson(emptyRef);
 
     // Should return the same instance but not change the treePerson since emptyRef has no resourceId or resource
@@ -151,22 +117,9 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentTreeMethod() {
-    ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
-    ResourceReference tree = new ResourceReference(URI.create("http://example.com/tree/456"));
-
-    TreePersonReference ref = new TreePersonReference(treePerson);
-    TreePersonReference result = ref.tree(tree);
-
-    // Should return the same instance for method chaining
-    assertSame(ref, result);
-    assertEquals(tree, ref.getTree());
-  }
-
-  @Test
   public void testFluentTreeMethodWithNullReference() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
-    TreePersonReference ref = new TreePersonReference(treePerson);
+    TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
 
     TreePersonReference result = ref.tree(null);
 
@@ -180,7 +133,7 @@ public class TreePersonReferenceTest {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference emptyRef = new ResourceReference();
 
-    TreePersonReference ref = new TreePersonReference(treePerson);
+    TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
     TreePersonReference result = ref.tree(emptyRef);
 
     // Should return the same instance but not change the tree since emptyRef has no resourceId or resource
@@ -194,7 +147,7 @@ public class TreePersonReferenceTest {
     Attribution attribution = new Attribution();
     attribution.setContributor(new ResourceReference(URI.create("http://example.com/contributor/789")));
 
-    TreePersonReference ref = new TreePersonReference(treePerson);
+    TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
     TreePersonReference result = ref.attribution(attribution);
 
     // Should return the same instance for method chaining
@@ -205,30 +158,13 @@ public class TreePersonReferenceTest {
   @Test
   public void testFluentAttributionMethodWithNull() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
-    TreePersonReference ref = new TreePersonReference(treePerson);
+    TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
 
     TreePersonReference result = ref.attribution(null);
 
     // Should return the same instance and set attribution to null
     assertSame(ref, result);
     assertNull(ref.getAttribution());
-  }
-
-  @Test
-  public void testMethodChaining() {
-    ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
-    ResourceReference tree = new ResourceReference(URI.create("http://example.com/tree/456"));
-    Attribution attribution = new Attribution();
-    attribution.setContributor(new ResourceReference(URI.create("http://example.com/contributor/789")));
-
-    TreePersonReference ref = new TreePersonReference(new ResourceReference(URI.create("http://example.com/person/original")))
-        .treePerson(treePerson)
-        .tree(tree)
-        .attribution(attribution);
-
-    assertEquals(treePerson, ref.getTreePerson());
-    assertEquals(tree, ref.getTree());
-    assertEquals(attribution, ref.getAttribution());
   }
 
   @Test
@@ -239,7 +175,7 @@ public class TreePersonReferenceTest {
     ResourceReference treeWithId = new ResourceReference();
     treeWithId.setResourceId("tree456");
 
-    TreePersonReference ref = new TreePersonReference(new ResourceReference(URI.create("http://example.com/person/original")));
+    TreePersonReference ref = new TreePersonReference().treePerson(new ResourceReference(URI.create("http://example.com/person/original")));
 
     ref.treePerson(treePersonWithId);
     ref.tree(treeWithId);
@@ -256,7 +192,7 @@ public class TreePersonReferenceTest {
     ResourceReference treeWithResource = new ResourceReference();
     treeWithResource.setResource(URI.create("http://example.com/tree/456"));
 
-    TreePersonReference ref = new TreePersonReference(new ResourceReference(URI.create("http://example.com/person/original")));
+    TreePersonReference ref = new TreePersonReference().treePerson(new ResourceReference(URI.create("http://example.com/person/original")));
 
     ref.treePerson(treePersonWithResource);
     ref.tree(treeWithResource);

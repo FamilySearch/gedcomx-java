@@ -2,13 +2,14 @@
 =============================================================================================================================================
 GedcomX Release Procedure: (The 'SETUP - required before releasing the project' section below must be completed to be able to release GedcomX)
 
-1. IMPORTANT NOTE: There are currently 2 release lines for gedcomx-java; WE ARE NO LONGER MAINTAINING OR PUBLISHING THE 2.x.x RELEASE LINE.
-   a. The 2.x.x release line is for those projects still using Java 8. The code for this release is contained in the v2.x.x branch.
+1. IMPORTANT NOTE: There are currently 2 release lines for gedcomx-java;
+   a. WE ARE NO LONGER MAINTAINING OR PUBLISHING THE 2.x.x RELEASE LINE.
+   b. The 2.x.x release line is for those projects still using Java 8. The code for this release is contained in the v2.x.x branch.
       i. To pull and track this branch locally use the following commands:
           1. git checkout -b v2.x.x origin/v2.x.x
           2. git branch --set-upstream-to=origin/v2.x.x v2.x.x (this command may not be required)
-   b. The 3.x.x release line is for those projects using Java 17 and higher. The code for this release is in the master branch.
-   c. We are currently keeping both release lines in sync. The normal release procedure follows:
+   c. The 3.x.x release line is for those projects using Java 17 and higher. The code for this release is in the master branch.
+   d. We are NOT currently keeping both release lines in sync. The normal release procedure follows:
 
 2. Check changes into the master branch, build it, and then release it as specified in steps 6 through 8 below.
 3. Switch to the v2.x.x branch

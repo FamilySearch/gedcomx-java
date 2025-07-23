@@ -13,7 +13,7 @@ public class ChangeTypeTest {
 
   @Test
   public void testIt() {
-    typesTested = new LinkedList<ChangeType>();
+    typesTested = new LinkedList<>();
 
     // test the contract that the @XmlEnumValue is unique and does not change its value
     testChangeType( "Person Created", ChangeType.CREATE_PERSON );
@@ -73,6 +73,9 @@ public class ChangeTypeTest {
     testChangeType( "Child and Parents Discussion Reference Added", ChangeType.ADD_CHILD_PARENTS_DISCUSSION_REFERENCE);
     testChangeType( "Child and Parents Discussion Reference Changed", ChangeType.EDIT_CHILD_PARENTS_DISCUSSION_REFERENCE);
     testChangeType( "Child and Parents Discussion Reference Removed", ChangeType.DELETE_CHILD_PARENTS_DISCUSSION_REFERENCE);
+    testChangeType( "Tree Person Reference Added", ChangeType.ADD_TREE_PERSON_REFERENCE);
+    testChangeType( "Tree Person Reference Changed", ChangeType.EDIT_TREE_PERSON_REFERENCE);
+    testChangeType( "Tree Person Reference Removed", ChangeType.DELETE_TREE_PERSON_REFERENCE);
     testChangeType( "Person Evidence Reference Added", ChangeType.ADD_PERSON_EVIDENCE_REFERENCE);
     testChangeType( "Person Evidence Reference Changed", ChangeType.EDIT_PERSON_EVIDENCE_REFERENCE);
     testChangeType( "Person Evidence Reference Removed", ChangeType.DELETE_PERSON_EVIDENCE_REFERENCE);

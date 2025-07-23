@@ -45,21 +45,6 @@ public class TreePersonReference extends HypermediaEnabledData {
   private Attribution attribution;
 
   /**
-   * Default no-argument constructor.
-   */
-  public TreePersonReference() {
-  }
-
-  public TreePersonReference(ResourceReference treePerson) {
-    this.treePerson = treePerson;
-  }
-
-  public TreePersonReference(ResourceReference treePerson, ResourceReference tree) {
-    this.treePerson = treePerson;
-    this.tree = tree;
-  }
-
-  /**
    * Gets the reference to the person in the tree.
    *
    * @return the referenced person
@@ -125,7 +110,7 @@ public class TreePersonReference extends HypermediaEnabledData {
   }
 
   /**
-   * Build up this tree person reference with treePerson.
+   * Build up this tree person reference with tree person reference.
    *
    * @param treePerson The tree person referenced by this object.
    * @return this.
@@ -138,7 +123,7 @@ public class TreePersonReference extends HypermediaEnabledData {
   }
 
   /**
-   * Build up this tree person reference with tree.
+   * Build up this tree person reference with a tree reference.
    *
    * @param tree The tree containing the person in this reference.
    * @return this.

@@ -87,6 +87,11 @@ public enum ChangeObjectType implements ControlledVocabulary {
   DiscussionReference,
 
   /**
+   * A tree person reference was changed.
+   */
+  TreePersonReference,
+
+  /**
    * An evidence reference was changed.
    */
   EvidenceReference,

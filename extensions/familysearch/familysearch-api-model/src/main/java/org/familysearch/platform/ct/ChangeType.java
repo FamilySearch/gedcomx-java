@@ -97,6 +97,11 @@ public enum ChangeType {
   EDIT_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Changed", ChangeOperation.Update, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
   DELETE_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Removed", ChangeOperation.Delete, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
 
+  // TREE PERSON REFERENCE
+  ADD_TREE_PERSON_REFERENCE("Tree Person Reference Added", ChangeOperation.Create, ChangeObjectType.TreePersonReference, ChangeObjectModifier.Person),
+  EDIT_TREE_PERSON_REFERENCE("Tree Person Reference Changed", ChangeOperation.Update, ChangeObjectType.TreePersonReference, ChangeObjectModifier.Person),
+  DELETE_TREE_PERSON_REFERENCE("Tree Person Reference Removed", ChangeOperation.Delete, ChangeObjectType.TreePersonReference, ChangeObjectModifier.Person),
+
   // EVIDENCE REFERENCE
   ADD_PERSON_EVIDENCE_REFERENCE("Person Evidence Reference Added", ChangeOperation.Create, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Person),
   EDIT_PERSON_EVIDENCE_REFERENCE("Person Evidence Reference Changed", ChangeOperation.Update, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Person),
