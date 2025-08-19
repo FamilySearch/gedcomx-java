@@ -28,6 +28,7 @@ public class PlaceSearchQueryBuilder extends BaseSearchQueryBuilder {
   public static final String LATITUDE = "latitude";
   public static final String LONGITUDE = "longitude";
   public static final String DISTANCE = "distance";
+  public static final String PLACE_HINT = "placeHint";
 
   public PlaceSearchQueryBuilder param(String name, String value) {
     return param(name, value, true);
@@ -170,5 +171,9 @@ public class PlaceSearchQueryBuilder extends BaseSearchQueryBuilder {
 
   public PlaceSearchQueryBuilder distanceNot(String value) {
     return param("-", DISTANCE, value, false);
+  }
+
+  public PlaceSearchQueryBuilder placeHint(String value) {
+    return param(PLACE_HINT, value);
   }
 }
