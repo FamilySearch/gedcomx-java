@@ -252,6 +252,36 @@ public enum ChangeObjectType implements ControlledVocabulary {
   Gender,
 
   /**
+   * A biological parent was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  BiologicalParent,
+
+  /**
+   * An adoptive parent was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  AdoptiveParent,
+
+  /**
+   * A foster parent was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  FosterParent,
+
+  /**
+   * A guardian parent was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  GuardianParent,
+
+  /**
+   * A stepparent was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  StepParent,
+
+  /**
    * A note was changed.
    */
   @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
