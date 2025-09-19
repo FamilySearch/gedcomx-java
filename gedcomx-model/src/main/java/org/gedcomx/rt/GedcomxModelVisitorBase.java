@@ -42,7 +42,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitGedcomx(Gedcomx gx) {
     this.contextStack.push(gx);
+    visitComponents(gx);
+    this.contextStack.pop();
+  }
 
+  protected void visitComponents(Gedcomx gx) {
     List<Person> persons = gx.getPersons();
     if (persons != null) {
       for (Person person : persons) {
@@ -78,7 +82,7 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    
+
     List<Event> events = gx.getEvents();
     if (events != null) {
       for (Event event : events) {
@@ -87,7 +91,7 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    
+
     List<PlaceDescription> places = gx.getPlaces();
     if (places != null) {
       for (PlaceDescription place : places) {
@@ -96,7 +100,7 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    
+
     List<Document> documents = gx.getDocuments();
     if (documents != null) {
       for (Document document : documents) {
@@ -132,27 +136,38 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-
-    this.contextStack.pop();
   }
 
   @Override
   public void visitDocument(Document document) {
     this.contextStack.push(document);
-    visitConclusion(document);
+    visitComponents(document);
     this.contextStack.pop();
+  }
+
+  protected void visitComponents(Document document) {
+    visitConclusion(document);
   }
 
   @Override
   public void visitPlaceDescription(PlaceDescription place) {
     this.contextStack.push(place);
-    visitSubject(place);
+    visitComponents(place);
     this.contextStack.pop();
+  }
+
+  protected void visitComponents(PlaceDescription place) {
+    visitSubject(place);
   }
 
   @Override
   public void visitEvent(Event event) {
     this.contextStack.push(event);
+    visitComponents(event);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(Event event) {
     visitSubject(event);
     Date date = event.getDate();
     if (date != null) {
@@ -172,14 +187,17 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    this.contextStack.pop();
   }
 
   @Override
   public void visitEventRole(EventRole role) {
     this.contextStack.push(role);
-    visitConclusion(role);
+    visitComponents(role);
     this.contextStack.pop();
+  }
+
+  protected void visitComponents(EventRole role) {
+    visitConclusion(role);
   }
 
   @Override
@@ -190,6 +208,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitSourceDescription(SourceDescription sourceDescription) {
     this.contextStack.push(sourceDescription);
+    visitComponents(sourceDescription);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(SourceDescription sourceDescription) {
     List<SourceReference> sources = sourceDescription.getSources();
     if (sources != null) {
       for (SourceReference source : sources) {
@@ -225,8 +248,6 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-
-    this.contextStack.pop();
   }
 
   @Override
@@ -246,7 +267,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitField(Field field) {
     this.contextStack.push(field);
+    visitComponents(field);
+    this.contextStack.pop();
+  }
 
+  protected void visitComponents(Field field) {
     visitConclusion(field);
 
     List<FieldValue> values = field.getValues();
@@ -257,20 +282,27 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-
-    this.contextStack.pop();
   }
 
   @Override
   public void visitFieldValue(FieldValue fieldValue) {
     this.contextStack.push(fieldValue);
-    visitConclusion(fieldValue);
+    visitComponents(fieldValue);
     this.contextStack.pop();
+  }
+
+  protected void visitComponents(FieldValue fieldValue) {
+    visitConclusion(fieldValue);
   }
 
   @Override
   public void visitRelationship(Relationship relationship) {
     this.contextStack.push(relationship);
+    visitComponents(relationship);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(Relationship relationship) {
     visitSubject(relationship);
 
     List<Fact> facts = relationship.getFacts();
@@ -290,8 +322,6 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-
-    this.contextStack.pop();
   }
 
   protected void visitConclusion(Conclusion conclusion) {
@@ -339,6 +369,11 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   @Override
   public void visitPerson(Person person) {
     this.contextStack.push(person);
+    visitComponents(person);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(Person person) {
     visitSubject(person);
 
     if (person.getGender() != null) {
@@ -371,13 +406,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-
-    this.contextStack.pop();
   }
 
   @Override
   public void visitFact(Fact fact) {
     this.contextStack.push(fact);
+    visitComponents(fact);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(Fact fact) {
     visitConclusion(fact);
     Date date = fact.getDate();
     if (date != null) {
@@ -397,13 +435,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-
-    this.contextStack.pop();
   }
 
   @Override
   public void visitPlaceReference(PlaceReference place) {
     this.contextStack.push(place);
+    visitComponents(place);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(PlaceReference place) {
     List<Field> fields = place.getFields();
     if (fields != null) {
       for (Field field : fields) {
@@ -412,12 +453,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    this.contextStack.pop();
   }
 
   @Override
   public void visitDate(Date date) {
     this.contextStack.push(date);
+    visitComponents(date);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(Date date) {
     List<Field> fields = date.getFields();
     if (fields != null) {
       for (Field field : fields) {
@@ -426,12 +471,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    this.contextStack.pop();
   }
 
   @Override
   public void visitName(Name name) {
     this.contextStack.push(name);
+    visitComponents(name);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(Name name) {
     visitConclusion(name);
 
     List<NameForm> forms = name.getNameForms();
@@ -442,12 +491,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    this.contextStack.pop();
   }
 
   @Override
   public void visitNameForm(NameForm form) {
     this.contextStack.push(form);
+    visitComponents(form);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(NameForm form) {
     List<NamePart> parts = form.getParts();
     if (parts != null) {
       for (NamePart part : parts) {
@@ -465,12 +518,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    this.contextStack.pop();
   }
 
   @Override
   public void visitNamePart(NamePart part) {
     this.contextStack.push(part);
+    visitComponents(part);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(NamePart part) {
     List<Field> fields = part.getFields();
     if (fields != null) {
       for (Field field : fields) {
@@ -479,12 +536,16 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-    this.contextStack.pop();
   }
 
   @Override
   public void visitGender(Gender gender) {
     this.contextStack.push(gender);
+    visitComponents(gender);
+    this.contextStack.pop();
+  }
+
+  protected void visitComponents(Gender gender) {
     visitConclusion(gender);
 
     List<Field> fields = gender.getFields();
@@ -495,8 +556,6 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
         }
       }
     }
-
-    this.contextStack.pop();
   }
 
   @Override
