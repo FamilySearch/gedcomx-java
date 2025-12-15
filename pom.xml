@@ -19,30 +19,30 @@
     <skip.pgp>true</skip.pgp>
 
     <!-- Dependency versions -->
-    <assertj.version>3.24.2</assertj.version>
-    <commons-codec.version>1.15</commons-codec.version>
-    <enunciate.version>2.16.1</enunciate.version>
-    <hamcrest.version>2.2</hamcrest.version>
-    <jackson.databind.version>2.14.2</jackson.databind.version>
-    <jackson.jaxrs.version>2.14.2</jackson.jaxrs.version>
-    <jakarta.ws.rs-api.version>3.1.0</jakarta.ws.rs-api.version>
-    <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
-    <glassfish-jaxb-runtime.version>4.0.2</glassfish-jaxb-runtime.version>
+    <assertj.version>3.27.6</assertj.version>
+    <commons-codec.version>1.20.0</commons-codec.version>
+    <enunciate.version>2.19.0</enunciate.version>
+    <hamcrest.version>3.0</hamcrest.version>
+    <jackson.version>2.20.1</jackson.version>
+    <jackson.jaxrs.version>2.20.1</jackson.jaxrs.version>
+    <jakarta.ws.rs-api.version>4.0.0</jakarta.ws.rs-api.version>
+    <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
+    <glassfish-jaxb-runtime.version>4.0.6</glassfish-jaxb-runtime.version>
     <junit.version>4.13.2</junit.version>
-    <junit-jupiter.version>5.9.2</junit-jupiter.version>
-    <woodstox-core.version>6.5.1</woodstox-core.version>
+    <junit-jupiter.version>6.0.1</junit-jupiter.version>
+    <woodstox-core.version>7.1.1</woodstox-core.version>
 
     <!-- Plugin versions -->
-    <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-    <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+    <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+    <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     <maven-license-plugin.version>1.4.0</maven-license-plugin.version>
-    <maven-release-plugin-plugin.version>2.5.3</maven-release-plugin-plugin.version>
-    <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
-    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-    <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+    <maven-release-plugin-plugin.version>3.3.1</maven-release-plugin-plugin.version>
+    <maven-resources-plugin.version>3.4.0</maven-resources-plugin.version>
+    <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+    <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
+    <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
     <pgp-maven-plugin.version>1.1</pgp-maven-plugin.version>
-    <swagger-core.version>2.2.30</swagger-core.version>
+    <swagger-core.version>2.2.41</swagger-core.version>
   </properties>
 
   <modules>
@@ -102,15 +102,11 @@
       </dependency>
 
       <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson.databind.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.fasterxml.jackson.jaxrs</groupId>
-        <artifactId>jackson-jaxrs-json-provider</artifactId>
-        <version>${jackson.jaxrs.version}</version>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
 
       <dependency>
