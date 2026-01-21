@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * @author John Clark.
