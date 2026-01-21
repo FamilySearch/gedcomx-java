@@ -15,24 +15,31 @@
  */
 package org.gedcomx.rt;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.stream.StreamSource;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.gedcomx.rt.json.GedcomJacksonModule;
-import org.w3c.dom.Document;
-
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlSchema;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import org.gedcomx.rt.json.GedcomJacksonModule;
+import org.w3c.dom.Document;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * @author Ryan Heaton
@@ -207,6 +214,34 @@ public class SerializationUtil {
   public static ObjectNode toJsonNode(Object reference, Class<?> instanceClass, ObjectMapper mapper) throws IOException {
     byte[] out = toJsonStream(reference, instanceClass, mapper);
     return mapper.readValue(new ByteArrayInputStream(out), ObjectNode.class);
+  }
+
+  // Jackson 3 support methods (require Java 17+)
+
+  public static <C> C processThroughJson(Object reference, Class<? extends C> instanceClass, JsonMapper mapper) {
+    byte[] buffer = toJsonStream(reference, instanceClass, mapper);
+    return mapper.readValue(new ByteArrayInputStream(buffer), instanceClass);
+  }
+
+  protected static <C> byte[] toJsonStream(Object reference, Class<? extends C> instanceClass, JsonMapper mapper) {
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    writeJson(reference, instanceClass, mapper, out);
+    if ("true".equals(System.getProperty("show.output"))) {
+      System.out.println(out.toString(StandardCharsets.UTF_8));
+    }
+
+    return out.toByteArray();
+  }
+
+  public static <C> void writeJson(Object reference, Class<? extends C> instanceClass, JsonMapper mapper, OutputStream out) {
+    GedcomNamespaceManager.registerKnownJsonType(instanceClass);
+    mapper.rebuild()
+      .enable(tools.jackson.databind.SerializationFeature.INDENT_OUTPUT)
+      .changeDefaultPropertyInclusion(incl -> com.fasterxml.jackson.annotation.JsonInclude.Value.construct(
+        com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL,
+        com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL))
+      .build()
+      .writeValue(out, reference);
   }
 
 }

@@ -24,6 +24,7 @@
     <enunciate.version>2.19.0</enunciate.version>
     <hamcrest.version>3.0</hamcrest.version>
     <jackson.version>2.20.1</jackson.version>
+    <jackson3.version>3.0.2</jackson3.version>
     <jackson.jaxrs.version>2.20.1</jackson.jaxrs.version>
     <jakarta.ws.rs-api.version>4.0.0</jakarta.ws.rs-api.version>
     <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
@@ -99,6 +100,14 @@
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>tools.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson3.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
