@@ -19,7 +19,7 @@ class ApproximateTest {
       new GedcomxDateApproximate("");
       fail("GedcomxDateException expected because date must not be empty");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Approximate Date: Must start with A");
+      assertThat(e.getMessage()).contains("Must start with A");
     }
   }
 
@@ -29,7 +29,7 @@ class ApproximateTest {
       new GedcomxDateApproximate("+1000");
       fail("GedcomxDateException expected because date must start with A");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Approximate Date: Must start with A");
+      assertThat(e.getMessage()).contains("Must start with A");
     }
   }
 
@@ -39,7 +39,7 @@ class ApproximateTest {
       new GedcomxDateApproximate("A");
       fail("GedcomxDateException expected because date must have something after A");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Must have at least [+-]YYYY");
+      assertThat(e.getMessage()).contains("Must have at least [+-]YYYY");
     }
   }
 

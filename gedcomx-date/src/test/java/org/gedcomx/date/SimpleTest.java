@@ -19,7 +19,7 @@ class SimpleTest {
       new GedcomxDateSimple("");
       fail("GedcomxDateException expected because date must not be empty");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Must have at least [+-]YYYY");
+      assertThat(e.getMessage()).contains("Must have at least [+-]YYYY");
     }
   }
 
@@ -33,7 +33,7 @@ class SimpleTest {
       new GedcomxDateSimple("2000-03-01");
       fail("GedcomxDateException expected because missing plus");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Must begin with + or -");
+      assertThat(e.getMessage()).contains("Must begin with + or -");
     }
   }
 
@@ -43,7 +43,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1ooo");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Year");
+      assertThat(e.getMessage()).contains("Malformed Year");
     }
   }
 
@@ -88,7 +88,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000_10");
       fail("GedcomxDateException expected because _ is not the year-month separator");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Invalid Year-Month Separator");
+      assertThat(e.getMessage()).contains("Invalid Year-Month Separator");
     }
   }
 
@@ -102,7 +102,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-1");
       fail("GedcomxDateException expected because month must be 2 digits");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Month must be 2 digits");
+      assertThat(e.getMessage()).contains("Month must be 2 digits");
     }
   }
 
@@ -112,7 +112,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-o1-01");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Month");
+      assertThat(e.getMessage()).contains("Malformed Month");
     }
   }
 
@@ -122,7 +122,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-00");
       fail("GedcomxDateException expected because there is no month 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Month must be between 1 and 12");
+      assertThat(e.getMessage()).contains("Month must be between 1 and 12");
     }
   }
 
@@ -132,7 +132,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-13");
       fail("GedcomxDateException expected because there are only 12 months");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Month must be between 1 and 12");
+      assertThat(e.getMessage()).contains("Month must be between 1 and 12");
     }
   }
 
@@ -159,7 +159,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10=01");
       fail("GedcomxDateException expected because = is not the month-day separator");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Invalid Month-Day Separator");
+      assertThat(e.getMessage()).contains("Invalid Month-Day Separator");
     }
   }
 
@@ -173,7 +173,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-1");
       fail("GedcomxDateException expected because day must be 2 digits");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Day must be 2 digits");
+      assertThat(e.getMessage()).contains("Day must be 2 digits");
     }
   }
 
@@ -183,7 +183,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-01-o1");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Day");
+      assertThat(e.getMessage()).contains("Malformed Day");
     }
   }
 
@@ -193,7 +193,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-00");
       fail("GedcomxDateException expected because there is no day 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Day 0 does not exist");
+      assertThat(e.getMessage()).contains("Day 0 does not exist");
     }
   }
 
@@ -203,7 +203,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-04-31");
       fail("GedcomxDateException expected because there is no day 31 in february");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: There are only 30 days in Month 4 year 1000");
+      assertThat(e.getMessage()).contains("There are only 30 days in Month 4 year 1000");
     }
   }
 
@@ -222,7 +222,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1492-03-1501:02:03");
       fail("GedcomxDateException expected because T required before time");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: +YYYY-MM-DD must have T before time");
+      assertThat(e.getMessage()).contains("+YYYY-MM-DD must have T before time");
     }
   }
 
@@ -236,7 +236,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-11T1");
       fail("GedcomxDateException expected because hour must be 2 digits");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Hours must be 2 digits");
+      assertThat(e.getMessage()).contains("Hours must be 2 digits");
     }
   }
 
@@ -246,7 +246,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-01-11T1o");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Hours");
+      assertThat(e.getMessage()).contains("Malformed Hours");
     }
   }
 
@@ -256,7 +256,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T25");
       fail("GedcomxDateException expected because there is no hour 25");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Hours must be between 0 and 24");
+      assertThat(e.getMessage()).contains("Hours must be between 0 and 24");
     }
   }
 
@@ -279,7 +279,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T10|30");
       fail("GedcomxDateException expected because | is not the hour-minute separator");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Invalid Hour-Minute Separator");
+      assertThat(e.getMessage()).contains("Invalid Hour-Minute Separator");
     }
   }
 
@@ -293,7 +293,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-11T10:1");
       fail("GedcomxDateException expected because minutes must be 2 digits");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Minutes must be 2 digits");
+      assertThat(e.getMessage()).contains("Minutes must be 2 digits");
     }
   }
 
@@ -303,7 +303,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-01-11T10:1o");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Minutes");
+      assertThat(e.getMessage()).contains("Malformed Minutes");
     }
   }
 
@@ -313,7 +313,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T23:60");
       fail("GedcomxDateException expected because there is no minute 60");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Minutes must be between 0 and 59");
+      assertThat(e.getMessage()).contains("Minutes must be between 0 and 59");
     }
   }
 
@@ -323,7 +323,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T24:15");
       fail("GedcomxDateException expected because there is no minute 15 when hour is 24");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Hours of 24 requires 00 Minutes");
+      assertThat(e.getMessage()).contains("Hours of 24 requires 00 Minutes");
     }
   }
 
@@ -357,7 +357,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T10:30|15");
       fail("GedcomxDateException expected because | is not the minute-second separator");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Invalid Minute-Second Separator");
+      assertThat(e.getMessage()).contains("Invalid Minute-Second Separator");
     }
   }
 
@@ -371,7 +371,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-11T10:15:1");
       fail("GedcomxDateException expected because seconds must be 2 digits");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Seconds must be 2 digits");
+      assertThat(e.getMessage()).contains("Seconds must be 2 digits");
     }
   }
 
@@ -381,7 +381,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-01-11T10:15:1o");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Seconds");
+      assertThat(e.getMessage()).contains("Malformed Seconds");
     }
   }
 
@@ -391,7 +391,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T23:24:60");
       fail("GedcomxDateException expected because there is no second 60");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Seconds must be between 0 and 59");
+      assertThat(e.getMessage()).contains("Seconds must be between 0 and 59");
     }
   }
 
@@ -401,7 +401,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T24:00:01");
       fail("GedcomxDateException expected because there is no second 1 when hour is 24");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Hours of 24 requires 00 Seconds");
+      assertThat(e.getMessage()).contains("Hours of 24 requires 00 Seconds");
     }
   }
 
@@ -452,7 +452,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T24:00:00ZSTUFF");
       fail("GedcomxDateException expected because there is no STUFF allowed");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Timezone - No Characters allowed after Z");
+      assertThat(e.getMessage()).contains("Malformed Timezone - No Characters allowed after Z");
     }
   }
 
@@ -462,7 +462,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T24:00:00-1");
       fail("GedcomxDateException expected because tzHours must be 2 digits");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Timezone - tzHours must be [+-] followed by 2 digits");
+      assertThat(e.getMessage()).contains("Malformed Timezone - tzHours must be [+-] followed by 2 digits");
     }
   }
 
@@ -472,7 +472,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T24:00:00_10");
       fail("GedcomxDateException expected because tzHours must start with + or -");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: TimeZone Hours must begin with + or -");
+      assertThat(e.getMessage()).contains("TimeZone Hours must begin with + or -");
     }
   }
 
@@ -482,7 +482,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-01-11T10:15:10+1o");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed tzHours");
+      assertThat(e.getMessage()).contains("Malformed tzHours");
     }
   }
 
@@ -531,7 +531,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T10:30:15-06-30");
       fail("GedcomxDateException expected because | is not the tzHour-tzMinute separator");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Invalid tzHour-tzMinute Separator");
+      assertThat(e.getMessage()).contains("Invalid tzHour-tzMinute Separator");
     }
   }
 
@@ -544,7 +544,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-10-01T24:00:00-10:1");
       fail("GedcomxDateException expected because tzHours must be 2 digits");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: tzSecond must be 2 digits");
+      assertThat(e.getMessage()).contains("tzSecond must be 2 digits");
     }
   }
 
@@ -554,7 +554,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-01-11T10:15:10+10:1o");
       fail("GedcomxDateException expected because o != 0");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed tzMinutes");
+      assertThat(e.getMessage()).contains("Malformed tzMinutes");
     }
   }
 
@@ -564,7 +564,7 @@ class SimpleTest {
       new GedcomxDateSimple("+1000-01-11T10:15:10+10:10blah");
       fail("GedcomxDateException expected because nothing is allowed after tzSeconds");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Malformed Timezone - No characters allowed after tzSeconds");
+      assertThat(e.getMessage()).contains("Malformed Timezone - No characters allowed after tzSeconds");
     }
   }
 

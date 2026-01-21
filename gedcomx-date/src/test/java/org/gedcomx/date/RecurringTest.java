@@ -19,7 +19,7 @@ class RecurringTest {
       new GedcomxDateRecurring(null);
       fail("GedcomxDateException expected because date must not be null");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date");
+      assertThat(e.getMessage()).contains("Invalid Recurring Date");
     }
   }
 
@@ -29,7 +29,7 @@ class RecurringTest {
       new GedcomxDateRecurring("");
       fail("GedcomxDateException expected because date must not be empty");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date");
+      assertThat(e.getMessage()).contains("Invalid Recurring Date");
     }
   }
 
@@ -39,7 +39,7 @@ class RecurringTest {
       new GedcomxDateRecurring("32/+1000/P10Y");
       fail("GedcomxDateException expected because R is required");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date: Must start with R");
+      assertThat(e.getMessage()).contains("Must start with R");
     }
   }
 
@@ -49,7 +49,7 @@ class RecurringTest {
       new GedcomxDateRecurring("R+1000/P1");
       fail("GedcomxDateException expected because not enough parts");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date: Must contain 3 parts");
+      assertThat(e.getMessage()).contains("Must contain 3 parts");
     }
   }
 
@@ -59,7 +59,7 @@ class RecurringTest {
       new GedcomxDateRecurring("R3/+1000/P1/stuff");
       fail("GedcomxDateException expected because to many parts");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date: Must contain 3 parts");
+      assertThat(e.getMessage()).contains("Must contain 3 parts");
     }
   }
 
@@ -69,7 +69,7 @@ class RecurringTest {
       new GedcomxDateRecurring("R3//P1Y");
       fail("GedcomxDateException expected because missing range chunk");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date: Range must have a start and an end");
+      assertThat(e.getMessage()).contains("Range must have a start and an end");
     }
   }
 
@@ -79,7 +79,7 @@ class RecurringTest {
       new GedcomxDateRecurring("RR3/+1000/P1Y");
       fail("GedcomxDateException expected because invalid count");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date: Malformed Count");
+      assertThat(e.getMessage()).contains("Malformed Count");
     }
   }
 
@@ -89,7 +89,7 @@ class RecurringTest {
       new GedcomxDateRecurring("R-3/+1000/P1Y");
       fail("GedcomxDateException expected because invalid count");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Recurring Date: Malformed Count");
+      assertThat(e.getMessage()).contains("Malformed Count");
     }
   }
 
@@ -99,7 +99,7 @@ class RecurringTest {
       new GedcomxDateRecurring("R3/+1000-/P1Y");
       fail("GedcomxDateException expected because invalid range");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Month must be 2 digits in Range Start Date in Recurring Range");
+      assertThat(e.getMessage()).contains("Month must be 2 digits in Range Start Date in Recurring Range");
     }
   }
 

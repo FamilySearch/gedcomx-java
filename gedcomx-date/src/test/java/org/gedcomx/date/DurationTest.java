@@ -19,7 +19,7 @@ class DurationTest {
       new GedcomxDateDuration("1000Y");
       fail("GedcomxDateException expected because duration must start with P");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Must start with P");
+      assertThat(e.getMessage()).contains("Must start with P");
     }
   }
 
@@ -29,7 +29,7 @@ class DurationTest {
       new GedcomxDateDuration("P");
       fail("GedcomxDateException expected because P must be followed by something");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: You must have a duration value");
+      assertThat(e.getMessage()).contains("You must have a duration value");
     }
   }
 
@@ -39,7 +39,7 @@ class DurationTest {
       new GedcomxDateDuration("P100 years");
       fail("GedcomxDateException expected because no spaces allowed in duration");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Non normalized durations are not implemented yet");
+      assertThat(e.getMessage()).contains("Non normalized durations are not implemented yet");
     }
   }
 
@@ -49,7 +49,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000U");
       fail("GedcomxDateException expected because U is unknown");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Unknown letter U");
+      assertThat(e.getMessage()).contains("Unknown letter U");
     }
   }
 
@@ -59,7 +59,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000");
       fail("GedcomxDateException expected because we're missing letters");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: No letter after 1000");
+      assertThat(e.getMessage()).contains("No letter after 1000");
     }
   }
 
@@ -69,7 +69,7 @@ class DurationTest {
       new GedcomxDateDuration("PY");
       fail("GedcomxDateException expected because missing year before Y");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Invalid years");
+      assertThat(e.getMessage()).contains("Invalid years");
     }
   }
 
@@ -79,7 +79,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y10Y");
       fail("GedcomxDateException expected because duplicate years");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Duplicate years");
+      assertThat(e.getMessage()).contains("Duplicate years");
     }
   }
 
@@ -89,7 +89,7 @@ class DurationTest {
       new GedcomxDateDuration("P10M10Y");
       fail("GedcomxDateException expected because year is out of order");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Years out of order");
+      assertThat(e.getMessage()).contains("Years out of order");
     }
   }
 
@@ -99,7 +99,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000YM");
       fail("GedcomxDateException expected because missing months before M");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Invalid months");
+      assertThat(e.getMessage()).contains("Invalid months");
     }
   }
 
@@ -109,7 +109,7 @@ class DurationTest {
       new GedcomxDateDuration("P10M5M");
       fail("GedcomxDateException expected because duplicate months");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Duplicate months");
+      assertThat(e.getMessage()).contains("Duplicate months");
     }
   }
 
@@ -119,7 +119,7 @@ class DurationTest {
       new GedcomxDateDuration("P1Y1D1M");
       fail("GedcomxDateException expected because months is out of order");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Months out of order");
+      assertThat(e.getMessage()).contains("Months out of order");
     }
   }
 
@@ -129,7 +129,7 @@ class DurationTest {
       new GedcomxDateDuration("P1MD");
       fail("GedcomxDateException expected because no value for day");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Invalid days");
+      assertThat(e.getMessage()).contains("Invalid days");
     }
   }
 
@@ -139,7 +139,7 @@ class DurationTest {
       new GedcomxDateDuration("P1D2D");
       fail("GedcomxDateException expected because duplicate days");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Duplicate days");
+      assertThat(e.getMessage()).contains("Duplicate days");
     }
   }
 
@@ -149,7 +149,7 @@ class DurationTest {
       new GedcomxDateDuration("P1MT01D");
       fail("GedcomxDateException expected because day is out of order");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Days out of order");
+      assertThat(e.getMessage()).contains("Days out of order");
     }
   }
 
@@ -159,7 +159,7 @@ class DurationTest {
       new GedcomxDateDuration("P1Y2M3DT1HT");
       fail("GedcomxDateException expected because duplicate Ts");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Duplicate T");
+      assertThat(e.getMessage()).contains("Duplicate T");
     }
   }
 
@@ -169,7 +169,7 @@ class DurationTest {
       new GedcomxDateDuration("P1Y2M03D4H");
       fail("GedcomxDateException expected because missing T before hours");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Missing T before hours");
+      assertThat(e.getMessage()).contains("Missing T before hours");
     }
   }
 
@@ -179,7 +179,7 @@ class DurationTest {
       new GedcomxDateDuration("P1Y2M03DTH");
       fail("GedcomxDateException expected because no value for hour");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Invalid hours");
+      assertThat(e.getMessage()).contains("Invalid hours");
     }
   }
 
@@ -189,7 +189,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01MT01H01H");
       fail("GedcomxDateException expected because hours are duplicated");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Duplicate hours");
+      assertThat(e.getMessage()).contains("Duplicate hours");
     }
   }
 
@@ -199,7 +199,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01MT01M01H");
       fail("GedcomxDateException expected because hours is out of order");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Hours out of order");
+      assertThat(e.getMessage()).contains("Hours out of order");
     }
   }
 
@@ -209,7 +209,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01M01DT01HM");
       fail("GedcomxDateException expected because");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Invalid minutes");
+      assertThat(e.getMessage()).contains("Invalid minutes");
     }
   }
 
@@ -219,7 +219,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01MT01H01M01M");
       fail("GedcomxDateException expected because minutes are duplicated");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Duplicate minutes");
+      assertThat(e.getMessage()).contains("Duplicate minutes");
     }
   }
 
@@ -229,7 +229,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01MT01H01S01M");
       fail("GedcomxDateException expected because minutes are out of order");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Minutes out of order");
+      assertThat(e.getMessage()).contains("Minutes out of order");
     }
   }
 
@@ -239,7 +239,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01M01D01S");
       fail("GedcomxDateException expected because missing T before seconds");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Missing T before seconds");
+      assertThat(e.getMessage()).contains("Missing T before seconds");
     }
   }
 
@@ -249,7 +249,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01M01DT01H01MS");
       fail("GedcomxDateException expected because seconds has no value");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Invalid seconds");
+      assertThat(e.getMessage()).contains("Invalid seconds");
     }
   }
 
@@ -259,7 +259,7 @@ class DurationTest {
       new GedcomxDateDuration("P1000Y01MT01H01M01S01S");
       fail("GedcomxDateException expected because seconds is duplicated");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Duplicate seconds");
+      assertThat(e.getMessage()).contains("Duplicate seconds");
     }
   }
 

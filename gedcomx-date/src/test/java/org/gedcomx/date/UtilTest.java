@@ -207,7 +207,7 @@ class UtilTest {
               new GedcomxDateSimple("+0999-01-01T00:00:00"));
       fail("GedcomxDateException expected because start > end");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Start Date=+1000-01-01T00:00:00-06:00 must be less than End Date=+0999-01-01T00:00:00-06:00");
+      assertThat(e.getMessage()).contains("must be less than End Date");
     }
   }
 

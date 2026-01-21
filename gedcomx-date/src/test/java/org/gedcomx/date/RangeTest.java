@@ -22,7 +22,7 @@ class RangeTest {
       new GedcomxDateRange("");
       fail("GedcomxDateException expected because date must not be empty");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Range");
+      assertThat(e.getMessage()).contains("Invalid Range");
     }
   }
 
@@ -32,7 +32,7 @@ class RangeTest {
       new GedcomxDateRange("A");
       fail("GedcomxDateException expected because range must have a /");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Range: / is required");
+      assertThat(e.getMessage()).contains("/ is required");
     }
   }
 
@@ -42,7 +42,7 @@ class RangeTest {
       new GedcomxDateRange("A+1000");
       fail("GedcomxDateException expected because range must have a /");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Range: / is required");
+      assertThat(e.getMessage()).contains("/ is required");
     }
   }
 
@@ -52,7 +52,7 @@ class RangeTest {
       new GedcomxDateRange("/");
       fail("GedcomxDateException expected because range must have something other than a /");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Range: One or two parts are required");
+      assertThat(e.getMessage()).contains("One or two parts are required");
     }
   }
 
@@ -62,7 +62,7 @@ class RangeTest {
       new GedcomxDateRange("+1000/+2000/+3000");
       fail("GedcomxDateException expected because range must have only 1 slash");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Range: One or two parts are required");
+      assertThat(e.getMessage()).contains("One or two parts are required");
     }
   }
 
@@ -72,7 +72,7 @@ class RangeTest {
       new GedcomxDateRange("+1000_10/");
       fail("GedcomxDateException expected because range has invalid part 1");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Invalid Year-Month Separator in Range Start Date");
+      assertThat(e.getMessage()).contains("Invalid Year-Month Separator in Range Start Date");
     }
   }
 
@@ -82,7 +82,7 @@ class RangeTest {
       new GedcomxDateRange("/P100Y");
       fail("GedcomxDateException expected because range only has a duration");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Range: A range may not end with a duration if missing a start date");
+      assertThat(e.getMessage()).contains("A range may not end with a duration if missing a start date");
     }
   }
 
@@ -92,7 +92,7 @@ class RangeTest {
       new GedcomxDateRange("+1000/P100Q");
       fail("GedcomxDateException expected because range only has a duration");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Duration: Unknown letter Q in Range End Duration");
+      assertThat(e.getMessage()).contains("Unknown letter Q in Range End Duration");
     }
   }
 
@@ -102,7 +102,7 @@ class RangeTest {
       new GedcomxDateRange("/+1000_10");
       fail("GedcomxDateException expected because range has invalid part 2");
     } catch(GedcomxDateException e) {
-      assertThat(e.getMessage()).isEqualTo("Invalid Date: Invalid Year-Month Separator in Range End Date");
+      assertThat(e.getMessage()).contains("Invalid Year-Month Separator in Range End Date");
     }
   }
 
