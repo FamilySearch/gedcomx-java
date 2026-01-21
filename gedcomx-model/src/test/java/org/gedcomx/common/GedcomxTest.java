@@ -5,24 +5,24 @@ import org.gedcomx.agent.Agent;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Ryan Heaton
  */
-public class GedcomxTest {
+class GedcomxTest {
 
   /**
    * tests id xml
    */
   @Test
-  public void testResourceSetXml() throws Exception {
+  void resourceSetXml() throws Exception {
     Gedcomx meta = createData();
     meta = processThroughXml(meta);
     assertData(meta);
@@ -32,7 +32,7 @@ public class GedcomxTest {
    * tests id json
    */
   @Test
-  public void testResourceSetJson() throws Exception {
+  void resourceSetJson() throws Exception {
     Gedcomx meta = createData();
     meta = processThroughJson(meta);
     assertData(meta);
@@ -79,7 +79,7 @@ public class GedcomxTest {
   }
 
   @Test
-  public void testFamily() {
+  void family() {
     Gedcomx g = makeDoc();
     FamilyView family = g.getPersons().get(0).getDisplayExtension().getFamiliesAsParent().get(0);
 

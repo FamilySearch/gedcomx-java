@@ -1,13 +1,13 @@
 package org.familysearch.platform.vocab;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VocabConceptAttributeTest {
+class VocabConceptAttributeTest {
 
   @Test
-  public void testId() {
+  void id() {
     final String id = "testId";
 
     // Test using setter
@@ -23,7 +23,7 @@ public class VocabConceptAttributeTest {
   }
 
   @Test
-  public void testName() {
+  void name() {
     final String name = "testName";
 
     // Test using setter
@@ -39,7 +39,7 @@ public class VocabConceptAttributeTest {
   }
 
   @Test
-  public void testValue() {
+  void value() {
     final String value = "testValue";
 
     // Test using setter

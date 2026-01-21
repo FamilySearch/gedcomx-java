@@ -2,16 +2,15 @@ package org.familysearch.platform.ct;
 
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-
-public class ChangeInfoTest {
+class ChangeInfoTest {
   @Test
-  public void testGetReason() throws Exception {
+  void getReason() throws Exception {
     ChangeInfo changeInfo = new ChangeInfo();
     assertNull(changeInfo.getReason());
     assertNull(changeInfo.getKnownOperation());
@@ -33,7 +32,7 @@ public class ChangeInfoTest {
   }
 
   @Test
-  public void testSubjects(){
+  void subjects(){
     ChangeInfo changeInfo = new ChangeInfo();
 
     String previousURL = "#CHNG-001_PRSN-001" + ChangeInfo.ChangeValueType.PREVIOUS.getSuffix();

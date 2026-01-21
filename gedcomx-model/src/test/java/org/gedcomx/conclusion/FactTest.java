@@ -1,14 +1,14 @@
 package org.gedcomx.conclusion;
 
 import org.gedcomx.types.FactType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class FactTest {
+class FactTest {
   @Test
-  public void testCtors() throws Exception {
+  void ctors() throws Exception {
     Fact fact;
 
     fact = new Fact();
@@ -71,7 +71,7 @@ public class FactTest {
   }
 
   @Test
-  public void testSetKnownTypeWithNull() throws Exception {
+  void setKnownTypeWithNull() throws Exception {
     Fact fact = new Fact();
     fact.setKnownType(null);
     assertNull(fact.getKnownType());

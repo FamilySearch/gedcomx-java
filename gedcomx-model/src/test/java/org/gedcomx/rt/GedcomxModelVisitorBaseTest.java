@@ -8,26 +8,26 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.source.SourceCitation;
 import org.gedcomx.source.SourceDescription;
 import org.gedcomx.source.SourceReference;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class GedcomxModelVisitorBaseTest {
-  @Test (expected = NullPointerException.class)
-  public void testNullVisitor() throws Exception {
+class GedcomxModelVisitorBaseTest {
+  @Test
+  void nullVisitor() throws Exception {
     Gedcomx gedcomxDocument = new Gedcomx();
-    gedcomxDocument.accept(null);
+    assertThrows(NullPointerException.class, () ->
+      gedcomxDocument.accept(null));
   }
 
   @Test
-  public void testVisitGedcomx() throws Exception {
+  void visitGedcomx() throws Exception {
     GedcomxModelVisitorBase visitor = new GedcomxModelVisitorBase();
     assertNotNull(visitor.getContextStack());
-    assertEquals(visitor.getContextStack().size(), 0);
+    assertEquals(0, visitor.getContextStack().size());
 
     Gedcomx gedcomxDocument = new Gedcomx();
 
@@ -154,6 +154,6 @@ public class GedcomxModelVisitorBaseTest {
     gedcomxDocument.accept(visitor);
 
     assertNotNull(visitor.getContextStack());
-    assertEquals(visitor.getContextStack().size(), 0);
+    assertEquals(0, visitor.getContextStack().size());
   }
 }

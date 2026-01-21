@@ -25,13 +25,13 @@ import static org.gedcomx.rt.SerializationUtil.processThroughXml;
 /**
  * @author Ryan Heaton
  */
-public class PersonTest {
+class PersonTest {
 
   /**
    * tests processing a WWW person through xml...
    */
   @Test
-  public void testPersonXml() throws Exception {
+  void personXml() throws Exception {
     Person person = create();
     person = processThroughXml(person);
     assertPersonEquals(person);
@@ -41,14 +41,14 @@ public class PersonTest {
    * tests processing a WWW person through json...
    */
   @Test
-  public void testPersonJson() throws Exception {
+  void personJson() throws Exception {
     Person person = create();
     person = processThroughJson(person);
     assertPersonEquals(person);
   }
 
   @Test
-  public void testDisplayProperties() throws Exception {
+  void displayProperties() throws Exception {
     Person person = new Person();
     final DisplayProperties display = new DisplayProperties();
     display.setAscendancyNumber("1");
@@ -75,7 +75,7 @@ public class PersonTest {
   }
 
   @Test
-  public void testPersonPersistentIdHelpers() throws Exception {
+  void personPersistentIdHelpers() throws Exception {
     final Person person = create();
     assertPersonEquals(person);
     assertThat(person.getIdentifiers().size()).isEqualTo(2);
@@ -99,7 +99,7 @@ public class PersonTest {
   }
 
   @Test
-  public void testPersonGetFirstNameOfType() throws Exception {
+  void personGetFirstNameOfType() throws Exception {
     final Person person = create();
     assertPersonEquals(person);
     assertThat(person.getFirstNameOfType(NameType.FormalName).toString()).isEqualTo("type=FormalName,nameForms[0]=primary form,pref=true");
@@ -109,7 +109,7 @@ public class PersonTest {
   }
 
   @Test
-  public void testPersonGetPreferredName() throws Exception {
+  void personGetPreferredName() throws Exception {
     final Person person = create();
     assertPersonEquals(person);
     assertThat(person.getPreferredName().toString()).isEqualTo("type=FormalName,nameForms[0]=primary form,pref=true");
@@ -118,7 +118,7 @@ public class PersonTest {
   }
 
   @Test
-  public void testFactHelpers() throws Exception {
+  void factHelpers() throws Exception {
     final Fact fact = new Fact();
 
     final Person person = create();

@@ -7,13 +7,13 @@ import org.gedcomx.common.*;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.test.RecipeTest;
 import org.gedcomx.test.Snippet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -110,7 +110,7 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
   }
 
   @Test
-  public void testTexasDeaths() throws Exception {
+  void texasDeaths() throws Exception {
     createRecipe("Describing a Texas Deaths Online Record")
       .withDescription("Example for describing an online Texas Death record.")
       .applicableTo(SourceDescription.class);
@@ -191,7 +191,7 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
     srcDesc1.setTitles(new ArrayList<TextValue>());
     assertNull(srcDesc1.getCitation());
     assertNull(srcDesc1.getMediator());
-    assertEquals(srcDesc1.getTitles().size(), 0);
+    assertEquals(0, srcDesc1.getTitles().size());
     assertNull(srcDesc1.getTitle());
     srcDesc1.setCitations(null);
     srcDesc1.setTitles(null);
@@ -203,7 +203,7 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
   private void verifyDeathCertExample(Gedcomx gedcomx) {
     SourceDescription srcDesc2 = null;
     SourceDescription srcDesc1 = null;
-    assertEquals(gedcomx.getSourceDescriptions().size(), 2);
+    assertEquals(2, gedcomx.getSourceDescriptions().size());
     for (SourceDescription srcDesc : gedcomx.getSourceDescriptions()) {
       if (srcDesc.getId().equals(SRC_OF_SRC_ID)) {
         srcDesc1 = srcDesc;
@@ -214,7 +214,7 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
 
     Agent orgFamilySearch = null;
     Agent orgFhl = null;
-    assertEquals(gedcomx.getAgents().size(), 2);
+    assertEquals(2, gedcomx.getAgents().size());
     for (Agent organization : gedcomx.getAgents()) {
       if (organization.getId().equals(ORG_FHL_ID)) {
         orgFhl = organization;
@@ -224,11 +224,11 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
     }
 
     assertNotNull(srcDesc1);
-    assertEquals(srcDesc1.getId(), SRC_OF_SRC_ID);
+    assertEquals(SRC_OF_SRC_ID, srcDesc1.getId());
     assertNull(srcDesc1.getSources());
     assertNotNull(srcDesc1.getCitation());
-    assertEquals(srcDesc1.getCitation().getLang(), LANG_EN_US);
-    assertEquals(srcDesc1.getCitation().getValue(), DEATH_CERT_FULL_CITATION);
+    assertEquals(LANG_EN_US, srcDesc1.getCitation().getLang());
+    assertEquals(DEATH_CERT_FULL_CITATION, srcDesc1.getCitation().getValue());
     //assertEquals(srcDesc1.getCitation().getCitationTemplate().getResource().toURI().toString(), FHL_FILM_COLLECTION_CITATION_TEMPLATE);
     //assertNotNull(srcDesc1.getCitation().getFields());
     //assertEquals(srcDesc1.getCitation().getFields().size(), 6);
@@ -245,13 +245,13 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
     assertEquals(srcDesc1.getMediator().getResource().toURI().toString(), MEDIATOR_URI_PREFIX + ORG_FHL_ID);
 
     assertNotNull(srcDesc2);
-    assertEquals(srcDesc2.getId(), SRC_ID);
-    assertEquals(srcDesc2.getAbout().toURI().toString(), RECORD_PAL_LYNDON_B_JOHNSON);
+    assertEquals(SRC_ID, srcDesc2.getId());
+    assertEquals(RECORD_PAL_LYNDON_B_JOHNSON, srcDesc2.getAbout().toURI().toString());
     assertNotNull(srcDesc2.getSources());
-    assertEquals(srcDesc2.getSources().size(), 1);
+    assertEquals(1, srcDesc2.getSources().size());
     assertEquals(srcDesc2.getSources().get(0).getDescriptionRef().toURI().toString(), SRCDESC_URI_PREFIX + SRC_OF_SRC_ID);
     assertNotNull(srcDesc2.getCitation());
-    assertEquals(srcDesc2.getCitation().getValue(), DEATH_IDX_FULL_CITATION);
+    assertEquals(DEATH_IDX_FULL_CITATION, srcDesc2.getCitation().getValue());
     //assertEquals(srcDesc2.getCitation().getCitationTemplate().getResource().toURI().toString(), FS_INDEX_DEATHRECORD_CITATION_TEMPLATE);
     //assertNotNull(srcDesc2.getCitation().getFields());
     //assertEquals(srcDesc2.getCitation().getFields().size(), 7);
@@ -270,21 +270,21 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
     //assertEquals(srcDesc2.getTitle().getValue(), PRESIDENT_LYNDON_B_JOHNSON_DEATH_CERTIFICATE);
 
     assertNotNull(srcDesc2.getNotes());
-    assertEquals(srcDesc2.getNotes().size(), 1);
-    assertEquals(srcDesc2.getNotes().get(0).getLang(), LANG_EN_US);
-    assertEquals(srcDesc2.getNotes().get(0).getText(), NOTE_TEXT_1);
-    assertEquals(srcDesc2.getNotes().get(0).getAttribution().getContributor().getResource().toURI().toString(), CONTRIBUTOR_1_ID);
-    assertEquals(srcDesc2.getNotes().get(0).getAttribution().getModified().getTime(), MODIFIED_20111111_11_11_11_111);
+    assertEquals(1, srcDesc2.getNotes().size());
+    assertEquals(LANG_EN_US, srcDesc2.getNotes().get(0).getLang());
+    assertEquals(NOTE_TEXT_1, srcDesc2.getNotes().get(0).getText());
+    assertEquals(CONTRIBUTOR_1_ID, srcDesc2.getNotes().get(0).getAttribution().getContributor().getResource().toURI().toString());
+    assertEquals(MODIFIED_20111111_11_11_11_111, srcDesc2.getNotes().get(0).getAttribution().getModified().getTime());
 
     assertNotNull(srcDesc2.getAttribution());
-    assertEquals(srcDesc2.getAttribution().getContributor().getResource().toURI().toString(), CONTRIBUTOR_1_ID);
-    assertEquals(srcDesc2.getAttribution().getModified().getTime(), MODIFIED_20111111_11_11_11_111);
-    assertEquals(srcDesc2.getAttribution().getChangeMessage(), CHANGE_MESSAGE);
+    assertEquals(CONTRIBUTOR_1_ID, srcDesc2.getAttribution().getContributor().getResource().toURI().toString());
+    assertEquals(MODIFIED_20111111_11_11_11_111, srcDesc2.getAttribution().getModified().getTime());
+    assertEquals(CHANGE_MESSAGE, srcDesc2.getAttribution().getChangeMessage());
 
     assertNotNull(orgFamilySearch);
-    assertEquals(orgFamilySearch.getId(), ORG_FS_ID);
-    assertEquals(orgFamilySearch.getName().getValue(), FAMILY_SEARCH_INTERNATIONAL);
-    assertEquals(orgFamilySearch.getHomepage().getResource().toString(), FAMILYSEARCH_HOME_PAGE);
+    assertEquals(ORG_FS_ID, orgFamilySearch.getId());
+    assertEquals(FAMILY_SEARCH_INTERNATIONAL, orgFamilySearch.getName().getValue());
+    assertEquals(FAMILYSEARCH_HOME_PAGE, orgFamilySearch.getHomepage().getResource().toString());
     assertNull(orgFamilySearch.getAddresses());
     assertNull(orgFamilySearch.getAccounts());
     assertNull(orgFamilySearch.getEmails());
@@ -293,21 +293,21 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
     assertNull(orgFamilySearch.getPhones());
 
     assertNotNull(orgFhl);
-    assertEquals(orgFhl.getId(), ORG_FHL_ID);
-    assertEquals(orgFhl.getName().getValue(), FAMILY_HISTORY_LIBRARY);
-    assertEquals(orgFhl.getHomepage().getResource().toString(), FAMILY_HISTORY_LIBRARY_HOME_PAGE);
+    assertEquals(ORG_FHL_ID, orgFhl.getId());
+    assertEquals(FAMILY_HISTORY_LIBRARY, orgFhl.getName().getValue());
+    assertEquals(FAMILY_HISTORY_LIBRARY_HOME_PAGE, orgFhl.getHomepage().getResource().toString());
     assertNotNull(orgFhl.getAddresses());
-    assertEquals(orgFhl.getAddresses().size(), 1);
-    assertEquals(orgFhl.getAddresses().get(0).getValue(), FHL_ADDRESS);
-    assertEquals(orgFhl.getAddresses().get(0).getStreet(), FHL_ADDRESS_STREET1);
+    assertEquals(1, orgFhl.getAddresses().size());
+    assertEquals(FHL_ADDRESS, orgFhl.getAddresses().get(0).getValue());
+    assertEquals(FHL_ADDRESS_STREET1, orgFhl.getAddresses().get(0).getStreet());
     assertNull(orgFhl.getAddresses().get(0).getStreet2());
     assertNull(orgFhl.getAddresses().get(0).getStreet3());
-    assertEquals(orgFhl.getAddresses().get(0).getCity(), FHL_CITY);
-    assertEquals(orgFhl.getAddresses().get(0).getStateOrProvince(), FHL_STATE);
-    assertEquals(orgFhl.getAddresses().get(0).getCountry(), FHL_COUNTRY);
+    assertEquals(FHL_CITY, orgFhl.getAddresses().get(0).getCity());
+    assertEquals(FHL_STATE, orgFhl.getAddresses().get(0).getStateOrProvince());
+    assertEquals(FHL_COUNTRY, orgFhl.getAddresses().get(0).getCountry());
     assertNotNull(orgFhl.getPhones());
-    assertEquals(orgFhl.getPhones().size(), 1);
-    assertEquals(orgFhl.getPhones().get(0).getResource().toURI().toString(), FHL_TELEPHONE);
+    assertEquals(1, orgFhl.getPhones().size());
+    assertEquals(FHL_TELEPHONE, orgFhl.getPhones().get(0).getResource().toURI().toString());
     assertNull(orgFhl.getAccounts());
     assertNull(orgFhl.getEmails());
     assertNull(orgFhl.getExtensionElements());
@@ -315,7 +315,7 @@ public class SourceOfASourceRecipesTest extends RecipeTest {
   }
 
   @Test
-  public void test1930Census() throws Exception {
+  void test1930Census() throws Exception {
     createRecipe("Describing a 1930 Census Online Record")
       .withDescription("Example for describing an online 1930 Census Record.")
       .applicableTo(SourceDescription.class);

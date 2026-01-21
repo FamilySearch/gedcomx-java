@@ -1,6 +1,6 @@
 package org.gedcomx.date;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 class RangeTest {
 
   @Test
-  public void errorOnBlankString() {
+  void errorOnBlankString() {
     try {
       new GedcomxDateRange("");
       fail("GedcomxDateException expected because date must not be empty");
@@ -27,7 +27,7 @@ class RangeTest {
   }
 
   @Test
-  public void errorOnJustA() {
+  void errorOnJustA() {
     try {
       new GedcomxDateRange("A");
       fail("GedcomxDateException expected because range must have a /");
@@ -37,7 +37,7 @@ class RangeTest {
   }
 
   @Test
-   public void errorOnOnePart() {
+  void errorOnOnePart() {
     try {
       new GedcomxDateRange("A+1000");
       fail("GedcomxDateException expected because range must have a /");
@@ -47,7 +47,7 @@ class RangeTest {
   }
 
   @Test
-  public void errorOnJustSlash() {
+  void errorOnJustSlash() {
     try {
       new GedcomxDateRange("/");
       fail("GedcomxDateException expected because range must have something other than a /");
@@ -57,7 +57,7 @@ class RangeTest {
   }
 
   @Test
-  public void errorOnManySlashes() {
+  void errorOnManySlashes() {
     try {
       new GedcomxDateRange("+1000/+2000/+3000");
       fail("GedcomxDateException expected because range must have only 1 slash");
@@ -67,7 +67,7 @@ class RangeTest {
   }
 
   @Test
-  public void errorOnInvalidPart1() {
+  void errorOnInvalidPart1() {
     try {
       new GedcomxDateRange("+1000_10/");
       fail("GedcomxDateException expected because range has invalid part 1");
@@ -77,7 +77,7 @@ class RangeTest {
   }
 
   @Test
-  public void errorOnDurationOnly() {
+  void errorOnDurationOnly() {
     try {
       new GedcomxDateRange("/P100Y");
       fail("GedcomxDateException expected because range only has a duration");
@@ -87,7 +87,7 @@ class RangeTest {
   }
 
   @Test
-  public void errorOnInvalidDuration() {
+  void errorOnInvalidDuration() {
     try {
       new GedcomxDateRange("+1000/P100Q");
       fail("GedcomxDateException expected because range only has a duration");
@@ -97,7 +97,7 @@ class RangeTest {
   }
 
   @Test
-  public void errorOnInvalidPart2() {
+  void errorOnInvalidPart2() {
     try {
       new GedcomxDateRange("/+1000_10");
       fail("GedcomxDateException expected because range has invalid part 2");
@@ -107,7 +107,7 @@ class RangeTest {
   }
 
   @Test
-  public void successOnDuration() {
+  void successOnDuration() {
     GedcomxDateRange range = new GedcomxDateRange("+1000/P1Y2M3DT4H5M6S");
     GedcomxDateSimple start = range.getStart();
     GedcomxDateSimple end = range.getEnd();
@@ -132,7 +132,7 @@ class RangeTest {
   }
 
   @Test
-  public void successOnEndDate() {
+  void successOnEndDate() {
     GedcomxDateRange range = new GedcomxDateRange("+1000/+2000-10-01");
     GedcomxDateSimple start = range.getStart();
     GedcomxDateSimple end = range.getEnd();
@@ -158,7 +158,7 @@ class RangeTest {
   }
 
   @Test
-  public void addDurationOutToEndOfYear() {
+  void addDurationOutToEndOfYear() {
     GedcomxDateRange range = assertDoesNotThrow(() -> new GedcomxDateRange("+1866-01-01T00:00:00Z/P3Y11M30DT23H59M59S"));
     assertThat(range.getStart().compareTo(new GedcomxDateSimple(1866, 1, 1, 0, 0, 0, 0, 0))).isEqualTo(0);
     assertThat(range.getEnd().compareTo(new GedcomxDateSimple(1869, 12, 31, 23, 59, 59, null, null))).isEqualTo(0);
@@ -169,13 +169,13 @@ class RangeTest {
    */
 
   @Test
-  public void getType() {
+  void getType() {
     GedcomxDateRange range = new GedcomxDateRange("+1000/+2000-10-01");
     assertThat(range.getType()).isEqualTo(GedcomxDateType.RANGE);
   }
 
   @Test
-  public void isApproximate() {
+  void isApproximate() {
     GedcomxDateRange range;
 
     range = new GedcomxDateRange("A+1000/+2000-10-01");

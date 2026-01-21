@@ -1,22 +1,22 @@
 package org.gedcomx.links;
 
 import org.gedcomx.common.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Ryan Heaton
  */
-public class LinkTest {
+class LinkTest {
 
   /**
    * tests link xml
    */
   @Test
-  public void testLinkXml() throws Exception {
+  void linkXml() throws Exception {
     Link link = createLink();
     link = processThroughXml(link);
     assertLink(link);
@@ -30,7 +30,7 @@ public class LinkTest {
    * tests link json
    */
   @Test
-  public void testLinkJson() throws Exception {
+  void linkJson() throws Exception {
     Link link = createLink();
     link = processThroughJson(link);
     assertLink(link);
@@ -42,7 +42,7 @@ public class LinkTest {
    * tests link json
    */
   @Test
-  public void testHeaderValueForUninitializedLink() throws Exception {
+  void headerValueForUninitializedLink() throws Exception {
     Link link = new Link();
     assertEquals("<>", link.getHttpHeaderValue());
   }

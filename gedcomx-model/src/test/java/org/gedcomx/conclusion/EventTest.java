@@ -6,22 +6,22 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.types.EventRoleType;
 import org.gedcomx.types.EventType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * @author Ryan Heaton
  */
-public class EventTest {
+class EventTest {
 
   @Test
-  public void testCtors() throws Exception {
+  void ctors() throws Exception {
     Event event;
 
     event = new Event();
@@ -84,7 +84,7 @@ public class EventTest {
   }
 
   @Test
-  public void testSetKnownTypeWithNull() throws Exception {
+  void setKnownTypeWithNull() throws Exception {
     Event event = new Event();
     event.setKnownType(null);
     assertNull(event.getKnownType());
@@ -94,7 +94,7 @@ public class EventTest {
    * tests processing a event through xml...
    */
   @Test
-  public void testEventXml() throws Exception {
+  void eventXml() throws Exception {
     Event event = createTestEvent();
     event = processThroughXml(event);
     assertTestEvent(event);
@@ -104,7 +104,7 @@ public class EventTest {
    * tests processing a event through json...
    */
   @Test
-  public void testPersonJson() throws Exception {
+  void personJson() throws Exception {
     Event event = createTestEvent();
     event = processThroughJson(event);
     assertTestEvent(event);

@@ -6,15 +6,15 @@ import java.util.List;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TermTest {
+class TermTest {
   private static final String URI_BASE = "http://some.valid.uri/";
 
   @Test
-  public void testId() {
+  void id() {
     final String id = "testId";
 
     // Test using setter
@@ -30,7 +30,7 @@ public class TermTest {
   }
 
   @Test
-  public void testType() {
+  void type() {
     final URI type = new URI(URI_BASE + "type/vocabTypeTest");
 
     // Test using setter
@@ -46,7 +46,7 @@ public class TermTest {
   }
 
   @Test
-  public void testConceptId() {
+  void conceptId() {
     final URI vocabConceptUri = new URI(URI_BASE + "vocabConcept/testVocabConceptId");
 
     // Test using setter
@@ -62,7 +62,7 @@ public class TermTest {
   }
 
   @Test
-  public void testSublistUri() {
+  void sublistUri() {
     final URI sublistUri = new URI("http://some.valid.uri/list/testSublistUri");
 
     // Test using setter
@@ -78,7 +78,7 @@ public class TermTest {
   }
 
   @Test
-  public void testSublistPosition() {
+  void sublistPosition() {
     final Integer sublistPosition = 349873;
 
     // Test using setter
@@ -94,7 +94,7 @@ public class TermTest {
   }
 
   @Test
-  public void testValues() {
+  void values() {
     final TextValue testTextValue = new TextValue("testValue");
     testTextValue.setLang("testLang");
     List<TextValue> values = Collections.singletonList(testTextValue);

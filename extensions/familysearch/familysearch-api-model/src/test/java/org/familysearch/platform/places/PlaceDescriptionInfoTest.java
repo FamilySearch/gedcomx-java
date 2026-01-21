@@ -1,13 +1,13 @@
 package org.familysearch.platform.places;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PlaceDescriptionInfoTest {
+class PlaceDescriptionInfoTest {
 
   @Test
-  public void testZoomLevel() {
+  void zoomLevel() {
     final Integer zoomLevel = 7;
 
     PlaceDescriptionInfo result = new PlaceDescriptionInfo();
@@ -19,7 +19,7 @@ public class PlaceDescriptionInfoTest {
   }
 
   @Test
-  public void testRelatedPlaceDescriptionType() {
+  void relatedPlaceDescriptionType() {
     final String type = "ASSOCIATED";
 
     PlaceDescriptionInfo result = new PlaceDescriptionInfo();
@@ -31,7 +31,7 @@ public class PlaceDescriptionInfoTest {
   }
 
   @Test
-  public void testRelatedPlaceDescriptionSubType() {
+  void relatedPlaceDescriptionSubType() {
     final String subType = "Political";
 
     PlaceDescriptionInfo result = new PlaceDescriptionInfo();

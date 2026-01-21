@@ -5,7 +5,7 @@ import org.gedcomx.common.URI;
 import org.gedcomx.links.Link;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.search.ResultConfidence;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
@@ -15,25 +15,23 @@ import java.util.HashMap;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
  * @author Ryan Heaton
  */
-public class FeedTest {
+class FeedTest {
 
   @Test
-  public void testFeedXml() throws Exception {
+  void feedXml() throws Exception {
     Feed feed = createFeed();
     feed = processThroughXml(feed, Feed.class, JAXBContext.newInstance(Feed.class, CustomEntity.class, JunkEntity.class));
     assertFeed(feed);
   }
 
   @Test
-  public void testFeedJson() throws Exception {
+  void feedJson() throws Exception {
     Feed feed = createFeed();
     GedcomNamespaceManager.registerKnownJsonType(CustomEntity.class);
     GedcomNamespaceManager.registerKnownJsonType(JunkEntity.class);
@@ -182,7 +180,7 @@ public class FeedTest {
 
     assertEquals("application/x-gedcomx-v1+xml", entry.getContent().getType());
     assertNotNull(entry.getContent().getGedcomx());
-    assertEquals(entry.getContent().getGedcomx().getId(), "gxid");
+    assertEquals("gxid", entry.getContent().getGedcomx().getId());
 
     assertEquals(1, entry.getContributors().size());
     assertEquals("contributor2@contributor.com", entry.getContributors().get(0).getEmail());

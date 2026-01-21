@@ -14,7 +14,7 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 import org.gedcomx.types.NamePartType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author Ryan Heaton
  */
-public class GeorgeMarthaWashingtonExampleTest {
+class GeorgeMarthaWashingtonExampleTest {
 
 //  public void testEventsOnPlaces() throws Exception {
 //    PlaceDescription place = new PlaceDescription().id("P1").name("Family Farm in Scandinavia");
@@ -38,7 +38,7 @@ public class GeorgeMarthaWashingtonExampleTest {
 //  }
 //
   @Test
-  public void testExample() throws Exception {
+  void example() throws Exception {
     PlaceDescription popesCreek = createPopesCreek();
     PlaceDescription mountVernon = createMountVernon();
     PlaceDescription chestnutGrove = createChestnutGrove();

@@ -1,30 +1,30 @@
 package org.gedcomx.util;
 
-import org.junit.Test;
 import org.gedcomx.Gedcomx;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.gedcomx.conclusion.Name;
 import org.gedcomx.conclusion.NameForm;
 import org.gedcomx.conclusion.NamePart;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.types.NamePartType;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Class for testing the CleanXmlStreamWriter.
  * User: Randy Wilson
  * Date: 17 September 2015
  */
-public class TestCleanXmlStreamWriter {
+class TestCleanXmlStreamWriter {
 
   @Test
-  public void testEscape() {
+  void escape() {
     String orig = "\uD850\uDDAC成功";
     String escaped = CleanXMLStreamWriter.escapeCharacters(orig);
     assertEquals(orig, escaped);
@@ -39,7 +39,7 @@ public class TestCleanXmlStreamWriter {
   }
 
   @Test
-  public void testVerticalTab() {
+  void verticalTab() {
     String orig = "Vertical\u000BTab";
     String escaped = CleanXMLStreamWriter.escapeCharacters(orig);
     // Make sure the vertical tab got replaced with a Unicode "Replacement Character" (0xFFFD)
@@ -47,7 +47,7 @@ public class TestCleanXmlStreamWriter {
   }
 
   @Test
-  public void testSurrogatePairs() throws JAXBException, IOException {
+  void surrogatePairs() throws Exception {
     testName("\uD850\uDDAC成功");
     testName("岩\uD842\uDFB7");
   }
@@ -86,7 +86,7 @@ public class TestCleanXmlStreamWriter {
    * This test validated the problem before the switch, and made sure it worked afterwards.
    */
   @Test
-  public void testSurrogateAttributes() throws Exception {
+  void surrogateAttributes() throws Exception {
     String surname = "\uD850\uDDAC";
     String given = "\uD842\uDFB7";
     String full = surname + given;

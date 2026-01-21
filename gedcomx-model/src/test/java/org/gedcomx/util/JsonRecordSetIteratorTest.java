@@ -16,13 +16,12 @@
 package org.gedcomx.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.rt.json.GedcomJacksonModule;
+import org.junit.jupiter.api.Test;
 
-import jakarta.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,9 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * User: Brent Hale
@@ -45,7 +42,7 @@ import static org.junit.Assert.assertTrue;
 public class JsonRecordSetIteratorTest {
 
   @Test
-  public void testReadingWritingJsonRecordSetFromFile() throws JAXBException, IOException {
+  void readingWritingJsonRecordSetFromFile() throws Exception {
     URL url = getClass().getClassLoader().getResource("gedcomx-recordset.json");
     assertNotNull(url);
     JsonRecordSetIterator jsonRecordSetIterator = new JsonRecordSetIterator(url.getFile());
@@ -60,11 +57,11 @@ public class JsonRecordSetIteratorTest {
 
     jsonRecordSetIterator.close();
 
-    assertEquals(recordSet.getRecords().size(), 3);
+    assertEquals(3, recordSet.getRecords().size());
   }
 
   @Test
-  public void testReadingWritingJsonRecordSet() throws JAXBException, IOException {
+  void readingWritingJsonRecordSet() throws Exception {
     RecordSet recordSet1 = new RecordSet();
 
     recordSet1.setMetadata(TestRecordSetWriter.getMetadataFromFile());
@@ -106,7 +103,7 @@ public class JsonRecordSetIteratorTest {
   }
 
   @Test
-  public void testRemoveIsUnsupported() throws JAXBException, IOException {
+  void removeIsUnsupported() throws Exception {
     RecordSet recordSet1 = new RecordSet();
 
     recordSet1.setMetadata(TestRecordSetWriter.getMetadataFromFile());
@@ -128,7 +125,7 @@ public class JsonRecordSetIteratorTest {
 
     try {
       jsonRecordSetIterator.remove();
-      assertTrue(false);    // Shouldn't get here.
+      fail();    // Shouldn't get here.
     } catch (UnsupportedOperationException e) {
       // expected the exception.
     }

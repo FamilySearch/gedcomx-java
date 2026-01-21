@@ -11,7 +11,7 @@ import org.gedcomx.types.FactType;
 import org.gedcomx.types.GenderType;
 import org.gedcomx.types.RelationshipType;
 import org.gedcomx.types.ResourceType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,10 +19,10 @@ import java.text.SimpleDateFormat;
 /**
  * @author Ryan Heaton
  */
-public class EmmaBocockExampleTest {
+class EmmaBocockExampleTest {
 
   @Test
-  public void testExample() throws Exception {
+  void example() throws Exception {
     Agent contributor = new Agent().id("A-1").name("Jane Doe").email("example@example.org");
     Agent repository = new Agent().id("A-2").name("General Registry Office, Southport");
     Attribution attribution = new Attribution().contributor(contributor).modified(parse("2014-03-07")).changeMessage("change message example");

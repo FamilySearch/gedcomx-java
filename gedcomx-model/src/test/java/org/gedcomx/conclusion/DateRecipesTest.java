@@ -3,7 +3,7 @@ package org.gedcomx.conclusion;
 import org.gedcomx.test.RecipeTest;
 import org.gedcomx.test.Snippet;
 import org.gedcomx.types.FactType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
@@ -13,10 +13,10 @@ import static org.gedcomx.rt.SerializationUtil.processThroughXml;
 /**
  * @author Ryan Heaton
  */
-public class DateRecipesTest extends RecipeTest {
+class DateRecipesTest extends RecipeTest {
 
   @Test
-  public void testDateFormalValueIso8601() throws Exception {
+  void dateFormalValueIso8601() throws Exception {
     createRecipe("Standardized Date Using ISO 8601")
       .withDescription("Simple recipe for creating a standardized date using the ISO 8601 standard. The example shows a person born on July 1, 1980.")
       .applicableTo(Date.class);
@@ -44,7 +44,7 @@ public class DateRecipesTest extends RecipeTest {
 
 
   @Test
-  public void testDateFormalValueGedcom55() throws Exception {
+  void dateFormalValueGedcom55() throws Exception {
     createRecipe("Standardized Date Using GEDCOM 5.5")
       .withDescription("Simple recipe for creating a standardized date using the GEDCOM 5.5 standard. The example shows a person born about July 1, 1980.")
       .applicableTo(Date.class);

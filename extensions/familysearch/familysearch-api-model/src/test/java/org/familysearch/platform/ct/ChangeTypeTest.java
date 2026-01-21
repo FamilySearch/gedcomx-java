@@ -1,18 +1,18 @@
 package org.familysearch.platform.ct;
 
-import org.junit.Test;
-
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.LinkedList;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
-public class ChangeTypeTest {
+class ChangeTypeTest {
 
   private Collection<ChangeType> typesTested;
 
   @Test
-  public void testIt() {
+  void it() {
     typesTested = new LinkedList<>();
 
     // test the contract that the @XmlEnumValue is unique and does not change its value

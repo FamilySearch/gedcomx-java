@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author LandonVG
  */
-public class HasFactsTest {
+class HasFactsTest {
 
   private final class TestHasFacts implements HasFacts {
     List<Fact> facts;
@@ -35,7 +35,7 @@ public class HasFactsTest {
   private final HasFacts test = new TestHasFacts();
 
   @Test
-  public void facts() {
+  void facts() {
     final List<Fact> facts = Lists.newArrayList(new Fact());
     test.setFacts(facts);
 
@@ -43,7 +43,7 @@ public class HasFactsTest {
   }
 
   @Test
-  public void facts_Empty() {
+  void facts_Empty() {
     assertThat(test.facts()).isEmpty();
   }
 }

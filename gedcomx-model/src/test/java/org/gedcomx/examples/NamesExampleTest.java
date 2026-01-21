@@ -9,18 +9,18 @@ import org.gedcomx.conclusion.Person;
 import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.NamePartQualifierType;
 import org.gedcomx.types.NamePartType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * @author Ryan Heaton
  */
-public class NamesExampleTest {
+class NamesExampleTest {
 
   @Test
-  public void testBasicWesternName() throws Exception {
+  void basicWesternName() throws Exception {
     NameForm nameForm = new NameForm("John Fitzgerald Kennedy")
       .lang("en")
       .part(NamePartType.Given, "John")
@@ -34,7 +34,7 @@ public class NamesExampleTest {
   }
 
   @Test
-  public void testMultipleJapaneseForms() throws Exception {
+  void multipleJapaneseForms() throws Exception {
     NameForm kanji = new NameForm("山田太郎")
       .lang("ja-Hani")
       .part(NamePartType.Surname, "山田")
@@ -55,7 +55,7 @@ public class NamesExampleTest {
   }
 
   @Test
-  public void testMultipleNamePartsOnePartPerType() throws Exception {
+  void multipleNamePartsOnePartPerType() throws Exception {
     NameForm nameForm = new NameForm("José Eduardo Santos Tavares Melo Silva")
       .lang("pt-BR")
       .part(NamePartType.Given, "José Eduardo")
@@ -68,7 +68,7 @@ public class NamesExampleTest {
   }
 
   @Test
-  public void testMultipleNamePartsMultiplePartsPerType() throws Exception {
+  void multipleNamePartsMultiplePartsPerType() throws Exception {
     NameForm nameForm = new NameForm("José Eduardo Santos Tavares Melo Silva")
       .lang("pt-BR")
       .part(NamePartType.Given, "José")
@@ -85,7 +85,7 @@ public class NamesExampleTest {
   }
 
   @Test
-  public void testPatronymic() throws Exception {
+  void patronymic() throws Exception {
     NameForm nameForm = new NameForm("Björk Guðmundsdóttir")
       .lang("is")
       .part(NamePartType.Given, "Björk")
@@ -98,7 +98,7 @@ public class NamesExampleTest {
   }
 
   @Test
-  public void testGetPart() throws Exception {
+  void getPart() throws Exception {
     NameForm nameForm = new NameForm("John Fitzgerald Kennedy")
       .lang("en")
       .part(NamePartType.Given, "John")

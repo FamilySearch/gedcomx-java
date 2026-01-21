@@ -3,17 +3,17 @@ package org.familysearch.platform.ct;
 import org.gedcomx.common.Attribution;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the TreePersonReference class.
  */
-public class TreePersonReferenceTest {
+class TreePersonReferenceTest {
 
   @Test
-  public void testNoArgumentConstructor() {
+  void noArgumentConstructor() {
     TreePersonReference ref = new TreePersonReference();
 
     assertNull(ref.getTreePerson());
@@ -22,7 +22,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testNoArgumentConstructorWithSetters() {
+  void noArgumentConstructorWithSetters() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference tree = new ResourceReference(URI.create("http://example.com/tree/456"));
     Attribution attribution = new Attribution();
@@ -47,7 +47,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testNoArgumentConstructorWithFluentMethods() {
+  void noArgumentConstructorWithFluentMethods() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference tree = new ResourceReference(URI.create("http://example.com/tree/456"));
     Attribution attribution = new Attribution();
@@ -64,7 +64,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testGettersAndSetters() {
+  void gettersAndSetters() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference tree = new ResourceReference(URI.create("http://example.com/tree/456"));
     Attribution attribution = new Attribution();
@@ -92,7 +92,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentTreePersonMethodWithNullReference() {
+  void fluentTreePersonMethodWithNullReference() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
 
@@ -104,7 +104,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentTreePersonMethodWithEmptyReference() {
+  void fluentTreePersonMethodWithEmptyReference() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference emptyRef = new ResourceReference();
 
@@ -117,7 +117,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentTreeMethodWithNullReference() {
+  void fluentTreeMethodWithNullReference() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
 
@@ -129,7 +129,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentTreeMethodWithEmptyReference() {
+  void fluentTreeMethodWithEmptyReference() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     ResourceReference emptyRef = new ResourceReference();
 
@@ -142,7 +142,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentAttributionMethod() {
+  void fluentAttributionMethod() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     Attribution attribution = new Attribution();
     attribution.setContributor(new ResourceReference(URI.create("http://example.com/contributor/789")));
@@ -156,7 +156,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentAttributionMethodWithNull() {
+  void fluentAttributionMethodWithNull() {
     ResourceReference treePerson = new ResourceReference(URI.create("http://example.com/person/123"));
     TreePersonReference ref = new TreePersonReference().treePerson(treePerson);
 
@@ -168,7 +168,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentMethodsWithResourceId() {
+  void fluentMethodsWithResourceId() {
     ResourceReference treePersonWithId = new ResourceReference();
     treePersonWithId.setResourceId("person123");
 
@@ -185,7 +185,7 @@ public class TreePersonReferenceTest {
   }
 
   @Test
-  public void testFluentMethodsWithResource() {
+  void fluentMethodsWithResource() {
     ResourceReference treePersonWithResource = new ResourceReference();
     treePersonWithResource.setResource(URI.create("http://example.com/person/123"));
 

@@ -6,14 +6,14 @@ import java.util.List;
 import org.gedcomx.common.ExtensibleData;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VocabConceptTest {
+class VocabConceptTest {
 
   @Test
-  public void testId() {
+  void id() {
     final String id = "testId";
 
     // Test using setter
@@ -29,7 +29,7 @@ public class VocabConceptTest {
   }
 
   @Test
-  public void testDescription() {
+  void description() {
     final String description = "testDescription";
 
     // Test using setter
@@ -45,7 +45,7 @@ public class VocabConceptTest {
   }
 
   @Test
-  public void testNote() {
+  void note() {
     final String note = "testNote";
 
     // Test using setter
@@ -61,7 +61,7 @@ public class VocabConceptTest {
   }
 
   @Test
-  public void testTerms() {
+  void terms() {
     final String uriBase = "http://some.valid.uri/";
     final TextValue testTextValue = new TextValue("testValue");
     testTextValue.setLang("testLang");
@@ -87,7 +87,7 @@ public class VocabConceptTest {
   }
 
   @Test
-  public void testDefinitions() {
+  void definitions() {
     final TextValue definition = new TextValue("testDefinitionEn").lang("en");
     List<TextValue> testDefinitions = Collections.singletonList(definition);
 
@@ -104,7 +104,7 @@ public class VocabConceptTest {
   }
 
   @Test
-  public void testAttributes() {
+  void attributes() {
     final VocabConceptAttribute testVocabConceptAttribute = new VocabConceptAttribute()
         .id("testId")
         .name("testName")
@@ -124,7 +124,7 @@ public class VocabConceptTest {
   }
 
   @Test
-  public void testGedcomxUri() {
+  void gedcomxUri() {
     final URI uri = new URI("http://some.valid.url/test");
 
     // Test using setter

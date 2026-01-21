@@ -1,18 +1,18 @@
 package org.familysearch.platform.vocab;
 
 import org.gedcomx.common.TextValue;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VocabTranslationTest {
+class VocabTranslationTest {
 
     private final String lang = "de";
     private final String text = "die Prüfung"; // "the test"
     private final TextValue textValue = new TextValue(text).lang(lang);
 
-    @Test
-    public void testLang() {
+  @Test
+  void lang() {
         // Test using setter
         VocabTranslation classUnderTest = new VocabTranslation();
         classUnderTest.setLang(lang);
@@ -35,8 +35,8 @@ public class VocabTranslationTest {
         assertEquals(classUnderTest.getLang(), lang);
     }
 
-    @Test
-    public void testText() {
+  @Test
+  void text() {
         // Test using setter
         VocabTranslation classUnderTest = new VocabTranslation();
         classUnderTest.setText(text);

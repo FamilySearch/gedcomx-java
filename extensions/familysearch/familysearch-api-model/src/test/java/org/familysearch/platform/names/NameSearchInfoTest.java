@@ -1,21 +1,20 @@
 package org.familysearch.platform.names;
 
-import org.junit.Test;
-
 import org.gedcomx.types.NamePartType;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-public class NameSearchInfoTest {
+class NameSearchInfoTest {
 
   private static final String TEST_TEXT = "just some text that would be a name";
   private static final String TEST_NAME_ID = "12349874561";
   private static final int TEST_WEIGHT = 83;
 
   @Test
-  public void testNameSearchInfo() throws Exception {
+  void nameSearchInfo() throws Exception {
 
     NameSearchInfo nameSearchInfo = new NameSearchInfo();
     assertNull(nameSearchInfo.getText());
@@ -29,15 +28,15 @@ public class NameSearchInfoTest {
     nameSearchInfo.setNamePartType(NamePartType.Given.toQNameURI());
     nameSearchInfo.setWeight(TEST_WEIGHT);
 
-    assertEquals(nameSearchInfo.getText(), TEST_TEXT);
-    assertEquals(nameSearchInfo.getNameId(), TEST_NAME_ID);
+    assertEquals(TEST_TEXT, nameSearchInfo.getText());
+    assertEquals(TEST_NAME_ID, nameSearchInfo.getNameId());
     assertEquals(nameSearchInfo.getNamePartType(), NamePartType.Given.toQNameURI());
-    assertEquals(nameSearchInfo.getKnownNamePartType(), NamePartType.Given);
+    assertEquals(NamePartType.Given, nameSearchInfo.getKnownNamePartType());
     assertEquals(nameSearchInfo.getWeight(), Integer.valueOf(TEST_WEIGHT));
 
     nameSearchInfo.setKnownNamePartType(NamePartType.Surname);
     assertEquals(nameSearchInfo.getNamePartType(), NamePartType.Surname.toQNameURI());
-    assertEquals(nameSearchInfo.getKnownNamePartType(), NamePartType.Surname);
+    assertEquals(NamePartType.Surname, nameSearchInfo.getKnownNamePartType());
 
   }
 }

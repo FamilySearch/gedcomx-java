@@ -5,12 +5,12 @@ import org.gedcomx.common.CustomEntity;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.SerializationUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * @author Ryan Heaton
@@ -21,7 +21,7 @@ public class SourceReferenceTest {
    * tests source reference xml
    */
   @Test
-  public void testSourceReferenceXml() throws Exception {
+  void sourceReferenceXml() throws Exception {
     SourceReference reference = new SourceReference();
     reference.setAttribution(new Attribution());
     reference.getAttribution().setContributor(new ResourceReference(URI.create("urn:contributorid")));

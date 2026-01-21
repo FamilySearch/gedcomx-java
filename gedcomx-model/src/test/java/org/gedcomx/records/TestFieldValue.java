@@ -2,13 +2,9 @@ package org.gedcomx.records;
 
 import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.FieldValueStatusType;
+import org.junit.jupiter.api.Test;
 
-import jakarta.xml.bind.JAXBException;
-import java.io.UnsupportedEncodingException;
-
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Class for testing the FieldValue class.
@@ -16,10 +12,10 @@ import static org.junit.Assert.assertEquals;
  * Date: 11/25/2014
  * Time: 2:55 PM
  */
-public class TestFieldValue {
+class TestFieldValue {
 
   @Test
-  public void testXml() throws JAXBException, UnsupportedEncodingException {
+  void xml() throws Exception {
     FieldValue fieldValue = new FieldValue();
     fieldValue.setKnownStatus(FieldValueStatusType.Unreadable);
 

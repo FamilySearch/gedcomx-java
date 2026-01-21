@@ -1,9 +1,9 @@
 package org.gedcomx.date;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
@@ -11,10 +11,10 @@ import static org.fest.assertions.api.Assertions.fail;
 /**
  * @author John Clark.
  */
-public class RecurringTest {
+class RecurringTest {
 
   @Test
-  public void errorOnNull() {
+  void errorOnNull() {
     try {
       new GedcomxDateRecurring(null);
       fail("GedcomxDateException expected because date must not be null");
@@ -24,7 +24,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnBlankString() {
+  void errorOnBlankString() {
     try {
       new GedcomxDateRecurring("");
       fail("GedcomxDateException expected because date must not be empty");
@@ -34,7 +34,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnMissingR() {
+  void errorOnMissingR() {
     try {
       new GedcomxDateRecurring("32/+1000/P10Y");
       fail("GedcomxDateException expected because R is required");
@@ -44,7 +44,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnToFewParts() {
+  void errorOnToFewParts() {
     try {
       new GedcomxDateRecurring("R+1000/P1");
       fail("GedcomxDateException expected because not enough parts");
@@ -54,7 +54,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnToManyParts() {
+  void errorOnToManyParts() {
     try {
       new GedcomxDateRecurring("R3/+1000/P1/stuff");
       fail("GedcomxDateException expected because to many parts");
@@ -64,7 +64,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnMissingRangeChunk() {
+  void errorOnMissingRangeChunk() {
     try {
       new GedcomxDateRecurring("R3//P1Y");
       fail("GedcomxDateException expected because missing range chunk");
@@ -74,7 +74,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnInvalidCount() {
+  void errorOnInvalidCount() {
     try {
       new GedcomxDateRecurring("RR3/+1000/P1Y");
       fail("GedcomxDateException expected because invalid count");
@@ -84,7 +84,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnNegativeCount() {
+  void errorOnNegativeCount() {
     try {
       new GedcomxDateRecurring("R-3/+1000/P1Y");
       fail("GedcomxDateException expected because invalid count");
@@ -94,7 +94,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void errorOnBadRange() {
+  void errorOnBadRange() {
     try {
       new GedcomxDateRecurring("R3/+1000-/P1Y");
       fail("GedcomxDateException expected because invalid range");
@@ -104,7 +104,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void shouldHaveNoEnd() {
+  void shouldHaveNoEnd() {
     GedcomxDateRecurring recurring = new GedcomxDateRecurring("R/+1000/P1Y");
 
     assertThat(recurring.getCount()).isEqualTo(null);
@@ -112,7 +112,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void shouldHaveAnEnd() {
+  void shouldHaveAnEnd() {
     GedcomxDateRecurring recurring = new GedcomxDateRecurring("R13/+1000/P1Y");
 
     assertThat(recurring.getCount()).isEqualTo(13);
@@ -138,7 +138,7 @@ public class RecurringTest {
    */
 
   @Test
-  public void getCount() {
+  void getCount() {
     GedcomxDateRecurring recurring;
 
     recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
@@ -149,7 +149,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void getRange() {
+  void getRange() {
     GedcomxDateRecurring recurring;
 
     recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
@@ -157,7 +157,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void getStart() {
+  void getStart() {
     GedcomxDateRecurring recurring;
 
     recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
@@ -165,7 +165,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void getDuration() {
+  void getDuration() {
     GedcomxDateRecurring recurring;
 
     recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
@@ -173,7 +173,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void getEnd() {
+  void getEnd() {
     GedcomxDateRecurring recurring;
 
     recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
@@ -181,7 +181,7 @@ public class RecurringTest {
   }
 
   @Test
-  public void getNth() {
+  void getNth() {
     GedcomxDateRecurring recurring;
 
     recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
@@ -190,19 +190,19 @@ public class RecurringTest {
   }
 
   @Test
-  public void getType() {
+  void getType() {
     GedcomxDateRecurring recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
     assertThat(recurring.getType()).isEqualTo(GedcomxDateType.RECURRING);
   }
 
   @Test
-  public void isApproximate() {
+  void isApproximate() {
     GedcomxDateRecurring recurring = new GedcomxDateRecurring("R1/+1000/P1Y");
     assertThat(recurring.isApproximate()).isEqualTo(false);
   }
 
   @Test
-  public void toFormalString() {
+  void toFormalString() {
     List<String> tests = Arrays.asList("R1/+1000/P1Y","R/+1000/P1Y");
     for(String test: tests) {
       GedcomxDateRecurring recurring = new GedcomxDateRecurring(test);

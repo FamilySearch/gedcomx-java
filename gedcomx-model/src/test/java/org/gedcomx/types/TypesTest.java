@@ -3,38 +3,38 @@
  */
 package org.gedcomx.types;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
  */
-public class TypesTest {
+class TypesTest {
   @Test
-  public void testToQNameURI() throws Exception {
+  void toQNameURI() throws Exception {
     // NOTE: not a full test, but gets some code coverage
 
-    assertEquals(ConfidenceLevel.fromQNameURI(ConfidenceLevel.Low.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Low");
-    assertEquals(DocumentType.fromQNameURI(DocumentType.Analysis.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Analysis");
-    assertEquals(EventRoleType.fromQNameURI(EventRoleType.Principal.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Principal");
-    assertEquals(EventType.fromQNameURI(EventType.Burial.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Burial");
-    assertEquals(FactType.fromQNameURI(FactType.Marriage.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Marriage");
-    assertEquals(FactType.fromQNameURI(FactType.Birth.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Birth");
-    assertEquals(FactType.fromQNameURI(FactType.Baptism.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Baptism");
-    assertEquals(GenderType.fromQNameURI(GenderType.Male.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Male");
-    assertEquals(IdentifierType.fromQNameURI(IdentifierType.Primary.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Primary");
-    assertEquals(NamePartQualifierType.fromQNameURI(NamePartQualifierType.Primary.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Primary");
-    assertEquals(NamePartType.fromQNameURI(NamePartType.Given.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Given");
-    assertEquals(NameType.fromQNameURI(NameType.FormalName.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/FormalName");
-    assertEquals(RelationshipType.fromQNameURI(RelationshipType.Couple.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Couple");
-    assertEquals(FieldValueStatusType.fromQNameURI(FieldValueStatusType.Unreadable.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Unreadable");
-    assertEquals(ResourceStatusType.fromQNameURI(ResourceStatusType.Deprecated.toQNameURI()).toQNameURI().toString(), "http://gedcomx.org/Deprecated");
+    assertEquals("http://gedcomx.org/Low", ConfidenceLevel.fromQNameURI(ConfidenceLevel.Low.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Analysis", DocumentType.fromQNameURI(DocumentType.Analysis.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Principal", EventRoleType.fromQNameURI(EventRoleType.Principal.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Burial", EventType.fromQNameURI(EventType.Burial.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Marriage", FactType.fromQNameURI(FactType.Marriage.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Birth", FactType.fromQNameURI(FactType.Birth.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Baptism", FactType.fromQNameURI(FactType.Baptism.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Male", GenderType.fromQNameURI(GenderType.Male.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Primary", IdentifierType.fromQNameURI(IdentifierType.Primary.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Primary", NamePartQualifierType.fromQNameURI(NamePartQualifierType.Primary.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Given", NamePartType.fromQNameURI(NamePartType.Given.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/FormalName", NameType.fromQNameURI(NameType.FormalName.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Couple", RelationshipType.fromQNameURI(RelationshipType.Couple.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Unreadable", FieldValueStatusType.fromQNameURI(FieldValueStatusType.Unreadable.toQNameURI()).toQNameURI().toString());
+    assertEquals("http://gedcomx.org/Deprecated", ResourceStatusType.fromQNameURI(ResourceStatusType.Deprecated.toQNameURI()).toQNameURI().toString());
   }
 
   @Test
-  public void testFactTypeIsLike() throws Exception {
+  void factTypeIsLike() throws Exception {
     // NOTE: not a full test, but gets some code coverage
 
     assertTrue(FactType.Christening.isBirthLike());
@@ -45,7 +45,7 @@ public class TypesTest {
   }
 
   @Test
-  public void testFactTypeInnerClasses() throws Exception {
+  void factTypeInnerClasses() throws Exception {
     // NOTE: not a full test, but gets some code coverage
 
     assertTrue(FactType.Person.isApplicable(FactType.Will));

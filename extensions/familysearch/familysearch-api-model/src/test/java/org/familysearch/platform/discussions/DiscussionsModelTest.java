@@ -4,16 +4,15 @@
 package org.familysearch.platform.discussions;
 
 import org.gedcomx.common.ResourceReference;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  */
-public class DiscussionsModelTest {
+class DiscussionsModelTest {
   @Test
-  public void testModel() {
+  void model() {
     Comment comment = new Comment();
     String s = "test string";
     comment.setId(s);

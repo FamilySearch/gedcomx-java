@@ -9,15 +9,15 @@ import org.gedcomx.rt.SerializationUtil;
 import org.gedcomx.types.FactQualifierType;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Ryan Heaton
  */
-public class MiscellaneousFactsExampleTest {
+class MiscellaneousFactsExampleTest {
 
   @Test
-  public void testCensusAndResidenceLikeFacts() throws Exception {
+  void censusAndResidenceLikeFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.Census, "...", "..."))
       .fact(new Fact(FactType.Emigration, "...", "..."))
@@ -32,7 +32,7 @@ public class MiscellaneousFactsExampleTest {
   }
 
   @Test
-  public void testMilitaryServiceFacts() throws Exception {
+  void militaryServiceFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.MilitaryAward, "...", "..."))
       .fact(new Fact(FactType.MilitaryDischarge, "...", "..."))
@@ -45,7 +45,7 @@ public class MiscellaneousFactsExampleTest {
   }
 
   @Test
-  public void testEducationAndOccupationFacts() throws Exception {
+  void educationAndOccupationFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.Apprenticeship, "...", "..."))
       .fact(new Fact(FactType.Education, "...", "..."))
@@ -57,7 +57,7 @@ public class MiscellaneousFactsExampleTest {
   }
 
   @Test
-  public void testReligiousOrCulturalFacts() throws Exception {
+  void religiousOrCulturalFacts() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.AdultChristening, "...", "..."))
       .fact(new Fact(FactType.Baptism, "...", "..."))
@@ -80,7 +80,7 @@ public class MiscellaneousFactsExampleTest {
   }
 
   @Test
-  public void testFactQualifiers() throws Exception {
+  void factQualifiers() throws Exception {
     Person person = new Person()
       .fact(new Fact(FactType.Christening, "...", "...").qualifier(new Qualifier(FactQualifierType.Religion, "Catholic")))
       .fact(new Fact(FactType.Census, "...", "...").qualifier(new Qualifier(FactQualifierType.Age, "44")))
@@ -91,7 +91,7 @@ public class MiscellaneousFactsExampleTest {
   }
 
   @Test
-  public void testCustomFact() throws Exception {
+  void customFact() throws Exception {
     Person person = new Person()
       .fact(new Fact().type(URI.create(DataURIUtil.encodeDataURI("Eagle Scout").toString())).place(new PlaceReference().original("...")).date(new Date().original("...")));
     Gedcomx gx = new Gedcomx().person(person);
@@ -100,7 +100,7 @@ public class MiscellaneousFactsExampleTest {
   }
 
   @Test
-  public void testRelationshipFacts() throws Exception {
+  void relationshipFacts() throws Exception {
     Relationship couple = new Relationship()
       .type(RelationshipType.Couple)
       .fact(new Fact(FactType.CivilUnion, "...", "..."))

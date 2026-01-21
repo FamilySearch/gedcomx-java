@@ -1,21 +1,21 @@
 package org.familysearch.platform.ct;
 
-import org.junit.Test;
-
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-public class SourceReferenceTagTypeTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+class SourceReferenceTagTypeTest {
 
   private Collection<SourceReferenceTagType> typesTested;
   private Collection<String> typeStrings;
 
   @Test
-  public void testIt() {
+  void it() {
     typesTested = new LinkedList<SourceReferenceTagType>();
     typeStrings = new LinkedList<String>();
 
@@ -26,7 +26,7 @@ public class SourceReferenceTagTypeTest {
     // make sure all are tested
     for (SourceReferenceTagType type : SourceReferenceTagType.values()) {
       if ((!typesTested.contains(type)) && (!SourceReferenceTagType.OTHER.equals(type))) {
-        assertTrue("Untested SourceReferenceTagType: " + type.name(), false);
+        fail("Untested SourceReferenceTagType: " + type.name());
       }
     }
   }
@@ -37,7 +37,7 @@ public class SourceReferenceTagTypeTest {
 
     // make sure enum string is unique
     if ( typeStrings.contains(enumStr) ) {
-      assertTrue("Duplicate SourceReferenceTagType value: " + enumStr, false);
+      fail("Duplicate SourceReferenceTagType value: " + enumStr);
     }
     typeStrings.add( enumStr );
   }

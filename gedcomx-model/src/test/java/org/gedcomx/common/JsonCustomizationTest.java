@@ -2,7 +2,7 @@ package org.gedcomx.common;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomNamespaceManager;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBContext;
 import java.util.ArrayList;
@@ -10,19 +10,19 @@ import java.util.List;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Ryan Heaton
  */
-public class JsonCustomizationTest {
+class JsonCustomizationTest {
 
   /**
    * tests source reference xml
    */
   @Test
-  public void testKeyedItemsXml() throws Exception {
+  void keyedItemsXml() throws Exception {
     CustomEntity custom = new CustomEntity();
     custom.setRefToSomething(new org.gedcomx.common.URI("uri:hello"));
 
@@ -73,7 +73,7 @@ public class JsonCustomizationTest {
    * tests source reference json
    */
   @Test
-  public void testKeyedItemsJson() throws Exception {
+  void keyedItemsJson() throws Exception {
     CustomEntity custom = new CustomEntity();
     custom.setRefToSomething(new org.gedcomx.common.URI("uri:hello"));
 
@@ -134,7 +134,7 @@ public class JsonCustomizationTest {
   }
 
   @Test
-  public void testKeyedItemsAsExtensionsXml() throws Exception {
+  void keyedItemsAsExtensionsXml() throws Exception {
     Gedcomx set = new Gedcomx();
     UniqueCustomKeyedItem item1 = new UniqueCustomKeyedItem();
     item1.setVal1("1");
@@ -178,7 +178,7 @@ public class JsonCustomizationTest {
   }
 
   @Test
-  public void testKeyedItemsAsExtensionsJson() throws Exception {
+  void keyedItemsAsExtensionsJson() throws Exception {
     Gedcomx set = new Gedcomx();
     UniqueCustomKeyedItem item1 = new UniqueCustomKeyedItem();
     item1.setVal1("1");

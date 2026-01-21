@@ -1,20 +1,20 @@
 package org.gedcomx.fileformat;
 
-import org.junit.Test;
-
 import java.text.DateFormat;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
 
-public class GedcomxTimeStampUtilTest {
+class GedcomxTimeStampUtilTest {
   private static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("UTC");
 
   @Test
-  public void testFormatAsXmlUTC() throws Exception {
+  void formatAsXmlUTC() throws Exception {
     SimpleDateFormat format1 = (SimpleDateFormat)DateFormat.getDateTimeInstance();
     SimpleDateFormat format2 = (SimpleDateFormat)DateFormat.getDateTimeInstance();
     SimpleDateFormat targetFormat = (SimpleDateFormat)DateFormat.getDateTimeInstance();
@@ -39,10 +39,10 @@ public class GedcomxTimeStampUtilTest {
 
     myDate = format1.parse("11 Nov 2011");
     myDateFormatted = GedcomxTimeStampUtil.formatAsXmlUTC(myDate);
-    assertEquals(myDateFormatted, "2011-11-11T00:00:00.000Z");
+    assertEquals("2011-11-11T00:00:00.000Z", myDateFormatted);
 
     myDate = format2.parse("11 Nov 2011 11:11:11.111");
     myDateFormatted = GedcomxTimeStampUtil.formatAsXmlUTC(myDate);
-    assertEquals(myDateFormatted, "2011-11-11T11:11:11.111Z");
+    assertEquals("2011-11-11T11:11:11.111Z", myDateFormatted);
   }
 }

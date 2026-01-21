@@ -1,7 +1,8 @@
 package org.gedcomx.util;
 
-import org.junit.Test;
 import org.gedcomx.Gedcomx;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.gedcomx.agent.Agent;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
@@ -12,10 +13,9 @@ import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.RelationshipType;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Class for testing the DocMap utility class.
@@ -23,10 +23,10 @@ import static org.junit.Assert.assertEquals;
  * Date: 6/10/14
  * Time: 12:19 PM
  */
-public class TestDocMap {
+class TestDocMap {
 
   @Test
-  public void testStuff() {
+  void stuff() {
     Gedcomx doc = new Gedcomx();
     Person p1 = new Person();
     p1.setId("p1");

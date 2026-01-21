@@ -1,31 +1,31 @@
 package org.gedcomx.common;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class TextValueTest {
+class TextValueTest {
   @Test
-  public void testDefaultCtor() throws Exception {
+  void defaultCtor() throws Exception {
     TextValue literal = new TextValue();
     literal.setLang("en-US");
     literal.setValue("value");
 
-    assertEquals(literal.getLang(), "en-US");
-    assertEquals(literal.getValue(), "value");
+    assertEquals("en-US", literal.getLang());
+    assertEquals("value", literal.getValue());
   }
 
   @Test
-  public void testValueCtor() throws Exception {
+  void valueCtor() throws Exception {
     TextValue literal = new TextValue("value");
 
     assertNull(literal.getLang());
-    assertEquals(literal.getValue(), "value");
+    assertEquals("value", literal.getValue());
   }
 
   @Test
-  public void testEqualsAndHash() throws Exception {
+  void equalsAndHash() throws Exception {
     TextValue literal1 = new TextValue("value");
     literal1.setLang("lang");
     TextValue literal2 = new TextValue("value");
@@ -34,13 +34,13 @@ public class TextValueTest {
     TextValue literal4 = new TextValue("not-matching");
     literal4.setLang("lang");
 
-    assertTrue(literal1.equals(literal1));
-    assertFalse(literal1.equals(null));
-    assertTrue(literal1.equals(literal1));
-    assertTrue(literal1.equals(literal2));
+    assertEquals(literal1, literal1);
+    assertNotEquals(null, literal1);
+    assertEquals(literal1, literal1);
+    assertEquals(literal1, literal2);
     assertEquals(literal1.hashCode(), literal2.hashCode());
-    assertFalse(literal1.equals(literal3));
-    assertFalse(literal1.equals(literal4));
+    assertNotEquals(literal1, literal3);
+    assertNotEquals(literal1, literal4);
 
     assertTrue(literal1.toString().contains("value"));
     assertTrue(literal2.toString().contains("lang"));

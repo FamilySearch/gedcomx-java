@@ -1,21 +1,21 @@
 package org.familysearch.platform.ct;
 
-import org.junit.Test;
-
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-public class FamilySearchFactTypeTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+class FamilySearchFactTypeTest {
 
   private Collection<FamilySearchFactType> typesTested;
   private Collection<String> typeStrings;
 
   @Test
-  public void testIt() {
+  void it() {
     typesTested = new LinkedList<FamilySearchFactType>();
     typeStrings = new LinkedList<String>();
 
@@ -34,7 +34,7 @@ public class FamilySearchFactTypeTest {
     // make sure all are tested
     for (FamilySearchFactType type : FamilySearchFactType.values()) {
       if ((!typesTested.contains(type)) && (!FamilySearchFactType.OTHER.equals(type))) {
-        assertTrue("Untested FamilySearchFactType: " + type.name(), false);
+        fail("Untested FamilySearchFactType: " + type.name());
       }
     }
   }
@@ -45,7 +45,7 @@ public class FamilySearchFactTypeTest {
 
     // make sure enum string is unique
     if ( typeStrings.contains(enumStr) ) {
-      assertTrue("Duplicate FamilySearchFactType value: " + enumStr, false);
+      fail("Duplicate FamilySearchFactType value: " + enumStr);
     }
     typeStrings.add( enumStr );
   }

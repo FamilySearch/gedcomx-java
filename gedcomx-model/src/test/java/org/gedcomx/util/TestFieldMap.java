@@ -1,14 +1,13 @@
 package org.gedcomx.util;
 
 import org.gedcomx.Gedcomx;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBException;
 import java.util.Locale;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Class for...
@@ -16,10 +15,10 @@ import static org.junit.Assert.assertNull;
  * Date: 7/31/2014
  * Time: 12:04 PM
  */
-public class TestFieldMap {
+class TestFieldMap {
 
   @Test
-  public void testRecordFieldMap() throws JAXBException {
+  void recordFieldMap() throws Exception {
     Gedcomx record = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-record.xml"));
     Gedcomx collection = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml"));
     FieldMap fieldMap = new FieldMap(record, collection);
@@ -38,7 +37,7 @@ public class TestFieldMap {
    * @throws JAXBException
    */
   @Test
-  public void testImageItemFieldMap() throws JAXBException {
+  void imageItemFieldMap() throws Exception {
     Gedcomx imageItem = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-image.xml"));
     Gedcomx collection = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml"));
     FieldMap fieldMap = new FieldMap(imageItem, collection);

@@ -1,21 +1,21 @@
 package org.gedcomx.common;
 
 import org.gedcomx.rt.GedcomNamespaceManager;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBContext;
 import java.util.Date;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 /**
  * @author Ryan Heaton
  */
-public class AttributionTest {
+class AttributionTest {
 
   static {
     GedcomNamespaceManager.registerKnownJsonType(CustomEntity.class);
@@ -25,7 +25,7 @@ public class AttributionTest {
    * tests attribution xml
    */
   @Test
-  public void testAttributionXml() throws Exception {
+  void attributionXml() throws Exception {
     Date ts = new Date();
 
     Attribution attribution = new Attribution();
@@ -40,24 +40,24 @@ public class AttributionTest {
     assertEquals("urn:someid", attribution.getContributor().getResource().toString());
     assertEquals(ts, attribution.getModified());
     assertEquals("hello, there.", attribution.getChangeMessage());
-    assertEquals(((CustomEntity) attribution.getExtensionElements().get(0)).getId(), "alt1");
-    assertEquals(((CustomEntity) attribution.getExtensionElements().get(1)).getId(), "alt2");
+    assertEquals("alt1", ((CustomEntity) attribution.getExtensionElements().get(0)).getId());
+    assertEquals("alt2", ((CustomEntity) attribution.getExtensionElements().get(1)).getId());
     assertNull(attribution.findExtensionOfType(String.class));
-    assertEquals(attribution.findExtensionOfType(CustomEntity.class).getId(), "alt1");
+    assertEquals("alt1", attribution.findExtensionOfType(CustomEntity.class).getId());
     assertEquals(0, attribution.findExtensionsOfType(String.class).size());
     assertEquals(2, attribution.findExtensionsOfType(CustomEntity.class).size());
-    assertEquals(attribution.findExtensionsOfType(CustomEntity.class).get(1).getId(), "alt2");
+    assertEquals("alt2", attribution.findExtensionsOfType(CustomEntity.class).get(1).getId());
 
     attribution.setExtensionElements(null);
     assertNull(attribution.findExtensionOfType(CustomEntity.class));
-    assertEquals(attribution.findExtensionsOfType(CustomEntity.class).size(), 0);
+    assertEquals(0, attribution.findExtensionsOfType(CustomEntity.class).size());
   }
 
   /**
    * tests attribution json
    */
   @Test
-  public void testAttributionJson() throws Exception {
+  void attributionJson() throws Exception {
     Date ts = new Date();
 
     Attribution attribution = new Attribution();
@@ -72,13 +72,13 @@ public class AttributionTest {
     assertEquals("urn:someid", attribution.getContributor().getResource().toString());
     assertEquals(ts, attribution.getModified());
     assertEquals("hello, there.", attribution.getChangeMessage());
-    assertEquals(((CustomEntity) attribution.getExtensionElements().get(0)).getId(), "alt1");
-    assertEquals(((CustomEntity) attribution.getExtensionElements().get(1)).getId(), "alt2");
+    assertEquals("alt1", ((CustomEntity) attribution.getExtensionElements().get(0)).getId());
+    assertEquals("alt2", ((CustomEntity) attribution.getExtensionElements().get(1)).getId());
     assertNull(attribution.findExtensionOfType(String.class));
-    assertEquals(attribution.findExtensionOfType(CustomEntity.class).getId(), "alt1");
+    assertEquals("alt1", attribution.findExtensionOfType(CustomEntity.class).getId());
     assertEquals(0, attribution.findExtensionsOfType(String.class).size());
     assertEquals(2, attribution.findExtensionsOfType(CustomEntity.class).size());
-    assertEquals(attribution.findExtensionsOfType(CustomEntity.class).get(1).getId(), "alt2");
+    assertEquals("alt2", attribution.findExtensionsOfType(CustomEntity.class).get(1).getId());
 
     assertEquals("urn:someid", attribution.toString());
     attribution.setContributor(null);

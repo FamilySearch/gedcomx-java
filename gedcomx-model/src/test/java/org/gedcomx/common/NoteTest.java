@@ -1,22 +1,22 @@
 package org.gedcomx.common;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
  * @author Ryan Heaton
  */
-public class NoteTest {
+class NoteTest {
 
   /**
    * tests note xml
    */
   @Test
-  public void testNoteXml() throws Exception {
+  void noteXml() throws Exception {
     Note note = new Note();
     note.setText("hello, there");
     note.setId("id");
@@ -48,7 +48,7 @@ public class NoteTest {
    * tests note json
    */
   @Test
-  public void testNoteJson() throws Exception {
+  void noteJson() throws Exception {
     Note note = new Note();
     note.setSubject("subject");
     note.setText("hello, there");

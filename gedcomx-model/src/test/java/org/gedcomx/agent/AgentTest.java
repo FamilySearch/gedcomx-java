@@ -6,7 +6,7 @@ import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.rt.json.GedcomJacksonModule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBContext;
 import java.util.ArrayList;
@@ -14,56 +14,56 @@ import java.util.Arrays;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-public class AgentTest {
+class AgentTest {
   @Test
-  public void testExtensionsThruXML() throws Exception {
+  void extensionsThruXML() throws Exception {
     Agent agent = new Agent();
     agent.setId("1234");
     agent.addExtensionElement(new CustomEntity("4321"));
     agent.addExtensionElement(new CustomEntity("5432"));
     agent.getExtensionElements().add(new CustomEntity("6543"));
     agent = processThroughXml(agent, Agent.class, JAXBContext.newInstance(Agent.class, CustomEntity.class));
-    assertEquals(agent.getExtensionElements().size(), 3);
+    assertEquals(3, agent.getExtensionElements().size());
     assertNull(agent.findExtensionOfType(String.class));
-    assertEquals(agent.findExtensionOfType(CustomEntity.class).getId(), "4321");
-    assertEquals(agent.findExtensionsOfType(String.class).size(), 0);
-    assertEquals(agent.findExtensionsOfType(CustomEntity.class).size(), 3);
-    assertEquals(agent.findExtensionsOfType(CustomEntity.class).get(1).getId(), "5432");
-    assertEquals(((CustomEntity) agent.getExtensionElements().get(2)).getId(), "6543");
+    assertEquals("4321", agent.findExtensionOfType(CustomEntity.class).getId());
+    assertEquals(0, agent.findExtensionsOfType(String.class).size());
+    assertEquals(3, agent.findExtensionsOfType(CustomEntity.class).size());
+    assertEquals("5432", agent.findExtensionsOfType(CustomEntity.class).get(1).getId());
+    assertEquals("6543", ((CustomEntity) agent.getExtensionElements().get(2)).getId());
 
     agent.setExtensionElements(null);
     assertNull(agent.getExtensionElements());
     assertNull(agent.findExtensionOfType(CustomEntity.class));
-    assertEquals(agent.findExtensionsOfType(CustomEntity.class).size(), 0);
+    assertEquals(0, agent.findExtensionsOfType(CustomEntity.class).size());
   }
 
   @Test
-  public void testExtensionsThruJSON() throws Exception {
+  void extensionsThruJSON() throws Exception {
     Agent agent = new Agent();
     agent.setId("1234");
     agent.addExtensionElement(new CustomEntity("4321"));
     agent.addExtensionElement(new CustomEntity("5432"));
     agent.getExtensionElements().add(new CustomEntity("6543"));
     agent = processThroughJson(agent, Agent.class, GedcomJacksonModule.createObjectMapper(Agent.class, CustomEntity.class));
-    assertEquals(agent.getExtensionElements().size(), 3);
-    assertEquals(agent.findExtensionOfType(CustomEntity.class).getId(), "4321");
-    assertEquals(agent.findExtensionsOfType(String.class).size(), 0);
-    assertEquals(agent.findExtensionsOfType(CustomEntity.class).size(), 3);
-    assertEquals(agent.findExtensionsOfType(CustomEntity.class).get(1).getId(), "5432");
-    assertEquals(((CustomEntity) agent.getExtensionElements().get(2)).getId(), "6543");
+    assertEquals(3, agent.getExtensionElements().size());
+    assertEquals("4321", agent.findExtensionOfType(CustomEntity.class).getId());
+    assertEquals(0, agent.findExtensionsOfType(String.class).size());
+    assertEquals(3, agent.findExtensionsOfType(CustomEntity.class).size());
+    assertEquals("5432", agent.findExtensionsOfType(CustomEntity.class).get(1).getId());
+    assertEquals("6543", ((CustomEntity) agent.getExtensionElements().get(2)).getId());
 
     agent.setExtensionElements(null);
     assertNull(agent.getExtensionElements());
     assertNull(agent.findExtensionOfType(CustomEntity.class));
-    assertEquals(agent.findExtensionsOfType(CustomEntity.class).size(), 0);
+    assertEquals(0, agent.findExtensionsOfType(CustomEntity.class).size());
   }
 
   @Test
-  public void testPersonXml() throws Exception {
+  void personXml() throws Exception {
     Agent person = createPerson();
     person = processThroughXml(person);
     assertPerson(person);
@@ -73,7 +73,7 @@ public class AgentTest {
    * tests id json
    */
   @Test
-  public void testPersonJson() throws Exception {
+  void personJson() throws Exception {
     Agent person = createPerson();
     person = processThroughJson(person);
     assertPerson(person);

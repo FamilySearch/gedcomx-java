@@ -14,7 +14,6 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
 
 import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
@@ -25,20 +24,18 @@ import org.gedcomx.conclusion.PlaceReference;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  */
-public class ChildAndParentsRelationshipTest {
+class ChildAndParentsRelationshipTest {
 
   @Test
-  public void testModel() {
+  void model() {
     ArrayList<SourceReference> sources = new ArrayList<SourceReference>();
     ArrayList<Note> notes = new ArrayList<Note>();
     ChildAndParentsRelationship rel = new ChildAndParentsRelationship();
@@ -59,23 +56,23 @@ public class ChildAndParentsRelationshipTest {
     rel.addParent1Fact(new Fact(FactType.Birth, "origBirthValue"));
     rel.addParent1Fact(new Fact(FactType.Death, "origDeathValue"));
     assertNotNull(rel.getParent1Facts());
-    assertEquals(rel.getParent1Facts().size(), 2);
-    assertEquals(rel.getParent1Facts().get(0).getValue(), "origBirthValue");
-    assertEquals(rel.getParent1Facts().get(1).getValue(), "origDeathValue");
+    assertEquals(2, rel.getParent1Facts().size());
+    assertEquals("origBirthValue", rel.getParent1Facts().get(0).getValue());
+    assertEquals("origDeathValue", rel.getParent1Facts().get(1).getValue());
 
     rel.addParent2Fact(null);
     assertNull(rel.getParent2Facts());
     rel.addParent2Fact(new Fact(FactType.Birth, "origBirthValue"));
     rel.addParent2Fact(new Fact(FactType.Death, "origDeathValue"));
     assertNotNull(rel.getParent2Facts());
-    assertEquals(rel.getParent2Facts().size(), 2);
-    assertEquals(rel.getParent2Facts().get(0).getValue(), "origBirthValue");
-    assertEquals(rel.getParent2Facts().get(1).getValue(), "origDeathValue");
+    assertEquals(2, rel.getParent2Facts().size());
+    assertEquals("origBirthValue", rel.getParent2Facts().get(0).getValue());
+    assertEquals("origDeathValue", rel.getParent2Facts().get(1).getValue());
   }
 
 
   @Test
-  public void testMarshalling() {
+  void marshalling() {
     ChildAndParentsRelationship origChildAndParentsRelationship = createChildAndParentsRelationship();
     ByteArrayOutputStream outStream = new ByteArrayOutputStream(1024); //figure out where you want to write the XML
 

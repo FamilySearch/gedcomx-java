@@ -2,8 +2,9 @@ package org.gedcomx.conclusion;
 
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -11,10 +12,10 @@ import static org.junit.Assert.*;
  * User: Randy Wilson
  * Date: 15 May 2015
  */
-public class FamilyTest {
+class FamilyTest {
 
   @Test
-  public void testFamily() {
+  void family() {
     FamilyView family = new FamilyView();
 
     // Test parents and children

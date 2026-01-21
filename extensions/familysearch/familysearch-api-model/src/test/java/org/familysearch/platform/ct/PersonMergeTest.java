@@ -2,21 +2,21 @@ package org.familysearch.platform.ct;
 
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Mike Gardiner
  */
-public class PersonMergeTest {
+class PersonMergeTest {
   @Test
-  public void testMerge() {
+  void merge() {
     Merge merge = new Merge();
 
     List<ResourceReference> copyReferences = new ArrayList<ResourceReference>();
@@ -48,7 +48,7 @@ public class PersonMergeTest {
   }
 
   @Test
-  public void testMergeAnalysis() {
+  void mergeAnalysis() {
     MergeAnalysis mergeAnalysis = new MergeAnalysis();
     mergeAnalysis.setSurvivor(new ResourceReference(URI.create("person1")));
     mergeAnalysis.setDuplicate( new ResourceReference( URI.create( "person2" ) ) );
@@ -84,10 +84,10 @@ public class PersonMergeTest {
     mergeAnalysis.setConflictingResources(conflictingReferences);
 
     assertNotNull(mergeAnalysis.getSurvivor());
-    assertNotNull("person1", mergeAnalysis.getSurvivor().getResource().toString());
+    assertNotNull(mergeAnalysis.getSurvivor().getResource().toString(), "person1");
 
     assertNotNull(mergeAnalysis.getDuplicate());
-    assertNotNull("person2", mergeAnalysis.getDuplicate().getResource().toString());
+    assertNotNull(mergeAnalysis.getDuplicate().getResource().toString(), "person2");
 
     assertNotNull(mergeAnalysis.getSurvivorResources());
     assertEquals(3, mergeAnalysis.getSurvivorResources().size());

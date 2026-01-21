@@ -16,21 +16,16 @@
 package org.gedcomx.util;
 
 import org.gedcomx.Gedcomx;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.net.URL;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class for testing the RecordIterator
@@ -39,10 +34,10 @@ import static org.junit.Assert.assertTrue;
  * Date: 11/21/13
  * Time: 1:46 PM
  */
-public class TestRecordSetIterator {
+class TestRecordSetIterator {
 
   @Test
-  public void testXmlStreamReaderCjk() throws Exception {
+  void xmlStreamReaderCjk() throws Exception {
     String a = "\uD842\uDFB7"; // Unicode "surrogate pair" Chinese character.
     String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                      "<root a1='" + a + "' a2='" + a + "'></root>\n";
@@ -55,7 +50,7 @@ public class TestRecordSetIterator {
   }
 
   @Test
-  public void testParser() throws IOException, XMLStreamException {
+  void parser() throws Exception {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset.xml");
     RecordSetIterator recordIterator = new XmlRecordSetIterator(inputStream);
     assertTrue(recordIterator.hasNext());
@@ -76,7 +71,7 @@ public class TestRecordSetIterator {
   }
 
   @Test
-  public void testParserWithMetadata() throws IOException, XMLStreamException {
+  void parserWithMetadata() throws Exception {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset2.xml");
     RecordSetIterator recordIterator = new XmlRecordSetIterator(inputStream);
     assertTrue(recordIterator.hasNext());
@@ -106,7 +101,7 @@ public class TestRecordSetIterator {
   }
 
   @Test
-  public void testClose() throws IOException, XMLStreamException {
+  void close() throws Exception {
     URL url = getClass().getClassLoader().getResource("gedcomx-recordset2.xml");
     assertNotNull(url);
 

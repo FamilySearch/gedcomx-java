@@ -10,30 +10,29 @@ import org.gedcomx.agent.Agent;
 import org.gedcomx.conclusion.*;
 import org.gedcomx.links.Link;
 import org.gedcomx.source.SourceDescription;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class FamilySearchPlatformModelVisitorBaseTest {
+class FamilySearchPlatformModelVisitorBaseTest {
   @Test
-  public void testNullVisitor() throws Exception {
+  void nullVisitor() throws Exception {
     try {
       FamilySearchPlatform fsp = new FamilySearchPlatform();
       fsp.accept(null);
       fail("Expected: NullPointerException");
     } catch (NullPointerException ex) {
-      assertTrue(true);
     }
   }
 
   @Test
-  public void testVisitFeed() throws Exception {
+  void visitFeed() throws Exception {
     FamilySearchPlatformModelVisitorBase visitor = new FamilySearchPlatformModelVisitorBase();
     assertNotNull(visitor.getContextStack());
-    assertEquals(visitor.getContextStack().size(), 0);
+    assertEquals(0, visitor.getContextStack().size());
 
     FamilySearchPlatform fsp = new FamilySearchPlatform();
 

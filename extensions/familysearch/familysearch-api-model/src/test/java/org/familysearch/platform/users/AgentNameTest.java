@@ -1,16 +1,15 @@
 package org.familysearch.platform.users;
 
 import org.gedcomx.common.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-
-public class AgentNameTest {
+class AgentNameTest {
   @Test
-  public void testAgentName() throws Exception {
+  void agentName() throws Exception {
     AgentName agentName = new AgentName();
 
     assertNull(agentName.getType());

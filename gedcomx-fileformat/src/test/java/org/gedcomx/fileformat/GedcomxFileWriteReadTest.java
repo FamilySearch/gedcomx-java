@@ -17,26 +17,24 @@ package org.gedcomx.fileformat;
 
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.GedcomxConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class GedcomxFileWriteReadTest {
+class GedcomxFileWriteReadTest {
 
   @Test
-  public void testWriteRead() throws Exception {
+  void writeRead() throws Exception {
     File tempFile = File.createTempFile("FsTestTmp", ".gedx");
     try {
       Gedcomx bundle = ExampleGedcomxFileData.create();
@@ -71,7 +69,7 @@ public class GedcomxFileWriteReadTest {
           for (GedcomxFileEntry gedxEntry : gedxFile.getEntries()) {
             String name = gedxEntry.getJarEntry().getName();
             if ((name != null) && (!name.endsWith("png"))) {
-              assertEquals(gedxEntry.getContentType(), GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE);
+              assertEquals(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE, gedxEntry.getContentType());
               Map<String, String> entryAttributes = gedxEntry.getAttributes();
               for (Map.Entry<String, String> entry : entryAttributes.entrySet()) {
                 String value = gedxEntry.getAttribute(entry.getKey());
@@ -99,27 +97,33 @@ public class GedcomxFileWriteReadTest {
     }
   }
 
-  @Test ( expected = NullPointerException.class )
-  public void testGedcomxFileEntryNullPointerException() {
-    new GedcomxFileEntry(null);
+  @Test
+  void gedcomxFileEntryNullPointerException() {
+    assertThrows(NullPointerException.class, () -> {
+      new GedcomxFileEntry(null);
+    });
   }
 
-  @Test ( expected = NullPointerException.class )
-  public void testGedcomxOutputStreamAddResourceNullPointerException1() throws IOException {
+  @Test
+  void gedcomxOutputStreamAddResourceNullPointerException1() throws Exception {
     GedcomxOutputStream gedxOutputStream = new GedcomxOutputStream(new ByteArrayOutputStream());
-    gedxOutputStream.addResource(null, null, null, null);
+    assertThrows(NullPointerException.class, () ->
+      gedxOutputStream.addResource(null, null, null, null));
   }
 
-  @Test ( expected = IllegalArgumentException.class )
-  public void testGedcomxOutputStreamAddResourceIllegalArgumentException1() throws IOException {
+  @Test
+  void gedcomxOutputStreamAddResourceIllegalArgumentException1() throws Exception {
     GedcomxOutputStream gedxOutputStream = new GedcomxOutputStream(new ByteArrayOutputStream());
-    gedxOutputStream.addResource("", null, null, null);
+    assertThrows(IllegalArgumentException.class, () ->
+      gedxOutputStream.addResource("", null, null, null));
   }
 
-  @Test ( expected = NullPointerException.class )
-  public void testGedcomxOutputStreamAddResourceNullPointerException2() throws IOException {
+  @Test
+  void gedcomxOutputStreamAddResourceNullPointerException2() throws Exception {
     GedcomxOutputStream gedxOutputStream = new GedcomxOutputStream(new ByteArrayOutputStream());
-    gedxOutputStream.addResource(GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE, null, null, null);
+    String x = GedcomxConstants.GEDCOMX_JSON_MEDIA_TYPE;
+    assertThrows(NullPointerException.class, () ->
+      gedxOutputStream.addResource(x, null, null, null));
   }
 
 }

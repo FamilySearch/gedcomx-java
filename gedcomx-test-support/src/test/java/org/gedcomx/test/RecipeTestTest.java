@@ -1,19 +1,19 @@
 package org.gedcomx.test;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
  * @author Mike Gardiner
  */
-public class RecipeTestTest extends RecipeTest {
+class RecipeTestTest extends RecipeTest {
 
   /**
    * Create a recipe and verify it exists
@@ -21,7 +21,7 @@ public class RecipeTestTest extends RecipeTest {
    * @throws Exception - An error occurred
    */
   @Test
-  public void testCreateRecipe() throws Exception {
+  void testCreateRecipe() throws Exception {
     final String title = "title";
 
     createRecipe(title)
@@ -60,7 +60,7 @@ public class RecipeTestTest extends RecipeTest {
    * a title
    */
   @Test
-  public void testRecipeNoTitle() throws Exception {
+  void recipeNoTitle() throws Exception {
     // Null Title
     try {
       createRecipe(null);
@@ -87,7 +87,7 @@ public class RecipeTestTest extends RecipeTest {
    * @throws Exception - Shouldn't throw anything since we trap the exception
    */
   @Test
-  public void testTestNonUniqueTitle() throws Exception {
+  void testNonUniqueTitle() throws Exception {
 
     try {
       createRecipe("title2")
@@ -99,8 +99,7 @@ public class RecipeTestTest extends RecipeTest {
       super.tearDown();
       fail();  // We shouldn't get here
     }
-    catch (Exception e) {
-      assertTrue(true);  // We should get here
+    catch (Exception e) {  // We should get here
     }
   }
 
@@ -130,14 +129,15 @@ public class RecipeTestTest extends RecipeTest {
    *
    * @throws Exception - An exception occurred
    */
+  @AfterEach
   @Override
   public void tearDown() throws Exception {
     // This is kind of weird to me.  The super class (RecipeTest.java) has a tearDown() method also annotated with @After, so the method is to be called
     // after running a test, but this is the actual method (not the super method) that is called
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     File dir = new File( DEFAULT_OUTPUT_DIR );
     if (dir.exists()) {
       File[] contents = dir.listFiles();

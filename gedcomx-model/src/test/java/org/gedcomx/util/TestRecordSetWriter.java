@@ -15,8 +15,6 @@
  */
 package org.gedcomx.util;
 
-import org.junit.Test;
-
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Name;
 import org.gedcomx.conclusion.NameForm;
@@ -24,6 +22,7 @@ import org.gedcomx.conclusion.NamePart;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.types.NamePartType;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBException;
 import java.io.*;
@@ -32,10 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class for testing the RecordSetWriter and RecordSetIterator class.
@@ -47,7 +43,7 @@ import static org.junit.Assert.fail;
 public class TestRecordSetWriter {
 
   @Test
-  public void testRecordSetWriter() throws IOException, JAXBException {
+  void recordSetWriter() throws Exception {
     for (int metadataPos = -1; metadataPos <= 1; metadataPos++) {
       for (boolean isGzipped : new boolean[]{false, true}) {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset.xml");
@@ -137,7 +133,7 @@ public class TestRecordSetWriter {
   }
 
   @Test
-  public void testCjk() throws Exception {
+  void cjk() throws Exception {
     final String surname = "岩\uD842\uDFB7";//"\uD850\uDDAC成功";
     final String givenName = "岩\uD842\uDFB7";
     assertEquals(givenName, CleanXMLStreamWriter.escapeCharacters(givenName));

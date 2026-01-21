@@ -23,7 +23,7 @@ import java.util.List;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 /**
  * Base class for a test class that can be used for creating recipes.
@@ -76,8 +76,8 @@ public class RecipeTest {
     CURRENT_RECIPE.set(recipe);
   }
 
-  @After
-  public void tearDown() throws Exception {
+  @AfterEach
+  void tearDown() throws Exception {
     endRecipe();
 
     String recipesDir = System.getProperty("recipes.dir");

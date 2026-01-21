@@ -16,32 +16,27 @@
 package org.gedcomx.util;
 
 import org.gedcomx.Gedcomx;
+import org.junit.jupiter.api.Test;
 
-import jakarta.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * User: brenthale
  * Date: 6/8/2015
  * <p/>
  */
-public class JsonRecordSetWriterTest {
+class JsonRecordSetWriterTest {
 
   @Test
-  public void testRecordSetWriterJson() throws IOException, JAXBException {
+  void recordSetWriterJson() throws Exception {
     for (boolean isGzipped : new boolean[]{false, true}) {
       InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gedcomx-recordset.json");
 

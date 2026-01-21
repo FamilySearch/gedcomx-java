@@ -5,17 +5,17 @@ import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.TextValue;
 import org.gedcomx.common.URI;
 import org.gedcomx.types.IdentifierType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-public class PlaceTest {
+class PlaceTest {
   @Test
-  public void testPlaceDescription_Tikhvin() throws Exception {
+  void placeDescriptionTikhvin() throws Exception {
     PlaceDescription tikhvinDesc = new PlaceDescription();
 
     assertNull(tikhvinDesc.getNames());
@@ -63,16 +63,16 @@ public class PlaceTest {
     tikhvinDesc.getAttribution().setModified(new java.util.Date(1321027871111L)); // 11 Nov 2011 11:11:11.111
     tikhvinDesc.addExtensionElement("tikhvinDesc-junkExtensionElement");
 
-    assertEquals(tikhvinDesc.getNames().get(0).getLang(), "ru-Cyrl");
-    assertEquals(tikhvinDesc.getNames().get(0).getValue(), "Ти́хвин, Ленингра́дская о́бласть, Россия");
-    assertEquals(tikhvinDesc.getNames().get(1).getLang(), "ru-Latn");
-    assertEquals(tikhvinDesc.getNames().get(1).getValue(), "Tikhvin, Leningradskaya Oblast', Rossiya");
-    assertEquals(tikhvinDesc.getNames().get(2).getLang(), "en-Latn");
-    assertEquals(tikhvinDesc.getNames().get(2).getValue(), "Tikhvin, Leningrad Oblast, Russia");
-    assertEquals(tikhvinDesc.getType().toURI().toString(), "urn:place-authority/city");
-    assertEquals(tikhvinDesc.getTemporalDescription().getFormal(), "A+1383/");
-    assertEquals(tikhvinDesc.getLatitude(), 59.6436111d, 0d);
-    assertEquals(tikhvinDesc.getLongitude(), 33.5094444d, 0d);
+    assertEquals("ru-Cyrl", tikhvinDesc.getNames().get(0).getLang());
+    assertEquals("Ти́хвин, Ленингра́дская о́бласть, Россия", tikhvinDesc.getNames().get(0).getValue());
+    assertEquals("ru-Latn", tikhvinDesc.getNames().get(1).getLang());
+    assertEquals("Tikhvin, Leningradskaya Oblast', Rossiya", tikhvinDesc.getNames().get(1).getValue());
+    assertEquals("en-Latn", tikhvinDesc.getNames().get(2).getLang());
+    assertEquals("Tikhvin, Leningrad Oblast, Russia", tikhvinDesc.getNames().get(2).getValue());
+    assertEquals("urn:place-authority/city", tikhvinDesc.getType().toURI().toString());
+    assertEquals("A+1383/", tikhvinDesc.getTemporalDescription().getFormal());
+    assertEquals(59.6436111d, tikhvinDesc.getLatitude(), 0d);
+    assertEquals(33.5094444d, tikhvinDesc.getLongitude(), 0d);
     assertEquals(tikhvinDesc.getSpatialDescription().getResource().toURI().toString(), "data:application/vnd.google-earth.kml+xml;base64," +
       "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxrbWwgeG1sbnM9Imh0dHA6" +
       "Ly93d3cub3Blbmdpcy5uZXQva21sLzIuMiIgeG1sbnM6Z3g9Imh0dHA6Ly93d3cuZ29vZ2xlLmNv" +
@@ -85,15 +85,15 @@ public class PlaceTest {
       "NTA2NiwwIDMzLjU0OTA0LDU5LjY1MDUwNjYsMCAzMy41NDkwNCw1OS42MTYxNTk0LDAgMzMuNDUw" +
       "OTYsNTkuNjE2MTU5NCwwIA0KCQkJPC9jb29yZGluYXRlcz4NCgkJPC9MaW5lYXJSaW5nPg0KCTwv" +
       "TXVsdGlHZW9tZXRyeT4NCjwvUGxhY2VtYXJrPg0KPC9rbWw+DQo=");
-    assertEquals(tikhvinDesc.getIdentifiers().get(0).getKnownType(), IdentifierType.Primary);
-    assertEquals(tikhvinDesc.getIdentifiers().get(0).getValue().toURI().toString(), "https://labs.familysearch.org/stdfinder/PlaceDetail.jsp?placeId=3262902#placeDescriptionId");
-    assertEquals(tikhvinDesc.getAttribution().getContributor().getResource().toURI().toString(), "urn:contributorId");
-    assertEquals(tikhvinDesc.getAttribution().getModified().getTime(), 1321027871111L);
-    assertEquals(tikhvinDesc.findExtensionOfType(String.class), "tikhvinDesc-junkExtensionElement");
+    assertEquals(IdentifierType.Primary, tikhvinDesc.getIdentifiers().get(0).getKnownType());
+    assertEquals("https://labs.familysearch.org/stdfinder/PlaceDetail.jsp?placeId=3262902#placeDescriptionId", tikhvinDesc.getIdentifiers().get(0).getValue().toURI().toString());
+    assertEquals("urn:contributorId", tikhvinDesc.getAttribution().getContributor().getResource().toURI().toString());
+    assertEquals(1321027871111L, tikhvinDesc.getAttribution().getModified().getTime());
+    assertEquals("tikhvinDesc-junkExtensionElement", tikhvinDesc.findExtensionOfType(String.class));
   }
 
   @Test
-  public void testPlaceReference_Tikhvin() throws Exception {
+  void placeReferenceTikhvin() throws Exception {
     PlaceReference tikhvinRef = new PlaceReference();
 
     assertNull(tikhvinRef.getOriginal());
@@ -104,14 +104,14 @@ public class PlaceTest {
     tikhvinRef.setDescriptionRef(URI.create("#tikhvinDesc1"));
     tikhvinRef.addExtensionElement("tikhvinRef-junkExtensionElement");
 
-    assertEquals(tikhvinRef.getOriginal(), "Tikhvin, Leningradskaya Oblast, Russia");
-    assertEquals(tikhvinRef.getDescriptionRef().toURI().toString(), "#tikhvinDesc1");
-    assertEquals(tikhvinRef.findExtensionOfType(String.class), "tikhvinRef-junkExtensionElement");
-    assertEquals(tikhvinRef.toString(), "PlaceReference{original='Tikhvin, Leningradskaya Oblast, Russia', descriptionRef='#tikhvinDesc1'}");
+    assertEquals("Tikhvin, Leningradskaya Oblast, Russia", tikhvinRef.getOriginal());
+    assertEquals("#tikhvinDesc1", tikhvinRef.getDescriptionRef().toURI().toString());
+    assertEquals("tikhvinRef-junkExtensionElement", tikhvinRef.findExtensionOfType(String.class));
+    assertEquals("PlaceReference{original='Tikhvin, Leningradskaya Oblast, Russia', descriptionRef='#tikhvinDesc1'}", tikhvinRef.toString());
   }
 
   @Test
-  public void testPlaceDescription_Luga() throws Exception {
+  void placeDescriptionLuga() throws Exception {
     PlaceDescription lugaDesc = new PlaceDescription();
 
     assertNull(lugaDesc.getNames());
@@ -159,16 +159,16 @@ public class PlaceTest {
     lugaDesc.getAttribution().setModified(new java.util.Date(1321027871111L)); // 11 Nov 2011 11:11:11.111
     lugaDesc.addExtensionElement("lugaDesc-junkExtensionElement");
 
-    assertEquals(lugaDesc.getNames().get(0).getLang(), "ru-Cyrl");
-    assertEquals(lugaDesc.getNames().get(0).getValue(), "Лу́га, Новгоро́дская о́бласть, Россия");
-    assertEquals(lugaDesc.getNames().get(1).getLang(), "ru-Latn");
-    assertEquals(lugaDesc.getNames().get(1).getValue(), "Luga, Leningradskaya Oblast', Rossiya");
-    assertEquals(lugaDesc.getNames().get(2).getLang(), "en-Latn");
-    assertEquals(lugaDesc.getNames().get(2).getValue(), "Luga, Leningrad Oblast, Russia");
-    assertEquals(lugaDesc.getType().toURI().toString(), "urn:place-authority/city");
-    assertEquals(lugaDesc.getTemporalDescription().getFormal(), "+1777-08-03/");
-    assertEquals(lugaDesc.getLatitude(), 58.7372222d, 0d);
-    assertEquals(lugaDesc.getLongitude(), 29.8452778d, 0d);
+    assertEquals("ru-Cyrl", lugaDesc.getNames().get(0).getLang());
+    assertEquals("Лу́га, Новгоро́дская о́бласть, Россия", lugaDesc.getNames().get(0).getValue());
+    assertEquals("ru-Latn", lugaDesc.getNames().get(1).getLang());
+    assertEquals("Luga, Leningradskaya Oblast', Rossiya", lugaDesc.getNames().get(1).getValue());
+    assertEquals("en-Latn", lugaDesc.getNames().get(2).getLang());
+    assertEquals("Luga, Leningrad Oblast, Russia", lugaDesc.getNames().get(2).getValue());
+    assertEquals("urn:place-authority/city", lugaDesc.getType().toURI().toString());
+    assertEquals("+1777-08-03/", lugaDesc.getTemporalDescription().getFormal());
+    assertEquals(58.7372222d, lugaDesc.getLatitude(), 0d);
+    assertEquals(29.8452778d, lugaDesc.getLongitude(), 0d);
     assertEquals(lugaDesc.getSpatialDescription().getResource().toURI().toString(), "data:application/vnd.google-earth.kml+xml;base64," +
       "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxrbWwgeG1sbnM9Imh0dHA6" +
       "Ly93d3cub3Blbmdpcy5uZXQva21sLzIuMiIgeG1sbnM6Z3g9Imh0dHA6Ly93d3cuZ29vZ2xlLmNv" +
@@ -181,15 +181,15 @@ public class PlaceTest {
       "ODkwMzg4OCw1OC43Njk1OTk0LDAgMjkuODkwMzg4OCw1OC43MDA4MjY2LDAgMjkuODA1NTQzMiw1" +
       "OC43MDA4MjY2LDAgDQoJCQk8L2Nvb3JkaW5hdGVzPg0KCQk8L0xpbmVhclJpbmc+DQoJPC9NdWx0" +
       "aUdlb21ldHJ5Pg0KPC9QbGFjZW1hcms+DQo8L2ttbD4NCg==");
-    assertEquals(lugaDesc.getIdentifiers().get(0).getKnownType(), IdentifierType.Primary);
-    assertEquals(lugaDesc.getIdentifiers().get(0).getValue().toURI().toString(), "https://labs.familysearch.org/stdfinder/PlaceDetail.jsp?placeId=3314013#placeDescriptionId");
-    assertEquals(lugaDesc.getAttribution().getContributor().getResource().toURI().toString(), "urn:contributorId");
-    assertEquals(lugaDesc.getAttribution().getModified().getTime(), 1321027871111L);
-    assertEquals(lugaDesc.findExtensionOfType(String.class), "lugaDesc-junkExtensionElement");
+    assertEquals(IdentifierType.Primary, lugaDesc.getIdentifiers().get(0).getKnownType());
+    assertEquals("https://labs.familysearch.org/stdfinder/PlaceDetail.jsp?placeId=3314013#placeDescriptionId", lugaDesc.getIdentifiers().get(0).getValue().toURI().toString());
+    assertEquals("urn:contributorId", lugaDesc.getAttribution().getContributor().getResource().toURI().toString());
+    assertEquals(1321027871111L, lugaDesc.getAttribution().getModified().getTime());
+    assertEquals("lugaDesc-junkExtensionElement", lugaDesc.findExtensionOfType(String.class));
   }
 
   @Test
-  public void testPlaceReference_Luga() throws Exception {
+  void placeReferenceLuga() throws Exception {
     PlaceReference lugaRef = new PlaceReference();
 
     assertNull(lugaRef.getOriginal());
@@ -200,9 +200,9 @@ public class PlaceTest {
     lugaRef.setDescriptionRef(URI.create("#lugaDesc1"));
     lugaRef.addExtensionElement("lugaRef-junkExtensionElement");
 
-    assertEquals(lugaRef.getOriginal(), "Luga, Leningradskaya Oblast', Russia");
-    assertEquals(lugaRef.getDescriptionRef().toURI().toString(), "#lugaDesc1");
-    assertEquals(lugaRef.findExtensionOfType(String.class), "lugaRef-junkExtensionElement");
-    assertEquals(lugaRef.toString(), "PlaceReference{original='Luga, Leningradskaya Oblast', Russia', descriptionRef='#lugaDesc1'}");
+    assertEquals("Luga, Leningradskaya Oblast', Russia", lugaRef.getOriginal());
+    assertEquals("#lugaDesc1", lugaRef.getDescriptionRef().toURI().toString());
+    assertEquals("lugaRef-junkExtensionElement", lugaRef.findExtensionOfType(String.class));
+    assertEquals("PlaceReference{original='Luga, Leningradskaya Oblast', Russia', descriptionRef='#lugaDesc1'}", lugaRef.toString());
   }
 }

@@ -1,10 +1,9 @@
 package org.gedcomx.date;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
@@ -12,10 +11,10 @@ import static org.fest.assertions.api.Assertions.fail;
 /**
  * @author John Clark.
  */
-public class SimpleTest {
+class SimpleTest {
 
   @Test
-   public void errorOnBlankString() {
+  void errorOnBlankString() {
     try {
       new GedcomxDateSimple("");
       fail("GedcomxDateException expected because date must not be empty");
@@ -29,7 +28,7 @@ public class SimpleTest {
    */
 
   @Test
-  public void errorOnMissingPlusMinus() {
+  void errorOnMissingPlusMinus() {
     try {
       new GedcomxDateSimple("2000-03-01");
       fail("GedcomxDateException expected because missing plus");
@@ -39,7 +38,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnMalformedYear() {
+  void errorOnMalformedYear() {
     try {
       new GedcomxDateSimple("+1ooo");
       fail("GedcomxDateException expected because o != 0");
@@ -49,26 +48,27 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnPositiveYear() {
+  void successOnPositiveYear() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000");
     assertThat(date.getYear()).isEqualTo(1000);
   }
 
   @Test
-  public void successOnNegativeYear() {
+  void successOnNegativeYear() {
     GedcomxDateSimple date = new GedcomxDateSimple("-0010");
     assertThat(date.getYear()).isEqualTo(-10);
   }
 
   @Test
-  public void successOnPositiveYearZero() {
+  void successOnPositiveYearZero() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0000");
     assertThat(date.getYear())
             .as("The Gedcomx Date specification requires that the year before 1 CE or 1 AD is represented as 0")
             .isEqualTo(0);
   }
+
   @Test
-  public void successOnNegativeYearZero() {
+  void successOnNegativeYearZero() {
     GedcomxDateSimple date = new GedcomxDateSimple("-0000");
     assertThat(date.getYear())
             .as("The Gedcomx Date specification requires that the year before 1 CE or 1 AD is represented as 0")
@@ -76,14 +76,14 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnYearHour() {
+  void successOnYearHour() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000T10");
     assertThat(date.getYear()).isEqualTo(1000);
     assertThat(date.getHours()).isEqualTo(10);
   }
 
   @Test
-  public void errorOnInvalidYearMonthSeparator() {
+  void errorOnInvalidYearMonthSeparator() {
     try {
       new GedcomxDateSimple("+1000_10");
       fail("GedcomxDateException expected because _ is not the year-month separator");
@@ -97,7 +97,7 @@ public class SimpleTest {
    */
 
   @Test
-  public void errorOnOneDigitMonth() {
+  void errorOnOneDigitMonth() {
     try {
       new GedcomxDateSimple("+1000-1");
       fail("GedcomxDateException expected because month must be 2 digits");
@@ -107,7 +107,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidMonth() {
+  void errorOnInvalidMonth() {
     try {
       new GedcomxDateSimple("+1000-o1-01");
       fail("GedcomxDateException expected because o != 0");
@@ -117,7 +117,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnMonth0() {
+  void errorOnMonth0() {
     try {
       new GedcomxDateSimple("+1000-00");
       fail("GedcomxDateException expected because there is no month 0");
@@ -127,7 +127,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnMonth13() {
+  void errorOnMonth13() {
     try {
       new GedcomxDateSimple("+1000-13");
       fail("GedcomxDateException expected because there are only 12 months");
@@ -137,7 +137,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnYearMonth() {
+  void successOnYearMonth() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-04");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(4);
@@ -145,7 +145,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnYearMonthHour() {
+  void successOnYearMonthHour() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000-10T10");
     assertThat(date.getYear()).isEqualTo(1000);
     assertThat(date.getMonth()).isEqualTo(10);
@@ -154,7 +154,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidMonthDaySeparator() {
+  void errorOnInvalidMonthDaySeparator() {
     try {
       new GedcomxDateSimple("+1000-10=01");
       fail("GedcomxDateException expected because = is not the month-day separator");
@@ -168,7 +168,7 @@ public class SimpleTest {
    */
 
   @Test
-  public void errorOnOneDigitDay() {
+  void errorOnOneDigitDay() {
     try {
       new GedcomxDateSimple("+1000-10-1");
       fail("GedcomxDateException expected because day must be 2 digits");
@@ -178,7 +178,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidDay() {
+  void errorOnInvalidDay() {
     try {
       new GedcomxDateSimple("+1000-01-o1");
       fail("GedcomxDateException expected because o != 0");
@@ -188,7 +188,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnDay0() {
+  void errorOnDay0() {
     try {
       new GedcomxDateSimple("+1000-10-00");
       fail("GedcomxDateException expected because there is no day 0");
@@ -198,7 +198,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnDay31InFeb() {
+  void errorOnDay31InFeb() {
     try {
       new GedcomxDateSimple("+1000-04-31");
       fail("GedcomxDateException expected because there is no day 31 in february");
@@ -208,7 +208,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnLeapYear() {
+  void successOnLeapYear() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1600-02-29");
     assertThat(date.getYear()).isEqualTo(1600);
     assertThat(date.getMonth()).isEqualTo(2);
@@ -217,7 +217,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnMissingT() {
+  void errorOnMissingT() {
     try {
       new GedcomxDateSimple("+1492-03-1501:02:03");
       fail("GedcomxDateException expected because T required before time");
@@ -231,7 +231,7 @@ public class SimpleTest {
    */
 
   @Test
-  public void errorOnOneDigitHour() {
+  void errorOnOneDigitHour() {
     try {
       new GedcomxDateSimple("+1000-10-11T1");
       fail("GedcomxDateException expected because hour must be 2 digits");
@@ -241,7 +241,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidHour() {
+  void errorOnInvalidHour() {
     try {
       new GedcomxDateSimple("+1000-01-11T1o");
       fail("GedcomxDateException expected because o != 0");
@@ -251,7 +251,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnHour25() {
+  void errorOnHour25() {
     try {
       new GedcomxDateSimple("+1000-10-01T25");
       fail("GedcomxDateException expected because there is no hour 25");
@@ -261,7 +261,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnHour24() {
+  void successOnHour24() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T24Z");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -274,7 +274,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidHourMinuteSeparator() {
+  void errorOnInvalidHourMinuteSeparator() {
     try {
       new GedcomxDateSimple("+1000-10-01T10|30");
       fail("GedcomxDateException expected because | is not the hour-minute separator");
@@ -288,7 +288,7 @@ public class SimpleTest {
    */
 
   @Test
-  public void errorOnOneDigitMinute() {
+  void errorOnOneDigitMinute() {
     try {
       new GedcomxDateSimple("+1000-10-11T10:1");
       fail("GedcomxDateException expected because minutes must be 2 digits");
@@ -298,7 +298,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidMinute() {
+  void errorOnInvalidMinute() {
     try {
       new GedcomxDateSimple("+1000-01-11T10:1o");
       fail("GedcomxDateException expected because o != 0");
@@ -308,7 +308,7 @@ public class SimpleTest {
   }
 
   @Test
-   public void errorOnMinute60() {
+  void errorOnMinute60() {
     try {
       new GedcomxDateSimple("+1000-10-01T23:60");
       fail("GedcomxDateException expected because there is no minute 60");
@@ -318,7 +318,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnHour24MinuteNot0() {
+  void errorOnHour24MinuteNot0() {
     try {
       new GedcomxDateSimple("+1000-10-01T24:15");
       fail("GedcomxDateException expected because there is no minute 15 when hour is 24");
@@ -328,7 +328,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnHour23_59() {
+  void successOnHour23_59() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -339,7 +339,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnHour23_59Z() {
+  void successOnHour23_59Z() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59Z");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -352,7 +352,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidMinuteSecondSeparator() {
+  void errorOnInvalidMinuteSecondSeparator() {
     try {
       new GedcomxDateSimple("+1000-10-01T10:30|15");
       fail("GedcomxDateException expected because | is not the minute-second separator");
@@ -366,7 +366,7 @@ public class SimpleTest {
    */
 
   @Test
-  public void errorOnOneDigitSecond() {
+  void errorOnOneDigitSecond() {
     try {
       new GedcomxDateSimple("+1000-10-11T10:15:1");
       fail("GedcomxDateException expected because seconds must be 2 digits");
@@ -376,7 +376,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidSecond() {
+  void errorOnInvalidSecond() {
     try {
       new GedcomxDateSimple("+1000-01-11T10:15:1o");
       fail("GedcomxDateException expected because o != 0");
@@ -386,7 +386,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnSecond60() {
+  void errorOnSecond60() {
     try {
       new GedcomxDateSimple("+1000-10-01T23:24:60");
       fail("GedcomxDateException expected because there is no second 60");
@@ -396,7 +396,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnHour24SecondNot0() {
+  void errorOnHour24SecondNot0() {
     try {
       new GedcomxDateSimple("+1000-10-01T24:00:01");
       fail("GedcomxDateException expected because there is no second 1 when hour is 24");
@@ -406,7 +406,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnHour23_59_59() {
+  void successOnHour23_59_59() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59:59");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -417,7 +417,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnHour23_59_59Z() {
+  void successOnHour23_59_59Z() {
     GedcomxDateSimple date = new GedcomxDateSimple("+0987-01-25T23:59:59Z");
     assertThat(date.getYear()).isEqualTo(987);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -434,7 +434,7 @@ public class SimpleTest {
    */
 
   @Test
-  public void successOnZ() {
+  void successOnZ() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000-01-01T23:15Z");
     assertThat(date.getYear()).isEqualTo(1000);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -447,7 +447,7 @@ public class SimpleTest {
   }
 
   @Test
-   public void errorOnExtraCharsAfterZ() {
+  void errorOnExtraCharsAfterZ() {
     try {
       new GedcomxDateSimple("+1000-10-01T24:00:00ZSTUFF");
       fail("GedcomxDateException expected because there is no STUFF allowed");
@@ -457,7 +457,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnMissingTZHours() {
+  void errorOnMissingTZHours() {
     try {
       new GedcomxDateSimple("+1000-10-01T24:00:00-1");
       fail("GedcomxDateException expected because tzHours must be 2 digits");
@@ -467,7 +467,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidTZHoursPrefix() {
+  void errorOnInvalidTZHoursPrefix() {
     try {
       new GedcomxDateSimple("+1000-10-01T24:00:00_10");
       fail("GedcomxDateException expected because tzHours must start with + or -");
@@ -477,7 +477,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidTZHours() {
+  void errorOnInvalidTZHours() {
     try {
       new GedcomxDateSimple("+1000-01-11T10:15:10+1o");
       fail("GedcomxDateException expected because o != 0");
@@ -487,7 +487,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnPositiveTZHours() {
+  void successOnPositiveTZHours() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000-01-01T23:15+15");
     assertThat(date.getYear()).isEqualTo(1000);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -500,7 +500,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnNegativeTZHours() {
+  void successOnNegativeTZHours() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000-01-01T23:15-02");
     assertThat(date.getYear()).isEqualTo(1000);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -513,7 +513,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnZeroTZHours() {
+  void successOnZeroTZHours() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000-01-01T23:15-00");
     assertThat(date.getYear()).isEqualTo(1000);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -526,7 +526,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidTZHourTZMinuteSeparator() {
+  void errorOnInvalidTZHourTZMinuteSeparator() {
     try {
       new GedcomxDateSimple("+1000-10-01T10:30:15-06-30");
       fail("GedcomxDateException expected because | is not the tzHour-tzMinute separator");
@@ -539,7 +539,7 @@ public class SimpleTest {
    * TZMINUTES
    */
   @Test
-  public void errorOnMissingTZMinutes() {
+  void errorOnMissingTZMinutes() {
     try {
       new GedcomxDateSimple("+1000-10-01T24:00:00-10:1");
       fail("GedcomxDateException expected because tzHours must be 2 digits");
@@ -549,7 +549,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnInvalidTZMinutes() {
+  void errorOnInvalidTZMinutes() {
     try {
       new GedcomxDateSimple("+1000-01-11T10:15:10+10:1o");
       fail("GedcomxDateException expected because o != 0");
@@ -559,7 +559,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void errorOnExtraCharsAfterTZSeconds() {
+  void errorOnExtraCharsAfterTZSeconds() {
     try {
       new GedcomxDateSimple("+1000-01-11T10:15:10+10:10blah");
       fail("GedcomxDateException expected because nothing is allowed after tzSeconds");
@@ -569,7 +569,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void successOnTZMinutes() {
+  void successOnTZMinutes() {
     GedcomxDateSimple date = new GedcomxDateSimple("+1000-01-01T23:15-00:30");
     assertThat(date.getYear()).isEqualTo(1000);
     assertThat(date.getMonth()).isEqualTo(1);
@@ -587,19 +587,19 @@ public class SimpleTest {
    */
 
   @Test
-  public void getType() {
+  void getType() {
     GedcomxDateSimple simple = new GedcomxDateSimple("+1000");
     assertThat(simple.getType()).isEqualTo(GedcomxDateType.SIMPLE);
   }
 
   @Test
-  public void isApproximate() {
+  void isApproximate() {
     GedcomxDateSimple simple = new GedcomxDateSimple("+1000");
     assertThat(simple.isApproximate()).isEqualTo(false);
   }
 
   @Test
-  public void toFormalString() {
+  void toFormalString() {
     List<String> tests = Arrays.asList("+1000-01-01T24:00:00Z","-1000-01-01T23:15:15-06:30","+0001-12","-0090");
     for(String test: tests) {
       GedcomxDateSimple simple = new GedcomxDateSimple(test);
@@ -608,7 +608,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareTo() {
+  void compareTo() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T10:00:00Z");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-02T10:00:00Z");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -620,7 +620,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYear() {
+  void compareToPartialDateYear() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000");
     GedcomxDateSimple after = new GedcomxDateSimple("+1001");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -632,7 +632,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYearMonth() {
+  void compareToPartialDateYearMonth() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-02");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -644,7 +644,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYearMonthDay() {
+  void compareToPartialDateYearMonthDay() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-02");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -656,7 +656,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYearMonthDayHour() {
+  void compareToPartialDateYearMonthDayHour() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T09");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -668,7 +668,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYearMonthDayHourMinute() {
+  void compareToPartialDateYearMonthDayHourMinute() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:12");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -680,7 +680,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYearMonthDayHourMinuteSeconds() {
+  void compareToPartialDateYearMonthDayHourMinuteSeconds() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10:00");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:10:01");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -692,7 +692,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYearMonthDayHourMinuteSecondsTzHours() {
+  void compareToPartialDateYearMonthDayHourMinuteSecondsTzHours() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10:00+00");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:09:01-01");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -704,7 +704,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToPartialDateYearMonthDayHourMinuteSecondsTzHoursTzMinutes() {
+  void compareToPartialDateYearMonthDayHourMinuteSecondsTzHoursTzMinutes() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000-01-01T08:10:00-01:00");
     GedcomxDateSimple after = new GedcomxDateSimple("+1000-01-01T08:09:31-01:30");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -716,7 +716,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToBCEYear() {
+  void compareToBCEYear() {
     GedcomxDateSimple before = new GedcomxDateSimple("-1001");
     GedcomxDateSimple after = new GedcomxDateSimple("-1000");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -728,7 +728,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testCompareToApproximateYear() {
+  void compareToApproximateYear() {
     GedcomxDateSimple before = new GedcomxDateSimple("+1000");
     GedcomxDateApproximate after = new GedcomxDateApproximate("A+1001");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -740,7 +740,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testBaseClassCompareToApproximateYear() {
+  void baseClassCompareToApproximateYear() {
     GedcomxDate before = GedcomxDateUtil.parse("+1000");
     GedcomxDate after = GedcomxDateUtil.parse("A+1001");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))
@@ -752,7 +752,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void testBaseClassCompareToClassCastException() {
+  void baseClassCompareToClassCastException() {
     GedcomxDate before = GedcomxDateUtil.parse("+1000");
     GedcomxDate after = GedcomxDateUtil.parse("A+1001/+1002");
     org.assertj.core.api.Assertions.assertThatExceptionOfType(ClassCastException.class)
@@ -761,14 +761,14 @@ public class SimpleTest {
   }
 
   @Test
-  public void testBaseClassCompareToNullPointerException() {
+  void baseClassCompareToNullPointerException() {
     GedcomxDate before = GedcomxDateUtil.parse("+1000");
     org.assertj.core.api.Assertions.assertThatExceptionOfType(NullPointerException.class)
             .isThrownBy(() -> before.compareTo(null));
   }
 
   @Test
-  public void testBaseClassCompareToSingleDigitYear() {
+  void baseClassCompareToSingleDigitYear() {
     GedcomxDate before = GedcomxDateUtil.parse("-0001");
     GedcomxDate after = GedcomxDateUtil.parse("+0001");
     org.assertj.core.api.Assertions.assertThat(before.compareTo(after))

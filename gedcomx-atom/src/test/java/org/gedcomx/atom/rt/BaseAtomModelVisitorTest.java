@@ -7,27 +7,27 @@ import org.gedcomx.atom.Entry;
 import org.gedcomx.atom.Feed;
 import org.gedcomx.atom.Person;
 import org.gedcomx.links.Link;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class BaseAtomModelVisitorTest {
-  @Test ( expected = NullPointerException.class )
-  public void testNullVisitor() throws Exception {
+class BaseAtomModelVisitorTest {
+  @Test
+  void nullVisitor() throws Exception {
     Feed feed = new Feed();
-    feed.accept(null);
+    assertThrows(NullPointerException.class, () ->
+      feed.accept(null));
   }
 
   @Test
-  public void testVisitFeed() throws Exception {
+  void visitFeed() throws Exception {
     AtomModelVisitorBase visitor = new AtomModelVisitorBase();
     assertNotNull(visitor.getContextStack());
-    assertEquals(visitor.getContextStack().size(), 0);
+    assertEquals(0, visitor.getContextStack().size());
 
     Feed feed = new Feed();
 

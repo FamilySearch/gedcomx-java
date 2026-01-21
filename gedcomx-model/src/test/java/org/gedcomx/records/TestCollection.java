@@ -4,9 +4,10 @@ import org.gedcomx.common.URI;
 import org.gedcomx.conclusion.Identifier;
 import org.gedcomx.types.IdentifierType;
 import org.gedcomx.types.ResourceType;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,10 +17,10 @@ import java.util.Collections;
  * User: Randy Wilson
  * Date: 23 June 2015
  */
-public class TestCollection {
+class TestCollection {
 
   @Test
-  public void testCollection() {
+  void collection() {
     Collection collection = new Collection();
     collection.setId("c1");
     collection.setIdentifiers(Collections.singletonList(new Identifier(new URI("https://api.familysearch.org/platform/records/collections/12345"), IdentifierType.Primary)));

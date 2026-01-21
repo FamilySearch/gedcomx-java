@@ -1,16 +1,16 @@
 package org.gedcomx.rt;
 
-import org.junit.Test;
-
 import java.net.URI;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings ( "unchecked" )
-public class DataURIUtilTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SuppressWarnings("unchecked")
+class DataURIUtilTest {
 
   @Test
-  public void testEncodeDecode() throws Exception {
+  void encodeDecode() throws Exception {
     String value = "Birthplace may be Maryland:  http://www.smokykin.com/tng/getperson.php?personID=I4441&tree=Smokykin";
     assertEquals(value, DataURIUtil.getValueAsString(DataURIUtil.encodeDataURI(value)));
 

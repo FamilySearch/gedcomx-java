@@ -28,7 +28,6 @@
     <jakarta.ws.rs-api.version>4.0.0</jakarta.ws.rs-api.version>
     <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
     <glassfish-jaxb-runtime.version>4.0.6</glassfish-jaxb-runtime.version>
-    <junit.version>4.13.2</junit.version>
     <junit-jupiter.version>6.0.1</junit-jupiter.version>
     <woodstox-core.version>7.1.1</woodstox-core.version>
 
@@ -64,11 +63,6 @@
   </modules>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -140,15 +134,11 @@
       </dependency>
 
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
         <version>${junit-jupiter.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
 
       <dependency>

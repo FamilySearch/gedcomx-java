@@ -6,6 +6,7 @@ import org.gedcomx.conclusion.PlaceDescription;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.records.FieldValue;
 import org.gedcomx.source.SourceReference;
+import org.junit.jupiter.api.Test;
 
 import jakarta.xml.bind.JAXBException;
 import java.util.HashSet;
@@ -13,10 +14,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Class for testing DocCheck
@@ -24,14 +23,14 @@ import static org.junit.Assert.assertTrue;
  * Date: 10/6/2014
  * Time: 9:51 PM
  */
-public class TestDocCheck {
+class TestDocCheck {
 
   /**
    * Test the DocCheck on a record (but without fields here).
    * @throws JAXBException
    */
   @Test
-  public void testDocCheck() throws JAXBException {
+  void docCheck() throws Exception {
     Gedcomx doc = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-record.xml"));
     URI wrongLocalUri = new URI("#wrongId");
     SourceReference wrongSourceReference = new SourceReference();
@@ -101,7 +100,7 @@ public class TestDocCheck {
   }
 
   @Test
-  public void testDocCheckWithFields() throws JAXBException {
+  void docCheckWithFields() throws Exception {
     Gedcomx record = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-record.xml"));
     Gedcomx collection = MarshalUtil.unmarshal(getClass().getClassLoader().getResourceAsStream("gedcomx-collection.xml"));
 
@@ -119,7 +118,7 @@ public class TestDocCheck {
   private void checkDoc(Gedcomx doc, Integer... errorCodes) {
     String errors = DocCheck.checkDocument(doc);
     if (errors == null) {
-      assertEquals(errorCodes.length, 0);
+      assertEquals(0, errorCodes.length);
     }
     else {
       Set<Integer> actualErrorCodes = new HashSet<Integer>();
@@ -131,7 +130,7 @@ public class TestDocCheck {
       }
       assertEquals(errorCodes.length, actualErrorCodes.size());
       for (Integer errorCode : errorCodes) {
-        assertTrue("Did not find error code: " + errorCode, actualErrorCodes.contains(errorCode));
+        assertTrue(actualErrorCodes.contains(errorCode), "Did not find error code: " + errorCode);
       }
     }  }
 
@@ -140,7 +139,7 @@ public class TestDocCheck {
   private void checkFields(Gedcomx record, Gedcomx collection, String... missingLabelIds) {
     String errors = DocCheck.checkDocument(record, collection);
     if (errors == null) {
-      assertEquals(missingLabelIds.length, 0);
+      assertEquals(0, missingLabelIds.length);
     }
     else {
       Set<String> actualMissingLabelIds = new HashSet<String>();
@@ -152,7 +151,7 @@ public class TestDocCheck {
       }
       assertEquals(missingLabelIds.length, actualMissingLabelIds.size());
       for (String labelId : missingLabelIds) {
-        assertTrue("Did not error for labelId '" + labelId + "'", actualMissingLabelIds.contains(labelId));
+        assertTrue(actualMissingLabelIds.contains(labelId), "Did not error for labelId '" + labelId + "'");
       }
     }
   }

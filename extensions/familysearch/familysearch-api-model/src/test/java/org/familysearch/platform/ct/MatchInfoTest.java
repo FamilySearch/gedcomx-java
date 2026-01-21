@@ -1,17 +1,14 @@
 package org.familysearch.platform.ct;
 
 import org.gedcomx.common.URI;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-public class MatchInfoTest {
+class MatchInfoTest {
 
   @Test
-  public void testMatchInfo() throws Exception {
+  void matchInfo() throws Exception {
 
     MatchInfo matchInfo = new MatchInfo();
     assertNull(matchInfo.getCollection());

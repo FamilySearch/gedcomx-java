@@ -6,23 +6,23 @@ import org.gedcomx.test.RecipeTest;
 import org.gedcomx.test.Snippet;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
 import static org.gedcomx.rt.SerializationUtil.processThroughJson;
 import static org.gedcomx.rt.SerializationUtil.processThroughXml;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /**
  * @author Ryan Heaton
  */
-public class RelationshipRecipesTest extends RecipeTest {
+class RelationshipRecipesTest extends RecipeTest {
 
   @Test
-  public void testRelationship() throws Exception {
+  void relationship() throws Exception {
     createRecipe("Simple Relationship")
       .withDescription("Simple example for a relationship.")
       .applicableTo(Relationship.class);
@@ -84,8 +84,8 @@ public class RelationshipRecipesTest extends RecipeTest {
     assertEquals("F123", relationship.getFacts().get(0).getId());
     assertEquals(FactType.AdoptiveParent, relationship.getFacts().get(0).getKnownType());
     assertNotNull(relationship.getFacts().get(0).getDate());
-    assertNotNull("January 6, 1759", relationship.getFacts().get(0).getDate().getOriginal());
-    assertNotNull("+1759-01-06", relationship.getFacts().get(0).getDate().getFormal());
+    assertNotNull(relationship.getFacts().get(0).getDate().getOriginal(), "January 6, 1759");
+    assertNotNull(relationship.getFacts().get(0).getDate().getFormal(), "+1759-01-06");
 
     assertNotNull(relationship.getIdentifiers());
     assertEquals(1, relationship.getIdentifiers().size());

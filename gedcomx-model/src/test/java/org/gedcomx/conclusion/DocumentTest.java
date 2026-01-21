@@ -3,14 +3,14 @@ package org.gedcomx.conclusion;
 import org.gedcomx.common.*;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.DocumentType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class DocumentTest {
+class DocumentTest {
   @Test
-  public void testDocument() throws Exception {
+  void document() throws Exception {
     Document document = new Document();
     document.setKnownType(DocumentType.Abstract);
 
@@ -38,24 +38,24 @@ public class DocumentTest {
     document.addExtensionElement(new CustomEntity("2345"));
 
     assertEquals(DocumentType.Abstract, document.getKnownType());
-    assertEquals(document.getId(), "DDDD-DDD");
-    assertEquals(document.getLang(), "en-US");
-    assertEquals(document.getText(), "(The text of the document abstract goes here.)");
-    assertEquals(document.getSources().size(), 2);
-    assertEquals(document.getSources().get(0).getDescriptionRef().toURI().toString(), "urn:original-source1");
-    assertEquals(document.getSources().get(1).getDescriptionRef().toURI().toString(), "urn:original-source2");
-    assertEquals(document.getNotes().size(), 2);
-    assertEquals(document.getNotes().get(0).getText(), "(This is an example note #1, though not one to be emulated too closely.)");
-    assertEquals(document.getNotes().get(1).getText(), "(This is an example note #2, though not one to be emulated too closely.)");
+    assertEquals("DDDD-DDD", document.getId());
+    assertEquals("en-US", document.getLang());
+    assertEquals("(The text of the document abstract goes here.)", document.getText());
+    assertEquals(2, document.getSources().size());
+    assertEquals("urn:original-source1", document.getSources().get(0).getDescriptionRef().toURI().toString());
+    assertEquals("urn:original-source2", document.getSources().get(1).getDescriptionRef().toURI().toString());
+    assertEquals(2, document.getNotes().size());
+    assertEquals("(This is an example note #1, though not one to be emulated too closely.)", document.getNotes().get(0).getText());
+    assertEquals("(This is an example note #2, though not one to be emulated too closely.)", document.getNotes().get(1).getText());
     assertNotNull(document.getExtensionElements());
-    assertEquals(document.getExtensionElements().size(), 2);
-    assertEquals(((CustomEntity)document.getExtensionElements().get(0)).getId(), "1234");
-    assertEquals(((CustomEntity)document.getExtensionElements().get(1)).getId(), "2345");
+    assertEquals(2, document.getExtensionElements().size());
+    assertEquals("1234", ((CustomEntity) document.getExtensionElements().get(0)).getId());
+    assertEquals("2345", ((CustomEntity) document.getExtensionElements().get(1)).getId());
     assertNull(document.findExtensionOfType(String.class));
-    assertEquals(document.findExtensionOfType(CustomEntity.class).getId(), "1234");
-    assertEquals(document.findExtensionsOfType(String.class).size(), 0);
-    assertEquals(document.findExtensionsOfType(CustomEntity.class).size(), 2);
-    assertEquals(document.findExtensionsOfType(CustomEntity.class).get(1).getId(), "2345");
+    assertEquals("1234", document.findExtensionOfType(CustomEntity.class).getId());
+    assertEquals(0, document.findExtensionsOfType(String.class).size());
+    assertEquals(2, document.findExtensionsOfType(CustomEntity.class).size());
+    assertEquals("2345", document.findExtensionsOfType(CustomEntity.class).get(1).getId());
 
     document.setSources(null);
     document.addSource(null);
@@ -65,7 +65,7 @@ public class DocumentTest {
     assertNull(document.getSources());
     assertNull(document.getNotes());
     assertNull(document.findExtensionOfType(CustomEntity.class));
-    assertEquals(document.findExtensionsOfType(CustomEntity.class).size(), 0);
+    assertEquals(0, document.findExtensionsOfType(CustomEntity.class).size());
   }
 
 }

@@ -1,9 +1,6 @@
 package org.gedcomx.source;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-
-import jakarta.xml.bind.JAXBException;
 
 import org.gedcomx.common.URI;
 import org.gedcomx.rt.SerializationUtil;
@@ -16,11 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * User: Randy Wilson
  */
-public class SourceDescriptionTest {
+class SourceDescriptionTest {
 
 
   @Test
-  public void testXml() throws JAXBException, UnsupportedEncodingException {
+  void xml() throws Exception {
     SourceDescription sd = new SourceDescription();
     sd.setAbout(new URI("https://company.com/resource/id"));
     sd.addKnownStatus(ResourceStatusType.Deprecated);
@@ -42,7 +39,7 @@ public class SourceDescriptionTest {
   }
 
   @Test
-  public void testPersistentIdHelpers() throws Exception {
+  void persistentIdHelpers() throws Exception {
     final SourceDescription sd = new SourceDescription();
 
     sd.setPersistentId(URI.create("urn:pal"));

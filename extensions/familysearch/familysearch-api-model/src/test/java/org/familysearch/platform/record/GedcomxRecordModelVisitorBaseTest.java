@@ -6,15 +6,17 @@ import org.familysearch.platform.records.GedcomxRecordModelVisitorBase;
 import org.gedcomx.conclusion.Date;
 import org.gedcomx.conclusion.Fact;
 import org.gedcomx.conclusion.PlaceReference;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 
-public class GedcomxRecordModelVisitorBaseTest {
-  
+class GedcomxRecordModelVisitorBaseTest {
+
 
   @Test
-  public void testVisitingExtensionElements() {
+  void visitingExtensionElements() {
     final int[] numberOfTimesVisitPlaceCalled = new int[]{0};
     final int[] numberOfTimesVisitDateCalled = new int[]{0};
     AlternateDate alternateDate = new AlternateDate();
@@ -23,18 +25,18 @@ public class GedcomxRecordModelVisitorBaseTest {
       @Override
       public void visitPlaceReference(PlaceReference place) {
         numberOfTimesVisitPlaceCalled[0]++;
-        Assert.assertSame(alternatePlaceReference, place);
+        assertSame(alternatePlaceReference, place);
       }
 
       @Override
       public void visitDate(Date date) {
         numberOfTimesVisitDateCalled[0]++;
-        Assert.assertSame(alternateDate, date);
+        assertSame(alternateDate, date);
       }
     };
     Fact fact = new Fact().extensionElement(alternateDate).extensionElement(alternatePlaceReference);
     visitor.visitFact(fact);
-    Assert.assertEquals(1, numberOfTimesVisitDateCalled[0]);
-    Assert.assertEquals(1, numberOfTimesVisitPlaceCalled[0]);
+    assertEquals(1, numberOfTimesVisitDateCalled[0]);
+    assertEquals(1, numberOfTimesVisitPlaceCalled[0]);
   }
 }

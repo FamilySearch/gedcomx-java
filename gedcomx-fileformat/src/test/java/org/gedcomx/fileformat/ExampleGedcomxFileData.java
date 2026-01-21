@@ -25,9 +25,9 @@ import org.gedcomx.types.NameType;
 import org.gedcomx.types.RelationshipType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Arrays;
 
 
 public class ExampleGedcomxFileData {

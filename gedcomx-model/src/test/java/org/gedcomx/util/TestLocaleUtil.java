@@ -1,11 +1,11 @@
 package org.gedcomx.util;
 
-import org.junit.Test;
 import org.gedcomx.common.TextValue;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.*;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Class for...
@@ -13,10 +13,10 @@ import static org.junit.Assert.assertEquals;
  * Date: 7/31/2014
  * Time: 12:03 PM
  */
-public class TestLocaleUtil {
+class TestLocaleUtil {
 
   @Test
-  public void testTextValueLocales() {
+  void textValueLocales() {
     List<TextValue> list = Arrays.asList(
             value("Spanish", "es"),
             value("UK English", "en-GB"),
@@ -40,7 +40,7 @@ public class TestLocaleUtil {
   }
 
   @Test
-  public void testGetBasicLocale() {
+  void getBasicLocale() {
     tryLocale("en", "en", "", "");
     tryLocale("en-us", "en", "US", "");
     tryLocale("en-US", "en", "US", "");
@@ -59,7 +59,7 @@ public class TestLocaleUtil {
   }
 
   @Test
-  public void testClosestLocale() {
+  void closestLocale() {
     Set<Locale> list = new LinkedHashSet<Locale>(Arrays.asList(
             new Locale("es"),
             new Locale("en", "GB"),

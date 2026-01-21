@@ -11,20 +11,20 @@ import org.gedcomx.conclusion.*;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Class for testing the FamilySearchPlatform class
  * User: Randy Wilson
  * Date: 20 May 2015
  */
-public class FamilySearchPlatformTest {
+class FamilySearchPlatformTest {
 
   @Test
-  public void testAltDatesPlaces() throws Exception {
+  void altDatesPlaces() throws Exception {
     Fact fact = new Fact(FactType.Adoption, "value");
     AlternateDate altDate = new AlternateDate();
     altDate.setOriginal("orig");
@@ -44,7 +44,7 @@ public class FamilySearchPlatformTest {
   }
 
   @Test
-  public void testFamily() {
+  void family() {
     FamilySearchPlatform g = makeDoc();
     FamilyView family = g.getPerson().getDisplayExtension().getFamiliesAsChild().get(0);
 

@@ -1,9 +1,9 @@
 package org.gedcomx.date;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
@@ -11,10 +11,10 @@ import static org.fest.assertions.api.Assertions.fail;
 /**
  * @author John Clark.
  */
-public class DurationTest {
+class DurationTest {
 
   @Test
-  public void errorOnMissingP() {
+  void errorOnMissingP() {
     try {
       new GedcomxDateDuration("1000Y");
       fail("GedcomxDateException expected because duration must start with P");
@@ -24,7 +24,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnMissingValuesAfterP() {
+  void errorOnMissingValuesAfterP() {
     try {
       new GedcomxDateDuration("P");
       fail("GedcomxDateException expected because P must be followed by something");
@@ -34,7 +34,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnSpaceAfterP() {
+  void errorOnSpaceAfterP() {
     try {
       new GedcomxDateDuration("P100 years");
       fail("GedcomxDateException expected because no spaces allowed in duration");
@@ -44,7 +44,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnUnknownLetters() {
+  void errorOnUnknownLetters() {
     try {
       new GedcomxDateDuration("P1000U");
       fail("GedcomxDateException expected because U is unknown");
@@ -54,7 +54,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnMissingLetters() {
+  void errorOnMissingLetters() {
     try {
       new GedcomxDateDuration("P1000");
       fail("GedcomxDateException expected because we're missing letters");
@@ -64,7 +64,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnInvalidYear() {
+  void errorOnInvalidYear() {
     try {
       new GedcomxDateDuration("PY");
       fail("GedcomxDateException expected because missing year before Y");
@@ -74,7 +74,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnDuplicateYear() {
+  void errorOnDuplicateYear() {
     try {
       new GedcomxDateDuration("P1000Y10Y");
       fail("GedcomxDateException expected because duplicate years");
@@ -84,7 +84,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnOutOfOrderYear() {
+  void errorOnOutOfOrderYear() {
     try {
       new GedcomxDateDuration("P10M10Y");
       fail("GedcomxDateException expected because year is out of order");
@@ -94,7 +94,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnInvalidMonth() {
+  void errorOnInvalidMonth() {
     try {
       new GedcomxDateDuration("P1000YM");
       fail("GedcomxDateException expected because missing months before M");
@@ -104,7 +104,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnDuplicateMonths() {
+  void errorOnDuplicateMonths() {
     try {
       new GedcomxDateDuration("P10M5M");
       fail("GedcomxDateException expected because duplicate months");
@@ -114,7 +114,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnOutOfOrderMonth() {
+  void errorOnOutOfOrderMonth() {
     try {
       new GedcomxDateDuration("P1Y1D1M");
       fail("GedcomxDateException expected because months is out of order");
@@ -124,7 +124,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnInvalidDay() {
+  void errorOnInvalidDay() {
     try {
       new GedcomxDateDuration("P1MD");
       fail("GedcomxDateException expected because no value for day");
@@ -134,7 +134,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnDuplicateDays() {
+  void errorOnDuplicateDays() {
     try {
       new GedcomxDateDuration("P1D2D");
       fail("GedcomxDateException expected because duplicate days");
@@ -144,7 +144,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnOutOfOrderDay() {
+  void errorOnOutOfOrderDay() {
     try {
       new GedcomxDateDuration("P1MT01D");
       fail("GedcomxDateException expected because day is out of order");
@@ -154,7 +154,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnDuplicateTs() {
+  void errorOnDuplicateTs() {
     try {
       new GedcomxDateDuration("P1Y2M3DT1HT");
       fail("GedcomxDateException expected because duplicate Ts");
@@ -164,7 +164,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnMissingTBeforeHours() {
+  void errorOnMissingTBeforeHours() {
     try {
       new GedcomxDateDuration("P1Y2M03D4H");
       fail("GedcomxDateException expected because missing T before hours");
@@ -174,7 +174,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnInvalidHour() {
+  void errorOnInvalidHour() {
     try {
       new GedcomxDateDuration("P1Y2M03DTH");
       fail("GedcomxDateException expected because no value for hour");
@@ -184,7 +184,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnDuplicateHours() {
+  void errorOnDuplicateHours() {
     try {
       new GedcomxDateDuration("P1000Y01MT01H01H");
       fail("GedcomxDateException expected because hours are duplicated");
@@ -194,7 +194,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnOutOfOrderHours() {
+  void errorOnOutOfOrderHours() {
     try {
       new GedcomxDateDuration("P1000Y01MT01M01H");
       fail("GedcomxDateException expected because hours is out of order");
@@ -204,7 +204,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnInvalidMinute() {
+  void errorOnInvalidMinute() {
     try {
       new GedcomxDateDuration("P1000Y01M01DT01HM");
       fail("GedcomxDateException expected because");
@@ -214,7 +214,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnDuplicateMinutes() {
+  void errorOnDuplicateMinutes() {
     try {
       new GedcomxDateDuration("P1000Y01MT01H01M01M");
       fail("GedcomxDateException expected because minutes are duplicated");
@@ -224,7 +224,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnOutOfOrderMinutes() {
+  void errorOnOutOfOrderMinutes() {
     try {
       new GedcomxDateDuration("P1000Y01MT01H01S01M");
       fail("GedcomxDateException expected because minutes are out of order");
@@ -234,7 +234,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnMissingTBeforeSeconds() {
+  void errorOnMissingTBeforeSeconds() {
     try {
       new GedcomxDateDuration("P1000Y01M01D01S");
       fail("GedcomxDateException expected because missing T before seconds");
@@ -244,7 +244,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnInvalidSeconds() {
+  void errorOnInvalidSeconds() {
     try {
       new GedcomxDateDuration("P1000Y01M01DT01H01MS");
       fail("GedcomxDateException expected because seconds has no value");
@@ -254,7 +254,7 @@ public class DurationTest {
   }
 
   @Test
-  public void errorOnDuplicateSeconds() {
+  void errorOnDuplicateSeconds() {
     try {
       new GedcomxDateDuration("P1000Y01MT01H01M01S01S");
       fail("GedcomxDateException expected because seconds is duplicated");
@@ -264,7 +264,7 @@ public class DurationTest {
   }
 
   @Test
-  public void succeed() {
+  void succeed() {
     GedcomxDateDuration duration = new GedcomxDateDuration("P1000Y1M02DT3H04M57S");
     assertThat(duration.getYears()).isEqualTo(1000);
     assertThat(duration.getMonths()).isEqualTo(1);
@@ -275,7 +275,7 @@ public class DurationTest {
   }
 
   @Test
-  public void succeedWithoutTime() {
+  void succeedWithoutTime() {
     GedcomxDateDuration duration = new GedcomxDateDuration("P1000Y1M02D");
     assertThat(duration.getYears()).isEqualTo(1000);
     assertThat(duration.getMonths()).isEqualTo(1);
@@ -286,19 +286,19 @@ public class DurationTest {
   }
 
   @Test
-  public void getType() {
+  void getType() {
     GedcomxDateDuration duration = new GedcomxDateDuration("P1Y");
     assertThat(duration.getType()).isEqualTo(GedcomxDateType.DURATION);
   }
 
   @Test
-  public void isApproximate() {
+  void isApproximate() {
     GedcomxDateDuration duration = new GedcomxDateDuration("P1Y");
     assertThat(duration.isApproximate()).isEqualTo(false);
   }
 
   @Test
-  public void toFormalString() {
+  void toFormalString() {
     List<String> tests = Arrays.asList("P1Y2M3DT4H5M6S", "P100YT3H", "PT1S");
     for(String test: tests) {
       GedcomxDateDuration duration = new GedcomxDateDuration(test);
