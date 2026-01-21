@@ -59,6 +59,12 @@ public enum MatchCollection implements ControlledVocabulary {
   @XmlQNameEnumValue ( localPart = "temple" )
   tss,
 
+  /**
+   * The FamilySearch Assisted Tree Building System.
+   */
+  @XmlQNameEnumValue
+  atb,
+
   @XmlUnknownQNameEnumValue
   OTHER;
 
