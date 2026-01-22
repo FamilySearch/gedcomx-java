@@ -15,22 +15,20 @@
  */
 package org.gedcomx.rt.json;
 
-
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.JsonToken;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
 
 /**
  * @author Ryan Heaton
  */
-public class KeyedListDeserializer extends JsonDeserializer<List<? extends HasJsonKey>> {
+public class KeyedListDeserializer extends ValueDeserializer<List<? extends HasJsonKey>> {
 
   private final Class<?> itemType;
 
@@ -42,21 +40,21 @@ public class KeyedListDeserializer extends JsonDeserializer<List<? extends HasJs
   }
 
   @Override
-  public List<? extends HasJsonKey> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-    return deserializeGeneric(jp, ctxt, this.itemType);
+  public List<? extends HasJsonKey> deserialize(JsonParser jp, DeserializationContext ctxt) throws JacksonException {
+    return deserializeGeneric(jp, this.itemType);
   }
 
-  static List<? extends HasJsonKey> deserializeGeneric(JsonParser jp, DeserializationContext ctxt, Class<?> itemType) throws IOException, JsonProcessingException {
-    if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
+  static List<? extends HasJsonKey> deserializeGeneric(JsonParser jp, Class<?> itemType) throws JacksonException {
+    if (jp.currentToken() == JsonToken.START_OBJECT) {
       jp.nextToken();
     }
     else {
-      throw new JsonMappingException(jp, "Unable to deserialize keyed list: unexpected token: " + jp.getCurrentToken().name());
+      throw DatabindException.from(jp, "Unable to deserialize keyed list: unexpected token: " + jp.currentToken().name());
     }
 
-    ArrayList<HasJsonKey> list = new ArrayList<HasJsonKey>();
-    for (; jp.getCurrentToken() != JsonToken.END_OBJECT; jp.nextToken()) {
-      String key = jp.getCurrentName();
+    ArrayList<HasJsonKey> list = new ArrayList<>();
+    for (; jp.currentToken() != JsonToken.END_OBJECT; jp.nextToken()) {
+      String key = jp.currentName();
       jp.nextToken();
       if (jp.isExpectedStartArrayToken()) {
         JsonToken t;

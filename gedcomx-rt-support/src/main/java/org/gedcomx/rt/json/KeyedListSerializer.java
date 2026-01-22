@@ -15,64 +15,66 @@
  */
 package org.gedcomx.rt.json;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
-import java.io.IOException;
-import java.util.*;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
 /**
  * @author Ryan Heaton
  */
-public class KeyedListSerializer extends JsonSerializer<Collection<? extends HasJsonKey>> {
+public class KeyedListSerializer extends ValueSerializer<Collection<? extends HasJsonKey>> {
 
   public static final String JSON_DEFAULT_KEY = "$";
 
   @Override
-  public void serialize(Collection<? extends HasJsonKey> value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+  public void serialize(Collection<? extends HasJsonKey> value, JsonGenerator jgen, SerializationContext provider)
+    throws JacksonException {
+
     serializeGeneric(value, jgen, provider);
   }
 
-  static void serializeGeneric(Collection<?> value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+  static void serializeGeneric(Collection<?> value, JsonGenerator jgen, SerializationContext provider)
+    throws JacksonException {
+
     if (value == null) {
       jgen.writeNull();
     }
     else {
       jgen.writeStartObject();
-      Map<String, List<Object>> bykey = new HashMap<String, List<Object>>();
+      Map<String, List<Object>> bykey = new HashMap<>();
       for (Object keyed : value) {
         String jsonKey = ((HasJsonKey) keyed).getJsonKey();
         if (jsonKey == null) {
           jsonKey = JSON_DEFAULT_KEY;
         }
 
-        List<Object> keyedList = bykey.get(jsonKey);
-        if (keyedList == null) {
-          keyedList = new ArrayList<Object>();
-          bykey.put(jsonKey, keyedList);
-        }
+        List<Object> keyedList = bykey.computeIfAbsent(jsonKey, k -> new ArrayList<>());
         keyedList.add(keyed);
 
         boolean unique = ((HasJsonKey) keyed).isHasUniqueKey();
         if (unique && keyedList.size() > 1) {
-          throw new JsonMappingException(jgen, "Attempt to serialize " + keyed + " failed because it's key '" + jsonKey + "' is not unique.");
+          throw DatabindException.from(jgen, "Attempt to serialize " + keyed + " failed because it's key '" + jsonKey + "' is not unique.");
         }
       }
 
       for (Map.Entry<String, List<Object>> keyedObjects : bykey.entrySet()) {
         String jsonKey = keyedObjects.getKey();
-        jgen.writeFieldName(jsonKey);
+        jgen.writeName(jsonKey);
         boolean notUnique = keyedObjects.getValue().size() != 1 || !((HasJsonKey)keyedObjects.getValue().get(0)).isHasUniqueKey();
         if (notUnique) {
           jgen.writeStartArray();
         }
 
         for (Object keyed : keyedObjects.getValue()) {
-          provider.findTypedValueSerializer(keyed.getClass(), true, null).serialize(keyed, jgen, provider);
+          provider.findTypedValueSerializer(keyed.getClass(), true).serialize(keyed, jgen, provider);
         }
 
         if (notUnique) {

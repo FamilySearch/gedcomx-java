@@ -13,28 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.gedcomx.rt.json.jackson3;
+package org.gedcomx.rt.json;
 
 import tools.jackson.databind.BeanDescription;
-import tools.jackson.databind.SerializationConfig;
-import tools.jackson.databind.ValueSerializer;
-import tools.jackson.databind.ser.BeanSerializer;
-import tools.jackson.databind.ser.ValueSerializerModifier;
+import tools.jackson.databind.DeserializationConfig;
+import tools.jackson.databind.ValueDeserializer;
+import tools.jackson.databind.deser.ValueDeserializerModifier;
+import tools.jackson.databind.deser.bean.BeanDeserializer;
 
 /**
  * Modifications for GEDCOM value serializers.
- * <p>
- * <b>Note:</b> Requires Jackson 3.x and Java 17+ runtime.
+ *
+ * @author Ryan Heaton
  */
-public class GedcomValueSerializerModifier extends ValueSerializerModifier {
+public class GedcomValueDeserializerModifier extends ValueDeserializerModifier {
 
   @Override
-  public ValueSerializer<?> modifySerializer(
-    SerializationConfig config,
+  public ValueDeserializer<?> modifyDeserializer(
+    DeserializationConfig config,
     BeanDescription.Supplier beanDescRef,
-    ValueSerializer<?> serializer) {
+    ValueDeserializer<?> deserializer) {
 
-    return (serializer instanceof BeanSerializer) ? new ExtensibleObjectSerializer((BeanSerializer) serializer) : serializer;
+    return deserializer instanceof BeanDeserializer beanDeserializer ?
+      new ExtensibleObjectDeserializer(beanDeserializer) :
+      deserializer;
   }
 
 }

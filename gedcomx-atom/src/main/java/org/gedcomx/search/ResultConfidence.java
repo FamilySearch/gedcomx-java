@@ -15,18 +15,16 @@
  */
 package org.gedcomx.search;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.webcohesion.enunciate.metadata.Facet;
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.gedcomx.rt.GedcomxConstants;
-
+import com.webcohesion.enunciate.metadata.Facet;
 import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlEnumValue;
 import jakarta.xml.bind.annotation.XmlType;
-import java.io.IOException;
+import org.gedcomx.rt.GedcomxConstants;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * The levels of confidence of a search result.
@@ -35,7 +33,7 @@ import java.io.IOException;
  */
 @XmlType ( name = "ResultConfidence" )
 @XmlEnum ( Integer.class )
-@JsonDeserialize (using = ResultConfidence.ResultConfidenceDeserializer.class)
+@JsonDeserialize(using = ResultConfidence.ResultConfidenceDeserializer.class)
 @Facet ( GedcomxConstants.FACET_GEDCOMX_RS )
 public enum ResultConfidence {
 
@@ -71,42 +69,28 @@ public enum ResultConfidence {
 
   @JsonValue
   public Integer value() {
-    switch(this) {
-      case one:
-        return 1;
-      case two:
-        return 2;
-      case three:
-        return 3;
-      case four:
-        return 4;
-      case five:
-        return 5;
-      default:
-        return null;
-    }
+    return switch (this) {
+      case one -> 1;
+      case two -> 2;
+      case three -> 3;
+      case four -> 4;
+      case five -> 5;
+    };
   }
 
-  static class ResultConfidenceDeserializer extends JsonDeserializer<ResultConfidence>
+  static class ResultConfidenceDeserializer extends ValueDeserializer<ResultConfidence>
   {
     @Override
-    public ResultConfidence deserialize(final JsonParser parser, final DeserializationContext context) throws IOException
-    {
+    public ResultConfidence deserialize(final JsonParser parser, final DeserializationContext context) {
       int i = parser.getIntValue();
-      switch(i) {
-        case 1:
-          return ResultConfidence.one;
-        case 2:
-          return ResultConfidence.two;
-        case 3:
-          return ResultConfidence.three;
-        case 4:
-          return ResultConfidence.four;
-        case 5:
-          return ResultConfidence.five;
-        default:
-          return null;
-      }
+      return switch (i) {
+        case 1 -> ResultConfidence.one;
+        case 2 -> ResultConfidence.two;
+        case 3 -> ResultConfidence.three;
+        case 4 -> ResultConfidence.four;
+        case 5 -> ResultConfidence.five;
+        default -> null;
+      };
     }
   }
 }

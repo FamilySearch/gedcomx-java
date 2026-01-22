@@ -15,18 +15,18 @@
  */
 package org.gedcomx.util;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.gedcomx.Gedcomx;
-import org.gedcomx.rt.json.GedcomJacksonModule;
-
 import java.io.IOException;
 import java.io.OutputStream;
+
+import org.gedcomx.Gedcomx;
+import org.gedcomx.rt.json.GedcomJacksonModule;
+import tools.jackson.core.StreamWriteFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 public class JsonRecordSetWriter {
   // Stream to write data to
   private OutputStream outputStream;
-  private ObjectMapper objectMapper;
+  private JsonMapper jsonMapper;
   private long numOfRecords = 0;
 
   public static final String ID_STR = "id";
@@ -44,16 +44,16 @@ public class JsonRecordSetWriter {
     try {
       this.outputStream = outputStream;
 
-      objectMapper = GedcomJacksonModule.createObjectMapper();
-      // When the outputStream is gzipped calling writeValue() below will close the OutputStream.
-      // These configurations will disable that feature.  See javadoc for writeValue().
-      objectMapper.configure(JsonGenerator.Feature.AUTO_CLOSE_TARGET, false);
-      objectMapper.configure(JsonGenerator.Feature.AUTO_CLOSE_JSON_CONTENT, false);
+      jsonMapper = GedcomJacksonModule.createJsonMapperBuilder()
+        // When the outputStream is gzipped calling writeValue() below will close the OutputStream.
+        // These configurations will disable that feature.  See javadoc for writeValue().
+        .disable(StreamWriteFeature.AUTO_CLOSE_TARGET, StreamWriteFeature.AUTO_CLOSE_CONTENT)
+        .build();
 
       outputStream.write("{\n".getBytes());      // Begin JSON Object for the RecordSet
 
       writeLabel(outputStream, METADATA_STR);
-      objectMapper.writeValue(outputStream, metadata);  // This insures that the metadata is at the top of the file.
+      jsonMapper.writeValue(outputStream, metadata);  // This insures that the metadata is at the top of the file.
       outputStream.write(",\n".getBytes());
 
       writeLabel(outputStream, RECORDS_STR);
@@ -74,7 +74,7 @@ public class JsonRecordSetWriter {
       if (numOfRecords > 0) {
         outputStream.write(',');
       }
-      objectMapper.writeValue(outputStream, record);
+      jsonMapper.writeValue(outputStream, record);
 
 //    if (! label.equals(METADATA_STR)) {
       numOfRecords++;

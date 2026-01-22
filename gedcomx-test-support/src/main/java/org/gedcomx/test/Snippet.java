@@ -15,12 +15,12 @@
  */
 package org.gedcomx.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.gedcomx.rt.SerializationProcessListener;
+import java.io.Serializable;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.annotation.XmlType;
-import java.io.Serializable;
+import org.gedcomx.rt.SerializationProcessListener;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * A code snippet.
@@ -97,7 +97,7 @@ public class Snippet implements Serializable, SerializationProcessListener {
   }
 
   @Override
-  public void jsonProcessed(Object reference, Class<?> instanceClass, ObjectMapper mapper, String json) {
+  public void jsonProcessed(Object reference, Class<?> instanceClass, JsonMapper mapper, String json) {
     setJson(json);
   }
 

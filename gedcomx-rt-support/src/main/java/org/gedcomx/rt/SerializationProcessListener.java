@@ -15,9 +15,8 @@
  */
 package org.gedcomx.rt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import jakarta.xml.bind.JAXBContext;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * @author Ryan Heaton
@@ -42,5 +41,5 @@ public interface SerializationProcessListener {
    * @param mapper The mapper.
    * @param json The json.
    */
-  void jsonProcessed(Object reference, Class<?> instanceClass, ObjectMapper mapper, String json);
+  void jsonProcessed(Object reference, Class<?> instanceClass, JsonMapper mapper, String json);
 }

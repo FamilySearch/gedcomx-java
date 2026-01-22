@@ -106,7 +106,7 @@ OutputStream out = ...; //figure out where you want to write the JSON
 
 //construct an object mapper.
 //(presumably, you'll want to reuse this.)
-ObjectMapper mapper = GedcomJacksonModule.createObjectMapper(Gedcomx.class);
+JsonMapper mapper = GedcomJacksonModule.createJsonMapper(Gedcomx.class);
 
 //write the document to the stream:
 mapper.writeValue(gx, out);
@@ -122,7 +122,7 @@ InputStream in = ...; //find the JSON
 
 //construct an object mapper.
 //(presumably, you'll want to reuse this.)
-ObjectMapper mapper = GedcomJacksonModule.createObjectMapper(Gedcomx.class);
+JsonMapper mapper = GedcomJacksonModule.createJsonMapper(Gedcomx.class);
 Gedcomx gx = mapper.readValue(in, Gedcomx.class);
 ```
 

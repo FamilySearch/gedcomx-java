@@ -15,41 +15,41 @@
  */
 package org.gedcomx.fileformat;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.gedcomx.Gedcomx;
-import org.gedcomx.rt.json.GedcomJacksonModule;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.gedcomx.Gedcomx;
+import org.gedcomx.rt.json.GedcomJacksonModule;
+import tools.jackson.core.JsonEncoding;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.ObjectWriteContext;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * A class for creating instances of <code>JAXBContext</code> appropriate for reading and writing GEDCOM X files.
  */
 public class JacksonJsonSerialization implements GedcomxEntrySerializer, GedcomxEntryDeserializer {
 
-  private final ObjectMapper mapper;
+  private final JsonMapper mapper;
 
   public JacksonJsonSerialization(Class<?>... classes) {
     this(true, classes);
   }
 
   public JacksonJsonSerialization(boolean pretty, Class<?>... classes) {
-    this(createObjectMapper(pretty, classes));
+    this(createJsonMapper(pretty, classes));
   }
 
-  public JacksonJsonSerialization(ObjectMapper mapper) {
+  public JacksonJsonSerialization(JsonMapper mapper) {
     this.mapper = mapper;
   }
 
-  public static ObjectMapper createObjectMapper(boolean pretty, Class<?>... classes) {
-    return GedcomJacksonModule.createObjectMapper(classes);
+  public static JsonMapper createJsonMapper(boolean pretty, Class<?>... classes) {
+    return GedcomJacksonModule.createJsonMapper(classes);
   }
 
   @Override
-  public Object deserialize(InputStream in, String mediaType) throws IOException {
+  public Object deserialize(InputStream in, String mediaType) {
     Class<?> clazz = findClass(mediaType);
     return clazz == null ? in : this.mapper.readValue(in, clazz);
   }
@@ -59,8 +59,8 @@ public class JacksonJsonSerialization implements GedcomxEntrySerializer, Gedcomx
   }
 
   @Override
-  public void serialize(Object resource, OutputStream out) throws IOException {
-    JsonGenerator generator = this.mapper.getFactory().createGenerator(out); //we're creating a generator so that the stream doesn't get auto-closed
+  public void serialize(Object resource, OutputStream out) {
+    JsonGenerator generator = this.mapper.tokenStreamFactory().createGenerator(ObjectWriteContext.empty(), out, JsonEncoding.UTF8); //we're creating a generator so that the stream doesn't get auto-closed
     this.mapper.writeValue(generator, resource);
   }
 

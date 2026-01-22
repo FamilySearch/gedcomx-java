@@ -1,6 +1,5 @@
 package org.familysearch.platform;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
@@ -10,7 +9,6 @@ import org.gedcomx.conclusion.FamilyView;
 import org.gedcomx.conclusion.Person;
 import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rt.json.GedcomJacksonModule;
-import org.gedcomx.rt.json.jackson3.GedcomJackson3Module;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
 import org.junit.jupiter.api.Test;
@@ -40,30 +38,10 @@ class FamilySearchPlatformTest {
     fact.addExtensionElement(altPlace);
     Gedcomx gx = new Gedcomx().person(new Person().fact(fact));
 
-    ObjectMapper objectMapper = GedcomJacksonModule.createObjectMapper(AlternateDate.class, AlternatePlaceReference.class);
-    String value = objectMapper.writeValueAsString(gx);
+    JsonMapper jsonMapper = GedcomJacksonModule.createJsonMapper(AlternateDate.class, AlternatePlaceReference.class);
+    String value = jsonMapper.writeValueAsString(gx);
     //System.out.println(value);
-    gx = objectMapper.readValue(value, Gedcomx.class);
-    assertEquals("orig", gx.getPerson().getFirstFactOfType(FactType.Adoption).findExtensionOfType(AlternateDate.class).getOriginal());
-
-    //JAXBContext.newInstance(FamilySearchPlatform.class).createMarshaller().marshal(gx, System.out);
-  }
-
-  @Test
-  void altDatesPlaces_jackson3() {
-    Fact fact = new Fact(FactType.Adoption, "value");
-    AlternateDate altDate = new AlternateDate();
-    altDate.setOriginal("orig");
-    fact.addExtensionElement(altDate);
-    AlternatePlaceReference altPlace = new AlternatePlaceReference();
-    altPlace.setOriginal("place");
-    fact.addExtensionElement(altPlace);
-    Gedcomx gx = new Gedcomx().person(new Person().fact(fact));
-
-    JsonMapper objectMapper = GedcomJackson3Module.createObjectMapper(AlternateDate.class, AlternatePlaceReference.class);
-    String value = objectMapper.writeValueAsString(gx);
-    //System.out.println(value);
-    gx = objectMapper.readValue(value, Gedcomx.class);
+    gx = jsonMapper.readValue(value, Gedcomx.class);
     assertEquals("orig", gx.getPerson().getFirstFactOfType(FactType.Adoption).findExtensionOfType(AlternateDate.class).getOriginal());
 
     //JAXBContext.newInstance(FamilySearchPlatform.class).createMarshaller().marshal(gx, System.out);

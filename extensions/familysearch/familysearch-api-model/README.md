@@ -90,7 +90,7 @@ OutputStream out = ...; //figure out where you want to write the JSON
 
 //construct an object mapper.
 //(presumably, you'll want to reuse this.)
-ObjectMapper mapper = GedcomJacksonModule.createObjectMapper(FamilySearchPlatform.class);
+JsonMapper mapper = GedcomJacksonModule.createJsonMapper(FamilySearchPlatform.class);
 
 //write the document to the stream:
 mapper.writeValue(fsp, out);
@@ -106,6 +106,6 @@ InputStream in = ...; //find the JSON
 
 //construct an object mapper.
 //(presumably, you'll want to reuse this.)
-ObjectMapper mapper = GedcomJacksonModule.createObjectMapper(FamilySearchPlatform.class);
+JsonMapper mapper = GedcomJacksonModule.createJsonMapper(FamilySearchPlatform.class);
 FamilySearchPlatform fsp = mapper.readValue(in, FamilySearchPlatform.class);
 ```
