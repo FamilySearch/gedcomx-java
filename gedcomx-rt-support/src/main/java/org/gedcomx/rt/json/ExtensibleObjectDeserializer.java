@@ -15,22 +15,21 @@
  */
 package org.gedcomx.rt.json;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.deser.BeanDeserializer;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
+
+import jakarta.xml.bind.JAXBElement;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.rt.SupportsExtensionAttributes;
 import org.gedcomx.rt.SupportsExtensionElements;
-
-import javax.xml.XMLConstants;
-import jakarta.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.JsonToken;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.deser.bean.BeanDeserializer;
 
 /**
  * Custom JSON serializer for @XmlAnyElement fields/properties
@@ -44,26 +43,30 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
   }
 
   @Override
-  protected void handleUnknownProperty(JsonParser jp, DeserializationContext ctxt, Object beanOrClass, String propName) throws IOException, JsonProcessingException {
+  protected void handleUnknownProperty(
+    JsonParser jp,
+    DeserializationContext ctxt,
+    Object beanOrClass,
+    String propName) {
+
     if (_ignoreAllUnknown) {
       jp.skipChildren();
       return;
     }
 
-    if (beanOrClass instanceof SupportsExtensionElements) {
-      SupportsExtensionElements target = (SupportsExtensionElements) beanOrClass;
+    if (beanOrClass instanceof SupportsExtensionElements target) {
       //first check if it's a known json type
       Class<?> type = GedcomNamespaceManager.getKnownJsonType(propName);
       if (type != null) {
         //it's a known json type.
         if (HasJsonKey.class.isAssignableFrom(type)) {
-          for (Object ext : readKeyedMapOf(type, jp, ctxt)) {
+          for (Object ext : readKeyedMapOf(type, jp)) {
             target.addExtensionElement(ext);
           }
         }
         else {
           //otherwise just deserialize as a list and go.
-          for (Object ext : readArrayOf(type, jp, ctxt)) {
+          for (Object ext : readArrayOf(type, jp)) {
             target.addExtensionElement(ext);
           }
         }
@@ -73,7 +76,7 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
         QName wrapper = getWrapperName(propName);
         type = GedcomNamespaceManager.getWrappedTypeForJsonName(propName);
         if (type != null) {
-          List<?> objects = readArrayOf(type, jp, ctxt);
+          List<?> objects = readArrayOf(type, jp);
           for (Object ext : objects) {
             target.addExtensionElement(new JAXBElement(wrapper, type, ext));
           }
@@ -82,8 +85,8 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
       }
     }
 
-    if (beanOrClass instanceof SupportsExtensionAttributes && jp.getCurrentToken().isScalarValue()) {
-      ((SupportsExtensionAttributes) beanOrClass).addExtensionAttribute(getWrapperName(propName), jp.getText());
+    if (beanOrClass instanceof SupportsExtensionAttributes && jp.currentToken().isScalarValue()) {
+      ((SupportsExtensionAttributes) beanOrClass).addExtensionAttribute(getWrapperName(propName), jp.getString());
       return;
     }
 
@@ -95,13 +98,13 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
 
     if (qname == null && propName.indexOf(':') >= 0) {
       //if the propname has a ':', we'll treat it as a qname, because all qnames I know have a ':' in them.
-      List<String> knownNS = new ArrayList<String>(GedcomNamespaceManager.getKnownPrefixes().keySet());
+      List<String> knownNS = new ArrayList<>(GedcomNamespaceManager.getKnownPrefixes().keySet());
       knownNS.add(XMLConstants.XML_NS_URI + "#");
       for (String ns : knownNS) {
         if (propName.startsWith(ns)) {
           String nsURI = propName.substring(0, ns.length());
           String localPart = propName.substring(ns.length());
-          if (!"".equals(localPart)) {
+          if (!localPart.isEmpty()) {
             qname = new QName(nsURI, localPart);
           }
           break;
@@ -113,7 +116,7 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
         int hashIndex = propName.indexOf('#');
         String nsURI = propName.substring(0, hashIndex);
         String localPart = propName.substring(hashIndex + 1);
-        if (!"".equals(localPart)) {
+        if (!localPart.isEmpty()) {
           qname = new QName(nsURI, localPart);
         }
       }
@@ -123,7 +126,7 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
         int hashIndex = propName.lastIndexOf('/');
         String nsURI = propName.substring(0, hashIndex);
         String localPart = propName.substring(hashIndex + 1);
-        if (!"".equals(localPart)) {
+        if (!localPart.isEmpty()) {
           qname = new QName(nsURI, localPart);
         }
       }
@@ -136,12 +139,12 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
     return qname;
   }
 
-  private List<?> readArrayOf(Class<?> type, JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-    ArrayList<Object> objects = new ArrayList<Object>();
+  private List<?> readArrayOf(Class<?> type, JsonParser jp) {
+    ArrayList<Object> objects = new ArrayList<>();
 
-    if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
+    if (jp.currentToken() == JsonToken.START_ARRAY) {
       jp.nextToken();
-      while (jp.getCurrentToken() != JsonToken.END_ARRAY) {
+      while (jp.currentToken() != JsonToken.END_ARRAY) {
         objects.add(jp.readValueAs(type));
         jp.nextToken();
       }
@@ -153,12 +156,12 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
     return objects;
   }
 
-  private List<?> readKeyedMapOf(Class<?> type, JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-    if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
-      return KeyedListDeserializer.deserializeGeneric(jp, ctxt, type);
+  private List<?> readKeyedMapOf(Class<?> type, JsonParser jp) {
+    if (jp.currentToken() == JsonToken.START_OBJECT) {
+      return KeyedListDeserializer.deserializeGeneric(jp, type);
     }
     else {
-      throw new JsonMappingException(jp, "Unable to parse keyed map of " + type.getName() + ": expect start object, but got: " + jp.getCurrentToken().name());
+      throw DatabindException.from(jp, "Unable to parse keyed map of " + type.getName() + ": expect start object, but got: " + jp.currentToken().name());
     }
   }
 

@@ -7,12 +7,12 @@
   <name>GEDCOM X - Parent Project</name>
   <description>The Java implementation of the GEDCOM X specification set.</description>
   <url>https://github.com/FamilySearch/gedcomx-java</url>
-  <version>3.58.0-SNAPSHOT</version>
+  <version>4.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
     <!-- Various settings -->
-    <java.compiler.version>11</java.compiler.version>
+    <java.compiler.version>17</java.compiler.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <root.basedir>${project.basedir}</root.basedir>
     <skip.javadoc>true</skip.javadoc>
@@ -23,7 +23,7 @@
     <commons-codec.version>1.20.0</commons-codec.version>
     <enunciate.version>2.19.0</enunciate.version>
     <hamcrest.version>3.0</hamcrest.version>
-    <jackson.version>2.20.1</jackson.version>
+    <jackson.version>3.0.2</jackson.version>
     <jackson.jaxrs.version>2.20.1</jackson.jaxrs.version>
     <jakarta.ws.rs-api.version>4.0.0</jakarta.ws.rs-api.version>
     <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
@@ -96,7 +96,7 @@
       </dependency>
 
       <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
+        <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${jackson.version}</version>
         <type>pom</type>
@@ -169,8 +169,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${java.compiler.version}</source>
-          <target>${java.compiler.version}</target>
+          <release>${java.compiler.version}</release>
         </configuration>
       </plugin>
       <plugin>

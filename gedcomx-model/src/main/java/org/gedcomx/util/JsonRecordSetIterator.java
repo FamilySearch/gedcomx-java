@@ -15,9 +15,9 @@
  */
 package org.gedcomx.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.rt.json.GedcomJacksonModule;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,9 +38,9 @@ public class JsonRecordSetIterator implements RecordSetIterator {
   private InputStream inputStream;
   private Gedcomx nextRecord;
   private Gedcomx metadata;
-  private ObjectMapper objectMapper;
+  private JsonMapper jsonMapper;
   private String id;
-  private boolean noMoreRecords = false;
+  private boolean noMoreRecords;
 
   /**
    * Constructor for a record iterator that takes a filename of a RecordSet file and iterates through its record elements.
@@ -66,7 +66,7 @@ public class JsonRecordSetIterator implements RecordSetIterator {
   public JsonRecordSetIterator(InputStream inputStream) throws IOException {
     this.inputStream = new BufferedInputStream(inputStream);
 
-    objectMapper = GedcomJacksonModule.createObjectMapper();
+    jsonMapper = GedcomJacksonModule.createJsonMapper();
 
     // Read the beginning object brace { plus label: {"metadata":
     int character = inputStream.read();
@@ -103,10 +103,10 @@ public class JsonRecordSetIterator implements RecordSetIterator {
   }
 
   private void readMetadata(InputStream inputStream) throws IOException {
-    // I have to do it this way since if I pass the inputStream to objectMapper.readValue() it leaves
+    // I have to do it this way since if I pass the inputStream to jsonMapper.readValue() it leaves
     // the inputStream past the end of the actual metadata object.  Then the next getName() is lost.
     byte[] object = getObjectAsBytes(inputStream);
-    metadata = objectMapper.readValue(object, Gedcomx.class);
+    metadata = jsonMapper.readValue(object, Gedcomx.class);
   }
 
   /**
@@ -195,7 +195,7 @@ public class JsonRecordSetIterator implements RecordSetIterator {
    * may be after the Records.
    */
   synchronized private void prepareNext() throws IOException {
-    // I have to do it this way since if I pass the inputStream to objectMapper.readValue() it leaves
+    // I have to do it this way since if I pass the inputStream to jsonMapper.readValue() it leaves
     // the inputStream past the end of the actual record object.  Then the next get is lost.
     if (noMoreRecords) {
       nextRecord = null;
@@ -203,7 +203,7 @@ public class JsonRecordSetIterator implements RecordSetIterator {
     }
 
     byte[] object = getObjectAsBytes(inputStream);
-    nextRecord = objectMapper.readValue(object, Gedcomx.class);
+    nextRecord = jsonMapper.readValue(object, Gedcomx.class);
 
     // Need to read past the next comma separating records.
     // We also might see the end of the array bracket ].

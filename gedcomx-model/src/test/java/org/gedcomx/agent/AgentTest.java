@@ -48,7 +48,7 @@ class AgentTest {
     agent.addExtensionElement(new CustomEntity("4321"));
     agent.addExtensionElement(new CustomEntity("5432"));
     agent.getExtensionElements().add(new CustomEntity("6543"));
-    agent = processThroughJson(agent, Agent.class, GedcomJacksonModule.createObjectMapper(Agent.class, CustomEntity.class));
+    agent = processThroughJson(agent, Agent.class, GedcomJacksonModule.createJsonMapper(Agent.class, CustomEntity.class));
     assertEquals(3, agent.getExtensionElements().size());
     assertEquals("4321", agent.findExtensionOfType(CustomEntity.class).getId());
     assertEquals(0, agent.findExtensionsOfType(String.class).size());

@@ -15,24 +15,29 @@
  */
 package org.gedcomx.rt;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.gedcomx.rt.json.GedcomJacksonModule;
-import org.w3c.dom.Document;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.stream.StreamSource;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlSchema;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import org.gedcomx.rt.json.GedcomJacksonModule;
+import org.w3c.dom.Document;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 /**
  * @author Ryan Heaton
@@ -44,48 +49,40 @@ public class SerializationUtil {
     return (C) processThroughXml(reference, reference.getClass(), listeners);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
   public static <C> C processThroughXml(Object reference, Class<? extends C> instanceClass, SerializationProcessListener... listeners) throws JAXBException, UnsupportedEncodingException {
     return processThroughXml(reference, instanceClass, JAXBContext.newInstance(instanceClass), listeners);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
   public static <C> C processThroughXml(Object reference, Class<? extends C> instanceClass, JAXBContext context, SerializationProcessListener... listeners) throws JAXBException, UnsupportedEncodingException {
     byte[] out = toXmlStream(reference, instanceClass, context, listeners);
     JAXBElement<? extends C> element = context.createUnmarshaller().unmarshal(new StreamSource(new ByteArrayInputStream(out)), instanceClass);
-    reference = element.getValue();
-    return (C) reference;
+    return element.getValue();
   }
 
-  @SuppressWarnings ( {"unchecked"} )
-  public static byte[] toXmlStream(Object reference, SerializationProcessListener... listeners) throws JAXBException, UnsupportedEncodingException {
+  public static byte[] toXmlStream(Object reference, SerializationProcessListener... listeners) throws JAXBException {
     return toXmlStream(reference, reference.getClass(), listeners);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
-  public static void writeXml(Object reference, OutputStream out) throws JAXBException, UnsupportedEncodingException {
+  public static void writeXml(Object reference, OutputStream out) throws JAXBException {
     writeXml(reference, reference.getClass(), out);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
-  public static <C> byte[] toXmlStream(Object reference, Class<? extends C> instanceClass, SerializationProcessListener... listeners) throws JAXBException, UnsupportedEncodingException {
+  public static <C> byte[] toXmlStream(Object reference, Class<? extends C> instanceClass, SerializationProcessListener... listeners) throws JAXBException {
     return toXmlStream(reference, instanceClass, JAXBContext.newInstance(instanceClass), listeners);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
-  public static <C> void writeXml(Object reference, Class<? extends C> instanceClass, OutputStream out) throws JAXBException, UnsupportedEncodingException {
+  public static <C> void writeXml(Object reference, Class<? extends C> instanceClass, OutputStream out) throws JAXBException {
     writeXml(reference, instanceClass, JAXBContext.newInstance(instanceClass), out);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
-  public static <C> byte[] toXmlStream(Object reference, Class<? extends C> instanceClass, JAXBContext context, SerializationProcessListener... listeners) throws JAXBException, UnsupportedEncodingException {
+  public static <C> byte[] toXmlStream(Object reference, Class<? extends C> instanceClass, JAXBContext context, SerializationProcessListener... listeners) throws JAXBException {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     writeXml(reference, instanceClass, context, out);
     if ("true".equals(System.getProperty("show.output"))) {
-      System.out.println(new String(out.toByteArray(), "utf-8"));
+      System.out.println(out.toString(StandardCharsets.UTF_8));
     }
     if (listeners != null && listeners.length > 0) {
-      String xml = new String(out.toByteArray(), "utf-8");
+      String xml = out.toString(StandardCharsets.UTF_8);
       for (SerializationProcessListener listener : listeners) {
         listener.xmlProcessed(reference, instanceClass, context, xml);
       }
@@ -94,7 +91,7 @@ public class SerializationUtil {
   }
 
   @SuppressWarnings ( {"unchecked"} )
-  public static <C> void writeXml(Object reference, Class<? extends C> instanceClass, JAXBContext context, OutputStream out) throws JAXBException, UnsupportedEncodingException {
+  public static <C> void writeXml(Object reference, Class<? extends C> instanceClass, JAXBContext context, OutputStream out) throws JAXBException {
     Marshaller marshaller = context.createMarshaller();
     marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
     Object el = isRootElement(instanceClass) ? reference : null;
@@ -113,11 +110,11 @@ public class SerializationUtil {
     return instanceClass.isAnnotationPresent(XmlRootElement.class) || JAXBElement.class.isAssignableFrom(instanceClass);
   }
 
-  public static Document toXmlDom(Object reference) throws JAXBException, UnsupportedEncodingException {
+  public static Document toXmlDom(Object reference) throws JAXBException {
     return toXmlDom(reference, reference.getClass());
   }
 
-  public static Document toXmlDom(Object reference, Class<?> instanceClass) throws JAXBException, UnsupportedEncodingException {
+  public static Document toXmlDom(Object reference, Class<?> instanceClass) throws JAXBException {
     byte[] out = toXmlStream(reference, instanceClass);
     try {
       DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -130,7 +127,7 @@ public class SerializationUtil {
     }
   }
 
-  public static Document toXmlDom(Object reference, Class<?> instanceClass, JAXBContext context) throws JAXBException, UnsupportedEncodingException {
+  public static Document toXmlDom(Object reference, Class<?> instanceClass, JAXBContext context) throws JAXBException {
     byte[] out = toXmlStream(reference, instanceClass, context);
     try {
       return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(out));
@@ -141,47 +138,44 @@ public class SerializationUtil {
   }
 
   @SuppressWarnings ( {"unchecked"} )
-  public static <C> C processThroughJson(Object reference, SerializationProcessListener... listeners) throws IOException {
+  public static <C> C processThroughJson(Object reference, SerializationProcessListener... listeners) {
     return (C) processThroughJson(reference, reference.getClass(), listeners);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
-  public static <C> C processThroughJson(Object reference, Class<? extends C> instanceClass, SerializationProcessListener... listeners) throws IOException {
-    return processThroughJson(reference, instanceClass, GedcomJacksonModule.createObjectMapper(instanceClass), listeners);
+  public static <C> C processThroughJson(Object reference, Class<? extends C> instanceClass, SerializationProcessListener... listeners) {
+    return processThroughJson(reference, instanceClass, GedcomJacksonModule.createJsonMapper(instanceClass), listeners);
   }
 
-  @SuppressWarnings ( {"unchecked"} )
-  public static <C> C processThroughJson(Object reference, Class<? extends C> instanceClass, ObjectMapper mapper, SerializationProcessListener... listeners) throws IOException {
+  public static <C> C processThroughJson(Object reference, Class<? extends C> instanceClass, JsonMapper mapper, SerializationProcessListener... listeners) {
     byte[] buffer = toJsonStream(reference, instanceClass, mapper, listeners);
-    reference = mapper.readValue(new ByteArrayInputStream(buffer), instanceClass);
-    return (C) reference;
+    return mapper.readValue(new ByteArrayInputStream(buffer), instanceClass);
   }
 
-  public static <C> byte[] toJsonStream(Object reference, SerializationProcessListener... listeners) throws IOException {
+  public static byte[] toJsonStream(Object reference, SerializationProcessListener... listeners) {
     return toJsonStream(reference, reference.getClass(), listeners);
   }
 
-  public static <C> void writeJson(Object reference, OutputStream out) throws IOException {
+  public static void writeJson(Object reference, OutputStream out) {
     writeJson(reference, reference.getClass(), out);
   }
 
-  public static <C> byte[] toJsonStream(Object reference, Class<? extends C> instanceClass, SerializationProcessListener... listeners) throws IOException {
-    return toJsonStream(reference, instanceClass, GedcomJacksonModule.createObjectMapper(instanceClass), listeners);
+  public static <C> byte[] toJsonStream(Object reference, Class<? extends C> instanceClass, SerializationProcessListener... listeners) {
+    return toJsonStream(reference, instanceClass, GedcomJacksonModule.createJsonMapper(instanceClass), listeners);
   }
 
-  public static <C> void writeJson(Object reference, Class<? extends C> instanceClass, OutputStream out) throws IOException {
-    writeJson(reference, instanceClass, GedcomJacksonModule.createObjectMapper(instanceClass), out);
+  public static <C> void writeJson(Object reference, Class<? extends C> instanceClass, OutputStream out) {
+    writeJson(reference, instanceClass, GedcomJacksonModule.createJsonMapper(instanceClass), out);
   }
 
-  protected static <C> byte[] toJsonStream(Object reference, Class<? extends C> instanceClass, ObjectMapper mapper, SerializationProcessListener... listeners) throws IOException {
+  protected static <C> byte[] toJsonStream(Object reference, Class<? extends C> instanceClass, JsonMapper mapper, SerializationProcessListener... listeners) {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     writeJson(reference, instanceClass, mapper, out);
     if ("true".equals(System.getProperty("show.output"))) {
-      System.out.println(new String(out.toByteArray(), "utf-8"));
+      System.out.println(out.toString(StandardCharsets.UTF_8));
     }
 
     if (listeners != null && listeners.length > 0) {
-      String json = new String(out.toByteArray(), "utf-8");
+      String json = out.toString(StandardCharsets.UTF_8);
       for (SerializationProcessListener listener : listeners) {
         listener.jsonProcessed(reference, instanceClass, mapper, json);
       }
@@ -190,21 +184,25 @@ public class SerializationUtil {
     return out.toByteArray();
   }
 
-  public static <C> void writeJson(Object reference, Class<? extends C> instanceClass, ObjectMapper mapper, OutputStream out) throws IOException {
+  public static <C> void writeJson(Object reference, Class<? extends C> instanceClass, JsonMapper mapper, OutputStream out) {
     GedcomNamespaceManager.registerKnownJsonType(instanceClass);
-    mapper = mapper.enable(SerializationFeature.INDENT_OUTPUT).setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    mapper.writeValue(out, reference);
+    mapper.rebuild()
+      .enable(SerializationFeature.INDENT_OUTPUT)
+      .changeDefaultPropertyInclusion(
+        incl -> JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
+      .build()
+      .writeValue(out, reference);
   }
 
-  public static ObjectNode toJsonNode(Object reference) throws IOException {
+  public static ObjectNode toJsonNode(Object reference) {
     return toJsonNode(reference, reference.getClass());
   }
 
-  public static ObjectNode toJsonNode(Object reference, Class<?> instanceClass) throws IOException {
-    return toJsonNode(reference, instanceClass, GedcomJacksonModule.createObjectMapper(instanceClass));
+  public static ObjectNode toJsonNode(Object reference, Class<?> instanceClass) {
+    return toJsonNode(reference, instanceClass, GedcomJacksonModule.createJsonMapper(instanceClass));
   }
 
-  public static ObjectNode toJsonNode(Object reference, Class<?> instanceClass, ObjectMapper mapper) throws IOException {
+  public static ObjectNode toJsonNode(Object reference, Class<?> instanceClass, JsonMapper mapper) {
     byte[] out = toJsonStream(reference, instanceClass, mapper);
     return mapper.readValue(new ByteArrayInputStream(out), ObjectNode.class);
   }

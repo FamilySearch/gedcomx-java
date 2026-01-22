@@ -15,12 +15,11 @@
  */
 package org.gedcomx.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.gedcomx.Gedcomx;
 import org.gedcomx.records.RecordSet;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -48,7 +47,7 @@ public class JsonRecordSetIteratorTest {
     JsonRecordSetIterator jsonRecordSetIterator = new JsonRecordSetIterator(url.getFile());
 
     RecordSet recordSet = new RecordSet();
-    recordSet.setRecords(new ArrayList<Gedcomx>());
+    recordSet.setRecords(new ArrayList<>());
 
     // Read in the records one at a time.
     while (jsonRecordSetIterator.hasNext()) {
@@ -73,12 +72,12 @@ public class JsonRecordSetIteratorTest {
       // Write the RecordSet to a String as Json
       ByteArrayOutputStream bos = new ByteArrayOutputStream();
       OutputStream outputStream = isGzipped ? new GZIPOutputStream(bos) : bos;
-      ObjectMapper objectMapper = GedcomJacksonModule.createObjectMapper();
-      objectMapper.writeValue(outputStream, recordSet1);
+      JsonMapper jsonMapper = GedcomJacksonModule.createJsonMapper();
+      jsonMapper.writeValue(outputStream, recordSet1);
 
       // Read the Json String back into a RecordSet using a JsonRecordSetIterator.
       RecordSet recordSet2 = new RecordSet();
-      recordSet2.setRecords(new ArrayList<Gedcomx>());
+      recordSet2.setRecords(new ArrayList<>());
       byte[] bytes = bos.toByteArray();
       InputStream inputStream = new ByteArrayInputStream(bytes);
 
@@ -112,12 +111,12 @@ public class JsonRecordSetIteratorTest {
 
     // Write the RecordSet to a String as Json
     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    ObjectMapper objectMapper = GedcomJacksonModule.createObjectMapper();
-    objectMapper.writeValue(bos, recordSet1);
+    JsonMapper jsonMapper = GedcomJacksonModule.createJsonMapper();
+    jsonMapper.writeValue(bos, recordSet1);
 
     // Read the Json String back into a RecordSet using a JsonRecordSetIterator.
     RecordSet recordSet2 = new RecordSet();
-    recordSet2.setRecords(new ArrayList<Gedcomx>());
+    recordSet2.setRecords(new ArrayList<>());
     byte[] bytes = bos.toByteArray();
     InputStream inputStream = new ByteArrayInputStream(bytes);
 
@@ -141,7 +140,7 @@ public class JsonRecordSetIteratorTest {
     RecordSetIterator recordSetIterator = new XmlRecordSetIterator(inputStream, false);    // This is XML specific so far.
 
     Gedcomx record;
-    List<Gedcomx> records = new ArrayList<Gedcomx>();
+    List<Gedcomx> records = new ArrayList<>();
 
     String[] expectedRecordIds = new String[]{"r_14946444", "r_21837581269", "r_731503667"};
     // Read a record from the xml input file.

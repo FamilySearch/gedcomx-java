@@ -15,25 +15,25 @@
  */
 package org.gedcomx.rt.json;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.BeanSerializer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+
+import jakarta.xml.bind.JAXBElement;
 import org.gedcomx.rt.GedcomNamespaceManager;
 import org.gedcomx.rt.SupportsExtensionAttributes;
 import org.gedcomx.rt.SupportsExtensionElements;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import jakarta.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ser.BeanPropertyWriter;
+import tools.jackson.databind.ser.BeanSerializer;
 
 /**
  * Custom JSON serializer for @XmlAnyElement fields/properties
@@ -47,24 +47,43 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
   }
 
   @Override
-  protected void serializeFields(Object bean, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
-    super.serializeFields(bean, jgen, provider);
+  protected void _serializePropertiesFiltered(
+    Object bean,
+    JsonGenerator g,
+    SerializationContext provider,
+    Object filterId) throws JacksonException {
 
-    if (bean instanceof SupportsExtensionAttributes) {
-      serializeExtensionAttributes((SupportsExtensionAttributes) bean, jgen, provider);
-    }
-
-    if (bean instanceof SupportsExtensionElements) {
-      serializeExtensionElements((SupportsExtensionElements) bean, jgen, provider);
-    }
+    super._serializePropertiesFiltered(bean, g, provider, filterId);
+    serializeExtensions(bean, g, provider);
   }
 
   @Override
-  protected void serializeFieldsFiltered(Object bean, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
-    super.serializeFieldsFiltered(bean, jgen, provider);
+  protected void _serializePropertiesMaybeView(
+    Object bean,
+    JsonGenerator g,
+    SerializationContext provider,
+    BeanPropertyWriter[] props) throws JacksonException {
+
+    super._serializePropertiesMaybeView(bean, g, provider, props);
+    serializeExtensions(bean, g, provider);
+  }
+
+  @Override
+  protected void _serializePropertiesNoView(
+    Object bean,
+    JsonGenerator gen,
+    SerializationContext provider,
+    BeanPropertyWriter[] props) throws JacksonException {
+
+    super._serializePropertiesNoView(bean, gen, provider, props);
+    serializeExtensions(bean, gen, provider);
+  }
+
+  private void serializeExtensions(Object bean, JsonGenerator jgen, SerializationContext provider)
+    throws JacksonException {
 
     if (bean instanceof SupportsExtensionAttributes) {
-      serializeExtensionAttributes((SupportsExtensionAttributes) bean, jgen, provider);
+      serializeExtensionAttributes((SupportsExtensionAttributes) bean, jgen);
     }
 
     if (bean instanceof SupportsExtensionElements) {
@@ -72,24 +91,29 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
     }
   }
 
-  private void serializeExtensionAttributes(SupportsExtensionAttributes value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+  private void serializeExtensionAttributes(SupportsExtensionAttributes value, JsonGenerator jgen)
+    throws JacksonException {
+
     Map<QName, String> extensionAttributes = value.getExtensionAttributes();
     if (extensionAttributes != null) {
       for (Map.Entry<QName, String> attr : extensionAttributes.entrySet()) {
-        jgen.writeStringField(attr.getKey().getNamespaceURI() + attr.getKey().getLocalPart(), attr.getValue());
+        jgen.writeStringProperty(attr.getKey().getNamespaceURI() + attr.getKey().getLocalPart(), attr.getValue());
       }
     }
   }
 
-  public void serializeExtensionElements(SupportsExtensionElements value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+  public void serializeExtensionElements(
+    SupportsExtensionElements value,
+    JsonGenerator jgen,
+    SerializationContext provider) throws JacksonException {
+
     List<Object> extensionElements = value.getExtensionElements();
     if (extensionElements != null) {
-      Map<String, List<Object>> extensionProperties = new HashMap<String, List<Object>>();
+      Map<String, List<Object>> extensionProperties = new HashMap<>();
       for (Object element : extensionElements) {
         if (element != null) {
           String name;
-          if (element instanceof Element) {
-            Element el = (Element) element;
+          if (element instanceof Element el) {
             name = GedcomNamespaceManager.nameFromQName(el.getNamespaceURI(), el.getLocalName());
           }
           else if (element instanceof JAXBElement) {
@@ -102,16 +126,12 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
           else {
             name = GedcomNamespaceManager.getJsonName(element.getClass());
             if (name == null) {
-              throw new JsonMappingException(jgen, "Unable to serialize custom element " + value +
-                                               " because it's not a JAXBElement, DOM element, nor is it annotated with either @JsonElementWrapper or @XmlRootElement.");
+              throw DatabindException.from(jgen, "Unable to serialize custom element " + value +
+                " because it's not a JAXBElement, DOM element, nor is it annotated with either @JsonElementWrapper or @XmlRootElement.");
             }
           }
 
-          List<Object> propList = extensionProperties.get(name);
-          if (propList == null) {
-            propList = new ArrayList<Object>();
-            extensionProperties.put(name, propList);
-          }
+          List<Object> propList = extensionProperties.computeIfAbsent(name, k -> new ArrayList<>());
 
           propList.add(element);
         }
@@ -120,17 +140,17 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
       for (Map.Entry<String, List<Object>> prop : extensionProperties.entrySet()) {
         if (prop.getValue().get(0) instanceof HasJsonKey) {
           //we're serialize out this list as a keyed map.
-          jgen.writeFieldName(prop.getKey());
+          jgen.writeName(prop.getKey());
           KeyedListSerializer.serializeGeneric(prop.getValue(), jgen, provider);
         }
         else {
-          jgen.writeArrayFieldStart(prop.getKey());
+          jgen.writeArrayPropertyStart(prop.getKey());
           for (Object element : prop.getValue()) {
             if (element instanceof Element) {
               serializeElement((Element) element, jgen);
             }
             else {
-              provider.findTypedValueSerializer(element.getClass(), true, null).serialize(element, jgen, provider);
+              provider.findTypedValueSerializer(element.getClass(), true).serialize(element, jgen, provider);
             }
           }
           jgen.writeEndArray();
@@ -139,7 +159,7 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
     }
   }
 
-  private void serializeElement(Element element, JsonGenerator jgen) throws IOException {
+  private void serializeElement(Element element, JsonGenerator jgen) throws JacksonException {
     boolean startObjectWritten = false;
     boolean writeValue = false;
     StringBuilder value = new StringBuilder();
@@ -150,7 +170,7 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
             jgen.writeStartObject();
             startObjectWritten = true;
           }
-          jgen.writeStringField(child.getLocalName(), child.getNodeValue());
+          jgen.writeStringProperty(child.getLocalName(), child.getNodeValue());
           break;
         case Node.TEXT_NODE:
         case Node.CDATA_SECTION_NODE:
@@ -162,14 +182,14 @@ public class ExtensibleObjectSerializer extends BeanSerializer {
             jgen.writeStartObject();
             startObjectWritten = true;
           }
-          jgen.writeFieldName(child.getNodeName());
+          jgen.writeName(child.getNodeName());
           serializeElement((Element)child, jgen);
           break;
       }
     }
     if (startObjectWritten) {
       if (writeValue) {
-        jgen.writeStringField("value", value.toString());
+        jgen.writeStringProperty("value", value.toString());
       }
       jgen.writeEndObject();
     }

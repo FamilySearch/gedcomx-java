@@ -57,7 +57,7 @@ class PersonRecipesTest extends RecipeTest {
 
     Snippet snippet = new Snippet();
     Person personThurXml = processThroughXml(person, Person.class, JAXBContext.newInstance(Person.class, CustomMarker.class), snippet);
-    Person personThurJson = processThroughJson(person, Person.class, GedcomJacksonModule.createObjectMapper(Person.class, CustomMarker.class), snippet);
+    Person personThurJson = processThroughJson(person, Person.class, GedcomJacksonModule.createJsonMapper(Person.class, CustomMarker.class), snippet);
     addSnippet(snippet);
 
     verifyPerson(personThurXml);

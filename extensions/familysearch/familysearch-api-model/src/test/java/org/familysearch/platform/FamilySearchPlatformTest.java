@@ -1,20 +1,24 @@
 package org.familysearch.platform;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.familysearch.platform.ct.ChildAndParentsRelationship;
-import org.familysearch.platform.records.AlternateDate;
-import org.familysearch.platform.records.AlternatePlaceReference;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
-import org.gedcomx.conclusion.*;
+import org.gedcomx.conclusion.DisplayProperties;
+import org.gedcomx.conclusion.Fact;
+import org.gedcomx.conclusion.FamilyView;
+import org.gedcomx.conclusion.Person;
+import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.types.FactType;
 import org.gedcomx.types.RelationshipType;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.json.JsonMapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import org.familysearch.platform.ct.ChildAndParentsRelationship;
+import org.familysearch.platform.records.AlternateDate;
+import org.familysearch.platform.records.AlternatePlaceReference;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class for testing the FamilySearchPlatform class
@@ -34,10 +38,10 @@ class FamilySearchPlatformTest {
     fact.addExtensionElement(altPlace);
     Gedcomx gx = new Gedcomx().person(new Person().fact(fact));
 
-    ObjectMapper objectMapper = GedcomJacksonModule.createObjectMapper(AlternateDate.class, AlternatePlaceReference.class);
-    String value = objectMapper.writeValueAsString(gx);
+    JsonMapper jsonMapper = GedcomJacksonModule.createJsonMapper(AlternateDate.class, AlternatePlaceReference.class);
+    String value = jsonMapper.writeValueAsString(gx);
     //System.out.println(value);
-    gx = objectMapper.readValue(value, Gedcomx.class);
+    gx = jsonMapper.readValue(value, Gedcomx.class);
     assertEquals("orig", gx.getPerson().getFirstFactOfType(FactType.Adoption).findExtensionOfType(AlternateDate.class).getOriginal());
 
     //JAXBContext.newInstance(FamilySearchPlatform.class).createMarshaller().marshal(gx, System.out);

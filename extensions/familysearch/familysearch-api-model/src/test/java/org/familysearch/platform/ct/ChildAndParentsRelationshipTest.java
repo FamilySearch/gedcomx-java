@@ -5,16 +5,13 @@ package org.familysearch.platform.ct;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.gedcomx.common.Note;
 import org.gedcomx.common.ResourceReference;
 import org.gedcomx.common.URI;
@@ -25,9 +22,10 @@ import org.gedcomx.rt.json.GedcomJacksonModule;
 import org.gedcomx.source.SourceReference;
 import org.gedcomx.types.FactType;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.json.JsonMapper;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -36,8 +34,8 @@ class ChildAndParentsRelationshipTest {
 
   @Test
   void model() {
-    ArrayList<SourceReference> sources = new ArrayList<SourceReference>();
-    ArrayList<Note> notes = new ArrayList<Note>();
+    ArrayList<SourceReference> sources = new ArrayList<>();
+    ArrayList<Note> notes = new ArrayList<>();
     ChildAndParentsRelationship rel = new ChildAndParentsRelationship();
     rel.setParent1(new ResourceReference(URI.create("urn:parent1")));
     rel.setParent2(new ResourceReference(URI.create("urn:parent2")));
@@ -89,23 +87,18 @@ class ChildAndParentsRelationshipTest {
       compareChildAndParentsRelationship(roundTrippedChildAndParentsRelationship, origChildAndParentsRelationship);
     }
     catch (JAXBException e) {
-      fail("Failed to marshall XML " + e.toString());
+      fail("Failed to marshall XML " + e);
     }
 
     outStream.reset();
 
-    try {
-      ObjectMapper mapper = GedcomJacksonModule.createObjectMapper(ChildAndParentsRelationship.class);
-      mapper.writeValue(outStream, origChildAndParentsRelationship);
+    JsonMapper mapper = GedcomJacksonModule.createJsonMapper(ChildAndParentsRelationship.class);
+    mapper.writeValue(outStream, origChildAndParentsRelationship);
 
-      ByteArrayInputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
-      ChildAndParentsRelationship roundTrippedChildAndParentsRelationship = mapper.readValue(inStream, ChildAndParentsRelationship.class);
+    ByteArrayInputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
+    ChildAndParentsRelationship roundTrippedChildAndParentsRelationship = mapper.readValue(inStream, ChildAndParentsRelationship.class);
 
-      compareChildAndParentsRelationship(roundTrippedChildAndParentsRelationship, origChildAndParentsRelationship);
-    }
-    catch (IOException e) {
-      fail("Failed to marshall Json " + e.toString());
-    }
+    compareChildAndParentsRelationship(roundTrippedChildAndParentsRelationship, origChildAndParentsRelationship);
   }
 
   private void compareChildAndParentsRelationship(ChildAndParentsRelationship actual, ChildAndParentsRelationship expected) {
