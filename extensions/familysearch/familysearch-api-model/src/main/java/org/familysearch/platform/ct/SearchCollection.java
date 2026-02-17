@@ -45,7 +45,7 @@ public enum SearchCollection implements ControlledVocabulary {
       },
 
   /**
-   * The FamilySearch CETs.
+   * The FamilySearch User Trees.
    */
   cet
       {

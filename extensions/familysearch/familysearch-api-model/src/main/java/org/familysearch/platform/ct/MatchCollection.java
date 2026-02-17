@@ -43,13 +43,13 @@ public enum MatchCollection implements ControlledVocabulary {
   records,
 
   /**
-   * The FamilySearch User-Submitted Trees.
+   * The FamilySearch User Trees.
    */
   @XmlQNameEnumValue ( localPart = "trees" )
   lls,
 
   /**
-   * The FamilySearch CETs.
+   * The FamilySearch User Trees.
    */
   cet,
 
