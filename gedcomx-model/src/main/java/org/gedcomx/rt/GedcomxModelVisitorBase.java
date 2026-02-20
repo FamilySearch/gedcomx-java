@@ -37,7 +37,7 @@ import java.util.List;
 @XmlTransient
 public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
 
-  protected final LinkedList<Object> contextStack = new LinkedList<Object>();
+  protected final LinkedList<Object> contextStack = new LinkedList<>();
   
   @Override
   public void visitGedcomx(Gedcomx gx) {
@@ -463,6 +463,15 @@ public class GedcomxModelVisitorBase implements GedcomxModelVisitor {
   }
 
   protected void visitComponents(Date date) {
+    List<AlternateCalendarDate> alternateCalendars = date.getAlternateCalendars();
+    if (alternateCalendars != null) {
+      for (AlternateCalendarDate alternateCalendar : alternateCalendars) {
+        if (alternateCalendar != null) {
+          alternateCalendar.accept(this);
+        }
+      }
+    }
+
     List<Field> fields = date.getFields();
     if (fields != null) {
       for (Field field : fields) {

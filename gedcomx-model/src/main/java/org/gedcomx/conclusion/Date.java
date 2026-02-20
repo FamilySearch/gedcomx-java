@@ -37,16 +37,16 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * A concluded genealogical date.
  */
 @ClientName ("DateInfo")
-@XmlType ( name = "Date", propOrder = { "original", "formal", "normalizedExtensions", "fields"})
+@XmlType ( name = "Date", propOrder = { "original", "formal", "alternateCalendars", "normalizedExtensions", "fields"})
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @Schema(description = "A concluded genealogical date.")
 public class Date extends ExtensibleData implements HasFields {
@@ -63,6 +63,7 @@ public class Date extends ExtensibleData implements HasFields {
   @Schema(description = "The list of normalized values for the date, provided for display purposes by the application. Normalized values are not specified by " +
       "GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private List<TextValue> normalized;
+  private List<AlternateCalendarDate> alternateCalendars;
 
   private List<Field> fields;
 
@@ -74,8 +75,9 @@ public class Date extends ExtensibleData implements HasFields {
     this.original = copy.original;
     this.formal = copy.formal;
     this.confidence = copy.confidence;
-    this.normalized = copy.normalized == null ? null : new ArrayList<>(copy.normalized.stream().map(TextValue::new).toList());
-    this.fields = copy.fields == null ? null : new ArrayList<>(copy.fields.stream().map(Field::new).toList());
+    this.normalized = copy.normalized == null ? null : copy.normalized.stream().map(TextValue::new).collect(Collectors.toList());
+    this.alternateCalendars = copy.alternateCalendars == null ? null : copy.alternateCalendars.stream().map(AlternateCalendarDate::new).toList();
+    this.fields = copy.fields == null ? null : copy.fields.stream().map(Field::new).toList();
   }
 
   @Override
@@ -275,9 +277,61 @@ public class Date extends ExtensibleData implements HasFields {
   public void addNormalizedExtension(TextValue normalizedExtension) {
     if (normalizedExtension != null) {
       if (normalized == null) {
-        normalized = new LinkedList<TextValue>();
+        normalized = new LinkedList<>();
       }
       normalized.add(normalizedExtension);
+    }
+  }
+
+  /**
+   * Get a list of the same date expressed in alternate calendars.
+   * In records, this is useful for recording how the date appeared and what calendar is believed to be used for it.
+   *   This helps with interpreting the date correctly, especially when converting to a standard Gregorian calendar.
+   * In trees, it can also be useful to include an alternate calendar representation of a date if the records the
+   *   person appears in tend to use a calendar other than Gregorian. For example, a person born in 1910 in the
+   *   Ottoman Empire may have their birth date recorded in the Rumi calendar in most records. Including this
+   *   date as an alternate calendar date, in addition to the Gregorian date, can help researchers understand and
+   *   verify the date more easily.
+   *
+   * @return List of dates in alternate calendars.
+   */
+  @XmlElement( name = "alternateCalendar" )
+  public List<AlternateCalendarDate> getAlternateCalendars() {
+    return alternateCalendars;
+  }
+
+  /**
+   * Set the list of alternate calendar dates.
+   *
+   * @param alternateCalendars - List of alternateCalendars
+   */
+  @JsonProperty( "alternateCalendars" )
+  public void setAlternateCalendars(List<AlternateCalendarDate> alternateCalendars) {
+    this.alternateCalendars = alternateCalendars;
+  }
+
+  /**
+   * Build up this date with the same date in an alternate calendar.
+   *
+   * @param alternateCalendar The same date expressed in an alternate calendar
+   * @return this.
+   */
+  public Date alternateCalendar(AlternateCalendarDate alternateCalendar) {
+    addAlternateCalendar(alternateCalendar);
+    return this;
+  }
+
+  /**
+   * Add the same date expressed in an alternate calendar.
+   *
+   * @param alternateCalendar The alternate calendar date to be added.
+   */
+  public void addAlternateCalendar(AlternateCalendarDate alternateCalendar) {
+    if (alternateCalendar != null) {
+      if (alternateCalendars == null) {
+        alternateCalendars = new LinkedList<>();
+      }
+      alternateCalendars.add(alternateCalendar);
     }
   }
 
@@ -322,7 +376,7 @@ public class Date extends ExtensibleData implements HasFields {
   public void addField(Field field) {
     if (field != null) {
       if (fields == null) {
-        fields = new LinkedList<Field>();
+        fields = new LinkedList<>();
       }
       fields.add(field);
     }

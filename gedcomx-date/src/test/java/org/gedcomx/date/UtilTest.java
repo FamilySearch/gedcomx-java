@@ -121,11 +121,11 @@ class UtilTest {
             new GedcomxDateSimple("+0999-12-31T23:59:59"),
             new GedcomxDateSimple("+1000-01-01T00:00:00"));
 
-    assertThat(duration.getYears()).isEqualTo(null);
-    assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(null);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
+    assertThat(duration.getYears()).isNull();
+    assertThat(duration.getMonths()).isNull();
+    assertThat(duration.getDays()).isNull();
+    assertThat(duration.getHours()).isNull();
+    assertThat(duration.getMinutes()).isNull();
     assertThat(duration.getSeconds()).isEqualTo(1);
   }
 
@@ -135,12 +135,12 @@ class UtilTest {
             new GedcomxDateSimple("+0999-12-31T23:59:00"),
             new GedcomxDateSimple("+1000-01-01T00:00:00"));
 
-    assertThat(duration.getYears()).isEqualTo(null);
-    assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(null);
-    assertThat(duration.getHours()).isEqualTo(null);
+    assertThat(duration.getYears()).isNull();
+    assertThat(duration.getMonths()).isNull();
+    assertThat(duration.getDays()).isNull();
+    assertThat(duration.getHours()).isNull();
     assertThat(duration.getMinutes()).isEqualTo(1);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getSeconds()).isNull();
   }
 
   @Test
@@ -149,12 +149,12 @@ class UtilTest {
             new GedcomxDateSimple("+0999-12-31T23:00:00"),
             new GedcomxDateSimple("+1000-01-01T00:00:00"));
 
-    assertThat(duration.getYears()).isEqualTo(null);
-    assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(null);
+    assertThat(duration.getYears()).isNull();
+    assertThat(duration.getMonths()).isNull();
+    assertThat(duration.getDays()).isNull();
     assertThat(duration.getHours()).isEqualTo(1);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getMinutes()).isNull();
+    assertThat(duration.getSeconds()).isNull();
   }
 
   @Test
@@ -163,12 +163,12 @@ class UtilTest {
             new GedcomxDateSimple("+0999-12-31T00:00:00"),
             new GedcomxDateSimple("+1000-01-01T00:00:00"));
 
-    assertThat(duration.getYears()).isEqualTo(null);
-    assertThat(duration.getMonths()).isEqualTo(null);
+    assertThat(duration.getYears()).isNull();
+    assertThat(duration.getMonths()).isNull();
     assertThat(duration.getDays()).isEqualTo(1);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getHours()).isNull();
+    assertThat(duration.getMinutes()).isNull();
+    assertThat(duration.getSeconds()).isNull();
   }
 
   @Test
@@ -177,12 +177,12 @@ class UtilTest {
             new GedcomxDateSimple("+0999-12-01T00:00:00"),
             new GedcomxDateSimple("+1000-01-01T00:00:00"));
 
-    assertThat(duration.getYears()).isEqualTo(null);
+    assertThat(duration.getYears()).isNull();
     assertThat(duration.getMonths()).isEqualTo(1);
-    assertThat(duration.getDays()).isEqualTo(null);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getDays()).isNull();
+    assertThat(duration.getHours()).isNull();
+    assertThat(duration.getMinutes()).isNull();
+    assertThat(duration.getSeconds()).isNull();
   }
 
   @Test
@@ -192,11 +192,11 @@ class UtilTest {
             new GedcomxDateSimple("+1000-01-01T00:00:00"));
 
     assertThat(duration.getYears()).isEqualTo(1);
-    assertThat(duration.getMonths()).isEqualTo(null);
-    assertThat(duration.getDays()).isEqualTo(null);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getMonths()).isNull();
+    assertThat(duration.getDays()).isNull();
+    assertThat(duration.getHours()).isNull();
+    assertThat(duration.getMinutes()).isNull();
+    assertThat(duration.getSeconds()).isNull();
   }
 
   @Test
@@ -260,12 +260,12 @@ class UtilTest {
             new GedcomxDateSimple("+1973-02-01"));
 
     assertThat(duration.getYears()).isEqualTo(3);
-    assertThat(duration.getMonths()).isEqualTo(null);
+    assertThat(duration.getMonths()).isNull();
     // All of the 31st and all of the 1st.
     assertThat(duration.getDays()).isEqualTo(2);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getHours()).isNull();
+    assertThat(duration.getMinutes()).isNull();
+    assertThat(duration.getSeconds()).isNull();
   }
 
   @Test
@@ -275,12 +275,12 @@ class UtilTest {
 
     GedcomxDateDuration duration = ((GedcomxDateRange)date).getDuration();
 
-    assertThat(duration.getYears()).isEqualTo(null);
-    assertThat(duration.getMonths()).isEqualTo(null);
+    assertThat(duration.getYears()).isNull();
+    assertThat(duration.getMonths()).isNull();
     assertThat(duration.getDays()).isEqualTo(1);
-    assertThat(duration.getHours()).isEqualTo(null);
-    assertThat(duration.getMinutes()).isEqualTo(null);
-    assertThat(duration.getSeconds()).isEqualTo(null);
+    assertThat(duration.getHours()).isNull();
+    assertThat(duration.getMinutes()).isNull();
+    assertThat(duration.getSeconds()).isNull();
 
     GedcomxDateSimple endDate = ((GedcomxDateRange)date).getEnd();
     assertThat(endDate.getYear()).isEqualTo(1970);
@@ -363,7 +363,7 @@ class UtilTest {
     assertThat(simple.getDay()).isEqualTo(1);
     assertThat(simple.getHours()).isEqualTo(1);
     assertThat(simple.getMinutes()).isEqualTo(30);
-    assertThat(simple.getSeconds()).isEqualTo(null);
+    assertThat(simple.getSeconds()).isNull();
   }
 
   @Test
@@ -376,8 +376,8 @@ class UtilTest {
     assertThat(simple.getMonth()).isEqualTo(1);
     assertThat(simple.getDay()).isEqualTo(3);
     assertThat(simple.getHours()).isEqualTo(2);
-    assertThat(simple.getMinutes()).isEqualTo(null);
-    assertThat(simple.getSeconds()).isEqualTo(null);
+    assertThat(simple.getMinutes()).isNull();
+    assertThat(simple.getSeconds()).isNull();
   }
 
   @Test
@@ -389,9 +389,9 @@ class UtilTest {
     assertThat(simple.getYear()).isEqualTo(2004);
     assertThat(simple.getMonth()).isEqualTo(3);
     assertThat(simple.getDay()).isEqualTo(3);
-    assertThat(simple.getHours()).isEqualTo(null);
-    assertThat(simple.getMinutes()).isEqualTo(null);
-    assertThat(simple.getSeconds()).isEqualTo(null);
+    assertThat(simple.getHours()).isNull();
+    assertThat(simple.getMinutes()).isNull();
+    assertThat(simple.getSeconds()).isNull();
   }
 
   @Test
@@ -403,9 +403,9 @@ class UtilTest {
     assertThat(simple.getYear()).isEqualTo(2002);
     assertThat(simple.getMonth()).isEqualTo(1);
     assertThat(simple.getDay()).isEqualTo(2);
-    assertThat(simple.getHours()).isEqualTo(null);
-    assertThat(simple.getMinutes()).isEqualTo(null);
-    assertThat(simple.getSeconds()).isEqualTo(null);
+    assertThat(simple.getHours()).isNull();
+    assertThat(simple.getMinutes()).isNull();
+    assertThat(simple.getSeconds()).isNull();
   }
 
   @Test
@@ -416,10 +416,10 @@ class UtilTest {
 
     assertThat(simple.getYear()).isEqualTo(1002);
     assertThat(simple.getMonth()).isEqualTo(2);
-    assertThat(simple.getDay()).isEqualTo(null);
-    assertThat(simple.getHours()).isEqualTo(null);
-    assertThat(simple.getMinutes()).isEqualTo(null);
-    assertThat(simple.getSeconds()).isEqualTo(null);
+    assertThat(simple.getDay()).isNull();
+    assertThat(simple.getHours()).isNull();
+    assertThat(simple.getMinutes()).isNull();
+    assertThat(simple.getSeconds()).isNull();
   }
 
   @Test
@@ -429,11 +429,11 @@ class UtilTest {
             new GedcomxDateDuration("P20Y"));
 
     assertThat(simple.getYear()).isEqualTo(19);
-    assertThat(simple.getMonth()).isEqualTo(null);
-    assertThat(simple.getDay()).isEqualTo(null);
-    assertThat(simple.getHours()).isEqualTo(null);
-    assertThat(simple.getMinutes()).isEqualTo(null);
-    assertThat(simple.getSeconds()).isEqualTo(null);
+    assertThat(simple.getMonth()).isNull();
+    assertThat(simple.getDay()).isNull();
+    assertThat(simple.getHours()).isNull();
+    assertThat(simple.getMinutes()).isNull();
+    assertThat(simple.getSeconds()).isNull();
   }
 
   @Test
@@ -443,11 +443,11 @@ class UtilTest {
             new GedcomxDateDuration("P200Y"));
 
     assertThat(simple.getYear()).isEqualTo(-800);
-    assertThat(simple.getMonth()).isEqualTo(null);
-    assertThat(simple.getDay()).isEqualTo(null);
-    assertThat(simple.getHours()).isEqualTo(null);
-    assertThat(simple.getMinutes()).isEqualTo(null);
-    assertThat(simple.getSeconds()).isEqualTo(null);
+    assertThat(simple.getMonth()).isNull();
+    assertThat(simple.getDay()).isNull();
+    assertThat(simple.getHours()).isNull();
+    assertThat(simple.getMinutes()).isNull();
+    assertThat(simple.getSeconds()).isNull();
   }
 
   @Test
@@ -497,9 +497,9 @@ class UtilTest {
   @Test
   void errorOnInvalidMonth() {
     try {
-      GedcomxDateUtil.daysInMonth(13, 2000);
+      YearMonth.of(2000, 13).lengthOfMonth();
       fail("GedcomxDateException expected because 13 is not a month");
-    } catch(GedcomxDateException e) {
+    } catch(DateTimeException e) {
       assertThat(e.getMessage()).isEqualTo("Invalid value for MonthOfYear (valid values 1 - 12): 13");
     }
   }
