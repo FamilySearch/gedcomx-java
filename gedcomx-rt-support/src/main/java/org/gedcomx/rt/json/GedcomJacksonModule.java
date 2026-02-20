@@ -34,7 +34,20 @@ import tools.jackson.databind.ser.Serializers;
 import tools.jackson.databind.type.CollectionType;
 
 /**
- * GEDCOM Jackson module for Jackson customizations.
+ * GEDCOM Jackson module for Jackson customizations. Supports standard GedcomX spec objects when manually or
+ * automatically registered with a Jackson {@link JsonMapper}. If used in conjunction with non-base GedcomX spec
+ * objects, you may have to call
+ * {@link GedcomNamespaceManager#registerKnownJsonType(Class)} or
+ * {@link GedcomNamespaceManager#registerKnownJsonTypes(Class[])} prior to use in order to properly deserialize those
+ * extension objects.
+ * <p>
+ * As an alternative, the {@link #createJsonMapper(Class[])} and
+ * {@link #createJsonMapperBuilder(Class[])} methods will perform class registration for you, prior to returning the
+ * corresponding Jackson mapper object. Some additional configuration is also performed by these methods, such as
+ * enabling pretty printing and excluding null values from serialization.
+ * <p>
+ * Manual module registration can be performed as follows: {@code JsonMapper.builder().addModule(new GedcomJacksonModule()).build()}<br>
+ * Automatic module registration can be performed as follows: {@code JsonMapper.builder().findAndAddModules().build()}.
  *
  * @author Ryan Heaton
  */
@@ -47,10 +60,6 @@ public class GedcomJacksonModule extends JacksonModule {
    * @return The JSON mapper.
    */
   public static JsonMapper createJsonMapper(Class<?>... classes) {
-    for (Class<?> contextClass : classes) {
-      GedcomNamespaceManager.registerKnownJsonType(contextClass);
-    }
-
     return createJsonMapperBuilder(classes).build();
   }
 
@@ -61,9 +70,7 @@ public class GedcomJacksonModule extends JacksonModule {
    * @return The JSON mapper builder.
    */
   public static JsonMapper.Builder createJsonMapperBuilder(Class<?>... classes) {
-    for (Class<?> contextClass : classes) {
-      GedcomNamespaceManager.registerKnownJsonType(contextClass);
-    }
+    GedcomNamespaceManager.registerKnownJsonTypes(classes);
 
     return JsonMapper.builder()
       .annotationIntrospector(new JacksonAnnotationIntrospector())

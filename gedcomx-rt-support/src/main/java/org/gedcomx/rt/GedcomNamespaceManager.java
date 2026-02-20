@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * A nice namespace prefix mapper that can be used to make XML and JSON output as pretty as it can be.
@@ -230,6 +231,15 @@ public class GedcomNamespaceManager extends NamespacePrefixMapper {
   public static Class<?> getWrappedTypeForJsonName(String jsonName) {
     init(Thread.currentThread().getContextClassLoader());
     return WRAPPED_JSON_TYPES_BY_NAME.get(jsonName);
+  }
+
+  /**
+   * Register known JSON types. They must be annotated with either @JsonElementWrapper or @XmlRootElement.
+   *
+   * @param type the types to register.
+   */
+  public static void registerKnownJsonTypes(Class<?>... type) {
+    Stream.of(type).forEach(GedcomNamespaceManager::registerKnownJsonType);
   }
 
   /**
