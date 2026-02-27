@@ -19,7 +19,7 @@
     <skip.pgp>true</skip.pgp>
 
     <!-- Dependency versions -->
-    <assertj.version>3.27.6</assertj.version>
+    <assertj.version>3.27.7</assertj.version>
     <commons-codec.version>1.20.0</commons-codec.version>
     <enunciate.version>2.19.0</enunciate.version>
     <hamcrest.version>3.0</hamcrest.version>
