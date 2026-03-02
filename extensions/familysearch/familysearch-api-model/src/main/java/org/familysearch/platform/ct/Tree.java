@@ -63,6 +63,9 @@ public class Tree {
   @Schema(description = "The group third party access state of the tree.")
   private ThirdPartyAccess groupAccess;
 
+  @Schema(description = "All third party access state of the tree.")
+  private ThirdPartyAccess allAccess;
+
   /**
    * Get the tree id.
    *
@@ -346,6 +349,31 @@ public class Tree {
    */
   public Tree groupAccess(ThirdPartyAccess groupAccess) {
     setGroupAccess(groupAccess);
+    return this;
+  }
+
+  /**
+   * Get the access state of all third parties.
+   *
+   * @return The access state of all third parties.
+   */
+  public ThirdPartyAccess getAllAccess() { return this.allAccess; }
+
+  /**
+   * Set the access state of all third parties.
+   *
+   * @param allAccess The access state of all third parties.
+   */
+  public void setAllAccess(ThirdPartyAccess allAccess) { this.allAccess = allAccess; }
+
+  /**
+   * Build out this tree with the access state of all third parties.
+   *
+   * @param allAccess The access state of all third parties.
+   * @return this.
+   */
+  public Tree allAccess(ThirdPartyAccess allAccess) {
+    setAllAccess(allAccess);
     return this;
   }
 }
