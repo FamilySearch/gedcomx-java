@@ -17,6 +17,7 @@
 package org.familysearch.platform.ct;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
+import com.webcohesion.enunciate.metadata.qname.XmlQNameEnumValue;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
 
 import org.familysearch.platform.FamilySearchPlatform;
@@ -47,7 +48,7 @@ public enum SearchCollection implements ControlledVocabulary {
   /**
    * The FamilySearch CETs.
    */
-  @Deprecated(since = "3.58", forRemoval = true)
+  @Deprecated(since = "3.59", forRemoval = true)
   @SuppressWarnings("deprecation")
   cet
       {
