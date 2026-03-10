@@ -51,7 +51,14 @@ public enum MatchCollection implements ControlledVocabulary {
   /**
    * The FamilySearch User Trees.
    */
+  @Deprecated(since = "3.58", forRemoval = true)
+  @SuppressWarnings("deprecation")
   cet,
+
+  /**
+   * The User Trees.
+   */
+  user_trees,
 
   /**
    * The FamilySearch Temple System.
