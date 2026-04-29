@@ -37,14 +37,14 @@ The following recipe files provide worked examples for common use cases. Fetch t
 
 ## Step 2: Load Java library context
 
-Read the following files from this repository to understand the Java implementation:
+This library lives at `https://github.com/FamilySearch/gedcomx-java`. Read the following files from that repository using the WebFetch tool:
 
-- `README.md` — module overview, Maven/Gradle/Ivy dependency coordinates, build instructions
-- `gedcomx-model/README.md` — Java model classes, XML (JAXB) and JSON (Jackson) serialization examples
-- `gedcomx-fileformat/README.md` — reading and writing `.gedx` files with `GedcomxOutputStream` and `GedcomxFile`
-- `gedcomx-date/README.md` — `GedcomxDate` type hierarchy, `GedcomxDateUtil` utilities, and exception handling
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx-java/master/README.md` — module overview, Maven/Gradle/Ivy dependency coordinates, build instructions
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx-java/master/gedcomx-model/README.md` — Java model classes, XML (JAXB) and JSON (Jackson) serialization examples
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx-java/master/gedcomx-fileformat/README.md` — reading and writing `.gedx` files with `GedcomxOutputStream` and `GedcomxFile`
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx-java/master/gedcomx-date/README.md` — `GedcomxDate` type hierarchy, `GedcomxDateUtil` utilities, and exception handling
 
-Read them now using the Read tool before proceeding.
+If a local clone of the repository is available as the current working directory, use the Read tool instead. Fetch or read them now before proceeding.
 
 ## Step 3: Determine intent
 
