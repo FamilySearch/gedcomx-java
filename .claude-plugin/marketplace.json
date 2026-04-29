@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "gedcomx-java",
+  "version": "1.0.0",
+  "description": "Claude Code plugins for the GEDCOM X Java reference implementation",
+  "owner": {
+    "name": "FamilySearch Engineering",
+    "email": "engineering@familysearch.org"
+  },
+  "plugins": [
+    {
+      "name": "gedcomx-java",
+      "description": "GEDCOM X Java library knowledge and best practices for working with the Java reference implementation.",
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/FamilySearch/gedcomx-java.git",
+        "path": "tools/claude-plugin"
+      },
+      "homepage": "https://github.com/FamilySearch/gedcomx-java"
+    }
+  ]
+}

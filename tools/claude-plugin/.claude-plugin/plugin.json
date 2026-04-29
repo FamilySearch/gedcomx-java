@@ -1,0 +1,24 @@
+{
+  "name": "gedcomx-java",
+  "version": "1.0.0",
+  "description": "GEDCOM X Java library knowledge and best practices for working with the Java reference implementation.",
+  "homepage": "https://github.com/FamilySearch/gedcomx-java",
+  "repository": "https://github.com/FamilySearch/gedcomx-java",
+  "license": "Apache-2.0",
+  "keywords": [
+    "gedcomx",
+    "genealogy",
+    "java",
+    "familysearch"
+  ],
+  "dependencies": [
+    {
+      "name": "gedcomx",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/FamilySearch/gedcomx.git",
+        "path": "tools/claude-plugin"
+      }
+    }
+  ]
+}
