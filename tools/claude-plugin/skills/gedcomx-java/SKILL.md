@@ -8,13 +8,36 @@ version: 1.0.0
 
 You are an expert on the GEDCOM X Java reference implementation. When this skill is invoked, do the following:
 
-## Step 1: Invoke the gedcomx dependency skill
+## Step 1: Load the GEDCOM X specifications
 
-Invoke the `gedcomx` skill from the `gedcomx` dependency plugin. This loads the GEDCOM X specifications into context and provides the authoritative data model, format, and vocabulary knowledge that underpins everything in this Java library.
+Fetch all of the following specification files from GitHub using the WebFetch tool. These are the authoritative sources for the data model, formats, and vocabularies that underpin this Java library.
+
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/conceptual-model-specification.md` — core data model: persons, relationships, facts, sources, agents, events, documents, places
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/json-format-specification.md` — JSON serialization rules
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/xml-format-specification.md` — XML serialization rules
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/date-format-specification.md` — formal date format grammar and semantics
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/fact-types-specification.md` — enumerated fact types and their meanings
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/event-types-specification.md` — enumerated event types
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/relationship-types-specification.md` — enumerated relationship types
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/name-part-qualifiers-specification.md` — name part qualifier vocabulary
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/file-format-specification.md` — GEDCOM X file (.gedx) packaging format
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/specifications/standard-header-set-specification.md` — standard metadata headers
+
+Fetch them now using the WebFetch tool before proceeding.
+
+### Recipes (load on demand)
+
+The following recipe files provide worked examples for common use cases. Fetch the relevant recipe(s) only when they would meaningfully inform an answer, a generation task, or a validation — do not load all of them upfront.
+
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/tools/claude-plugin/skills/gedcomx/recipe-birth-information.md` — representing birth records, source descriptions, extracted persons, parent-child relationships, and analysis documents
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/tools/claude-plugin/skills/gedcomx/recipe-death-information.md` — representing death and burial information, including transcription and translation of non-English sources
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/tools/claude-plugin/skills/gedcomx/recipe-marriage-information.md` — representing marriage records, couples relationships, and transcriptions
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/tools/claude-plugin/skills/gedcomx/recipe-names.md` — representing names across cultures: western, Japanese (multiple forms/scripts), Spanish (multiple parts), Icelandic patronymics, and name part qualifiers
+- `https://raw.githubusercontent.com/FamilySearch/gedcomx/master/tools/claude-plugin/skills/gedcomx/recipe-misc-facts-events.md` — representing census, residence, military, immigration, and other miscellaneous fact and event types
 
 ## Step 2: Load Java library context
 
-After the `gedcomx` skill completes, read the following files from this repository to understand the Java implementation:
+Read the following files from this repository to understand the Java implementation:
 
 - `README.md` — module overview, Maven/Gradle/Ivy dependency coordinates, build instructions
 - `gedcomx-model/README.md` — Java model classes, XML (JAXB) and JSON (Jackson) serialization examples
@@ -32,7 +55,7 @@ If the user supplied no intent, enter **Knowledge mode** and inform the user you
 ## Modes
 
 ### Knowledge mode (default)
-Answer questions about the Java library: which module to use, how classes map to GEDCOM X types, serialization/deserialization patterns, date parsing, file format I/O, and FamilySearch API client usage. Ground answers in the specifications loaded by the `gedcomx` skill and the Java library documentation loaded above.
+Answer questions about the Java library: which module to use, how classes map to GEDCOM X types, serialization/deserialization patterns, date parsing, file format I/O, and FamilySearch API client usage. Ground answers in the specifications and Java library documentation loaded above.
 
 ### Java Generation mode
 Produce Java code that uses this library correctly.
@@ -54,6 +77,6 @@ Review Java code that uses this library and identify issues:
 - `JAXBContext` or `JsonMapper` instantiated per-call instead of reused
 - Invalid or non-spec-compliant `type` URIs passed to `FactType`, `RelationshipType`, etc.
 - Date strings that would fail `GedcomxDateUtil.parse()` per the date format spec
-- Missing required fields per the GEDCOM X conceptual model (loaded by the `gedcomx` skill)
+- Missing required fields per the GEDCOM X conceptual model
 
 Report findings as a concise list: **valid** or each issue with a short description and the relevant spec/README section.

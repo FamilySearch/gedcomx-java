@@ -10,8 +10,5 @@
     "genealogy",
     "java",
     "familysearch"
-  ],
-  "dependencies": [
-    { "name": "gedcomx", "marketplace": "gedcomx" }
   ]
 }
