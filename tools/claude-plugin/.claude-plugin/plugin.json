@@ -12,13 +12,6 @@
     "familysearch"
   ],
   "dependencies": [
-    {
-      "name": "gedcomx",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/FamilySearch/gedcomx.git",
-        "path": "tools/claude-plugin"
-      }
-    }
+    { "name": "gedcomx" }
   ]
 }
