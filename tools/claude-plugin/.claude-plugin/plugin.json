@@ -12,6 +12,6 @@
     "familysearch"
   ],
   "dependencies": [
-    { "name": "gedcomx" }
+    { "name": "gedcomx", "marketplace": "gedcomx" }
   ]
 }
