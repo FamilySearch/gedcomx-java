@@ -64,10 +64,12 @@ Best practices to follow:
 - Use the fluent builder-style API (method chaining) as shown in the `gedcomx-model` README.
 - Declare Maven coordinates using `groupId: org.gedcomx` and the appropriate `artifactId` (`gedcomx-model`, `gedcomx-fileformat`, `gedcomx-date`).
 - Reuse `JAXBContext` and `JsonMapper` instances — they are expensive to construct.
-- Use `GedcomJacksonModule.createJsonMapper(Gedcomx.class)` for JSON, not a plain `ObjectMapper`.
+- Always obtain `ObjectMapper` via `GedcomJacksonModule.createJsonMapper(Gedcomx.class)` (passing any extension classes), never with `new ObjectMapper()`. The module registers custom (de)serializers required for properties like `identifiers`; omitting it causes JSON parse errors or incorrect output.
 - Use `GedcomxDateUtil.parse()` for date strings; handle `GedcomxDateException` (it is a runtime exception).
 - Prefer `GedcomxOutputStream` / `GedcomxFile` for `.gedx` file I/O.
 - Use well-formed URI strings for `id` values (e.g., `#person-1`, `#rel-1`).
+- **Controlled vocabulary / known types:** For any type property (gender, fact, event, relationship, name part qualifier, etc.), use the `knownType()` builder method or `setKnownType()` setter rather than passing a raw URI string. These methods accept the corresponding enum (e.g., `GenderType`, `FactType`) and handle the URI conversion. Only set the raw `type` URI directly when using a proprietary or external vocabulary element not defined in the spec. When reading a type property, use `getKnownType()` — it returns the enum value, or `OTHER` if the URI is not a recognised spec value.
+- **Resource references:** Represent resource references with `ResourceReference`. Always set the `resource` property to the URI — use a fragment identifier (e.g., `#person-1`) for resources local to the same document, or a full URL for external resources. Optionally set `resourceId` as a convenience for local references (it holds the bare `id` value without the `#` prefix), but `resource` is the canonical property and must always be set.
 - After generating, note any assumptions made (inferred types, omitted optional fields).
 
 ### Validation mode
@@ -75,6 +77,9 @@ Review Java code that uses this library and identify issues:
 - Incorrect module/artifact chosen for the task
 - Misuse of JAXB vs. Jackson APIs
 - `JAXBContext` or `JsonMapper` instantiated per-call instead of reused
+- `ObjectMapper` created without `GedcomJacksonModule` — will produce incorrect JSON or fail to deserialize properties like `identifiers`
+- Raw URI string passed to `setType()` where a `setKnownType()` / `knownType()` builder exists and the value matches a spec-defined vocabulary element
+- `ResourceReference` constructed without setting `resource`; or `resourceId` used as the sole reference for an external (non-fragment) resource
 - Invalid or non-spec-compliant `type` URIs passed to `FactType`, `RelationshipType`, etc.
 - Date strings that would fail `GedcomxDateUtil.parse()` per the date format spec
 - Missing required fields per the GEDCOM X conceptual model
