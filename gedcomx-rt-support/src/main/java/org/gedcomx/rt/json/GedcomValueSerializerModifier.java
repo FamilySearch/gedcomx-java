@@ -19,7 +19,9 @@ import tools.jackson.databind.BeanDescription;
 import tools.jackson.databind.SerializationConfig;
 import tools.jackson.databind.ValueSerializer;
 import tools.jackson.databind.ser.BeanSerializer;
+import tools.jackson.databind.ser.UnrolledBeanSerializer;
 import tools.jackson.databind.ser.ValueSerializerModifier;
+import tools.jackson.databind.ser.bean.BeanSerializerBase;
 
 /**
  * Modifications for GEDCOM value serializers.
@@ -34,9 +36,35 @@ public class GedcomValueSerializerModifier extends ValueSerializerModifier {
     BeanDescription.Supplier beanDescRef,
     ValueSerializer<?> serializer) {
 
+    if (serializer instanceof UnrolledBeanSerializer) {
+      serializer = new PublicBeanSerializer((BeanSerializerBase) serializer);
+    }
+
     return serializer instanceof BeanSerializer beanSerializer ?
       new ExtensibleObjectSerializer(beanSerializer) :
       serializer;
+  }
+
+  /**
+   * Public wrapper around BeanSerializer to expose the protected constructor.
+   *
+   * BeanSerializer has a protected constructor that accepts BeanSerializerBase,
+   * which is needed to replace UnrolledBeanSerializer. This subclass makes that
+   * constructor accessible.
+   */
+  private static class PublicBeanSerializer extends BeanSerializer {
+    /**
+     * Constructs a BeanSerializer from an existing BeanSerializerBase.
+     * <p>
+     * This constructor delegates to the protected BeanSerializer(BeanSerializerBase)
+     * constructor, allowing us to convert UnrolledBeanSerializer instances to
+     * standard BeanSerializer instances.
+     *
+     * @param src the source serializer (typically an UnrolledBeanSerializer)
+     */
+    public PublicBeanSerializer(BeanSerializerBase src) {
+      super(src);
+    }
   }
 
 }
