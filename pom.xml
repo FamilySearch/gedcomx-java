@@ -40,7 +40,7 @@
     <maven-resources-plugin.version>3.4.0</maven-resources-plugin.version>
     <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
-    <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
+    <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
     <pgp-maven-plugin.version>1.1</pgp-maven-plugin.version>
     <swagger-core.version>2.2.41</swagger-core.version>
   </properties>
@@ -240,14 +240,13 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://ossrh-staging-api.central.sonatype.com</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-          <stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
+          <publishingServerId>ossrh</publishingServerId>
+          <autoPublish>true</autoPublish>
+          <waitUntilPublished>true</waitUntilPublished>
         </configuration>
       </plugin>
       <plugin>
@@ -331,9 +330,9 @@
           <version>${maven-license-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>${nexus-staging-maven-plugin.version}</version>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${central-publishing-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -394,14 +393,4 @@
     </profile>
   </profiles>
 
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
 </project>
