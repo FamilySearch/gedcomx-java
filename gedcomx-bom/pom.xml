@@ -68,6 +68,25 @@
 
   </dependencyManagement>
 
+  <profiles>
+    <profile>
+      <id>release</id>
+      <properties>
+        <skip.javadoc>false</skip.javadoc>
+        <skip.pgp>false</skip.pgp>
+      </properties>
+    </profile>
+  </profiles>
 
-
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+  
 </project>
