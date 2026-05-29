@@ -68,6 +68,22 @@
 
   </dependencyManagement>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.10.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>ossrh</publishingServerId>
+          <autoPublish>true</autoPublish>
+          <waitUntilPublished>true</waitUntilPublished>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <profiles>
     <profile>
       <id>release</id>
