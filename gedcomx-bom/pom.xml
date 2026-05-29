@@ -68,6 +68,42 @@
 
   </dependencyManagement>
 
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Ryan Heaton</name>
+      <url>https://github.com/stoicflame</url>
+    </developer>
+    <developer>
+      <name>Todd Chapman</name>
+      <url>https://github.com/wahkara</url>
+    </developer>
+    <developer>
+      <name>Erik Wilford</name>
+      <url>https://github.com/wilfordej</url>
+    </developer>
+    <developer>
+      <name>David Nash</name>
+      <url>https://github.com/dnash21e</url>
+    </developer>
+    <developer>
+      <name>Randy Wilson</name>
+      <url>https://github.com/ranbo</url>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</connection>
+    <developerConnection>scm:git:git@github.com:FamilySearch/gedcomx-java.git</developerConnection>
+    <url>https://github.com/FamilySearch/gedcomx-java</url>
+  </scm>
+
   <build>
     <plugins>
       <plugin>
@@ -79,6 +115,25 @@
           <publishingServerId>ossrh</publishingServerId>
           <autoPublish>true</autoPublish>
           <waitUntilPublished>true</waitUntilPublished>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.kohsuke</groupId>
+        <artifactId>pgp-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <skip>${skip.pgp}</skip>
+          <secretkey>keyfile:${env.PGP_SECRET_KEYFILE}</secretkey>
+          <passphrase>literal:</passphrase>
         </configuration>
       </plugin>
     </plugins>
