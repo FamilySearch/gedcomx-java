@@ -16,6 +16,8 @@
     <!--opting for the former.-->
     <java.compiler.version>17</java.compiler.version>
     <root.basedir>${basedir}/..</root.basedir>
+    <skip.javadoc>true</skip.javadoc>
+    <skip.pgp>true</skip.pgp>
   </properties>
 
 
@@ -117,6 +119,22 @@
           <autoPublish>true</autoPublish>
           <waitUntilPublished>true</waitUntilPublished>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <skip>${skip.javadoc}</skip>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.kohsuke</groupId>
