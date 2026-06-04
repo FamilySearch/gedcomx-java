@@ -64,8 +64,8 @@ public class Date extends ExtensibleData implements HasFields {
   @Schema(description = "The list of normalized values for the date, provided for display purposes by the application. Normalized values are not specified by " +
       "GEDCOM X core, but as extension elements by GEDCOM X RS.")
   private List<TextValue> normalized;
-  @Schema(description = "CalendarType for this Date object, if this Date is an alternate calendar date. This value indicates which calendar should be used to interpret the date values in this object. Typicall null (implying Gregorian Proleptic calendar) when not in the list of alternate calendar dates.")
-  private CalendarType calendar;
+  @Schema(description = "CalendarType for this Date object, if this Date is an alternate calendar date. This value indicates which calendar should be used to interpret the date values in this object. Typicall null (implying Gregorian Proleptic calendar) when not in the list of alternate calendar dates.", implementation = CalendarType.class, enumAsRef = true)
+  private URI calendar;
   @Schema(description = "List of the same date expressed in alternate calendars.")
   private List<Date> alternateCalendarDates;
 
@@ -80,6 +80,7 @@ public class Date extends ExtensibleData implements HasFields {
     this.formal = copy.formal;
     this.confidence = copy.confidence;
     this.normalized = copy.normalized == null ? null : copy.normalized.stream().map(TextValue::new).collect(Collectors.toList());
+    this.calendar = copy.calendar;
     this.alternateCalendarDates = copy.alternateCalendarDates == null ? null : copy.alternateCalendarDates.stream().map(Date::new).toList();
     this.fields = copy.fields == null ? null : copy.fields.stream().map(Field::new).toList();
   }
@@ -292,8 +293,9 @@ public class Date extends ExtensibleData implements HasFields {
    *
    * @return The calendar system for this alternate date.
    */
+  @XmlAttribute
   @XmlQNameEnumRef(CalendarType.class)
-  public CalendarType getCalendar() {
+  public URI getCalendar() {
     return calendar;
   }
 
@@ -302,7 +304,7 @@ public class Date extends ExtensibleData implements HasFields {
    *
    * @param calendar The calendar system for this alternate date.
    */
-  public void setCalendar(CalendarType calendar) {
+  public void setCalendar(URI calendar) {
     this.calendar = calendar;
   }
 
@@ -312,9 +314,41 @@ public class Date extends ExtensibleData implements HasFields {
    * @param calendar The calendar system for this alternate date.
    * @return this.
    */
-  public Date calendar(CalendarType calendar) {
+  public Date calendar(URI calendar) {
     setCalendar(calendar);
     return this;
+  }
+
+  /**
+   * Build up the Date with a known calendar system.
+   *
+   * @param calendar The calendar system for this alternate date.
+   * @return this.
+   */
+  public Date calendar(CalendarType calendar) {
+    setKnownCalendar(calendar);
+    return this;
+  }
+
+  /**
+   * The value of the known calendar type, or {@link org.gedcomx.types.CalendarType#OTHER} if not known.
+   *
+   * @return The value of the known calendar type, or {@link org.gedcomx.types.CalendarType#OTHER} if not known.
+   */
+  @XmlTransient
+  @JsonIgnore
+  public CalendarType getKnownCalendar() {
+    return getCalendar() == null ? null : CalendarType.fromQNameURI(getCalendar());
+  }
+
+  /**
+   * Set the calendar type from a known enumeration of calendar types.
+   *
+   * @param calendar The known calendar type.
+   */
+  @JsonIgnore
+  public void setKnownCalendar(CalendarType calendar) {
+    setCalendar(calendar == null ? null : calendar.toQNameURI());
   }
 
   /**

@@ -29,7 +29,7 @@ class AlternateCalendarDateTest {
     date.addAlternateCalendar(altDate);
     assertEquals(1, date.getAlternateCalendarDates().size());
     assertEquals("15 Nisan 5781", altDate.getOriginal());
-    assertEquals(CalendarType.Hebrew, altDate.getCalendar());
+    assertEquals(CalendarType.Hebrew, altDate.getKnownCalendar());
   }
 
   @Test
@@ -46,7 +46,7 @@ class AlternateCalendarDateTest {
     assertEquals(1, date.getAlternateCalendarDates().size());
     assertEquals("10 February 1741", date.getOriginal());
     assertEquals("10 February 1740", altDate.getOriginal());
-    assertEquals(CalendarType.Julian, altDate.getCalendar());
+    assertEquals(CalendarType.Julian, altDate.getKnownCalendar());
   }
 
   @Test
@@ -90,7 +90,7 @@ class AlternateCalendarDateTest {
     checkfields(date, unmarshalledDate);
     Date unmarshalledAltDate = unmarshalledDate.getAlternateCalendarDates().get(0);
     assertEquals(altDate.getOriginal(), unmarshalledAltDate.getOriginal());
-    assertEquals(altDate.getCalendar(), unmarshalledAltDate.getCalendar());
+    assertEquals(altDate.getKnownCalendar(), unmarshalledAltDate.getKnownCalendar());
     checkfields(altDate, unmarshalledAltDate);
   }
 
