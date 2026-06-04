@@ -16,9 +16,15 @@
 package org.gedcomx.types;
 
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
+import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
+
+import org.gedcomx.common.URI;
+import org.gedcomx.rt.ControlledVocabulary;
+import org.gedcomx.rt.EnumURIMap;
+import org.gedcomx.rt.GedcomxConstants;
 
 /**
- * Enumeration of  calendar systems used for AlternateDate representations.
+ * Enumeration of calendar systems used for AlternateDate representations.
  * <p>
  * Notes:
  * <ul>
@@ -30,7 +36,7 @@ import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 @XmlQNameEnum(
     base = XmlQNameEnum.BaseType.URI
 )
-public enum CalendarType {
+public enum CalendarType implements ControlledVocabulary {
 
   /**
    * GREGORIAN — Proleptic Gregorian calendar.
@@ -161,6 +167,34 @@ public enum CalendarType {
    * <p><b>Example:</b> Rûmî 1325, Kanun‑i Evvel 1
    * (Rûmî 1325; December 1 in the Rumi year 1325)</p>
    */
-  Rumi;
+  Rumi,
+
+  /**
+   * Custom
+   */
+  @XmlUnknownQNameEnumValue
+  OTHER;
+
+  private static final EnumURIMap<CalendarType> URI_MAP = new EnumURIMap<CalendarType>(CalendarType.class, GedcomxConstants.GEDCOMX_TYPES_NAMESPACE);
+
+  /**
+   * Return the QName value for this enum.
+   *
+   * @return The QName value for this enum.
+   */
+  public URI toQNameURI() {
+    return URI_MAP.toURIValue(this);
+  }
+
+  /**
+   * Get the enumeration from the QName.
+   *
+   * @param qname The qname.
+   * @return The enumeration.
+   */
+  public static CalendarType fromQNameURI(URI qname) {
+    return URI_MAP.fromURIValue(qname);
+  }
+
 }
 
