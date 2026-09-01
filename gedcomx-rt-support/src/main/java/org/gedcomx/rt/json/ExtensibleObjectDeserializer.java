@@ -90,7 +90,10 @@ public class ExtensibleObjectDeserializer extends BeanDeserializer {
       return;
     }
 
-    jp.skipChildren();
+    // Not an extension: hand back to Jackson rather than swallowing the property. Skipping here
+    // bypassed the configured DeserializationProblemHandlers and FAIL_ON_UNKNOWN_PROPERTIES, so a
+    // mapper that had explicitly asked to fail on unknown properties silently dropped them instead.
+    super.handleUnknownProperty(jp, ctxt, beanOrClass, propName);
   }
 
   private QName getWrapperName(String propName) {
