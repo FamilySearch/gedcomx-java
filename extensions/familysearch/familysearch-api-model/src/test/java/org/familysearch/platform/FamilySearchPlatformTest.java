@@ -14,9 +14,15 @@ import org.gedcomx.types.RelationshipType;
 import org.junit.jupiter.api.Test;
 import tools.jackson.databind.json.JsonMapper;
 
+import org.familysearch.platform.ct.Association;
+import org.familysearch.platform.ct.AssociationType;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.records.AlternateDate;
 import org.familysearch.platform.records.AlternatePlaceReference;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,11 +46,49 @@ class FamilySearchPlatformTest {
 
     JsonMapper jsonMapper = GedcomJacksonModule.createJsonMapper(AlternateDate.class, AlternatePlaceReference.class);
     String value = jsonMapper.writeValueAsString(gx);
-    //System.out.println(value);
     gx = jsonMapper.readValue(value, Gedcomx.class);
     assertEquals("orig", gx.getPerson().getFirstFactOfType(FactType.Adoption).findExtensionOfType(AlternateDate.class).getOriginal());
+  }
 
-    //JAXBContext.newInstance(FamilySearchPlatform.class).createMarshaller().marshal(gx, System.out);
+  @Test
+  void jaxbContextAndAssociations() throws Exception {
+    // JAXBContext creation throws if associations is missing from @XmlType propOrder
+    JAXBContext context = JAXBContext.newInstance(FamilySearchPlatform.class);
+    assertNotNull(context);
+
+    FamilySearchPlatform doc = makeDoc();
+    Association association = new Association();
+    association.setId("assoc1");
+    association.setPerson1(new ResourceReference(new URI("#person1")));
+    association.setPerson2(new ResourceReference(new URI("#person2")));
+    association.setKnownAssociationType(AssociationType.Godparent);
+    doc.addAssociation(association);
+
+    ByteArrayOutputStream xmlStream = new ByteArrayOutputStream();
+    Marshaller marshaller = context.createMarshaller();
+    marshaller.marshal(doc, xmlStream);
+    String xmlOutput = xmlStream.toString();
+    assertTrue(xmlOutput.contains(":association ") || xmlOutput.contains("<association "),
+        "XML element must be named 'association', got: " + xmlOutput);
+    assertFalse(xmlOutput.contains("associations"), "XML element must not be pluralized");
+
+    FamilySearchPlatform unmarshalledFromXml = (FamilySearchPlatform) context.createUnmarshaller()
+        .unmarshal(new java.io.ByteArrayInputStream(xmlStream.toByteArray()));
+    assertNotNull(unmarshalledFromXml.getAssociations());
+    assertFalse(unmarshalledFromXml.getAssociations().isEmpty());
+    assertEquals(Association.class, unmarshalledFromXml.getAssociations().get(0).getClass());
+    assertEquals(AssociationType.Godparent, unmarshalledFromXml.getAssociations().get(0).getKnownAssociationType());
+
+    ByteArrayOutputStream jsonStream = new ByteArrayOutputStream();
+    JsonMapper jsonMapper = GedcomJacksonModule.createJsonMapper(FamilySearchPlatform.class);
+    jsonMapper.writeValue(jsonStream, doc);
+    String jsonOutput = jsonStream.toString();
+
+    FamilySearchPlatform unmarshalledFromJson = jsonMapper.readValue(jsonOutput, FamilySearchPlatform.class);
+    assertNotNull(unmarshalledFromJson.getAssociations());
+    assertFalse(unmarshalledFromJson.getAssociations().isEmpty());
+    assertEquals(Association.class, unmarshalledFromJson.getAssociations().get(0).getClass());
+    assertEquals(AssociationType.Godparent, unmarshalledFromJson.getAssociations().get(0).getKnownAssociationType());
   }
 
   @Test
