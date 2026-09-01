@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.familysearch.platform.artifacts.ArtifactMetadata;
+import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChangeInfo;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
@@ -95,7 +96,7 @@ import org.gedcomx.types.RelationshipType;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper ( name = "familysearch" )
-@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "groups", "trees", "users", "merges",
+@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "associations", "discussions", "groups", "trees", "users", "merges",
     "mergeAnalyses", "features", "vocabConcepts" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
 @XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, FieldInfo.class, PersonInfo.class, SearchInfo.class,
@@ -120,6 +121,9 @@ public class FamilySearchPlatform extends Gedcomx {
 
   @Schema(description = "The child-and-parents relationships.")
   private List<ChildAndParentsRelationship> childAndParentsRelationships;
+
+  @Schema(description = "The associations.")
+  private List<Association> associations;
 
   @Schema(description = "The discussions included in this data set.")
   private List<Discussion> discussions;
@@ -266,6 +270,41 @@ public class FamilySearchPlatform extends Gedcomx {
   public FamilySearchPlatform childAndParentsRelationship(ChildAndParentsRelationship chap) {
     addChildAndParentsRelationship(chap);
     return this;
+  }
+
+  /**
+   * The associations for this data set.
+   *
+   * @return The associations for this data set.
+   */
+  @XmlElement ( name = "association" )
+  @JsonProperty ( "associations" )
+  public List<Association> getAssociations() {
+    return associations;
+  }
+
+  /**
+   * The associations for this data set.
+   *
+   * @param associations The associations for this data set.
+   */
+  @JsonProperty ( "associations" )
+  public void setAssociations(List<Association> associations) {
+    this.associations = associations;
+  }
+
+  /**
+   * Add an association to the data set.
+   *
+   * @param association The association to be added.
+   */
+  public void addAssociation(Association association) {
+    if (association != null) {
+      if (associations == null) {
+        associations = new LinkedList<Association>();
+      }
+      associations.add(association);
+    }
   }
 
   /**

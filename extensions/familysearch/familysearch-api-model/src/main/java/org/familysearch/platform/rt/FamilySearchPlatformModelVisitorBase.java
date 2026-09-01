@@ -16,6 +16,7 @@
 package org.familysearch.platform.rt;
 
 import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
@@ -90,6 +91,15 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
+    List<Association> associations = fsp.getAssociations();
+    if (associations != null) {
+      for (Association association : associations) {
+        if (association != null) {
+          association.accept(this);
+        }
+      }
+    }
+
     List<User> users = fsp.getUsers();
     if (users != null) {
       for (User user : users) {
@@ -151,6 +161,15 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
+    List<Association> associations = gx.findExtensionsOfType(Association.class);
+    if (associations != null) {
+      for (Association association : associations) {
+        if (association != null) {
+          association.accept(this);
+        }
+      }
+    }
+
     this.contextStack.pop();
   }
 
@@ -179,6 +198,13 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
+    this.contextStack.pop();
+  }
+
+  @Override
+  public void visitAssociation(Association association) {
+    this.contextStack.push(association);
+    visitComponents(association);   // resolves to visitComponents(Relationship)
     this.contextStack.pop();
   }
 

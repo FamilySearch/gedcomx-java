@@ -16,6 +16,7 @@
 package org.familysearch.platform.rt;
 
 import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
@@ -35,6 +36,8 @@ public interface FamilySearchPlatformModelVisitor extends GedcomxModelVisitor {
   void visitFamilySearchPlatform(FamilySearchPlatform fsp);
 
   void visitChildAndParentsRelationship(ChildAndParentsRelationship pcr);
+
+  void visitAssociation(Association association);
 
   void visitMerge(MergeAnalysis merge);
 
