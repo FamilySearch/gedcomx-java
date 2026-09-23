@@ -35,15 +35,30 @@ import org.gedcomx.rt.GedcomxConstants;
 @Schema(description = "RelationshipType")
 public enum RelationshipType implements ControlledVocabulary {
 
+  /**
+   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.AncestorToDescendant}
+   * in the {@code familysearch-api-model} module instead.
+   */
+  @Deprecated
   @JsonProperty(value = "http://gedcomx.org/AncestorDescendant")
   AncestorDescendant,
 
   @JsonProperty(value = "http://gedcomx.org/Couple")
   Couple,
 
+  /**
+   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.SlaveholderToEnslaved}
+   * in the {@code familysearch-api-model} module instead.
+   */
+  @Deprecated
   @JsonProperty(value = "http://gedcomx.org/EnslavedBy")
   EnslavedBy,
 
+  /**
+   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.GodparentToGodchild}
+   * in the {@code familysearch-api-model} module instead.
+   */
+  @Deprecated
   @JsonProperty(value = "http://gedcomx.org/Godparent")
   Godparent,
 
