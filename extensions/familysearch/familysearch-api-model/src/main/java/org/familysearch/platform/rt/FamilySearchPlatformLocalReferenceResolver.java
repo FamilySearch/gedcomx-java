@@ -15,6 +15,7 @@
  */
 package org.familysearch.platform.rt;
 
+import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
@@ -86,6 +87,12 @@ public class FamilySearchPlatformLocalReferenceResolver extends FamilySearchPlat
   public void visitChildAndParentsRelationship(ChildAndParentsRelationship pcr) {
     bindIfNeeded(pcr);
     super.visitChildAndParentsRelationship(pcr);
+  }
+
+  @Override
+  public void visitAssociation(Association association) {
+    bindIfNeeded(association);
+    super.visitAssociation(association);
   }
 
   @Override

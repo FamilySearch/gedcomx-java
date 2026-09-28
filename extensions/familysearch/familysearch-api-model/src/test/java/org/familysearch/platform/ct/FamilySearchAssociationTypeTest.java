@@ -11,9 +11,6 @@ import org.gedcomx.types.RelationshipType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class FamilySearchAssociationTypeTest {
@@ -29,7 +26,7 @@ class FamilySearchAssociationTypeTest {
     // test the contract that the @XmlEnumValue is unique and does not change its value
     testType("http://familysearch.org/v1/AncestorToDescendant", FamilySearchAssociationType.AncestorToDescendant);
     testType("http://familysearch.org/v1/EmployerToEmployee", FamilySearchAssociationType.EmployerToEmployee);
-    testType("http://familysearch.org/v1/SlaveholderToEnslaved", FamilySearchAssociationType.SlaveholderToEnslaved);
+    testType("http://familysearch.org/v1/SlaveholderToEnslavedPerson", FamilySearchAssociationType.SlaveholderToEnslavedPerson);
     testType("http://familysearch.org/v1/GodparentToGodchild", FamilySearchAssociationType.GodparentToGodchild);
     testType("http://familysearch.org/v1/HeadOfHouseholdToOccupant", FamilySearchAssociationType.HeadOfHouseholdToOccupant);
     testType("http://familysearch.org/v1/MasterToApprentice", FamilySearchAssociationType.MasterToApprentice);
@@ -55,12 +52,8 @@ class FamilySearchAssociationTypeTest {
   @Test
   @SuppressWarnings("deprecation")
   void supersedingTypesMintNewUris() {
-    assertNotEquals(RelationshipType.AncestorDescendant.toQNameURI(), FamilySearchAssociationType.AncestorToDescendant.toQNameURI());
-    assertNotEquals(RelationshipType.EnslavedBy.toQNameURI(), FamilySearchAssociationType.SlaveholderToEnslaved.toQNameURI());
-    assertNotEquals(RelationshipType.Godparent.toQNameURI(), FamilySearchAssociationType.GodparentToGodchild.toQNameURI());
-
     assertEquals("http://familysearch.org/v1/AncestorToDescendant", FamilySearchAssociationType.AncestorToDescendant.toQNameURI().toString());
-    assertEquals("http://familysearch.org/v1/SlaveholderToEnslaved", FamilySearchAssociationType.SlaveholderToEnslaved.toQNameURI().toString());
+    assertEquals("http://familysearch.org/v1/SlaveholderToEnslavedPerson", FamilySearchAssociationType.SlaveholderToEnslavedPerson.toQNameURI().toString());
     assertEquals("http://familysearch.org/v1/GodparentToGodchild", FamilySearchAssociationType.GodparentToGodchild.toQNameURI().toString());
   }
 
@@ -77,28 +70,13 @@ class FamilySearchAssociationTypeTest {
   }
 
   /**
-   * Written as an equality so that whoever adds a constant that is not an association is forced to
-   * edit this test rather than silently widening the set.
-   */
-  @Test
-  void associationSetCoversEveryDeclaredType() {
-    assertEquals(EnumSet.complementOf(EnumSet.of(FamilySearchAssociationType.OTHER)),
-                 EnumSet.copyOf(FamilySearchAssociationType.ASSOCIATION_TYPES));
-
-    for (FamilySearchAssociationType type : FamilySearchAssociationType.ASSOCIATION_TYPES) {
-      assertTrue(type.isAssociationType(), type.name() + " should be an association type");
-    }
-    assertFalse(FamilySearchAssociationType.OTHER.isAssociationType());
-  }
-
-  /**
    * Every association URI is FamilySearch-namespaced, so core resolves none of them — including the
    * three that supersede deprecated core constants. That makes this enum the only vocabulary that can
    * tell one association from another; a {@code switch} on {@code getKnownType()} cannot.
    */
   @Test
   void coreVocabularyResolvesNoAssociationType() {
-    for (FamilySearchAssociationType type : FamilySearchAssociationType.ASSOCIATION_TYPES) {
+    for (FamilySearchAssociationType type : EnumSet.complementOf(EnumSet.of(FamilySearchAssociationType.OTHER))) {
       Relationship relationship = new Relationship();
       relationship.setType(type.toQNameURI());
 

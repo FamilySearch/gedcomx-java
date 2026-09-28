@@ -15,10 +15,6 @@
  */
 package org.familysearch.platform.ct;
 
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.webcohesion.enunciate.metadata.qname.XmlQNameEnum;
 import com.webcohesion.enunciate.metadata.qname.XmlUnknownQNameEnumValue;
@@ -60,13 +56,13 @@ public enum FamilySearchAssociationType implements ControlledVocabulary {
   RelativeToRelative,
 
   @JsonProperty(value = "http://familysearch.org/v1/SlaveholderToEnslaved")
-  SlaveholderToEnslaved,
+  SlaveholderToEnslavedPerson,
 
   @XmlUnknownQNameEnumValue
   @Hidden
   OTHER;
 
-  private static final EnumURIMap<FamilySearchAssociationType> URI_MAP = new EnumURIMap<FamilySearchAssociationType>(FamilySearchAssociationType.class, FamilySearchPlatform.NAMESPACE);
+  private static final EnumURIMap<FamilySearchAssociationType> URI_MAP = new EnumURIMap<>(FamilySearchAssociationType.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -86,5 +82,4 @@ public enum FamilySearchAssociationType implements ControlledVocabulary {
   public static FamilySearchAssociationType fromQNameURI(URI qname) {
     return URI_MAP.fromURIValue(qname);
   }
-
 }

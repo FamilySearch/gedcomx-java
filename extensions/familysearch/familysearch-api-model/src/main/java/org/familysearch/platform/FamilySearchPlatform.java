@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.familysearch.platform.artifacts.ArtifactMetadata;
+import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChangeInfo;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
@@ -95,12 +96,13 @@ import org.gedcomx.types.RelationshipType;
 )
 @XmlRootElement ( name = "familysearch" )
 @JsonElementWrapper ( name = "familysearch" )
-@XmlType ( name = "FamilySearch", propOrder = {"childAndParentsRelationships", "discussions", "groups", "trees", "users", "merges",
+@XmlType ( name = "FamilySearch", propOrder = {"associations", "childAndParentsRelationships", "discussions", "groups", "trees", "users", "merges",
     "mergeAnalyses", "features", "vocabConcepts" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
-@XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, FieldInfo.class, PersonInfo.class, SearchInfo.class,
-               PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Group.class, Tree.class,
-               Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class, NameFormInfo.class, AlternatePlaceReference.class, AlternateDate.class} )
+@XmlSeeAlso ( {Association.class, DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, FieldInfo.class,
+               PersonInfo.class, SearchInfo.class, PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Group.class,
+               Tree.class, Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class, NameFormInfo.class, AlternatePlaceReference.class,
+               AlternateDate.class} )
 @JsonInclude ( JsonInclude.Include.NON_NULL )
 @Schema(description = "The FamilySearch data types define serialization formats that are specific to the FamilySearch developer platform. These data formats " +
     "are extensions of the [GEDCOM X](http://gedcomx.org) media types and provide concepts and data types that are specific to FamilySearch and therefore " +
@@ -120,6 +122,9 @@ public class FamilySearchPlatform extends Gedcomx {
 
   @Schema(description = "The child-and-parents relationships.")
   private List<ChildAndParentsRelationship> childAndParentsRelationships;
+
+  @Schema(description = "The associations included in this data set.")
+  private List<Association> associations;
 
   @Schema(description = "The discussions included in this data set.")
   private List<Discussion> discussions;
@@ -168,7 +173,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public void addMergeAnalysis(MergeAnalysis mergeAnalysis) {
     if (mergeAnalysis != null) {
       if (mergeAnalyses == null) {
-        mergeAnalyses = new LinkedList<MergeAnalysis>();
+        mergeAnalyses = new LinkedList<>();
       }
       mergeAnalyses.add(mergeAnalysis);
     }
@@ -203,7 +208,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public void addMerge(Merge merge) {
     if (merge != null) {
       if (merges == null) {
-        merges = new LinkedList<Merge>();
+        merges = new LinkedList<>();
       }
       merges.add(merge);
     }
@@ -238,7 +243,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public void addChildAndParentsRelationship(ChildAndParentsRelationship childAndParentsRelationship) {
     if (childAndParentsRelationship != null) {
       if (childAndParentsRelationships == null) {
-        childAndParentsRelationships = new LinkedList<ChildAndParentsRelationship>();
+        childAndParentsRelationships = new LinkedList<>();
       }
       childAndParentsRelationships.add(childAndParentsRelationship);
     }
@@ -297,7 +302,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public void addDiscussion(Discussion discussion) {
     if (discussion != null) {
       if (discussions == null) {
-        discussions = new LinkedList<Discussion>();
+        discussions = new LinkedList<>();
       }
       discussions.add(discussion);
     }
@@ -343,7 +348,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public void addGroup(Group group) {
     if (group != null) {
       if (groups == null) {
-        groups = new LinkedList<Group>();
+        groups = new LinkedList<>();
       }
       groups.add(group);
     }
@@ -389,7 +394,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public void addTree(Tree tree) {
     if (tree != null) {
       if (trees == null) {
-        trees = new LinkedList<Tree>();
+        trees = new LinkedList<>();
       }
       trees.add(tree);
     }
@@ -512,10 +517,67 @@ public class FamilySearchPlatform extends Gedcomx {
   public void addUser(User user) {
     if (user != null) {
       if (users == null) {
-        users = new LinkedList<User>();
+        users = new LinkedList<>();
       }
       users.add(user);
     }
+  }
+
+  /**
+   * The associations for this data set.
+   *
+   * @return The associations for this data set.
+   */
+  @XmlElement ( name = "association" )
+  @JsonProperty ( "associations" )
+  public List<Association> getAssociations() {
+    return associations;
+  }
+
+  /**
+   * The associations for this data set.
+   *
+   * @param associations The associations for this data set.
+   */
+  @JsonProperty ( "associations" )
+  public void setAssociations(List<Association> associations) {
+    this.associations = associations;
+  }
+
+  /**
+   * Add an association to the data set.
+   *
+   * @param association The association to be added.
+   */
+  public void addAssociation(Association association) {
+    if (association != null) {
+      if (associations == null) {
+        associations = new LinkedList<>();
+      }
+      associations.add(association);
+    }
+  }
+
+  public Association findAssociation(ResourceReference person1, ResourceReference person2) {
+    if (getAssociations() != null && (person1 != null || person2 != null)) {
+      for (Association association : getAssociations()) {
+        if (samePerson(association.getPerson1(), person1) && samePerson(association.getPerson2(), person2)) {
+          return association;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Build out this document with an association.
+   *
+   * @param association The association to be added.
+   * @return this.
+   */
+  public FamilySearchPlatform association(Association association) {
+    addAssociation(association);
+    return this;
   }
 
   /**
@@ -557,16 +619,15 @@ public class FamilySearchPlatform extends Gedcomx {
               }
             }
           }
-
           if (!found) {
             addChildAndParentsRelationship(relationship);
           }
         }
       }
 
-      List<Discussion> discussions = ((FamilySearchPlatform) gedcomx).getDiscussions();
-      if (discussions != null) {
-        for (Discussion discussion : discussions) {
+      List<Discussion> discussionList = ((FamilySearchPlatform) gedcomx).getDiscussions();
+      if (discussionList != null) {
+        for (Discussion discussion : discussionList) {
           boolean found = false;
           if (discussion.getId() != null) {
             if (getDiscussions() != null) {
@@ -579,9 +640,29 @@ public class FamilySearchPlatform extends Gedcomx {
               }
             }
           }
-
           if (!found) {
             addDiscussion(discussion);
+          }
+        }
+      }
+
+      List<Association> associationList = ((FamilySearchPlatform) gedcomx).getAssociations();
+      if (associationList != null) {
+        for (Association association : associationList) {
+          boolean found = false;
+          if (association.getId() != null) {
+            if (getAssociations() != null) {
+              for (Association target : getAssociations()) {
+                if (association.getId().equals(target.getId())) {
+                  target.embed(association);
+                  found = true;
+                  break;
+                }
+              }
+            }
+          }
+          if (!found) {
+            addAssociation(association);
           }
         }
       }
@@ -602,7 +683,6 @@ public class FamilySearchPlatform extends Gedcomx {
             }
           }
         }
-
         if (!found) {
           addVocabConcept(vocabConcept);
         }
@@ -686,6 +766,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public FamilySearchPlatform fixLocalReferences() {
     List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
     List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
+    List<Association> associationList = getAssociations() != null ? getAssociations() : Collections.emptyList();
     List<Ordinance> ordinances = getOrdinances(this);
     List<SourceDescription> sds = getSourceDescriptions() == null ? Collections.emptyList() : getSourceDescriptions();
 
@@ -698,10 +779,14 @@ public class FamilySearchPlatform extends Gedcomx {
           fixId(capRelationship.getChild(), localId);
           fixupSourceReferences(sds, capRelationship);
         }
+        for (Association association : associationList) {
+          fixId(association.getPerson1(), localId);
+          fixId(association.getPerson2(), localId);
+          fixupSourceReferences(sds, association);
+        }
         fixupPersonReferencesInOrdinances(ordinances, localId);
       }
     }
-
     return (FamilySearchPlatform) super.fixLocalReferences();
   }
 
@@ -732,7 +817,6 @@ public class FamilySearchPlatform extends Gedcomx {
           fixId(participant.getParticipant(), personId);
         }
       }
-
     }
   }
 }

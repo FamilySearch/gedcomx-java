@@ -89,5 +89,4 @@ public enum RelationshipType implements ControlledVocabulary {
   public static RelationshipType fromQNameURI(URI qname) {
     return URI_MAP.fromURIValue(qname);
   }
-
 }

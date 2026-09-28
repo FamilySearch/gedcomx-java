@@ -1,15 +1,13 @@
 package org.familysearch.platform.rt;
 
 import org.familysearch.platform.FamilySearchPlatform;
+import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
 import org.familysearch.platform.discussions.Comment;
 import org.familysearch.platform.discussions.Discussion;
-import org.gedcomx.agent.Agent;
 import org.gedcomx.conclusion.*;
-import org.gedcomx.links.Link;
-import org.gedcomx.source.SourceDescription;
 import org.junit.jupiter.api.Test;
 
 
@@ -19,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FamilySearchPlatformModelVisitorBaseTest {
   @Test
-  void nullVisitor() throws Exception {
+  void nullVisitor() {
     try {
       FamilySearchPlatform fsp = new FamilySearchPlatform();
       fsp.accept(null);
@@ -29,7 +27,7 @@ class FamilySearchPlatformModelVisitorBaseTest {
   }
 
   @Test
-  void visitFeed() throws Exception {
+  void visitFeed() {
     FamilySearchPlatformModelVisitorBase visitor = new FamilySearchPlatformModelVisitorBase();
     assertNotNull(visitor.getContextStack());
     assertEquals(0, visitor.getContextStack().size());
@@ -43,43 +41,49 @@ class FamilySearchPlatformModelVisitorBaseTest {
     ArrayList<MergeAnalysis> mergeAnalyses;
     ArrayList<Merge> merges;
     ArrayList<ChildAndParentsRelationship> childAndParentsRelationships;
+    ArrayList<Association> associations;
 
     // re-visit feed; empty lists
-    discussions = new ArrayList<Discussion>();
-    mergeAnalyses = new ArrayList<MergeAnalysis>();
-    merges = new ArrayList<Merge>();
-    childAndParentsRelationships = new ArrayList<ChildAndParentsRelationship>();
-    fsp.setAgents( new ArrayList<Agent>() );
+    discussions = new ArrayList<>();
+    mergeAnalyses = new ArrayList<>();
+    merges = new ArrayList<>();
+    childAndParentsRelationships = new ArrayList<>();
+    associations = new ArrayList<>();
+    fsp.setAgents(new ArrayList<>());
     fsp.setDiscussions( discussions );
-    fsp.setDocuments( new ArrayList<Document>() );
-    fsp.setEvents( new ArrayList<Event>() );
-    fsp.setExtensionElements( new ArrayList<Object>() );
-    fsp.setLinks( new ArrayList<Link>() );
+    fsp.setDocuments(new ArrayList<>());
+    fsp.setEvents(new ArrayList<>());
+    fsp.setExtensionElements(new ArrayList<>());
+    fsp.setLinks(new ArrayList<>());
     fsp.setMerges( merges );
     fsp.setMergeAnalyses( mergeAnalyses );
     fsp.setChildAndParentsRelationships( childAndParentsRelationships );
-    fsp.setPersons( new ArrayList<Person>() );
-    fsp.setPlaces( new ArrayList<PlaceDescription>() );
-    fsp.setRelationships( new ArrayList<Relationship>() );
-    fsp.setSourceDescriptions( new ArrayList<SourceDescription>() );
+    fsp.setAssociations( associations );
+    fsp.setPersons(new ArrayList<>());
+    fsp.setPlaces(new ArrayList<>());
+    fsp.setRelationships(new ArrayList<>());
+    fsp.setSourceDescriptions(new ArrayList<>());
 
     // re-visit feed; populate content; add element to authors and contributors
     discussions.add(new Discussion());
     mergeAnalyses.add( new MergeAnalysis() );
     merges.add( new Merge() );
     childAndParentsRelationships.add(new ChildAndParentsRelationship());
+    associations.add(new Association());
     fsp.accept(visitor);
 
     // re-visit feed; add empty lists to discussions and parent-child relationships
-    discussions.get(0).setComments(new ArrayList<Comment>());
-    childAndParentsRelationships.get(0).setParent1Facts(new ArrayList<Fact>());
-    childAndParentsRelationships.get(0).setParent2Facts(new ArrayList<Fact>());
+    discussions.get(0).setComments(new ArrayList<>());
+    childAndParentsRelationships.get(0).setParent1Facts(new ArrayList<>());
+    childAndParentsRelationships.get(0).setParent2Facts(new ArrayList<>());
+    associations.get(0).setFacts(new ArrayList<>());
     fsp.accept(visitor);
 
     // re-visit feed; add single element to comments and facts lists
     discussions.get(0).getComments().add(new Comment());
     childAndParentsRelationships.get(0).getParent1Facts().add(new Fact());
     childAndParentsRelationships.get(0).getParent2Facts().add(new Fact());
+    associations.get(0).getFacts().add(new Fact());
     fsp.accept(visitor);
   }
 }
