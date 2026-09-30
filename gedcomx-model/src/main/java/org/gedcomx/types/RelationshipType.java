@@ -47,7 +47,7 @@ public enum RelationshipType implements ControlledVocabulary {
   Couple,
 
   /**
-   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.SlaveholderToEnslaved}
+   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.SlaveholderToEnslavedPerson}
    * in the {@code familysearch-api-model} module instead.
    */
   @Deprecated

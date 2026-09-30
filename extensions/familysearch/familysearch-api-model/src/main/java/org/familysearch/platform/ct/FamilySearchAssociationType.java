@@ -55,7 +55,7 @@ public enum FamilySearchAssociationType implements ControlledVocabulary {
   @JsonProperty(value = "http://familysearch.org/v1/RelativeToRelative")
   RelativeToRelative,
 
-  @JsonProperty(value = "http://familysearch.org/v1/SlaveholderToEnslaved")
+  @JsonProperty(value = "http://familysearch.org/v1/SlaveholderToEnslavedPerson")
   SlaveholderToEnslavedPerson,
 
   @XmlUnknownQNameEnumValue
