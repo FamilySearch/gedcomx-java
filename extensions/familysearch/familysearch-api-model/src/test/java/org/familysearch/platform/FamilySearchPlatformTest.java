@@ -14,9 +14,8 @@ import org.gedcomx.types.RelationshipType;
 import org.junit.jupiter.api.Test;
 import tools.jackson.databind.json.JsonMapper;
 
-import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
-import org.familysearch.platform.ct.FamilySearchAssociationType;
+import org.familysearch.platform.ct.FamilySearchRelationshipType;
 import org.familysearch.platform.records.AlternateDate;
 import org.familysearch.platform.records.AlternatePlaceReference;
 
@@ -109,15 +108,15 @@ class FamilySearchPlatformTest {
     FamilySearchPlatform fsp = new FamilySearchPlatform();
     assertNull(fsp.getAssociations());
 
-    Association a1 = new Association();
+    Relationship a1 = new Relationship();
     a1.setId("assoc1");
-    a1.setKnownType(FamilySearchAssociationType.MasterToApprentice);
+    a1.setType(FamilySearchRelationshipType.MasterToApprentice.toQNameURI());
     a1.setPerson1(makeRef("master"));
     a1.setPerson2(makeRef("apprentice"));
 
-    Association a2 = new Association();
+    Relationship a2 = new Relationship();
     a2.setId("assoc2");
-    a2.setKnownType(FamilySearchAssociationType.EmployerToEmployee);
+    a2.setType(FamilySearchRelationshipType.EmployerToEmployee.toQNameURI());
     a2.setPerson1(makeRef("employer"));
     a2.setPerson2(makeRef("employee"));
 
@@ -127,18 +126,18 @@ class FamilySearchPlatformTest {
     fsp.addAssociation(a1);
     fsp.association(a2);
     assertEquals(2, fsp.getAssociations().size());
-    assertEquals(FamilySearchAssociationType.MasterToApprentice, fsp.getAssociations().get(0).getKnownType());
-    assertEquals(FamilySearchAssociationType.EmployerToEmployee, fsp.getAssociations().get(1).getKnownType());
+    assertEquals(FamilySearchRelationshipType.MasterToApprentice, FamilySearchRelationshipType.fromQNameURI(fsp.getAssociations().get(0).getType()));
+    assertEquals(FamilySearchRelationshipType.EmployerToEmployee, FamilySearchRelationshipType.fromQNameURI(fsp.getAssociations().get(1).getType()));
 
     // Test embed: same-id associations merge; new ones are added
     FamilySearchPlatform other = new FamilySearchPlatform();
-    Association a1update = new Association();
+    Relationship a1update = new Relationship();
     a1update.setId("assoc1");
     other.addAssociation(a1update);
 
-    Association a3 = new Association();
+    Relationship a3 = new Relationship();
     a3.setId("assoc3");
-    a3.setKnownType(FamilySearchAssociationType.NeighborToNeighbor);
+    a3.setType(FamilySearchRelationshipType.NeighborToNeighbor.toQNameURI());
     other.addAssociation(a3);
 
     fsp.embed(other);
@@ -154,13 +153,13 @@ class FamilySearchPlatformTest {
     // no associations list
     assertNull(fsp.findAssociation(makeRef("p1"), makeRef("p2")));
 
-    Association a1 = new Association();
-    a1.setKnownType(FamilySearchAssociationType.MasterToApprentice);
+    Relationship a1 = new Relationship();
+    a1.setType(FamilySearchRelationshipType.MasterToApprentice.toQNameURI());
     a1.setPerson1(makeRef("master"));
     a1.setPerson2(makeRef("apprentice"));
 
-    Association a2 = new Association();
-    a2.setKnownType(FamilySearchAssociationType.EmployerToEmployee);
+    Relationship a2 = new Relationship();
+    a2.setType(FamilySearchRelationshipType.EmployerToEmployee.toQNameURI());
     a2.setPerson1(makeRef("employer"));
     a2.setPerson2(makeRef("employee"));
 

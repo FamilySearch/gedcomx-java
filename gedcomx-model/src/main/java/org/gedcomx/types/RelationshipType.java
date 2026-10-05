@@ -36,7 +36,7 @@ import org.gedcomx.rt.GedcomxConstants;
 public enum RelationshipType implements ControlledVocabulary {
 
   /**
-   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.AncestorToDescendant}
+   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchRelationshipType.AncestorToDescendant}
    * in the {@code familysearch-api-model} module instead.
    */
   @Deprecated
@@ -47,7 +47,7 @@ public enum RelationshipType implements ControlledVocabulary {
   Couple,
 
   /**
-   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.SlaveholderToEnslavedPerson}
+   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchRelationshipType.SlaveholderToEnslavedPerson}
    * in the {@code familysearch-api-model} module instead.
    */
   @Deprecated
@@ -55,7 +55,7 @@ public enum RelationshipType implements ControlledVocabulary {
   EnslavedBy,
 
   /**
-   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchAssociationType.GodparentToGodchild}
+   * @deprecated Use {@code org.familysearch.platform.ct.FamilySearchRelationshipType.GodparentToGodchild}
    * in the {@code familysearch-api-model} module instead.
    */
   @Deprecated

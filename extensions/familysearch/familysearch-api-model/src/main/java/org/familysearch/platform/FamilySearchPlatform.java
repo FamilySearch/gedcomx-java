@@ -31,7 +31,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.familysearch.platform.artifacts.ArtifactMetadata;
-import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChangeInfo;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.DiscussionReference;
@@ -99,7 +98,7 @@ import org.gedcomx.types.RelationshipType;
 @XmlType ( name = "FamilySearch", propOrder = {"associations", "childAndParentsRelationships", "discussions", "groups", "trees", "users", "merges",
     "mergeAnalyses", "features", "vocabConcepts" } )
 @DefaultNamespace ( GedcomxConstants.GEDCOMX_NAMESPACE )
-@XmlSeeAlso ( {Association.class, DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, FieldInfo.class,
+@XmlSeeAlso ( {DiscussionReference.class, Tag.class, ChangeInfo.class, MatchInfo.class, FeedbackInfo.class, FieldInfo.class,
                PersonInfo.class, SearchInfo.class, PlaceDescriptionInfo.class, org.familysearch.platform.Error.class, ArtifactMetadata.class, Group.class,
                Tree.class, Ordinance.class, OrdinanceRollup.class, OrdinanceSummary.class, NameFormInfo.class, AlternatePlaceReference.class,
                AlternateDate.class} )
@@ -124,7 +123,7 @@ public class FamilySearchPlatform extends Gedcomx {
   private List<ChildAndParentsRelationship> childAndParentsRelationships;
 
   @Schema(description = "The associations included in this data set.")
-  private List<Association> associations;
+  private List<Relationship> associations;
 
   @Schema(description = "The discussions included in this data set.")
   private List<Discussion> discussions;
@@ -524,23 +523,23 @@ public class FamilySearchPlatform extends Gedcomx {
   }
 
   /**
-   * The associations for this data set.
+   * Get the associations for this data set.
    *
    * @return The associations for this data set.
    */
   @XmlElement ( name = "association" )
   @JsonProperty ( "associations" )
-  public List<Association> getAssociations() {
+  public List<Relationship> getAssociations() {
     return associations;
   }
 
   /**
-   * The associations for this data set.
+   * Set the associations for this data set.
    *
    * @param associations The associations for this data set.
    */
   @JsonProperty ( "associations" )
-  public void setAssociations(List<Association> associations) {
+  public void setAssociations(List<Relationship> associations) {
     this.associations = associations;
   }
 
@@ -549,7 +548,7 @@ public class FamilySearchPlatform extends Gedcomx {
    *
    * @param association The association to be added.
    */
-  public void addAssociation(Association association) {
+  public void addAssociation(Relationship association) {
     if (association != null) {
       if (associations == null) {
         associations = new LinkedList<>();
@@ -558,9 +557,15 @@ public class FamilySearchPlatform extends Gedcomx {
     }
   }
 
-  public Association findAssociation(ResourceReference person1, ResourceReference person2) {
+  /**
+   * Find the association the contains the given persons.
+   * @param person1 The first person in the association.
+   * @param person2 The second person in the association.
+   * @return The requested assocation is found; null otherwise
+   */
+  public Relationship findAssociation(ResourceReference person1, ResourceReference person2) {
     if (getAssociations() != null && (person1 != null || person2 != null)) {
-      for (Association association : getAssociations()) {
+      for (Relationship association : getAssociations()) {
         if (samePerson(association.getPerson1(), person1) && samePerson(association.getPerson2(), person2)) {
           return association;
         }
@@ -575,7 +580,7 @@ public class FamilySearchPlatform extends Gedcomx {
    * @param association The association to be added.
    * @return this.
    */
-  public FamilySearchPlatform association(Association association) {
+  public FamilySearchPlatform association(Relationship association) {
     addAssociation(association);
     return this;
   }
@@ -646,13 +651,13 @@ public class FamilySearchPlatform extends Gedcomx {
         }
       }
 
-      List<Association> associationList = ((FamilySearchPlatform) gedcomx).getAssociations();
+      List<Relationship> associationList = ((FamilySearchPlatform) gedcomx).getAssociations();
       if (associationList != null) {
-        for (Association association : associationList) {
+        for (Relationship association : associationList) {
           boolean found = false;
           if (association.getId() != null) {
             if (getAssociations() != null) {
-              for (Association target : getAssociations()) {
+              for (Relationship target : getAssociations()) {
                 if (association.getId().equals(target.getId())) {
                   target.embed(association);
                   found = true;
@@ -766,7 +771,7 @@ public class FamilySearchPlatform extends Gedcomx {
   public FamilySearchPlatform fixLocalReferences() {
     List<Person> locals = getPersons() == null ? Collections.emptyList() : getPersons();
     List<ChildAndParentsRelationship> childAndParentsRelationships = getChildAndParentsRelationships() != null ? getChildAndParentsRelationships() : Collections.emptyList();
-    List<Association> associationList = getAssociations() != null ? getAssociations() : Collections.emptyList();
+    List<Relationship> associationList = getAssociations() != null ? getAssociations() : Collections.emptyList();
     List<Ordinance> ordinances = getOrdinances(this);
     List<SourceDescription> sds = getSourceDescriptions() == null ? Collections.emptyList() : getSourceDescriptions();
 
@@ -779,7 +784,7 @@ public class FamilySearchPlatform extends Gedcomx {
           fixId(capRelationship.getChild(), localId);
           fixupSourceReferences(sds, capRelationship);
         }
-        for (Association association : associationList) {
+        for (Relationship association : associationList) {
           fixId(association.getPerson1(), localId);
           fixId(association.getPerson2(), localId);
           fixupSourceReferences(sds, association);

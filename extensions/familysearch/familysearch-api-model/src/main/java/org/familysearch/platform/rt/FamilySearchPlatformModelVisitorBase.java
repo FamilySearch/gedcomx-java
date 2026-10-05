@@ -16,7 +16,6 @@
 package org.familysearch.platform.rt;
 
 import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
@@ -29,6 +28,7 @@ import org.familysearch.platform.vocab.VocabTerm;
 import org.familysearch.platform.vocab.VocabTranslation;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
+import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
 
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -91,9 +91,9 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
-    List<Association> associations = fsp.getAssociations();
+    List<Relationship> associations = fsp.getAssociations();
     if (associations != null) {
-      for (Association association : associations) {
+      for (Relationship association : associations) {
         if (association != null) {
           association.accept(this);
         }
@@ -161,15 +161,6 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
-    List<Association> associations = gx.findExtensionsOfType(Association.class);
-    if (associations != null) {
-      for (Association association : associations) {
-        if (association != null) {
-          association.accept(this);
-        }
-      }
-    }
-
     this.contextStack.pop();
   }
 
@@ -198,22 +189,6 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       }
     }
 
-    this.contextStack.pop();
-  }
-
-  @Override
-  public void visitAssociation(Association association) {
-    this.contextStack.push(association);
-    visitConclusion(association);
-
-    List<Fact> facts = association.getFacts();
-    if (facts != null) {
-      for (Fact fact : facts) {
-        if (fact != null) {
-          fact.accept(this);
-        }
-      }
-    }
     this.contextStack.pop();
   }
 

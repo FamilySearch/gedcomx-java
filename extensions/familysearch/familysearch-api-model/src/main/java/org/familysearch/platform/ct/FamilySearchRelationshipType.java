@@ -27,12 +27,12 @@ import org.gedcomx.rt.EnumURIMap;
 
 /**
  * FamilySearch extension of the {@code org.gedcomx.types.RelationshipType} vocabulary, covering the
- * association types FamilySearch recognizes between two persons.
+ * relationship types FamilySearch recognizes between two persons.
  */
 @XmlQNameEnum (
   base = XmlQNameEnum.BaseType.URI
 )
-public enum FamilySearchAssociationType implements ControlledVocabulary {
+public enum FamilySearchRelationshipType implements ControlledVocabulary {
 
   @JsonProperty(value = "http://familysearch.org/v1/AncestorToDescendant")
   AncestorToDescendant,
@@ -62,7 +62,7 @@ public enum FamilySearchAssociationType implements ControlledVocabulary {
   @Hidden
   OTHER;
 
-  private static final EnumURIMap<FamilySearchAssociationType> URI_MAP = new EnumURIMap<>(FamilySearchAssociationType.class, FamilySearchPlatform.NAMESPACE);
+  private static final EnumURIMap<FamilySearchRelationshipType> URI_MAP = new EnumURIMap<>(FamilySearchRelationshipType.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -79,7 +79,7 @@ public enum FamilySearchAssociationType implements ControlledVocabulary {
    * @param qname The qname.
    * @return The enumeration.
    */
-  public static FamilySearchAssociationType fromQNameURI(URI qname) {
+  public static FamilySearchRelationshipType fromQNameURI(URI qname) {
     return URI_MAP.fromURIValue(qname);
   }
 }

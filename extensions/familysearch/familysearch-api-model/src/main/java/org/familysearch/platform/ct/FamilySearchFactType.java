@@ -30,20 +30,12 @@ import org.gedcomx.rt.EnumURIMap;
 )
 public enum FamilySearchFactType implements ControlledVocabulary {
 
+  // Person fact types
+
   /**
    * Person fact type: Affiliation to something.
    */
   Affiliation,
-
-  /**
-   * Parent Child fact type: A child's birth order to parents.
-   */
-  BirthOrder,
-
-  /**
-   * Couple fact type: Couple never had children.
-   */
-  CoupleNeverHadChildren,
 
   /**
    * Person fact type: Person died before age eight.
@@ -54,11 +46,6 @@ public enum FamilySearchFactType implements ControlledVocabulary {
    * Person fact type: Person's "life sketch" summary.
    */
   LifeSketch,
-
-  /**
-   * Couple fact type: Couple lived together.
-   */
-  LivedTogether,
 
   /**
    * Person fact type: Person had no children.
@@ -80,10 +67,79 @@ public enum FamilySearchFactType implements ControlledVocabulary {
    */
   TribeName,
 
+
+  // Couple fact types
+
+  /**
+   * Couple fact type: Couple never had children.
+   */
+  CoupleNeverHadChildren,
+
+  /**
+   * Couple fact type: Couple lived together.
+   */
+  LivedTogether,
+
+
+  // Parent-child fact types
+
+  /**
+   * Parent-child fact type: A child's birth order to parents.
+   */
+  BirthOrder,
+
+
+  // Association fact types
+
+  /**
+   * Association fact type: An apprenticeship between two persons.
+   */
+  Apprenticeship,
+
+  /**
+   * Association fact type: An emancipation of one person by another.
+   */
+  Emancipation,
+
+  /**
+   * Association fact type: An employment relationship between two persons.
+   */
+  Employment,
+
+  /**
+   * Association fact type: An enslavement of one person by another.
+   */
+  Enslavement,
+
+  /**
+   * Association fact type: The generation distance between two related persons.
+   */
+  Generation,
+
+  /**
+   * Association fact type: A godparent relationship between two persons.
+   */
+  Godparenthood,
+
+  /**
+   * Association fact type: A household relationship between two persons.
+   */
+  Household,
+
+  /**
+   * Association fact type: A neighborhood relationship between two persons.
+   */
+  Neighborhood,
+
+  /**
+   * Association fact type: A general kin relation between two persons.
+   */
+  Relation,
+
   @XmlUnknownQNameEnumValue
   OTHER;
 
-  private static final EnumURIMap<FamilySearchFactType> URI_MAP = new EnumURIMap<FamilySearchFactType>(FamilySearchFactType.class, FamilySearchPlatform.NAMESPACE);
+  private static final EnumURIMap<FamilySearchFactType> URI_MAP = new EnumURIMap<>(FamilySearchFactType.class, FamilySearchPlatform.NAMESPACE);
 
   /**
    * Return the QName value for this enum.
@@ -103,5 +159,4 @@ public enum FamilySearchFactType implements ControlledVocabulary {
   public static FamilySearchFactType fromQNameURI(URI qname) {
     return URI_MAP.fromURIValue(qname);
   }
-
-  }
+}

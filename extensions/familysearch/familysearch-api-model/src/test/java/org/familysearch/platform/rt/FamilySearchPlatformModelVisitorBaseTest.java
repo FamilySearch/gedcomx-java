@@ -1,7 +1,6 @@
 package org.familysearch.platform.rt;
 
 import org.familysearch.platform.FamilySearchPlatform;
-import org.familysearch.platform.ct.Association;
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
 import org.familysearch.platform.ct.Merge;
 import org.familysearch.platform.ct.MergeAnalysis;
@@ -41,7 +40,7 @@ class FamilySearchPlatformModelVisitorBaseTest {
     ArrayList<MergeAnalysis> mergeAnalyses;
     ArrayList<Merge> merges;
     ArrayList<ChildAndParentsRelationship> childAndParentsRelationships;
-    ArrayList<Association> associations;
+    ArrayList<Relationship> associations;
 
     // re-visit feed; empty lists
     discussions = new ArrayList<>();
@@ -58,7 +57,7 @@ class FamilySearchPlatformModelVisitorBaseTest {
     fsp.setMerges( merges );
     fsp.setMergeAnalyses( mergeAnalyses );
     fsp.setChildAndParentsRelationships( childAndParentsRelationships );
-    fsp.setAssociations( associations );
+    fsp.setAssociations(associations);
     fsp.setPersons(new ArrayList<>());
     fsp.setPlaces(new ArrayList<>());
     fsp.setRelationships(new ArrayList<>());
@@ -69,7 +68,7 @@ class FamilySearchPlatformModelVisitorBaseTest {
     mergeAnalyses.add( new MergeAnalysis() );
     merges.add( new Merge() );
     childAndParentsRelationships.add(new ChildAndParentsRelationship());
-    associations.add(new Association());
+    associations.add(new Relationship());
     fsp.accept(visitor);
 
     // re-visit feed; add empty lists to discussions and parent-child relationships
