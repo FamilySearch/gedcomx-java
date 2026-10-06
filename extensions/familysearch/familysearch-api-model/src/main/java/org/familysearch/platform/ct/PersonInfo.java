@@ -34,17 +34,19 @@ import org.gedcomx.rt.json.JsonElementWrapper;
 @Schema(description = "Extra information about a person.")
 public class PersonInfo {
 
-  @Schema(description = "True if the person is editable by the current user; false otherwise.")
+  @Schema(description = "true if the person is editable by the current user; false otherwise.")
   private Boolean canUserEdit = false;
 
-  @Schema(description = "True if the person is visible to all sessions authenticated from any client; false otherwise.")
+  @Schema(description = "true if the person is visible to all sessions authenticated from any client; false otherwise.")
   private Boolean visibleToAll = true;
 
-  @Schema(description = "True if the person is only visible to sessions authenticated from a FamilySearch client; false otherwise.")
+  @Schema(description = "true if the person is only visible to sessions authenticated from a FamilySearch client; false otherwise.")
   private Boolean visibleToAllWhenUsingFamilySearchApps = true;
 
-  // The treeId attribute is prototype only and may be removed or changed at any time
-  @Schema(description = "The tree id for this person. This attribute is prototype only and may be removed or changed at any time.")
+  @Schema(description = "true if the person is published; false if the person is unpublished; null if the person's published state is unknown.")
+  private Boolean published;
+
+  @Schema(description = "The tree id for this person.")
   private String treeId;
 
   public PersonInfo() {
@@ -138,6 +140,36 @@ public class PersonInfo {
    */
   public PersonInfo visibleToAllWhenUsingFamilySearchApps(final Boolean visibleToAllWhenUsingFamilySearchApps) {
     this.visibleToAllWhenUsingFamilySearchApps = visibleToAllWhenUsingFamilySearchApps;
+    return this;
+  }
+
+  /**
+   * Get the published state of the person. Published is the normal state of a person.
+   *
+   * @return true if the person is published; false if the person is unpublished, null if the person's published state is unknown.
+   */
+  @XmlAttribute
+  public Boolean getPublished() {
+    return published;
+  }
+
+  /**
+   * Set the published state of the person.
+   *
+   * @param published true to publish the person; false to unpublish the person.
+   */
+  public void setPublished(final Boolean published) {
+    this.published = published;
+  }
+
+  /**
+   * Build out the person with a published state.
+   *
+   * @param published true to set the person to published; false to set the person to unpublished.
+   * @return this.
+   */
+  public PersonInfo published(final Boolean published) {
+    this.published = published;
     return this;
   }
 
