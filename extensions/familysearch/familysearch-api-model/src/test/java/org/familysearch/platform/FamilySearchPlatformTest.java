@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import tools.jackson.databind.json.JsonMapper;
 
 import org.familysearch.platform.ct.ChildAndParentsRelationship;
+import org.familysearch.platform.ct.FamilySearchRelationshipType;
 import org.familysearch.platform.records.AlternateDate;
 import org.familysearch.platform.records.AlternatePlaceReference;
 
@@ -28,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FamilySearchPlatformTest {
 
   @Test
-  void altDatesPlaces() throws Exception {
+  void altDatesPlaces() {
     Fact fact = new Fact(FactType.Adoption, "value");
     AlternateDate altDate = new AlternateDate();
     altDate.setOriginal("orig");
@@ -40,11 +41,8 @@ class FamilySearchPlatformTest {
 
     JsonMapper jsonMapper = GedcomJacksonModule.createJsonMapper(AlternateDate.class, AlternatePlaceReference.class);
     String value = jsonMapper.writeValueAsString(gx);
-    //System.out.println(value);
     gx = jsonMapper.readValue(value, Gedcomx.class);
     assertEquals("orig", gx.getPerson().getFirstFactOfType(FactType.Adoption).findExtensionOfType(AlternateDate.class).getOriginal());
-
-    //JAXBContext.newInstance(FamilySearchPlatform.class).createMarshaller().marshal(gx, System.out);
   }
 
   @Test
@@ -103,6 +101,81 @@ class FamilySearchPlatformTest {
     assertEquals("#kid3", rel.getChild().getResource().toString());
 
     assertNull(g.findCoupleRelationship(fam2));
+  }
+
+  @Test
+  void associations() {
+    FamilySearchPlatform fsp = new FamilySearchPlatform();
+    assertNull(fsp.getAssociations());
+
+    Relationship a1 = new Relationship();
+    a1.setId("assoc1");
+    a1.setType(FamilySearchRelationshipType.MasterToApprentice.toQNameURI());
+    a1.setPerson1(makeRef("master"));
+    a1.setPerson2(makeRef("apprentice"));
+
+    Relationship a2 = new Relationship();
+    a2.setId("assoc2");
+    a2.setType(FamilySearchRelationshipType.EmployerToEmployee.toQNameURI());
+    a2.setPerson1(makeRef("employer"));
+    a2.setPerson2(makeRef("employee"));
+
+    fsp.addAssociation(null);
+    assertNull(fsp.getAssociations());
+
+    fsp.addAssociation(a1);
+    fsp.association(a2);
+    assertEquals(2, fsp.getAssociations().size());
+    assertEquals(FamilySearchRelationshipType.MasterToApprentice, FamilySearchRelationshipType.fromQNameURI(fsp.getAssociations().get(0).getType()));
+    assertEquals(FamilySearchRelationshipType.EmployerToEmployee, FamilySearchRelationshipType.fromQNameURI(fsp.getAssociations().get(1).getType()));
+
+    // Test embed: same-id associations merge; new ones are added
+    FamilySearchPlatform other = new FamilySearchPlatform();
+    Relationship a1update = new Relationship();
+    a1update.setId("assoc1");
+    other.addAssociation(a1update);
+
+    Relationship a3 = new Relationship();
+    a3.setId("assoc3");
+    a3.setType(FamilySearchRelationshipType.NeighborToNeighbor.toQNameURI());
+    other.addAssociation(a3);
+
+    fsp.embed(other);
+    assertEquals(3, fsp.getAssociations().size());
+    assertEquals("assoc1", fsp.getAssociations().get(0).getId());
+    assertEquals("assoc3", fsp.getAssociations().get(2).getId());
+  }
+
+  @Test
+  void findAssociation() {
+    FamilySearchPlatform fsp = new FamilySearchPlatform();
+
+    // no associations list
+    assertNull(fsp.findAssociation(makeRef("p1"), makeRef("p2")));
+
+    Relationship a1 = new Relationship();
+    a1.setType(FamilySearchRelationshipType.MasterToApprentice.toQNameURI());
+    a1.setPerson1(makeRef("master"));
+    a1.setPerson2(makeRef("apprentice"));
+
+    Relationship a2 = new Relationship();
+    a2.setType(FamilySearchRelationshipType.EmployerToEmployee.toQNameURI());
+    a2.setPerson1(makeRef("employer"));
+    a2.setPerson2(makeRef("employee"));
+
+    fsp.addAssociation(a1);
+    fsp.addAssociation(a2);
+
+    // both params null — guard returns null even when associations exist
+    assertNull(fsp.findAssociation(null, null));
+
+    // no match
+    assertNull(fsp.findAssociation(makeRef("master"), makeRef("employee")));
+    assertNull(fsp.findAssociation(makeRef("nobody"), makeRef("apprentice")));
+
+    // match
+    assertEquals(a1, fsp.findAssociation(makeRef("master"), makeRef("apprentice")));
+    assertEquals(a2, fsp.findAssociation(makeRef("employer"), makeRef("employee")));
   }
 
   private FamilySearchPlatform makeDoc() {

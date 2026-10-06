@@ -30,6 +30,15 @@ class FamilySearchFactTypeTest {
     testType("http://familysearch.org/v1/NoCoupleRelationships", FamilySearchFactType.NoCoupleRelationships);
     testType("http://familysearch.org/v1/TitleOfNobility", FamilySearchFactType.TitleOfNobility);
     testType("http://familysearch.org/v1/TribeName", FamilySearchFactType.TribeName);
+    testType("http://familysearch.org/v1/Apprenticeship", FamilySearchFactType.Apprenticeship);
+    testType("http://familysearch.org/v1/Emancipation", FamilySearchFactType.Emancipation);
+    testType("http://familysearch.org/v1/Employment", FamilySearchFactType.Employment);
+    testType("http://familysearch.org/v1/Enslavement", FamilySearchFactType.Enslavement);
+    testType("http://familysearch.org/v1/Generation", FamilySearchFactType.Generation);
+    testType("http://familysearch.org/v1/Godparenthood", FamilySearchFactType.Godparenthood);
+    testType("http://familysearch.org/v1/Household", FamilySearchFactType.Household);
+    testType("http://familysearch.org/v1/Neighborhood", FamilySearchFactType.Neighborhood);
+    testType("http://familysearch.org/v1/Relation", FamilySearchFactType.Relation);
 
     // make sure all are tested
     for (FamilySearchFactType type : FamilySearchFactType.values()) {

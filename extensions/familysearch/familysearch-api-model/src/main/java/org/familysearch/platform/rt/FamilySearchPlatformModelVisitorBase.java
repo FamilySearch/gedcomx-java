@@ -28,6 +28,7 @@ import org.familysearch.platform.vocab.VocabTerm;
 import org.familysearch.platform.vocab.VocabTranslation;
 import org.gedcomx.Gedcomx;
 import org.gedcomx.conclusion.Fact;
+import org.gedcomx.conclusion.Relationship;
 import org.gedcomx.rt.GedcomxModelVisitorBase;
 
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -86,6 +87,15 @@ public class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBas
       for (ChildAndParentsRelationship pcr : childAndParentsRelationships) {
         if (pcr != null) {
           pcr.accept(this);
+        }
+      }
+    }
+
+    List<Relationship> associations = fsp.getAssociations();
+    if (associations != null) {
+      for (Relationship association : associations) {
+        if (association != null) {
+          association.accept(this);
         }
       }
     }
