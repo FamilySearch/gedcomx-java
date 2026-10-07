@@ -44,10 +44,15 @@ git branch --set-upstream-to=origin/v3.x.x v3.x.x   # may not be necessary
 ### 1. Verify the build
 
 Make sure the project builds and that all of your changes are checked in.
+Make sure all pull requests that should be in the release are merged.
 
 > ⚠️ **Use Java 17.** Both the `3.x.x` and `4.x.x` release lines are built with Java 17.
 
-### 2. Run the release
+### 2. Custom settings file
+
+You may need to use a different settings.xml file to build this project. To do this, add a parameter to the maven release command that specifies the settings file to use: **-s ~/.m2/gedcomx_settings.xml**
+
+### 3. Run the release
 
 ```bash
 mvn -B -Prelease clean release:clean release:prepare \
@@ -88,7 +93,7 @@ mvn release:prepare -DdryRun=true
 mvn release:clean                  # clean up afterwards
 ```
 
-### 3. Merge the release changes
+### 4. Merge the release changes
 
 Create a PR with the local changes from the release and merge it to `master`.
 
@@ -113,6 +118,14 @@ additional 15 minutes before it shows up in the FamilySearch Artifactory reposit
 caches negative lookups for about 15 minutes (or at least Nexus did) before retrying Maven
 Central. `mvn -U ...` may work around this.
 
+## If a Release Fails
+
+1. **mvn release:clean** — removes release.properties and all the pom.xml.releaseBackup files
+2. **git tag -d <*failed-release-version*>** — deletes your local tag (it points to your failed commit)
+3. **git reset --hard origin/master** — discards your local release commit and syncs you to the canonical state (the "prepare for next development iteration" commit
+
+Step 3 is a hard reset — it will discard your local [maven-release-plugin] prepare release 4.7.0 commit permanently. That commit was never pushed and is just debris from the failed attempt, so this
+is safe.
 ---
 
 # Setup

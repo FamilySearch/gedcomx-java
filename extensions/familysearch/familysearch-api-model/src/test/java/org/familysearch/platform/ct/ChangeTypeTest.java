@@ -115,6 +115,9 @@ class ChangeTypeTest {
     testChangeType( "Naturalization Added", ChangeType.ADD_NATURALIZATION );
     testChangeType( "Naturalization Changed", ChangeType.EDIT_NATURALIZATION );
     testChangeType( "Naturalization Removed", ChangeType.DELETE_NATURALIZATION );
+    testChangeType( "Immigration Added", ChangeType.ADD_IMMIGRATION );
+    testChangeType( "Immigration Changed", ChangeType.EDIT_IMMIGRATION );
+    testChangeType( "Immigration Removed", ChangeType.DELETE_IMMIGRATION );
     testChangeType( "Title of Nobility Added", ChangeType.ADD_NOBILITY_TYPE );
     testChangeType( "Title of Nobility Changed", ChangeType.EDIT_NOBILITY_TYPE );
     testChangeType( "Title of Nobility Removed", ChangeType.DELETE_NOBILITY_TYPE );

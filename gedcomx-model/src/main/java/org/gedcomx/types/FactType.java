@@ -270,7 +270,6 @@ public enum FactType implements ControlledVocabulary {
   /**
    * A fact of a person's immigration.
    */
-  @Facet(GedcomxConstants.FACET_FS_FT_UNSUPPORTED)
   @JsonProperty(value = "http://gedcomx.org/Immigration")
   Immigration,
 
