@@ -180,6 +180,12 @@ public enum ChangeObjectType implements ControlledVocabulary {
   Naturalization,
 
   /**
+   * An immigration fact was changed.
+   */
+  @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
+  Immigration,
+
+  /**
    * An occupation fact was changed.
    */
   @XmlQNameEnumValue( namespace = GedcomxConstants.GEDCOMX_TYPES_NAMESPACE )
