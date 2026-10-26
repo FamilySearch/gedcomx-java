@@ -48,7 +48,12 @@ public enum ChangeObjectModifier implements ControlledVocabulary {
   /**
    * The child-and-parents relationship.
    */
-  ChildAndParentsRelationship;
+  ChildAndParentsRelationship,
+
+  /**
+   * The association relationship.
+   */
+  Association;
 
   private static final EnumURIMap<ChangeObjectModifier> URI_MAP = new EnumURIMap<ChangeObjectModifier>(ChangeObjectModifier.class, FamilySearchPlatform.NAMESPACE);
 

@@ -41,6 +41,10 @@ public enum ChangeType {
   EDIT_SPOUSE1("Spouse1 Changed", ChangeOperation.Update, ChangeObjectType.Spouse1, ChangeObjectModifier.Couple),
   ADD_SPOUSE2("Spouse2 Added", ChangeOperation.Create, ChangeObjectType.Spouse2, ChangeObjectModifier.Couple),
   EDIT_SPOUSE2("Spouse2 Changed", ChangeOperation.Update, ChangeObjectType.Spouse2, ChangeObjectModifier.Couple),
+  ADD_PERSON1("Person1 Added", ChangeOperation.Create, ChangeObjectType.Person1, ChangeObjectModifier.Association),
+  EDIT_PERSON1("Person1 Changed", ChangeOperation.Update, ChangeObjectType.Person1, ChangeObjectModifier.Association),
+  ADD_PERSON2("Person2 Added", ChangeOperation.Create, ChangeObjectType.Person2, ChangeObjectModifier.Association),
+  EDIT_PERSON2("Person2 Changed", ChangeOperation.Update, ChangeObjectType.Person2, ChangeObjectModifier.Association),
 
 
   MERGE_COUPLE_RELATIONSHIP("Couple Relationship Merged", ChangeOperation.Merge, ChangeObjectType.Couple, null),
@@ -49,6 +53,10 @@ public enum ChangeType {
   CREATE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Created", ChangeOperation.Create, ChangeObjectType.ChildAndParentsRelationship, null),
   UPDATE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Updated", ChangeOperation.Update, ChangeObjectType.ChildAndParentsRelationship, null),
   DELETE_CHILD_AND_PARENTS_RELATIONSHIP("Child and Parents Relationship Removed", ChangeOperation.Delete, ChangeObjectType.ChildAndParentsRelationship, null),
+  CREATE_ASSOCIATION_RELATIONSHIP("Association Relationship Created", ChangeOperation.Create, ChangeObjectType.Association, null),
+  UPDATE_ASSOCIATION_RELATIONSHIP("Association Relationship Updated", ChangeOperation.Update, ChangeObjectType.Association, null),
+  DELETE_ASSOCIATION_RELATIONSHIP("Association Relationship Removed", ChangeOperation.Delete, ChangeObjectType.Association, null),
+  UNTOMBSTONE_ASSOCIATION_RELATIONSHIP("Association Relationship Restored", ChangeOperation.Restore, ChangeObjectType.Association, null),
 
 
   ADD_PARENT1("Parent1 Added", ChangeOperation.Create, ChangeObjectType.Parent1, ChangeObjectModifier.ChildAndParentsRelationship),
@@ -85,6 +93,9 @@ public enum ChangeType {
   ADD_CHILD_PARENTS_SOURCE_REFERENCE("Child and Parents Source Reference Added", ChangeOperation.Create, ChangeObjectType.SourceReference, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_CHILD_PARENTS_SOURCE_REFERENCE("Child and Parents Source Reference Changed", ChangeOperation.Update, ChangeObjectType.SourceReference, ChangeObjectModifier.ChildAndParentsRelationship),
   DELETE_CHILD_PARENTS_SOURCE_REFERENCE("Child and Parents Source Reference Removed", ChangeOperation.Delete, ChangeObjectType.SourceReference, ChangeObjectModifier.ChildAndParentsRelationship),
+  ADD_ASSOCIATION_SOURCE_REFERENCE("Association Source Reference Added", ChangeOperation.Create, ChangeObjectType.SourceReference, ChangeObjectModifier.Association),
+  EDIT_ASSOCIATION_SOURCE_REFERENCE("Association Source Reference Changed", ChangeOperation.Update, ChangeObjectType.SourceReference, ChangeObjectModifier.Association),
+  DELETE_ASSOCIATION_SOURCE_REFERENCE("Association Source Reference Removed", ChangeOperation.Delete, ChangeObjectType.SourceReference, ChangeObjectModifier.Association),
 
   // DISCUSSION REFERENCE
   ADD_PERSON_DISCUSSION_REFERENCE("Person Discussion Reference Added", ChangeOperation.Create, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Person),
@@ -96,6 +107,9 @@ public enum ChangeType {
   ADD_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Added", ChangeOperation.Create, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Changed", ChangeOperation.Update, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
   DELETE_CHILD_PARENTS_DISCUSSION_REFERENCE("Child and Parents Discussion Reference Removed", ChangeOperation.Delete, ChangeObjectType.DiscussionReference, ChangeObjectModifier.ChildAndParentsRelationship),
+  ADD_ASSOCIATION_DISCUSSION_REFERENCE("Association Discussion Reference Added", ChangeOperation.Create, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Association),
+  EDIT_ASSOCIATION_DISCUSSION_REFERENCE("Association Discussion Reference Changed", ChangeOperation.Update, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Association),
+  DELETE_ASSOCIATION_DISCUSSION_REFERENCE("Association Discussion Reference Removed", ChangeOperation.Delete, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Association),
 
   // TREE PERSON REFERENCE
   ADD_TREE_PERSON_REFERENCE("Tree Person Reference Added", ChangeOperation.Create, ChangeObjectType.TreePersonReference, ChangeObjectModifier.Person),
@@ -112,6 +126,9 @@ public enum ChangeType {
   ADD_CHILD_PARENTS_EVIDENCE_REFERENCE("Child and Parents Evidence Reference Added", ChangeOperation.Create, ChangeObjectType.EvidenceReference, ChangeObjectModifier.ChildAndParentsRelationship),
   EDIT_CHILD_PARENTS_EVIDENCE_REFERENCE("Child and Parents Evidence Reference Changed", ChangeOperation.Update, ChangeObjectType.EvidenceReference, ChangeObjectModifier.ChildAndParentsRelationship),
   DELETE_CHILD_PARENTS_EVIDENCE_REFERENCE("Child and Parents Evidence Reference Removed", ChangeOperation.Delete, ChangeObjectType.EvidenceReference, ChangeObjectModifier.ChildAndParentsRelationship),
+  ADD_ASSOCIATION_EVIDENCE_REFERENCE("Association Evidence Reference Added", ChangeOperation.Create, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Association),
+  EDIT_ASSOCIATION_EVIDENCE_REFERENCE("Association Evidence Reference Changed", ChangeOperation.Update, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Association),
+  DELETE_ASSOCIATION_EVIDENCE_REFERENCE("Association Evidence Reference Removed", ChangeOperation.Delete, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Association),
 
   /* Conclusion changes */
   // EVENT
@@ -232,6 +249,9 @@ public enum ChangeType {
   ADD_OTHER_FACT("Other Fact Added", ChangeOperation.Create, ChangeObjectType.Fact, ChangeObjectModifier.Person),
   EDIT_OTHER_FACT("Other Fact Changed", ChangeOperation.Update, ChangeObjectType.Fact, ChangeObjectModifier.Person),
   DELETE_OTHER_FACT("Other Fact Removed", ChangeOperation.Delete, ChangeObjectType.Fact, ChangeObjectModifier.Person),
+  ADD_ASSOCIATION_FACT("Association Fact Added", ChangeOperation.Create, ChangeObjectType.Fact, ChangeObjectModifier.Association),
+  EDIT_ASSOCIATION_FACT("Association Fact Changed", ChangeOperation.Update, ChangeObjectType.Fact, ChangeObjectModifier.Association),
+  DELETE_ASSOCIATION_FACT("Association Fact Removed", ChangeOperation.Delete, ChangeObjectType.Fact, ChangeObjectModifier.Association),
 
   // GENDER
   ADD_GENDER("Gender Added", ChangeOperation.Create, ChangeObjectType.Gender, ChangeObjectModifier.Person),
@@ -280,7 +300,10 @@ public enum ChangeType {
   DELETE_CHILD_PARENTS_NOTE("Child and Parents Note Removed", ChangeOperation.Delete, ChangeObjectType.Note, ChangeObjectModifier.ChildAndParentsRelationship),
   ADD_COUPLE_NOTE("Couple Note Added", ChangeOperation.Create, ChangeObjectType.Note, ChangeObjectModifier.Couple),
   EDIT_COUPLE_NOTE("Couple Note Changed", ChangeOperation.Update, ChangeObjectType.Note, ChangeObjectModifier.Couple),
-  DELETE_COUPLE_NOTE("Couple Note Removed", ChangeOperation.Delete, ChangeObjectType.Note, ChangeObjectModifier.Couple);
+  DELETE_COUPLE_NOTE("Couple Note Removed", ChangeOperation.Delete, ChangeObjectType.Note, ChangeObjectModifier.Couple),
+  ADD_ASSOCIATION_NOTE("Association Note Added", ChangeOperation.Create, ChangeObjectType.Note, ChangeObjectModifier.Association),
+  EDIT_ASSOCIATION_NOTE("Association Note Changed", ChangeOperation.Update, ChangeObjectType.Note, ChangeObjectModifier.Association),
+  DELETE_ASSOCIATION_NOTE("Association Note Removed", ChangeOperation.Delete, ChangeObjectType.Note, ChangeObjectModifier.Association);
 
   private final String displayName;
   private final ChangeOperation operation;

@@ -1,6 +1,10 @@
 package org.familysearch.platform.ct;
 
 import java.util.Collection;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.LinkedList;
@@ -10,6 +14,7 @@ import org.junit.jupiter.api.Test;
 class ChangeTypeTest {
 
   private Collection<ChangeType> typesTested;
+  private Set<ChangeType> expectedAssociationTypes;
 
   @Test
   void it() {
@@ -202,6 +207,95 @@ class ChangeTypeTest {
     testChangeType( "Child and Parents Note Added", ChangeType.ADD_CHILD_PARENTS_NOTE);
     testChangeType( "Child and Parents Note Changed", ChangeType.EDIT_CHILD_PARENTS_NOTE);
     testChangeType( "Child and Parents Note Removed", ChangeType.DELETE_CHILD_PARENTS_NOTE);
+    testChangeType( "Association Relationship Created", ChangeType.CREATE_ASSOCIATION_RELATIONSHIP );
+    testChangeType( "Association Relationship Updated", ChangeType.UPDATE_ASSOCIATION_RELATIONSHIP );
+    testChangeType( "Association Relationship Removed", ChangeType.DELETE_ASSOCIATION_RELATIONSHIP );
+    testChangeType( "Association Relationship Restored", ChangeType.UNTOMBSTONE_ASSOCIATION_RELATIONSHIP );
+    testChangeType( "Person1 Added", ChangeType.ADD_PERSON1 );
+    testChangeType( "Person1 Changed", ChangeType.EDIT_PERSON1 );
+    testChangeType( "Person2 Added", ChangeType.ADD_PERSON2 );
+    testChangeType( "Person2 Changed", ChangeType.EDIT_PERSON2 );
+    testChangeType( "Association Fact Added", ChangeType.ADD_ASSOCIATION_FACT );
+    testChangeType( "Association Fact Changed", ChangeType.EDIT_ASSOCIATION_FACT );
+    testChangeType( "Association Fact Removed", ChangeType.DELETE_ASSOCIATION_FACT );
+    testChangeType( "Association Source Reference Added", ChangeType.ADD_ASSOCIATION_SOURCE_REFERENCE );
+    testChangeType( "Association Source Reference Changed", ChangeType.EDIT_ASSOCIATION_SOURCE_REFERENCE );
+    testChangeType( "Association Source Reference Removed", ChangeType.DELETE_ASSOCIATION_SOURCE_REFERENCE );
+    testChangeType( "Association Discussion Reference Added", ChangeType.ADD_ASSOCIATION_DISCUSSION_REFERENCE );
+    testChangeType( "Association Discussion Reference Changed", ChangeType.EDIT_ASSOCIATION_DISCUSSION_REFERENCE );
+    testChangeType( "Association Discussion Reference Removed", ChangeType.DELETE_ASSOCIATION_DISCUSSION_REFERENCE );
+    testChangeType( "Association Evidence Reference Added", ChangeType.ADD_ASSOCIATION_EVIDENCE_REFERENCE );
+    testChangeType( "Association Evidence Reference Changed", ChangeType.EDIT_ASSOCIATION_EVIDENCE_REFERENCE );
+    testChangeType( "Association Evidence Reference Removed", ChangeType.DELETE_ASSOCIATION_EVIDENCE_REFERENCE );
+    testChangeType( "Association Note Added", ChangeType.ADD_ASSOCIATION_NOTE );
+    testChangeType( "Association Note Changed", ChangeType.EDIT_ASSOCIATION_NOTE );
+    testChangeType( "Association Note Removed", ChangeType.DELETE_ASSOCIATION_NOTE );
+  }
+
+  @Test
+  void associationRowsHaveExpectedUniqueTriples() {
+    // one row per association constant: constant, operation, object type, modifier (null for the lifecycle rows)
+    expectedAssociationTypes = EnumSet.noneOf( ChangeType.class );
+    assertTriple( ChangeType.CREATE_ASSOCIATION_RELATIONSHIP, ChangeOperation.Create, ChangeObjectType.Association, null );
+    assertTriple( ChangeType.UPDATE_ASSOCIATION_RELATIONSHIP, ChangeOperation.Update, ChangeObjectType.Association, null );
+    assertTriple( ChangeType.DELETE_ASSOCIATION_RELATIONSHIP, ChangeOperation.Delete, ChangeObjectType.Association, null );
+    assertTriple( ChangeType.UNTOMBSTONE_ASSOCIATION_RELATIONSHIP, ChangeOperation.Restore, ChangeObjectType.Association, null );
+    assertTriple( ChangeType.ADD_PERSON1, ChangeOperation.Create, ChangeObjectType.Person1, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.EDIT_PERSON1, ChangeOperation.Update, ChangeObjectType.Person1, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.ADD_PERSON2, ChangeOperation.Create, ChangeObjectType.Person2, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.EDIT_PERSON2, ChangeOperation.Update, ChangeObjectType.Person2, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.ADD_ASSOCIATION_FACT, ChangeOperation.Create, ChangeObjectType.Fact, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.EDIT_ASSOCIATION_FACT, ChangeOperation.Update, ChangeObjectType.Fact, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.DELETE_ASSOCIATION_FACT, ChangeOperation.Delete, ChangeObjectType.Fact, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.ADD_ASSOCIATION_SOURCE_REFERENCE, ChangeOperation.Create, ChangeObjectType.SourceReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.EDIT_ASSOCIATION_SOURCE_REFERENCE, ChangeOperation.Update, ChangeObjectType.SourceReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.DELETE_ASSOCIATION_SOURCE_REFERENCE, ChangeOperation.Delete, ChangeObjectType.SourceReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.ADD_ASSOCIATION_DISCUSSION_REFERENCE, ChangeOperation.Create, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.EDIT_ASSOCIATION_DISCUSSION_REFERENCE, ChangeOperation.Update, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.DELETE_ASSOCIATION_DISCUSSION_REFERENCE, ChangeOperation.Delete, ChangeObjectType.DiscussionReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.ADD_ASSOCIATION_EVIDENCE_REFERENCE, ChangeOperation.Create, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.EDIT_ASSOCIATION_EVIDENCE_REFERENCE, ChangeOperation.Update, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.DELETE_ASSOCIATION_EVIDENCE_REFERENCE, ChangeOperation.Delete, ChangeObjectType.EvidenceReference, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.ADD_ASSOCIATION_NOTE, ChangeOperation.Create, ChangeObjectType.Note, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.EDIT_ASSOCIATION_NOTE, ChangeOperation.Update, ChangeObjectType.Note, ChangeObjectModifier.Association );
+    assertTriple( ChangeType.DELETE_ASSOCIATION_NOTE, ChangeOperation.Delete, ChangeObjectType.Note, ChangeObjectModifier.Association );
+
+    // no two ChangeType values share an effective triple among rows that touch the new vocabulary
+    // (effective modifier: a null modifier counts as the ChangeObjectModifier named like the object type, mirroring findChangeType)
+    Map<String, ChangeType> seenTriples = new HashMap<>();
+    Set<ChangeType> touchingNewVocabulary = EnumSet.noneOf( ChangeType.class );
+    for ( ChangeType changeType : ChangeType.values() ) {
+      if ( touchesAssociationVocabulary( changeType ) ) {
+        touchingNewVocabulary.add( changeType );
+        String triple = changeType.getOperation() + "|" + changeType.getObjectType() + "|" + effectiveModifierName( changeType );
+        ChangeType previous = seenTriples.put( triple, changeType );
+        assertNull( previous, changeType + " duplicates the triple of " + previous + ": " + triple );
+      }
+    }
+
+    // the vocabulary is exactly the rows asserted above: nothing missing and nothing extra
+    assertEquals( expectedAssociationTypes, touchingNewVocabulary );
+  }
+
+  private void assertTriple( ChangeType changeType, ChangeOperation operation, ChangeObjectType objectType, ChangeObjectModifier modifier ) {
+    assertEquals( operation, changeType.getOperation(), changeType + " operation" );
+    assertEquals( objectType, changeType.getObjectType(), changeType + " object type" );
+    assertEquals( modifier, changeType.getObjectModifier(), changeType + " object modifier" );
+    expectedAssociationTypes.add( changeType );
+  }
+
+  private static boolean touchesAssociationVocabulary( ChangeType changeType ) {
+    ChangeObjectType objectType = changeType.getObjectType();
+    return ChangeObjectModifier.Association.name().equals( effectiveModifierName( changeType ) )
+      || objectType == ChangeObjectType.Association
+      || objectType == ChangeObjectType.Person1
+      || objectType == ChangeObjectType.Person2;
+  }
+
+  // a null modifier matches the ChangeObjectModifier whose name equals the object type's name
+  private static String effectiveModifierName( ChangeType changeType ) {
+    ChangeObjectModifier modifier = changeType.getObjectModifier();
+    return modifier != null ? modifier.name() : changeType.getObjectType().name();
   }
 
   private void testChangeType( String enumStr, ChangeType changeType ) {

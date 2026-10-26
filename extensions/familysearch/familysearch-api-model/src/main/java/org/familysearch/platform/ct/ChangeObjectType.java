@@ -51,6 +51,11 @@ public enum ChangeObjectType implements ControlledVocabulary {
   ChildAndParentsRelationship,
 
   /**
+   * An association relationship was changed.
+   */
+  Association,
+
+  /**
    * The Spouse1 in a couple relationship was changed.
    */
   Spouse1,
@@ -59,6 +64,16 @@ public enum ChangeObjectType implements ControlledVocabulary {
    * The Spouse2 in a couple relationship was changed.
    */
   Spouse2,
+
+  /**
+   * The Person1 in an association relationship was changed.
+   */
+  Person1,
+
+  /**
+   * The Person2 in an association relationship was changed.
+   */
+  Person2,
 
   /**
    * The Parent1 in a couple-child relationship was changed.
