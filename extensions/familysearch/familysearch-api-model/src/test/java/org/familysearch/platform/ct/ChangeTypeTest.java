@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.gedcomx.common.URI;
+
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.LinkedList;
 
@@ -274,7 +276,23 @@ class ChangeTypeTest {
     }
 
     // the vocabulary is exactly the rows asserted above: nothing missing and nothing extra
+    // (extend this test when adding association rows, or this assertion fails for the new ChangeType)
     assertEquals( expectedAssociationTypes, touchingNewVocabulary );
+  }
+
+  @Test
+  void associationVocabularyResolvesToFamilySearchNamespace() {
+    // unannotated constants land in the FamilySearch namespace; the mapper and Platform API compare these by URI
+    assertEquals( URI.create( "http://familysearch.org/v1/Association" ), ChangeObjectType.Association.toQNameURI() );
+    assertEquals( URI.create( "http://familysearch.org/v1/Association" ), ChangeObjectModifier.Association.toQNameURI() );
+    assertEquals( URI.create( "http://familysearch.org/v1/Person1" ), ChangeObjectType.Person1.toQNameURI() );
+    assertEquals( URI.create( "http://familysearch.org/v1/Person2" ), ChangeObjectType.Person2.toQNameURI() );
+
+    // and each URI maps back to its constant
+    assertEquals( ChangeObjectType.Association, ChangeObjectType.fromQNameURI( URI.create( "http://familysearch.org/v1/Association" ) ) );
+    assertEquals( ChangeObjectModifier.Association, ChangeObjectModifier.fromQNameURI( URI.create( "http://familysearch.org/v1/Association" ) ) );
+    assertEquals( ChangeObjectType.Person1, ChangeObjectType.fromQNameURI( URI.create( "http://familysearch.org/v1/Person1" ) ) );
+    assertEquals( ChangeObjectType.Person2, ChangeObjectType.fromQNameURI( URI.create( "http://familysearch.org/v1/Person2" ) ) );
   }
 
   private void assertTriple( ChangeType changeType, ChangeOperation operation, ChangeObjectType objectType, ChangeObjectModifier modifier ) {
